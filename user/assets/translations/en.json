@@ -1,0 +1,45 @@
+{
+    "home": "Home",
+    "transactions": "Transactions",
+    "chat": "Chat",
+    "profile": "Profile",
+    "sales": "Sales",
+    "purchases": "Purchases",
+    "logout": "Logout",
+    "login": "Login",
+    "signup": "Signup",
+    "login_screen": {
+        "Email": "Email",
+        "EnterYourEmail": "Enter Your Email",
+        "Password": "Password",
+        "EnterYourPassword": "Enter Your Password",
+        "ForgetPassword": "Forgot Password",
+        "CreateAccount": "Create account"
+    },
+    "validation": {
+        "enter_at_least_num_characters": "Enter at least 6 characters.",
+        "this_field_is_required": "This field is required",
+        "please_enter_a_valid_email": "Please enter a valid email",
+        "this_field_can_not_be_empty": "this_field_can_not_be_empty",
+        "can_not_be_empty_please_enter_correct_password": "can not be empty please enter correct password",
+        "password_and_confirmation_password_mismatch": "password and confirmation password mismatch"
+    },
+    "signup_screen": {
+        "title": "Create account",
+        "rewrite_password": "rewrite password",
+        "FullName": "Full Name",
+        "EnterYourFullName": "Enter Your Full Name"
+    },
+    "date": {
+        "ago": "ago",
+        "minute": "minute",
+        "second": "second",
+        "hour": "hour",
+        "day": "day"
+    },
+    "yes": "Yes",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "lbl_loading": "Loading..."
+}
