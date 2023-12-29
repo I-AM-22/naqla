@@ -119,7 +119,7 @@ class _$initImpl<T> extends _init<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$initImpl<T>);
   }
@@ -240,7 +240,7 @@ class _$loadingImpl<T> extends _loading<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$loadingImpl<T>);
   }
@@ -379,7 +379,7 @@ class _$loadedImpl<T> extends _loaded<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$loadedImpl<T> &&
@@ -514,7 +514,7 @@ class _$emptyImpl<T> extends _empty<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$emptyImpl<T>);
   }
@@ -653,7 +653,7 @@ class _$errorImpl<T> extends _error<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$errorImpl<T> &&

@@ -12,7 +12,7 @@ class AppScaffold extends StatelessWidget {
   final bool extendBody;
 
   const AppScaffold({
-    Key? key,
+    super.key,
     required this.body,
     this.extendBody = false,
     this.appBar,
@@ -21,7 +21,7 @@ class AppScaffold extends StatelessWidget {
     this.resizeToAvoidBottomInset,
     this.backgroundColor,
     this.bottomNavigationBar,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

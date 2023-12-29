@@ -35,7 +35,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
             await context.setLocale(localMap.values.toList()[index]);
             if (context.mounted) {
               Navigator.pop(context);
-              context.goNamed(GRouter.config.kRootRoute);
+              context.goNamed(GRouter.config.splashScreen);
             }
           },
           child: languageItem(

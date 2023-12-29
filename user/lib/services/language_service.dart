@@ -5,7 +5,7 @@ enum LangCode { ar, en }
 
 const List<Locale> supportedLocal = [Locale('en'), Locale('ar')];
 
-const Locale defaultLocal = Locale('en');
+const Locale defaultLocal = Locale('ar');
 
 final localMap = {
   LangCode.en: const Locale('en'),

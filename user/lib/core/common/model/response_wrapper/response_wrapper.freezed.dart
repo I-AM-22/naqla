@@ -154,7 +154,7 @@ class _$ResponseWrapperImpl<T> implements _ResponseWrapper<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ResponseWrapperImpl<T> &&

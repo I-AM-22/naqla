@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
         //final user = GetIt.I<PrefsRepository>().user!;
         context.goNamed(GRouter.config.homeScreen.homeScreen);
       } else {
-        context.goNamed(GRouter.config.authRoutes.login);
+        context.goNamed(GRouter.config.onBoardingRoutes.onBoarding);
       }
     });
     super.initState();
@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
             //   width: 100,
             // ),
             const Spacer(),
-            AppTextView("Driver",
+            AppTextView("Naqla",
                 style: context.textTheme.titleMedium!
                     .copyWith(color: context.colorScheme.primary)),
             25.verticalSpace,

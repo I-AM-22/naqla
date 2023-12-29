@@ -2,7 +2,7 @@ part of 'app_theme.dart';
 
 const _lightColorScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xFF6D28D9),
+  primary: Color(0xFF171717),
   onPrimary: Color(0xFFFFFFFF),
   primaryContainer: Color(0xFF87FC74),
   onPrimaryContainer: Color(0xFF002200),
@@ -10,8 +10,8 @@ const _lightColorScheme = ColorScheme(
   onSecondary: Color(0xFFFFFFFF),
   secondaryContainer: Color(0xFFC4B5FD),
   onSecondaryContainer: Color(0xFF221B00),
-  tertiary: Color(0xFF386569),
-  onTertiary: Color(0xFFFFFFFF),
+  tertiary: Color(0xFF5A5A5A),
+  onTertiary: Color(0xFF414141),
   tertiaryContainer: Color(0xFFBCEBEE),
   onTertiaryContainer: Color(0xFF002022),
   error: Color(0xFFBA1A1A),
@@ -35,7 +35,7 @@ const _lightColorScheme = ColorScheme(
 );
 
 const _darkColorScheme = ColorScheme.dark(
-  primary: Color(0xFF6D28D9),
+  primary: Color(0xFF404040),
   onPrimary: Color(0xFF003915),
   primaryContainer: Color(0xFF005321),
   onPrimaryContainer: Color(0xFF9CF7A9),
@@ -43,8 +43,8 @@ const _darkColorScheme = ColorScheme.dark(
   onSecondary: Color(0xFF262477),
   secondaryContainer: Color(0xFFC4B5FD),
   onSecondaryContainer: Color(0xFFE2DFFF),
-  tertiary: Color(0xFF4FD8EB),
-  onTertiary: Color(0xFF00363D),
+  tertiary: Color(0xFF5A5A5A),
+  onTertiary: Color(0xFF414141),
   tertiaryContainer: Color(0xFF004F58),
   onTertiaryContainer: Color(0xFF97F0FF),
   error: Color(0xFFFFB4AB),

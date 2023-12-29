@@ -25,6 +25,8 @@ extension FontExt on TextStyle? {
 
   TextStyle? get l => this?.copyWith(fontWeight: _light);
 
+  TextStyle? get s20 => this?.copyWith(fontSize: _FontSize.font20Size);
+
   TextStyle? get s19 => this?.copyWith(fontSize: _FontSize.font19Size);
 
   TextStyle? get s17 => this?.copyWith(fontSize: _FontSize.font17Size);
@@ -83,6 +85,9 @@ abstract class _FontSize {
 
   static double get labelSmall => _labelSmallFontSize.sp;
   static const double _labelSmallFontSize = 11;
+
+  static double get font20Size => _font20Size.sp;
+  static const double _font20Size = 20;
 
   static double get font19Size => _font19Size.sp;
   static const double _font19Size = 19;
