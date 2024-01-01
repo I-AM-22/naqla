@@ -1,92 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-part 'font.dart';
-
 TextTheme appTextTheme(BuildContext context, TextTheme base, Color textColor) {
   return base
       .copyWith(
         displayLarge: base.displayLarge?.copyWith(
-          fontSize: _FontSize.displayLarge,
+          fontSize: 57.sp,
           fontFamily: 'poppins',
-          fontWeight: _regular,
+          fontWeight: FontWeight.w400,
           letterSpacing: -0.25,
         ),
         displayMedium: base.displayMedium?.copyWith(
-          fontSize: _FontSize.displayMedium,
+          fontSize: 36.sp,
           fontFamily: 'poppins',
-          fontWeight: _regular,
+          fontWeight: FontWeight.w400,
         ),
         displaySmall: base.displaySmall?.copyWith(
-          fontSize: _FontSize.displaySmall,
+          fontSize: 32.sp,
           fontFamily: 'poppins',
-          fontWeight: _regular,
+          fontWeight: FontWeight.w400,
         ),
         headlineLarge: base.headlineLarge?.copyWith(
-          fontSize: _FontSize.headlineLarge,
+          fontSize: 32.sp,
           fontFamily: 'poppins',
-          fontWeight: _regular,
+          fontWeight: FontWeight.w600,
         ),
         headlineMedium: base.headlineMedium?.copyWith(
-          fontSize: _FontSize.headlineMedium,
+          fontSize: 28.sp,
           fontFamily: 'poppins',
-          fontWeight: _regular,
+          fontWeight: FontWeight.w600,
         ),
         headlineSmall: base.headlineSmall?.copyWith(
-          fontSize: _FontSize.headlineSmall,
+          fontSize: 24.sp,
           fontFamily: 'poppins',
-          fontWeight: _regular,
+          fontWeight: FontWeight.w600,
         ),
         titleLarge: base.titleLarge?.copyWith(
-          fontSize: _FontSize.titleLarge,
-          fontWeight: _regular,
+          fontSize: 22.sp,
+          fontWeight: FontWeight.w400,
           fontFamily: 'poppins',
         ),
         titleMedium: base.titleMedium?.copyWith(
-          fontSize: _FontSize.titleMedium,
-          fontWeight: _medium,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w400,
           fontFamily: 'poppins',
           letterSpacing: 0.15,
         ),
         titleSmall: base.titleSmall?.copyWith(
-          fontSize: _FontSize.titleSmall,
-          fontWeight: _medium,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w400,
           fontFamily: 'poppins',
           letterSpacing: 0.1,
         ),
         bodyLarge: base.bodyLarge?.copyWith(
-          fontSize: _FontSize.bodyLarge,
-          fontWeight: _regular,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500,
           fontFamily: 'poppins',
           letterSpacing: 0.5,
         ),
         bodyMedium: base.bodyMedium?.copyWith(
-          fontSize: _FontSize.bodyMedium,
-          fontWeight: _regular,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w400,
           fontFamily: 'poppins',
           letterSpacing: 0.25,
         ),
         bodySmall: base.bodySmall?.copyWith(
-          fontSize: _FontSize.bodySmall,
-          fontWeight: _regular,
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w400,
           fontFamily: 'poppins',
           letterSpacing: 0.4,
         ),
         labelLarge: base.labelLarge?.copyWith(
-          fontSize: _FontSize.labelLarge,
+          fontSize: 18.sp,
           fontFamily: 'poppins',
-          fontWeight: _medium,
+          fontWeight: FontWeight.w500,
           letterSpacing: 0.1,
         ),
         labelMedium: base.labelMedium?.copyWith(
-          fontSize: _FontSize.labelMedium,
-          fontWeight: _medium,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
           fontFamily: 'poppins',
           letterSpacing: 0.5,
         ),
         labelSmall: base.labelSmall?.copyWith(
-          fontSize: _FontSize.labelSmall,
-          fontWeight: _medium,
+          fontSize: 11.sp,
+          fontWeight: FontWeight.w500,
           fontFamily: 'poppins',
           letterSpacing: 0.5,
         ),
@@ -96,7 +94,7 @@ TextTheme appTextTheme(BuildContext context, TextTheme base, Color textColor) {
 
 extension TextThemeExt on TextTheme {
   TextStyle get subHead => TextStyle(
-        fontWeight: _regular,
+        fontWeight: FontWeight.w500,
         fontSize: 16,
         fontFamily: 'poppins',
       );

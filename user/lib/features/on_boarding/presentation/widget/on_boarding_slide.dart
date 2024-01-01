@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:user/core/config/themes/my_color_scheme.dart';
-import 'package:user/core/config/themes/typography.dart';
 import 'package:user/core/util/extensions/build_context.dart';
 
 import '../../../../core/util/responsive_padding.dart';
-import '../../../../gen/assets.gen.dart';
 import '../../../app/presentation/widgets/app_text_view.dart';
-import '../pages/on_boarding_screen.dart';
 
 class OnBoardingSlide extends StatelessWidget {
   const OnBoardingSlide(
@@ -42,14 +39,14 @@ class OnBoardingSlide extends StatelessWidget {
             children: [
               AppTextView(title,
                   textAlign: TextAlign.center,
-                  style: context.textTheme.headlineSmall!
-                      .copyWith(fontWeight: FontWeight.w500)
-                      .withColor(context.colorScheme.textColor)),
+                  style: context.textTheme.headlineSmall!.copyWith(
+                      color: context.colorScheme.surfaceTint,
+                      fontWeight: FontWeight.w500)),
               12.verticalSpace,
               AppTextView(content,
                   textAlign: TextAlign.center,
-                  style: context.textTheme.titleSmall
-                      .withColor(context.colorScheme.textColor2)),
+                  style: context.textTheme.titleSmall!
+                      .copyWith(color: context.colorScheme.outlineVariant)),
             ],
           ),
         ),
@@ -63,7 +60,7 @@ class OnBoardingSlide extends StatelessWidget {
             width: 70.r,
             decoration: BoxDecoration(
                 border: Border.all(
-                  color: context.colorScheme.grey,
+                  color: context.colorScheme.systemGrey,
                 ),
                 color: context.colorScheme.primary,
                 shape: BoxShape.circle),
@@ -71,8 +68,8 @@ class OnBoardingSlide extends StatelessWidget {
                 child: num == 2.5
                     ? Text(
                         'GO',
-                        style: context.textTheme.labelMedium.s20
-                            .withColor(context.colorScheme.tertiary),
+                        style: context.textTheme.labelMedium!
+                            .copyWith(color: context.colorScheme.tertiary),
                       )
                     : IconButton(
                         onPressed: onPressed,

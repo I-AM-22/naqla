@@ -159,7 +159,7 @@ class _AppTextFieldState extends State<AppTextField> {
         if (widget.title != null) ...{
           AppTextView(
             widget.title!.tr(),
-            style: context.textTheme.titleMedium.s15.sb,
+            style: context.textTheme.titleMedium,
           ),
           13.verticalSpace,
         },
@@ -212,10 +212,10 @@ class _AppTextFieldState extends State<AppTextField> {
                   ...?widget.inputFormatters
                 ],
                 style: widget.textStyle ??
-                    context.textTheme.titleSmall?.r?.copyWith(
+                    context.textTheme.titleSmall?.copyWith(
                       color: context.colorScheme.onBackground,
                       decoration: TextDecoration.none,
-                      decorationColor: context.colorScheme.borderTextField,
+                      decorationColor: context.colorScheme.systemGrey.shade600,
                     ),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -287,14 +287,14 @@ class _AppTextFieldState extends State<AppTextField> {
                       ? widget.hintText?.tr()
                       : widget.hintText,
                   hintStyle: widget.hintTextStyle ??
-                      context.textTheme.bodyMedium?.s13
-                          .withColor(context.colorScheme.primary),
+                      context.textTheme.bodyMedium
+                          ?.copyWith(color: context.colorScheme.primary),
                   labelText: widget.translateLabel
                       ? widget.labelText?.tr()
                       : widget.labelText,
                   labelStyle: widget.labelTextStyle ??
-                      context.textTheme.bodyMedium?.s13
-                          .withColor(context.colorScheme.primary),
+                      context.textTheme.bodyMedium!
+                          .copyWith(color: context.colorScheme.primary),
                 ),
               );
             }),

@@ -1,14 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
-import 'package:user/core/config/themes/my_color_scheme.dart';
 import 'package:user/core/config/themes/typography.dart';
 import 'package:user/core/util/extensions/build_context.dart';
-import 'package:user/core/util/responsive_padding.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
-import 'package:user/features/app/presentation/widgets/app_text_view.dart';
 import 'package:user/features/app/presentation/widgets/naqla_appbar.dart';
 import 'package:user/features/app/presentation/widgets/params_appbar.dart';
 import 'package:user/features/on_boarding/presentation/widget/on_boarding_slide.dart';
@@ -32,11 +25,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               action: [
                 TextButton(
                   onPressed: () {},
-                  child: Text(
-                    'Skip',
-                    style: context.textTheme.subHead
-                        .withColor(context.colorScheme.onTertiary),
-                  ),
+                  child: Text('Skip',
+                      style: context.textTheme.subHead
+                          .copyWith(color: context.colorScheme.onTertiary)),
                 )
               ]),
           isLeading: false,
