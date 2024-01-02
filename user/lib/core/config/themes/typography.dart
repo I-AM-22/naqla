@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user/core/util/extensions/build_context.dart';
 
 TextTheme appTextTheme(BuildContext context, TextTheme base, Color textColor) {
   return base
@@ -41,9 +42,10 @@ TextTheme appTextTheme(BuildContext context, TextTheme base, Color textColor) {
           fontFamily: 'poppins',
         ),
         titleMedium: base.titleMedium?.copyWith(
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w400,
+          fontSize: 24.sp,
+          fontWeight: FontWeight.w500,
           fontFamily: 'poppins',
+          height: 30.fromFigmaHeight(24),
           letterSpacing: 0.15,
         ),
         titleSmall: base.titleSmall?.copyWith(
@@ -60,8 +62,9 @@ TextTheme appTextTheme(BuildContext context, TextTheme base, Color textColor) {
         ),
         bodyMedium: base.bodyMedium?.copyWith(
           fontSize: 16.sp,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
           fontFamily: 'poppins',
+          height: 24.fromFigmaHeight(16),
           letterSpacing: 0.25,
         ),
         bodySmall: base.bodySmall?.copyWith(
@@ -93,9 +96,29 @@ TextTheme appTextTheme(BuildContext context, TextTheme base, Color textColor) {
 }
 
 extension TextThemeExt on TextTheme {
-  TextStyle get subHead => TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 16,
+  ///Subhead/sm/SH-sm-medium
+  TextStyle get subHeadRegular => TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 16.sp,
+        height: 23.fromFigmaHeight(16),
         fontFamily: 'poppins',
       );
+
+  TextStyle get subHeadMedium => TextStyle(
+      fontFamily: 'poppins',
+      fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
+      height: 19.fromFigmaHeight(14));
+
+  TextStyle get subHeadWebMedium => TextStyle(
+      fontFamily: 'poppins',
+      fontWeight: FontWeight.w500,
+      fontSize: 16.sp,
+      height: 23.fromFigmaHeight(16));
+
+  TextStyle get bodyRegular => TextStyle(
+      fontFamily: 'poppins',
+      fontWeight: FontWeight.w400,
+      fontSize: 16.sp,
+      height: 24.fromFigmaHeight(16));
 }

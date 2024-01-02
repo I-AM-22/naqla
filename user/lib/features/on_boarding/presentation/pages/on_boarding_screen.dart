@@ -26,7 +26,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 TextButton(
                   onPressed: () {},
                   child: Text('Skip',
-                      style: context.textTheme.subHead
+                      style: context.textTheme.subHeadRegular
                           .copyWith(color: context.colorScheme.onTertiary)),
                 )
               ]),
