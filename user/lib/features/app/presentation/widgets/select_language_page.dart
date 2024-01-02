@@ -6,9 +6,9 @@ import 'package:user/core/config/router/router.dart';
 import 'package:user/core/config/themes/my_color_scheme.dart';
 import 'package:user/features/app/presentation/widgets/app_svg_picture.dart';
 import 'package:user/features/app/presentation/widgets/app_text_view.dart';
-import 'package:user/generated/assets.dart';
 
 import '../../../../core/util/responsive_padding.dart';
+import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../services/language_service.dart';
 
 class SelectLanguagePage extends StatefulWidget {
@@ -20,8 +20,8 @@ class SelectLanguagePage extends StatefulWidget {
 
 class _SelectLanguagePageState extends State<SelectLanguagePage> {
   List<String> countriesFlags = [
-    Assets.english,
-    Assets.arabic,
+    Assets.images.english.path,
+    Assets.images.arabic.path,
   ];
 
   @override

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user/core/config/router/router_config.dart';
+import 'package:user/features/auth/presentation/pages/welcome_page.dart';
 import 'package:user/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:user/features/welcome/splash.dart';
 
@@ -37,6 +38,12 @@ class GRouter {
             pageBuilder: (BuildContext context, GoRouterState state) {
               return _builderPage(
                   child: const OnBoardingScreen(), state: state);
+            }),
+        GoRoute(
+            path: _config.authRoutes.welcome,
+            name: _config.authRoutes.welcome,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return _builderPage(child: const WelcomePage(), state: state);
             })
       ]);
 

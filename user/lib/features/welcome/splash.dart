@@ -6,9 +6,7 @@ import 'package:user/core/config/router/router.dart';
 import 'package:user/core/util/extensions/build_context.dart';
 import 'package:user/features/app/domain/repository/prefs_repository.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
-import 'package:user/features/app/presentation/widgets/app_svg_picture.dart';
 import 'package:user/features/app/presentation/widgets/app_text_view.dart';
-import 'package:user/generated/assets.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,11 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // const Spacer(),
-            // const AppSvgPicture(
-            //   Assets.logo,
-            //   width: 100,
-            // ),
             const Spacer(),
             AppTextView("Naqla",
                 style: context.textTheme.titleMedium!

@@ -8,7 +8,7 @@ class RouterConfiguration {
 
 class AuthRoutes {
   const AuthRoutes._();
-
+  final String welcome = '/welcome';
   final String login = '/login';
   final String signup = '/signup';
   final String forgotPassword = '/forgotPassword';

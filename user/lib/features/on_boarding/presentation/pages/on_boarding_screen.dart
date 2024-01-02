@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:user/core/config/router/router.dart';
 import 'package:user/core/config/themes/typography.dart';
 import 'package:user/core/util/extensions/build_context.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:user/features/app/presentation/widgets/naqla_appbar.dart';
 import 'package:user/features/app/presentation/widgets/params_appbar.dart';
 import 'package:user/features/on_boarding/presentation/widget/on_boarding_slide.dart';
-import 'package:user/gen/assets.gen.dart';
+
+import '../../../../generated/flutter_gen/assets.gen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -24,7 +27,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               backgroundColor: context.colorScheme.background,
               action: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      context.goNamed(GRouter.config.authRoutes.welcome),
                   child: Text('Skip',
                       style: context.textTheme.subHeadRegular
                           .copyWith(color: context.colorScheme.onTertiary)),
@@ -43,9 +47,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               title: 'Anywhere you are',
               content:
                   'Sell houses easily with the help of Listenoryx and to make this line bigI am writing more.',
-              path: Assets.lottie.car2,
+              path: Assets.lottie.car4.path,
               onPressed: () {
-                print(_pageController.page);
                 _pageController.jumpToPage(_pageController.page!.toInt() + 1);
               },
             ),
@@ -54,7 +57,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               title: 'At anytime',
               content:
                   'Sell houses easily with the help of Listenoryx and to make this line big I am writing more.',
-              path: Assets.lottie.car3,
+              path: Assets.lottie.car3.path,
               onPressed: () {
                 _pageController.jumpToPage(_pageController.page!.toInt() + 1);
               },
@@ -64,9 +67,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               title: 'Anywhere you are',
               content:
                   'Sell houses easily with the help of Listenoryx and to make this line bigI am writing more.',
-              path: Assets.lottie.car2,
+              path: Assets.lottie.car2.path,
               onPressed: () {
-                _pageController.jumpToPage(_pageController.initialPage);
+                context.goNamed(GRouter.config.authRoutes.welcome);
               },
             ),
           ],
