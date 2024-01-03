@@ -49,9 +49,13 @@ dependencies:
 
   #map
   location: ^5.0.3
-  google_maps_flutter: ^2.5.0
+  #google_maps_flutter: ^2.5.0
   map_launcher: ^3.1.0
   flutter_polyline_points: ^2.0.0
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.0
+  google_polyline_algorithm: ^3.1.0
+  flutter_map_location_marker: ^8.0.3
 
 
 dev_dependencies:

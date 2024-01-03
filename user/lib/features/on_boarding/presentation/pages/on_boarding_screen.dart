@@ -18,7 +18,7 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -63,12 +63,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               },
             ),
             OnBoardingSlide(
-              num: 2.5,
+              num: 2.49,
               title: 'Anywhere you are',
               content:
                   'Sell houses easily with the help of Listenoryx and to make this line bigI am writing more.',
               path: Assets.lottie.car2.path,
               onPressed: () {
+                print('go');
                 context.goNamed(GRouter.config.authRoutes.welcome);
               },
             ),
