@@ -65,17 +65,9 @@
     --ring: 0 0% 83.1%;
   }
 }
-@font-face {
-  font-family: "Cairo";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/Cairo-VariableFont_slnt,wght.ttf") format("truetype");
-}
 @layer base {
   * {
     @apply border-border;
-    font-family: "Cairo", sans-serif;
   }
   body {
     @apply bg-background text-foreground;
