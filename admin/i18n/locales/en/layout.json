@@ -1,0 +1,18 @@
+{
+  "navigation": {
+    "home": "Home",
+    "preferences": "Preferences"
+  },
+  "logout": "Log out",
+  "theme": {
+    "theme": "Theme",
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "system": "System"
+  },
+  "languages": {
+    "language": "Language",
+    "ar": "Arabic",
+    "en": "English"
+  }
+}
