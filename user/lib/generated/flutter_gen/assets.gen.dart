@@ -12,17 +12,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  $AssetsIconsArrowGen get arrow => const $AssetsIconsArrowGen();
+  $AssetsIconsEssentialGen get essential => const $AssetsIconsEssentialGen();
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/arabic.svg
-  SvgGenImage get arabic => const SvgGenImage('assets/images/arabic.svg');
-
-  /// File path: assets/images/english.svg
-  SvgGenImage get english => const SvgGenImage('assets/images/english.svg');
-
-  /// List of all assets
-  List<SvgGenImage> get values => [arabic, english];
+  $AssetsImagesJpgGen get jpg => const $AssetsImagesJpgGen();
+  $AssetsImagesSvgsGen get svgs => const $AssetsImagesSvgsGen();
 }
 
 class $AssetsLottieGen {
@@ -60,9 +61,109 @@ class $AssetsTranslationsGen {
   List<String> get values => [ar, en];
 }
 
+class $AssetsIconsArrowGen {
+  const $AssetsIconsArrowGen();
+
+  /// File path: assets/icons/arrow/Down Arrow.svg
+  SvgGenImage get downArrow =>
+      const SvgGenImage('assets/icons/arrow/Down Arrow.svg');
+
+  /// File path: assets/icons/arrow/Left Arrow.svg
+  SvgGenImage get leftArrow =>
+      const SvgGenImage('assets/icons/arrow/Left Arrow.svg');
+
+  /// File path: assets/icons/arrow/Right Arrow.svg
+  SvgGenImage get rightArrow =>
+      const SvgGenImage('assets/icons/arrow/Right Arrow.svg');
+
+  /// File path: assets/icons/arrow/Up Arrow.svg
+  SvgGenImage get upArrow =>
+      const SvgGenImage('assets/icons/arrow/Up Arrow.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [downArrow, leftArrow, rightArrow, upArrow];
+}
+
+class $AssetsIconsEssentialGen {
+  const $AssetsIconsEssentialGen();
+
+  /// File path: assets/icons/essential/About Us.svg
+  SvgGenImage get aboutUs =>
+      const SvgGenImage('assets/icons/essential/About Us.svg');
+
+  /// File path: assets/icons/essential/More.svg
+  SvgGenImage get more => const SvgGenImage('assets/icons/essential/More.svg');
+
+  /// File path: assets/icons/essential/check circle.svg
+  SvgGenImage get checkCircle =>
+      const SvgGenImage('assets/icons/essential/check circle.svg');
+
+  /// File path: assets/icons/essential/map.svg
+  SvgGenImage get map => const SvgGenImage('assets/icons/essential/map.svg');
+
+  /// File path: assets/icons/essential/plus.svg
+  SvgGenImage get plus => const SvgGenImage('assets/icons/essential/plus.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [aboutUs, more, checkCircle, map, plus];
+}
+
+class $AssetsImagesJpgGen {
+  const $AssetsImagesJpgGen();
+
+  /// File path: assets/images/jpg/map background.jpg
+  AssetGenImage get mapBackground =>
+      const AssetGenImage('assets/images/jpg/map background.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [mapBackground];
+}
+
+class $AssetsImagesSvgsGen {
+  const $AssetsImagesSvgsGen();
+
+  /// File path: assets/images/svgs/No data-rafiki 1.svg
+  SvgGenImage get noDataRafiki1 =>
+      const SvgGenImage('assets/images/svgs/No data-rafiki 1.svg');
+
+  /// File path: assets/images/svgs/Place Indicate.svg
+  SvgGenImage get placeIndicate =>
+      const SvgGenImage('assets/images/svgs/Place Indicate.svg');
+
+  /// File path: assets/images/svgs/Welcome Screen.svg
+  SvgGenImage get welcomeScreen =>
+      const SvgGenImage('assets/images/svgs/Welcome Screen.svg');
+
+  /// File path: assets/images/svgs/arabic.svg
+  SvgGenImage get arabic => const SvgGenImage('assets/images/svgs/arabic.svg');
+
+  /// File path: assets/images/svgs/english.svg
+  SvgGenImage get english =>
+      const SvgGenImage('assets/images/svgs/english.svg');
+
+  /// File path: assets/images/svgs/flag.svg
+  SvgGenImage get flag => const SvgGenImage('assets/images/svgs/flag.svg');
+
+  /// File path: assets/images/svgs/map background.svg
+  SvgGenImage get mapBackground =>
+      const SvgGenImage('assets/images/svgs/map background.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [
+        noDataRafiki1,
+        placeIndicate,
+        welcomeScreen,
+        arabic,
+        english,
+        flag,
+        mapBackground
+      ];
+}
+
 class Assets {
   Assets._();
 
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();

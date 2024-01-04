@@ -17,7 +17,7 @@ extension MyColorScheme on ColorScheme {
         },
       );
 
-  MaterialColor get systemGrey => const MaterialColor(
+  MaterialColor get systemGray => const MaterialColor(
         _primaryGreyValue,
         <int, Color>{
           50: Color(0xFFF7F7F7),

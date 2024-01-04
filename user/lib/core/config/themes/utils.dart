@@ -1,4 +1,9 @@
-part of 'app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:user/core/config/themes/my_color_scheme.dart';
+
+import 'colors_app.dart';
 
 ElevatedButtonThemeData _elevatedButtonTheme(
         ColorScheme scheme, TextTheme textTheme) =>
@@ -7,7 +12,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(
         textStyle: textTheme.titleMedium,
         backgroundColor: scheme.primary,
         foregroundColor: scheme.onPrimary,
-        disabledBackgroundColor: scheme.systemGrey.shade50,
+        disabledBackgroundColor: scheme.systemGray.shade50,
         minimumSize: Size(double.infinity, 50.h),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(kbrBorderTextField)),

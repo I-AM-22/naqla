@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user/core/config/router/router.dart';
-import 'package:user/core/config/themes/my_color_scheme.dart';
-import 'package:user/features/app/presentation/widgets/app_svg_picture.dart';
-import 'package:user/features/app/presentation/widgets/app_text_view.dart';
+import 'package:user/core/core.dart';
 
 import '../../../../core/util/responsive_padding.dart';
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../services/language_service.dart';
 
 class SelectLanguagePage extends StatefulWidget {
-  const SelectLanguagePage({Key? key}) : super(key: key);
+  const SelectLanguagePage({super.key});
 
   @override
   State<SelectLanguagePage> createState() => _SelectLanguagePageState();
@@ -20,8 +18,8 @@ class SelectLanguagePage extends StatefulWidget {
 
 class _SelectLanguagePageState extends State<SelectLanguagePage> {
   List<String> countriesFlags = [
-    Assets.images.english.path,
-    Assets.images.arabic.path,
+    Assets.images.svgs.english.path,
+    Assets.images.svgs.arabic.path,
   ];
 
   @override
@@ -60,11 +58,10 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
     return Row(
       children: [
         33.horizontalSpace,
-        AppSvgPicture(countryIcon),
+        AppImage.asset(countryIcon),
         10.horizontalSpace,
-        AppTextView(
+        AppText.bodyMedium(
           language,
-          style: Theme.of(context).textTheme.bodyMedium,
         )
       ],
     );

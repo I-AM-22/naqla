@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user/core/common/constants/configuration/prefs_key.dart';
-import 'package:user/core/config/themes/app_theme.dart';
 import 'package:user/features/app/domain/repository/prefs_repository.dart';
 
 @Injectable(as: PrefsRepository)
@@ -22,22 +19,22 @@ class PrefsRepositoryImpl extends PrefsRepository {
         .reduce((value, element) => value && element);
   }
 
-  @override
-  ThemeMode get getTheme {
-    final res = sharedPreferences.getString(PrefsKey.theme);
-    if (res == null) {
-      setTheme(defaultAppTheme);
-      return defaultAppTheme;
-    }
-    return mapAppThemeMode[res]!;
-  }
+  // @override
+  // ThemeMode get getTheme {
+  //   final res = sharedPreferences.getString(PrefsKey.theme);
+  //   if (res == null) {
+  //     setTheme(ThemeMode.light);
+  //     return ThemeMode.light;
+  //   }
+  //   return mapAppThemeMode[res]!;
+  // }
 
   @override
   bool get registeredUser => token != null;
-
-  @override
-  Future<bool> setTheme(ThemeMode themeMode) =>
-      sharedPreferences.setString(PrefsKey.theme, themeMode.name);
+  //
+  // @override
+  // Future<bool> setTheme(ThemeMode themeMode) =>
+  //     sharedPreferences.setString(PrefsKey.theme, themeMode.name);
 
   @override
   Future<bool> setToken(String token) =>

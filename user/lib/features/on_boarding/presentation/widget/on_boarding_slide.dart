@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:user/core/config/themes/my_color_scheme.dart';
+import 'package:user/core/core.dart';
+import 'package:user/core/global_widgets/app_text.dart';
 import 'package:user/core/util/extensions/build_context.dart';
 
 import '../../../../core/util/responsive_padding.dart';
-import '../../../app/presentation/widgets/app_text_view.dart';
 
 class OnBoardingSlide extends StatelessWidget {
   const OnBoardingSlide(
@@ -37,16 +38,15 @@ class OnBoardingSlide extends StatelessWidget {
           padding: HWEdgeInsets.symmetric(horizontal: 56),
           child: Column(
             children: [
-              AppTextView(title,
-                  textAlign: TextAlign.center,
-                  style: context.textTheme.headlineSmall!.copyWith(
-                      color: context.colorScheme.surfaceTint,
-                      fontWeight: FontWeight.w500)),
+              AppText.titleMedium(
+                title,
+                textAlign: TextAlign.center,
+              ),
               12.verticalSpace,
-              AppTextView(content,
-                  textAlign: TextAlign.center,
-                  style: context.textTheme.titleSmall!
-                      .copyWith(color: context.colorScheme.outlineVariant)),
+              AppText.subHeadMedium(
+                content,
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
@@ -60,7 +60,7 @@ class OnBoardingSlide extends StatelessWidget {
             width: 70.r,
             decoration: BoxDecoration(
                 border: Border.all(
-                  color: context.colorScheme.systemGrey,
+                  color: context.colorScheme.systemGray,
                 ),
                 color: context.colorScheme.primary,
                 shape: BoxShape.circle),

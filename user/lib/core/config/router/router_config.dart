@@ -8,6 +8,8 @@ class RouterConfiguration {
 
 class AuthRoutes {
   const AuthRoutes._();
+
+  final String setLocation = '/setLocation';
   final String welcome = '/welcome';
   final String login = '/login';
   final String signup = '/signup';
