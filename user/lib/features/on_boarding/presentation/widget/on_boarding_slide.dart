@@ -46,6 +46,7 @@ class OnBoardingSlide extends StatelessWidget {
               AppText.subHeadMedium(
                 content,
                 textAlign: TextAlign.center,
+                color: context.colorScheme.systemGray.shade400,
               ),
             ],
           ),
@@ -62,20 +63,20 @@ class OnBoardingSlide extends StatelessWidget {
                 border: Border.all(
                   color: context.colorScheme.systemGray,
                 ),
-                color: context.colorScheme.primary,
+                color: const Color(0xFF171717),
                 shape: BoxShape.circle),
             child: Center(
                 child: num == 2.5
                     ? Text(
                         'GO',
                         style: context.textTheme.labelMedium!
-                            .copyWith(color: context.colorScheme.tertiary),
+                            .copyWith(color: context.colorScheme.textAndIcon),
                       )
                     : IconButton(
                         onPressed: onPressed,
                         icon: Icon(
                           Icons.arrow_forward,
-                          color: context.colorScheme.tertiary,
+                          color: context.colorScheme.textAndIcon,
                         ),
                       )),
           ),

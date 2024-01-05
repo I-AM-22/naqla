@@ -10,6 +10,8 @@ import 'package:user/features/auth/presentation/pages/welcome_page.dart';
 import 'package:user/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:user/features/welcome/splash.dart';
 
+import '../../../features/auth/presentation/pages/registration/phone_verfication.dart';
+
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _homeNavigatorKey =
@@ -57,6 +59,11 @@ class GRouter {
           path: RegisterPage.path,
           name: RegisterPage.name,
           builder: (context, state) => const RegisterPage(),
+        ),
+        GoRoute(
+          path: PhoneVerificationPage.path,
+          name: PhoneVerificationPage.name,
+          builder: (context, state) => const PhoneVerificationPage(),
         ),
       ]);
 

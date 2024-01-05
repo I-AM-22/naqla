@@ -48,43 +48,7 @@ extension MyColorScheme on ColorScheme {
 
   static const int _primaryGreyValue = 0xFFA0A0A0;
 
-  static const MaterialColor _blackPrimary = MaterialColor(
-    _blackPrimaryValue,
-    <int, Color>{},
-  );
-
-  static const int _blackPrimaryValue = 0xff1f6e1a;
-
-  static const MaterialColor _hint = MaterialColor(
-    _primaryHintValue,
-    <int, Color>{
-      100: Color(0xffF2F3F3),
-    },
-  );
-
-  static const int _primaryHintValue = 0xffADADAD;
-
-  static const MaterialColor _drawer = MaterialColor(
-    _primaryDrawerValue,
-    <int, Color>{},
-  );
-
-  static const int _primaryDrawerValue = 0xff2A2E43;
-
-  static const MaterialColor _white = MaterialColor(
-    _primaryWhiteValue,
-    <int, Color>{},
-  );
-
-  static const int _primaryWhiteValue = 0xffFEFEFE;
-
-  MaterialColor get hint => brightness == Brightness.light ? _hint : _hint;
-
   Color get grey150 => const Color(0xffE1E1E1);
-
-  Color get drawer => brightness == Brightness.light ? _drawer : _drawer;
-
-  Color get white => brightness == Brightness.light ? _white : _white;
 
   Color get dividerColor => const Color(0xffDFDFDF);
 
@@ -93,6 +57,8 @@ extension MyColorScheme on ColorScheme {
   Color get warning => const Color(0xFFFB8A00);
 
   Color get blue => const Color(0xff0080FF);
+
+  Color get textAndIcon => const Color(0xFF5A5A5A);
 
   Color getColor({required Color light, required Color dark}) =>
       brightness == Brightness.light ? light : dark;

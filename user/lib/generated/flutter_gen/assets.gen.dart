@@ -17,6 +17,7 @@ class $AssetsIconsGen {
 
   $AssetsIconsArrowGen get arrow => const $AssetsIconsArrowGen();
   $AssetsIconsEssentialGen get essential => const $AssetsIconsEssentialGen();
+  $AssetsIconsSocialGen get social => const $AssetsIconsSocialGen();
 }
 
 class $AssetsImagesGen {
@@ -106,6 +107,23 @@ class $AssetsIconsEssentialGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [aboutUs, more, checkCircle, map, plus];
+}
+
+class $AssetsIconsSocialGen {
+  const $AssetsIconsSocialGen();
+
+  /// File path: assets/icons/social/Gmail.svg
+  SvgGenImage get gmail => const SvgGenImage('assets/icons/social/Gmail.svg');
+
+  /// File path: assets/icons/social/apple.svg
+  SvgGenImage get apple => const SvgGenImage('assets/icons/social/apple.svg');
+
+  /// File path: assets/icons/social/facebook.svg
+  SvgGenImage get facebook =>
+      const SvgGenImage('assets/icons/social/facebook.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [gmail, apple, facebook];
 }
 
 class $AssetsImagesJpgGen {

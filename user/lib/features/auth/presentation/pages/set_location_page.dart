@@ -34,7 +34,7 @@ class _SetLocationPageState extends State<SetLocationPage> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                opacity: .5,
+                opacity: .7,
                 image: AssetImage(Assets.images.jpg.mapBackground.path),
               ),
             ),
@@ -60,11 +60,13 @@ class _SetLocationPageState extends State<SetLocationPage> {
                   const Spacer(),
                   AppText.titleMedium(
                     'Enable your location',
+                    textAlign: TextAlign.center,
                   ),
                   12.verticalSpace,
                   AppText.subHeadMedium(
                     'Choose your location to start find the request around you',
                     textAlign: TextAlign.center,
+                    color: context.colorScheme.systemGray.shade400,
                   ),
                   const Spacer(),
                   AppButton.dark(

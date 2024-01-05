@@ -29,6 +29,7 @@ dependencies:
   auto_size_text: ^3.0.0
   text_scroll: ^0.2.0
   conditional_builder_null_safety: ^0.0.6
+  pinput: ^3.0.1
 
   #State management
   flutter_bloc: ^8.1.3
