@@ -17,6 +17,7 @@ class $AssetsIconsGen {
 
   $AssetsIconsArrowGen get arrow => const $AssetsIconsArrowGen();
   $AssetsIconsEssentialGen get essential => const $AssetsIconsEssentialGen();
+  $AssetsIconsFlagsGen get flags => const $AssetsIconsFlagsGen();
   $AssetsIconsSocialGen get social => const $AssetsIconsSocialGen();
 }
 
@@ -24,7 +25,7 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   $AssetsImagesJpgGen get jpg => const $AssetsImagesJpgGen();
-  $AssetsImagesSvgsGen get svgs => const $AssetsImagesSvgsGen();
+  $AssetsImagesSvgGen get svg => const $AssetsImagesSvgGen();
 }
 
 class $AssetsLottieGen {
@@ -92,8 +93,16 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get aboutUs =>
       const SvgGenImage('assets/icons/essential/About Us.svg');
 
+  /// File path: assets/icons/essential/Infinity 1s.svg
+  SvgGenImage get infinity1s =>
+      const SvgGenImage('assets/icons/essential/Infinity 1s.svg');
+
   /// File path: assets/icons/essential/More.svg
   SvgGenImage get more => const SvgGenImage('assets/icons/essential/More.svg');
+
+  /// File path: assets/icons/essential/camera.svg
+  SvgGenImage get camera =>
+      const SvgGenImage('assets/icons/essential/camera.svg');
 
   /// File path: assets/icons/essential/check circle.svg
   SvgGenImage get checkCircle =>
@@ -102,11 +111,40 @@ class $AssetsIconsEssentialGen {
   /// File path: assets/icons/essential/map.svg
   SvgGenImage get map => const SvgGenImage('assets/icons/essential/map.svg');
 
+  /// File path: assets/icons/essential/message-svgrepo-com.svg
+  SvgGenImage get messageSvgrepoCom =>
+      const SvgGenImage('assets/icons/essential/message-svgrepo-com.svg');
+
   /// File path: assets/icons/essential/plus.svg
   SvgGenImage get plus => const SvgGenImage('assets/icons/essential/plus.svg');
 
+  /// File path: assets/icons/essential/success.svg
+  SvgGenImage get success =>
+      const SvgGenImage('assets/icons/essential/success.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [aboutUs, more, checkCircle, map, plus];
+  List<SvgGenImage> get values => [
+        aboutUs,
+        infinity1s,
+        more,
+        camera,
+        checkCircle,
+        map,
+        messageSvgrepoCom,
+        plus,
+        success
+      ];
+}
+
+class $AssetsIconsFlagsGen {
+  const $AssetsIconsFlagsGen();
+
+  /// File path: assets/icons/flags/syria.jpg
+  AssetGenImage get syria =>
+      const AssetGenImage('assets/icons/flags/syria.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [syria];
 }
 
 class $AssetsIconsSocialGen {
@@ -137,34 +175,33 @@ class $AssetsImagesJpgGen {
   List<AssetGenImage> get values => [mapBackground];
 }
 
-class $AssetsImagesSvgsGen {
-  const $AssetsImagesSvgsGen();
+class $AssetsImagesSvgGen {
+  const $AssetsImagesSvgGen();
 
-  /// File path: assets/images/svgs/No data-rafiki 1.svg
+  /// File path: assets/images/svg/No data-rafiki 1.svg
   SvgGenImage get noDataRafiki1 =>
-      const SvgGenImage('assets/images/svgs/No data-rafiki 1.svg');
+      const SvgGenImage('assets/images/svg/No data-rafiki 1.svg');
 
-  /// File path: assets/images/svgs/Place Indicate.svg
+  /// File path: assets/images/svg/Place Indicate.svg
   SvgGenImage get placeIndicate =>
-      const SvgGenImage('assets/images/svgs/Place Indicate.svg');
+      const SvgGenImage('assets/images/svg/Place Indicate.svg');
 
-  /// File path: assets/images/svgs/Welcome Screen.svg
+  /// File path: assets/images/svg/Welcome Screen.svg
   SvgGenImage get welcomeScreen =>
-      const SvgGenImage('assets/images/svgs/Welcome Screen.svg');
+      const SvgGenImage('assets/images/svg/Welcome Screen.svg');
 
-  /// File path: assets/images/svgs/arabic.svg
-  SvgGenImage get arabic => const SvgGenImage('assets/images/svgs/arabic.svg');
+  /// File path: assets/images/svg/arabic.svg
+  SvgGenImage get arabic => const SvgGenImage('assets/images/svg/arabic.svg');
 
-  /// File path: assets/images/svgs/english.svg
-  SvgGenImage get english =>
-      const SvgGenImage('assets/images/svgs/english.svg');
+  /// File path: assets/images/svg/english.svg
+  SvgGenImage get english => const SvgGenImage('assets/images/svg/english.svg');
 
-  /// File path: assets/images/svgs/flag.svg
-  SvgGenImage get flag => const SvgGenImage('assets/images/svgs/flag.svg');
+  /// File path: assets/images/svg/flag.svg
+  SvgGenImage get flag => const SvgGenImage('assets/images/svg/flag.svg');
 
-  /// File path: assets/images/svgs/map background.svg
+  /// File path: assets/images/svg/map background.svg
   SvgGenImage get mapBackground =>
-      const SvgGenImage('assets/images/svgs/map background.svg');
+      const SvgGenImage('assets/images/svg/map background.svg');
 
   /// List of all assets
   List<SvgGenImage> get values => [

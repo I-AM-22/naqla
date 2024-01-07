@@ -60,4 +60,4 @@ final double kbrBorderTextField = 8.r;
 final double kbrButton = 6.r;
 
 const kDesignSize = Size(428, 923);
-const double kpPaddingPage = 20;
+const double kpPaddingPage = 16;

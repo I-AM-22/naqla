@@ -53,7 +53,7 @@ class _SetLocationPageState extends State<SetLocationPage> {
                 children: [
                   const Spacer(),
                   AppImage.asset(
-                    Assets.images.svgs.placeIndicate.path,
+                    Assets.images.svg.placeIndicate.path,
                     width: 110.r,
                     height: 110.r,
                   ),

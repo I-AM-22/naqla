@@ -386,6 +386,30 @@ class AppText extends StatelessWidget {
   }) : style =
             textTheme.bodyMedium?.merge(style).copyWith(fontWeight: fontWeight);
 
+  AppText.bodySmMedium(
+    this.text, {
+    this.scrollText = false,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaleFactor,
+    this.figmaLineHeight,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+    this.selectionColor,
+    this.color,
+    this.velocity,
+    super.key,
+    TextStyle? style,
+    FontWeight? fontWeight,
+  }) : style = textTheme.bodySmMedium
+            .merge(style)
+            .copyWith(fontWeight: fontWeight);
+
   AppText.bodySmall(
     this.text, {
     this.scrollText = false,

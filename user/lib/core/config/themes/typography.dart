@@ -99,6 +99,13 @@ extension TextThemeExt on TextTheme {
       fontSize: 16.sp,
       color: const Color(0xFFA0A0A0),
       height: 24.fromFigmaHeight(16));
+
+  TextStyle get bodySmMedium => TextStyle(
+      fontFamily: 'poppins',
+      fontWeight: FontWeight.w500,
+      fontSize: 12.sp,
+      color: const Color(0xFF898989),
+      height: 18.fromFigmaHeight(12));
 }
 
 extension FamilyUtils on TextStyle {

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:user/core/core.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:user/features/auth/presentation/pages/registration/register_page.dart';
+import 'package:user/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:user/generated/flutter_gen/assets.gen.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -19,7 +20,7 @@ class WelcomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             AppImage.asset(
-              Assets.images.svgs.welcomeScreen.path,
+              Assets.images.svg.welcomeScreen.path,
               height: 276.h,
             ),
             12.verticalSpace,
@@ -47,7 +48,7 @@ class WelcomePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r)),
               child: Center(
                 child: AppButton.ghost(
-                  onPressed: () {},
+                  onPressed: () => context.pushNamed(SignInPage.name),
                   title: 'LogIn',
                 ),
               ),

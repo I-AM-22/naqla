@@ -58,7 +58,11 @@ extension MyColorScheme on ColorScheme {
 
   Color get blue => const Color(0xff0080FF);
 
+  Color get baseColor => const Color(0xFF171717);
+
   Color get textAndIcon => const Color(0xFF5A5A5A);
+
+  Color get bodyText => const Color(0xFFA6A6A6);
 
   Color getColor({required Color light, required Color dark}) =>
       brightness == Brightness.light ? light : dark;

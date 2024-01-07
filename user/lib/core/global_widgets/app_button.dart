@@ -435,6 +435,10 @@ class _AppButtonState extends State<AppButton> {
       }
       return context.textTheme.subHeadWebMedium.medium;
     }
+    if (_isTertiary) {
+      return textTheme.subHeadWebMedium
+          .copyWith(color: context.colorScheme.onTertiary);
+    }
     return textTheme.subHeadWebMedium
         .merge(widget.textStyle ?? const TextStyle());
   }
@@ -501,7 +505,7 @@ class _AppButtonState extends State<AppButton> {
     }
     if (_isTertiary && !isDisabled) {
       ///todo change this
-      return BorderSide(color: Colors.grey.shade300);
+      return BorderSide(color: context.colorScheme.primary);
     }
 
     if (widget._typeButton == AppButtonType.field &&
@@ -643,6 +647,8 @@ class _AppButtonState extends State<AppButton> {
       case AppButtonType.tertiary:
         return buttonStyle.merge(OutlinedButton.styleFrom(
           fixedSize: sizeButton,
+          textStyle: context.textTheme.subHeadWebMedium
+              .copyWith(color: context.colorScheme.onTertiary),
           minimumSize: Size.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: 0,

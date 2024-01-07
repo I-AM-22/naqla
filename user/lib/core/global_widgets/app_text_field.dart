@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user/core/core.dart';
 
 class AppTextFormField extends StatelessWidget {
-  const AppTextFormField({
+  AppTextFormField({
     this.controller,
     this.initialValue,
     this.focusNode,
@@ -41,6 +42,7 @@ class AppTextFormField extends StatelessWidget {
     this.validator,
     this.inputFormatters,
     this.enabled = true,
+    this.isPasswordField = false,
     this.cursorWidth,
     this.cursorHeight,
     this.cursorRadius,
@@ -159,6 +161,7 @@ class AppTextFormField extends StatelessWidget {
   final String? name;
   final bool filled;
   final Color? fillColor;
+  final bool isPasswordField;
 
   ///Custom Parameter
   ///when pass [decoration] this will be ignore [hintText,hintStyle,hintMaxLines,hintTextDirection,alignLabelWithHint]
@@ -169,6 +172,8 @@ class AppTextFormField extends StatelessWidget {
   final bool? alignLabelWithHint;
   final double? height;
 
+  final ValueNotifier<bool> obscureTextValue = ValueNotifier(true);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -176,109 +181,117 @@ class AppTextFormField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Material(
-            elevation: elevation,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            shadowColor: context.colorScheme.shadow.withOpacity(.2),
-            child: SizedBox(
-              height: minLines != null ? height : 48.h,
-              child: FormBuilderTextField(
-                name: name ?? label ?? '',
-                controller: controller,
-                initialValue: initialValue,
-                focusNode: focusNode,
-                decoration: decoration ??
-                    InputDecoration(
-                      label: label != null ? AppText(label!) : null,
-                      hintText: hintText,
-                      hintStyle: hintStyle ??
-                          context.textTheme.bodyMedium
-                              ?.copyWith(color: const Color(0xff98A2B3)),
-                      floatingLabelAlignment: FloatingLabelAlignment.start,
-                      hintMaxLines: hintMaxLines,
-                      hintTextDirection: hintTextDirection,
-                      contentPadding: REdgeInsetsDirectional.only(
-                          start: 16, top: 16, bottom: 10),
-                      fillColor: fillColor ?? context.colorScheme.onPrimary,
-                      focusColor: context.colorScheme.surface,
-                      alignLabelWithHint: alignLabelWithHint,
-                      suffixIcon: suffixIcon,
-                      prefixIconConstraints: BoxConstraints(
-                          maxHeight: 40.h, minHeight: 10.h, minWidth: 40.w),
-                      prefixIcon: prefixIcon,
-                      filled: filled,
-                      border: border ??
-                          OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: context.colorScheme.systemGray.shade300),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                      enabledBorder: enabledBorder ??
-                          OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: context.colorScheme.systemGray.shade300),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                      focusedBorder: focusedBorder ??
-                          OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: context.colorScheme.primary),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                    ).applyDefaults(
-                      context.theme.inputDecorationTheme
-                          .copyWith(alignLabelWithHint: alignLabelWithHint),
-                    ),
-                keyboardType: keyboardType,
-                textCapitalization:
-                    textCapitalization ?? TextCapitalization.none,
-                textInputAction: textInputAction,
-                style: style,
-                strutStyle: strutStyle,
-                textDirection: textDirection,
-                textAlign: textAlign ?? TextAlign.start,
-                textAlignVertical: textAlignVertical,
-                autofocus: autofocus ?? false,
-                readOnly: readOnly ?? false,
-                showCursor: showCursor,
-                obscuringCharacter: obscuringCharacter ?? '•',
-                obscureText: obscureText ?? false,
-                autocorrect: autocorrect ?? true,
-                smartDashesType: smartDashesType,
-                smartQuotesType: smartQuotesType,
-                enableSuggestions: enableSuggestions ?? true,
-                maxLengthEnforcement: maxLengthEnforcement,
-                maxLines: maxLines,
-                minLines: minLines,
-                expands: expands ?? false,
-                maxLength: maxLength,
-                onChanged: onChanged,
-                onTap: onTap,
-                onTapOutside: onTapOutside,
-                onEditingComplete: onEditingComplete,
-                onSaved: onSaved,
-                validator: validator,
-                inputFormatters: inputFormatters,
-                enabled: enabled,
-                cursorWidth: cursorWidth ?? 2.0,
-                cursorHeight: cursorHeight,
-                cursorRadius: cursorRadius,
-                cursorColor: cursorColor,
-                keyboardAppearance: keyboardAppearance,
-                scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
-                enableInteractiveSelection: enableInteractiveSelection,
-                buildCounter: buildCounter,
-                scrollPhysics: scrollPhysics,
-                autofillHints: autofillHints,
-                autovalidateMode: autovalidateMode,
-                scrollController: scrollController,
-                restorationId: restorationId,
-                mouseCursor: mouseCursor,
-                contextMenuBuilder: contextMenuBuilder,
-                magnifierConfiguration: magnifierConfiguration,
-                dragStartBehavior: dragStartBehavior ?? DragStartBehavior.start,
-                contentInsertionConfiguration: contentInsertionConfiguration,
+          ValueListenableBuilder(
+            valueListenable: obscureTextValue,
+            builder: (context, obscureValue, _) => Material(
+              elevation: elevation,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              shadowColor: context.colorScheme.shadow.withOpacity(.2),
+              child: SizedBox(
+                height: minLines != null ? height : 48.h,
+                child: FormBuilderTextField(
+                  name: name ?? label ?? '',
+                  controller: controller,
+                  initialValue: initialValue,
+                  focusNode: focusNode,
+                  decoration: decoration ??
+                      InputDecoration(
+                        label: label != null ? AppText(label!) : null,
+                        hintText: hintText,
+                        hintStyle: hintStyle ??
+                            context.textTheme.bodyMedium
+                                ?.copyWith(color: const Color(0xff98A2B3)),
+                        floatingLabelAlignment: FloatingLabelAlignment.start,
+                        hintMaxLines: hintMaxLines,
+                        hintTextDirection: hintTextDirection,
+                        contentPadding: REdgeInsetsDirectional.only(
+                            start: 16, top: 16, bottom: 10),
+                        fillColor: fillColor ?? context.colorScheme.onPrimary,
+                        focusColor: context.colorScheme.surface,
+                        alignLabelWithHint: alignLabelWithHint,
+                        suffixIcon: isPasswordField
+                            ? eyeIcon(obscureValue, context)
+                            : suffixIcon,
+                        prefixIconConstraints: BoxConstraints(
+                            maxHeight: 40.h, minHeight: 10.h, minWidth: 40.w),
+                        prefixIcon: prefixIcon,
+                        filled: filled,
+                        border: border ??
+                            OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color:
+                                      context.colorScheme.systemGray.shade300),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                        enabledBorder: enabledBorder ??
+                            OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color:
+                                      context.colorScheme.systemGray.shade300),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                        focusedBorder: focusedBorder ??
+                            OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: context.colorScheme.primary),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                      ).applyDefaults(
+                        context.theme.inputDecorationTheme
+                            .copyWith(alignLabelWithHint: alignLabelWithHint),
+                      ),
+                  keyboardType: keyboardType,
+                  textCapitalization:
+                      textCapitalization ?? TextCapitalization.none,
+                  textInputAction: textInputAction,
+                  style: style,
+                  strutStyle: strutStyle,
+                  textDirection: textDirection,
+                  textAlign: textAlign ?? TextAlign.start,
+                  textAlignVertical: textAlignVertical,
+                  autofocus: autofocus ?? false,
+                  readOnly: readOnly ?? false,
+                  showCursor: showCursor,
+                  obscuringCharacter: obscuringCharacter ?? '•',
+                  obscureText: obscureValue,
+                  autocorrect: autocorrect ?? true,
+                  smartDashesType: smartDashesType,
+                  smartQuotesType: smartQuotesType,
+                  enableSuggestions: enableSuggestions ?? true,
+                  maxLengthEnforcement: maxLengthEnforcement,
+                  maxLines: maxLines,
+                  minLines: minLines,
+                  expands: expands ?? false,
+                  maxLength: maxLength,
+                  onChanged: onChanged,
+                  onTap: onTap,
+                  onTapOutside: onTapOutside,
+                  onEditingComplete: onEditingComplete,
+                  onSaved: onSaved,
+                  validator: validator,
+                  inputFormatters: inputFormatters,
+                  enabled: enabled,
+                  cursorWidth: cursorWidth ?? 2.0,
+                  cursorHeight: cursorHeight,
+                  cursorRadius: cursorRadius,
+                  cursorColor: cursorColor,
+                  keyboardAppearance: keyboardAppearance,
+                  scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
+                  enableInteractiveSelection: enableInteractiveSelection,
+                  buildCounter: buildCounter,
+                  scrollPhysics: scrollPhysics,
+                  autofillHints: autofillHints,
+                  autovalidateMode: autovalidateMode,
+                  scrollController: scrollController,
+                  restorationId: restorationId,
+                  mouseCursor: mouseCursor,
+                  contextMenuBuilder: contextMenuBuilder,
+                  magnifierConfiguration: magnifierConfiguration,
+                  dragStartBehavior:
+                      dragStartBehavior ?? DragStartBehavior.start,
+                  contentInsertionConfiguration: contentInsertionConfiguration,
+                ),
               ),
             ),
           ),
@@ -292,6 +305,14 @@ class AppTextFormField extends StatelessWidget {
           }
         ],
       ),
+    );
+  }
+
+  Widget eyeIcon(bool obscure, BuildContext context) {
+    return IconButton(
+      onPressed: () => obscureTextValue.value = !obscure,
+      icon: Icon(obscure ? CupertinoIcons.eye_slash : CupertinoIcons.eye,
+          color: context.colorScheme.primary),
     );
   }
 }

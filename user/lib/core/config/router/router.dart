@@ -4,13 +4,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user/core/config/router/router_config.dart';
+import 'package:user/features/auth/presentation/pages/forgot_password_page.dart';
 import 'package:user/features/auth/presentation/pages/registration/register_page.dart';
+import 'package:user/features/auth/presentation/pages/registration/set_password_page.dart';
 import 'package:user/features/auth/presentation/pages/set_location_page.dart';
+import 'package:user/features/auth/presentation/pages/verification_email_page.dart';
 import 'package:user/features/auth/presentation/pages/welcome_page.dart';
+import 'package:user/features/home/presentation/pages/home_page.dart';
 import 'package:user/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:user/features/welcome/splash.dart';
 
+import '../../../features/auth/presentation/pages/forgot_password_sms_page.dart';
 import '../../../features/auth/presentation/pages/registration/phone_verfication.dart';
+import '../../../features/auth/presentation/pages/set_new_password_page.dart';
+import '../../../features/auth/presentation/pages/set_profile_page.dart';
+import '../../../features/auth/presentation/pages/sign_in_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -64,6 +72,46 @@ class GRouter {
           path: PhoneVerificationPage.path,
           name: PhoneVerificationPage.name,
           builder: (context, state) => const PhoneVerificationPage(),
+        ),
+        GoRoute(
+          path: SetPasswordPage.path,
+          name: SetPasswordPage.name,
+          builder: (context, state) => const SetPasswordPage(),
+        ),
+        GoRoute(
+          path: SetProfilePage.path,
+          name: SetProfilePage.name,
+          builder: (context, state) => const SetProfilePage(),
+        ),
+        GoRoute(
+          path: SignInPage.path,
+          name: SignInPage.name,
+          builder: (context, state) => const SignInPage(),
+        ),
+        GoRoute(
+          path: VerificationEmailPage.path,
+          name: VerificationEmailPage.name,
+          builder: (context, state) => const VerificationEmailPage(),
+        ),
+        GoRoute(
+          path: ForgotPasswordPage.path,
+          name: ForgotPasswordPage.name,
+          builder: (context, state) => const ForgotPasswordPage(),
+        ),
+        GoRoute(
+          path: ForgotPasswordSmsPage.path,
+          name: ForgotPasswordSmsPage.name,
+          builder: (context, state) => const ForgotPasswordSmsPage(),
+        ),
+        GoRoute(
+          path: SetNewPasswordPage.path,
+          name: SetNewPasswordPage.name,
+          builder: (context, state) => const SetNewPasswordPage(),
+        ),
+        GoRoute(
+          path: HomePage.path,
+          name: HomePage.name,
+          builder: (context, state) => const HomePage(),
         ),
       ]);
 

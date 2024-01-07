@@ -18,8 +18,8 @@ class SelectLanguagePage extends StatefulWidget {
 
 class _SelectLanguagePageState extends State<SelectLanguagePage> {
   List<String> countriesFlags = [
-    Assets.images.svgs.english.path,
-    Assets.images.svgs.arabic.path,
+    Assets.images.svg.english.path,
+    Assets.images.svg.arabic.path,
   ];
 
   @override

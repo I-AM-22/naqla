@@ -63,7 +63,7 @@ class OnBoardingSlide extends StatelessWidget {
                 border: Border.all(
                   color: context.colorScheme.systemGray,
                 ),
-                color: const Color(0xFF171717),
+                color: context.colorScheme.baseColor,
                 shape: BoxShape.circle),
             child: Center(
                 child: num == 2.5
