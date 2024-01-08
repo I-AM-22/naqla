@@ -1,4 +1,5 @@
 "use client";
+import { logoutUser } from "@/actions/auth";
 import { PageProps } from "@/app/type";
 import { setLocaleCookie } from "@/components/layouts/navigation-bar/actions";
 import { Button } from "@/components/ui/button";
@@ -47,20 +48,22 @@ const routes: Route[][] = [
 
 export type NavigationBarProps = {};
 export const NavigationBar: FC<NavigationBarProps> = ({}) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const activeRoute = usePathname().split("/")[0];
   const { t } = useTranslation("layout");
   const { setTheme, themes, theme } = useTheme();
   const { lng } = useParams<PageProps["params"]>();
   const pathname = usePathname();
   const pathnameWithoutLocale = pathname.split("/")[2] ?? "";
-
+  const handleLogout = () => {
+    logoutUser();
+  };
   return (
     <aside className="sticky bottom-0 start-0 top-0 flex h-screen max-h-screen w-fit flex-col overflow-y-auto border-e-2 border-e-border">
       <div className="sticky top-0 me-auto ms-1 bg-background">
         <Button
           size={"icon"}
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={() => setIsOpen((prev) => !prev)}
           className={cn(
             "transition-all duration-200",
             "flex w-full rounded p-1 [&_svg]:h-7 [&_svg]:w-7 [&_svg]:text-primary", // Layout
@@ -75,7 +78,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
           <Fragment key={index}>
             {section.map((route) => (
               <NavigationButton
-                tooltip={!open}
+                tooltip={!isOpen}
                 key={route.key}
                 route={route}
                 isActive={activeRoute === route.key}
@@ -88,14 +91,24 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
         <Divider className="mt-auto" />
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <NavigationButton
-              tooltip={!open}
-              route={{
-                icon: <User />,
-                key: "preferences",
-                label: t("preferences"),
-              }}
-            />
+            <span
+              className={cn(
+                "transition-colors duration-200",
+                "flex rounded p-1 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-primary", // Layout
+                "bg-background hover:bg-accent", // Light mode
+              )}
+            >
+              {<User />}
+              <span
+                className={cn(
+                  "flex overflow-hidden text-start transition-all",
+                  !isOpen && "max-h-0 w-0 opacity-0 ease-in",
+                  isOpen && "opacity-1 ms-1 ease-out sm:min-w-32",
+                )}
+              >
+                {t("navigation.preferences")}
+              </span>
+            </span>
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={7} className="mb-2" side="right">
             <DropdownMenuLabel>{t("theme.theme")}</DropdownMenuLabel>
@@ -127,7 +140,9 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
               ))}
             </DropdownMenuRadioGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>{t("logout")}</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
+              {t("logout")}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

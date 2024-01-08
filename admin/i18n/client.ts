@@ -20,9 +20,10 @@ i18next
   .use(initReactI18next)
   .use(LanguageDetector)
   .use(
-    resourcesToBackend(
-      (language: string, namespace: string) =>
-        import(`./locales/${language}/${namespace}.json`),
+    resourcesToBackend((language: string, namespace: string) =>
+      namespace === "zod"
+        ? import(`zod-i18n-map/locales/${language}/zod.json`)
+        : import(`./locales/${language}/${namespace}.json`),
     ),
   )
   .init({
