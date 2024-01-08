@@ -1,99 +1,75 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user/core/util/extensions/build_context.dart';
+part of 'app_theme.dart';
 
-TextTheme appTextTheme(BuildContext context, TextTheme base, Color textColor) {
-  return base
-      .copyWith(
-        displayLarge: base.displayLarge?.copyWith(
-          fontSize: 57.sp,
-          fontFamily: 'poppins',
-          fontWeight: FontWeight.w400,
-          letterSpacing: -0.25,
-        ),
-        displayMedium: base.displayMedium?.copyWith(
-          fontSize: 36.sp,
-          fontFamily: 'poppins',
-          fontWeight: FontWeight.w400,
-        ),
-        displaySmall: base.displaySmall?.copyWith(
-          fontSize: 32.sp,
-          fontFamily: 'poppins',
-          fontWeight: FontWeight.w400,
-        ),
-        headlineLarge: base.headlineLarge?.copyWith(
-          fontSize: 32.sp,
-          fontFamily: 'poppins',
-          fontWeight: FontWeight.w600,
-        ),
-        headlineMedium: base.headlineMedium?.copyWith(
-          fontSize: 28.sp,
-          fontFamily: 'poppins',
-          fontWeight: FontWeight.w600,
-        ),
-        headlineSmall: base.headlineSmall?.copyWith(
-          fontSize: 24.sp,
-          fontFamily: 'poppins',
-          fontWeight: FontWeight.w600,
-        ),
-        titleLarge: base.titleLarge?.copyWith(
-          fontSize: 22.sp,
-          fontWeight: FontWeight.w400,
-          fontFamily: 'poppins',
-        ),
-        titleMedium: base.titleMedium?.copyWith(
-          fontSize: 24.sp,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'poppins',
-          height: 30.fromFigmaHeight(24),
-          letterSpacing: 0.15,
-        ),
-        titleSmall: base.titleSmall?.copyWith(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w400,
-          fontFamily: 'poppins',
-          letterSpacing: 0.1,
-        ),
-        bodyLarge: base.bodyLarge?.copyWith(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'poppins',
-          letterSpacing: 0.5,
-        ),
-        bodyMedium: base.bodyMedium?.copyWith(
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'poppins',
-          height: 24.fromFigmaHeight(16),
-          letterSpacing: 0.25,
-        ),
-        bodySmall: base.bodySmall?.copyWith(
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w400,
-          fontFamily: 'poppins',
-          letterSpacing: 0.4,
-        ),
-        labelLarge: base.labelLarge?.copyWith(
-          fontSize: 18.sp,
-          fontFamily: 'poppins',
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.1,
-        ),
-        labelMedium: base.labelMedium?.copyWith(
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'poppins',
-          letterSpacing: 0.5,
-        ),
-        labelSmall: base.labelSmall?.copyWith(
-          fontSize: 11.sp,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'poppins',
-          letterSpacing: 0.5,
-        ),
-      )
-      .apply(displayColor: textColor, bodyColor: textColor);
-}
+TextTheme textTheme = TextTheme(
+  displayLarge: TextStyle(
+      fontFamily: 'poppins', fontSize: 57.0.sp, fontWeight: FontWeight.w400),
+  displayMedium: TextStyle(
+      fontFamily: 'poppins',
+      fontSize: 32.0.sp,
+      fontWeight: FontWeight.w400,
+      height: 40.fromFigmaHeight(32)),
+  displaySmall: TextStyle(
+      fontFamily: 'poppins', fontSize: 36.0.sp, fontWeight: FontWeight.w400),
+
+  /// headline
+  headlineLarge: TextStyle(
+    fontFamily: 'poppins',
+    fontSize: 32.sp,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xFF2A2A2A),
+    height: 1.2,
+  ),
+  headlineMedium: TextStyle(
+    fontFamily: 'poppins',
+    fontSize: 18.0.sp,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xFF2A2A2A),
+    height: 25.fromFigmaHeight(28),
+  ),
+  headlineSmall: TextStyle(
+    fontFamily: 'poppins',
+    fontSize: 24.0.sp,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.5.w,
+    color: const Color(0xFF2A2A2A),
+    height: 32.fromFigmaHeight(24),
+  ),
+
+  ///Title
+  titleLarge: TextStyle(
+      fontFamily: 'poppins', fontSize: 22.0.sp, fontWeight: FontWeight.w400),
+  titleMedium: TextStyle(
+      fontFamily: 'poppins',
+      fontSize: 24.0.sp,
+      fontWeight: FontWeight.w500,
+      height: 30.fromFigmaHeight(24)),
+  titleSmall: TextStyle(
+      fontFamily: 'poppins', fontSize: 16.0.sp, fontWeight: FontWeight.w500),
+
+  ///Label
+  labelLarge: TextStyle(
+      fontFamily: 'poppins', fontSize: 14.0.sp, fontWeight: FontWeight.w500),
+  labelMedium: TextStyle(
+    fontFamily: 'poppins',
+    fontSize: 18.0.sp,
+    fontWeight: FontWeight.w500,
+    height: 24.fromFigmaHeight(18),
+  ),
+  labelSmall: TextStyle(
+      fontFamily: 'poppins', fontSize: 11.0.sp, fontWeight: FontWeight.w500),
+
+  ///Body
+  bodyLarge: TextStyle(
+      fontFamily: 'poppins', fontSize: 16.0.sp, fontWeight: FontWeight.w400),
+  bodyMedium: TextStyle(
+    fontFamily: 'poppins',
+    fontSize: 16.0.sp,
+    fontWeight: FontWeight.w500,
+    height: 24.fromFigmaHeight(16),
+  ),
+  bodySmall: TextStyle(
+      fontFamily: 'poppins', fontSize: 12.0.sp, fontWeight: FontWeight.w400),
+);
 
 extension TextThemeExt on TextTheme {
   ///Subhead/sm/SH-sm-medium
@@ -114,11 +90,34 @@ extension TextThemeExt on TextTheme {
       fontFamily: 'poppins',
       fontWeight: FontWeight.w500,
       fontSize: 16.sp,
+      color: const Color(0xFFA0A0A0),
       height: 23.fromFigmaHeight(16));
 
   TextStyle get bodyRegular => TextStyle(
       fontFamily: 'poppins',
       fontWeight: FontWeight.w400,
       fontSize: 16.sp,
+      color: const Color(0xFFA0A0A0),
       height: 24.fromFigmaHeight(16));
+
+  TextStyle get bodySmMedium => TextStyle(
+      fontFamily: 'poppins',
+      fontWeight: FontWeight.w500,
+      fontSize: 12.sp,
+      color: const Color(0xFF898989),
+      height: 18.fromFigmaHeight(12));
+}
+
+extension FamilyUtils on TextStyle {
+  TextStyle get extraBold => copyWith(fontWeight: FontWeight.w800);
+
+  TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
+
+  TextStyle get semiBold => copyWith(fontWeight: FontWeight.w600);
+
+  TextStyle get medium => copyWith(fontWeight: FontWeight.w500);
+
+  TextStyle get regular => copyWith(fontWeight: FontWeight.w400);
+
+  TextStyle get light => copyWith(fontWeight: FontWeight.w300);
 }

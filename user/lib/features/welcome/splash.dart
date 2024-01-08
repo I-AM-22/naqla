@@ -3,10 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user/core/config/router/router.dart';
-import 'package:user/core/util/extensions/build_context.dart';
+import 'package:user/core/core.dart';
 import 'package:user/features/app/domain/repository/prefs_repository.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
-import 'package:user/features/app/presentation/widgets/app_text_view.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -37,9 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            AppTextView("Naqla",
-                style: context.textTheme.titleMedium!
-                    .copyWith(color: context.colorScheme.primary)),
+            AppText.subHeadMedium(
+              "Naqla",
+            ),
             25.verticalSpace,
           ],
         ),

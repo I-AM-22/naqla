@@ -1,83 +1,230 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user/core/config/themes/my_color_scheme.dart';
-import 'package:user/core/config/themes/typography.dart';
+import 'package:user/core/core.dart';
 
-import 'colors_app.dart';
-
-part 'colors_scheme.dart';
-part 'utils.dart';
-
-const defaultAppTheme = ThemeMode.system;
-
-final mapAppThemeMode = <String, ThemeMode>{
-  ThemeMode.light.name: ThemeMode.light,
-  ThemeMode.dark.name: ThemeMode.dark,
-  ThemeMode.system.name: ThemeMode.system,
-};
-
-var sysBrightness =
-    SchedulerBinding.instance.platformDispatcher.platformBrightness;
-
-ThemeData getAppTheme(ThemeMode mode, BuildContext context) {
-  final mapAppTheme = <ThemeMode, ThemeData>{
-    ThemeMode.light: AppTheme.light(context),
-    ThemeMode.dark: AppTheme.dark(context),
-    ThemeMode.system: sysBrightness == Brightness.dark
-        ? AppTheme.dark(context)
-        : AppTheme.light(context),
-  };
-
-  return mapAppTheme[mode]!;
-}
+part 'general_theme.dart';
+part 'typography.dart';
+part 'app_button_theme.dart';
 
 class AppTheme {
-  static ThemeData get _builtInLightTheme => ThemeData.light();
+  //TODO init only once
+  AppTheme.init({
+    required this.darkColorScheme,
+    required this.lightColorScheme,
+  });
 
-  static ThemeData get _builtInDarkTheme => ThemeData.dark();
+  final ColorScheme darkColorScheme;
+  final ColorScheme lightColorScheme;
 
-  static ThemeData light(BuildContext context) {
-    final textTheme = appTextTheme(
-      context,
-      _builtInLightTheme.textTheme,
-      _lightColorScheme.onBackground,
-    );
+  ///Appbar
+  ///todo only need to set responsive value
+  AppBarTheme appBarTheme(ColorScheme scheme) => AppBarTheme(
+      backgroundColor: scheme.onPrimary,
+      toolbarHeight: 48,
+      systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarDividerColor: scheme.surface,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: scheme.surface,
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light),
+      elevation: 0,
+      foregroundColor: scheme.onPrimary,
+      centerTitle: true,
+      iconTheme: IconThemeData(size: 24.r, color: scheme.onPrimary));
 
-    return _builtInLightTheme.copyWith(
-        colorScheme: _lightColorScheme,
-        textTheme: textTheme,
-        typography: Typography.material2021(),
-        elevatedButtonTheme: _elevatedButtonTheme(_lightColorScheme, textTheme),
-        textButtonTheme: _textButtonTheme(_lightColorScheme, textTheme),
-        scaffoldBackgroundColor: _lightColorScheme.background,
-        appBarTheme: _appBarTheme(
-            _builtInLightTheme, _lightColorScheme, textTheme, ThemeMode.light),
-        dividerTheme: _dividerTheme(_builtInLightTheme, _lightColorScheme),
-        primaryColor: _lightColorScheme.primary,
-        bottomSheetTheme: _bottomSheetThemeData(_builtInLightTheme));
-  }
+  ///CheckBox
+  CheckboxThemeData checkboxThemeData({required bool isDark}) =>
+      const CheckboxThemeData(
+          // fillColor: MaterialStateProperty.all(
+          //     isDark ? darkColorScheme.primary : lightColorScheme.primary),
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(PRadius.checkBox.r),
+          // ),
+          );
 
-  static ThemeData dark(BuildContext context) {
-    final textTheme = appTextTheme(
-      context,
-      _builtInDarkTheme.textTheme,
-      _darkColorScheme.onBackground,
-    );
+  /// Icon
+  IconThemeData iconTheme(ColorScheme scheme) => IconThemeData(
+        size: 20.r,
+        color: scheme.primary,
+      );
 
-    return _builtInDarkTheme.copyWith(
-      colorScheme: _darkColorScheme,
-      textTheme: textTheme,
-      typography: Typography.material2018(),
-      elevatedButtonTheme: _elevatedButtonTheme(_darkColorScheme, textTheme),
-      textButtonTheme: _textButtonTheme(_darkColorScheme, textTheme),
-      scaffoldBackgroundColor: _darkColorScheme.background,
-      appBarTheme: _appBarTheme(
-          _builtInDarkTheme, _darkColorScheme, textTheme, ThemeMode.dark),
-      dividerTheme: _dividerTheme(_builtInDarkTheme, _darkColorScheme),
-      primaryColor: _darkColorScheme.primary,
-      bottomSheetTheme: _bottomSheetThemeData(_builtInDarkTheme),
+  ///Chip
+  ChipThemeData chipTheme({required bool isDark}) => const ChipThemeData(
+      // padding: ,
+      // selectedColor:
+      //     isDark ? darkColorScheme.secondary : lightColorScheme.secondary,
+      // backgroundColor: Colors.transparent,
+      // shape: RoundedRectangleBorder(
+      //   side: BorderSide(width: 1.r),
+      //   borderRadius: BorderRadius.circular(PRadius.chip.r),
+      // ),
+      );
+
+  ///FloatingActionButtonThemeData
+  FloatingActionButtonThemeData floatingActionButtonTheme(
+          {required bool isDark}) =>
+      const FloatingActionButtonThemeData(
+          // backgroundColor:
+          //     isDark ? darkColorScheme.background : lightColorScheme.background,
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(PRadius.floatingButton.r),
+          // ),
+          );
+
+  ///TabBarTheme
+  TabBarTheme tabBarTheme(ColorScheme scheme) => TabBarTheme(
+        labelColor: scheme.secondary,
+        unselectedLabelColor: scheme.onSecondary,
+      );
+
+  ///bottomSheetTheme
+  bottomSheetTheme({required bool isDark}) => const BottomSheetThemeData(
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.only(
+      //     topLeft: Radius.circular(PRadius.container),
+      //     topRight: Radius.circular(PRadius.container),
+      //   ),
+      // ),
+      );
+
+  ///cardTheme
+  CardTheme cardTheme(ColorScheme scheme) => CardTheme(
+        color: scheme.surface, elevation: 0,
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.circular(8.r),
+        // ),
+      );
+
+  ///dialogTheme
+  DialogTheme dialogTheme({required bool isDark}) => const DialogTheme(
+
+      //     shape: RoundedRectangleBorder(
+      //         // borderRadius: PBorderRadius.borderRadiusAllM2
+      // )
+      );
+
+  ///listTileTheme
+  ListTileThemeData listTileTheme({required bool isDark}) =>
+      const ListTileThemeData(
+          // horizontalTitleGap: 0,
+          // contentPadding: PEdgeInsets.allS3,
+          );
+
+  DividerThemeData dividerTheme(ColorScheme scheme) => DividerThemeData(
+      color: scheme.outline,
+      endIndent: 0,
+      indent: 0,
+      thickness: 1.r,
+      space: 20.r);
+
+  ///navigationBarTheme
+  NavigationBarThemeData navigationBarTheme({required bool isDark}) =>
+      const NavigationBarThemeData(
+          // backgroundColor:
+          // labelTextStyle: MaterialStateProperty.resolveWith((states) {
+          //   if (states.contains(MaterialState.selected)) {
+          //     return  isDark ? AppFont.darkTextTheme.labelSmall?.copyWith(
+          //       color: darkColorScheme.primary,
+          //     ) : AppFont.lightTextTheme.labelSmall?.copyWith(
+          //       color: Colors.red,
+          //     );
+          //   }
+          //   return isDark ? AppFont.darkTextTheme.labelSmall?.copyWith(
+          //     color: darkColorScheme.onSurfaceVariant,
+          //   ) : AppFont.lightTextTheme.labelSmall?.copyWith(
+          //     color: Colors.red,
+          //   );
+          // }),
+          // elevation: 5,
+          // shadowColor: isDark ? darkColorScheme.shadow : lightColorScheme.shadow,
+          // labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+          // indicatorColor: Colors.transparent,
+          // iconTheme: MaterialStateProperty.resolveWith((states) {
+          //   if (states.contains(MaterialState.selected)) {
+          //     return IconThemeData(
+          //         color: isDark
+          //             ? darkColorScheme.onInverseSurface
+          //             : lightColorScheme.onInverseSurface);
+          //   }
+          //   return IconThemeData(
+          //       color: isDark
+          //           ? darkColorScheme.inverseSurface.withOpacity(0.5)
+          //           : lightColorScheme.inverseSurface.withOpacity(0.5));
+          // }),
+          // backgroundColor:
+          //     isDark ? darkColorScheme.background : lightColorScheme.background,
+          // height: 50.h,
+          );
+
+  BottomNavigationBarThemeData bottomNavigationBarTheme(ColorScheme scheme) =>
+      BottomNavigationBarThemeData(
+        // backgroundColor:
+        //     isDark ? darkColorScheme.background : lightColorScheme.background,
+        selectedItemColor: scheme.primary,
+        unselectedItemColor: scheme.secondary,
+
+        ///todo change bodyMedium to the size used in app
+        selectedLabelStyle:
+            textTheme.bodyMedium?.copyWith(color: scheme.primary),
+        unselectedIconTheme: IconThemeData(size: 25, color: scheme.secondary),
+        selectedIconTheme: IconThemeData(size: 25, color: scheme.primary),
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        elevation: 0,
+        backgroundColor: scheme.surface,
+      );
+
+  InputDecorationTheme inputDecoration({required bool isDark}) {
+    ///todo add border color
+    /////todo make width border responsive v
+    const inputBorderRadius = BorderRadius.all(Radius.circular(12.0));
+    return const InputDecorationTheme(
+      contentPadding: EdgeInsets.all(16),
+
+      ///contentPadding will be set in the widget because is different in every state
+      // prefixStyle: isDark
+      //     ? AppFont.darkTextTheme.titleMedium
+      //         ?.copyWith(color: darkColorScheme.onSurface)
+      //     : AppFont.lightTextTheme.titleMedium
+      //         ?.copyWith(color: lightColorScheme.onSurface),
+      // fillColor: isDark
+      //     ? darkColorScheme.surfaceVariant
+      //     : lightColorScheme.surfaceVariant,
+      //todo check this  in multi line
+      constraints: BoxConstraints(maxHeight: 56, minHeight: 56),
+      // filled: true,
+      // labelStyle: isDark
+      //     ? AppFont.darkTextTheme.bodyLarge
+      //         ?.copyWith(color: darkColorScheme.onSurfaceVariant)
+      //     : AppFont.lightTextTheme.bodyLarge
+      //         ?.copyWith(color: lightColorScheme.onSurfaceVariant),
+      // hintStyle: isDark
+      //     ? AppFont.darkTextTheme.bodyLarge
+      //         ?.copyWith(color: darkColorScheme.onSurfaceVariant)
+      //     : AppFont.lightTextTheme.bodyLarge
+      //         ?.copyWith(color: lightColorScheme.onSurfaceVariant),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(width: 1),
+        borderRadius: inputBorderRadius,
+      ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(width: 1),
+        borderRadius: inputBorderRadius,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(width: 2),
+        borderRadius: inputBorderRadius,
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(width: 1),
+        borderRadius: inputBorderRadius,
+      ),
+      // disabledBorder: OutlineInputBorder(
+      //   borderSide: BorderSide.none,
+      //   borderRadius: _inputBorderRadius,
+      // ),
     );
   }
 }

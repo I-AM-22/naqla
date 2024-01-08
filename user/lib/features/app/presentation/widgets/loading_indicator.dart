@@ -6,10 +6,10 @@ import 'package:user/core/util/extensions/build_context.dart';
 
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({
-    Key? key,
+    super.key,
     this.color,
     this.dimension,
-  }) : super(key: key);
+  });
 
   final Color? color;
   final double? dimension;

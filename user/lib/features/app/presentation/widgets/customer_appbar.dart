@@ -1,21 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user/core/config/themes/my_color_scheme.dart';
-import 'package:user/core/util/extensions/build_context.dart';
+import 'package:user/core/core.dart';
 import 'package:user/features/app/presentation/widgets/params_appbar.dart';
+import 'package:user/generated/flutter_gen/assets.gen.dart';
 import 'package:user/services/language_service.dart';
 
-import 'app_text_view.dart';
-
-class NaqlaAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const NaqlaAppBar({
+class CustomerAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomerAppBar({
     super.key,
     required this.appBarParams,
-    required this.isLeading,
+    required this.back,
   });
 
   final AppBarParams appBarParams;
-  final bool isLeading;
+  final bool back;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,8 @@ class NaqlaAppBar extends StatelessWidget implements PreferredSizeWidget {
         AppBar(
           title: title(context),
           backgroundColor: appBarParams.backgroundColor ??
-              Theme.of(context).colorScheme.primary,
-          leading:
-              isLeading ? appBarParams.leading ?? leadingAppBar(context) : null,
+              Theme.of(context).colorScheme.onPrimary,
+          leading: back ? appBarParams.leading ?? leadingAppBar(context) : null,
           actions: appBarParams.action,
           centerTitle: appBarParams.centerTitle,
           elevation: appBarParams.elevation,
@@ -60,13 +59,8 @@ class NaqlaAppBar extends StatelessWidget implements PreferredSizeWidget {
             appBarParams.child!,
           },
           if (appBarParams.title != null)
-            AppTextView(
-              appBarParams.title!,
-              style: appBarParams.tittleStyle ??
-                  Theme.of(context).textTheme.displaySmall?.copyWith(
-                        color: appBarParams.textColor,
-                      ),
-            ),
+            AppText.headlineMedium(appBarParams.title!,
+                style: appBarParams.tittleStyle),
         ],
       ),
     );
@@ -74,10 +68,11 @@ class NaqlaAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget leadingAppBar(BuildContext context) => appBarParams.hasLeading
       ? IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: context.colorScheme.white,
-            size: 18,
+          icon: AppImage.asset(
+            Assets.icons.arrow.rightArrow.path,
+            // width: 8.w,
+            // height: 15.h,
+            color: context.colorScheme.systemGray.shade900,
           ),
           onPressed: appBarParams.onBack ?? () => Navigator.pop(context),
           padding: EdgeInsets.zero,

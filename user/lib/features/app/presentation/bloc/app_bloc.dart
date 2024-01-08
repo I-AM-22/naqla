@@ -11,8 +11,8 @@ class AppCubit extends Cubit<AppState> {
             lightTheme: ThemeData.light(), darkTheme: ThemeData.dark()));
 
   changeAppTheme(BuildContext context) {
-    emit(state.copyWith(
-        lightTheme: AppTheme.light(context),
-        darkTheme: AppTheme.dark(context)));
+    // emit(state.copyWith(
+    //     lightTheme: AppTheme.init(context),
+    //     darkTheme: AppTheme.dark(context)));
   }
 }

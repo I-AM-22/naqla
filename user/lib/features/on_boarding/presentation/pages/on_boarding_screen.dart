@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user/core/config/router/router.dart';
-import 'package:user/core/config/themes/typography.dart';
-import 'package:user/core/util/extensions/build_context.dart';
+import 'package:user/core/core.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
-import 'package:user/features/app/presentation/widgets/naqla_appbar.dart';
+import 'package:user/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:user/features/app/presentation/widgets/params_appbar.dart';
 import 'package:user/features/on_boarding/presentation/widget/on_boarding_slide.dart';
 
@@ -22,19 +21,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        appBar: NaqlaAppBar(
+        appBar: CustomerAppBar(
           appBarParams: AppBarParams(
               backgroundColor: context.colorScheme.background,
               action: [
                 TextButton(
                   onPressed: () =>
-                      context.goNamed(GRouter.config.authRoutes.welcome),
-                  child: Text('Skip',
-                      style: context.textTheme.subHeadRegular
-                          .copyWith(color: context.colorScheme.onTertiary)),
+                      context.goNamed(GRouter.config.authRoutes.setLocation),
+                  child: AppText.subHeadRegular(
+                    'Skip',
+                    color: context.colorScheme.onTertiary,
+                  ),
                 )
               ]),
-          isLeading: false,
+          back: false,
         ),
         body: PageView(
           controller: _pageController,
@@ -69,8 +69,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   'Sell houses easily with the help of Listenoryx and to make this line bigI am writing more.',
               path: Assets.lottie.car2.path,
               onPressed: () {
-                print('go');
-                context.goNamed(GRouter.config.authRoutes.welcome);
+                context.goNamed(GRouter.config.authRoutes.setLocation);
               },
             ),
           ],
