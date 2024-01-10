@@ -1,31 +1,112 @@
-// custom-instance.ts
+type HttpInterceptor = (
+  options: FetchOptions,
+) => Promise<FetchOptions> | FetchOptions;
 
-const baseURL = "https://petstore.swagger.io/v2"; // use your own URL here or environment variable
+type HttpInstance = {
+  baseURL: string;
+  headers: Record<string, string>;
+  interceptors: Record<string, HttpInterceptor>;
+};
+export const HTTP_INSTANCE: HttpInstance = {
+  baseURL: "https://petstore.swagger.io/v2",
+  headers: {},
+  interceptors: {},
+};
 
-export const fetchInstance = async <T>({
-  url,
-  method,
-  params,
-  data,
-  init,
-}: {
+export type FetchOptions = {
+  baseURL?: string;
+  headers?: Record<string, string>;
   url: string;
-  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+  method:
+    | "get"
+    | "post"
+    | "put"
+    | "delete"
+    | "patch"
+    | "GET"
+    | "POST"
+    | "PUT"
+    | "DELETE"
+    | "PATCH";
   params?: any;
-  data?: unknown;
-  init?: RequestInit;
+  data?: any;
   responseType?: string;
-}): Promise<T> => {
+  signal?: AbortSignal;
+};
+
+export type FetchResponse<T = unknown> = {
+  data: T;
+  headers: {
+    authorization?: string | null;
+    "x-total-count"?: string | null;
+  };
+};
+
+export type FetchError<T = unknown> = {
+  data: T;
+  status: number;
+};
+
+export const getResponseBody = <T>(response: Response): Promise<T> => {
+  const contentType = response.headers.get("content-type");
+
+  if (contentType && contentType.includes("application/json")) {
+    return response.json();
+  }
+
+  if (contentType && contentType.includes("application/pdf")) {
+    return response.blob() as Promise<T>;
+  }
+
+  return response.text() as Promise<T>;
+};
+
+export const fetchInstance = async <T>(
+  config: FetchOptions,
+  init?: RequestInit,
+): Promise<FetchResponse<T>> => {
+  const isFormData = config.headers?.["Content-Type"] === "multipart/form-data";
+  const isJson = config.headers?.["Content-Type"] === "application/json";
+
+  const baseUrl = `https://petstore.swagger.io/v2`;
+
+  const headers = {
+    ...config.headers,
+    ...(isJson ? { "Content-Type": "application/json" } : {}),
+  };
+
+  // Remove Content-Type header if it's not needed to avoid issues
+  if (!isJson) {
+    delete headers["Content-Type"];
+  }
+
   const response = await fetch(
-    `${baseURL}${url}` + new URLSearchParams(params),
+    `${baseUrl}${config.url}` +
+      (config.params ? `?${new URLSearchParams(config.params)}` : ""),
     {
-      method,
-      ...(data ? { body: JSON.stringify(data) } : {}),
+      method: config.method,
+      ...(config.data
+        ? { body: !isFormData ? JSON.stringify(config.data) : config.data }
+        : {}),
+      headers,
+      signal: config.signal,
       ...init,
     },
   );
 
-  return response.json();
-};
+  const data = await getResponseBody<T>(response);
 
-export default fetchInstance;
+  if (!response.ok) {
+    throw {
+      status: response.status,
+      data,
+    };
+  }
+
+  return {
+    headers: {
+      authorization: response.headers.get("authorization"),
+    },
+    data,
+  };
+};

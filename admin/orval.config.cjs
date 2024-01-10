@@ -2,7 +2,7 @@
 module.exports = {
   /** @type {import('orval').Options} */
   api: {
-    input: `https://petstore.swagger.io/v2/swagger.json`,
+    input: `./petstore.yaml`,
     output: {
       mode: "split",
       target: "./service/api.ts",

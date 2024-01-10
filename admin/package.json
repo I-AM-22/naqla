@@ -6,7 +6,7 @@
     "dev": "PORT=9876 next dev",
     "build": "next build",
     "start": "next start",
-    "swagger": "npx orval --config ./orval.config.cjs && sed -i '1i/* eslint-disable @typescript-eslint/ban-ts-comment *///@ts-nocheck' service/api.ts",
+    "swagger": "npx orval --config ./orval.config.cjs && sed -i '1i//@ts-nocheck' service/api.schemas.ts",
     "lint": "next lint"
   },
   "dependencies": {
