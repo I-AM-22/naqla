@@ -1,0 +1,10 @@
+{
+  "heading": "Welcome Back",
+  "subheading": "Sign in to your account",
+  "email": "Email",
+  "password": "Password",
+  "submit": "Sign In",
+  "noAccount": "Don't have an account?",
+  "signup": "Sign Up Now",
+  "forgotPassword": "Forgot Password?"
+}

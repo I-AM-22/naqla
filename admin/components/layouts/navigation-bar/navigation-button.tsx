@@ -22,7 +22,6 @@ export const NavigationButton = ({
   isActive = false,
 }: NavigationButtonProps) => {
   const { t } = useTranslation("layout", { keyPrefix: "navigation" });
-fetch("",{next:{}})
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
