@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:user/core/common/model/localization_config.dart';
-import 'package:user/features/app/presentation/pages/app.dart';
-import 'package:user/generated/codegen_loader.g.dart';
-import 'package:user/initialization.dart';
+import 'package:naqla/core/common/model/localization_config.dart';
+import 'package:naqla/features/app/presentation/pages/app.dart';
+import 'package:naqla/generated/codegen_loader.g.dart';
+import 'package:naqla/initialization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

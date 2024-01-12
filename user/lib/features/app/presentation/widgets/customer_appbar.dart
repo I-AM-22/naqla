@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user/core/core.dart';
-import 'package:user/features/app/presentation/widgets/params_appbar.dart';
-import 'package:user/generated/flutter_gen/assets.gen.dart';
-import 'package:user/services/language_service.dart';
+import 'package:naqla/core/core.dart';
+import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla/generated/flutter_gen/assets.gen.dart';
+import 'package:naqla/services/language_service.dart';
 
 class CustomerAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomerAppBar({

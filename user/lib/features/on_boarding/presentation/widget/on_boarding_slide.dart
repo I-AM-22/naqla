@@ -3,10 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:user/core/config/themes/my_color_scheme.dart';
-import 'package:user/core/core.dart';
-import 'package:user/core/global_widgets/app_text.dart';
-import 'package:user/core/util/extensions/build_context.dart';
+import 'package:naqla/core/core.dart';
 
 import '../../../../core/util/responsive_padding.dart';
 

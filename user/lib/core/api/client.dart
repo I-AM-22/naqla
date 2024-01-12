@@ -3,8 +3,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:user/core/api/client_config.dart';
-import 'package:user/core/api/exceptions.dart';
+
+import 'client_config.dart';
+import 'exceptions.dart';
 
 typedef HttpLibraryMethodInvocation<T> = Future<Response<T>> Function();
 

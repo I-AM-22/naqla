@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user/core/core.dart';
+import 'package:naqla/core/core.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
 

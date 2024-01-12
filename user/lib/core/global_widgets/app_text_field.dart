@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user/core/core.dart';
+import 'package:naqla/core/config/themes/my_color_scheme.dart';
+import 'package:naqla/core/util/extensions/build_context.dart';
+
+import 'app_text.dart';
 
 class AppTextFormField extends StatefulWidget {
   const AppTextFormField({

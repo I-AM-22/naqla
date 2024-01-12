@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
+import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 
 class BasePage extends StatelessWidget {
   const BasePage({super.key, required this.child});

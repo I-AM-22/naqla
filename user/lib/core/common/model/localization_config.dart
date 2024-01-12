@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:user/services/language_service.dart';
+
+import '../../../services/language_service.dart';
 
 class LocalizationConfig {
   LocalizationConfig({

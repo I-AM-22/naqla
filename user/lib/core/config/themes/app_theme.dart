@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user/core/core.dart';
+import 'package:naqla/core/util/extensions/build_context.dart';
 
 part 'general_theme.dart';
 part 'typography.dart';

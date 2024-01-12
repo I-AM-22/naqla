@@ -1,4 +1,4 @@
-import 'package:user/core/api/exceptions.dart';
+import 'exceptions.dart';
 
 sealed class Result<S> {
   const Result();

@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:text_scroll/text_scroll.dart';
-import 'package:user/core/core.dart';
+
+import '../config/themes/app_theme.dart';
+import 'package:naqla/core/util/extensions/build_context.dart';
 
 class AppText extends StatelessWidget {
   AppText(

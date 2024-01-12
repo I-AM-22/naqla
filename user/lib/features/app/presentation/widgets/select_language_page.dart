@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:user/core/config/router/router.dart';
-import 'package:user/core/core.dart';
+import 'package:naqla/core/config/router/router.dart';
+import 'package:naqla/core/core.dart';
 
 import '../../../../core/util/responsive_padding.dart';
 import '../../../../generated/flutter_gen/assets.gen.dart';

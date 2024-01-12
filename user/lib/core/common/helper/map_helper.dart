@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:user/core/util/extensions/build_context.dart';
+import 'package:naqla/core/util/extensions/build_context.dart';
 
 class MapHelper {
   static late String darkMapStyle;

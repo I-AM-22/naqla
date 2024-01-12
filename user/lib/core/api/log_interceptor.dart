@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
-import 'package:user/core/common/enums/status_code_type.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
+import '../common/enums/status_code_type.dart';
 import 'api_utils.dart';
 
 enum _StatusType {

@@ -2,13 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:user/core/common/constants/constants.dart';
-import 'package:user/core/config/router/router.dart';
-import 'package:user/features/app/presentation/bloc/app_bloc.dart';
-import 'package:user/features/app/presentation/bloc/app_state.dart';
-import 'package:user/services/language_service.dart';
-import 'package:user/services/service_provider.dart';
-import 'package:user/core/core.dart';
+import 'package:naqla/core/common/constants/constants.dart';
+import 'package:naqla/core/config/router/router.dart';
+import 'package:naqla/features/app/presentation/bloc/app_bloc.dart';
+import 'package:naqla/features/app/presentation/bloc/app_state.dart';
+import 'package:naqla/services/language_service.dart';
+import 'package:naqla/services/service_provider.dart';
+import 'package:naqla/core/core.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

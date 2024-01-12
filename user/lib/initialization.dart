@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:user/core/common/model/localization_config.dart';
-import 'package:user/core/di/di_container.dart';
+import 'package:naqla/core/common/model/localization_config.dart';
+import 'package:naqla/core/di/di_container.dart';
 
 Future<void> initialization(FutureOr<Widget> Function() builder,
     {LocalizationConfig? localizationConfig}) async {

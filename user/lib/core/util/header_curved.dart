@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'dart:ui' as ui;
-import 'package:user/core/util/extensions/build_context.dart';
+
+import 'package:naqla/core/util/extensions/build_context.dart';
 
 class HeaderCurvedContainer extends CustomPainter {
   final BuildContext context;

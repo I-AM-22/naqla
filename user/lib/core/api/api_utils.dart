@@ -4,8 +4,9 @@ import 'dart:io';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:user/core/api/exceptions.dart';
-import 'package:user/core/api/result.dart';
+import 'package:naqla/core/api/result.dart';
+
+import 'exceptions.dart';
 
 Future<T> throwAppException<T>(FutureOr<T> Function() call) async {
   try {

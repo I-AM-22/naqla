@@ -1,6 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -8,11 +7,11 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
-import 'package:user/core/core.dart';
-import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
-import 'package:user/features/app/presentation/widgets/customer_appbar.dart';
-import 'package:user/features/app/presentation/widgets/params_appbar.dart';
-import 'package:user/generated/locale_keys.g.dart';
+import 'package:naqla/core/core.dart';
+import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
+import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
+import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla/generated/locale_keys.g.dart';
 
 import '../../../../services/location_map_service.dart';
 import '../../../app/presentation/widgets/loading_indicator.dart';

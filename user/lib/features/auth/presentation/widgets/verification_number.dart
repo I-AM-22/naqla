@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
-import 'package:user/core/core.dart';
+import 'package:naqla/core/core.dart';
 
 class VerificationNumber extends StatelessWidget {
   const VerificationNumber({super.key});

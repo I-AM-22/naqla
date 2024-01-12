@@ -2,14 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:user/core/config/themes/utils.dart';
-import 'package:user/core/core.dart';
-import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
-import 'package:user/features/app/presentation/widgets/customer_appbar.dart';
-import 'package:user/features/app/presentation/widgets/params_appbar.dart';
-import 'package:user/features/auth/presentation/pages/set_new_password_page.dart';
-import 'package:user/features/auth/presentation/widgets/verification_number.dart';
-import 'package:user/generated/locale_keys.g.dart';
+import 'package:naqla/core/config/themes/utils.dart';
+import 'package:naqla/core/core.dart';
+import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
+import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
+import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla/features/auth/presentation/pages/set_new_password_page.dart';
+import 'package:naqla/features/auth/presentation/widgets/verification_number.dart';
+import 'package:naqla/generated/locale_keys.g.dart';
 
 class ForgotPasswordSmsPage extends StatelessWidget {
   const ForgotPasswordSmsPage({super.key});

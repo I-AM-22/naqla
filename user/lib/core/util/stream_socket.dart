@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:user/core/common/constants/constants.dart';
-
 class StreamSocket {
   final _socketResponse = StreamController<Map<String, dynamic>>();
 

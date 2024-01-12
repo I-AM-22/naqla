@@ -3,19 +3,19 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:user/core/config/router/router_config.dart';
-import 'package:user/features/auth/presentation/pages/forgot_password_page.dart';
-import 'package:user/features/auth/presentation/pages/registration/register_page.dart';
-import 'package:user/features/auth/presentation/pages/set_location_page.dart';
-import 'package:user/features/auth/presentation/pages/welcome_page.dart';
-import 'package:user/features/home/presentation/pages/home_page.dart';
-import 'package:user/features/on_boarding/presentation/pages/on_boarding_screen.dart';
-import 'package:user/features/welcome/splash.dart';
+import 'package:naqla/core/config/router/router_config.dart';
 
+import '../../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../../features/auth/presentation/pages/forgot_password_sms_page.dart';
 import '../../../features/auth/presentation/pages/registration/phone_verfication.dart';
+import '../../../features/auth/presentation/pages/registration/register_page.dart';
+import '../../../features/auth/presentation/pages/set_location_page.dart';
 import '../../../features/auth/presentation/pages/set_new_password_page.dart';
 import '../../../features/auth/presentation/pages/sign_in_page.dart';
+import '../../../features/auth/presentation/pages/welcome_page.dart';
+import '../../../features/home/presentation/pages/home_page.dart';
+import '../../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import '../../../features/welcome/splash.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');

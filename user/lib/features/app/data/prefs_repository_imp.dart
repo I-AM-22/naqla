@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:user/core/common/constants/configuration/prefs_key.dart';
-import 'package:user/features/app/domain/repository/prefs_repository.dart';
+
+import '../../../core/common/constants/configuration/prefs_key.dart';
+import '../domain/repository/prefs_repository.dart';
 
 @Injectable(as: PrefsRepository)
 class PrefsRepositoryImpl extends PrefsRepository {

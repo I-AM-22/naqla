@@ -5,9 +5,9 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:user/core/api/log_interceptor.dart';
-import 'package:user/core/common/constants/configuration/uri_routs.dart';
 
+import '../api/log_interceptor.dart';
+import '../common/constants/configuration/uri_routs.dart';
 import 'di_container.config.dart';
 
 final _getIt = GetIt.I;
