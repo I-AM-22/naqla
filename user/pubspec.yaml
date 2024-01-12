@@ -32,28 +32,29 @@ dependencies:
   pinput: ^3.0.1
   dropdown_button2: ^2.3.9
   awesome_dialog: ^3.2.0
+  flutter_svg: ^2.0.6
+  fluttertoast: ^8.2.2
+  flutter_form_builder: ^9.1.1
+  flutter_keyboard_visibility: ^6.0.0
+  flutter_screenutil: ^5.9.0
+  image_picker: ^1.0.5
+  lottie: ^2.7.0
 
   #State management
   flutter_bloc: ^8.1.3
   dartz: ^0.10.1
   dio: ^5.1.2
   easy_localization: ^3.0.3
-  flutter_form_builder: ^9.1.1
-  flutter_keyboard_visibility: ^6.0.0
-  flutter_screenutil: ^5.9.0
-  flutter_svg: ^2.0.6
-  fluttertoast: ^8.2.2
   form_builder_validators: ^9.0.0
   freezed_annotation: ^2.2.0
   get_it: ^7.6.0
   go_router: ^13.0.0
-  image_picker: ^1.0.5
   injectable: ^2.3.0
   internet_connection_checker: any
   json_annotation: ^4.8.1
   logger: ^2.0.2+1
   shared_preferences: ^2.2.2
-  lottie: ^2.7.0
+
 
   #map
   location: ^5.0.3
@@ -94,20 +95,13 @@ flutter:
 
 
   fonts:
-    - family: Mont
+    - family: rubik
       fonts:
-        - asset: assets/fonts/Montserrat-Arabic-Regular.ttf
-    - family: poppins
+        - asset: assets/fonts/Rubik-VariableFont_wght.ttf
+    - family: noor
       fonts:
-        - asset: assets/fonts/poppins/Poppins-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/poppins/Poppins-Light.ttf
-          weight: 300
-        - asset: assets/fonts/poppins/Poppins-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/poppins/Poppins-Regular.ttf
-        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
-          weight: 600
+        - asset: assets/fonts/ArbFONTS-AGCRegular.ttf
+
 
   #
   # For details regarding fonts from package dependencies,

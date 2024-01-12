@@ -28,7 +28,7 @@ class App extends StatelessWidget {
                 lightColorScheme: lightColorScheme);
             LanguageService(context);
             return MaterialApp.router(
-              title: 'Driver',
+              title: 'Customer',
               debugShowCheckedModeBanner: false,
               theme: theme.lightTheme,
               //darkTheme: AppTheme.dark(context),

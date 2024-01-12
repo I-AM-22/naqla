@@ -1,20 +1,45 @@
 {
-    "home": "Home",
-    "transactions": "Transactions",
-    "chat": "Chat",
-    "profile": "Profile",
-    "sales": "Sales",
-    "purchases": "Purchases",
-    "logout": "Logout",
-    "login": "Login",
-    "signup": "Signup",
-    "login_screen": {
-        "Email": "Email",
-        "EnterYourEmail": "Enter Your Email",
+    "welcome": {
+        "Welcome": "Welcome",
+        "have_a_better_sharing_experience": "Have a better sharing experience",
+        "enable_your_location": "Enable your location",
+        "choose_your_location": "Choose your location to start find the request around you",
+        "use_my_location": "Use my location",
+        "Skip_for_now": "Skip for now"
+    },
+    "signUp": {
         "Password": "Password",
-        "EnterYourPassword": "Enter Your Password",
-        "ForgetPassword": "Forgot Password",
-        "CreateAccount": "Create account"
+        "EnterYourPassword": "Enter password",
+        "ForgetPassword": "Forgot password",
+        "we_will_send_a_code": "We will send a code to your WhatsApp account",
+        "Code_has_been_send_to": "Code has been send to",
+        "CreateAccount": "Create an Account",
+        "set_password": "Set password",
+        "set_your_password": "Set your password",
+        "Confirm_Password": "Confirm Password",
+        "At_least_6_number_or_a_special_character": "At least 6 number or a special character",
+        "set_new_password": "Set New password",
+        "mobile_number": "mobile number",
+        "verification_code": "Verification code",
+        "phone_verification": "Phone verification",
+        "Enter_your_OTP_code": "Enter your OTP code",
+        "login": "Log In",
+        "sign_up": "Sign Up",
+        "Register": "Register",
+        "city": "City",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "or": "OR",
+        "Already_have_an_account": "Already have an account?",
+        "Do_not_have_an_account": "Don’t have an account?",
+        "Did_not_receive_code": "Did n’t receive code?",
+        "Resend_again": "Resend again",
+        "Verify": "Verify",
+        "Send_OTP": "Send OTP",
+        "Email_or_phone_number": "Email or phone number",
+        "Congratulations": "Congratulations",
+        "Your_account_is_ready_to_use": "Your account is ready to use. You will be redirected to the Home Page in a few seconds."
+
     },
     "validation": {
         "enter_at_least_num_characters": "Enter at least 6 characters.",
@@ -24,12 +49,6 @@
         "can_not_be_empty_please_enter_correct_password": "can not be empty please enter correct password",
         "password_and_confirmation_password_mismatch": "password and confirmation password mismatch"
     },
-    "signup_screen": {
-        "title": "Create account",
-        "rewrite_password": "rewrite password",
-        "FullName": "Full Name",
-        "EnterYourFullName": "Enter Your Full Name"
-    },
     "date": {
         "ago": "ago",
         "minute": "minute",
@@ -38,6 +57,8 @@
         "day": "day"
     },
     "yes": "Yes",
+    "Save": "Save",
+    "Continue": "Continue",
     "edit": "Edit",
     "delete": "Delete",
     "cancel": "Cancel",

@@ -10,9 +10,9 @@
 class FontFamily {
   FontFamily._();
 
-  /// Font family: Mont
-  static const String mont = 'Mont';
-
   /// Font family: poppins
   static const String poppins = 'poppins';
+
+  /// Font family: rubik
+  static const String rubik = 'rubik';
 }

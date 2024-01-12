@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +9,7 @@ import 'package:user/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:user/features/app/presentation/widgets/params_appbar.dart';
 import 'package:user/features/auth/presentation/pages/set_new_password_page.dart';
 import 'package:user/features/auth/presentation/widgets/verification_number.dart';
+import 'package:user/generated/locale_keys.g.dart';
 
 class ForgotPasswordSmsPage extends StatelessWidget {
   const ForgotPasswordSmsPage({super.key});
@@ -17,6 +19,15 @@ class ForgotPasswordSmsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+        bottomNavigationBar: Padding(
+          padding:
+              REdgeInsets.symmetric(horizontal: kpPaddingPage, vertical: 10),
+          child: AppButton.dark(
+            onPressed: () => context.pushNamed(SetNewPasswordPage.name),
+            title: LocaleKeys.signUp_Verify.tr(),
+            stretch: true,
+          ),
+        ),
         appBar: CustomerAppBar(
           back: true,
           appBarParams: AppBarParams(),
@@ -24,17 +35,28 @@ class ForgotPasswordSmsPage extends StatelessWidget {
         body: Padding(
           padding: REdgeInsets.symmetric(horizontal: kpPaddingPage),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               30.verticalSpace,
-              AppText.titleMedium(
-                'Forgot Password',
-                textAlign: TextAlign.center,
+              Center(
+                child: AppText.titleMedium(
+                  LocaleKeys.signUp_ForgetPassword.tr(),
+                  textAlign: TextAlign.center,
+                ),
               ),
               12.verticalSpace,
-              AppText.bodyRegular(
-                'Code has been send to ***** ***70',
-                textAlign: TextAlign.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText.bodyRegular(
+                    '${LocaleKeys.signUp_Code_has_been_send_to.tr()} ',
+                    textAlign: TextAlign.center,
+                  ),
+                  AppText.bodyRegular(
+                    '099*******',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
               40.verticalSpace,
               Padding(
@@ -42,23 +64,19 @@ class ForgotPasswordSmsPage extends StatelessWidget {
                 child: const VerificationNumber(),
               ),
               20.verticalSpace,
-              Text.rich(
-                  textAlign: TextAlign.center,
-                  style: context.textTheme.subHeadMedium,
-                  TextSpan(children: [
-                    TextSpan(
-                        text: 'Didn’t receive code? ',
-                        style: context.textTheme.subHeadMedium.copyWith(
-                            color: context.colorScheme.systemGray.shade700)),
-                    TextSpan(text: 'Resend again')
-                  ])),
-              const Spacer(),
-              AppButton.dark(
-                onPressed: () => context.pushNamed(SetNewPasswordPage.name),
-                title: 'Verify',
-                stretch: true,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText.bodyMedium(
+                      LocaleKeys.signUp_Did_not_receive_code.tr(),
+                      color: context.colorScheme.systemGray.shade700),
+                  TextButton(
+                      onPressed: () {},
+                      child: AppText.bodyMedium(
+                        LocaleKeys.signUp_Resend_again.tr(),
+                      ))
+                ],
               ),
-              16.verticalSpace
             ],
           ),
         ));

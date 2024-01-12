@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,7 @@ import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:user/features/auth/presentation/pages/registration/register_page.dart';
 import 'package:user/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:user/generated/flutter_gen/assets.gen.dart';
+import 'package:user/generated/locale_keys.g.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -25,12 +27,12 @@ class WelcomePage extends StatelessWidget {
             ),
             12.verticalSpace,
             AppText.titleMedium(
-              'Welcome',
+              LocaleKeys.welcome_Welcome.tr(),
               textAlign: TextAlign.center,
             ),
             12.verticalSpace,
             AppText.bodyRegular(
-              'Have a better sharing experience',
+              LocaleKeys.welcome_have_a_better_sharing_experience.tr(),
               textAlign: TextAlign.center,
             ),
             const Spacer(),
@@ -39,7 +41,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 context.pushNamed(RegisterPage.name);
               },
-              title: 'Create an account',
+              title: LocaleKeys.signUp_CreateAccount.tr(),
             ),
             10.verticalSpace,
             Container(
@@ -49,7 +51,7 @@ class WelcomePage extends StatelessWidget {
               child: Center(
                 child: AppButton.ghost(
                   onPressed: () => context.pushNamed(SignInPage.name),
-                  title: 'LogIn',
+                  title: LocaleKeys.signUp_login.tr(),
                 ),
               ),
             ),

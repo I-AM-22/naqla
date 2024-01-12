@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,7 @@ import 'package:user/core/config/router/router.dart';
 import 'package:user/core/core.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:user/generated/flutter_gen/assets.gen.dart';
+import 'package:user/generated/locale_keys.g.dart';
 
 import '../../../../services/location_map_service.dart';
 
@@ -59,12 +61,12 @@ class _SetLocationPageState extends State<SetLocationPage> {
                   ),
                   const Spacer(),
                   AppText.titleMedium(
-                    'Enable your location',
+                    LocaleKeys.welcome_enable_your_location.tr(),
                     textAlign: TextAlign.center,
                   ),
                   12.verticalSpace,
                   AppText.subHeadMedium(
-                    'Choose your location to start find the request around you',
+                    LocaleKeys.welcome_choose_your_location.tr(),
                     textAlign: TextAlign.center,
                     color: context.colorScheme.systemGray.shade400,
                   ),
@@ -74,12 +76,12 @@ class _SetLocationPageState extends State<SetLocationPage> {
                     onPressed: () {
                       LocationService().getLocation();
                     },
-                    title: 'Use my location',
+                    title: LocaleKeys.welcome_use_my_location.tr(),
                   ),
                   10.verticalSpace,
                   Center(
                     child: AppButton.ghost(
-                      title: 'Skip for now',
+                      title: LocaleKeys.welcome_Skip_for_now.tr(),
                       onPressed: () {
                         context.goNamed(GRouter.config.authRoutes.welcome);
                       },
@@ -95,58 +97,3 @@ class _SetLocationPageState extends State<SetLocationPage> {
     );
   }
 }
-/*SizedBox(
-          width: double.infinity,
-          height: context.fullHeight / 2,
-          child: FutureBuilder(
-            future: locationData,
-            builder: (context, snapShot) {
-              if (snapShot.hasData || snapShot.data != null) {
-                return FlutterMap(
-                  options: MapOptions(
-                    initialCenter: LatLng(snapShot.data!.latitude ?? 36.204047,
-                        snapShot.data!.longitude ?? 37.132776),
-                    initialZoom: 10,
-                  ),
-                  children: [
-                    PolylineLayer(
-                      polylines: [
-                        Polyline(
-                            points: [
-                              LatLng(36.204047, 37.13277636),
-                            ],
-                            color: Colors.yellowAccent,
-                            borderStrokeWidth: 500,
-                            strokeWidth: 100),
-                        Polyline(
-                            points: [LatLng(36.187250, 37.134324)],
-                            color: Colors.yellowAccent,
-                            borderStrokeWidth: 500,
-                            strokeWidth: 100),
-                      ],
-                    ),
-                    TileLayer(
-                      urlTemplate:
-                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                      userAgentPackageName: 'com.example.app',
-                    ),
-                    CurrentLocationLayer(
-                      style: LocationMarkerStyle(
-                        marker: DefaultLocationMarker(
-                          child: Icon(
-                            Icons.navigation,
-                            color: context.colorScheme.primary,
-                          ),
-                        ),
-                        // accuracyCircleColor: context.colorScheme.primary,
-                        // headingSectorColor: context.colorScheme.primary,
-                        markerSize: Size(40, 40),
-                        markerDirection: MarkerDirection.north,
-                      ),
-                    )
-                  ],
-                );
-              }
-              return Center(child: LoadingIndicator());
-            },
-          ))*/

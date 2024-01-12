@@ -1,13 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pinput/pinput.dart';
 import 'package:user/core/core.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:user/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:user/features/app/presentation/widgets/params_appbar.dart';
-import 'package:user/features/auth/presentation/pages/registration/set_password_page.dart';
 import 'package:user/features/auth/presentation/widgets/verification_number.dart';
+import 'package:user/generated/locale_keys.g.dart';
+
+import '../../../../home/presentation/pages/home_page.dart';
 
 class PhoneVerificationPage extends StatelessWidget {
   const PhoneVerificationPage({super.key});
@@ -19,6 +21,13 @@ class PhoneVerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+        bottomNavigationBar: Padding(
+          padding: REdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: AppButton.dark(
+            onPressed: () => context.pushNamed(HomePage.name),
+            title: LocaleKeys.signUp_Verify.tr(),
+          ),
+        ),
         appBar: CustomerAppBar(back: true, appBarParams: AppBarParams()),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -29,43 +38,34 @@ class PhoneVerificationPage extends StatelessWidget {
                 children: [
                   30.verticalSpace,
                   AppText.titleMedium(
-                    'Phone verification',
+                    LocaleKeys.signUp_phone_verification.tr(),
                     textAlign: TextAlign.center,
                   ),
                   12.verticalSpace,
                   AppText.bodyRegular(
-                    'Enter your OTP code',
+                    LocaleKeys.signUp_Enter_your_OTP_code.tr(),
                     textAlign: TextAlign.center,
                   ),
                   40.verticalSpace,
                   const VerificationNumber(),
                   20.verticalSpace,
-                  Text.rich(
-                    textAlign: TextAlign.center,
-                    TextSpan(
-                      style: context.textTheme.subHeadMedium,
-                      children: [
-                        TextSpan(
-                          text: 'Didn’t receive code? ',
-                          style: context.textTheme.subHeadMedium.copyWith(
-                              color: context.colorScheme.systemGray.shade700),
-                        ),
-                        const TextSpan(text: 'Resend again')
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText.subHeadMedium(
+                          LocaleKeys.signUp_Did_not_receive_code.tr(),
+                          color: context.colorScheme.systemGray.shade700),
+                      TextButton(
+                          onPressed: () {},
+                          child: AppText.subHeadMedium(
+                            LocaleKeys.signUp_Resend_again.tr(),
+                            color: context.colorScheme.primary,
+                          ))
+                    ],
                   ),
                 ],
               ),
             ),
-            const Spacer(),
-            Padding(
-              padding: REdgeInsets.symmetric(horizontal: 16),
-              child: AppButton.dark(
-                onPressed: () => context.pushNamed(SetPasswordPage.name),
-                title: 'Verify',
-              ),
-            ),
-            16.verticalSpace
           ],
         ));
   }

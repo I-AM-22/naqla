@@ -1,19 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user/core/config/themes/utils.dart';
 import 'package:user/core/core.dart';
-import 'package:user/core/global_widgets/app_text.dart';
 import 'package:user/core/global_widgets/app_text_field.dart';
 import 'package:user/core/global_widgets/word_divider.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:user/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:user/features/app/presentation/widgets/params_appbar.dart';
 import 'package:user/features/auth/presentation/pages/registration/phone_verfication.dart';
+import 'package:user/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:user/features/auth/presentation/widgets/custom_social.dart';
 import 'package:user/generated/flutter_gen/assets.gen.dart';
+import 'package:user/generated/locale_keys.g.dart';
+
+import '../../widgets/mobile_number_field.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -28,87 +30,88 @@ class RegisterPage extends StatelessWidget {
         body: Container(
           padding: REdgeInsets.symmetric(horizontal: kpPaddingPage),
           height: context.bodyHeight,
-          child: ListView(
-            children: [
-              12.verticalSpace,
-              AppText.titleMedium(
-                'Sign Up',
-              ),
-              20.verticalSpace,
-              AppTextFormField(
-                hintText: 'Name',
-              ),
-              20.verticalSpace,
-              AppTextFormField(
-                hintText: 'Email',
-              ),
-              20.verticalSpace,
-              AppTextFormField(
-                hintText: '+880 Your mobile number',
-                suffixIcon: Padding(
-                  padding: REdgeInsets.all(12.0),
-                  child: AppImage.asset(Assets.icons.arrow.downArrow.path),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppText.titleMedium(
+                  LocaleKeys.signUp_sign_up.tr(),
                 ),
-              ),
-              20.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppImage.asset(
-                    Assets.icons.essential.checkCircle.path,
-                    color: context.colorScheme.success,
-                    size: 24.r,
+                30.verticalSpace,
+                Center(
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundColor:
+                            context.colorScheme.systemGray.shade200,
+                      ),
+                      CircleAvatar(
+                        backgroundColor: context.colorScheme.primary,
+                        child: AppImage.asset(
+                          Assets.icons.essential.camera.path,
+                          size: 30.r,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
                   ),
-                  Expanded(
-                    child: RichText(
-                        text: TextSpan(
-                            style: context.textTheme.bodyMedium,
-                            children: [
-                          TextSpan(
-                            text: 'By signing up. you agree to the ',
-                            style: context.textTheme.bodyMedium!.copyWith(
-                                color: context.colorScheme.systemGray.shade300),
-                          ),
-                          const TextSpan(text: 'Terms of service'),
-                          TextSpan(
-                            text: ' and ',
-                            style: context.textTheme.bodyMedium!.copyWith(
-                                color: context.colorScheme.systemGray.shade300),
-                          ),
-                          const TextSpan(text: 'Privacy policy.')
-                        ])),
-                  ),
-                ],
-              ),
-              20.verticalSpace,
-              AppButton.dark(
-                onPressed: () => context.pushNamed(PhoneVerificationPage.name),
-                stretch: true,
-                title: 'Sign Up',
-                fixedSize: Size.fromHeight(48.h),
-              ),
-              20.verticalSpace,
-              const WordDivider(),
-              15.verticalSpace,
-              const CustomSocial(),
-              40.verticalSpace,
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  style: context.textTheme.bodyMedium,
+                ),
+                20.verticalSpace,
+                Row(
                   children: [
-                    TextSpan(
-                      text: 'Already have an account? ',
-                      style: context.textTheme.bodyMedium!.copyWith(
-                          color: context.colorScheme.systemGray.shade700),
+                    Expanded(
+                      child: AppTextFormField(
+                        hintText: LocaleKeys.signUp_first_name.tr(),
+                      ),
                     ),
-                    const TextSpan(text: 'Sign in'),
+                    8.horizontalSpace,
+                    Expanded(
+                      child: AppTextFormField(
+                        hintText: LocaleKeys.signUp_last_name.tr(),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              20.verticalSpace
-            ],
+                20.verticalSpace,
+                AppTextFormField(
+                  hintText: LocaleKeys.signUp_mobile_number.tr(),
+                ),
+                20.verticalSpace,
+                AppMobileNumberField(
+                  hintText: LocaleKeys.signUp_city.tr(),
+                  isPassword: false,
+                ),
+                20.verticalSpace,
+                AppButton.dark(
+                  onPressed: () =>
+                      context.pushNamed(PhoneVerificationPage.name),
+                  stretch: true,
+                  title: LocaleKeys.signUp_sign_up.tr(),
+                  fixedSize: Size.fromHeight(48.h),
+                ),
+                20.verticalSpace,
+                const WordDivider(),
+                15.verticalSpace,
+                const CustomSocial(),
+                40.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText.bodyMedium(
+                        LocaleKeys.signUp_Already_have_an_account.tr(),
+                        color: context.colorScheme.systemGray.shade700),
+                    TextButton(
+                        onPressed: () => context.pushNamed(SignInPage.name),
+                        child: AppText.bodyMedium(
+                          LocaleKeys.signUp_login.tr(),
+                        ))
+                  ],
+                ),
+                20.verticalSpace
+              ],
+            ),
           ),
         ));
   }

@@ -6,8 +6,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user/core/core.dart';
 
-class AppTextFormField extends StatelessWidget {
-  AppTextFormField({
+class AppTextFormField extends StatefulWidget {
+  const AppTextFormField({
     this.controller,
     this.initialValue,
     this.focusNode,
@@ -87,6 +87,7 @@ class AppTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.prefixIconConstraints,
     this.height,
+    this.valueTransformer,
   });
 
   final TextEditingController? controller;
@@ -119,6 +120,7 @@ class AppTextFormField extends StatelessWidget {
   final bool? expands;
   final int? maxLength;
   final ValueChanged<String?>? onChanged;
+  final dynamic Function(String?)? valueTransformer;
   final GestureTapCallback? onTap;
   final TapRegionCallback? onTapOutside;
   final VoidCallback? onEditingComplete;
@@ -172,132 +174,148 @@ class AppTextFormField extends StatelessWidget {
   final bool? alignLabelWithHint;
   final double? height;
 
-  final ValueNotifier<bool> obscureTextValue = ValueNotifier(true);
+  @override
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
+}
+
+class _AppTextFormFieldState extends State<AppTextFormField> {
+  late final ValueNotifier<bool> obscureTextValue;
+  @override
+  void initState() {
+    obscureTextValue = ValueNotifier(widget.isPasswordField);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? EdgeInsets.zero,
+      padding: widget.margin ?? EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ValueListenableBuilder(
             valueListenable: obscureTextValue,
             builder: (context, obscureValue, _) => Material(
-              elevation: elevation,
+              elevation: widget.elevation,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
               shadowColor: context.colorScheme.shadow.withOpacity(.2),
               child: SizedBox(
-                height: minLines != null ? height : 48.h,
+                height: widget.minLines != null ? widget.height : 48.h,
                 child: FormBuilderTextField(
-                  name: name ?? label ?? '',
-                  controller: controller,
-                  initialValue: initialValue,
-                  focusNode: focusNode,
-                  decoration: decoration ??
+                  name: widget.name ?? widget.label ?? '',
+                  controller: widget.controller,
+                  initialValue: widget.initialValue,
+                  focusNode: widget.focusNode,
+                  decoration: widget.decoration ??
                       InputDecoration(
-                        label: label != null ? AppText(label!) : null,
-                        hintText: hintText,
-                        hintStyle: hintStyle ??
+                        label: widget.label != null
+                            ? AppText(widget.label!)
+                            : null,
+                        hintText: widget.hintText,
+                        hintStyle: widget.hintStyle ??
                             context.textTheme.bodyMedium
                                 ?.copyWith(color: const Color(0xff98A2B3)),
                         floatingLabelAlignment: FloatingLabelAlignment.start,
-                        hintMaxLines: hintMaxLines,
-                        hintTextDirection: hintTextDirection,
+                        hintMaxLines: widget.hintMaxLines,
+                        hintTextDirection: widget.hintTextDirection,
                         contentPadding: REdgeInsetsDirectional.only(
                             start: 16, top: 16, bottom: 10),
-                        fillColor: fillColor ?? context.colorScheme.onPrimary,
+                        fillColor:
+                            widget.fillColor ?? context.colorScheme.onPrimary,
                         focusColor: context.colorScheme.surface,
-                        alignLabelWithHint: alignLabelWithHint,
-                        suffixIcon: isPasswordField
+                        alignLabelWithHint: widget.alignLabelWithHint,
+                        suffixIcon: widget.isPasswordField
                             ? eyeIcon(obscureValue, context)
-                            : suffixIcon,
+                            : widget.suffixIcon,
                         prefixIconConstraints: BoxConstraints(
                             maxHeight: 40.h, minHeight: 10.h, minWidth: 40.w),
-                        prefixIcon: prefixIcon,
-                        filled: filled,
-                        border: border ??
+                        prefixIcon: widget.prefixIcon,
+                        filled: widget.filled,
+                        border: widget.border ??
                             OutlineInputBorder(
                               borderSide: BorderSide(
                                   color:
                                       context.colorScheme.systemGray.shade300),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                        enabledBorder: enabledBorder ??
+                        enabledBorder: widget.enabledBorder ??
                             OutlineInputBorder(
                               borderSide: BorderSide(
                                   color:
                                       context.colorScheme.systemGray.shade300),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                        focusedBorder: focusedBorder ??
+                        focusedBorder: widget.focusedBorder ??
                             OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: context.colorScheme.primary),
                               borderRadius: BorderRadius.circular(8),
                             ),
                       ).applyDefaults(
-                        context.theme.inputDecorationTheme
-                            .copyWith(alignLabelWithHint: alignLabelWithHint),
+                        context.theme.inputDecorationTheme.copyWith(
+                            alignLabelWithHint: widget.alignLabelWithHint),
                       ),
-                  keyboardType: keyboardType,
+                  keyboardType: widget.keyboardType,
+                  valueTransformer: widget.valueTransformer,
                   textCapitalization:
-                      textCapitalization ?? TextCapitalization.none,
-                  textInputAction: textInputAction,
-                  style: style,
-                  strutStyle: strutStyle,
-                  textDirection: textDirection,
-                  textAlign: textAlign ?? TextAlign.start,
-                  textAlignVertical: textAlignVertical,
-                  autofocus: autofocus ?? false,
-                  readOnly: readOnly ?? false,
-                  showCursor: showCursor,
-                  obscuringCharacter: obscuringCharacter ?? '•',
+                      widget.textCapitalization ?? TextCapitalization.none,
+                  textInputAction: widget.textInputAction,
+                  style: widget.style,
+                  strutStyle: widget.strutStyle,
+                  textDirection: widget.textDirection,
+                  textAlign: widget.textAlign ?? TextAlign.start,
+                  textAlignVertical: widget.textAlignVertical,
+                  autofocus: widget.autofocus ?? false,
+                  readOnly: widget.readOnly ?? false,
+                  showCursor: widget.showCursor,
+                  obscuringCharacter: widget.obscuringCharacter ?? '•',
                   obscureText: obscureValue,
-                  autocorrect: autocorrect ?? true,
-                  smartDashesType: smartDashesType,
-                  smartQuotesType: smartQuotesType,
-                  enableSuggestions: enableSuggestions ?? true,
-                  maxLengthEnforcement: maxLengthEnforcement,
-                  maxLines: maxLines,
-                  minLines: minLines,
-                  expands: expands ?? false,
-                  maxLength: maxLength,
-                  onChanged: onChanged,
-                  onTap: onTap,
-                  onTapOutside: onTapOutside,
-                  onEditingComplete: onEditingComplete,
-                  onSaved: onSaved,
-                  validator: validator,
-                  inputFormatters: inputFormatters,
-                  enabled: enabled,
-                  cursorWidth: cursorWidth ?? 2.0,
-                  cursorHeight: cursorHeight,
-                  cursorRadius: cursorRadius,
-                  cursorColor: cursorColor,
-                  keyboardAppearance: keyboardAppearance,
-                  scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
-                  enableInteractiveSelection: enableInteractiveSelection,
-                  buildCounter: buildCounter,
-                  scrollPhysics: scrollPhysics,
-                  autofillHints: autofillHints,
-                  autovalidateMode: autovalidateMode,
-                  scrollController: scrollController,
-                  restorationId: restorationId,
-                  mouseCursor: mouseCursor,
-                  contextMenuBuilder: contextMenuBuilder,
-                  magnifierConfiguration: magnifierConfiguration,
+                  autocorrect: widget.autocorrect ?? true,
+                  smartDashesType: widget.smartDashesType,
+                  smartQuotesType: widget.smartQuotesType,
+                  enableSuggestions: widget.enableSuggestions ?? true,
+                  maxLengthEnforcement: widget.maxLengthEnforcement,
+                  maxLines: widget.maxLines,
+                  minLines: widget.minLines,
+                  expands: widget.expands ?? false,
+                  maxLength: widget.maxLength,
+                  onChanged: widget.onChanged,
+                  onTap: widget.onTap,
+                  onTapOutside: widget.onTapOutside,
+                  onEditingComplete: widget.onEditingComplete,
+                  onSaved: widget.onSaved,
+                  validator: widget.validator,
+                  inputFormatters: widget.inputFormatters,
+                  enabled: widget.enabled,
+                  cursorWidth: widget.cursorWidth ?? 2.0,
+                  cursorHeight: widget.cursorHeight,
+                  cursorRadius: widget.cursorRadius,
+                  cursorColor: widget.cursorColor,
+                  keyboardAppearance: widget.keyboardAppearance,
+                  scrollPadding:
+                      widget.scrollPadding ?? const EdgeInsets.all(20.0),
+                  enableInteractiveSelection: widget.enableInteractiveSelection,
+                  buildCounter: widget.buildCounter,
+                  scrollPhysics: widget.scrollPhysics,
+                  autofillHints: widget.autofillHints,
+                  autovalidateMode: widget.autovalidateMode,
+                  scrollController: widget.scrollController,
+                  restorationId: widget.restorationId,
+                  mouseCursor: widget.mouseCursor,
+                  contextMenuBuilder: widget.contextMenuBuilder,
+                  magnifierConfiguration: widget.magnifierConfiguration,
                   dragStartBehavior:
-                      dragStartBehavior ?? DragStartBehavior.start,
-                  contentInsertionConfiguration: contentInsertionConfiguration,
+                      widget.dragStartBehavior ?? DragStartBehavior.start,
+                  contentInsertionConfiguration:
+                      widget.contentInsertionConfiguration,
                 ),
               ),
             ),
           ),
-          if (description != null) ...{
+          if (widget.description != null) ...{
             AppText.subHeadMedium(
-              description!,
+              widget.description!,
               color: const Color(0xff98A2B3),
               fontWeight: FontWeight.w400,
             ),
