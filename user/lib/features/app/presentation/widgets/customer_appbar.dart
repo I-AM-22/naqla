@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user/core/core.dart';
 import 'package:user/features/app/presentation/widgets/params_appbar.dart';
@@ -11,7 +10,7 @@ class CustomerAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomerAppBar({
     super.key,
     required this.appBarParams,
-    required this.back,
+    this.back = true,
   });
 
   final AppBarParams appBarParams;

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:user/core/core.dart';
 import 'package:user/features/app/presentation/widgets/app_scaffold.dart';
@@ -21,6 +22,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {});
+
     super.initState();
   }
 
