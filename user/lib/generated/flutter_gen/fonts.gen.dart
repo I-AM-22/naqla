@@ -10,8 +10,8 @@
 class FontFamily {
   FontFamily._();
 
-  /// Font family: poppins
-  static const String poppins = 'poppins';
+  /// Font family: noor
+  static const String noor = 'noor';
 
   /// Font family: rubik
   static const String rubik = 'rubik';

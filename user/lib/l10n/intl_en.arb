@@ -1,0 +1,29 @@
+{
+  "@@locale": "en",
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "day": "day",
+  "month": "Month",
+  "ago": "ago",
+  "minute": "minute",
+  "hour": "hour",
+  "second": "second",
+
+  "anywhere_you_are": "Anywhere you are",
+  "sell_houses_easily_with_the_help_of_Listenoryx": "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more",
+  "at_anytime": "At anytime",
+  "book_your_car": "Book your car",
+
+  "enable_your_location": "Enable your location",
+  "choose_your_location_to_start": "Choose your location to start find the request around you",
+  "use_my_location": "Use my location",
+  "skip_for_now": "Skip for now",
+  "Welcome": "Welcome",
+  "have_a_better_sharing_experience": "Have a better sharing experience",
+  "create_an_account": "Create an account",
+  "log_in": "Log In",
+  "skip": "Skip",
+  "go": "GO"
+}

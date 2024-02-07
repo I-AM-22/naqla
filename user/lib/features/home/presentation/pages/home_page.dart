@@ -1,5 +1,4 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -11,8 +10,6 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
-import 'package:naqla/generated/locale_keys.g.dart';
-
 import '../../../../services/location_map_service.dart';
 import '../../../app/presentation/widgets/loading_indicator.dart';
 
@@ -40,10 +37,10 @@ class _HomePageState extends State<HomePage> {
           width: context.fullWidth - 16,
           child: Column(
             children: [
-              AppText.titleMedium(LocaleKeys.signUp_Congratulations.tr()),
+              AppText.titleMedium('sign up'),
               7.verticalSpace,
               AppText.bodySmMedium(
-                LocaleKeys.signUp_Your_account_is_ready_to_use.tr(),
+                'sign up',
               ),
             ],
           ),

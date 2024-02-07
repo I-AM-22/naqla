@@ -10,14 +10,14 @@ import '../api/log_interceptor.dart';
 import '../common/constants/configuration/uri_routs.dart';
 import 'di_container.config.dart';
 
-final _getIt = GetIt.I;
+final getIt = GetIt.I;
 
 @InjectableInit(
   initializerName: r'$initGetIt',
   preferRelativeImports: true,
   asExtension: false,
 )
-Future<GetIt> configureDependencies() async => $initGetIt(_getIt);
+Future<GetIt> configureDependencies() async => $initGetIt(getIt);
 
 @module
 abstract class AppModule {

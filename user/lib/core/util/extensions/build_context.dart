@@ -12,6 +12,8 @@ extension BuildContextExtension on BuildContext {
   double get fullWidth => mediaQuery.size.width;
   double get fullHeight => mediaQuery.size.height;
 
+  get locale => Localizations.localeOf(this);
+
   double get bodyHeight {
     Size size = mediaQuery.size;
     double statusBar = mediaQuery.viewPadding.top;

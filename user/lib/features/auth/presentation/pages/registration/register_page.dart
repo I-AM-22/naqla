@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +12,6 @@ import 'package:naqla/features/auth/presentation/pages/registration/phone_verfic
 import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
-import 'package:naqla/generated/locale_keys.g.dart';
 
 import '../../widgets/mobile_number_field.dart';
 
@@ -35,7 +33,7 @@ class RegisterPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 AppText.titleMedium(
-                  LocaleKeys.signUp_sign_up.tr(),
+                  'LocaleKeys.signUp_sign_up.tr()',
                 ),
                 30.verticalSpace,
                 Center(
@@ -63,24 +61,24 @@ class RegisterPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: AppTextFormField(
-                        hintText: LocaleKeys.signUp_first_name.tr(),
+                        hintText: 'LocaleKeys.signUp_first_name.tr()',
                       ),
                     ),
                     8.horizontalSpace,
                     Expanded(
                       child: AppTextFormField(
-                        hintText: LocaleKeys.signUp_last_name.tr(),
+                        hintText: 'LocaleKeys.signUp_last_name.tr()',
                       ),
                     ),
                   ],
                 ),
                 20.verticalSpace,
                 AppTextFormField(
-                  hintText: LocaleKeys.signUp_mobile_number.tr(),
+                  hintText: 'LocaleKeys.signUp_mobile_number.tr()',
                 ),
                 20.verticalSpace,
                 AppMobileNumberField(
-                  hintText: LocaleKeys.signUp_city.tr(),
+                  hintText: 'LocaleKeys.signUp_city.tr()',
                   isPassword: false,
                 ),
                 20.verticalSpace,
@@ -88,7 +86,7 @@ class RegisterPage extends StatelessWidget {
                   onPressed: () =>
                       context.pushNamed(PhoneVerificationPage.name),
                   stretch: true,
-                  title: LocaleKeys.signUp_sign_up.tr(),
+                  title: ' LocaleKeys.signUp_sign_up.tr()',
                   fixedSize: Size.fromHeight(48.h),
                 ),
                 20.verticalSpace,
@@ -100,12 +98,12 @@ class RegisterPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AppText.bodyMedium(
-                        LocaleKeys.signUp_Already_have_an_account.tr(),
+                        'LocaleKeys.signUp_Already_have_an_account.tr()',
                         color: context.colorScheme.systemGray.shade700),
                     TextButton(
                         onPressed: () => context.pushNamed(SignInPage.name),
                         child: AppText.bodyMedium(
-                          LocaleKeys.signUp_login.tr(),
+                          'LocaleKeys.signUp_login.tr()',
                         ))
                   ],
                 ),

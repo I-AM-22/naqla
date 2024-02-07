@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:naqla/core/core.dart';
 
 import '../../../../core/util/responsive_padding.dart';
+import '../../../../generated/l10n.dart';
 
 class OnBoardingSlide extends StatelessWidget {
   const OnBoardingSlide(
@@ -64,10 +65,13 @@ class OnBoardingSlide extends StatelessWidget {
                 shape: BoxShape.circle),
             child: Center(
                 child: num == 2.5
-                    ? Text(
-                        'GO',
-                        style: context.textTheme.labelMedium!
-                            .copyWith(color: context.colorScheme.textAndIcon),
+                    ? TextButton(
+                        onPressed: onPressed,
+                        child: AppText(
+                          S.of(context).go,
+                          style: context.textTheme.labelMedium!
+                              .copyWith(color: context.colorScheme.textAndIcon),
+                        ),
                       )
                     : IconButton(
                         onPressed: onPressed,

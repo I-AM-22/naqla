@@ -1,5 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +13,6 @@ import 'package:naqla/features/auth/presentation/pages/forgot_password_page.dart
 import 'package:naqla/features/auth/presentation/pages/registration/phone_verfication.dart';
 import 'package:naqla/features/auth/presentation/pages/registration/register_page.dart';
 import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
-import 'package:naqla/generated/locale_keys.g.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -35,10 +32,10 @@ class SignInPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               30.verticalSpace,
-              AppText.titleMedium(LocaleKeys.signUp_login.tr()),
+              AppText.titleMedium(''),
               30.verticalSpace,
               AppTextFormField(
-                hintText: LocaleKeys.signUp_mobile_number.tr(),
+                hintText: '',
                 keyboardType: TextInputType.number,
                 valueTransformer: (value) {
                   String manimbulatedValue = '$value';
@@ -53,13 +50,13 @@ class SignInPage extends StatelessWidget {
               AppTextFormField(
                 isPasswordField: true,
                 obscureText: true,
-                hintText: LocaleKeys.signUp_EnterYourPassword.tr(),
+                hintText: '',
               ),
               10.verticalSpace,
               TextButton(
                 onPressed: () => context.pushNamed(ForgotPasswordPage.name),
                 child: AppText.subHeadMedium(
-                  LocaleKeys.signUp_ForgetPassword.tr(),
+                  '',
                   color: context.colorScheme.error,
                 ),
               ),
@@ -70,7 +67,7 @@ class SignInPage extends StatelessWidget {
                   onPressed: () =>
                       context.pushNamed(PhoneVerificationPage.name),
                   stretch: true,
-                  title: LocaleKeys.signUp_login.tr(),
+                  title: 'LocaleKeys.signUp_login.tr()',
                 ),
               ),
               20.verticalSpace,
@@ -82,12 +79,12 @@ class SignInPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppText.bodyMedium(
-                      LocaleKeys.signUp_Do_not_have_an_account.tr(),
+                      'LocaleKeys.signUp_Do_not_have_an_account.tr()',
                       color: context.colorScheme.systemGray.shade700),
                   TextButton(
                       onPressed: () => context.pushNamed(RegisterPage.name),
                       child: AppText.bodyMedium(
-                        LocaleKeys.signUp_CreateAccount.tr(),
+                        'LocaleKeys.signUp_CreateAccount.tr()',
                       ))
                 ],
               ),

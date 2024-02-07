@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -7,7 +6,6 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
-import 'package:naqla/generated/locale_keys.g.dart';
 
 import 'forgot_password_sms_page.dart';
 
@@ -23,7 +21,7 @@ class ForgotPasswordPage extends StatelessWidget {
               REdgeInsets.symmetric(horizontal: kpPaddingPage, vertical: 10),
           child: AppButton.dark(
             onPressed: () => context.pushNamed(ForgotPasswordSmsPage.name),
-            title: LocaleKeys.Continue.tr(),
+            title: 'continue',
             stretch: true,
           ),
         ),
@@ -38,12 +36,12 @@ class ForgotPasswordPage extends StatelessWidget {
             children: [
               30.verticalSpace,
               AppText.titleMedium(
-                LocaleKeys.signUp_ForgetPassword.tr(),
+                'forgot password',
                 textAlign: TextAlign.center,
               ),
               12.verticalSpace,
               AppText.bodyRegular(
-                LocaleKeys.signUp_we_will_send_a_code.tr(),
+                'LocaleKeys.signUp_we_will_send_a_code.tr()',
                 textAlign: TextAlign.center,
               ),
               12.verticalSpace,

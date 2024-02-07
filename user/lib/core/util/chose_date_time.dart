@@ -1,22 +1,22 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 
-import '../../generated/locale_keys.g.dart';
+import '../../generated/l10n.dart';
 
 class ChoseDateTime {
-  String chose(DateTime createdAt) {
+  String chose(DateTime createdAt, BuildContext context) {
     final date = DateTime.now().difference(createdAt);
-    if (date.inMinutes < 60) {
-      return ' ${LocaleKeys.date_ago.tr()} ${date.inMinutes} ${LocaleKeys.date_minute.tr()} ';
+    if (date.inSeconds < 60) {
+      return ' ${S.of(context).ago} ${date.inDays} ${S.of(context).second} ';
+    } else if (date.inMinutes < 60) {
+      return ' ${S.of(context).ago} ${date.inMinutes} ${S.of(context).minute} ';
     } else if (date.inHours < 24) {
-      return '  ${LocaleKeys.date_ago.tr()} ${date.inHours} ${LocaleKeys.date_hour.tr()} ';
     } else if (date.inDays < 7) {
-      return ' ${LocaleKeys.date_ago.tr()} ${date.inDays} ${LocaleKeys.date_day.tr()} ';
-    } else if (date.inSeconds < 60) {
-      return ' ${LocaleKeys.date_ago.tr()} ${date.inDays} ${LocaleKeys.date_second.tr()} ';
+      return ' ${S.of(context).ago} ${date.inDays} ${S.of(context).day} ';
     } else {
       return '${createdAt.year}-'
           '${createdAt.month}-'
           '${createdAt.day}';
     }
+    return ' ${S.of(context).ago} ${date.inHours} ${S.of(context).hour} ';
   }
 }

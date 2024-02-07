@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +8,6 @@ import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/auth/presentation/pages/set_new_password_page.dart';
 import 'package:naqla/features/auth/presentation/widgets/verification_number.dart';
-import 'package:naqla/generated/locale_keys.g.dart';
 
 class ForgotPasswordSmsPage extends StatelessWidget {
   const ForgotPasswordSmsPage({super.key});
@@ -24,7 +22,7 @@ class ForgotPasswordSmsPage extends StatelessWidget {
               REdgeInsets.symmetric(horizontal: kpPaddingPage, vertical: 10),
           child: AppButton.dark(
             onPressed: () => context.pushNamed(SetNewPasswordPage.name),
-            title: LocaleKeys.signUp_Verify.tr(),
+            title: 'LocaleKeys.signUp_Verify.tr()',
             stretch: true,
           ),
         ),
@@ -40,7 +38,7 @@ class ForgotPasswordSmsPage extends StatelessWidget {
               30.verticalSpace,
               Center(
                 child: AppText.titleMedium(
-                  LocaleKeys.signUp_ForgetPassword.tr(),
+                  'LocaleKeys.signUp_ForgetPassword.tr()',
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -49,7 +47,7 @@ class ForgotPasswordSmsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppText.bodyRegular(
-                    '${LocaleKeys.signUp_Code_has_been_send_to.tr()} ',
+                    '{LocaleKeys.signUp_Code_has_been_send_to.tr()} ',
                     textAlign: TextAlign.center,
                   ),
                   AppText.bodyRegular(
@@ -68,12 +66,12 @@ class ForgotPasswordSmsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppText.bodyMedium(
-                      LocaleKeys.signUp_Did_not_receive_code.tr(),
+                      'LocaleKeys.signUp_Did_not_receive_code.tr()',
                       color: context.colorScheme.systemGray.shade700),
                   TextButton(
                       onPressed: () {},
                       child: AppText.bodyMedium(
-                        LocaleKeys.signUp_Resend_again.tr(),
+                        'LocaleKeys.signUp_Resend_again.tr()',
                       ))
                 ],
               ),

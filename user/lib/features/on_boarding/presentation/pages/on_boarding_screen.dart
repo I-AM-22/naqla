@@ -8,6 +8,7 @@ import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/on_boarding/presentation/widget/on_boarding_slide.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
+import '../../../../generated/l10n.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -44,9 +45,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           children: [
             OnBoardingSlide(
               num: 0.9,
-              title: 'Anywhere you are',
+              title: S.of(context).anywhere_you_are,
               content:
-                  'Sell houses easily with the help of Listenoryx and to make this line bigI am writing more.',
+                  S.of(context).sell_houses_easily_with_the_help_of_Listenoryx,
               path: Assets.lottie.car4.path,
               onPressed: () {
                 _pageController.jumpToPage(_pageController.page!.toInt() + 1);
@@ -54,19 +55,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
             OnBoardingSlide(
               num: 1.6,
-              title: 'At anytime',
+              title: S.of(context).at_anytime,
               content:
-                  'Sell houses easily with the help of Listenoryx and to make this line big I am writing more.',
+                  S.of(context).sell_houses_easily_with_the_help_of_Listenoryx,
               path: Assets.lottie.car3.path,
               onPressed: () {
                 _pageController.jumpToPage(_pageController.page!.toInt() + 1);
               },
             ),
             OnBoardingSlide(
-              num: 2.49,
-              title: 'Anywhere you are',
+              num: 2.5,
+              title: S.of(context).book_your_car,
               content:
-                  'Sell houses easily with the help of Listenoryx and to make this line bigI am writing more.',
+                  S.of(context).sell_houses_easily_with_the_help_of_Listenoryx,
               path: Assets.lottie.car2.path,
               onPressed: () {
                 context.goNamed(GRouter.config.authRoutes.setLocation);

@@ -1,36 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:naqla/core/core.dart';
 
 enum LangCode { ar, en }
-
-const List<Locale> supportedLocal = [Locale('en'), Locale('ar')];
-
-const Locale defaultLocal = Locale('ar');
-
-final localMap = {
-  LangCode.en: const Locale('en'),
-  LangCode.ar: const Locale('ar'),
-};
-
-final mpaLanguageCodeToLocale = {
-  LangCode.en.name: const Locale('en'),
-  LangCode.ar.name: const Locale('ar'),
-};
-
-final languageNameAndLanguageCode = <String, LangCode>{
-  'English': LangCode.en,
-  'العربية': LangCode.ar,
-};
-
-final languageCodeAndLanguage = <String, String>{
-  'en': 'English',
-  'ar': 'Arabic',
-};
 
 class LanguageService {
   static late Locale currentLanguage;
   static late String languageCode;
-  static bool rtl = false;
+  static late bool rtl;
 
   final BuildContext context;
   static LanguageService? _instance;
@@ -41,10 +17,6 @@ class LanguageService {
     rtl = _rtl;
   }
 
-  static get isArabic => languageCode == 'ar';
-
-  static get isEn => languageCode == 'en';
-
   factory LanguageService(BuildContext context) {
     if (_instance != null) {
       if (context.locale.languageCode != languageCode) {
@@ -52,12 +24,34 @@ class LanguageService {
       }
       return _instance!;
     }
-    return _instance ??= LanguageService._singleton(context);
+    return LanguageService._singleton(context);
   }
 
-  Locale get _currentLanguage => context.locale;
+  Locale get _currentLanguage => Localizations.localeOf(context);
 
   String get _languageCode => _currentLanguage.languageCode;
 
   bool get _rtl => context.locale == localMap[LangCode.ar]!;
+
+  static const List<Locale> supportedLocales = [
+    Locale('ar', 'SY'),
+    Locale('en', 'US'),
+  ];
+
+  static const Locale defaultLocale = Locale('ar', 'SY');
+
+  static const Map<LangCode, Locale> localMap = {
+    LangCode.en: Locale('en', 'US'),
+    LangCode.ar: Locale('ar', 'SY'),
+  };
+
+  static const Map<String, Locale> mapLanguageCodeToLocale = {
+    'en': Locale('en', 'US'),
+    'ar': Locale('ar', 'SY'),
+  };
+
+  static const Map<String, LangCode> languageNameAndLanguageCode = {
+    'English': LangCode.en,
+    'Arabic': LangCode.ar,
+  };
 }
