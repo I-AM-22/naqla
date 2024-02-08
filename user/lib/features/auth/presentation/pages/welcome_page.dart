@@ -39,7 +39,7 @@ class WelcomePage extends StatelessWidget {
             AppButton.dark(
               stretch: true,
               onPressed: () {
-                context.pushNamed(RegisterPage.name);
+                context.pushNamed(RegisterPage.name, extra: true);
               },
               title: S.of(context).create_an_account,
             ),
@@ -50,7 +50,8 @@ class WelcomePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r)),
               child: Center(
                 child: AppButton.ghost(
-                  onPressed: () => context.pushNamed(SignInPage.name),
+                  onPressed: () =>
+                      context.pushNamed(SignInPage.name, extra: true),
                   title: S.of(context).log_in,
                 ),
               ),

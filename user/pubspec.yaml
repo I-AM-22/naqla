@@ -96,9 +96,6 @@ flutter:
 
 
   fonts:
-    - family: rubik
-      fonts:
-        - asset: assets/fonts/Rubik-VariableFont_wght.ttf
     - family: noor
       fonts:
         - asset: assets/fonts/ArbFONTS-AGCRegular.ttf

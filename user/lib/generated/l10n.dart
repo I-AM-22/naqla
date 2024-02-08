@@ -50,15 +50,7 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Hello World!`
-  String get helloWorld {
-    return Intl.message(
-      'Hello World!',
-      name: 'helloWorld',
-      desc: 'The conventional newborn programmer greeting',
-      args: [],
-    );
-  }
+  // skipped getter for the '*****************date*********************' key
 
   /// `day`
   String get day {
@@ -120,6 +112,8 @@ class S {
     );
   }
 
+  // skipped getter for the '****************onBoarding*****************' key
+
   /// `Anywhere you are`
   String get anywhere_you_are {
     return Intl.message(
@@ -159,6 +153,8 @@ class S {
       args: [],
     );
   }
+
+  // skipped getter for the '***************authentication***************' key
 
   /// `Enable your location`
   String get enable_your_location {
@@ -255,6 +251,266 @@ class S {
     return Intl.message(
       'GO',
       name: 'go',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `City`
+  String get city {
+    return Intl.message(
+      'City',
+      name: 'city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up `
+  String get sign_up {
+    return Intl.message(
+      'Sign up ',
+      name: 'sign_up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your mobile number`
+  String get your_mobile_number {
+    return Intl.message(
+      'Your mobile number',
+      name: 'your_mobile_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account? `
+  String get already_have_an_account {
+    return Intl.message(
+      'Already have an account? ',
+      name: 'already_have_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get sign_in {
+    return Intl.message(
+      'Sign in',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone verification`
+  String get phone_verification {
+    return Intl.message(
+      'Phone verification',
+      name: 'phone_verification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your `
+  String get enter_code {
+    return Intl.message(
+      'Enter your ',
+      name: 'enter_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OTP`
+  String get otp {
+    return Intl.message(
+      'OTP',
+      name: 'otp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` code`
+  String get your_code {
+    return Intl.message(
+      ' code',
+      name: 'your_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Didn’t receive code? `
+  String get did_not_receive_code {
+    return Intl.message(
+      'Didn’t receive code? ',
+      name: 'did_not_receive_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend again`
+  String get resend_again {
+    return Intl.message(
+      'Resend again',
+      name: 'resend_again',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify`
+  String get verify {
+    return Intl.message(
+      'Verify',
+      name: 'verify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set password`
+  String get set_password {
+    return Intl.message(
+      'Set password',
+      name: 'set_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set your password`
+  String get set_your_password {
+    return Intl.message(
+      'Set your password',
+      name: 'set_your_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Your Password`
+  String get enter_Your_Password {
+    return Intl.message(
+      'Enter Your Password',
+      name: 'enter_Your_Password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get confirm_Password {
+    return Intl.message(
+      'Confirm Password',
+      name: 'confirm_Password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At least 1 number or a special character`
+  String get at_least_number_or_a_special_character {
+    return Intl.message(
+      'At least 1 number or a special character',
+      name: 'at_least_number_or_a_special_character',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get register {
+    return Intl.message(
+      'Register',
+      name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full Name`
+  String get full_Name {
+    return Intl.message(
+      'Full Name',
+      name: 'full_Name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forget password?`
+  String get forget_password {
+    return Intl.message(
+      'Forget password?',
+      name: 'forget_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don’t have an account? `
+  String get do_not_have_an_account {
+    return Intl.message(
+      'Don’t have an account? ',
+      name: 'do_not_have_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Congratulations `
+  String get congratulations {
+    return Intl.message(
+      'Congratulations ',
+      name: 'congratulations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account is ready to use. You will be redirected to the Home Page in a few seconds.`
+  String get your_account_is_ready_to_use {
+    return Intl.message(
+      'Your account is ready to use. You will be redirected to the Home Page in a few seconds.',
+      name: 'your_account_is_ready_to_use',
       desc: '',
       args: [],
     );

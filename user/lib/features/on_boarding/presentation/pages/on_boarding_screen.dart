@@ -22,7 +22,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        appBar: CustomerAppBar(
+        appBar: AppAppBar(
           appBarParams: AppBarParams(
               backgroundColor: context.colorScheme.background,
               action: [

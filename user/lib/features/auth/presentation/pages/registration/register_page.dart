@@ -13,10 +13,13 @@ import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../widgets/mobile_number_field.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({super.key, required this.showTextButton});
+  final bool showTextButton;
+
   static String get name => '/RegisterPage';
   static String get path => '/RegisterPage';
 
@@ -24,7 +27,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomerAppBar(back: true, appBarParams: AppBarParams()),
+        appBar: AppAppBar(back: true, appBarParams: AppBarParams()),
         body: Container(
           padding: REdgeInsets.symmetric(horizontal: kpPaddingPage),
           height: context.bodyHeight,
@@ -33,7 +36,7 @@ class RegisterPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 AppText.titleMedium(
-                  'LocaleKeys.signUp_sign_up.tr()',
+                  S.of(context).create_an_account,
                 ),
                 30.verticalSpace,
                 Center(
@@ -61,52 +64,65 @@ class RegisterPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: AppTextFormField(
-                        hintText: 'LocaleKeys.signUp_first_name.tr()',
+                        hintText: S.of(context).full_Name,
+                        textInputAction: TextInputAction.next,
+                        maxLines: 1,
+                        keyboardType: TextInputType.name,
                       ),
                     ),
                     8.horizontalSpace,
                     Expanded(
                       child: AppTextFormField(
-                        hintText: 'LocaleKeys.signUp_last_name.tr()',
+                        hintText: S.of(context).full_Name,
+                        textInputAction: TextInputAction.next,
+                        maxLines: 1,
+                        keyboardType: TextInputType.name,
                       ),
                     ),
                   ],
                 ),
                 20.verticalSpace,
                 AppTextFormField(
-                  hintText: 'LocaleKeys.signUp_mobile_number.tr()',
-                ),
-                20.verticalSpace,
-                AppMobileNumberField(
-                  hintText: 'LocaleKeys.signUp_city.tr()',
-                  isPassword: false,
+                  hintText: S.of(context).your_mobile_number,
+                  textInputAction: TextInputAction.next,
+                  maxLines: 1,
+                  keyboardType: TextInputType.phone,
                 ),
                 20.verticalSpace,
                 AppButton.dark(
                   onPressed: () =>
                       context.pushNamed(PhoneVerificationPage.name),
                   stretch: true,
-                  title: ' LocaleKeys.signUp_sign_up.tr()',
+                  title: S.of(context).sign_up,
                   fixedSize: Size.fromHeight(48.h),
                 ),
                 20.verticalSpace,
                 const WordDivider(),
                 15.verticalSpace,
                 const CustomSocial(),
-                40.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppText.bodyMedium(
-                        'LocaleKeys.signUp_Already_have_an_account.tr()',
-                        color: context.colorScheme.systemGray.shade700),
-                    TextButton(
-                        onPressed: () => context.pushNamed(SignInPage.name),
+                if (showTextButton) ...{
+                  40.verticalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        flex: 3,
                         child: AppText.bodyMedium(
-                          'LocaleKeys.signUp_login.tr()',
-                        ))
-                  ],
-                ),
+                            S.of(context).already_have_an_account,
+                            color: context.colorScheme.systemGray.shade700),
+                      ),
+                      Flexible(
+                        flex: 2,
+                        child: TextButton(
+                            onPressed: () => context.pushNamed(SignInPage.name,
+                                extra: false),
+                            child: AppText.bodyMedium(
+                              S.of(context).log_in,
+                            )),
+                      )
+                    ],
+                  ),
+                },
                 20.verticalSpace
               ],
             ),

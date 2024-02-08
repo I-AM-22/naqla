@@ -37,7 +37,7 @@ class App extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   theme: theme.lightTheme,
                   routerConfig: GRouter.router,
-                  locale: LanguageService.supportedLocales.last,
+                  locale: LanguageService.supportedLocales.first,
                   localizationsDelegates: const [
                     S.delegate,
                     GlobalMaterialLocalizations.delegate,

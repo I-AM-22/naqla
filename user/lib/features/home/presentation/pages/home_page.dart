@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        appBar: CustomerAppBar(back: true, appBarParams: AppBarParams()),
+        appBar: AppAppBar(back: true, appBarParams: AppBarParams()),
         body: Column(
           children: [
             SizedBox(

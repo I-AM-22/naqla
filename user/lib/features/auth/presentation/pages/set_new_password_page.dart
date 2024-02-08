@@ -24,7 +24,7 @@ class SetNewPasswordPage extends StatelessWidget {
             title: 'LocaleKeys.Save.tr()',
           ),
         ),
-        appBar: CustomerAppBar(
+        appBar: AppAppBar(
           back: true,
           appBarParams: AppBarParams(),
         ),

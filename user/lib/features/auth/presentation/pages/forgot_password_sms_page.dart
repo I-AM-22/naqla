@@ -26,7 +26,7 @@ class ForgotPasswordSmsPage extends StatelessWidget {
             stretch: true,
           ),
         ),
-        appBar: CustomerAppBar(
+        appBar: AppAppBar(
           back: true,
           appBarParams: AppBarParams(),
         ),

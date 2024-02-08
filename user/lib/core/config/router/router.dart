@@ -63,7 +63,8 @@ class GRouter {
         GoRoute(
           path: RegisterPage.path,
           name: RegisterPage.name,
-          builder: (context, state) => const RegisterPage(),
+          builder: (context, state) =>
+              RegisterPage(showTextButton: state.extra as bool),
         ),
         GoRoute(
           path: PhoneVerificationPage.path,
@@ -73,7 +74,8 @@ class GRouter {
         GoRoute(
           path: SignInPage.path,
           name: SignInPage.name,
-          builder: (context, state) => const SignInPage(),
+          builder: (context, state) =>
+              SignInPage(showTextButton: state.extra as bool),
         ),
         GoRoute(
           path: ForgotPasswordPage.path,

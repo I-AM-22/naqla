@@ -7,6 +7,7 @@ import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/auth/presentation/widgets/verification_number.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../../home/presentation/pages/home_page.dart';
 
 class PhoneVerificationPage extends StatelessWidget {
@@ -23,48 +24,64 @@ class PhoneVerificationPage extends StatelessWidget {
           padding: REdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: AppButton.dark(
             onPressed: () => context.pushNamed(HomePage.name),
-            title: 'LocaleKeys.signUp_Verify.tr()',
+            title: S.of(context).verify,
           ),
         ),
-        appBar: CustomerAppBar(back: true, appBarParams: AppBarParams()),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: REdgeInsets.symmetric(horizontal: 50),
-              child: Column(
-                children: [
-                  30.verticalSpace,
-                  AppText.titleMedium(
-                    'LocaleKeys.signUp_phone_verification.tr()',
-                    textAlign: TextAlign.center,
-                  ),
-                  12.verticalSpace,
-                  AppText.bodyRegular(
-                    'LocaleKeys.signUp_Enter_your_OTP_code.tr()',
-                    textAlign: TextAlign.center,
-                  ),
-                  40.verticalSpace,
-                  const VerificationNumber(),
-                  20.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText.subHeadMedium(
-                          'LocaleKeys.signUp_Did_not_receive_code.tr()',
-                          color: context.colorScheme.systemGray.shade700),
-                      TextButton(
-                          onPressed: () {},
-                          child: AppText.subHeadMedium(
-                            'LocaleKeys.signUp_Resend_again.tr()',
-                            color: context.colorScheme.primary,
-                          ))
-                    ],
-                  ),
-                ],
+        appBar: AppAppBar(back: true, appBarParams: AppBarParams()),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: REdgeInsets.only(left: 50, right: 50, top: 30),
+                child: Column(
+                  children: [
+                    AppText.titleMedium(
+                      S.of(context).phone_verification,
+                      textAlign: TextAlign.center,
+                    ),
+                    12.verticalSpace,
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                            fontFamily: 'noor',
+                            color: context.colorScheme.systemGray,
+                            fontSize: 16.sp),
+                        children: [
+                          TextSpan(text: S.of(context).enter_code),
+                          TextSpan(text: S.of(context).otp),
+                          TextSpan(text: S.of(context).your_code)
+                        ],
+                      ),
+                    ),
+                    40.verticalSpace,
+                    VerificationNumber(
+                      onCompleted: (val) {
+                        context.pushNamed(HomePage.name);
+                      },
+                    ),
+                    20.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppText.subHeadMedium(
+                            S.of(context).did_not_receive_code,
+                            color: context.colorScheme.systemGray.shade700),
+                        Flexible(
+                          child: TextButton(
+                              onPressed: () {},
+                              child: AppText.subHeadMedium(
+                                S.of(context).resend_again,
+                                color: context.colorScheme.primary,
+                              )),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 }

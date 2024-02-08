@@ -24,33 +24,71 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
+        "already_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Already have an account? "),
         "anywhere_you_are":
             MessageLookupByLibrary.simpleMessage("Anywhere you are"),
         "at_anytime": MessageLookupByLibrary.simpleMessage("At anytime"),
+        "at_least_number_or_a_special_character":
+            MessageLookupByLibrary.simpleMessage(
+                "At least 1 number or a special character"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
         "book_your_car": MessageLookupByLibrary.simpleMessage("Book your car"),
         "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
             "Choose your location to start find the request around you"),
+        "city": MessageLookupByLibrary.simpleMessage("City"),
+        "confirm_Password":
+            MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "congratulations":
+            MessageLookupByLibrary.simpleMessage("Congratulations "),
         "create_an_account":
             MessageLookupByLibrary.simpleMessage("Create an account"),
         "day": MessageLookupByLibrary.simpleMessage("day"),
+        "did_not_receive_code":
+            MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
+        "do_not_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enable_your_location":
             MessageLookupByLibrary.simpleMessage("Enable your location"),
+        "enter_Your_Password":
+            MessageLookupByLibrary.simpleMessage("Enter Your Password"),
+        "enter_code": MessageLookupByLibrary.simpleMessage("Enter your "),
+        "forget_password":
+            MessageLookupByLibrary.simpleMessage("Forget password?"),
+        "full_Name": MessageLookupByLibrary.simpleMessage("Full Name"),
         "go": MessageLookupByLibrary.simpleMessage("GO"),
         "have_a_better_sharing_experience":
             MessageLookupByLibrary.simpleMessage(
                 "Have a better sharing experience"),
-        "helloWorld": MessageLookupByLibrary.simpleMessage("Hello World!"),
         "hour": MessageLookupByLibrary.simpleMessage("hour"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "otp": MessageLookupByLibrary.simpleMessage("OTP"),
+        "phone_verification":
+            MessageLookupByLibrary.simpleMessage("Phone verification"),
+        "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
         "sell_houses_easily_with_the_help_of_Listenoryx":
             MessageLookupByLibrary.simpleMessage(
                 "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more"),
+        "set_password": MessageLookupByLibrary.simpleMessage("Set password"),
+        "set_your_password":
+            MessageLookupByLibrary.simpleMessage("Set your password"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("Sign up "),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "use_my_location":
-            MessageLookupByLibrary.simpleMessage("Use my location")
+            MessageLookupByLibrary.simpleMessage("Use my location"),
+        "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
+            "Your account is ready to use. You will be redirected to the Home Page in a few seconds."),
+        "your_code": MessageLookupByLibrary.simpleMessage(" code"),
+        "your_mobile_number":
+            MessageLookupByLibrary.simpleMessage("Your mobile number")
       };
 }

@@ -1,9 +1,7 @@
 {
   "@@locale": "en",
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
+
+  "*****************date*********************": "",
   "day": "day",
   "month": "Month",
   "ago": "ago",
@@ -11,11 +9,13 @@
   "hour": "hour",
   "second": "second",
 
+  "****************onBoarding*****************": "",
   "anywhere_you_are": "Anywhere you are",
   "sell_houses_easily_with_the_help_of_Listenoryx": "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more",
   "at_anytime": "At anytime",
   "book_your_car": "Book your car",
 
+  "***************authentication***************": "",
   "enable_your_location": "Enable your location",
   "choose_your_location_to_start": "Choose your location to start find the request around you",
   "use_my_location": "Use my location",
@@ -25,5 +25,31 @@
   "create_an_account": "Create an account",
   "log_in": "Log In",
   "skip": "Skip",
-  "go": "GO"
+  "go": "GO",
+  "city": "City",
+  "sign_up": "Sign up ",
+  "name": "Name",
+  "email": "Email",
+  "your_mobile_number": "Your mobile number",
+  "back": "Back",
+  "already_have_an_account": "Already have an account? ",
+  "sign_in": "Sign in",
+  "phone_verification": "Phone verification",
+  "enter_code": "Enter your ",
+  "otp": "OTP",
+  "your_code": " code",
+  "did_not_receive_code": "Didn’t receive code? ",
+  "resend_again": "Resend again",
+  "verify": "Verify",
+  "set_password": "Set password",
+  "set_your_password": "Set your password",
+  "enter_Your_Password": "Enter Your Password",
+  "confirm_Password": "Confirm Password",
+  "at_least_number_or_a_special_character": "At least 1 number or a special character",
+  "register": "Register",
+  "full_Name": "Full Name",
+  "forget_password": "Forget password?",
+  "do_not_have_an_account": "Don’t have an account? ",
+  "congratulations": "Congratulations ",
+  "your_account_is_ready_to_use": "Your account is ready to use. You will be redirected to the Home Page in a few seconds."
 }

@@ -4,7 +4,8 @@ import 'package:pinput/pinput.dart';
 import 'package:naqla/core/core.dart';
 
 class VerificationNumber extends StatelessWidget {
-  const VerificationNumber({super.key});
+  const VerificationNumber({super.key, this.onCompleted});
+  final Function(String value)? onCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class VerificationNumber extends StatelessWidget {
       defaultPinTheme: const PinTheme(),
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 300),
+      onCompleted: onCompleted,
       cursor: Container(
         width: 50.w,
         height: 48.h,
