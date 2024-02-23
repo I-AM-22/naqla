@@ -11,6 +11,8 @@ import '../../../../generated/l10n.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
+  static const String path = "/WelcomePage";
+  static const String name = "WelcomePage";
 
   @override
   Widget build(BuildContext context) {

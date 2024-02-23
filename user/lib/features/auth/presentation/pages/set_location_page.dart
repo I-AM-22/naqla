@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:location/location.dart';
-import 'package:naqla/core/config/router/router.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
+import 'package:naqla/features/auth/presentation/pages/welcome_page.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
 import '../../../../generated/l10n.dart';
@@ -12,6 +12,8 @@ import '../../../../services/location_map_service.dart';
 
 class SetLocationPage extends StatefulWidget {
   const SetLocationPage({super.key});
+  static const String path = "/SetLocationPage";
+  static const String name = "SetLocationPage";
 
   @override
   State<SetLocationPage> createState() => _SetLocationPageState();
@@ -82,7 +84,7 @@ class _SetLocationPageState extends State<SetLocationPage> {
                     child: AppButton.ghost(
                       title: S.of(context).skip_for_now,
                       onPressed: () {
-                        context.goNamed(GRouter.config.authRoutes.welcome);
+                        context.goNamed(WelcomePage.name);
                       },
                     ),
                   ),

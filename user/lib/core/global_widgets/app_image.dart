@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 enum Source { assets, network }
 
+// ignore: must_be_immutable
 class AppImage extends StatelessWidget {
   AppImage.asset(
     this.path, {

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naqla/core/config/router/router_config.dart';
 
 import '../../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../../features/auth/presentation/pages/forgot_password_sms_page.dart';
@@ -27,36 +26,32 @@ GlobalKey<NavigatorState> get homeNavigatorKey => _homeNavigatorKey;
 class GRouter {
   static GoRouter get router => _router;
 
-  static RouterConfiguration get config => _config;
-
-  static final RouterConfiguration _config = RouterConfiguration.init();
-
   static final GoRouter _router = GoRouter(
-      initialLocation: _config.splashScreen,
+      initialLocation: HomePage.path,
       navigatorKey: _rootNavigatorKey,
       routes: <RouteBase>[
         GoRoute(
-            path: _config.splashScreen,
-            name: _config.splashScreen,
+            path: SplashScreen.path,
+            name: SplashScreen.name,
             pageBuilder: (BuildContext context, GoRouterState state) {
               return _builderPage(child: const SplashScreen(), state: state);
             }),
         GoRoute(
-            path: _config.onBoardingRoutes.onBoarding,
-            name: _config.onBoardingRoutes.onBoarding,
+            path: OnBoardingScreen.path,
+            name: OnBoardingScreen.name,
             pageBuilder: (BuildContext context, GoRouterState state) {
               return _builderPage(
                   child: const OnBoardingScreen(), state: state);
             }),
         GoRoute(
-            path: _config.authRoutes.setLocation,
-            name: _config.authRoutes.setLocation,
+            path: SetLocationPage.path,
+            name: SetLocationPage.name,
             pageBuilder: (BuildContext context, GoRouterState state) {
               return _builderPage(child: const SetLocationPage(), state: state);
             }),
         GoRoute(
-            path: _config.authRoutes.welcome,
-            name: _config.authRoutes.welcome,
+            path: WelcomePage.path,
+            name: WelcomePage.name,
             pageBuilder: (BuildContext context, GoRouterState state) {
               return _builderPage(child: const WelcomePage(), state: state);
             }),

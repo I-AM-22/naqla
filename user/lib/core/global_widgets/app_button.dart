@@ -631,6 +631,7 @@ class _AppButtonState extends State<AppButton> {
               if (_isLongerButton && pressed) {
                 return Colors.transparent;
               }
+              return Colors.transparent;
             }));
 
     switch (widget._typeButton) {

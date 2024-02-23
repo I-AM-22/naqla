@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 abstract class PrefsRepository {
   String? get token;
   Future<bool> setToken(String token);

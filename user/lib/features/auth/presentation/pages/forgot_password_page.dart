@@ -6,6 +6,7 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla/generated/l10n.dart';
 
 import 'forgot_password_sms_page.dart';
 
@@ -36,7 +37,7 @@ class ForgotPasswordPage extends StatelessWidget {
             children: [
               30.verticalSpace,
               AppText.titleMedium(
-                'forgot password',
+                S.of(context).forget_password,
                 textAlign: TextAlign.center,
               ),
               12.verticalSpace,

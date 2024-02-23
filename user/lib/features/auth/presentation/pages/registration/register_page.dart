@@ -14,7 +14,6 @@ import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../widgets/mobile_number_field.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key, required this.showTextButton});

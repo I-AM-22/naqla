@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naqla/core/config/router/router.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla/features/auth/presentation/pages/set_location_page.dart';
 import 'package:naqla/features/on_boarding/presentation/widget/on_boarding_slide.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
@@ -12,6 +12,8 @@ import '../../../../generated/l10n.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
+  static const String path = "/OnBoardingScreen";
+  static const String name = "/OnBoardingScreen";
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -27,8 +29,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               backgroundColor: context.colorScheme.background,
               action: [
                 TextButton(
-                  onPressed: () =>
-                      context.goNamed(GRouter.config.authRoutes.setLocation),
+                  onPressed: () => context.goNamed(SetLocationPage.name),
                   child: AppText.subHeadRegular(
                     'Skip',
                     color: context.colorScheme.onTertiary,
@@ -70,7 +71,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   S.of(context).sell_houses_easily_with_the_help_of_Listenoryx,
               path: Assets.lottie.car2.path,
               onPressed: () {
-                context.goNamed(GRouter.config.authRoutes.setLocation);
+                context.goNamed(SetLocationPage.name);
               },
             ),
           ],

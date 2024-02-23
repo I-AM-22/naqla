@@ -6,15 +6,11 @@ class HomeState {
   final PointLatLng? currentLocation;
   final PointLatLng? lastDestination;
   final String? lastOrderNumber;
-  final Marker? currentDestination;
-  final Marker? currentOrigin;
 
   const HomeState(
       {this.currentLocation,
       this.lastDestination,
       this.lastOrderNumber,
-      this.currentDestination,
-      this.currentOrigin,
       required this.polylineState});
 
   HomeState copyWith(
@@ -28,8 +24,6 @@ class HomeState {
         currentLocation: currentLocation ?? this.currentLocation,
         lastDestination: lastDestination ?? this.lastDestination,
         lastOrderNumber: lastOrderNumber ?? this.lastOrderNumber,
-        currentDestination: currentDestination ?? this.currentDestination,
-        currentOrigin: currentOrigin ?? this.currentOrigin,
         polylineState: polylineState ?? this.polylineState);
   }
 }

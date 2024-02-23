@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naqla/core/config/router/router.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/domain/repository/prefs_repository.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
+import 'package:naqla/features/home/presentation/pages/home_page.dart';
+import 'package:naqla/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+  static const String path = "/SplashScreen";
+  static const String name = "/SplashScreen";
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -20,9 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 2), () {
       if (GetIt.I<PrefsRepository>().registeredUser) {
         //final user = GetIt.I<PrefsRepository>().user!;
-        context.goNamed(GRouter.config.homeScreen.homeScreen);
+        context.goNamed(HomePage.name);
       } else {
-        context.goNamed(GRouter.config.onBoardingRoutes.onBoarding);
+        context.goNamed(OnBoardingScreen.name);
       }
     });
     super.initState();

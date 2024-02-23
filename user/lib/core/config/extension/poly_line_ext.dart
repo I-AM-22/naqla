@@ -1,4 +1,4 @@
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 extension PolylineExt on List<List<num>> {
   List<LatLng> unpackPolyline() =>
