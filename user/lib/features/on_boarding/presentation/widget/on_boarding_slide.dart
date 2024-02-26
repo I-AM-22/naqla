@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:naqla/core/core.dart';
 
-import '../../../../core/util/responsive_padding.dart';
 import '../../../../generated/l10n.dart';
 
 class OnBoardingSlide extends StatelessWidget {
@@ -28,12 +27,12 @@ class OnBoardingSlide extends StatelessWidget {
       children: [
         const Spacer(flex: 1),
         Padding(
-          padding: HWEdgeInsets.symmetric(horizontal: 10),
+          padding: REdgeInsets.symmetric(horizontal: 10),
           child: Lottie.asset(path),
         ),
         const Spacer(),
         Padding(
-          padding: HWEdgeInsets.symmetric(horizontal: 56),
+          padding: REdgeInsets.symmetric(horizontal: 56),
           child: Column(
             children: [
               AppText.titleMedium(

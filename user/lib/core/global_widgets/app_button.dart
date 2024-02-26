@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:naqla/core/config/themes/app_theme.dart';
-import 'package:naqla/core/config/themes/my_color_scheme.dart';
-import 'package:naqla/core/util/extensions/build_context.dart';
-
-import 'app_image.dart';
-import 'app_text.dart';
+import 'package:naqla/core/core.dart';
+import 'package:naqla/core/util/extensions.dart';
 
 ///enum
 enum ButtonSize {
@@ -22,7 +18,7 @@ enum ButtonSize {
   small
 }
 
-enum FocusedFilledButtonType { border, hideBackgroundColor, none }
+enum FocusedFilledButtonType { border, hideBackgroundColor, hover, none }
 
 enum AppButtonType {
   field,
@@ -32,7 +28,7 @@ enum AppButtonType {
   light,
   dark,
   gray,
-  payment
+  payment,
 }
 
 ///Type NamedConstructor
@@ -51,6 +47,7 @@ class AppButton extends StatefulWidget {
     this.style,
     this.fixedSize,
     this.margin,
+    this.isLoading = false,
   })  : _typeButton = AppButtonType.light,
         spaceBetweenItem = 0,
         postfixIcon = null,
@@ -71,6 +68,7 @@ class AppButton extends StatefulWidget {
     this.style,
     this.fixedSize,
     this.margin,
+    this.isLoading = false,
   })  : _typeButton = AppButtonType.dark,
         spaceBetweenItem = 0,
         postfixIcon = null,
@@ -90,6 +88,7 @@ class AppButton extends StatefulWidget {
     this.style,
     this.fixedSize,
     this.stretch = false,
+    this.isLoading = false,
     this.margin,
   })  : _typeButton = AppButtonType.gray,
         spaceBetweenItem = 0,
@@ -110,12 +109,13 @@ class AppButton extends StatefulWidget {
     super.key,
     this.style,
     this.fixedSize,
+    this.isLoading = false,
     this.margin,
   })  : title = "",
         _typeButton = AppButtonType.payment,
         spaceBetweenItem = 0,
         mainAxisAlignment = MainAxisAlignment.start,
-        prefixIcon = AppText.bodyRegular(
+        prefixIcon = AppText.bodySmMedium(
           leadingTitle,
           textAlign: TextAlign.start,
         ),
@@ -143,6 +143,7 @@ class AppButton extends StatefulWidget {
     this.fixedSize,
     this.focusedFilledType = FocusedFilledButtonType.border,
     this.margin,
+    this.isLoading = false,
   }) : _typeButton = AppButtonType.field;
 
   const AppButton.secondary({
@@ -162,6 +163,7 @@ class AppButton extends StatefulWidget {
     this.style,
     this.fixedSize,
     this.margin,
+    this.isLoading = false,
   })  : _typeButton = AppButtonType.secondary,
         focusedFilledType = FocusedFilledButtonType.none;
 
@@ -181,9 +183,10 @@ class AppButton extends StatefulWidget {
     super.key,
     this.style,
     this.fixedSize,
+    this.focusedFilledType = FocusedFilledButtonType.none,
     this.margin,
-  })  : _typeButton = AppButtonType.tertiary,
-        focusedFilledType = FocusedFilledButtonType.none;
+    this.isLoading = false,
+  }) : _typeButton = AppButtonType.tertiary;
 
   const AppButton.ghost({
     this.textStyle,
@@ -202,6 +205,7 @@ class AppButton extends StatefulWidget {
     this.style,
     this.fixedSize,
     this.margin,
+    this.isLoading = false,
   })  : _typeButton = AppButtonType.ghost,
         focusedFilledType = FocusedFilledButtonType.none;
 
@@ -210,6 +214,7 @@ class AppButton extends StatefulWidget {
   final ButtonStyle? style;
 
   ///Custom Parameter
+  final bool isLoading;
   final BorderRadiusGeometry? borderRadius;
   final ButtonSize buttonSize;
   final Widget? child;
@@ -223,8 +228,6 @@ class AppButton extends StatefulWidget {
   final double spaceBetweenItem;
   final FocusedFilledButtonType focusedFilledType;
 
-  ///this will make button take all space
-  ///TODO TEST IT ON ALL BUTTON TYPE
   final bool stretch;
 
   ///pass this will ignore [buttonSize]
@@ -239,21 +242,21 @@ class AppButton extends StatefulWidget {
 
 class _AppButtonState extends State<AppButton> {
   late final ValueNotifier<Color?> _overlayPostPrefixIconColor;
+  late final ValueNotifier<Color?> _overlayTextColor;
+
+  CrossFadeState get crossFadeState =>
+      widget.isLoading ? CrossFadeState.showSecond : CrossFadeState.showFirst;
 
   @override
   void initState() {
     super.initState();
     _overlayPostPrefixIconColor = ValueNotifier<Color?>(getIconColor);
+    _overlayTextColor = ValueNotifier<Color?>(null);
   }
 
   @override
   Widget build(BuildContext context) {
     assert(widget.child != null || widget.title != null);
-    // assert(
-    //     (widget.mainAxisAlignment != null &&
-    //             (widget.prefixIcon == null || widget.postfixIcon == null)) ||
-    //         (widget.mainAxisAlignment == null),
-    //     "you should pass either [prefixIcon] or [postfixIcon] when pass [mainAxisAlignment]");
     switch (widget._typeButton) {
       case AppButtonType.secondary:
       case AppButtonType.field:
@@ -264,7 +267,7 @@ class _AppButtonState extends State<AppButton> {
           child: Padding(
             padding: getMargin,
             child: ElevatedButton(
-              onPressed: widget.onPressed,
+              onPressed: getOnPressed(widget.onPressed),
               style: getButtonStyle(context),
               child: getChildButton(context),
             ),
@@ -278,7 +281,7 @@ class _AppButtonState extends State<AppButton> {
           child: Padding(
             padding: getMargin,
             child: OutlinedButton(
-              onPressed: widget.onPressed,
+              onPressed: getOnPressed(widget.onPressed),
               style: getButtonStyle(context),
               child: getChildButton(context),
             ),
@@ -288,11 +291,12 @@ class _AppButtonState extends State<AppButton> {
         return Padding(
           padding: getMargin,
           child: TextButton(
-            onPressed: widget.onPressed,
+            onPressed: getOnPressed(widget.onPressed),
             style: getButtonStyle(context),
             child: getChildButton(context),
           ),
         );
+
       case AppButtonType.light:
       case AppButtonType.dark:
       case AppButtonType.gray:
@@ -320,7 +324,7 @@ class _AppButtonState extends State<AppButton> {
                 : null,
           ),
           child: ElevatedButton(
-            onPressed: widget.onPressed,
+            onPressed: getOnPressed(widget.onPressed),
             style: getButtonStyle(context),
             child: getChildButton(context),
           ),
@@ -328,8 +332,29 @@ class _AppButtonState extends State<AppButton> {
     }
   }
 
+  Color? get getIconColor {
+    switch (widget._typeButton) {
+      case AppButtonType.secondary:
+      case AppButtonType.field:
+        return Colors.white;
+      //todo refactor colors
+      case AppButtonType.tertiary:
+      case AppButtonType.ghost:
+      case AppButtonType.light:
+      case AppButtonType.dark:
+      case AppButtonType.gray:
+      case AppButtonType.payment:
+        return null;
+    }
+  }
+
   void onTapUp(_) {
-    if (_isTertiary) {
+    if (_isTertiary &&
+        widget.focusedFilledType == FocusedFilledButtonType.hover) {
+      _overlayTextColor.value = _oldTextColor;
+
+      _overlayPostPrefixIconColor.value = _oldIconColor;
+    } else if (_isTertiary) {
       _overlayPostPrefixIconColor.value = _oldIconColor;
     }
     if (widget._typeButton == AppButtonType.field &&
@@ -341,9 +366,14 @@ class _AppButtonState extends State<AppButton> {
 
   ///save postfix icon color to use it when change color if icon when focused
   Color? _oldIconColor;
+  Color? _oldTextColor;
 
   void onTapDown(_) {
-    if (_isTertiary) {
+    if (_isTertiary &&
+        widget.focusedFilledType == FocusedFilledButtonType.hover) {
+      _overlayTextColor.value = context.colorScheme.onPrimary;
+      _overlayPostPrefixIconColor.value = context.colorScheme.onPrimary;
+    } else if (_isTertiary) {
       _overlayPostPrefixIconColor.value = context.colorScheme.onSurface;
     }
     if (widget._typeButton == AppButtonType.field &&
@@ -373,6 +403,23 @@ class _AppButtonState extends State<AppButton> {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         );
+    if (widget.isLoading) {
+      return FittedBox(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+              ),
+            ),
+            8.horizontalSpace,
+            AppText('loading'),
+            4.horizontalSpace,
+          ],
+        ),
+      );
+    }
     if (_isPayment) {
       return LayoutBuilder(
         builder: (context, constraints) {
@@ -394,6 +441,9 @@ class _AppButtonState extends State<AppButton> {
       if (widget.postfixIcon is AppImage && _oldIconColor == null) {
         _oldIconColor = (widget.postfixIcon as AppImage).color;
       }
+      if (buttonChild is AppText && _oldTextColor == null) {
+        _oldTextColor = (buttonChild).color;
+      }
       return ValueListenableBuilder(
           valueListenable: _overlayPostPrefixIconColor,
           builder: (context, val, child) {
@@ -412,7 +462,15 @@ class _AppButtonState extends State<AppButton> {
                   else
                     widget.prefixIcon!
                 ],
-                if (!_isPayment) buttonChild,
+                if (!_isPayment) ...{
+                  if (_isTertiary &&
+                      widget.focusedFilledType ==
+                          FocusedFilledButtonType.hover &&
+                      buttonChild is AppText)
+                    buttonChild.copyWith(color: _overlayTextColor.value)
+                  else
+                    buttonChild
+                },
                 if (widget.postfixIcon != null) ...[
                   if (widget.spaceBetweenItem != 0)
                     widget.spaceBetweenItem.horizontalSpace,
@@ -426,26 +484,18 @@ class _AppButtonState extends State<AppButton> {
             );
           });
     }
+
     return buttonChild;
   }
 
   TextStyle getTextStyle(BuildContext context) {
     if (_isLongerButton) {
       if (_isDark) {
-        return context.textTheme.subHeadWebMedium.medium
-            .copyWith(color: context.colorScheme.onPrimary);
-      } else if (_isGhost) {
-        return context.textTheme.subHeadWebMedium.medium
-            .copyWith(color: context.colorScheme.primary);
+        return context.textTheme.bodySmMedium;
       }
-      return context.textTheme.subHeadWebMedium.medium;
+      return context.textTheme.bodySmMedium;
     }
-    if (_isTertiary) {
-      return textTheme.subHeadWebMedium
-          .copyWith(color: context.colorScheme.onTertiary);
-    }
-    return textTheme.subHeadWebMedium
-        .merge(widget.textStyle ?? const TextStyle());
+    return textTheme.bodySmMedium.merge(widget.textStyle ?? const TextStyle());
   }
 
   bool get _isTertiary => widget._typeButton == AppButtonType.tertiary;
@@ -502,7 +552,11 @@ class _AppButtonState extends State<AppButton> {
   }
 
   BorderSide? getSide(Set<MaterialState> states) {
-    if (_isTertiary && states.contains(MaterialState.pressed)) {
+    if (_isTertiary &&
+        states.contains(MaterialState.pressed) &&
+        widget.focusedFilledType == FocusedFilledButtonType.hover) {
+      return BorderSide.none;
+    } else if (_isTertiary && states.contains(MaterialState.pressed)) {
       return BorderSide(
         color: context.colorScheme.onSurface,
         width: 2.r,
@@ -510,7 +564,7 @@ class _AppButtonState extends State<AppButton> {
     }
     if (_isTertiary && !isDisabled) {
       ///todo change this
-      return BorderSide(color: context.colorScheme.primary);
+      return BorderSide(color: Colors.grey.shade300);
     }
 
     if (widget._typeButton == AppButtonType.field &&
@@ -522,8 +576,7 @@ class _AppButtonState extends State<AppButton> {
       );
     }
     if (_isLight) {
-      return BorderSide(
-          color: context.colorScheme.systemGray.shade50, width: 1.r);
+      return BorderSide(color: context.colorScheme.primary, width: 1.r);
     }
 
     if (_isGray) {
@@ -533,11 +586,21 @@ class _AppButtonState extends State<AppButton> {
     return null;
   }
 
+  Function()? getOnPressed(void Function()? onPressed) {
+    if (widget.isLoading) return null;
+
+    return onPressed;
+  }
+
   ButtonStyle getButtonStyle(BuildContext context) {
     ButtonStyle buttonStyle = widget.style ??
         ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith((states) {
               var pressed = states.contains(MaterialState.pressed);
+              if (widget.isLoading) {
+                return context.colorScheme.systemGray.shade300;
+              }
+
               if (_isField &&
                   pressed &&
                   widget.focusedFilledType ==
@@ -547,15 +610,22 @@ class _AppButtonState extends State<AppButton> {
               if (_isField) {
                 return context.colorScheme.primary;
               }
+              if (_isTertiary &&
+                  pressed &&
+                  widget.focusedFilledType == FocusedFilledButtonType.hover) {
+                return context.colorScheme.primary;
+              }
+
               if (_isTertiary && pressed) {
                 return context.colorScheme.surface;
               }
               if (_isLight || _isDark || _isPayment) {
-                return context.colorScheme.primary;
+                return Colors.transparent;
               }
               if (_isGray) {
                 return const Color(0xffF9FAFB);
               }
+
               return null;
             }),
             shape: _isLongerButton
@@ -565,6 +635,12 @@ class _AppButtonState extends State<AppButton> {
                   }),
             overlayColor: MaterialStateProperty.resolveWith((states) {
               var selected = states.contains(MaterialState.pressed);
+              if (selected &&
+                  _isTertiary &&
+                  widget.focusedFilledType == FocusedFilledButtonType.hover) {
+                return context.colorScheme.primary;
+              }
+
               if (selected && _isTertiary) {
                 return context.colorScheme.surface;
               }
@@ -593,18 +669,24 @@ class _AppButtonState extends State<AppButton> {
                       FocusedFilledButtonType.hideBackgroundColor) {
                 return context.colorScheme.onSurface;
               }
+              if (pressed &&
+                  _isTertiary &&
+                  widget.focusedFilledType == FocusedFilledButtonType.hover) {
+                return context.colorScheme.onPrimary;
+              }
+
               if (pressed && _isTertiary) {
                 return context.colorScheme.onSurface;
               }
 
               if (_isLight && pressed) {
-                return context.colorScheme.systemGray.shade100;
+                return context.colorScheme.primary;
               }
               if (_isLight) {
-                return context.colorScheme.systemGray.shade300;
+                return context.colorScheme.primary;
               }
               if (pressed && _isDark) {
-                return context.colorScheme.systemGray.shade100;
+                return context.colorScheme.primary;
               }
 
               if (_isDark) {
@@ -614,11 +696,11 @@ class _AppButtonState extends State<AppButton> {
                 return context.colorScheme.systemGray.shade400;
               }
               if (_isGray) {
-                return context.colorScheme.systemGray.shade900;
+                return context.colorScheme.primary;
               }
 
               if (pressed && _isPayment) {
-                return context.colorScheme.systemGray.shade100;
+                return context.colorScheme.primary;
               }
               if (_isPayment) {
                 return context.colorScheme.surface;
@@ -631,7 +713,7 @@ class _AppButtonState extends State<AppButton> {
               if (_isLongerButton && pressed) {
                 return Colors.transparent;
               }
-              return Colors.transparent;
+              return null;
             }));
 
     switch (widget._typeButton) {
@@ -653,8 +735,6 @@ class _AppButtonState extends State<AppButton> {
       case AppButtonType.tertiary:
         return buttonStyle.merge(OutlinedButton.styleFrom(
           fixedSize: sizeButton,
-          textStyle: context.textTheme.subHeadWebMedium
-              .copyWith(color: context.colorScheme.onTertiary),
           minimumSize: Size.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           elevation: 0,
@@ -693,6 +773,7 @@ class _AppButtonState extends State<AppButton> {
           padding: getPadding,
           // foregroundColor: Theme.of(context).colorScheme.surface.withOpacity(0.4),
         ));
+
       case AppButtonType.payment:
         return buttonStyle.merge(ElevatedButton.styleFrom(
           fixedSize: sizeButton,
@@ -724,21 +805,5 @@ class _AppButtonState extends State<AppButton> {
     }
 
     return EdgeInsets.symmetric(vertical: 6.h, horizontal: 12.w);
-  }
-
-  Color? get getIconColor {
-    switch (widget._typeButton) {
-      case AppButtonType.secondary:
-      case AppButtonType.field:
-        return Colors.white;
-      //todo refactor colors
-      case AppButtonType.tertiary:
-      case AppButtonType.ghost:
-      case AppButtonType.light:
-      case AppButtonType.dark:
-      case AppButtonType.gray:
-      case AppButtonType.payment:
-        return null;
-    }
   }
 }

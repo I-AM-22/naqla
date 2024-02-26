@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:naqla/core/util/extensions.dart';
 
 enum Source { assets, network }
 
@@ -65,8 +66,8 @@ class AppImage extends StatelessWidget {
                     : null),
             alignment: alignment ?? Alignment.center,
             fit: fit ?? BoxFit.contain,
-            height: size ?? height,
-            width: size ?? width,
+            height: getHeight(),
+            width: getWidth(),
           );
         case Source.network:
           return SvgPicture.network(
@@ -77,8 +78,8 @@ class AppImage extends StatelessWidget {
                 : null,
             alignment: alignment ?? Alignment.center,
             fit: fit ?? BoxFit.contain,
-            height: size ?? height,
-            width: size ?? width,
+            height: getHeight(),
+            width: getWidth(),
           );
       }
     } else {
@@ -89,33 +90,45 @@ class AppImage extends StatelessWidget {
             color: color,
             alignment: alignment ?? Alignment.center,
             fit: fit,
-            height: size ?? height,
-            width: size ?? width,
+            height: getHeight(),
+            width: getWidth(),
           );
         case Source.network:
           return Image.network(
             path,
             color: color,
             errorBuilder: (context, v, trace) {
-              //todo replace this with custom image
-              return failedBuilder != null
-                  ? failedBuilder!(context)
-                  : const Text("failed");
+              return Container(
+                height: getHeight(),
+                width: getWidth(),
+                color: context.colorScheme.primary,
+                child: failedBuilder != null ? failedBuilder!(context) : null,
+              );
             },
-            loadingBuilder: (context, child, imageChunk) =>
+            loadingBuilder: (context, child, loadingProgress) =>
                 getLoadingBuilder(context),
             alignment: alignment ?? Alignment.center,
             fit: fit,
-            height: size ?? height,
-            width: size ?? width,
+            height: getHeight(),
+            width: getWidth(),
           );
       }
     }
   }
 
+  double? getHeight() => size ?? height;
+
+  double? getWidth() => size ?? width;
+
   Widget getLoadingBuilder(BuildContext context) => loadingBuilder != null
       ? loadingBuilder!(context)
-      : const _LoadingImageIndicator();
+      : SizedBox(
+          height: getHeight(),
+          width: getWidth(),
+          child: const CircularProgressIndicator(
+            strokeWidth: 1,
+          ),
+        );
 
   Widget copyWith(Color? color) {
     if (_source == Source.network) {

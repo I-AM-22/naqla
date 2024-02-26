@@ -11,7 +11,7 @@ import 'exceptions.dart';
 Future<T> throwAppException<T>(FutureOr<T> Function() call) async {
   try {
     return (await call());
-  } on AppException catch (e) {
+  } on AppException catch (_) {
     rethrow;
   } on SocketException catch (e) {
     showMessage(e.message);

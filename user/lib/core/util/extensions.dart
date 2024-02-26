@@ -1,5 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+extension ListExtension<T> on List<T> {
+  String toJson(Map<String, dynamic> Function(T instance) toJson) =>
+      jsonEncode(map((e) => toJson(e)).toList());
+}
+
+extension MapExtension<K, V> on Map<K, V> {
+  Map<int, V> setState(int index, V newState) =>
+      Map<int, V>.from(this)..[index] = newState;
+}
 
 extension BuildContextExtension on BuildContext {
   //* THEME STUFF *//
@@ -36,3 +48,4 @@ extension FigmaDimension on num {
     return h / fontSize.sp;
   }
 }
+

@@ -2,7 +2,7 @@ part of 'home_bloc.dart';
 
 @immutable
 class HomeState {
-  final PageState<Iterable<Polyline>> polylineState;
+  final CommonState<Iterable<Polyline>> polylineState;
   final PointLatLng? currentLocation;
   final PointLatLng? lastDestination;
   final String? lastOrderNumber;
@@ -19,7 +19,7 @@ class HomeState {
       String? lastOrderNumber,
       final Marker? currentDestination,
       final Marker? currentOrigin,
-      final PageState<Iterable<Polyline>>? polylineState}) {
+      final CommonState<Iterable<Polyline>>? polylineState}) {
     return HomeState(
         currentLocation: currentLocation ?? this.currentLocation,
         lastDestination: lastDestination ?? this.lastDestination,

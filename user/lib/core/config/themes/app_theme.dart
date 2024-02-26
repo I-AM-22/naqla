@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:naqla/core/util/extensions/build_context.dart';
+import 'package:naqla/core/core.dart';
 
 part 'general_theme.dart';
 part 'typography.dart';
 part 'app_button_theme.dart';
 
 class AppTheme {
-  //TODO init only once
   AppTheme.init({
     required this.darkColorScheme,
     required this.lightColorScheme,
@@ -17,8 +16,7 @@ class AppTheme {
   final ColorScheme darkColorScheme;
   final ColorScheme lightColorScheme;
 
-  ///Appbar
-  ///todo only need to set responsive value
+
   AppBarTheme appBarTheme(ColorScheme scheme) => AppBarTheme(
       backgroundColor: scheme.onPrimary,
       toolbarHeight: 48,

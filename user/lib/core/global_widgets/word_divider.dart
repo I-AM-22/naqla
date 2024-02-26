@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/config/themes/my_color_scheme.dart';
-import 'package:naqla/core/util/extensions/build_context.dart';
+import 'package:naqla/core/util/extensions.dart';
 
 import 'app_text.dart';
 

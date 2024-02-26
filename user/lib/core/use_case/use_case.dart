@@ -1,9 +1,7 @@
-abstract class UseCase<T, Params> {
-  Future<T> call(Params params);
-}
+import 'package:naqla/core/type_definitions.dart';
 
-abstract class UseCaseNoParam<T> {
-  Future<T> call();
+abstract class UseCase<T, Params> {
+  FutureResult<T> call(Params params);
 }
 
 class NoParams {}

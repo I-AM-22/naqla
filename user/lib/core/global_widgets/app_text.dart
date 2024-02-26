@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:text_scroll/text_scroll.dart';
-
-import '../config/themes/app_theme.dart';
-import 'package:naqla/core/util/extensions/build_context.dart';
+import 'package:naqla/core/core.dart';
 
 class AppText extends StatelessWidget {
   AppText(
     this.text, {
-    Key? key,
+    super.key,
     this.strutStyle,
     this.textAlign,
     this.textDirection = TextDirection.ltr,
@@ -24,8 +22,7 @@ class AppText extends StatelessWidget {
     this.velocity,
     this.figmaLineHeight,
     this.scrollText = false,
-  })  : style = (style ?? const TextStyle()).copyWith(color: color),
-        super(key: key);
+  })  : style = (style ?? const TextStyle()).copyWith(color: color);
 
   final String text;
   final StrutStyle? strutStyle;
@@ -77,7 +74,6 @@ class AppText extends StatelessWidget {
             strutStyle: strutStyle,
             textAlign: textAlign,
             textDirection: textDirection,
-            textScaleFactor: textScaleFactor,
           );
   }
 
@@ -553,4 +549,25 @@ class AppText extends StatelessWidget {
   }) : style = textTheme.subHeadWebMedium
             .merge(style)
             .copyWith(fontWeight: fontWeight);
+
+              copyWith({Color? color}) => AppText(
+        text,
+        strutStyle: strutStyle,
+        textAlign: textAlign,
+        textDirection: textDirection,
+        locale: locale,
+        softWrap: softWrap,
+        overflow: overflow,
+        textScaleFactor: textScaleFactor,
+        maxLines: maxLines,
+        semanticsLabel: semanticsLabel,
+        textWidthBasis: textWidthBasis,
+        selectionColor: selectionColor,
+        style: style,
+        color: color ?? this.color,
+        velocity: velocity,
+        figmaLineHeight: figmaLineHeight,
+        scrollText: scrollText,
+      );
 }
+

@@ -22,10 +22,7 @@ class AppMobileNumberField extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppTextFormField(
       description: description,
-      onTap: () {
-        print('tappppppppppp');
-      },
-      hintText: hintText ?? '+963 234 567 890',
+      hintText: hintText ?? '0934 567 890',
       prefixIcon: DropdownButtonHideUnderline(
         child: DropdownButton2<String>(
           isExpanded: true,
@@ -53,8 +50,7 @@ class AppMobileNumberField extends StatelessWidget {
               ),
             ),
           ),
-          dropdownStyleData:
-              const DropdownStyleData(), //TODO USE THE ONE IN THE DESIGN
+          dropdownStyleData: const DropdownStyleData(),
           menuItemStyleData: const MenuItemStyleData(),
         ),
       ),
