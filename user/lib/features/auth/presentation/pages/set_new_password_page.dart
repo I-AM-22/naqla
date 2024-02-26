@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/config/themes/utils.dart';
 import 'package:naqla/core/core.dart';
-import 'package:naqla/core/global_widgets/app_text_field.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla/generated/l10n.dart';
 
 class SetNewPasswordPage extends StatelessWidget {
   const SetNewPasswordPage({super.key});
@@ -44,17 +44,11 @@ class SetNewPasswordPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               40.verticalSpace,
-              AppTextFormField(
-                hintText: 'LocaleKeys.signUp_EnterYourPassword.tr()',
-                isPasswordField: true,
-                obscureText: true,
+              AppPasswordField(
+                hintText: S.of(context).enter_Your_Password,
               ),
               20.verticalSpace,
-              AppTextFormField(
-                hintText: '',
-                isPasswordField: true,
-                obscureText: true,
-              ),
+              AppPasswordField(hintText: S.of(context).confirm_Password),
               10.verticalSpace,
               AppText.subHeadMedium(
                 '',

@@ -6,8 +6,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
-import 'package:naqla/core/global_widgets/app_text_field.dart';
-import 'package:naqla/core/global_widgets/word_divider.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
@@ -51,10 +49,10 @@ class _SignInPageState extends State<SignInPage> {
                   child: AppTextFormField(
                     hintText: S.of(context).your_mobile_number,
                     keyboardType: TextInputType.number,
-                    valueTransformer: (value) {
-                      String manimbulatedValue = '$value';
-                      return manimbulatedValue;
-                    },
+                    // valueTransformer: (value) {
+                    //   String manimbulatedValue = '$value';
+                    //   return manimbulatedValue;
+                    // },
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
                       FormBuilderValidators.minLength(10)
