@@ -88,6 +88,7 @@ class AppTextFormField extends StatelessWidget {
     this.appKey,
     this.elevation = 2,
     this.isDense = false,
+    this.valueTransformer,
   });
 
   final GlobalKey<FormBuilderFieldState>? appKey;
@@ -154,6 +155,7 @@ class AppTextFormField extends StatelessWidget {
 
   final DragStartBehavior? dragStartBehavior;
   final ContentInsertionConfiguration? contentInsertionConfiguration;
+  final dynamic Function(String?)? valueTransformer;
   final EdgeInsets? margin;
   final String? description;
   final String? label;
@@ -182,7 +184,13 @@ class AppTextFormField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (title != null) ...{AppText.bodySmMedium(title!), 6.verticalSpace},
+          if (title != null) ...{
+            AppText.bodyRegular(
+              title!,
+              color: context.colorScheme.primary,
+            ),
+            6.verticalSpace
+          },
           Stack(
             alignment: Alignment.topCenter,
             children: [
@@ -207,14 +215,14 @@ class AppTextFormField extends StatelessWidget {
                       label: label != null ? AppText(label!) : null,
                       hintText: hintText,
                       hintStyle: hintStyle ??
-                          context.textTheme.bodyMedium
-                              ?.copyWith(color: const Color(0xff98A2B3)),
+                          context.textTheme.subHeadMedium.copyWith(
+                              color: context.colorScheme.systemGray.shade200),
                       floatingLabelAlignment: FloatingLabelAlignment.start,
                       hintMaxLines: hintMaxLines,
                       hintTextDirection: hintTextDirection,
                       contentPadding: REdgeInsetsDirectional.only(
                           start: 16, top: 16, bottom: 10),
-                      fillColor: fillColor ?? context.colorScheme.surface,
+                      fillColor: fillColor ?? context.colorScheme.onPrimary,
                       focusColor: context.colorScheme.surface,
                       alignLabelWithHint: alignLabelWithHint,
                       suffixIcon: suffixIcon,
@@ -252,6 +260,7 @@ class AppTextFormField extends StatelessWidget {
                       context.theme.inputDecorationTheme
                           .copyWith(alignLabelWithHint: alignLabelWithHint),
                     ),
+                valueTransformer: valueTransformer,
                 keyboardType: keyboardType,
                 textCapitalization:
                     textCapitalization ?? TextCapitalization.none,

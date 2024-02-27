@@ -46,19 +46,22 @@ class WelcomePage extends StatelessWidget {
               title: S.of(context).create_an_account,
             ),
             10.verticalSpace,
-            Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: context.colorScheme.primary),
-                  borderRadius: BorderRadius.circular(8.r)),
-              child: Center(
-                child: AppButton.ghost(
-                  onPressed: () =>
-                      context.pushNamed(SignInPage.name, extra: true),
-                  title: S.of(context).log_in,
+            GestureDetector(
+              onTap: () => context.pushNamed(SignInPage.name, extra: true),
+              child: Container(
+                padding: REdgeInsets.symmetric(vertical: 8),
+                decoration: BoxDecoration(
+                    border: Border.all(color: context.colorScheme.primary),
+                    borderRadius: BorderRadius.circular(8.r)),
+                child: Center(
+                  child: AppText.subHeadWebMedium(
+                    S.of(context).log_in,
+                    color: context.colorScheme.primary,
+                  ),
                 ),
               ),
             ),
-            10.verticalSpace
+            16.verticalSpace
           ],
         ),
       ),

@@ -515,6 +515,66 @@ class S {
       args: [],
     );
   }
+
+  /// ``
+  String get __________________________home______________________________ {
+    return Intl.message(
+      '',
+      name: '__________________________home______________________________',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `home`
+  String get home {
+    return Intl.message(
+      'home',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get __________________________wallet______________________________ {
+    return Intl.message(
+      '',
+      name: '__________________________wallet______________________________',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `wallet`
+  String get wallet {
+    return Intl.message(
+      'wallet',
+      name: 'wallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get __________________________profile______________________________ {
+    return Intl.message(
+      '',
+      name: '__________________________profile______________________________',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `profile`
+  String get profile {
+    return Intl.message(
+      'profile',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

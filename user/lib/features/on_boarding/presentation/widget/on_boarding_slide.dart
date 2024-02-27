@@ -25,7 +25,7 @@ class OnBoardingSlide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Spacer(flex: 1),
+        const Spacer(),
         Padding(
           padding: REdgeInsets.symmetric(horizontal: 10),
           child: Lottie.asset(path),
@@ -68,8 +68,9 @@ class OnBoardingSlide extends StatelessWidget {
                         onPressed: onPressed,
                         child: AppText(
                           S.of(context).go,
-                          style: context.textTheme.labelMedium!
-                              .copyWith(color: context.colorScheme.textAndIcon),
+                          style: context.textTheme.labelMedium!.copyWith(
+                              color: context.colorScheme.textAndIcon,
+                              fontSize: 15.sp),
                         ),
                       )
                     : IconButton(

@@ -12,7 +12,4 @@ class FontFamily {
 
   /// Font family: noor
   static const String noor = 'noor';
-
-  /// Font family: rubik
-  static const String rubik = 'rubik';
 }

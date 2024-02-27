@@ -49,10 +49,10 @@ class _SignInPageState extends State<SignInPage> {
                   child: AppTextFormField(
                     hintText: S.of(context).your_mobile_number,
                     keyboardType: TextInputType.number,
-                    // valueTransformer: (value) {
-                    //   String manimbulatedValue = '$value';
-                    //   return manimbulatedValue;
-                    // },
+                    valueTransformer: (value) {
+                      String manimbulatedValue = '$value';
+                      return manimbulatedValue;
+                    },
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
                       FormBuilderValidators.minLength(10)

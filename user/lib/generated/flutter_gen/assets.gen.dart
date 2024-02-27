@@ -87,6 +87,13 @@ class $AssetsIconsEssentialGen {
   /// File path: assets/icons/essential/More.svg
   SvgGenImage get more => const SvgGenImage('assets/icons/essential/More.svg');
 
+  /// File path: assets/icons/essential/_house.svg
+  SvgGenImage get house =>
+      const SvgGenImage('assets/icons/essential/_house.svg');
+
+  /// File path: assets/icons/essential/_user.svg
+  SvgGenImage get user => const SvgGenImage('assets/icons/essential/_user.svg');
+
   /// File path: assets/icons/essential/camera.svg
   SvgGenImage get camera =>
       const SvgGenImage('assets/icons/essential/camera.svg');
@@ -94,6 +101,9 @@ class $AssetsIconsEssentialGen {
   /// File path: assets/icons/essential/check circle.svg
   SvgGenImage get checkCircle =>
       const SvgGenImage('assets/icons/essential/check circle.svg');
+
+  /// File path: assets/icons/essential/home.svg
+  SvgGenImage get home => const SvgGenImage('assets/icons/essential/home.svg');
 
   /// File path: assets/icons/essential/map.svg
   SvgGenImage get map => const SvgGenImage('assets/icons/essential/map.svg');
@@ -105,21 +115,39 @@ class $AssetsIconsEssentialGen {
   /// File path: assets/icons/essential/plus.svg
   SvgGenImage get plus => const SvgGenImage('assets/icons/essential/plus.svg');
 
+  /// File path: assets/icons/essential/profile.svg
+  SvgGenImage get profile =>
+      const SvgGenImage('assets/icons/essential/profile.svg');
+
   /// File path: assets/icons/essential/success.svg
   SvgGenImage get success =>
       const SvgGenImage('assets/icons/essential/success.svg');
+
+  /// File path: assets/icons/essential/wallet.svg
+  SvgGenImage get wallet =>
+      const SvgGenImage('assets/icons/essential/wallet.svg');
+
+  /// File path: assets/icons/essential/wallet2.svg
+  SvgGenImage get wallet2 =>
+      const SvgGenImage('assets/icons/essential/wallet2.svg');
 
   /// List of all assets
   List<SvgGenImage> get values => [
         aboutUs,
         infinity1s,
         more,
+        house,
+        user,
         camera,
         checkCircle,
+        home,
         map,
         messageSvgrepoCom,
         plus,
-        success
+        profile,
+        success,
+        wallet,
+        wallet2
       ];
 }
 

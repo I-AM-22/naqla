@@ -491,20 +491,17 @@ class _AppButtonState extends State<AppButton> {
   TextStyle getTextStyle(BuildContext context) {
     if (_isLongerButton) {
       if (_isDark) {
-        return context.textTheme.bodySmMedium;
+        return context.textTheme.subHeadWebMedium.copyWith(color: Colors.white);
       }
       return context.textTheme.bodySmMedium;
     }
-    return textTheme.bodySmMedium.merge(widget.textStyle ?? const TextStyle());
+    return textTheme.subHeadWebMedium
+        .merge(widget.textStyle ?? const TextStyle());
   }
 
   bool get _isTertiary => widget._typeButton == AppButtonType.tertiary;
 
   bool get _isField => widget._typeButton == AppButtonType.field;
-
-  bool get _isGhost => widget._typeButton == AppButtonType.ghost;
-
-  bool get _isSecondary => widget._typeButton == AppButtonType.secondary;
 
   bool get _isLight => widget._typeButton == AppButtonType.light;
 
@@ -619,7 +616,7 @@ class _AppButtonState extends State<AppButton> {
               if (_isTertiary && pressed) {
                 return context.colorScheme.surface;
               }
-              if (_isLight || _isDark || _isPayment) {
+              if (_isLight || _isPayment) {
                 return Colors.transparent;
               }
               if (_isGray) {

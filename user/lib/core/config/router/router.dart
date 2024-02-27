@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naqla/features/app/presentation/pages/base_page.dart';
 
 import '../../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../../features/auth/presentation/pages/forgot_password_sms_page.dart';
@@ -18,10 +19,21 @@ import '../../../features/welcome/splash.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
-final GlobalKey<NavigatorState> _homeNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'home');
-GlobalKey<NavigatorState> get rootNavigatorKey => _rootNavigatorKey;
-GlobalKey<NavigatorState> get homeNavigatorKey => _homeNavigatorKey;
+
+final GlobalKey<NavigatorState> _shell1NavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell1');
+
+final GlobalKey<NavigatorState> _shell2NavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell2');
+
+final GlobalKey<NavigatorState> _shell3NavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell3');
+
+final GlobalKey<NavigatorState> _shell4NavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell4');
+
+final GlobalKey<NavigatorState> _shell5NavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell5');
 
 class GRouter {
   static GoRouter get router => _router;
@@ -87,11 +99,29 @@ class GRouter {
           name: SetNewPasswordPage.name,
           builder: (context, state) => const SetNewPasswordPage(),
         ),
-        GoRoute(
-          path: HomePage.path,
-          name: HomePage.name,
-          builder: (context, state) => const HomePage(),
-        ),
+        StatefulShellRoute.indexedStack(
+          builder: (context, state, child) {
+            var fullPath =
+                GoRouter.of(context).routeInformationProvider.value.uri.path;
+            return BasePage(
+              fullPath: fullPath,
+              child: child,
+            );
+          },
+          branches: [
+            StatefulShellBranch(
+                initialLocation: HomePage.path,
+                navigatorKey: _shell1NavigatorKey,
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: _shell1NavigatorKey,
+                    path: HomePage.path,
+                    name: HomePage.name,
+                    builder: (context, state) => const HomePage(),
+                  ),
+                ])
+          ],
+        )
       ]);
 
   static Page<dynamic> _builderPage<T>(

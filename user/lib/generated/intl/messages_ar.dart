@@ -23,6 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Welcome": MessageLookupByLibrary.simpleMessage("مرحبا"),
+        "__________________________home______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "__________________________profile______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "__________________________wallet______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
         "ago": MessageLookupByLibrary.simpleMessage("منذ"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
@@ -58,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "go": MessageLookupByLibrary.simpleMessage("اذهب"),
         "have_a_better_sharing_experience":
             MessageLookupByLibrary.simpleMessage("تمتع بتجربة مشاركة أفضل"),
+        "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "hour": MessageLookupByLibrary.simpleMessage("ساعة"),
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
@@ -66,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
+        "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "resend_again":
             MessageLookupByLibrary.simpleMessage("إعادة الإرسال مرة أخرى"),
@@ -84,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("استخدام موقعي"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
+        "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
         "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
             "حسابك جاهز للاستخدام. ستتم إعادة توجيهك إلى الصفحة الرئيسية في بضع ثوان."),
         "your_code": MessageLookupByLibrary.simpleMessage(" الخاص بك"),

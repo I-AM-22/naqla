@@ -67,7 +67,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
             child: Material(
               elevation: widget.elevation,
               borderRadius: BorderRadius.circular(8),
-              shadowColor: context.colorScheme.shadow.withOpacity(.2),
+              shadowColor: context.colorScheme.shadow?.withOpacity(.2),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton2<T>(
                   isExpanded: widget.isExpanded,

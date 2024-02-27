@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naqla/core/api/exceptions.dart';
 import 'package:naqla/core/state_managment/result_builder/result_builder.dart';
 import 'package:naqla/core/state_managment/state/common_state.dart';
-import 'package:naqla/features/app/presentation/widgets/states/app_loading_indicator.dart';
+import 'package:naqla/features/app/presentation/widgets/app_loading_indicator.dart';
 
 import 'empty_page.dart.dart';
 import 'error_page.dart';

@@ -7,6 +7,10 @@ class AppLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: SpinKitWave(color: context.colorScheme.primary,));
+    return Center(
+        child: SpinKitHourGlass(
+      color: context.colorScheme.primary,
+      
+    ));
   }
 }

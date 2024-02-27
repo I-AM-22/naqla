@@ -51,5 +51,14 @@
   "forget_password": "Forget password?",
   "do_not_have_an_account": "Don’t have an account? ",
   "congratulations": "Congratulations ",
-  "your_account_is_ready_to_use": "Your account is ready to use. You will be redirected to the Home Page in a few seconds."
+  "your_account_is_ready_to_use": "Your account is ready to use. You will be redirected to the Home Page in a few seconds.",
+  
+  "__________________________home______________________________":"",
+  "home":"home",
+
+  "__________________________wallet______________________________":"",
+  "wallet":"wallet",
+
+  "__________________________profile______________________________":"",
+  "profile":"profile"
 }

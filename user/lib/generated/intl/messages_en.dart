@@ -23,6 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
+        "__________________________home______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "__________________________profile______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "__________________________wallet______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
@@ -61,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "have_a_better_sharing_experience":
             MessageLookupByLibrary.simpleMessage(
                 "Have a better sharing experience"),
+        "home": MessageLookupByLibrary.simpleMessage("home"),
         "hour": MessageLookupByLibrary.simpleMessage("hour"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
@@ -69,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),
+        "profile": MessageLookupByLibrary.simpleMessage("profile"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
@@ -85,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("Use my location"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
         "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
             "Your account is ready to use. You will be redirected to the Home Page in a few seconds."),
         "your_code": MessageLookupByLibrary.simpleMessage(" code"),

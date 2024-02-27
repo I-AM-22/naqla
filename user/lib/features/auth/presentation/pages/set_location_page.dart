@@ -83,9 +83,11 @@ class _SetLocationPageState extends State<SetLocationPage> {
                   Center(
                     child: AppButton.ghost(
                       title: S.of(context).skip_for_now,
+                      textStyle: TextStyle(
+                          color: context.colorScheme.systemGray.shade300),
                       onPressed: () {
                         context.goNamed(WelcomePage.name);
-                      },
+                      },            
                     ),
                   ),
                   const Spacer()
