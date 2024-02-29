@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  dev-db:
+    image: postgres:13
+    ports:
+      - 5435:5432
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASS}'
+      POSTGRES_DB: '${POSTGRES_NAME}'
+    networks:
+      - freecodecamp
+
+  test-db:
+    image: postgres:13
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASS}'
+      POSTGRES_DB: '${POSTGRES_NAME}'
+    networks:
+      - freecodecamp
+
+  redisqueue:
+    image: 'redis:latest'
+    ports:
+      - '6380:6379'
+
+  app:
+    build: .
+    ports:
+      - '5500:5500'
+    depends_on:
+      - redisqueue
+      - dev-db
+    environment:
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASS: '${POSTGRES_PASS}'
+      POSTGRES_NAME: '${POSTGRES_NAME}'
+    networks:
+      - freecodecamp
+
+networks:
+  freecodecamp:
