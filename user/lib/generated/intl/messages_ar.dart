@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور الخاصة بك"),
         "enter_code": MessageLookupByLibrary.simpleMessage("أدخل رمز "),
+        "first_name": MessageLookupByLibrary.simpleMessage("الاسم الاول"),
         "forget_password":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
         "full_Name": MessageLookupByLibrary.simpleMessage("الاسم كامل"),
@@ -66,10 +67,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تمتع بتجربة مشاركة أفضل"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "hour": MessageLookupByLibrary.simpleMessage("ساعة"),
+        "last_name": MessageLookupByLibrary.simpleMessage("الاسم الاخير"),
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),
-        "name": MessageLookupByLibrary.simpleMessage("الاسم"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),

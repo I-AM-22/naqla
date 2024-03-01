@@ -1,9 +1,10 @@
-import 'package:core/src/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-
-import '../../core.dart';
+import 'package:naqla/core/core.dart';
+import 'package:intl/src/intl/date_format.dart';
+import '../api/exceptions.dart';
+import '../common/model/pagenatio_model.dart';
+import '../type_definitions.dart';
 
 class CoreHelperFunctions {
   /// Cast to [T] if possible or return null
@@ -72,81 +73,12 @@ class CoreHelperFunctions {
     );
   }
 
-  static Future<void> handelMultiApiResultCubit<T>({
-    required FutureResult<T> Function() callback,
-    required void Function(Map<int, CommonState<T>>) emit,
-    required Map<int, CommonState<T>> state,
-    required int index,
-    Function(T)? onSuccess,
-    Function(AppException)? onFailure,
-    bool Function(T)? emptyChecker,
-  }) async {
-    //TODO search how to add constraint to Enum
-    // assert(E is Enum, "you can pass only enum class ");
-
-    emit(state.setState(index, LoadingState<T>()));
-    final result = await callback();
-    result.fold(
-      (l) {
-        emit(state.setState(index, ErrorState<T>(l)));
-        onFailure?.call(l);
-      },
-      (r) {
-        if (isResponseEmpty(emptyChecker, r)) {
-          emit(state.setState(index, EmptyState<T>()));
-          return;
-        }
-        emit(state.setState(index, SuccessState<T>(r)));
-        if (onSuccess != null) {
-          onSuccess(r);
-        }
-      },
-    );
-  }
-
   static Future<void> handlePagination<T>({
     ///TODO: ADD DOCS TO GET DATA AND DATA
     FutureResult<PaginationModel<T>> Function()? getData,
     PaginationModel<T>? data,
     required int pageKey,
     required Emitter<Map<int, CommonState<T>>> emit,
-    required Map<int, CommonState<T>> state,
-    required int index,
-  }) async {
-    // assert(
-    //     data == null && getData == null, "you should pass get data or data ");
-    final d = state[index];
-    if (d is PaginationClass) {
-      final d = state[index] as PaginationClass<T>;
-      final controller = d.pagingController;
-
-      if (data != null) {
-        final isLastPage = CoreHelperFunctions.isLastPage(data);
-        if (isLastPage) {
-          controller.appendLastPage(data.data);
-        } else {
-          controller.appendPage(data.data, pageKey + 1);
-        }
-      } else {
-        final newItems = await getData?.call();
-        newItems?.fold((left) => controller.error = left.message, (right) {
-          final isLastPage = CoreHelperFunctions.isLastPage(right);
-          if (isLastPage) {
-            controller.appendLastPage(right.data);
-          } else {
-            controller.appendPage(right.data, pageKey + 1);
-          }
-        });
-      }
-    }
-  }
-
-  static Future<void> handleApiPagination<T>({
-    ///TODO: ADD DOCS TO GET DATA AND DATA
-    FutureResult<PaginationModel<T>> Function()? getData,
-    PaginationModel<T>? data,
-    required int pageKey,
-    required void Function(Map<int, CommonState<T>>) emit,
     required Map<int, CommonState<T>> state,
     required int index,
   }) async {

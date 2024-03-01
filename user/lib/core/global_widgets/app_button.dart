@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/util/extensions.dart';
+import 'package:naqla/features/app/presentation/widgets/app_loading_indicator.dart';
 
 ///enum
 enum ButtonSize {
@@ -408,11 +409,7 @@ class _AppButtonState extends State<AppButton> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 3,
-              ),
-            ),
+            const AppLoadingIndicator(),
             8.horizontalSpace,
             AppText('loading'),
             4.horizontalSpace,

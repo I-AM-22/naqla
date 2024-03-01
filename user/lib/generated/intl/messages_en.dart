@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("Enter Your Password"),
         "enter_code": MessageLookupByLibrary.simpleMessage("Enter your "),
+        "first_name": MessageLookupByLibrary.simpleMessage("First name"),
         "forget_password":
             MessageLookupByLibrary.simpleMessage("Forget password?"),
         "full_Name": MessageLookupByLibrary.simpleMessage("Full Name"),
@@ -69,10 +70,10 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Have a better sharing experience"),
         "home": MessageLookupByLibrary.simpleMessage("home"),
         "hour": MessageLookupByLibrary.simpleMessage("hour"),
+        "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
-        "name": MessageLookupByLibrary.simpleMessage("Name"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),

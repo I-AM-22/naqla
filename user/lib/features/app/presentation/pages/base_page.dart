@@ -18,7 +18,14 @@ class BasePage extends StatelessWidget {
     return AppScaffold(
       body: child,
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: AppNavigationBar(currentIndex: child.currentIndex),
+      bottomNavigationBar: AppNavigationBar(
+          currentIndex: child.currentIndex,
+          onTap: (index) {
+            child.goBranch(
+              index,
+              initialLocation: child.currentIndex == index,
+            );
+          }),
     );
   }
 }

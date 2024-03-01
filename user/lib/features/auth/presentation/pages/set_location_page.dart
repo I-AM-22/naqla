@@ -87,7 +87,7 @@ class _SetLocationPageState extends State<SetLocationPage> {
                           color: context.colorScheme.systemGray.shade300),
                       onPressed: () {
                         context.goNamed(WelcomePage.name);
-                      },            
+                      },
                     ),
                   ),
                   const Spacer()

@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'dart:developer';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:naqla/core/api/result.dart';
 
+import '../type_definitions.dart';
 import 'exceptions.dart';
 
 Future<T> throwAppException<T>(FutureOr<T> Function() call) async {
@@ -40,23 +41,23 @@ void showMessage(String message, {bool isSuccess = false}) {
       fontSize: 16.0);
 }
 
-Future<Result<T>> toApiResult<T>(FutureOr<T> Function() call) async {
+FutureResult<T> toApiResult<T>(FutureOr<T> Function() call) async {
   try {
-    return Success(await call());
+    return Right(await call());
   } on AppNetworkResponseException catch (e) {
-    if (e.data is String) {
-      return Failure(e, message: e.message);
+    if (e.data is! String) {
+      return Left(e);
     }
-    return Failure(e, message: e.message);
+    return Left(e);
   } on AppNetworkException catch (e) {
     final message = e.message;
     final appNetworkException = e.copyWith(message: message);
-    return Failure(appNetworkException, message: message);
+    return Left(appNetworkException);
   } on AppException catch (e) {
-    return Failure(e, message: e.message);
+    return Left(e);
   } catch (e, s) {
     log(e.toString(), stackTrace: s);
-    final exception = AppException.unknown(message: e.toString(), exception: e);
-    return Failure(exception, message: exception.message);
+    final exception = AppException.unknown(exception: e, message: e.toString());
+    return Left(exception);
   }
 }

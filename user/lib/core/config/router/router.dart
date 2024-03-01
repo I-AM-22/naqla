@@ -39,7 +39,7 @@ class GRouter {
   static GoRouter get router => _router;
 
   static final GoRouter _router = GoRouter(
-      initialLocation: HomePage.path,
+      initialLocation: SplashScreen.path,
       navigatorKey: _rootNavigatorKey,
       routes: <RouteBase>[
         GoRoute(

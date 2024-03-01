@@ -276,11 +276,21 @@ class S {
     );
   }
 
-  /// `Name`
-  String get name {
+  /// `First name`
+  String get first_name {
     return Intl.message(
-      'Name',
-      name: 'name',
+      'First name',
+      name: 'first_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last name`
+  String get last_name {
+    return Intl.message(
+      'Last name',
+      name: 'last_name',
       desc: '',
       args: [],
     );
