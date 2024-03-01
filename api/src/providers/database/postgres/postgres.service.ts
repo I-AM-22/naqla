@@ -14,14 +14,14 @@ export class PostgresService implements TypeOrmOptionsFactory {
     private readonly appConfig: ConfigType<typeof AppConfig>,
   ) {}
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    if (this.appConfig.env === 'production') {
-      return {
-        type: 'postgres',
-        url: this.postgresConfig.url,
-        entities: [__dirname + '/../../../models/**/entities/*.entity.{js,ts}'],
-        synchronize: true,
-      };
-    }
+    // if (this.appConfig.env === 'production') {
+    //   return {
+    //     type: 'postgres',
+    //     url: this.postgresConfig.url,
+    //     entities: [__dirname + '/../../../models/**/entities/*.entity.{js,ts}'],
+    //     synchronize: true,
+    //   };
+    // }
 
     const type: DataSourceOptions['type'] = 'postgres';
     const entities: DataSourceOptions['entities'] = [
