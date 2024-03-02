@@ -5,12 +5,12 @@ import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:naqla/features/auth/domain/repositories/auth_repository.dart';
 
 @injectable
-class SignUpUseCase extends UseCase<AuthModel, SignUpParam> {
+class SignUpUseCase extends UseCase<String, SignUpParam> {
   final AuthRepository _repository;
 
   SignUpUseCase(this._repository);
   @override
-  FutureResult<AuthModel> call(SignUpParam params) async {
+  FutureResult<String> call(SignUpParam params) async {
     return _repository.signUp(params);
   }
 }

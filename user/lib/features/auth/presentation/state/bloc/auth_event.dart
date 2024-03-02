@@ -16,3 +16,10 @@ class SignUpEvent extends AuthEvent {
 
   SignUpEvent(this.param, this.onSuccess);
 }
+
+class ConfirmEvent extends AuthEvent {
+  final ConfirmParam param;
+  final Function(dynamic) onSuccess;
+
+  ConfirmEvent(this.param, this.onSuccess);
+}

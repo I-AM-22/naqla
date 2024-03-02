@@ -57,7 +57,6 @@ dependencies:
   logger: ^2.0.2+1
   shared_preferences: ^2.2.2
 
-
   #map
   location: ^5.0.3
   google_maps_flutter: ^2.5.0

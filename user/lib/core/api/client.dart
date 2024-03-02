@@ -193,8 +193,10 @@ class DioClient with DioMixin implements Dio {
   }
 
   String handleMessage(dynamic exceptionResponse) =>
-      (exceptionResponse is Map && exceptionResponse['errorMessage'] != null)
-          ? (exceptionResponse['errorMessage'] ?? " Some thing happen")
+      (exceptionResponse is Map && exceptionResponse['message'] != null)
+          ? (exceptionResponse['message'] ??
+              exceptionResponse['errors'][0]['message'] ??
+              " Some thing happen")
           : 'Something happen '; //todo click to submit error
 }
 

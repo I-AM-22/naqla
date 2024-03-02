@@ -1,10 +1,10 @@
 class AuthModel {
-  final String token;
-  final User user;
+  final String? token;
+  final User? user;
 
   AuthModel({
-    required this.token,
-    required this.user,
+    this.token,
+    this.user,
   });
 
   AuthModel copyWith({
@@ -23,7 +23,7 @@ class AuthModel {
 
   Map<String, dynamic> toJson() => {
         "token": token,
-        "user": user.toJson(),
+        "user": user?.toJson(),
       };
 }
 
@@ -153,16 +153,12 @@ class Photo {
 
 class Wallet {
   final String id;
-  final DateTime createdAt;
-  final DateTime updatedAt;
   final int total;
   final int pending;
   final int available;
 
   Wallet({
     required this.id,
-    required this.createdAt,
-    required this.updatedAt,
     required this.total,
     required this.pending,
     required this.available,
@@ -170,16 +166,12 @@ class Wallet {
 
   Wallet copyWith({
     String? id,
-    DateTime? createdAt,
-    DateTime? updatedAt,
     int? total,
     int? pending,
     int? available,
   }) =>
       Wallet(
         id: id ?? this.id,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
         total: total ?? this.total,
         pending: pending ?? this.pending,
         available: available ?? this.available,
@@ -187,8 +179,6 @@ class Wallet {
 
   factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
         id: json["id"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
         total: json["total"],
         pending: json["pending"],
         available: json["available"],
@@ -196,8 +186,6 @@ class Wallet {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
         "total": total,
         "pending": pending,
         "available": available,

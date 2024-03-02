@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/core.dart';
+import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla/features/auth/domain/use_cases/confirm_use_case.dart';
+import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
 import 'package:naqla/features/auth/presentation/widgets/verification_number.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../home/presentation/pages/home_page.dart';
 
-class PhoneVerificationPage extends StatelessWidget {
+class PhoneVerificationPage extends StatefulWidget {
   const PhoneVerificationPage({super.key});
 
   static String get name => '/PhoneVerificationPage';
@@ -18,18 +23,46 @@ class PhoneVerificationPage extends StatelessWidget {
   static String get path => '/PhoneVerificationPage';
 
   @override
+  State<PhoneVerificationPage> createState() => _PhoneVerificationPageState();
+}
+
+class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
+  final GlobalKey<FormBuilderState> _key = GlobalKey();
+  String code = '';
+  @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-        bottomNavigationBar: Padding(
-          padding: REdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: AppButton.dark(
-            onPressed: () => context.pushNamed(HomePage.name),
-            title: S.of(context).verify,
+    return BlocProvider.value(
+      value: getIt<AuthBloc>(),
+      child: AppScaffold(
+          bottomNavigationBar: Padding(
+            padding: REdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            child: BlocSelector<AuthBloc, Map<int, CommonState>, CommonState>(
+              selector: (state) => state[AuthState.confirm]!,
+              builder: (context, state) {
+                return AppButton.dark(
+                  isLoading: state.isLoading(),
+                  onPressed: () {
+                    _key.currentState?.save();
+                    _key.currentState?.validate();
+                    if ((_key.currentState?.isValid ?? false) &&
+                        code.isNotEmpty &&
+                        code.length > 3) {
+                      context
+                          .read<AuthBloc>()
+                          .add(ConfirmEvent(ConfirmParam(otp: code), (p0) {
+                            context.pushNamed(HomePage.name);
+                          }));
+                    }
+                  },
+                  stretch: true,
+                  title: S.of(context).verify,
+                  fixedSize: Size.fromHeight(48.h),
+                );
+              },
+            ),
           ),
-        ),
-        appBar: AppAppBar(back: true, appBarParams: AppBarParams()),
-        body: SingleChildScrollView(
-          child: Column(
+          appBar: AppAppBar(back: true, appBarParams: AppBarParams()),
+          body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
@@ -44,7 +77,6 @@ class PhoneVerificationPage extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         style: TextStyle(
-                            fontFamily: 'noor',
                             color: context.colorScheme.systemGray,
                             fontSize: 16.sp),
                         children: [
@@ -55,10 +87,22 @@ class PhoneVerificationPage extends StatelessWidget {
                       ),
                     ),
                     40.verticalSpace,
-                    VerificationNumber(
-                      onCompleted: (val) {
-                        context.pushNamed(HomePage.name);
-                      },
+                    FormBuilder(
+                      key: _key,
+                      child: BlocBuilder<AuthBloc, Map<int, CommonState>>(
+                        builder: (context, state) {
+                          return VerificationNumber(
+                            onChanged: (code) {
+                              this.code = code;
+                            },
+                            onCompleted: (val) {
+                              context.read<AuthBloc>().add(ConfirmEvent(
+                                  ConfirmParam(otp: val),
+                                  (p0) => context.pushNamed(HomePage.name)));
+                            },
+                          );
+                        },
+                      ),
                     ),
                     20.verticalSpace,
                     Row(
@@ -77,11 +121,12 @@ class PhoneVerificationPage extends StatelessWidget {
                         )
                       ],
                     ),
+                    // const Spacer(),
                   ],
                 ),
               ),
             ],
-          ),
-        ));
+          )),
+    );
   }
 }

@@ -84,7 +84,7 @@ class LoggerInterceptor extends Interceptor with LoggerHelper {
     final data = err.response?.data;
     if (data != null && data != "") {
       if (data is Map<String, dynamic>) {
-        showMessage(data['errors'][0]['message']);
+        showMessage(data['message']);
       } else {
         showMessage('Something went wrong!!');
       }

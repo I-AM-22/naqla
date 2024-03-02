@@ -12,6 +12,9 @@ typedef Json = Map<String, dynamic>;
 class UIConstants {
   static final screenPadding = REdgeInsets.only(top: 30, right: 20, left: 20);
 
+  static final screenPadding16 = 16.w;
+  static final screenPadding30 = 30.h;
+
   static getShadow(BuildContext context) =>
       context.colorScheme.outlineVariant.withOpacity(0.25);
 }

@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/config/themes/utils.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -124,16 +125,18 @@ class _RegisterPageState extends State<RegisterPage> {
                             _formKey.currentState?.validate();
                             if (_formKey.currentState?.isValid ?? false) {
                               context.read<AuthBloc>().add(SignUpEvent(
-                                  SignUpParam(
-                                      phone: _formKey
-                                          .currentState?.value['phoneNumber'],
-                                      firstName: _formKey
-                                          .currentState?.value['firstName'],
-                                      lastName: _formKey
-                                          .currentState?.value['lastName'],
-                                      password: '123456'),
-                                  (p0) => context
-                                      .pushNamed(PhoneVerificationPage.name)));
+                                      SignUpParam(
+                                          phone: _formKey.currentState
+                                              ?.value['phoneNumber'],
+                                          firstName: _formKey
+                                              .currentState?.value['firstName'],
+                                          lastName: _formKey
+                                              .currentState?.value['lastName'],
+                                          password: '123456'), (p0) {
+                                    showMessage(p0, isSuccess: true);
+                                    context
+                                        .pushNamed(PhoneVerificationPage.name);
+                                  }));
                             }
                           },
                           stretch: true,

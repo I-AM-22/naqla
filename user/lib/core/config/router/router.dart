@@ -15,6 +15,7 @@ import '../../../features/auth/presentation/pages/sign_in_page.dart';
 import '../../../features/auth/presentation/pages/welcome_page.dart';
 import '../../../features/home/presentation/pages/home_page.dart';
 import '../../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import '../../../features/profile/presentation/pages/profile_page.dart';
 import '../../../features/welcome/splash.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -119,7 +120,18 @@ class GRouter {
                     name: HomePage.name,
                     builder: (context, state) => const HomePage(),
                   ),
-                ])
+                ]),
+            StatefulShellBranch(
+                initialLocation: ProfilePage.path,
+                navigatorKey: _shell4NavigatorKey,
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: _shell4NavigatorKey,
+                    path: ProfilePage.path,
+                    name: ProfilePage.name,
+                    builder: (context, state) => const ProfilePage(),
+                  ),
+                ]),
           ],
         )
       ]);

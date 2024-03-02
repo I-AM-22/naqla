@@ -20,16 +20,27 @@ import '../../features/app/data/prefs_repository_imp.dart' as _i11;
 import '../../features/app/domain/repository/prefs_repository.dart' as _i10;
 import '../../features/app/presentation/bloc/app_bloc.dart' as _i3;
 import '../../features/auth/data/data_sources/auth_remote_data_source.dart'
-    as _i12;
+    as _i15;
 import '../../features/auth/data/repositories/auth_repository_implement.dart'
-    as _i14;
-import '../../features/auth/domain/repositories/auth_repository.dart' as _i13;
-import '../../features/auth/domain/use_cases/login_use_case.dart' as _i15;
-import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i16;
-import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i17;
+    as _i17;
+import '../../features/auth/domain/repositories/auth_repository.dart' as _i16;
+import '../../features/auth/domain/use_cases/confirm_use_case.dart' as _i18;
+import '../../features/auth/domain/use_cases/login_use_case.dart' as _i20;
+import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i22;
+import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i23;
 import '../../features/home/presentation/bloc/home_bloc.dart' as _i5;
+import '../../features/profile/data/data_source/profile_remote_data_source.dart'
+    as _i12;
+import '../../features/profile/data/repositories/profile_repository_implement.dart'
+    as _i14;
+import '../../features/profile/domain/repositories/profile_repository.dart'
+    as _i13;
+import '../../features/profile/domain/use_cases/get_personal_info_use_case.dart'
+    as _i19;
+import '../../features/profile/presentation/state/bloc/profile_bloc.dart'
+    as _i21;
 import '../network_info.dart' as _i7;
-import 'di_container.dart' as _i18;
+import 'di_container.dart' as _i24;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
@@ -59,19 +70,30 @@ Future<_i1.GetIt> $initGetIt(
       ));
   gh.factory<_i10.PrefsRepository>(() =>
       _i11.PrefsRepositoryImpl(sharedPreferences: gh<_i9.SharedPreferences>()));
-  gh.factory<_i12.AuthRemoteDataSource>(
-      () => _i12.AuthRemoteDataSource(gh<_i4.Dio>()));
-  gh.factory<_i13.AuthRepository>(
-      () => _i14.AuthRepositoryImplement(gh<_i12.AuthRemoteDataSource>()));
-  gh.factory<_i15.LoginUseCase>(
-      () => _i15.LoginUseCase(gh<_i13.AuthRepository>()));
-  gh.factory<_i16.SignUpUseCase>(
-      () => _i16.SignUpUseCase(gh<_i13.AuthRepository>()));
-  gh.lazySingleton<_i17.AuthBloc>(() => _i17.AuthBloc(
-        gh<_i15.LoginUseCase>(),
-        gh<_i16.SignUpUseCase>(),
+  gh.factory<_i12.ProfileRemoteDataSource>(
+      () => _i12.ProfileRemoteDataSource(gh<_i4.Dio>()));
+  gh.factory<_i13.ProfileRepository>(() =>
+      _i14.ProfileRepositoryImplement(gh<_i12.ProfileRemoteDataSource>()));
+  gh.factory<_i15.AuthRemoteDataSource>(
+      () => _i15.AuthRemoteDataSource(gh<_i4.Dio>()));
+  gh.factory<_i16.AuthRepository>(
+      () => _i17.AuthRepositoryImplement(gh<_i15.AuthRemoteDataSource>()));
+  gh.factory<_i18.ConfirmUseCase>(
+      () => _i18.ConfirmUseCase(gh<_i16.AuthRepository>()));
+  gh.factory<_i19.GetPersonalInfoUseCase>(
+      () => _i19.GetPersonalInfoUseCase(gh<_i13.ProfileRepository>()));
+  gh.factory<_i20.LoginUseCase>(
+      () => _i20.LoginUseCase(gh<_i16.AuthRepository>()));
+  gh.lazySingleton<_i21.ProfileBloc>(
+      () => _i21.ProfileBloc(gh<_i19.GetPersonalInfoUseCase>()));
+  gh.factory<_i22.SignUpUseCase>(
+      () => _i22.SignUpUseCase(gh<_i16.AuthRepository>()));
+  gh.lazySingleton<_i23.AuthBloc>(() => _i23.AuthBloc(
+        gh<_i20.LoginUseCase>(),
+        gh<_i22.SignUpUseCase>(),
+        gh<_i18.ConfirmUseCase>(),
       ));
   return getIt;
 }
 
-class _$AppModule extends _i18.AppModule {}
+class _$AppModule extends _i24.AppModule {}

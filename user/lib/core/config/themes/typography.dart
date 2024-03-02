@@ -40,9 +40,9 @@ TextTheme textTheme = TextTheme(
       fontFamily: 'noor', fontSize: 22.0.sp, fontWeight: FontWeight.w400),
   titleMedium: TextStyle(
       fontFamily: 'noor',
-      fontSize: 24.0.sp,
+      fontSize: 28.0.sp,
       fontWeight: FontWeight.w500,
-      height: 30.fromFigmaHeight(24)),
+      height: 34.fromFigmaHeight(28)),
   titleSmall: TextStyle(
       fontFamily: 'noor', fontSize: 16.0.sp, fontWeight: FontWeight.w500),
 
