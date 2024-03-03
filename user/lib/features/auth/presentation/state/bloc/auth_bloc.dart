@@ -13,7 +13,7 @@ import '../../../../../core/state_managment/state/common_state.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-@LazySingleton()
+@injectable
 class AuthBloc extends Bloc<AuthEvent, Map<int, CommonState>> {
   final LoginUseCase _loginUseCase;
   final SignUpUseCase _signUpUseCase;

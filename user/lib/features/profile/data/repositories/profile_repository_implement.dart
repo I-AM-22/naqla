@@ -4,6 +4,8 @@ import 'package:naqla/core/type_definitions.dart';
 import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:naqla/features/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:naqla/features/profile/domain/repositories/profile_repository.dart';
+import 'package:naqla/features/profile/domain/use_cases/edit_personal_info_use_case.dart';
+import 'package:naqla/features/profile/domain/use_cases/upload_single_photo_use_case.dart';
 
 @Injectable(as: ProfileRepository)
 class ProfileRepositoryImplement implements ProfileRepository {
@@ -13,5 +15,15 @@ class ProfileRepositoryImplement implements ProfileRepository {
   @override
   FutureResult<User> getPersonalInfo() {
     return toApiResult(() async => _dataSource.getPersonalInfo());
+  }
+
+  @override
+  FutureResult<User> editPersonalInfo(EditPersonalInfoParam param) {
+    return toApiResult(() async => _dataSource.editPersonalInfo(param));
+  }
+
+  @override
+  FutureResult<String> uploadSinglePhoto(UploadSinglePhotoParam param) {
+    return toApiResult(() async => _dataSource.uploadSinglePhoto(param));
   }
 }

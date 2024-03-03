@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "Welcome": MessageLookupByLibrary.simpleMessage("مرحبا"),
         "__________________________home______________________________":
             MessageLookupByLibrary.simpleMessage(""),
@@ -52,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
+        "edit_profile":
+            MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
         "enable_your_location":
             MessageLookupByLibrary.simpleMessage("تمكين موقعك"),
@@ -72,6 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
+        "pending_money":
+            MessageLookupByLibrary.simpleMessage("الاموال المعلقة : "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
@@ -90,6 +95,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("التسجيل "),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
+        "total_money":
+            MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
+        "update": MessageLookupByLibrary.simpleMessage("تحديث"),
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("استخدام موقعي"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),

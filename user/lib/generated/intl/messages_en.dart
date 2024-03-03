@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Save": MessageLookupByLibrary.simpleMessage("Save"),
         "Welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "__________________________home______________________________":
             MessageLookupByLibrary.simpleMessage(""),
@@ -54,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
+        "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enable_your_location":
             MessageLookupByLibrary.simpleMessage("Enable your location"),
@@ -75,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
+        "pending_money":
+            MessageLookupByLibrary.simpleMessage("Pending Money : "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
@@ -91,6 +95,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up "),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
+        "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
+        "update": MessageLookupByLibrary.simpleMessage("Update"),
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("Use my location"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),

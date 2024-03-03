@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -15,6 +17,7 @@ import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
+import 'edit_profile_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -30,7 +33,7 @@ class ProfilePage extends StatelessWidget {
       child: AppScaffold(
           appBar: AppAppBar(
             appBarParams: AppBarParams(
-              title: 'Edit Profile',
+              title: S.of(context).profile,
               action: [
                 Padding(
                   padding: REdgeInsets.symmetric(horizontal: 15),
@@ -61,37 +64,18 @@ class ProfilePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Center(
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        Container(
-                          width: 138.w,
-                          height: 138.w,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: NetworkImage(data.photo.profileUrl)),
-                              border: Border.all(
-                                  color: context.colorScheme.primary)),
-                        ),
-                        Container(
-                          margin: REdgeInsets.only(right: 10),
-                          width: 25.h,
-                          height: 25.h,
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFFAFAFA),
-                              border: Border.all(
-                                  color: context.colorScheme.primary),
-                              shape: BoxShape.circle),
-                          child: Center(
-                            child: AppImage.asset(
-                              Assets.icons.essential.edit.path,
-                              size: 15.r,
-                              color: context.colorScheme.primary,
-                            ),
-                          ),
-                        )
-                      ],
+                    child: Container(
+                      clipBehavior: Clip.hardEdge,
+                      width: 138.w,
+                      height: 138.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(color: context.colorScheme.primary)),
+                      child: BlurHash(
+                          imageFit: BoxFit.cover,
+                          hash: data.photo.blurHash,
+                          image: data.photo.profileUrl),
                     ),
                   ),
                   24.verticalSpace,
@@ -103,33 +87,26 @@ class ProfilePage extends StatelessWidget {
                   ),
                   24.verticalSpace,
                   AppTextFormField(
+                    title: S.of(context).your_mobile_number,
                     initialValue: data.phone,
-                    hintText: 'nate@email.con',
+                    readOnly: true,
                   ),
                   16.verticalSpace,
-                  AppTextFormField(
-                    name: 'phoneNumber',
-                    initialValue: data.phone,
-                    hintText: S.of(context).your_mobile_number,
-                    valueTransformer: (value) {
-                      String manimbulatedValue = '$value';
-                      return manimbulatedValue;
-                    },
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(),
-                      FormBuilderValidators.minLength(10)
-                    ]),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(10)
-                    ],
-                    keyboardType: TextInputType.phone,
-                  ),
+                  Text.rich(TextSpan(children: [
+                    TextSpan(text: S.of(context).total_money),
+                    TextSpan(text: data.wallet.total.toString())
+                  ])),
+                  16.verticalSpace,
+                  Text.rich(TextSpan(children: [
+                    TextSpan(text: S.of(context).pending_money),
+                    TextSpan(text: data.wallet.pending.toString())
+                  ])),
                   32.verticalSpace,
                   AppButton.dark(
                     stretch: true,
-                    title: 'update',
-                    onPressed: () {},
+                    title: S.of(context).update,
+                    onPressed: () =>
+                        context.pushNamed(EditProfilePage.name, extra: data),
                   )
                 ],
               ),

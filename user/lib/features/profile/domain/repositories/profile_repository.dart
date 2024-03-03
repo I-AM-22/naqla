@@ -1,7 +1,11 @@
 import 'package:naqla/core/type_definitions.dart';
 
 import '../../../auth/data/model/auth_model.dart';
+import '../use_cases/edit_personal_info_use_case.dart';
+import '../use_cases/upload_single_photo_use_case.dart';
 
 abstract class ProfileRepository {
   FutureResult<User> getPersonalInfo();
+  FutureResult<User> editPersonalInfo(EditPersonalInfoParam param);
+  FutureResult<String> uploadSinglePhoto(UploadSinglePhotoParam param);
 }

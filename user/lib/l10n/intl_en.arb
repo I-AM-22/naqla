@@ -59,7 +59,12 @@
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",
+  "total_money": "Total Money : ",
+  "pending_money": "Pending Money : ",
 
   "__________________________profile______________________________":"",
-  "profile":"profile"
+  "profile":"profile",
+  "update": "Update",
+  "Save": "Save",
+  "edit_profile": "Edit Profile"
 }

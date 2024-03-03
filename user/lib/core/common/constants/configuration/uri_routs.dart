@@ -4,6 +4,7 @@ abstract class EndPoints {
   static const String baseUrl = 'http://192.168.1.104:5500';
   static const auth = Auth();
   static const profile = Profile();
+  static const photo = Photos();
 }
 
 class Auth {
@@ -14,6 +15,12 @@ class Auth {
   final forgotPassword = '/api/v1/auth/forgotPassword';
   final resetPassword = '/api/v1/auth/resetPassword';
   final updateMyPassword = '/api/v1/auth/updateMyPassword';
+}
+
+class Photos {
+  const Photos();
+
+  final single = '/api/v1/photos/single';
 }
 
 class Profile {

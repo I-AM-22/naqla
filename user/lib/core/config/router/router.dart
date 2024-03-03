@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/features/app/presentation/pages/base_page.dart';
+import 'package:naqla/features/auth/data/model/auth_model.dart';
 
 import '../../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../../features/auth/presentation/pages/forgot_password_sms_page.dart';
@@ -15,6 +16,7 @@ import '../../../features/auth/presentation/pages/sign_in_page.dart';
 import '../../../features/auth/presentation/pages/welcome_page.dart';
 import '../../../features/home/presentation/pages/home_page.dart';
 import '../../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import '../../../features/profile/presentation/pages/edit_profile_page.dart';
 import '../../../features/profile/presentation/pages/profile_page.dart';
 import '../../../features/welcome/splash.dart';
 
@@ -126,11 +128,19 @@ class GRouter {
                 navigatorKey: _shell4NavigatorKey,
                 routes: [
                   GoRoute(
-                    parentNavigatorKey: _shell4NavigatorKey,
-                    path: ProfilePage.path,
-                    name: ProfilePage.name,
-                    builder: (context, state) => const ProfilePage(),
-                  ),
+                      parentNavigatorKey: _shell4NavigatorKey,
+                      path: ProfilePage.path,
+                      name: ProfilePage.name,
+                      builder: (context, state) => const ProfilePage(),
+                      routes: [
+                        GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
+                          path: EditProfilePage.path,
+                          name: EditProfilePage.name,
+                          builder: (context, state) =>
+                              EditProfilePage(user: state.extra as User),
+                        ),
+                      ]),
                 ]),
           ],
         )

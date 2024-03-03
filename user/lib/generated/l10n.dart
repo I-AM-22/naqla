@@ -566,6 +566,26 @@ class S {
     );
   }
 
+  /// `Total Money : `
+  String get total_money {
+    return Intl.message(
+      'Total Money : ',
+      name: 'total_money',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending Money : `
+  String get pending_money {
+    return Intl.message(
+      'Pending Money : ',
+      name: 'pending_money',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(
@@ -581,6 +601,36 @@ class S {
     return Intl.message(
       'profile',
       name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update`
+  String get update {
+    return Intl.message(
+      'Update',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get Save {
+    return Intl.message(
+      'Save',
+      name: 'Save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Profile`
+  String get edit_profile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'edit_profile',
       desc: '',
       args: [],
     );
