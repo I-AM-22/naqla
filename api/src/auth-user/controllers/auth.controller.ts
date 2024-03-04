@@ -85,7 +85,7 @@ export class AuthController {
   @ApiOperation({ summary: 'update phone number' })
   @ApiOkResponse({
     description: confirmMessage,
-    type: AuthUserResponse,
+    type: SendConfirm,
   })
   @Patch('updateMyNumber')
   async updateMyNumber(
