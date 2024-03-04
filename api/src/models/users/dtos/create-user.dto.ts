@@ -17,12 +17,8 @@ export class CreateUserDto {
 
   @ApiProperty({ default: '0962535253' })
   @IsNotEmpty({ message: 'please provide phone number' })
-  @IsUnique(Entities.Employee, { message: item_already_exist('phone') })
-  @Matches(/^09\d{8}$/)
+  @Length(10, 10, { message: 'Phone must contain 10 numbers' })
+  @Matches(/^09[345689]\d{7}$/)
+  @IsUnique(Entities.User, { message: item_already_exist('Phone') })
   readonly phone: string;
-
-  @ApiProperty()
-  @IsString()
-  @Length(6, 15)
-  readonly password: string;
 }

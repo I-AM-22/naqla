@@ -2,13 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Admin, CreateAdminDto, UpdateAdminDto } from '../../../models/admins';
 import { Role } from '../../../models/roles';
 import { Repository, Equal } from 'typeorm';
-import { defaultPhoto } from '../../../common/constants/default-image.constant';
 import { ROLE } from '../../../common/enums';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IAdminRepository } from '../interfaces/repositories/admin.repository.interface';
 import { IAdminPhotosRepository } from '../interfaces/repositories/admin-photos.repository.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
 import { BaseAuthRepo } from '../../../common/entities';
+import { defaultPhotoUrl } from '../../../common/constants';
 
 @Injectable()
 export class AdminRepository
@@ -25,8 +25,12 @@ export class AdminRepository
   }
 
   async create(dto: CreateAdminDto, role: Role) {
-    const admin = this.adminRepository.create({ ...dto, role, photos: [] });
-    admin.photos.push(this.adminPhotosRepository.create(defaultPhoto));
+    const photo = await this.adminPhotosRepository.uploadPhoto(defaultPhotoUrl);
+    const admin = this.adminRepository.create({
+      ...dto,
+      role,
+      photos: [photo],
+    });
     await admin.save();
     return admin;
   }
@@ -42,7 +46,7 @@ export class AdminRepository
   async update(admin: Admin, dto: UpdateAdminDto) {
     admin.photos.push(await this.adminPhotosRepository.uploadPhoto(dto.photo));
     Object.assign(admin, {
-      email: dto.email,
+      phone: dto.phone,
       name: dto.name,
       password: dto.password,
     });

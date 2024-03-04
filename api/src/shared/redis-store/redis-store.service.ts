@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
 import { user_key, token_key } from '../../common/constants';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'src/models/users';
 
 @Injectable()
 export class RedisStoreService {
@@ -29,16 +28,5 @@ export class RedisStoreService {
 
   async getStoredToken() {
     return this.redis.get(token_key);
-  }
-
-  async storeNonConfirmed(user: User) {
-    const redisExpire = 24 * 3600;
-    const otp = '1234';
-    return this.redis.set(otp, JSON.stringify(user), 'EX', redisExpire);
-  }
-
-  async getNonConfirmed(otp: string): Promise<User> {
-    const user: User = JSON.parse(await this.redis.get(otp));
-    return user;
   }
 }

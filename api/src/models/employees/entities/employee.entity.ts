@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
-import { BasePerson, BasePhoto } from '../../../common/entities';
+import { BasePersonWithPass, BasePhoto } from '../../../common/entities';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { GROUPS } from '../../../common/enums';
 import { Role } from '../../roles';
@@ -7,7 +7,7 @@ import { EmployeePhoto } from './employee-photo.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'employees' })
-export class Employee extends BasePerson {
+export class Employee extends BasePersonWithPass {
   @Expose({ groups: [GROUPS.EMPLOYEE] })
   @Column()
   address: string;

@@ -11,12 +11,35 @@ import { Exclude, Expose, Transform } from 'class-transformer';
 import { GROUPS } from '../../../common/enums';
 import { Role } from '../../roles';
 import { UserPhoto } from './user-photo.entity';
-import * as crypto from 'crypto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Wallet } from './wallet.entity';
 
 @Entity({ name: 'users' })
 export class User extends BasePerson {
+  @Exclude()
+  @Column({ unique: true, nullable: true })
+  newPhone: string;
+
+  @Exclude()
+  @Column('boolean', { default: false })
+  active: boolean;
+
+  @Exclude()
+  @Column({ nullable: true, select: false })
+  otp: string;
+
+  @Exclude()
+  @Column({ nullable: true, select: false })
+  otpExpiresIn: Date;
+
+  @Exclude()
+  @Column({ nullable: true, select: false })
+  otpForNum: string;
+
+  @Exclude()
+  @Column({ nullable: true, select: false })
+  otpForNumExpiresIn: Date;
+
   @Expose({ groups: [GROUPS.USER] })
   @Transform(({ value }) => value.name)
   @ManyToOne(() => Role, (role) => role.users)
@@ -47,15 +70,5 @@ export class User extends BasePerson {
   photo() {
     if (this.photos) return this.photos[this.photos.length - 1];
     return undefined;
-  }
-
-  createPasswordResetToken() {
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    this.passwordResetToken = crypto
-      .createHash('sha256')
-      .update(resetToken)
-      .digest('hex');
-    this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
-    return resetToken;
   }
 }

@@ -1,17 +1,17 @@
 import { Role } from '../../roles';
 import { Inject, Injectable } from '@nestjs/common';
-import { MoreThan, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto, User, UserPhoto } from '..';
-import { defaultPhoto } from '../../../common/constants';
-import { pagination } from '../../../common/helpers';
-import { PasswordChangeDto, ResetPasswordDto } from '../../../auth-user';
-import { PaginatedResponse } from '../../../common/types';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
 import { IUserPhotosRepository } from '../interfaces/repositories/user-photos.repository.interface';
 import { USER_TYPES } from '../interfaces/type';
 import { IWalletRepository } from '../interfaces/repositories/wallet.repository.interface';
 import { BaseAuthRepo } from '../../../common/entities';
+import { defaultPhotoUrl } from '../../../common/constants';
+import { ConfirmDto, UpdatePhoneDto } from '../../../auth-user';
+import { pagination } from '../../../common/helpers';
+import { PaginatedResponse } from '../../../common/types';
 
 @Injectable()
 export class UserRepository
@@ -28,18 +28,6 @@ export class UserRepository
     super(userRepo);
   }
 
-  async create(dto: CreateUserDto, role: Role): Promise<User> {
-    const wallet = this.walletRepository.create();
-    const user = this.userRepo.create({ ...dto, role, wallet, photos: [] });
-    user.photos.push(this.userPhotosRepository.create(defaultPhoto));
-    return user;
-  }
-
-  async save(nonConfirmedUser: User): Promise<User> {
-    console.log(nonConfirmedUser);
-    const user = await this.userRepo.save(nonConfirmedUser);
-    return this.findOneById(user.id);
-  }
   async find(
     page: number,
     limit: number,
@@ -48,6 +36,7 @@ export class UserRepository
     const skip = (page - 1) * limit || 0;
     const take = limit || 100;
     const data = await this.userRepo.find({
+      where: { active: true },
       relations: { photos: true, role: true },
       skip,
       take,
@@ -57,27 +46,102 @@ export class UserRepository
     return pagination(page, limit, totalDataCount, data);
   }
 
-  async findOneByResetToken(hashToken: string) {
-    return this.userRepo.findOne({
-      where: {
-        passwordResetToken: hashToken,
-        passwordResetExpires: MoreThan(new Date()),
-      },
-      select: {
-        passwordChangedAt: true,
-        passwordResetExpires: true,
-        passwordResetToken: true,
-        password: true,
-        id: true,
-        firstName: true,
-        lastName: true,
-      },
+  async create(dto: CreateUserDto, role: Role): Promise<User> {
+    const wallet = this.walletRepository.create();
+    const photo = await this.userPhotosRepository.uploadPhoto(defaultPhotoUrl);
+    const user = this.userRepo.create({
+      ...dto,
+      role,
+      wallet,
+      photos: [photo],
     });
+    await this.createOtp(user);
+    this.userRepo.save(user);
+    return user;
+  }
+
+  async createOtp(user: User, update = false): Promise<void> {
+    if (!update) {
+      user.otp = '123456';
+      user.otpExpiresIn = new Date(Date.now() + 24 * 3600 * 1000);
+    } else {
+      user.otpForNum = '123456';
+      user.otpForNumExpiresIn = new Date(Date.now() + 24 * 3600 * 1000);
+    }
+    await this.userRepo.save(user);
+  }
+
+  async findOneForConfirm(
+    dto: ConfirmDto,
+    phoneConfirm: boolean,
+  ): Promise<User> {
+    const qb = this.userRepo
+      .createQueryBuilder('user')
+      .select([
+        'user.id',
+        'user.firstName',
+        'user.lastName',
+        'user.active',
+        'user.phone',
+        'user.newPhone',
+      ])
+      .leftJoinAndSelect('user.photos', 'photos');
+    if (phoneConfirm) {
+      qb.addSelect(['user.otpForNum', 'user.otpForNumExpiresIn']);
+      qb.where('user.otpForNum = :otp AND user.newPhone = :newPhone', {
+        otp: dto.otp,
+        newPhone: dto.phone,
+      });
+      qb.andWhere('user.otpForNumExpiresIn > :currentDate', {
+        currentDate: new Date(),
+      });
+    } else {
+      qb.addSelect(['user.otp', 'user.otpExpiresIn']);
+      qb.where('user.otp = :otp AND user.phone = :phone', {
+        otp: dto.otp,
+        phone: dto.phone,
+      });
+      qb.andWhere('user.otpExpiresIn > :currentDate', {
+        currentDate: new Date(),
+      });
+    }
+
+    return qb.getOne();
+  }
+
+  async confirm(nonConfirmedUser: User, phoneConfirm: boolean): Promise<User> {
+    if (phoneConfirm) {
+      nonConfirmedUser.phone = nonConfirmedUser.newPhone;
+      nonConfirmedUser.newPhone = null;
+      nonConfirmedUser.otpForNum = null;
+      nonConfirmedUser.otpForNumExpiresIn = null;
+    } else {
+      if (!nonConfirmedUser.active) nonConfirmedUser.active = true;
+      nonConfirmedUser.otp = null;
+      nonConfirmedUser.otpExpiresIn = null;
+    }
+    await this.userRepo.save(nonConfirmedUser);
+    return this.findOneById(nonConfirmedUser.id);
+  }
+
+  async updatePhone(user: User, dto: UpdatePhoneDto): Promise<void> {
+    Object.assign(user, { newPhone: dto.phone });
+    this.createOtp(user, true);
+  }
+
+  async update(user: User, dto: UpdateUserDto): Promise<User> {
+    user.photos.push(await this.userPhotosRepository.uploadPhoto(dto.photo));
+    Object.assign(user, {
+      firstName: dto.firstName,
+      lastName: dto.lastName,
+    });
+    await this.userRepo.save(user);
+    return this.findOneById(user.id);
   }
 
   async findOneByIdForThings(id: string): Promise<User> {
     return await this.userRepo.findOne({
-      where: { id },
+      where: { id, active: true },
       select: {
         id: true,
         firstName: true,
@@ -85,25 +149,6 @@ export class UserRepository
       },
       relations: { photos: true },
     });
-  }
-
-  async update(user: User, dto: UpdateUserDto): Promise<User> {
-    user.photos.push(await this.userPhotosRepository.uploadPhoto(dto.photo));
-    Object.assign(user, { phone: dto.phone, name: dto.name });
-    await this.userRepo.save(user);
-    return this.findOneById(user.id);
-  }
-
-  async resetPassword(
-    user: User,
-    dto: ResetPasswordDto | PasswordChangeDto,
-  ): Promise<User> {
-    user.password = dto.password;
-    user.passwordResetToken = null;
-    user.passwordResetExpires = null;
-    user.passwordChangedAt = new Date(Date.now() - 1000);
-    await this.userRepo.save(user);
-    return this.findOneById(user.id);
   }
 
   async getMyPhotos(userId: string): Promise<UserPhoto[]> {

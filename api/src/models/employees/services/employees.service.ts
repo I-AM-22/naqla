@@ -10,7 +10,6 @@ import { JwtTokenService } from '../../../shared/jwt';
 import { CreateEmployeeDto } from '../dtos/create-employee.dto';
 import { UpdateEmployeeDto } from '../dtos/update-employee.dto';
 import { Employee } from '../entities/employee.entity';
-import { LoginDto } from '../../../auth-user';
 import { AuthEmployeeResponse } from '../interfaces';
 import {
   incorrect_credentials,
@@ -22,6 +21,7 @@ import { IEmployeeRepository } from '../interfaces/repositories/employee.reposit
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { IRoleRepository } from '../../roles/interfaces/repositories/role.repository.interface';
 import { ROLE_TYPES } from '../../roles/interfaces/type';
+import { LoginEmployeeDto } from '../dtos';
 
 @Injectable()
 export class EmployeesService implements IEmployeeService {
@@ -33,7 +33,7 @@ export class EmployeesService implements IEmployeeService {
     private roleRepository: IRoleRepository,
   ) {}
 
-  async login(dto: LoginDto): Promise<AuthEmployeeResponse> {
+  async login(dto: LoginEmployeeDto): Promise<AuthEmployeeResponse> {
     const employee = await this.employeeRepository.findOneByPhone(dto.phone);
     if (
       !employee ||

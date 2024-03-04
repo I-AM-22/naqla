@@ -5,10 +5,9 @@ import {
   Body,
   HttpCode,
   HttpStatus,
-  Patch,
-  UseGuards,
-  Req,
   Inject,
+  Patch,
+  Query,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -16,22 +15,16 @@ import {
   ApiOperation,
   ApiOkResponse,
   ApiBearerAuth,
+  ApiQuery,
 } from '@nestjs/swagger';
-import { Public, GetUser, Roles } from '../../common/decorators';
-import { GROUPS, ROLE } from '../../common/enums';
-import {
-  SignUpDto,
-  PasswordChangeDto,
-  LoginDto,
-  ForgotPasswordDto,
-  ResetPasswordDto,
-  AuthConfirmEmailDto,
-} from '../dtos';
-import { RolesGuard } from '../../common/guards';
+import { GetUser, Public } from '../../common/decorators';
+import { GROUPS } from '../../common/enums';
+import { SignUpDto, LoginDto, ConfirmDto, UpdatePhoneDto } from '../dtos';
 import { AuthUserResponse } from '../interfaces';
-import { Request } from 'express';
 import { IAuthService } from '../interfaces/services/auth.service.interface';
-import { AUTH_TYPES } from '../interfaces/type';
+import { AUTH_TYPES, SendConfirm } from '../interfaces';
+import { confirmMessage } from '../../common/constants';
+import { User } from '../../models/users';
 
 /**
  * @ngdoc controller
@@ -48,7 +41,7 @@ export class AuthController {
 
   @Public()
   @SerializeOptions({ groups: [GROUPS.USER] })
-  @ApiCreatedResponse({ type: AuthUserResponse })
+  @ApiCreatedResponse({ description: confirmMessage, type: SendConfirm })
   @Post('signup')
   signup(@Body() dto: SignUpDto) {
     return this.authService.signup(dto);
@@ -59,8 +52,8 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login' })
   @ApiOkResponse({
-    description: 'User logged in successfully',
-    type: AuthUserResponse,
+    description: confirmMessage,
+    type: SendConfirm,
   })
   @Post('login')
   login(@Body() dto: LoginDto) {
@@ -75,53 +68,30 @@ export class AuthController {
     description: 'Account is confirmed',
     type: AuthUserResponse,
   })
+  @ApiQuery({
+    name: 'phoneConfirm',
+    type: 'boolean',
+    description: 'assign true to the field to confirm new number',
+  })
   @Post('confirm')
   async confirm(
-    @Body() confirmEmailDto: AuthConfirmEmailDto,
+    @Query('phoneConfirm') phoneConfirm: boolean,
+    @Body() confirmEmailDto: ConfirmDto,
   ): Promise<AuthUserResponse> {
-    return this.authService.confirm(confirmEmailDto.otp);
+    return this.authService.confirm(confirmEmailDto, phoneConfirm);
   }
 
-  @Public()
-  @ApiOperation({ summary: 'Forgot Password' })
+  @SerializeOptions({ groups: [GROUPS.USER] })
+  @ApiOperation({ summary: 'update phone number' })
   @ApiOkResponse({
-    description: 'send reset password email if you forgot password',
-    schema: {
-      example: { message: 'تم ارسال رمز اعادة التعيين لبريدك الالكتروني' },
-    },
-  })
-  @HttpCode(HttpStatus.OK)
-  @Post('forgotPassword')
-  async forgotPassword(@Body() dto: ForgotPasswordDto) {
-    return this.authService.forgotPassword(dto);
-  }
-
-  @Public()
-  @ApiOperation({ summary: 'Reset Password' })
-  @ApiOkResponse({
-    description: 'Your account password has been reset',
+    description: confirmMessage,
     type: AuthUserResponse,
   })
-  @SerializeOptions({ groups: [GROUPS.USER] })
-  @HttpCode(HttpStatus.OK)
-  @Post('resetPassword')
-  async resetPassword(
-    @Body() dto: ResetPasswordDto,
-    @Req() request: Request,
-  ): Promise<AuthUserResponse> {
-    const dynamicOrigin = `${request.protocol}://${request.get('host')}`;
-
-    return this.authService.resetPassword(dto, dynamicOrigin);
-  }
-
-  @SerializeOptions({ groups: [GROUPS.USER] })
-  @UseGuards(RolesGuard)
-  @Roles(ROLE.USER)
-  @Patch('updateMyPassword')
-  updateMyPassword(
-    @Body() dto: PasswordChangeDto,
-    @GetUser('phone') phone: string,
-  ) {
-    return this.authService.updateMyPassword(dto, phone);
+  @Patch('updateMyNumber')
+  async updateMyNumber(
+    @Body() dto: UpdatePhoneDto,
+    @GetUser() user: User,
+  ): Promise<SendConfirm> {
+    return this.authService.updatePhone(dto, user);
   }
 }

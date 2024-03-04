@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose, Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { Entity, Column, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { GROUPS } from '../enums';
-import * as argon from 'argon2';
 import { GlobalEntity } from './global-entity.entity';
+import * as argon from 'argon2';
 
 @Entity()
 export class BasePerson extends GlobalEntity {
@@ -28,6 +28,11 @@ export class BasePerson extends GlobalEntity {
   @Column({ unique: true })
   phone: string;
 
+  // Add any other common fields for both User and Admin here
+}
+
+@Entity()
+export class BasePersonWithPass extends BasePerson {
   @Exclude()
   @Column({ select: false })
   password: string;
@@ -74,5 +79,4 @@ export class BasePerson extends GlobalEntity {
   async verifyHash(hash: string, password: string) {
     return await argon.verify(hash, password);
   }
-  // Add any other common fields for both User and Admin here
 }

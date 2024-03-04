@@ -4,7 +4,7 @@ import {
   IsOptional,
   Length,
   IsNotEmpty,
-  IsEmail,
+  Matches,
 } from 'class-validator';
 import { IsPhotoExist, IsUnique } from '../../../common/decorators';
 import { Entities } from '../../../common/enums';
@@ -19,13 +19,13 @@ export class UpdateEmployeeDto {
   @ApiProperty({ required: false })
   readonly name?: string;
 
-  @ApiProperty({ required: false })
-  @IsNotEmpty()
+  @ApiProperty({ default: '0962535253' })
   @IsOptional()
-  @IsEmail({}, { message: 'Please provide a valid email' })
-  @Transform(({ value }) => value.toLowerCase())
-  @IsUnique(Entities.Employee, { message: item_already_exist('email') })
-  readonly email?: string;
+  @IsNotEmpty({ message: 'please provide phone number' })
+  @Length(10, 10, { message: 'Phone must contain 10 numbers' })
+  @Matches(/^09[345689]\d{7}$/)
+  @IsUnique(Entities.User, { message: item_already_exist('Phone') })
+  readonly phone: string;
 
   @ApiProperty()
   @IsOptional()

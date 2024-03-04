@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ROLE } from '../../../common/enums';
 import { Role } from '../../roles';
 import { Repository, Equal } from 'typeorm';
-import { defaultPhoto } from '../../../common/constants';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos';
 import { Employee } from '../entities/employee.entity';
@@ -10,6 +9,7 @@ import { IEmployeeRepository } from '../interfaces/repositories/employee.reposit
 import { IEmployeePhotosRepository } from '../interfaces/repositories/employee-photos.repository.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { BaseAuthRepo } from '../../../common/entities';
+import { defaultPhotoUrl } from '../../../common/constants';
 
 @Injectable()
 export class EmployeeRepository
@@ -26,12 +26,14 @@ export class EmployeeRepository
   }
 
   async create(dto: CreateEmployeeDto, role: Role) {
+    const photo =
+      await this.employeePhotosRepository.uploadPhoto(defaultPhotoUrl);
     const employee = this.employeeRepo.create({
       ...dto,
       role,
-      photos: [],
+      photos: [photo],
     });
-    employee.photos.push(this.employeePhotosRepository.create(defaultPhoto));
+
     await employee.save();
     return employee;
   }
@@ -49,7 +51,7 @@ export class EmployeeRepository
       await this.employeePhotosRepository.uploadPhoto(dto.photo),
     );
     Object.assign<Employee, any>(employee, {
-      email: dto.email,
+      phone: dto.phone,
       name: dto.name,
       password: dto.password,
       address: dto.address,

@@ -1,4 +1,4 @@
-import { ResetPasswordDto, PasswordChangeDto } from '../../../../auth-user';
+import { ConfirmDto, UpdatePhoneDto } from '../../../../auth-user';
 import { PaginatedResponse } from '../../../../common/types';
 import { Role } from '../../../roles';
 import { CreateUserDto, UpdateUserDto } from '../../dtos';
@@ -16,22 +16,21 @@ export interface IUserRepository {
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<User>;
 
-  findOneByIdForThings(id: string): Promise<User>;
+  findOneForConfirm(dto: ConfirmDto, phoneConfirm: boolean): Promise<User>;
 
-  findOneByResetToken(hashToken: string): Promise<User>;
+  findOneByIdForThings(id: string): Promise<User>;
 
   create(dto: CreateUserDto, role: Role): Promise<User>;
 
-  save(nonConfirmedUser: User): Promise<User>;
+  confirm(nonConfirmedUser: User, phoneConfirm: boolean): Promise<User>;
+
+  createOtp(user: User, update?: boolean): Promise<void>;
 
   update(user: User, dto: UpdateUserDto): Promise<User>;
 
-  resetPassword(
-    user: User,
-    dto: ResetPasswordDto | PasswordChangeDto,
-  ): Promise<User>;
-
   getMyPhotos(userId: string): Promise<UserPhoto[]>;
+
+  updatePhone(user: User, dto: UpdatePhoneDto): Promise<void>;
 
   // recover(user: User): Promise<User>;
 

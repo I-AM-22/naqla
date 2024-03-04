@@ -16,7 +16,6 @@ import { ConfigService, ConfigType } from '@nestjs/config';
 import { AppConfig } from './config/app';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import { getBotToken } from 'nestjs-telegraf';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {

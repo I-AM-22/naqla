@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsString,
-  IsOptional,
-  Length,
-  IsNotEmpty,
-  Matches,
-} from 'class-validator';
+import { IsString, IsOptional, Length } from 'class-validator';
 import { IsPhotoExist } from '../../../common/decorators';
 import { Entities } from '../../../common/enums';
 import { Transform } from 'class-transformer';
@@ -13,17 +7,15 @@ import { getPhotoPath } from '../../../common/helpers';
 import { item_not_found } from '../../../common/constants';
 
 export class UpdateUserDto {
+  @ApiProperty({ default: 'bahaa Alden' })
   @IsString()
-  @IsOptional()
   @Length(3, 16)
-  @ApiProperty({ required: false })
-  readonly name?: string;
+  readonly firstName: string;
 
-  @ApiProperty({ default: '0962535253' })
-  @IsNotEmpty({ message: 'please provide phone number' })
-  @IsOptional()
-  @Matches(/^09\d{8}$/)
-  readonly phone: string;
+  @ApiProperty({ default: 'Abdo' })
+  @IsString()
+  @Length(3, 16)
+  readonly lastName: string;
 
   @ApiProperty({ required: false })
   @IsOptional()

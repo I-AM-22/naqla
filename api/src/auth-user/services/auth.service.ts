@@ -1,31 +1,21 @@
 import {
   Injectable,
   UnauthorizedException,
-  NotFoundException,
   Inject,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { Entities, ROLE } from '../../common/enums';
+import { ROLE } from '../../common/enums';
 import { User } from '../../models/users';
 import { JwtTokenService } from '../../shared/jwt';
-import {
-  SignUpDto,
-  PasswordChangeDto,
-  LoginDto,
-  ForgotPasswordDto,
-  ResetPasswordDto,
-} from '../dtos';
-import { AuthUserResponse, jwtPayload } from '../interfaces';
+import { SignUpDto, LoginDto, ConfirmDto, UpdatePhoneDto } from '../dtos';
+import { AuthUserResponse, SendConfirm, jwtPayload } from '../interfaces';
 import { Admin } from '../../models/admins';
 
-import * as crypto from 'crypto';
 import {
-  item_not_found,
-  incorrect_current_password,
-  incorrect_credentials,
-  reset_token_message,
-  reset_token_expired,
   password_changed_recently,
+  confirmMessage,
+  incorrect_phone_number,
+  incorrect_credentials,
 } from '../../common/constants';
 import { Employee } from '../../models/employees';
 import { MailService } from '../../shared/mail/mail.service';
@@ -38,7 +28,7 @@ import { IUserRepository } from '../../models/users/interfaces/repositories/user
 import { ROLE_TYPES } from '../../models/roles/interfaces/type';
 import { IRoleRepository } from '../../models/roles/interfaces/repositories/role.repository.interface';
 import { IAuthService } from '../interfaces/services/auth.service.interface';
-import { RedisStoreService } from '../../shared/redis-store/redis-store.service';
+import { RedisStoreService } from '../../shared/redis-store';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -55,69 +45,41 @@ export class AuthService implements IAuthService {
     private readonly mailService: MailService,
     private redisStoreService: RedisStoreService,
   ) {}
-  async signup(dto: SignUpDto): Promise<{ message: string }> {
+  async signup(dto: SignUpDto): Promise<SendConfirm> {
     const role = await this.roleRepository.findByName(ROLE.USER);
     if (!role) throw new UnprocessableEntityException('role not found');
-    const user = await this.userRepository.create(dto, role);
-    await this.redisStoreService.storeNonConfirmed(user);
-    return { message: 'you will receive a message to confirm your account ' };
+    await this.userRepository.create(dto, role);
+    return { message: confirmMessage };
   }
 
-  async login(dto: LoginDto): Promise<AuthUserResponse> {
+  async login(dto: LoginDto): Promise<SendConfirm> {
     const user = await this.userRepository.findOneByPhone(dto.phone);
-    if (!user || !(await user.verifyHash(user.password, dto.password))) {
-      throw new UnauthorizedException(incorrect_credentials);
-    }
-    return this.sendAuthResponse(user);
+    if (!user) throw new UnauthorizedException(incorrect_phone_number);
+    await this.userRepository.createOtp(user);
+    return { message: confirmMessage };
   }
 
-  async confirm(otp: string): Promise<AuthUserResponse> {
-    const nonConfirmedUser = await this.redisStoreService.getNonConfirmed(otp);
+  async confirm(
+    dto: ConfirmDto,
+    phoneConfirm: boolean,
+  ): Promise<AuthUserResponse> {
+    const nonConfirmedUser = await this.userRepository.findOneForConfirm(
+      dto,
+      phoneConfirm,
+    );
     if (!nonConfirmedUser)
-      throw new UnprocessableEntityException('OTP not correct');
-    const user = await this.userRepository.save(nonConfirmedUser);
+      throw new UnauthorizedException(incorrect_credentials);
+    const user = await this.userRepository.confirm(
+      nonConfirmedUser,
+      phoneConfirm,
+    );
     return this.sendAuthResponse(user);
   }
 
-  async updateMyPassword(
-    dto: PasswordChangeDto,
-    phone: string,
-  ): Promise<AuthUserResponse> {
-    let user = await this.userRepository.findOneByPhone(phone);
-
-    if (!user) throw new NotFoundException(item_not_found(Entities.User));
-
-    // 2)check if the passwordConfirm is correct
-    if (!(await user.verifyHash(user.password, dto.passwordCurrent))) {
-      throw new UnauthorizedException(incorrect_current_password);
-    }
-    user = await this.userRepository.resetPassword(user, dto);
-    return this.sendAuthResponse(user);
-  }
-
-  async forgotPassword(dto: ForgotPasswordDto) {
-    const user = await this.userRepository.findOneByPhone(dto.phone);
-    const resetToken = user.createPasswordResetToken();
-    await user.save();
-    // await this.mailService.sendPasswordReset(user, resetToken);
-    return { message: reset_token_message };
-  }
-
-  async resetPassword(
-    dto: ResetPasswordDto,
-    dynamicOrigin: string,
-  ): Promise<AuthUserResponse> {
-    const hashToken = crypto
-      .createHash('sha256')
-      .update(dto.resetToken)
-      .digest('hex');
-    let user = await this.userRepository.findOneByResetToken(hashToken);
-    if (!user) {
-      throw new NotFoundException(reset_token_expired);
-    }
-    user = await this.userRepository.resetPassword(user, dto);
-    // await this.mailService.sendPasswordChanged(user, dynamicOrigin);
-    return this.sendAuthResponse(user);
+  async updatePhone(dto: UpdatePhoneDto, user: User): Promise<SendConfirm> {
+    this.userRepository.updatePhone(user, dto);
+    await this.redisStoreService.storeToken('');
+    return { message: confirmMessage };
   }
 
   async sendAuthResponse(user: User): Promise<AuthUserResponse> {
@@ -126,7 +88,7 @@ export class AuthService implements IAuthService {
   }
 
   async validate(payload: jwtPayload): Promise<User | Admin | Employee> {
-    let user: User | Admin | Employee;
+    let user: any;
 
     if (payload.entity === Admin.name) {
       user = await this.adminRepository.validate(payload.sub);
@@ -140,9 +102,12 @@ export class AuthService implements IAuthService {
       throw new UnauthorizedException('The user is not here');
     }
 
-    if (user.isPasswordChanged(payload.iat)) {
-      throw new UnauthorizedException(password_changed_recently);
+    if (payload.entity === Admin.name || payload.entity === Employee.name) {
+      if (user.isPasswordChanged(payload.iat)) {
+        throw new UnauthorizedException(password_changed_recently);
+      }
     }
+    console.log(user);
     return user;
   }
 }

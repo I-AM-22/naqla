@@ -8,8 +8,8 @@ import {
 import { SwaggerConfig } from '../types';
 
 export const SWAGGER_CONFIG: SwaggerConfig = {
-  title: 'ubay',
-  description: 'ubay API',
+  title: 'naqleh',
+  description: 'naqleh API',
   version: '1.0',
 };
 
