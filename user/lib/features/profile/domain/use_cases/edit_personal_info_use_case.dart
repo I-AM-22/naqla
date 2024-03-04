@@ -17,13 +17,23 @@ class EditPersonalInfoUseCase extends UseCase<User, EditPersonalInfoParam> {
 }
 
 class EditPersonalInfoParam {
-  final String name;
-  final String phone;
+  final String firstName;
+  final String lastName;
   final String photo;
 
   EditPersonalInfoParam(
-      {required this.name, required this.phone, required this.photo});
+      {required this.firstName, required this.lastName, required this.photo});
 
-  Map<String, dynamic> get map =>
-      {"name": name, "phone": phone, "photo": photo};
+  Map<String, dynamic> get map {
+    return photo.isEmpty
+        ? {
+            "firstName": firstName,
+            "lastName": lastName,
+          }
+        : {
+            "firstName": firstName,
+            "lastName": lastName,
+            "photo": photo,
+          };
+  }
 }

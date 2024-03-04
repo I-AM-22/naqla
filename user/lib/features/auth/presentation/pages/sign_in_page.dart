@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -12,8 +13,8 @@ import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/auth/domain/use_cases/login_use_case.dart';
-import 'package:naqla/features/auth/presentation/pages/registration/phone_verfication.dart';
-import 'package:naqla/features/auth/presentation/pages/registration/register_page.dart';
+import 'package:naqla/features/auth/presentation/pages/phone_verfication.dart';
+import 'package:naqla/features/auth/presentation/pages/register_page.dart';
 import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
 import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
 
@@ -86,11 +87,15 @@ class _SignInPageState extends State<SignInPage> {
                               context.read<AuthBloc>().add(
                                     LoginEvent(
                                         LoginParam(
-                                            _formKey.currentState
-                                                ?.value['phoneNumber'],
-                                            '123456'),
-                                        (p0) => context.pushNamed(
-                                            PhoneVerificationPage.name)),
+                                          _formKey.currentState
+                                              ?.value['phoneNumber'],
+                                        ), (p0) {
+                                      showMessage(p0, isSuccess: true);
+                                      context.pushNamed(
+                                          PhoneVerificationPage.name,
+                                          extra: _formKey.currentState
+                                              ?.value['phoneNumber']);
+                                    }),
                                   );
                             }
                           },

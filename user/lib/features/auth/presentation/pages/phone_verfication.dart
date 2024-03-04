@@ -12,11 +12,12 @@ import 'package:naqla/features/auth/domain/use_cases/confirm_use_case.dart';
 import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
 import 'package:naqla/features/auth/presentation/widgets/verification_number.dart';
 
-import '../../../../../generated/l10n.dart';
-import '../../../../home/presentation/pages/home_page.dart';
+import '../../../../generated/l10n.dart';
+import '../../../home/presentation/pages/home_page.dart';
 
 class PhoneVerificationPage extends StatefulWidget {
-  const PhoneVerificationPage({super.key});
+  const PhoneVerificationPage({super.key, required this.phone});
+  final String phone;
 
   static String get name => '/PhoneVerificationPage';
 
@@ -46,10 +47,10 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                     _key.currentState?.validate();
                     if ((_key.currentState?.isValid ?? false) &&
                         code.isNotEmpty &&
-                        code.length > 3) {
-                      context
-                          .read<AuthBloc>()
-                          .add(ConfirmEvent(ConfirmParam(otp: code), (p0) {
+                        code.length > 5) {
+                      context.read<AuthBloc>().add(ConfirmEvent(
+                              ConfirmParam(
+                                  otp: code, phone: widget.phone, false), (p0) {
                             context.pushNamed(HomePage.name);
                           }));
                     }
@@ -97,7 +98,8 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                             },
                             onCompleted: (val) {
                               context.read<AuthBloc>().add(ConfirmEvent(
-                                  ConfirmParam(otp: val),
+                                  ConfirmParam(
+                                      otp: val, phone: widget.phone, false),
                                   (p0) => context.pushNamed(HomePage.name)));
                             },
                           );

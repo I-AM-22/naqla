@@ -29,15 +29,15 @@ class AppNetworkException<OriginalException extends Exception>
     extends AppException<OriginalException> {
   AppNetworkException({
     required this.reason,
-    required OriginalException exception,
+    required super.exception,
     String? message,
-  }) : super(exception: exception, message: message ?? reason.name);
+  }) : super(message: message ?? reason.name);
 
   AppNetworkException._({
     required this.reason,
-    required OriginalException exception,
-    required String message,
-  }) : super(exception: exception, message: message);
+    required super.exception,
+    required super.message,
+  });
 
   final AppNetworkExceptionReason reason;
 
@@ -57,14 +57,8 @@ class AppNetworkResponseException<OriginalException extends Exception, DataType>
   final int? statusCode;
 
   AppNetworkResponseException(
-      {required OriginalException exception,
-      this.statusCode,
-      this.data,
-      String? message})
-      : super(
-            reason: AppNetworkExceptionReason.responseError,
-            exception: exception,
-            message: message);
+      {required super.exception, this.statusCode, this.data, super.message})
+      : super(reason: AppNetworkExceptionReason.responseError);
 
   bool get hasData => data != null;
 

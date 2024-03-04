@@ -17,8 +17,10 @@ class ConfirmUseCase extends UseCase<AuthModel, ConfirmParam> {
 
 class ConfirmParam {
   final String otp;
+  final String phone;
+  final bool phoneConfirm;
 
-  ConfirmParam({required this.otp});
+  ConfirmParam(this.phoneConfirm, {required this.otp, required this.phone});
 
-  Map<String, dynamic> get map => {'otp': otp};
+  Map<String, dynamic> get map => {'otp': otp, 'phone': phone};
 }

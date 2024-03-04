@@ -16,11 +16,11 @@ class AuthRemoteDataSource {
 
   AuthRemoteDataSource(this._dioClient);
 
-  Future<AuthModel> login(LoginParam param) async {
+  Future<String> login(LoginParam param) async {
     return throwAppException(() async {
       final result =
           await _dioClient.post(EndPoints.auth.login, data: param.map);
-      return AuthModel.fromJson(result.data);
+      return result.data['message'];
     });
   }
 
@@ -34,8 +34,9 @@ class AuthRemoteDataSource {
 
   Future<AuthModel> confirm(ConfirmParam param) async {
     return throwAppException(() async {
-      final result =
-          await _dioClient.post(EndPoints.auth.confirm, data: param.map);
+      final result = await _dioClient.post(EndPoints.auth.confirm,
+          data: param.map,
+          queryParameters: {'phoneConfirm': param.phoneConfirm});
       await getIt<PrefsRepository>().setToken(result.data['token']);
       return AuthModel.fromJson(result.data);
     });

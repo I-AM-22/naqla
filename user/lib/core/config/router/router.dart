@@ -6,12 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:naqla/features/app/presentation/pages/base_page.dart';
 import 'package:naqla/features/auth/data/model/auth_model.dart';
 
-import '../../../features/auth/presentation/pages/forgot_password_page.dart';
-import '../../../features/auth/presentation/pages/forgot_password_sms_page.dart';
-import '../../../features/auth/presentation/pages/registration/phone_verfication.dart';
-import '../../../features/auth/presentation/pages/registration/register_page.dart';
+import '../../../features/auth/presentation/pages/phone_verfication.dart';
+import '../../../features/auth/presentation/pages/register_page.dart';
 import '../../../features/auth/presentation/pages/set_location_page.dart';
-import '../../../features/auth/presentation/pages/set_new_password_page.dart';
 import '../../../features/auth/presentation/pages/sign_in_page.dart';
 import '../../../features/auth/presentation/pages/welcome_page.dart';
 import '../../../features/home/presentation/pages/home_page.dart';
@@ -79,28 +76,14 @@ class GRouter {
         GoRoute(
           path: PhoneVerificationPage.path,
           name: PhoneVerificationPage.name,
-          builder: (context, state) => const PhoneVerificationPage(),
+          builder: (context, state) =>
+              PhoneVerificationPage(phone: state.extra as String),
         ),
         GoRoute(
           path: SignInPage.path,
           name: SignInPage.name,
           builder: (context, state) =>
               SignInPage(showTextButton: state.extra as bool),
-        ),
-        GoRoute(
-          path: ForgotPasswordPage.path,
-          name: ForgotPasswordPage.name,
-          builder: (context, state) => const ForgotPasswordPage(),
-        ),
-        GoRoute(
-          path: ForgotPasswordSmsPage.path,
-          name: ForgotPasswordSmsPage.name,
-          builder: (context, state) => const ForgotPasswordSmsPage(),
-        ),
-        GoRoute(
-          path: SetNewPasswordPage.path,
-          name: SetNewPasswordPage.name,
-          builder: (context, state) => const SetNewPasswordPage(),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, child) {

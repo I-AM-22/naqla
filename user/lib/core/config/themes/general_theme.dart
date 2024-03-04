@@ -3,8 +3,6 @@ part of 'app_theme.dart';
 extension AppThemeExtension on AppTheme {
   ///dark
   ThemeData get darkTheme => ThemeData(
-
-      /// to set background color for BottomNavigation  see [https://stackoverflow.com/questions/49307858/style-bottomnavigationbar-in-flutter]
       canvasColor: darkColorScheme.surface,
       brightness: Brightness.dark,
       colorScheme: darkColorScheme,
@@ -33,7 +31,6 @@ extension AppThemeExtension on AppTheme {
 
   ///light
   ThemeData get lightTheme => ThemeData(
-        /// to set background color for BottomNavigation see  [https://stackoverflow.com/questions/49307858/style-bottomnavigationbar-in-flutter]
         canvasColor: lightColorScheme.surface,
         brightness: Brightness.light,
         primaryColor: lightColorScheme.primary,

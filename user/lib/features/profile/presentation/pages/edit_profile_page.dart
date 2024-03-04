@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +39,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String photo = '';
   @override
   void initState() {
-    photo = widget.user.photo.profileUrl;
     super.initState();
   }
 
@@ -166,46 +163,44 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   24.verticalSpace,
                   AppTextFormField(
-                    initialValue: widget.user.firstName + widget.user.lastName,
-                    name: 'name',
+                    initialValue: widget.user.firstName,
+                    name: 'firstName',
                     validator: FormBuilderValidators.required(),
                     keyboardType: TextInputType.name,
                   ),
                   24.verticalSpace,
                   AppTextFormField(
-                    name: 'phoneNumber',
-                    title: S.of(context).your_mobile_number,
-                    initialValue: widget.user.phone,
-                    valueTransformer: (value) {
-                      String manimbulatedValue = '$value';
-                      return manimbulatedValue;
-                    },
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(),
-                      FormBuilderValidators.minLength(10)
-                    ]),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(10)
-                    ],
-                    keyboardType: TextInputType.phone,
+                    name: 'lastName',
+                    title: S.of(context).last_name,
+                    initialValue: widget.user.lastName,
+                    validator: FormBuilderValidators.required(),
+                    keyboardType: TextInputType.name,
                   ),
                   32.verticalSpace,
-                  AppButton.dark(
-                    stretch: true,
-                    title: S.of(context).Save,
-                    onPressed: () {
-                      _key.currentState?.save();
-                      _key.currentState?.validate();
-                      if (_key.currentState?.isValid ?? false) {
-                        bloc.add(EditPersonalInfoEvent(
-                            EditPersonalInfoParam(
-                                name: _key.currentState?.value['name'],
-                                phone: _key.currentState?.value['phoneNumber'],
-                                photo: photo),
-                            (p0) => showMessage('edit successfully',
-                                isSuccess: true)));
-                      }
+                  BlocSelector<ProfileBloc, Map<int, CommonState>, CommonState>(
+                    selector: (state) => state[ProfileState.editPersonalInfo]!,
+                    builder: (context, state) {
+                      return AppButton.dark(
+                        isLoading: state.isLoading(),
+                        stretch: true,
+                        title: S.of(context).Save,
+                        onPressed: () {
+                          _key.currentState?.save();
+                          _key.currentState?.validate();
+                          if (_key.currentState?.isValid ?? false) {
+                            bloc.add(EditPersonalInfoEvent(
+                                EditPersonalInfoParam(
+                                    firstName:
+                                        _key.currentState?.value['firstName'],
+                                    lastName:
+                                        _key.currentState?.value['lastName'],
+                                    photo: photo), (p0) {
+                              showMessage('edit successfully', isSuccess: true);
+                              context.pop();
+                            }));
+                          }
+                        },
+                      );
                     },
                   )
                 ],

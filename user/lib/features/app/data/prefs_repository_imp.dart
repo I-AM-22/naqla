@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/common/constants/configuration/prefs_key.dart';
@@ -19,39 +20,21 @@ class PrefsRepositoryImpl extends PrefsRepository {
         .reduce((value, element) => value && element);
   }
 
-  // @override
-  // ThemeMode get getTheme {
-  //   final res = sharedPreferences.getString(PrefsKey.theme);
-  //   if (res == null) {
-  //     setTheme(ThemeMode.light);
-  //     return ThemeMode.light;
-  //   }
-  //   return mapAppThemeMode[res]!;
-  // }
-
   @override
   bool get registeredUser => token != null;
-  //
-  // @override
-  // Future<bool> setTheme(ThemeMode themeMode) =>
-  //     sharedPreferences.setString(PrefsKey.theme, themeMode.name);
 
   @override
   Future<bool> setToken(String token) =>
       sharedPreferences.setString(PrefsKey.token, token);
 
-  // @override
-  // Future<bool> setUser(UserModel user) =>
-  //     sharedPreferences.setString(PrefsKey.user, jsonEncode(user.toJson()));
-
   @override
   String? get token => sharedPreferences.getString(PrefsKey.token);
 
-  // @override
-  // UserModel? get user {
-  //   final user = sharedPreferences.getString(PrefsKey.user);
-  //   if (user == null) return null;
-  //
-  //   return UserModel.fromJson(json.decode(user));
-  // }
+  @override
+  Future<bool> setUser(User user) {
+    throw UnimplementedError();
+  }
+
+  @override
+  User? get user => throw UnimplementedError();
 }

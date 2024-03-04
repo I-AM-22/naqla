@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
-import 'package:naqla/features/auth/presentation/pages/registration/register_page.dart';
+import 'package:naqla/features/auth/presentation/pages/register_page.dart';
 import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 

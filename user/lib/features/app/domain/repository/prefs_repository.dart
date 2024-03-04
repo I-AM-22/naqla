@@ -1,3 +1,5 @@
+import 'package:naqla/features/auth/data/model/auth_model.dart';
+
 abstract class PrefsRepository {
   String? get token;
   Future<bool> setToken(String token);
@@ -5,6 +7,6 @@ abstract class PrefsRepository {
   // ThemeMode get getTheme;
   Future<bool> clearUser();
   bool get registeredUser;
-  // UserModel? get user;
-  // Future<bool> setUser(UserModel user);
+  User? get user;
+  Future<bool> setUser(User user);
 }

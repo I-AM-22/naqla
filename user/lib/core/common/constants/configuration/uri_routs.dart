@@ -12,9 +12,7 @@ class Auth {
   final login = '/api/v1/auth/login';
   final signup = '/api/v1/auth/signup';
   final confirm = '/api/v1/auth/confirm';
-  final forgotPassword = '/api/v1/auth/forgotPassword';
-  final resetPassword = '/api/v1/auth/resetPassword';
-  final updateMyPassword = '/api/v1/auth/updateMyPassword';
+  final updateMyNumber = '/api/v1/auth/updateMyNumber';
 }
 
 class Photos {

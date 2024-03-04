@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension MyColorScheme on ColorScheme {
-  MaterialColor get red => const MaterialColor(
+  MaterialColor get systemError => const MaterialColor(
         _primaryGreyValue,
         <int, Color>{
           50: Color(0xFFFFEBEE),

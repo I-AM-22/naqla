@@ -36,7 +36,14 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
       return CoreHelperFunctions.handelMultiApiResult(
           callback: () async => _editPersonalInfoUseCase(event.param),
           emit: emit,
-          onSuccess: event.onSuccess,
+          onSuccess: (data) {
+            final oldState = CoreHelperFunctions.getCommonState(
+                state, ProfileState.getPersonalInfo);
+            if (oldState is SuccessState) {
+              state.setState(ProfileState.getPersonalInfo, SuccessState(data));
+            }
+            event.onSuccess.call(data);
+          },
           state: state,
           index: ProfileState.editPersonalInfo);
     });

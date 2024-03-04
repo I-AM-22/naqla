@@ -14,7 +14,7 @@ class AuthRepositoryImplement implements AuthRepository {
 
   AuthRepositoryImplement(this._dataSource);
   @override
-  FutureResult<AuthModel> login(LoginParam param) {
+  FutureResult<String> login(LoginParam param) {
     return toApiResult(() async => _dataSource.login(param));
   }
 

@@ -34,7 +34,6 @@ class User {
   final String firstName;
   final String lastName;
   final String phone;
-  final Wallet wallet;
   final Photo photo;
 
   User({
@@ -44,7 +43,6 @@ class User {
     required this.firstName,
     required this.lastName,
     required this.phone,
-    required this.wallet,
     required this.photo,
   });
 
@@ -65,7 +63,6 @@ class User {
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
         phone: phone ?? this.phone,
-        wallet: wallet ?? this.wallet,
         photo: photo ?? this.photo,
       );
 
@@ -76,7 +73,6 @@ class User {
         firstName: json["firstName"],
         lastName: json["lastName"],
         phone: json["phone"],
-        wallet: Wallet.fromJson(json["wallet"]),
         photo: Photo.fromJson(json["photo"]),
       );
 
@@ -87,7 +83,6 @@ class User {
         "firstName": firstName,
         "lastName": lastName,
         "phone": phone,
-        "wallet": wallet.toJson(),
         "photo": photo.toJson(),
       };
 }

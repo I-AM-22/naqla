@@ -6,20 +6,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/api/api_utils.dart';
-import 'package:naqla/core/config/themes/utils.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/auth/domain/use_cases/sign_up_use_case.dart';
-import 'package:naqla/features/auth/presentation/pages/registration/phone_verfication.dart';
+import 'package:naqla/features/auth/presentation/pages/phone_verfication.dart';
 import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
 import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
-import '../../../../../generated/l10n.dart';
+import '../../../../generated/l10n.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.showTextButton});
@@ -42,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
           resizeToAvoidBottomInset: false,
           appBar: AppAppBar(back: true, appBarParams: AppBarParams()),
           body: Container(
-            padding: REdgeInsets.symmetric(horizontal: kpPaddingPage),
+            padding: REdgeInsets.symmetric(horizontal: 16),
             height: context.bodyHeight,
             child: SingleChildScrollView(
               child: FormBuilder(
@@ -54,27 +53,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       S.of(context).create_an_account,
                     ),
                     30.verticalSpace,
-                    Center(
-                      child: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundColor:
-                                context.colorScheme.systemGray.shade200,
-                          ),
-                          CircleAvatar(
-                            backgroundColor: context.colorScheme.primary,
-                            child: AppImage.asset(
-                              Assets.icons.essential.camera.path,
-                              size: 30.r,
-                              color: Colors.white,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    20.verticalSpace,
                     Row(
                       children: [
                         Expanded(
@@ -126,13 +104,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (_formKey.currentState?.isValid ?? false) {
                               context.read<AuthBloc>().add(SignUpEvent(
                                       SignUpParam(
-                                          phone: _formKey.currentState
-                                              ?.value['phoneNumber'],
-                                          firstName: _formKey
-                                              .currentState?.value['firstName'],
-                                          lastName: _formKey
-                                              .currentState?.value['lastName'],
-                                          password: '123456'), (p0) {
+                                        phone: _formKey
+                                            .currentState?.value['phoneNumber'],
+                                        firstName: _formKey
+                                            .currentState?.value['firstName'],
+                                        lastName: _formKey
+                                            .currentState?.value['lastName'],
+                                      ), (p0) {
                                     showMessage(p0, isSuccess: true);
                                     context
                                         .pushNamed(PhoneVerificationPage.name);

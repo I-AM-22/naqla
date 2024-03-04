@@ -2,7 +2,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/core.dart';
-import 'package:naqla/core/util/extensions.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
 class AppDropDown<T> extends StatefulWidget {
@@ -67,7 +66,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
             child: Material(
               elevation: widget.elevation,
               borderRadius: BorderRadius.circular(8),
-              shadowColor: context.colorScheme.shadow?.withOpacity(.2),
+              shadowColor: context.colorScheme.shadow.withOpacity(.2),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton2<T>(
                   isExpanded: widget.isExpanded,

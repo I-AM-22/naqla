@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
@@ -92,15 +90,15 @@ class ProfilePage extends StatelessWidget {
                     readOnly: true,
                   ),
                   16.verticalSpace,
-                  Text.rich(TextSpan(children: [
-                    TextSpan(text: S.of(context).total_money),
-                    TextSpan(text: data.wallet.total.toString())
-                  ])),
-                  16.verticalSpace,
-                  Text.rich(TextSpan(children: [
-                    TextSpan(text: S.of(context).pending_money),
-                    TextSpan(text: data.wallet.pending.toString())
-                  ])),
+                  // Text.rich(TextSpan(children: [
+                  //   TextSpan(text: S.of(context).total_money),
+                  //   TextSpan(text: data.wallet.total.toString())
+                  // ])),
+                  // 16.verticalSpace,
+                  // Text.rich(TextSpan(children: [
+                  //   TextSpan(text: S.of(context).pending_money),
+                  //   TextSpan(text: data.wallet.pending.toString())
+                  // ])),
                   32.verticalSpace,
                   AppButton.dark(
                     stretch: true,

@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
+import 'package:naqla/core/di/di_container.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../common/enums/status_code_type.dart';
 import 'api_utils.dart';
@@ -70,6 +72,9 @@ class LoggerInterceptor extends Interceptor with LoggerHelper {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
+    if (err.response?.statusCode == 401) {
+      getIt<PrefsRepository>().clearUser();
+    }
     if (kDebugMode) {
       prettyPrinterError(
         "***|| SOMETHING ERROR 💔 ||***"
@@ -108,6 +113,6 @@ mixin LoggerHelper {
   }
 
   void prettyPrinterV(final String message) {
-    Logger(printer: PrettyPrinter(methodCount: 0)).v(message);
+    Logger(printer: PrettyPrinter(methodCount: 0)).f(message);
   }
 }

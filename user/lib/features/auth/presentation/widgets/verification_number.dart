@@ -12,7 +12,7 @@ class VerificationNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Pinput(
-      length: 4,
+      length: 6,
       obscureText: false,
       obscuringWidget: Container(
         width: 50.w,
@@ -39,6 +39,10 @@ class VerificationNumber extends StatelessWidget {
               color: context.colorScheme.systemGray.shade200, width: 2),
         ),
       ),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(),
+        FormBuilderValidators.minLength(6),
+      ]),
       errorPinTheme: const PinTheme().copyWith(
           textStyle: context.textTheme.headlineLarge?.copyWith(
               color: context.colorScheme.error, fontWeight: FontWeight.w500),
