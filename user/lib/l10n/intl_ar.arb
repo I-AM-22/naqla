@@ -66,5 +66,9 @@
   "profile":"الملف الشخصي",
   "update": "تحديث",
   "Save": "حفظ",
-  "edit_profile": "تعديل الملف الشخصي"
+  "edit_profile": "تعديل الملف الشخصي",
+  "about_us": "من نحن",
+  "help_and_support": "المساعدة والدعم",
+  "logOut": "تسجيل الخروج",
+  "language": "اللغة"
 }

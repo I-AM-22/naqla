@@ -24,15 +24,15 @@ TextTheme textTheme = TextTheme(
     fontSize: 18.0.sp,
     fontWeight: FontWeight.w600,
     color: const Color(0xFF2A2A2A),
-    height: 25.fromFigmaHeight(28),
+    height: 25.fromFigmaHeight(18),
   ),
   headlineSmall: TextStyle(
     fontFamily: 'noor',
-    fontSize: 24.0.sp,
-    fontWeight: FontWeight.w600,
+    fontSize: 18.0.sp,
+    fontWeight: FontWeight.w500,
     letterSpacing: -0.5.w,
     color: const Color(0xFF2A2A2A),
-    height: 32.fromFigmaHeight(24),
+    height: 25.fromFigmaHeight(18),
   ),
 
   ///Title
@@ -51,9 +51,9 @@ TextTheme textTheme = TextTheme(
       fontFamily: 'noor', fontSize: 14.0.sp, fontWeight: FontWeight.w500),
   labelMedium: TextStyle(
     fontFamily: 'noor',
-    fontSize: 18.0.sp,
+    fontSize: 12.0.sp,
     fontWeight: FontWeight.w500,
-    height: 24.fromFigmaHeight(18),
+    height: 16.fromFigmaHeight(12),
   ),
   labelSmall: TextStyle(
       fontFamily: 'noor', fontSize: 11.0.sp, fontWeight: FontWeight.w500),
@@ -63,9 +63,9 @@ TextTheme textTheme = TextTheme(
       fontFamily: 'noor', fontSize: 16.0.sp, fontWeight: FontWeight.w400),
   bodyMedium: TextStyle(
     fontFamily: 'noor',
-    fontSize: 16.0.sp,
+    fontSize: 12.0.sp,
     fontWeight: FontWeight.w500,
-    height: 24.fromFigmaHeight(16),
+    height: 18.fromFigmaHeight(12),
   ),
   bodySmall: TextStyle(
       fontFamily: 'noor', fontSize: 12.0.sp, fontWeight: FontWeight.w400),

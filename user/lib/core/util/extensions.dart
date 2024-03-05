@@ -26,6 +26,8 @@ extension BuildContextExtension on BuildContext {
 
   get locale => Localizations.localeOf(this);
 
+  get isArabic => locale == const Locale('ar', 'SY');
+
   double get bodyHeight {
     Size size = mediaQuery.size;
     double statusBar = mediaQuery.viewPadding.top;
@@ -48,4 +50,3 @@ extension FigmaDimension on num {
     return h / fontSize.sp;
   }
 }
-

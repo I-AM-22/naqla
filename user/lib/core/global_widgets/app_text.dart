@@ -22,7 +22,7 @@ class AppText extends StatelessWidget {
     this.velocity,
     this.figmaLineHeight,
     this.scrollText = false,
-  })  : style = (style ?? const TextStyle()).copyWith(color: color);
+  }) : style = (style ?? const TextStyle()).copyWith(color: color);
 
   final String text;
   final StrutStyle? strutStyle;
@@ -315,6 +315,30 @@ class AppText extends StatelessWidget {
   }) : style =
             textTheme.labelLarge?.merge(style).copyWith(fontWeight: fontWeight);
 
+  AppText.labelMedium(
+    this.text, {
+    this.scrollText = false,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.figmaLineHeight,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaleFactor,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+    this.selectionColor,
+    this.color,
+    this.velocity,
+    super.key,
+    TextStyle? style,
+    FontWeight? fontWeight,
+  }) : style = textTheme.labelMedium
+            ?.merge(style)
+            .copyWith(fontWeight: fontWeight);
+
   AppText.labelSmall(
     this.text, {
     this.scrollText = false,
@@ -550,7 +574,7 @@ class AppText extends StatelessWidget {
             .merge(style)
             .copyWith(fontWeight: fontWeight);
 
-              copyWith({Color? color}) => AppText(
+  copyWith({Color? color}) => AppText(
         text,
         strutStyle: strutStyle,
         textAlign: textAlign,
@@ -570,4 +594,3 @@ class AppText extends StatelessWidget {
         scrollText: scrollText,
       );
 }
-

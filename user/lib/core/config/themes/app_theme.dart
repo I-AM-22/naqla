@@ -16,7 +16,6 @@ class AppTheme {
   final ColorScheme darkColorScheme;
   final ColorScheme lightColorScheme;
 
-
   AppBarTheme appBarTheme(ColorScheme scheme) => AppBarTheme(
       backgroundColor: scheme.onPrimary,
       toolbarHeight: 48,

@@ -5,6 +5,7 @@ class AppScaffold extends StatelessWidget {
   final Widget body;
   final Widget? bottomNavigationBar;
   final Widget? floatingActionButton;
+  final Widget? drawer;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final PreferredSizeWidget? appBar;
   final bool? resizeToAvoidBottomInset;
@@ -21,6 +22,7 @@ class AppScaffold extends StatelessWidget {
     this.resizeToAvoidBottomInset,
     this.backgroundColor,
     this.bottomNavigationBar,
+    this.drawer,
   });
 
   @override
@@ -39,6 +41,7 @@ class AppScaffold extends StatelessWidget {
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
           floatingActionButton: floatingActionButton,
           floatingActionButtonLocation: floatingActionButtonLocation,
+          drawer: drawer,
         ),
       );
     });

@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "__________________________wallet______________________________":
             MessageLookupByLibrary.simpleMessage(""),
+        "about_us": MessageLookupByLibrary.simpleMessage("About Us"),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
@@ -70,9 +71,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "have_a_better_sharing_experience":
             MessageLookupByLibrary.simpleMessage(
                 "Have a better sharing experience"),
+        "help_and_support":
+            MessageLookupByLibrary.simpleMessage("Help and Support"),
         "home": MessageLookupByLibrary.simpleMessage("home"),
         "hour": MessageLookupByLibrary.simpleMessage("hour"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
+        "logOut": MessageLookupByLibrary.simpleMessage("LogOut"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),

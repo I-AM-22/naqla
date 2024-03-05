@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "__________________________wallet______________________________":
             MessageLookupByLibrary.simpleMessage(""),
+        "about_us": MessageLookupByLibrary.simpleMessage("من نحن"),
         "ago": MessageLookupByLibrary.simpleMessage("منذ"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
@@ -68,9 +69,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "go": MessageLookupByLibrary.simpleMessage("اذهب"),
         "have_a_better_sharing_experience":
             MessageLookupByLibrary.simpleMessage("تمتع بتجربة مشاركة أفضل"),
+        "help_and_support":
+            MessageLookupByLibrary.simpleMessage("المساعدة والدعم"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "hour": MessageLookupByLibrary.simpleMessage("ساعة"),
+        "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "last_name": MessageLookupByLibrary.simpleMessage("الاسم الاخير"),
+        "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),

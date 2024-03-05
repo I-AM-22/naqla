@@ -15,6 +15,8 @@ import '../../../../generated/l10n.dart';
 class App extends StatelessWidget {
   const App({super.key});
 
+  static ValueNotifier<bool> englishLanguage = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -32,19 +34,24 @@ class App extends StatelessWidget {
                 final theme = AppTheme.init(
                     darkColorScheme: darkColorScheme,
                     lightColorScheme: lightColorScheme);
-                return MaterialApp.router(
-                  title: 'NaqlaCustomer',
-                  debugShowCheckedModeBanner: false,
-                  theme: theme.lightTheme,
-                  routerConfig: GRouter.router,
-                  locale: LanguageService.supportedLocales.first,
-                  localizationsDelegates: const [
-                    S.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: LanguageService.supportedLocales,
+                return ValueListenableBuilder(
+                  valueListenable: englishLanguage,
+                  builder: (context, value, _) => MaterialApp.router(
+                    title: 'NaqlaCustomer',
+                    debugShowCheckedModeBanner: false,
+                    theme: theme.lightTheme,
+                    routerConfig: GRouter.router,
+                    locale: value
+                        ? LanguageService.supportedLocales.last
+                        : LanguageService.supportedLocales.first,
+                    localizationsDelegates: const [
+                      S.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    supportedLocales: LanguageService.supportedLocales,
+                  ),
                 );
               },
             )),

@@ -66,5 +66,9 @@
   "profile":"profile",
   "update": "Update",
   "Save": "Save",
-  "edit_profile": "Edit Profile"
+  "edit_profile": "Edit Profile",
+  "about_us": "About Us",
+  "help_and_support": "Help and Support",
+  "logOut": "LogOut",
+  "language": "Language"
 }

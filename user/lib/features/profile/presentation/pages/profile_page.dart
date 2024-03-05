@@ -8,6 +8,7 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
+import 'package:naqla/features/app/presentation/widgets/drawer_item.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla/features/auth/data/model/auth_model.dart';
@@ -29,28 +30,89 @@ class ProfilePage extends StatelessWidget {
     return BlocProvider.value(
       value: getIt<ProfileBloc>()..add(GetPersonalInfoEvent()),
       child: AppScaffold(
+          drawer: ClipRRect(
+            borderRadius: context.isArabic
+                ? const BorderRadius.only(
+                    topLeft: Radius.circular(80),
+                    bottomLeft: Radius.circular(80))
+                : const BorderRadius.only(
+                    topRight: Radius.circular(80),
+                    bottomRight: Radius.circular(80)),
+            child: Drawer(
+              backgroundColor: context.colorScheme.onPrimary,
+              child: ListView(
+                padding: REdgeInsets.symmetric(
+                    horizontal: UIConstants.screenPadding16,
+                    vertical: UIConstants.screenPadding30),
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppImage.asset(context.isArabic
+                          ? Assets.icons.arrow.rightArrow.path
+                          : Assets.icons.arrow.leftArrow.path),
+                      AppText.subHeadMedium('Back'),
+                    ],
+                  ),
+                  27.verticalSpace,
+                  const Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: CircleAvatar(
+                      radius: 50,
+                    ),
+                  ),
+                  18.verticalSpace,
+                  AppText.headlineSmall('majed'),
+                  AppText.bodySmall('majed@gmail.com'),
+                  40.verticalSpace,
+                  DrawerItem(
+                      icon: Assets.icons.essential.profile.path,
+                      title: S.of(context).edit_profile),
+                  DrawerItem(
+                      icon: Assets.icons.essential.info.path,
+                      title: S.of(context).about_us),
+                  DrawerItem(
+                      icon: Assets.icons.essential.info.path,
+                      title: S.of(context).help_and_support),
+                  DrawerItem(
+                    icon: Assets.icons.essential.website.path,
+                    title: S.of(context).language,
+                    showDropDown: true,
+                  ),
+                  DrawerItem(
+                    icon: Assets.icons.essential.logout.path,
+                    title: S.of(context).logOut,
+                    lastItem: true,
+                  ),
+                ],
+              ),
+            ),
+          ),
           appBar: AppAppBar(
             appBarParams: AppBarParams(
               title: S.of(context).profile,
-              action: [
-                Padding(
-                  padding: REdgeInsets.symmetric(horizontal: 15),
-                  child: Container(
-                      width: 34.w,
-                      height: 34.w,
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFE5E5E5),
-                          borderRadius: BorderRadius.circular(4)),
-                      child: Center(
-                        child: AppImage.asset(
-                          Assets.icons.essential.moreIcon.path,
-                          size: 15.r,
-                        ),
-                      )),
-                )
-              ],
+              leading: Builder(builder: (context) {
+                return Padding(
+                  padding: REdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  child: GestureDetector(
+                    onTap: () => Scaffold.of(context).openDrawer(),
+                    child: Container(
+                        width: 34.w,
+                        height: 34.w,
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFE5E5E5),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Center(
+                          child: AppImage.asset(
+                            Assets.icons.essential.moreIcon.path,
+                            size: 15.r,
+                          ),
+                        )),
+                  ),
+                );
+              }),
             ),
-            back: false,
+            back: true,
           ),
           body: AppCommonStateBuilder<ProfileBloc, User>(
             index: ProfileState.getPersonalInfo,

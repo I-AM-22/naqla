@@ -102,11 +102,22 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get checkCircle =>
       const SvgGenImage('assets/icons/essential/check circle.svg');
 
+  /// File path: assets/icons/essential/circle_quistion.svg
+  SvgGenImage get circleQuistion =>
+      const SvgGenImage('assets/icons/essential/circle_quistion.svg');
+
   /// File path: assets/icons/essential/edit.svg
   SvgGenImage get edit => const SvgGenImage('assets/icons/essential/edit.svg');
 
   /// File path: assets/icons/essential/home.svg
   SvgGenImage get home => const SvgGenImage('assets/icons/essential/home.svg');
+
+  /// File path: assets/icons/essential/info.svg
+  SvgGenImage get info => const SvgGenImage('assets/icons/essential/info.svg');
+
+  /// File path: assets/icons/essential/logout.svg
+  SvgGenImage get logout =>
+      const SvgGenImage('assets/icons/essential/logout.svg');
 
   /// File path: assets/icons/essential/map.svg
   SvgGenImage get map => const SvgGenImage('assets/icons/essential/map.svg');
@@ -138,6 +149,10 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get wallet2 =>
       const SvgGenImage('assets/icons/essential/wallet2.svg');
 
+  /// File path: assets/icons/essential/website.svg
+  SvgGenImage get website =>
+      const SvgGenImage('assets/icons/essential/website.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
         aboutUs,
@@ -147,8 +162,11 @@ class $AssetsIconsEssentialGen {
         user,
         camera,
         checkCircle,
+        circleQuistion,
         edit,
         home,
+        info,
+        logout,
         map,
         messageSvgrepoCom,
         moreIcon,
@@ -156,7 +174,8 @@ class $AssetsIconsEssentialGen {
         profile,
         success,
         wallet,
-        wallet2
+        wallet2,
+        website
       ];
 }
 
