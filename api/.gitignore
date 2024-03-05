@@ -6,7 +6,8 @@
 /documentation
 /dist
 /node_modules
-/public
+/public/photos
+
 # Logs
 logs
 *.log
