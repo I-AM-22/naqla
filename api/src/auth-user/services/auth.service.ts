@@ -4,7 +4,6 @@ import {
   Inject,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { ROLE } from '../../common/enums';
 import { User } from '../../models/users';
 import { JwtTokenService } from '../../shared/jwt';
 import { SignUpDto, LoginDto, ConfirmDto, UpdatePhoneDto } from '../dtos';
@@ -16,6 +15,7 @@ import {
   confirmMessage,
   incorrect_phone_number,
   incorrect_credentials,
+  item_already_exist,
 } from '../../common/constants';
 import { Employee } from '../../models/employees';
 import { MailService } from '../../shared/mail/mail.service';
@@ -29,6 +29,9 @@ import { ROLE_TYPES } from '../../models/roles/interfaces/type';
 import { IRoleRepository } from '../../models/roles/interfaces/repositories/role.repository.interface';
 import { IAuthService } from '../interfaces/services/auth.service.interface';
 import { RedisStoreService } from '../../shared/redis-store';
+import { OtpsService } from '../../models/otps/otps.service';
+import { OTP_TYPE } from '../../models/otps/otp.enum';
+import { ROLE } from '../../common/enums';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -44,18 +47,57 @@ export class AuthService implements IAuthService {
     private readonly roleRepository: IRoleRepository,
     private readonly mailService: MailService,
     private redisStoreService: RedisStoreService,
+    private otpsService: OtpsService,
   ) {}
   async signup(dto: SignUpDto): Promise<SendConfirm> {
-    const role = await this.roleRepository.findByName(ROLE.USER);
-    if (!role) throw new UnprocessableEntityException('role not found');
-    await this.userRepository.create(dto, role);
+    const user = await this.userRepository.findOneByPhone(dto.phone);
+    if (!user) {
+      const otp = await this.otpsService.findOne(
+        dto.phone,
+        OTP_TYPE.CHANGE_NUMBER,
+      );
+
+      if (otp) {
+        throw new UnprocessableEntityException(item_already_exist('mobile'));
+      }
+      const role = await this.roleRepository.findByName(ROLE.USER);
+
+      if (!role) throw new UnprocessableEntityException('role not found');
+
+      const newUser = await this.userRepository.create(dto, role);
+      await this.otpsService.create({
+        phone: newUser.phone,
+        userId: newUser.id,
+        type: OTP_TYPE.SIGNUP,
+      });
+    } else if (user.active) {
+      throw new UnprocessableEntityException(item_already_exist('mobile'));
+    } else if (!user.active) {
+      await this.otpsService.create(
+        {
+          phone: user.phone,
+          userId: user.id,
+          type: OTP_TYPE.SIGNUP,
+        },
+        {
+          phone: user.phone,
+          type: OTP_TYPE.SIGNUP,
+        },
+      );
+    }
+
     return { message: confirmMessage };
   }
 
   async login(dto: LoginDto): Promise<SendConfirm> {
     const user = await this.userRepository.findOneByPhone(dto.phone);
-    if (!user) throw new UnauthorizedException(incorrect_phone_number);
-    await this.userRepository.createOtp(user);
+    if (!user || !user.active)
+      throw new UnauthorizedException(incorrect_phone_number);
+    await this.otpsService.create({
+      userId: user.id,
+      phone: user.phone,
+      type: OTP_TYPE.LOGIN,
+    });
     return { message: confirmMessage };
   }
 
@@ -63,22 +105,55 @@ export class AuthService implements IAuthService {
     dto: ConfirmDto,
     phoneConfirm: boolean,
   ): Promise<AuthUserResponse> {
-    const nonConfirmedUser = await this.userRepository.findOneForConfirm(
-      dto,
+    let user: User;
+    const otp = await this.otpsService.findOneOtp(
+      dto.phone,
+      dto.otp,
       phoneConfirm,
     );
+    if (!otp) {
+      throw new UnauthorizedException(incorrect_credentials);
+    }
+    const nonConfirmedUser = await this.userRepository.findOneById(otp.userId);
     if (!nonConfirmedUser)
       throw new UnauthorizedException(incorrect_credentials);
-    const user = await this.userRepository.confirm(
-      nonConfirmedUser,
-      phoneConfirm,
-    );
+
+    if (phoneConfirm) {
+      user = await this.userRepository.updatePhone(nonConfirmedUser, {
+        phone: otp.phone,
+      });
+    } else {
+      if (otp.type === OTP_TYPE.SIGNUP)
+        user = await this.userRepository.confirm(nonConfirmedUser);
+      else user = nonConfirmedUser;
+    }
+    await this.otpsService.update({ phone: otp.phone, type: otp.type });
     return this.sendAuthResponse(user);
   }
 
   async updatePhone(dto: UpdatePhoneDto, user: User): Promise<SendConfirm> {
-    this.userRepository.updatePhone(user, dto);
-    await this.redisStoreService.storeToken('');
+    const otp = await this.otpsService.findOne(
+      dto.phone,
+      OTP_TYPE.CHANGE_NUMBER,
+    );
+
+    if (!otp) {
+      await this.otpsService.create({
+        phone: dto.phone,
+        userId: user.id,
+        type: OTP_TYPE.CHANGE_NUMBER,
+      });
+    } else if (otp && otp.userId === user.id) {
+      await this.otpsService.create(
+        {
+          phone: dto.phone,
+          userId: user.id,
+          type: OTP_TYPE.CHANGE_NUMBER,
+        },
+        { phone: otp.phone, type: otp.type },
+      );
+    } else throw new UnprocessableEntityException(item_already_exist('mobile'));
+
     return { message: confirmMessage };
   }
 
@@ -107,7 +182,6 @@ export class AuthService implements IAuthService {
         throw new UnauthorizedException(password_changed_recently);
       }
     }
-    console.log(user);
     return user;
   }
 }

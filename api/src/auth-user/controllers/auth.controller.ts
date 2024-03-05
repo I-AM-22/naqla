@@ -16,6 +16,10 @@ import {
   ApiOkResponse,
   ApiBearerAuth,
   ApiQuery,
+  ApiBadRequestResponse,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { GetUser, Public } from '../../common/decorators';
 import { GROUPS } from '../../common/enums';
@@ -23,8 +27,14 @@ import { SignUpDto, LoginDto, ConfirmDto, UpdatePhoneDto } from '../dtos';
 import { AuthUserResponse } from '../interfaces';
 import { IAuthService } from '../interfaces/services/auth.service.interface';
 import { AUTH_TYPES, SendConfirm } from '../interfaces';
-import { confirmMessage } from '../../common/constants';
+import {
+  bad_req,
+  confirmMessage,
+  data_not_found,
+  denied_error,
+} from '../../common/constants';
 import { User } from '../../models/users';
+import { item_already_exist } from '../../common/constants/validation-errors.constant';
 
 /**
  * @ngdoc controller
@@ -35,6 +45,10 @@ import { User } from '../../models/users';
  */
 @ApiTags('auth')
 @ApiBearerAuth('token')
+@ApiBadRequestResponse({ description: bad_req })
+@ApiForbiddenResponse({ description: denied_error })
+@ApiNotFoundResponse({ description: data_not_found })
+@ApiUnprocessableEntityResponse({ description: item_already_exist('mobile') })
 @Controller({ path: 'auth', version: '1' })
 export class AuthController {
   constructor(@Inject(AUTH_TYPES.service) private authService: IAuthService) {}

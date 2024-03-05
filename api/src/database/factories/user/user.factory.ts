@@ -10,7 +10,7 @@ export const userFactory = setSeederFactory(User, async (faker) =>
   User.create({
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
-    phone: faker.helpers.fromRegExp(/09[1-9]{8}/),
+    phone: faker.helpers.fromRegExp(/09[345689][0-9]{7}/),
     role: await Role.findOneBy({ name: ROLE.USER }),
     photos: [UserPhoto.create({ ...defaultPhoto })],
     wallet: Wallet.create(),

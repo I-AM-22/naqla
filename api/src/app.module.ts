@@ -27,6 +27,7 @@ import { RedisStoreModule } from './shared/redis-store/redis-store.module';
 import { LoggerMiddleware } from './common/middlewares';
 import { LoggerModule } from './shared/logger/logger.module';
 import { DriverModule } from './models/driver/driver.module';
+import { OtpsModule } from './models/otps/otps.module';
 
 @Module({
   imports: [
@@ -66,6 +67,7 @@ import { DriverModule } from './models/driver/driver.module';
     RedisStoreModule,
     LoggerModule,
     DriverModule,
+    OtpsModule,
   ],
   providers: [
     IsUniqueConstraint,

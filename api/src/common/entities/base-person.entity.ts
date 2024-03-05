@@ -32,6 +32,13 @@ export class BasePerson extends GlobalEntity {
 }
 
 @Entity()
+export class BasePersonWithActive extends BasePerson {
+  @Exclude()
+  @Column('boolean', { default: false })
+  active: boolean;
+}
+
+@Entity()
 export class BasePersonWithPass extends BasePerson {
   @Exclude()
   @Column({ select: false })

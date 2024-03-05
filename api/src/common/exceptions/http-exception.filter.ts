@@ -5,13 +5,12 @@ import {
   ArgumentsHost,
   HttpException,
   UnauthorizedException,
-  HttpStatus,
   ForbiddenException,
   InternalServerErrorException,
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
-import { AbstractHttpAdapter, HttpAdapterHost } from '@nestjs/core';
+import { HttpAdapterHost } from '@nestjs/core';
 import { Response } from 'express';
 import { AppConfig } from '../../config/app';
 import { ConfigType } from '@nestjs/config';
@@ -34,12 +33,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
       exception instanceof ForbiddenError
         ? new ForbiddenException(denied_error)
         : exception.code === '23505'
-        ? new BadRequestException(exception.detail)
-        : exception.code === '23503'
-        ? new NotFoundException(exception.detail + ' not found')
-        : exception instanceof HttpException
-        ? exception
-        : new InternalServerErrorException('something went very wrong');
+          ? new BadRequestException(exception.detail)
+          : exception.code === '23503'
+            ? new NotFoundException(exception.detail + ' not found')
+            : exception instanceof HttpException
+              ? exception
+              : new InternalServerErrorException('something went very wrong');
 
     if (error.message === 'Unauthorized') error = handelPassportError();
 
@@ -48,7 +47,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       const rep = {
         type: error.errors ? 'form' : 'default',
         message: error.message,
-        errors: error.errors,
+        errors: error.response.errors,
       };
       this.reply(response, rep, error.getStatus());
     } else {

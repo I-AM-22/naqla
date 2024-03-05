@@ -6,7 +6,7 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { BasePerson, BasePhoto } from '../../../common/entities';
+import { BasePersonWithActive, BasePhoto } from '../../../common/entities';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { GROUPS } from '../../../common/enums';
 import { Role } from '../../roles';
@@ -15,31 +15,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Wallet } from './wallet.entity';
 
 @Entity({ name: 'users' })
-export class User extends BasePerson {
-  @Exclude()
-  @Column({ unique: true, nullable: true })
-  newPhone: string;
-
-  @Exclude()
-  @Column('boolean', { default: false })
-  active: boolean;
-
-  @Exclude()
-  @Column({ nullable: true, select: false })
-  otp: string;
-
-  @Exclude()
-  @Column({ nullable: true, select: false })
-  otpExpiresIn: Date;
-
-  @Exclude()
-  @Column({ nullable: true, select: false })
-  otpForNum: string;
-
-  @Exclude()
-  @Column({ nullable: true, select: false })
-  otpForNumExpiresIn: Date;
-
+export class User extends BasePersonWithActive {
   @Expose({ groups: [GROUPS.USER] })
   @Transform(({ value }) => value.name)
   @ManyToOne(() => Role, (role) => role.users)

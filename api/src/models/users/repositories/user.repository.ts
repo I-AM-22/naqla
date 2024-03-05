@@ -9,7 +9,7 @@ import { USER_TYPES } from '../interfaces/type';
 import { IWalletRepository } from '../interfaces/repositories/wallet.repository.interface';
 import { BaseAuthRepo } from '../../../common/entities';
 import { defaultPhotoUrl } from '../../../common/constants';
-import { ConfirmDto, UpdatePhoneDto } from '../../../auth-user';
+import { UpdatePhoneDto } from '../../../auth-user';
 import { pagination } from '../../../common/helpers';
 import { PaginatedResponse } from '../../../common/types';
 
@@ -55,78 +55,20 @@ export class UserRepository
       wallet,
       photos: [photo],
     });
-    await this.createOtp(user);
-    this.userRepo.save(user);
-    return user;
-  }
-
-  async createOtp(user: User, update = false): Promise<void> {
-    if (!update) {
-      user.otp = '123456';
-      user.otpExpiresIn = new Date(Date.now() + 24 * 3600 * 1000);
-    } else {
-      user.otpForNum = '123456';
-      user.otpForNumExpiresIn = new Date(Date.now() + 24 * 3600 * 1000);
-    }
     await this.userRepo.save(user);
+    return this.findOneByPhone(user.phone);
   }
 
-  async findOneForConfirm(
-    dto: ConfirmDto,
-    phoneConfirm: boolean,
-  ): Promise<User> {
-    const qb = this.userRepo
-      .createQueryBuilder('user')
-      .select([
-        'user.id',
-        'user.firstName',
-        'user.lastName',
-        'user.active',
-        'user.phone',
-        'user.newPhone',
-      ])
-      .leftJoinAndSelect('user.photos', 'photos');
-    if (phoneConfirm) {
-      qb.addSelect(['user.otpForNum', 'user.otpForNumExpiresIn']);
-      qb.where('user.otpForNum = :otp AND user.newPhone = :newPhone', {
-        otp: dto.otp,
-        newPhone: dto.phone,
-      });
-      qb.andWhere('user.otpForNumExpiresIn > :currentDate', {
-        currentDate: new Date(),
-      });
-    } else {
-      qb.addSelect(['user.otp', 'user.otpExpiresIn']);
-      qb.where('user.otp = :otp AND user.phone = :phone', {
-        otp: dto.otp,
-        phone: dto.phone,
-      });
-      qb.andWhere('user.otpExpiresIn > :currentDate', {
-        currentDate: new Date(),
-      });
-    }
-
-    return qb.getOne();
-  }
-
-  async confirm(nonConfirmedUser: User, phoneConfirm: boolean): Promise<User> {
-    if (phoneConfirm) {
-      nonConfirmedUser.phone = nonConfirmedUser.newPhone;
-      nonConfirmedUser.newPhone = null;
-      nonConfirmedUser.otpForNum = null;
-      nonConfirmedUser.otpForNumExpiresIn = null;
-    } else {
-      if (!nonConfirmedUser.active) nonConfirmedUser.active = true;
-      nonConfirmedUser.otp = null;
-      nonConfirmedUser.otpExpiresIn = null;
-    }
+  async confirm(nonConfirmedUser: User): Promise<User> {
+    nonConfirmedUser.active = true;
     await this.userRepo.save(nonConfirmedUser);
     return this.findOneById(nonConfirmedUser.id);
   }
 
-  async updatePhone(user: User, dto: UpdatePhoneDto): Promise<void> {
-    Object.assign(user, { newPhone: dto.phone });
-    this.createOtp(user, true);
+  async updatePhone(user: User, dto: UpdatePhoneDto): Promise<User> {
+    Object.assign(user, dto);
+    await this.userRepo.save(user);
+    return this.findOneById(user.id);
   }
 
   async update(user: User, dto: UpdateUserDto): Promise<User> {

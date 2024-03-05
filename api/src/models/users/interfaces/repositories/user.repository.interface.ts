@@ -1,4 +1,4 @@
-import { ConfirmDto, UpdatePhoneDto } from '../../../../auth-user';
+import { UpdatePhoneDto } from '../../../../auth-user';
 import { PaginatedResponse } from '../../../../common/types';
 import { Role } from '../../../roles';
 import { CreateUserDto, UpdateUserDto } from '../../dtos';
@@ -12,25 +12,21 @@ export interface IUserRepository {
     withDeleted: boolean,
   ): Promise<PaginatedResponse<User> | User[]>;
 
-  findOneById(id: string, withDeleted: boolean): Promise<User>;
+  findOneById(id: string, withDeleted?: boolean): Promise<User>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<User>;
-
-  findOneForConfirm(dto: ConfirmDto, phoneConfirm: boolean): Promise<User>;
 
   findOneByIdForThings(id: string): Promise<User>;
 
   create(dto: CreateUserDto, role: Role): Promise<User>;
 
-  confirm(nonConfirmedUser: User, phoneConfirm: boolean): Promise<User>;
-
-  createOtp(user: User, update?: boolean): Promise<void>;
+  confirm(nonConfirmedUser: User): Promise<User>;
 
   update(user: User, dto: UpdateUserDto): Promise<User>;
 
   getMyPhotos(userId: string): Promise<UserPhoto[]>;
 
-  updatePhone(user: User, dto: UpdatePhoneDto): Promise<void>;
+  updatePhone(user: User, dto: UpdatePhoneDto): Promise<User>;
 
   // recover(user: User): Promise<User>;
 

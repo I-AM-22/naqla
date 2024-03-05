@@ -43,7 +43,7 @@ export function createDocument(app: INestApplication): {
       persistAuthorization: true,
     },
     customSiteTitle: 'ubay',
-    customCssUrl: '/assets/swagger.css',
+    // customCssUrl: '/assets/swagger.css',
   };
   return { document, setupOptions };
 }

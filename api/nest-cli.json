@@ -4,7 +4,7 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "assets": ["shared/mail/templates/**/*", "swagger.css"],
+    "assets": ["shared/mail/templates/**/*"],
 
     "watchAssets": true
   }

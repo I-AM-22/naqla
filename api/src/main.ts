@@ -20,6 +20,7 @@ import helmet from 'helmet';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     snapshot: true,
+    cors: true,
   });
   const httpAdapter = app.get(HttpAdapterHost);
   const logger = app.get(Logger);
