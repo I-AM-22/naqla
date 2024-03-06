@@ -65,7 +65,11 @@ export class OtpRepository {
   }
 
   async create(dto: CreateOtpDto) {
-    const otp = this.otpRepo.create({ ...dto, otp: '123456' });
+    const otp = this.otpRepo.create({
+      ...dto,
+      otp: '123456',
+      expiresIn: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    });
     await this.otpRepo.save(otp);
     return otp;
   }
