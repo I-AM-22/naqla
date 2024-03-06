@@ -42,8 +42,8 @@ export function createDocument(app: INestApplication): {
     swaggerOptions: {
       persistAuthorization: true,
     },
-    customSiteTitle: 'ubay',
-    // customCssUrl: '/assets/swagger.css',
+    customSiteTitle: 'naqleh',
+    customCssUrl: '/assets/swagger.css',
   };
   return { document, setupOptions };
 }
