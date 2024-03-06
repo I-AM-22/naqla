@@ -8,6 +8,7 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/domain/repository/prefs_repository.dart';
 import 'package:naqla/features/app/presentation/widgets/animated_dialog.dart';
+import 'package:naqla/features/app/presentation/widgets/app_drawer.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/drawer_item.dart';
@@ -22,7 +23,7 @@ import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 import 'edit_profile_page.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   static String get path => '/ProfilePage';
@@ -30,73 +31,24 @@ class ProfilePage extends StatelessWidget {
   static String get name => '/ProfilePage';
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final bloc = getIt<ProfileBloc>();
+
+  @override
+  void initState() {
+    bloc.add(GetPersonalInfoEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: getIt<ProfileBloc>()..add(GetPersonalInfoEvent()),
+      value: bloc,
       child: AppScaffold(
-          drawer: ClipRRect(
-            borderRadius: context.isArabic
-                ? const BorderRadius.only(
-                    topLeft: Radius.circular(80),
-                    bottomLeft: Radius.circular(80))
-                : const BorderRadius.only(
-                    topRight: Radius.circular(80),
-                    bottomRight: Radius.circular(80)),
-            child: Drawer(
-              backgroundColor: context.colorScheme.onPrimary,
-              child: ListView(
-                padding: REdgeInsets.symmetric(
-                    horizontal: UIConstants.screenPadding16,
-                    vertical: UIConstants.screenPadding30),
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppImage.asset(context.isArabic
-                          ? Assets.icons.arrow.rightArrow.path
-                          : Assets.icons.arrow.leftArrow.path),
-                      AppText.subHeadMedium(S.of(context).back),
-                    ],
-                  ),
-                  27.verticalSpace,
-                  const Align(
-                    alignment: AlignmentDirectional.topStart,
-                    child: CircleAvatar(
-                      radius: 50,
-                    ),
-                  ),
-                  18.verticalSpace,
-                  AppText.headlineSmall('majed'),
-                  AppText.bodySmall('majed@gmail.com'),
-                  40.verticalSpace,
-                  DrawerItem(
-                      icon: Assets.icons.essential.profile.path,
-                      title: S.of(context).edit_profile),
-                  DrawerItem(
-                      icon: Assets.icons.essential.info.path,
-                      title: S.of(context).about_us),
-                  DrawerItem(
-                      icon: Assets.icons.essential.info.path,
-                      title: S.of(context).help_and_support),
-                  DrawerItem(
-                    icon: Assets.icons.essential.website.path,
-                    title: S.of(context).language,
-                    showDropDown: true,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  ),
-                  DrawerItem(
-                    icon: Assets.icons.essential.logout.path,
-                    title: S.of(context).logOut,
-                    lastItem: true,
-                    onTap: () {
-                      context.pop();
-                      logOut(context);
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
+          drawer: const AppDrawer(),
           appBar: AppAppBar(
             appBarParams: AppBarParams(
               title: S.of(context).profile,
@@ -151,7 +103,7 @@ class ProfilePage extends StatelessWidget {
                     24.verticalSpace,
                     Center(
                       child: AppText.subHeadMedium(
-                        '${data.firstName}  ${data.lastName}, ${data.phone}',
+                        '${data.firstName} ${data.lastName}, ${data.phone}',
                         color: context.colorScheme.systemGray.shade700,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -160,7 +112,7 @@ class ProfilePage extends StatelessWidget {
                     24.verticalSpace,
                     ProfileItem(
                         onTap: () => context.pushNamed(EditProfilePage.name,
-                            extra: data),
+                            extra: EditProfileParam(bloc: bloc, user: data)),
                         title: S.of(context).edit_profile,
                         prefixIcon: Assets.icons.essential.profile.path),
                     16.verticalSpace,
@@ -177,7 +129,7 @@ class ProfilePage extends StatelessWidget {
                         prefixIcon: Assets.icons.essential.info.path),
                     16.verticalSpace,
                     ProfileItem(
-                        onTap: () => logOut(context),
+                        onTap: () => Logout.logOut(context),
                         title: S.of(context).logOut,
                         prefixIcon: Assets.icons.essential.logout.path),
                     32.verticalSpace,
@@ -192,8 +144,10 @@ class ProfilePage extends StatelessWidget {
           )),
     );
   }
+}
 
-  void logOut(BuildContext context) => AnimatedDialog.show(context,
+class Logout {
+  static void logOut(BuildContext context) => AnimatedDialog.show(context,
       child: Padding(
         padding: REdgeInsets.all(20),
         child: Column(

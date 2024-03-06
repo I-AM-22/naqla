@@ -40,7 +40,9 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
             final oldState = CoreHelperFunctions.getCommonState(
                 state, ProfileState.getPersonalInfo);
             if (oldState is SuccessState) {
-              state.setState(ProfileState.getPersonalInfo, SuccessState(data));
+              print('success');
+              emit(state.setState(
+                  ProfileState.getPersonalInfo, SuccessState(data)));
             }
             event.onSuccess.call(data);
           },

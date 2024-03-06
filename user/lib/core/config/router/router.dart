@@ -120,8 +120,8 @@ class GRouter {
                           parentNavigatorKey: _rootNavigatorKey,
                           path: EditProfilePage.path,
                           name: EditProfilePage.name,
-                          builder: (context, state) =>
-                              EditProfilePage(user: state.extra as User),
+                          builder: (context, state) => EditProfilePage(
+                              param: state.extra as EditProfileParam),
                         ),
                       ]),
                 ]),
