@@ -31,9 +31,6 @@ class $AssetsImagesGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
-  /// File path: assets/lottie/car_1.json
-  LottieGenImage get car1 => const LottieGenImage('assets/lottie/car_1.json');
-
   /// File path: assets/lottie/car_2.json
   LottieGenImage get car2 => const LottieGenImage('assets/lottie/car_2.json');
 
@@ -43,11 +40,8 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/car_4.json
   LottieGenImage get car4 => const LottieGenImage('assets/lottie/car_4.json');
 
-  /// File path: assets/lottie/car_5.json
-  LottieGenImage get car5 => const LottieGenImage('assets/lottie/car_5.json');
-
   /// List of all assets
-  List<LottieGenImage> get values => [car1, car2, car3, car4, car5];
+  List<LottieGenImage> get values => [car2, car3, car4];
 }
 
 class $AssetsIconsArrowGen {
@@ -126,6 +120,10 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get messageSvgrepoCom =>
       const SvgGenImage('assets/icons/essential/message-svgrepo-com.svg');
 
+  /// File path: assets/icons/essential/mobile.svg
+  SvgGenImage get mobile =>
+      const SvgGenImage('assets/icons/essential/mobile.svg');
+
   /// File path: assets/icons/essential/more_icon.svg
   SvgGenImage get moreIcon =>
       const SvgGenImage('assets/icons/essential/more_icon.svg');
@@ -169,6 +167,7 @@ class $AssetsIconsEssentialGen {
         logout,
         map,
         messageSvgrepoCom,
+        mobile,
         moreIcon,
         plus,
         profile,
@@ -210,12 +209,15 @@ class $AssetsIconsSocialGen {
 class $AssetsImagesJpgGen {
   const $AssetsImagesJpgGen();
 
+  /// File path: assets/images/jpg/logo.jpg
+  AssetGenImage get logo => const AssetGenImage('assets/images/jpg/logo.jpg');
+
   /// File path: assets/images/jpg/map background.jpg
   AssetGenImage get mapBackground =>
       const AssetGenImage('assets/images/jpg/map background.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [mapBackground];
+  List<AssetGenImage> get values => [logo, mapBackground];
 }
 
 class $AssetsImagesSvgGen {

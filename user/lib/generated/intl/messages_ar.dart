@@ -36,12 +36,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
         "anywhere_you_are":
             MessageLookupByLibrary.simpleMessage("في أي مكان كنت"),
+        "are_you_sure_you_want_to_log_out":
+            MessageLookupByLibrary.simpleMessage(
+                "هل انت متأكد أنك تريد تسجيل الخروج من هذا الحساب؟"),
         "at_anytime": MessageLookupByLibrary.simpleMessage("في أي وقت"),
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage("رقم 1 على الأقل أو حرف خاص"),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
         "book_your_car":
             MessageLookupByLibrary.simpleMessage("اختر السيارة التي تريد"),
+        "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
             "اختر موقعك للبدء في العثور على الطلب من حولك"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
@@ -54,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
+        "edit_phone": MessageLookupByLibrary.simpleMessage("تعديل رقم الهاتف"),
         "edit_profile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
@@ -79,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),
+        "no": MessageLookupByLibrary.simpleMessage("لا"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
             MessageLookupByLibrary.simpleMessage("الاموال المعلقة : "),
@@ -107,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("استخدام موقعي"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
+        "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
             "حسابك جاهز للاستخدام. ستتم إعادة توجيهك إلى الصفحة الرئيسية في بضع ثوان."),
         "your_code": MessageLookupByLibrary.simpleMessage(" الخاص بك"),

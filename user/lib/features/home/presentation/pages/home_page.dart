@@ -11,6 +11,8 @@ import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 
+import '../../../../generated/l10n.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -69,10 +71,10 @@ class _HomePageState extends State<HomePage> {
           width: context.fullWidth - 16,
           child: Column(
             children: [
-              AppText.titleMedium('sign up'),
+              AppText.titleMedium(S.of(context).congratulations),
               7.verticalSpace,
               AppText.bodySmMedium(
-                'sign up',
+                S.of(context).your_account_is_ready_to_use,
               ),
             ],
           ),
@@ -123,7 +125,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        appBar: AppAppBar(back: true, appBarParams: AppBarParams()),
+        appBar: AppAppBar(
+            back: false, appBarParams: AppBarParams(title: S.of(context).home)),
         body: Column(
           children: [
             Expanded(

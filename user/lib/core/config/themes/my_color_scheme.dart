@@ -64,6 +64,8 @@ extension MyColorScheme on ColorScheme {
 
   Color get bodyText => const Color(0xFFA6A6A6);
 
+  Color get primary50 => const Color(0xFFFAFAFA);
+
   Color getColor({required Color light, required Color dark}) =>
       brightness == Brightness.light ? light : dark;
 }

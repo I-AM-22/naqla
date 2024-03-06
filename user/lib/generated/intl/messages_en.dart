@@ -36,12 +36,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
         "anywhere_you_are":
             MessageLookupByLibrary.simpleMessage("Anywhere you are"),
+        "are_you_sure_you_want_to_log_out":
+            MessageLookupByLibrary.simpleMessage(
+                "Are you sure you want to log out?"),
         "at_anytime": MessageLookupByLibrary.simpleMessage("At anytime"),
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage(
                 "At least 1 number or a special character"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "book_your_car": MessageLookupByLibrary.simpleMessage("Book your car"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
             "Choose your location to start find the request around you"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
@@ -56,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
+        "edit_phone": MessageLookupByLibrary.simpleMessage("Edit Phone Number"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enable_your_location":
@@ -81,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
             MessageLookupByLibrary.simpleMessage("Pending Money : "),
@@ -106,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Use my location"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
             "Your account is ready to use. You will be redirected to the Home Page in a few seconds."),
         "your_code": MessageLookupByLibrary.simpleMessage(" code"),

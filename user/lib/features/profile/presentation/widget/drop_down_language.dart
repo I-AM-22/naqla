@@ -78,7 +78,7 @@ class CustomDropDownLanguage extends StatelessWidget {
       ),
       child: AppImage.asset(
         Assets.icons.arrow.downArrow.path,
-        // size: 9,
+        size: 15,
         color: context.colorScheme.systemGray.shade400,
       ),
     );

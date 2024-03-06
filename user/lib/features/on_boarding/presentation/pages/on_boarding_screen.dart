@@ -31,7 +31,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 TextButton(
                   onPressed: () => context.goNamed(SetLocationPage.name),
                   child: AppText.subHeadRegular(
-                    'Skip',
+                    S.of(context).skip,
                     color: context.colorScheme.onTertiary,
                   ),
                 )
