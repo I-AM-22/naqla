@@ -96,9 +96,17 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get checkCircle =>
       const SvgGenImage('assets/icons/essential/check circle.svg');
 
+  /// File path: assets/icons/essential/check-circle2.svg
+  SvgGenImage get checkCircle2 =>
+      const SvgGenImage('assets/icons/essential/check-circle2.svg');
+
   /// File path: assets/icons/essential/circle_quistion.svg
   SvgGenImage get circleQuistion =>
       const SvgGenImage('assets/icons/essential/circle_quistion.svg');
+
+  /// File path: assets/icons/essential/delete.svg
+  SvgGenImage get delete =>
+      const SvgGenImage('assets/icons/essential/delete.svg');
 
   /// File path: assets/icons/essential/edit.svg
   SvgGenImage get edit => const SvgGenImage('assets/icons/essential/edit.svg');
@@ -160,7 +168,9 @@ class $AssetsIconsEssentialGen {
         user,
         camera,
         checkCircle,
+        checkCircle2,
         circleQuistion,
+        delete,
         edit,
         home,
         info,
@@ -181,12 +191,16 @@ class $AssetsIconsEssentialGen {
 class $AssetsIconsFlagsGen {
   const $AssetsIconsFlagsGen();
 
+  /// File path: assets/icons/flags/English.png
+  AssetGenImage get english =>
+      const AssetGenImage('assets/icons/flags/English.png');
+
   /// File path: assets/icons/flags/syria.jpg
   AssetGenImage get syria =>
       const AssetGenImage('assets/icons/flags/syria.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [syria];
+  List<AssetGenImage> get values => [english, syria];
 }
 
 class $AssetsIconsSocialGen {

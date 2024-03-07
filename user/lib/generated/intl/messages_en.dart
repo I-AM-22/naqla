@@ -36,6 +36,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
         "anywhere_you_are":
             MessageLookupByLibrary.simpleMessage("Anywhere you are"),
+        "are_you_sure_you_want_to_delete_account":
+            MessageLookupByLibrary.simpleMessage(
+                "Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database."),
         "are_you_sure_you_want_to_log_out":
             MessageLookupByLibrary.simpleMessage(
                 "Are you sure you want to log out?"),
@@ -56,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_an_account":
             MessageLookupByLibrary.simpleMessage("Create an account"),
         "day": MessageLookupByLibrary.simpleMessage("day"),
+        "delete_account":
+            MessageLookupByLibrary.simpleMessage("Delete Account"),
         "did_not_receive_code":
             MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
         "do_not_have_an_account":

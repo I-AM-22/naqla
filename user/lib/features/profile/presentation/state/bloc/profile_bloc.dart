@@ -9,8 +9,10 @@ import 'package:naqla/core/util/core_helper_functions.dart';
 import 'package:naqla/core/util/secure_image_picker.dart';
 import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../domain/use_cases/delete_account_use_case.dart';
 import '../../../domain/use_cases/edit_personal_info_use_case.dart';
 import '../../../domain/use_cases/get_personal_info_use_case.dart';
+import '../../../domain/use_cases/update_phone_number_use_case.dart';
 import '../../../domain/use_cases/upload_single_photo_use_case.dart';
 
 part 'profile_event.dart';
@@ -21,8 +23,14 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
   final GetPersonalInfoUseCase _personalInfoUseCase;
   final EditPersonalInfoUseCase _editPersonalInfoUseCase;
   final UploadSinglePhotoUseCase _uploadSinglePhotoUseCase;
-  ProfileBloc(this._personalInfoUseCase, this._editPersonalInfoUseCase,
-      this._uploadSinglePhotoUseCase)
+  final UpdatePhoneNumberUseCase _updatePhoneNumberUseCase;
+  final DeleteAccountUseCase _deleteAccountUseCase;
+  ProfileBloc(
+      this._personalInfoUseCase,
+      this._editPersonalInfoUseCase,
+      this._uploadSinglePhotoUseCase,
+      this._updatePhoneNumberUseCase,
+      this._deleteAccountUseCase)
       : super(ProfileState.iniState) {
     on<GetPersonalInfoEvent>((event, emit) {
       return CoreHelperFunctions.handelMultiApiResult(
@@ -40,7 +48,6 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
             final oldState = CoreHelperFunctions.getCommonState(
                 state, ProfileState.getPersonalInfo);
             if (oldState is SuccessState) {
-              print('success');
               emit(state.setState(
                   ProfileState.getPersonalInfo, SuccessState(data)));
             }
@@ -50,12 +57,30 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
           index: ProfileState.editPersonalInfo);
     });
 
+    on<UpdatePhoneNumberEvent>((event, emit) {
+      return CoreHelperFunctions.handelMultiApiResult(
+          callback: () async => _updatePhoneNumberUseCase(event.param),
+          emit: emit,
+          onSuccess: event.onSuccess,
+          state: state,
+          index: ProfileState.editPhoneNumber);
+    });
+
     on<UploadSinglePhotoEvent>((event, emit) {
       return CoreHelperFunctions.handelMultiApiResult(
           callback: () async => _uploadSinglePhotoUseCase(event.param),
           emit: emit,
           state: state,
           index: ProfileState.uploadSinglePhoto);
+    });
+
+    on<DeleteAccountEvent>((event, emit) {
+      return CoreHelperFunctions.handelMultiApiResult(
+          callback: () async => _deleteAccountUseCase(NoParams()),
+          emit: emit,
+          state: state,
+          onSuccess: event.onSuccess,
+          index: ProfileState.deleteAccount);
     });
 
     on<PickImageEvent>((event, emit) async {

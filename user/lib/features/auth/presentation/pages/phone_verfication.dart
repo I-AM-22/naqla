@@ -12,13 +12,19 @@ import 'package:naqla/features/auth/domain/use_cases/confirm_use_case.dart';
 import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
 import 'package:naqla/features/auth/presentation/widgets/verification_number.dart';
 
-import '../../../../core/common/enums/confirm_status.dart';
 import '../../../../generated/l10n.dart';
 import '../../../home/presentation/pages/home_page.dart';
 
-class PhoneVerificationPage extends StatefulWidget {
-  const PhoneVerificationPage({super.key, required this.phone});
+class PhoneVerificationParam {
   final String phone;
+  final bool comeFromProfile;
+
+  PhoneVerificationParam({required this.phone, this.comeFromProfile = false});
+}
+
+class PhoneVerificationPage extends StatefulWidget {
+  const PhoneVerificationPage({super.key, required this.param});
+  final PhoneVerificationParam param;
 
   static String get name => '/PhoneVerificationPage';
 
@@ -46,14 +52,13 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                   onPressed: () {
                     _key.currentState?.save();
                     _key.currentState?.validate();
-                    print(code);
                     if (code.isNotEmpty && code.length > 5) {
                       context.read<AuthBloc>().add(ConfirmEvent(
                               ConfirmParam(
                                   otp: code,
-                                  phone: widget.phone,
-                                  ConfirmStatus.create.value), (p0) {
-                            context.pushNamed(HomePage.name);
+                                  phone: widget.param.phone,
+                                  widget.param.comeFromProfile), (p0) {
+                            context.goNamed(HomePage.name);
                           }));
                     }
                   },
@@ -102,9 +107,9 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                               context.read<AuthBloc>().add(ConfirmEvent(
                                   ConfirmParam(
                                       otp: val,
-                                      phone: widget.phone,
-                                      ConfirmStatus.create.value),
-                                  (p0) => context.pushNamed(HomePage.name)));
+                                      phone: widget.param.phone,
+                                      widget.param.comeFromProfile),
+                                  (p0) => context.goNamed(HomePage.name)));
                             },
                           );
                         },

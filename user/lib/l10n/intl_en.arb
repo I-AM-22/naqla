@@ -75,5 +75,7 @@
   "are_you_sure_you_want_to_log_out": "Are you sure you want to log out?",
   "cancel": "Cancel",
   "no": "No",
-  "yes": "Yes"
+  "yes": "Yes",
+  "delete_account": "Delete Account",
+  "are_you_sure_you_want_to_delete_account": "Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database."
 }

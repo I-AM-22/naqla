@@ -11,11 +11,17 @@ class ProfileItem extends StatelessWidget {
       required this.title,
       required this.prefixIcon,
       this.suffixIcon,
-      this.onTap});
+      this.onTap,
+      this.isFlag = false,
+      this.width,
+      this.height});
   final String title;
   final String prefixIcon;
   final String? suffixIcon;
   final void Function()? onTap;
+  final bool isFlag;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +32,24 @@ class ProfileItem extends StatelessWidget {
         padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
         height: 60.h,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: context.colorScheme.primary50),
+          boxShadow: [
+            BoxShadow(
+                color: context.colorScheme.black.withOpacity(.24),
+                offset: const Offset(0, 0),
+                blurRadius: 1)
+          ],
+          border: Border.all(color: context.colorScheme.primary),
+          borderRadius: BorderRadius.circular(8),
+          color: context.colorScheme.onPrimary,
+        ),
         child: Row(
           children: [
             AppImage.asset(
               prefixIcon,
-              size: 15,
-              color: context.colorScheme.primary,
+              size: width != null ? null : 15,
+              width: width,
+              height: height,
+              color: !isFlag ? context.colorScheme.primary : null,
             ),
             8.horizontalSpace,
             AppText.subHeadMedium(
@@ -41,9 +57,11 @@ class ProfileItem extends StatelessWidget {
             ),
             const Spacer(),
             AppImage.asset(
-              suffixIcon ?? context.isArabic
-                  ? Assets.icons.arrow.leftArrow.path
-                  : Assets.icons.arrow.rightArrow.path,
+              (suffixIcon != null)
+                  ? suffixIcon!
+                  : context.isArabic
+                      ? Assets.icons.arrow.leftArrow.path
+                      : Assets.icons.arrow.rightArrow.path,
               size: 15,
             ),
           ],

@@ -11,17 +11,19 @@ import 'package:naqla/features/app/presentation/widgets/animated_dialog.dart';
 import 'package:naqla/features/app/presentation/widgets/app_drawer.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
-import 'package:naqla/features/app/presentation/widgets/drawer_item.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:naqla/features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import 'package:naqla/features/profile/presentation/pages/edit_phone_number_page.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
 import 'package:naqla/features/profile/presentation/widget/profile_item.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
+import 'delete_account_page.dart';
 import 'edit_profile_page.dart';
+import 'language_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -117,8 +119,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         prefixIcon: Assets.icons.essential.profile.path),
                     16.verticalSpace,
                     ProfileItem(
+                        onTap: () => context.pushNamed(EditPhoneNumberPage.name,
+                            extra:
+                                EditPhoneParam(bloc: bloc, phone: data.phone)),
                         title: S.of(context).edit_phone,
                         prefixIcon: Assets.icons.essential.mobile.path),
+                    16.verticalSpace,
+                    ProfileItem(
+                      onTap: () => context.pushNamed(
+                        LanguagePage.name,
+                      ),
+                      title: S.of(context).language,
+                      prefixIcon: Assets.icons.essential.website.path,
+                    ),
                     16.verticalSpace,
                     ProfileItem(
                         title: S.of(context).about_us,
@@ -132,6 +145,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         onTap: () => Logout.logOut(context),
                         title: S.of(context).logOut,
                         prefixIcon: Assets.icons.essential.logout.path),
+                    16.verticalSpace,
+                    ProfileItem(
+                        onTap: () => context.pushNamed(DeleteAccountPage.name),
+                        title: S.of(context).delete_account,
+                        prefixIcon: Assets.icons.essential.delete.path),
                     32.verticalSpace,
                     AppText.subHeadRegular(
                       'Naqla V1.0.0',

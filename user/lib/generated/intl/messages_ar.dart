@@ -36,6 +36,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
         "anywhere_you_are":
             MessageLookupByLibrary.simpleMessage("في أي مكان كنت"),
+        "are_you_sure_you_want_to_delete_account":
+            MessageLookupByLibrary.simpleMessage(
+                "هل انت متأكد انك تريد حذف حسابك؟ يرجى قراءة كيف سيؤثر حذف الحساب.\nيؤدي حذف حسابك إلى إزالة المعلومات الشخصية من قاعدة بياناتنا."),
         "are_you_sure_you_want_to_log_out":
             MessageLookupByLibrary.simpleMessage(
                 "هل انت متأكد أنك تريد تسجيل الخروج من هذا الحساب؟"),
@@ -54,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "congratulations": MessageLookupByLibrary.simpleMessage("مبروك "),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
+        "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
         "did_not_receive_code":
             MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":

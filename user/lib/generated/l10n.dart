@@ -725,6 +725,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete Account`
+  String get delete_account {
+    return Intl.message(
+      'Delete Account',
+      name: 'delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database.`
+  String get are_you_sure_you_want_to_delete_account {
+    return Intl.message(
+      'Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database.',
+      name: 'are_you_sure_you_want_to_delete_account',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
