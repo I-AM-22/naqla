@@ -2,10 +2,7 @@
   "expo": {
     "name": "driver",
     "slug": "driver",
-    "scheme": {
-      "type": "string",
-      "pattern": "^[a-z][a-z0-9+.-]*$"
-    },
+    "scheme": "driver",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,6 +26,10 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-router"]
+    "plugins": ["expo-router", "expo-localization"],
+    "experiments": { "tsconfigPaths": true },
+    "extra": {
+      "supportsRTL": true
+    }
   }
 }
