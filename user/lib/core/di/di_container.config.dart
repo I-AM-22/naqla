@@ -20,14 +20,14 @@ import '../../features/app/data/prefs_repository_imp.dart' as _i11;
 import '../../features/app/domain/repository/prefs_repository.dart' as _i10;
 import '../../features/app/presentation/bloc/app_bloc.dart' as _i3;
 import '../../features/auth/data/data_sources/auth_remote_data_source.dart'
-    as _i16;
+    as _i17;
 import '../../features/auth/data/repositories/auth_repository_implement.dart'
-    as _i18;
-import '../../features/auth/domain/repositories/auth_repository.dart' as _i17;
-import '../../features/auth/domain/use_cases/confirm_use_case.dart' as _i19;
-import '../../features/auth/domain/use_cases/login_use_case.dart' as _i22;
-import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i24;
-import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i25;
+    as _i19;
+import '../../features/auth/domain/repositories/auth_repository.dart' as _i18;
+import '../../features/auth/domain/use_cases/confirm_use_case.dart' as _i20;
+import '../../features/auth/domain/use_cases/login_use_case.dart' as _i24;
+import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i26;
+import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i27;
 import '../../features/home/presentation/bloc/home_bloc.dart' as _i5;
 import '../../features/profile/data/data_source/profile_remote_data_source.dart'
     as _i12;
@@ -35,16 +35,20 @@ import '../../features/profile/data/repositories/profile_repository_implement.da
     as _i14;
 import '../../features/profile/domain/repositories/profile_repository.dart'
     as _i13;
-import '../../features/profile/domain/use_cases/edit_personal_info_use_case.dart'
-    as _i20;
-import '../../features/profile/domain/use_cases/get_personal_info_use_case.dart'
+import '../../features/profile/domain/use_cases/delete_account_use_case.dart'
     as _i21;
-import '../../features/profile/domain/use_cases/upload_single_photo_use_case.dart'
-    as _i15;
-import '../../features/profile/presentation/state/bloc/profile_bloc.dart'
+import '../../features/profile/domain/use_cases/edit_personal_info_use_case.dart'
+    as _i22;
+import '../../features/profile/domain/use_cases/get_personal_info_use_case.dart'
     as _i23;
+import '../../features/profile/domain/use_cases/update_phone_number_use_case.dart'
+    as _i15;
+import '../../features/profile/domain/use_cases/upload_single_photo_use_case.dart'
+    as _i16;
+import '../../features/profile/presentation/state/bloc/profile_bloc.dart'
+    as _i25;
 import '../network_info.dart' as _i7;
-import 'di_container.dart' as _i26;
+import 'di_container.dart' as _i28;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
@@ -78,33 +82,39 @@ Future<_i1.GetIt> $initGetIt(
       () => _i12.ProfileRemoteDataSource(gh<_i4.Dio>()));
   gh.factory<_i13.ProfileRepository>(() =>
       _i14.ProfileRepositoryImplement(gh<_i12.ProfileRemoteDataSource>()));
-  gh.factory<_i15.UploadSinglePhotoUseCase>(
-      () => _i15.UploadSinglePhotoUseCase(gh<_i13.ProfileRepository>()));
-  gh.factory<_i16.AuthRemoteDataSource>(
-      () => _i16.AuthRemoteDataSource(gh<_i4.Dio>()));
-  gh.factory<_i17.AuthRepository>(
-      () => _i18.AuthRepositoryImplement(gh<_i16.AuthRemoteDataSource>()));
-  gh.factory<_i19.ConfirmUseCase>(
-      () => _i19.ConfirmUseCase(gh<_i17.AuthRepository>()));
-  gh.factory<_i20.EditPersonalInfoUseCase>(
-      () => _i20.EditPersonalInfoUseCase(gh<_i13.ProfileRepository>()));
-  gh.factory<_i21.GetPersonalInfoUseCase>(
-      () => _i21.GetPersonalInfoUseCase(gh<_i13.ProfileRepository>()));
-  gh.factory<_i22.LoginUseCase>(
-      () => _i22.LoginUseCase(gh<_i17.AuthRepository>()));
-  gh.factory<_i23.ProfileBloc>(() => _i23.ProfileBloc(
-        gh<_i21.GetPersonalInfoUseCase>(),
-        gh<_i20.EditPersonalInfoUseCase>(),
-        gh<_i15.UploadSinglePhotoUseCase>(),
+  gh.factory<_i15.UpdatePhoneNumberUseCase>(
+      () => _i15.UpdatePhoneNumberUseCase(gh<_i13.ProfileRepository>()));
+  gh.factory<_i16.UploadSinglePhotoUseCase>(
+      () => _i16.UploadSinglePhotoUseCase(gh<_i13.ProfileRepository>()));
+  gh.factory<_i17.AuthRemoteDataSource>(
+      () => _i17.AuthRemoteDataSource(gh<_i4.Dio>()));
+  gh.factory<_i18.AuthRepository>(
+      () => _i19.AuthRepositoryImplement(gh<_i17.AuthRemoteDataSource>()));
+  gh.factory<_i20.ConfirmUseCase>(
+      () => _i20.ConfirmUseCase(gh<_i18.AuthRepository>()));
+  gh.factory<_i21.DeleteAccountUseCase>(
+      () => _i21.DeleteAccountUseCase(gh<_i13.ProfileRepository>()));
+  gh.factory<_i22.EditPersonalInfoUseCase>(
+      () => _i22.EditPersonalInfoUseCase(gh<_i13.ProfileRepository>()));
+  gh.factory<_i23.GetPersonalInfoUseCase>(
+      () => _i23.GetPersonalInfoUseCase(gh<_i13.ProfileRepository>()));
+  gh.factory<_i24.LoginUseCase>(
+      () => _i24.LoginUseCase(gh<_i18.AuthRepository>()));
+  gh.factory<_i25.ProfileBloc>(() => _i25.ProfileBloc(
+        gh<_i23.GetPersonalInfoUseCase>(),
+        gh<_i22.EditPersonalInfoUseCase>(),
+        gh<_i16.UploadSinglePhotoUseCase>(),
+        gh<_i15.UpdatePhoneNumberUseCase>(),
+        gh<_i21.DeleteAccountUseCase>(),
       ));
-  gh.factory<_i24.SignUpUseCase>(
-      () => _i24.SignUpUseCase(gh<_i17.AuthRepository>()));
-  gh.factory<_i25.AuthBloc>(() => _i25.AuthBloc(
-        gh<_i22.LoginUseCase>(),
-        gh<_i24.SignUpUseCase>(),
-        gh<_i19.ConfirmUseCase>(),
+  gh.factory<_i26.SignUpUseCase>(
+      () => _i26.SignUpUseCase(gh<_i18.AuthRepository>()));
+  gh.factory<_i27.AuthBloc>(() => _i27.AuthBloc(
+        gh<_i24.LoginUseCase>(),
+        gh<_i26.SignUpUseCase>(),
+        gh<_i20.ConfirmUseCase>(),
       ));
   return getIt;
 }
 
-class _$AppModule extends _i26.AppModule {}
+class _$AppModule extends _i28.AppModule {}

@@ -31,9 +31,6 @@ class $AssetsImagesGen {
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
-  /// File path: assets/lottie/car_1.json
-  LottieGenImage get car1 => const LottieGenImage('assets/lottie/car_1.json');
-
   /// File path: assets/lottie/car_2.json
   LottieGenImage get car2 => const LottieGenImage('assets/lottie/car_2.json');
 
@@ -43,11 +40,8 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/car_4.json
   LottieGenImage get car4 => const LottieGenImage('assets/lottie/car_4.json');
 
-  /// File path: assets/lottie/car_5.json
-  LottieGenImage get car5 => const LottieGenImage('assets/lottie/car_5.json');
-
   /// List of all assets
-  List<LottieGenImage> get values => [car1, car2, car3, car4, car5];
+  List<LottieGenImage> get values => [car2, car3, car4];
 }
 
 class $AssetsIconsArrowGen {
@@ -102,9 +96,17 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get checkCircle =>
       const SvgGenImage('assets/icons/essential/check circle.svg');
 
+  /// File path: assets/icons/essential/check-circle2.svg
+  SvgGenImage get checkCircle2 =>
+      const SvgGenImage('assets/icons/essential/check-circle2.svg');
+
   /// File path: assets/icons/essential/circle_quistion.svg
   SvgGenImage get circleQuistion =>
       const SvgGenImage('assets/icons/essential/circle_quistion.svg');
+
+  /// File path: assets/icons/essential/delete.svg
+  SvgGenImage get delete =>
+      const SvgGenImage('assets/icons/essential/delete.svg');
 
   /// File path: assets/icons/essential/edit.svg
   SvgGenImage get edit => const SvgGenImage('assets/icons/essential/edit.svg');
@@ -125,6 +127,10 @@ class $AssetsIconsEssentialGen {
   /// File path: assets/icons/essential/message-svgrepo-com.svg
   SvgGenImage get messageSvgrepoCom =>
       const SvgGenImage('assets/icons/essential/message-svgrepo-com.svg');
+
+  /// File path: assets/icons/essential/mobile.svg
+  SvgGenImage get mobile =>
+      const SvgGenImage('assets/icons/essential/mobile.svg');
 
   /// File path: assets/icons/essential/more_icon.svg
   SvgGenImage get moreIcon =>
@@ -162,13 +168,16 @@ class $AssetsIconsEssentialGen {
         user,
         camera,
         checkCircle,
+        checkCircle2,
         circleQuistion,
+        delete,
         edit,
         home,
         info,
         logout,
         map,
         messageSvgrepoCom,
+        mobile,
         moreIcon,
         plus,
         profile,
@@ -182,12 +191,16 @@ class $AssetsIconsEssentialGen {
 class $AssetsIconsFlagsGen {
   const $AssetsIconsFlagsGen();
 
+  /// File path: assets/icons/flags/English.png
+  AssetGenImage get english =>
+      const AssetGenImage('assets/icons/flags/English.png');
+
   /// File path: assets/icons/flags/syria.jpg
   AssetGenImage get syria =>
       const AssetGenImage('assets/icons/flags/syria.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [syria];
+  List<AssetGenImage> get values => [english, syria];
 }
 
 class $AssetsIconsSocialGen {
@@ -210,12 +223,15 @@ class $AssetsIconsSocialGen {
 class $AssetsImagesJpgGen {
   const $AssetsImagesJpgGen();
 
+  /// File path: assets/images/jpg/logo.jpg
+  AssetGenImage get logo => const AssetGenImage('assets/images/jpg/logo.jpg');
+
   /// File path: assets/images/jpg/map background.jpg
   AssetGenImage get mapBackground =>
       const AssetGenImage('assets/images/jpg/map background.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [mapBackground];
+  List<AssetGenImage> get values => [logo, mapBackground];
 }
 
 class $AssetsImagesSvgGen {

@@ -22,9 +22,16 @@ import '../../../app/presentation/widgets/params_appbar.dart';
 import '../../../auth/data/model/auth_model.dart';
 import '../state/bloc/profile_bloc.dart';
 
-class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key, required this.user});
+class EditProfileParam {
+  final ProfileBloc bloc;
   final User user;
+
+  EditProfileParam({required this.bloc, required this.user});
+}
+
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key, required this.param});
+  final EditProfileParam param;
 
   static String name = 'EditProfilePage';
   static String path = 'EditProfilePage';
@@ -34,11 +41,12 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final ProfileBloc bloc = getIt<ProfileBloc>();
+  late final ProfileBloc bloc;
   final GlobalKey<FormBuilderState> _key = GlobalKey();
   String photo = '';
   @override
   void initState() {
+    bloc = widget.param.bloc;
     super.initState();
   }
 
@@ -78,8 +86,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     color: context.colorScheme.primary)),
                             child: BlurHash(
                                 imageFit: BoxFit.cover,
-                                hash: widget.user.photo.blurHash,
-                                image: widget.user.photo.profileUrl),
+                                hash: widget.param.user.photo.blurHash,
+                                image: widget.param.user.photo.profileUrl),
                           ),
                           onSuccess: (data) {
                             photo = data;
@@ -163,7 +171,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   24.verticalSpace,
                   AppTextFormField(
-                    initialValue: widget.user.firstName,
+                    initialValue: widget.param.user.firstName,
                     name: 'firstName',
                     validator: FormBuilderValidators.required(),
                     keyboardType: TextInputType.name,
@@ -172,7 +180,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   AppTextFormField(
                     name: 'lastName',
                     title: S.of(context).last_name,
-                    initialValue: widget.user.lastName,
+                    initialValue: widget.param.user.lastName,
                     validator: FormBuilderValidators.required(),
                     keyboardType: TextInputType.name,
                   ),

@@ -67,8 +67,15 @@
   "update": "Update",
   "Save": "Save",
   "edit_profile": "Edit Profile",
+  "edit_phone": "Edit Phone Number",
   "about_us": "About Us",
   "help_and_support": "Help and Support",
   "logOut": "LogOut",
-  "language": "Language"
+  "language": "Language",
+  "are_you_sure_you_want_to_log_out": "Are you sure you want to log out?",
+  "cancel": "Cancel",
+  "no": "No",
+  "yes": "Yes",
+  "delete_account": "Delete Account",
+  "are_you_sure_you_want_to_delete_account": "Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database."
 }

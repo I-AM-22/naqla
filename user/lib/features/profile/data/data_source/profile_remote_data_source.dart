@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:naqla/core/api/api_utils.dart';
-import 'package:naqla/core/common/constants/configuration/uri_routs.dart';
+import 'package:naqla/core/common/constants/configuration/api_routes.dart';
 
 import '../../../auth/data/model/auth_model.dart';
 import 'package:http_parser/http_parser.dart' as mime;
@@ -17,15 +17,14 @@ class ProfileRemoteDataSource {
 
   Future<User> getPersonalInfo() {
     return throwAppException(() async {
-      final result = await dio.get(EndPoints.profile.personalInfo);
+      final result = await dio.get(ApiRoutes.personalInfo);
       return User.fromJson(result.data);
     });
   }
 
   Future<User> editPersonalInfo(EditPersonalInfoParam param) {
     return throwAppException(() async {
-      final result =
-          await dio.patch(EndPoints.profile.personalInfo, data: param.map);
+      final result = await dio.patch(ApiRoutes.personalInfo, data: param.map);
       return User.fromJson(result.data);
     });
   }
@@ -36,8 +35,24 @@ class ProfileRemoteDataSource {
         'photo': MultipartFile.fromFileSync(param.file.path,
             contentType: mime.MediaType('image', 'jpeg'))
       });
-      final result = await dio.post(EndPoints.photo.single, data: formData);
+      final result = await dio.post(ApiRoutes.single, data: formData);
       return result.data;
+    });
+  }
+
+  Future<String> updatePhoneNumber(String param) {
+    return throwAppException(() async {
+      final result =
+          await dio.patch(ApiRoutes.updateMyNumber, data: {'phone': param});
+      return result.data['message'];
+    });
+  }
+
+  Future<void> deleteAccount() {
+    return throwAppException(() async {
+      await dio.delete(
+        ApiRoutes.personalInfo,
+      );
     });
   }
 }

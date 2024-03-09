@@ -16,7 +16,6 @@ import 'package:naqla/features/auth/presentation/pages/phone_verfication.dart';
 import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
 import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
-import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
 import '../../../../generated/l10n.dart';
 
@@ -112,8 +111,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                             .currentState?.value['lastName'],
                                       ), (p0) {
                                     showMessage(p0, isSuccess: true);
-                                    context
-                                        .pushNamed(PhoneVerificationPage.name);
+                                    context.pushNamed(
+                                        PhoneVerificationPage.name,
+                                        extra: PhoneVerificationParam(
+                                            phone: _formKey.currentState
+                                                ?.value['phoneNumber'],
+                                            comeFromProfile: false));
                                   }));
                             }
                           },

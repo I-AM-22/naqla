@@ -6,7 +6,7 @@ class AuthState<T> {
   static int confirm = 2;
 
   static Map<int, CommonState> get initState => {
-        login: const InitialState<AuthModel>(),
+        login: const InitialState<String>(),
         signUp: const InitialState<String>(),
         confirm: const InitialState<AuthModel>(),
       };

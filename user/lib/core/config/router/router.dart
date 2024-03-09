@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/features/app/presentation/pages/base_page.dart';
-import 'package:naqla/features/auth/data/model/auth_model.dart';
 
 import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/register_page.dart';
@@ -13,7 +12,10 @@ import '../../../features/auth/presentation/pages/sign_in_page.dart';
 import '../../../features/auth/presentation/pages/welcome_page.dart';
 import '../../../features/home/presentation/pages/home_page.dart';
 import '../../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import '../../../features/profile/presentation/pages/delete_account_page.dart';
+import '../../../features/profile/presentation/pages/edit_phone_number_page.dart';
 import '../../../features/profile/presentation/pages/edit_profile_page.dart';
+import '../../../features/profile/presentation/pages/language_page.dart';
 import '../../../features/profile/presentation/pages/profile_page.dart';
 import '../../../features/welcome/splash.dart';
 
@@ -76,8 +78,8 @@ class GRouter {
         GoRoute(
           path: PhoneVerificationPage.path,
           name: PhoneVerificationPage.name,
-          builder: (context, state) =>
-              PhoneVerificationPage(phone: state.extra as String),
+          builder: (context, state) => PhoneVerificationPage(
+              param: state.extra as PhoneVerificationParam),
         ),
         GoRoute(
           path: SignInPage.path,
@@ -120,8 +122,28 @@ class GRouter {
                           parentNavigatorKey: _rootNavigatorKey,
                           path: EditProfilePage.path,
                           name: EditProfilePage.name,
+                          builder: (context, state) => EditProfilePage(
+                              param: state.extra as EditProfileParam),
+                        ),
+                        GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
+                          path: EditPhoneNumberPage.path,
+                          name: EditPhoneNumberPage.name,
+                          builder: (context, state) => EditPhoneNumberPage(
+                              param: state.extra as EditPhoneParam),
+                        ),
+                        GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
+                          path: DeleteAccountPage.path,
+                          name: DeleteAccountPage.name,
                           builder: (context, state) =>
-                              EditProfilePage(user: state.extra as User),
+                              const DeleteAccountPage(),
+                        ),
+                        GoRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
+                          path: LanguagePage.path,
+                          name: LanguagePage.name,
+                          builder: (context, state) => const LanguagePage(),
                         ),
                       ]),
                 ]),

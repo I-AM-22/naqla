@@ -26,4 +26,14 @@ class ProfileRepositoryImplement implements ProfileRepository {
   FutureResult<String> uploadSinglePhoto(UploadSinglePhotoParam param) {
     return toApiResult(() async => _dataSource.uploadSinglePhoto(param));
   }
+
+  @override
+  FutureResult<String> updatePhoneNumber(String param) async {
+    return toApiResult(() async => _dataSource.updatePhoneNumber(param));
+  }
+
+  @override
+  FutureResult<void> deleteAccount() {
+    return toApiResult(() async => _dataSource.deleteAccount());
+  }
 }

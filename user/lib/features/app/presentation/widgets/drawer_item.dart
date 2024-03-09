@@ -11,12 +11,14 @@ class DrawerItem extends StatelessWidget {
       required this.title,
       this.lastItem = false,
       this.showDropDown = false,
-      this.onTap});
+      this.onTap,
+      this.mainAxisAlignment});
   final String icon;
   final String title;
   final bool lastItem;
   final bool showDropDown;
   final void Function()? onTap;
+  final MainAxisAlignment? mainAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +27,16 @@ class DrawerItem extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
             children: [
-              AppImage.asset(icon, size: 16),
-              12.horizontalSpace,
-              AppText.labelMedium(title),
-              if (showDropDown) ...{
-                const Spacer(
-                  flex: 3,
-                ),
-                CustomDropDownLanguage()
-              }
+              Row(
+                children: [
+                  AppImage.asset(icon, size: 16),
+                  12.horizontalSpace,
+                  AppText.labelMedium(title),
+                ],
+              ),
+              if (showDropDown) CustomDropDownLanguage()
             ],
           ),
           15.verticalSpace,

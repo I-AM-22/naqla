@@ -9,6 +9,8 @@ import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/home/presentation/pages/home_page.dart';
 import 'package:naqla/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 
+import '../../generated/flutter_gen/assets.gen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   static const String path = "/SplashScreen";
@@ -40,6 +42,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Spacer(),
+            CircleAvatar(
+                backgroundColor: context.colorScheme.primary,
+                radius: 50.r,
+                backgroundImage: AssetImage(Assets.images.jpg.logo.path)),
             const Spacer(),
             AppText.subHeadMedium(
               "Naqla",

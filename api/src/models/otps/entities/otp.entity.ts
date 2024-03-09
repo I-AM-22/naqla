@@ -13,7 +13,7 @@ export class Otp extends GlobalEntity {
   @Column()
   otp: string;
 
-  @Column({ default: new Date(Date.now() + 24 * 60 * 60 * 1000) })
+  @Column()
   expiresIn: Date;
 
   @Column({ enum: OTP_TYPE })

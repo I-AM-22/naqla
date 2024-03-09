@@ -14,6 +14,8 @@ class VerificationNumber extends StatelessWidget {
     return Pinput(
       length: 6,
       obscureText: false,
+      errorTextStyle: context.textTheme.bodySmall
+          ?.copyWith(color: context.colorScheme.error),
       obscuringWidget: Container(
         width: 50.w,
         height: 48.h,
@@ -28,6 +30,7 @@ class VerificationNumber extends StatelessWidget {
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 300),
       onCompleted: onCompleted,
+      onChanged: onChanged,
       cursor: Container(
         width: 50.w,
         height: 48.h,

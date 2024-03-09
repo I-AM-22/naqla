@@ -636,6 +636,16 @@ class S {
     );
   }
 
+  /// `Edit Phone Number`
+  String get edit_phone {
+    return Intl.message(
+      'Edit Phone Number',
+      name: 'edit_phone',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `About Us`
   String get about_us {
     return Intl.message(
@@ -671,6 +681,66 @@ class S {
     return Intl.message(
       'Language',
       name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get are_you_sure_you_want_to_log_out {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'are_you_sure_you_want_to_log_out',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Account`
+  String get delete_account {
+    return Intl.message(
+      'Delete Account',
+      name: 'delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database.`
+  String get are_you_sure_you_want_to_delete_account {
+    return Intl.message(
+      'Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database.',
+      name: 'are_you_sure_you_want_to_delete_account',
       desc: '',
       args: [],
     );

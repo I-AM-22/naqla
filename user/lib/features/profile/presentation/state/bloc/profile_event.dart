@@ -24,3 +24,16 @@ class UploadSinglePhotoEvent extends ProfileEvent {
 
   UploadSinglePhotoEvent(this.param);
 }
+
+class UpdatePhoneNumberEvent extends ProfileEvent {
+  final String param;
+  final Function(dynamic) onSuccess;
+
+  UpdatePhoneNumberEvent(this.param, this.onSuccess);
+}
+
+class DeleteAccountEvent extends ProfileEvent {
+  final Function(dynamic) onSuccess;
+
+  DeleteAccountEvent(this.onSuccess);
+}

@@ -8,4 +8,6 @@ abstract class ProfileRepository {
   FutureResult<User> getPersonalInfo();
   FutureResult<User> editPersonalInfo(EditPersonalInfoParam param);
   FutureResult<String> uploadSinglePhoto(UploadSinglePhotoParam param);
+  FutureResult<String> updatePhoneNumber(String param);
+  FutureResult<void> deleteAccount();
 }
