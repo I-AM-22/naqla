@@ -26,9 +26,14 @@ import {
 } from '@nestjs/swagger';
 import { Admin } from '../entities/admin.entity';
 import { Role } from '../../roles';
-import { Public, CheckAbilities, GetUser } from '../../../common/decorators';
-import { GROUPS, Entities, Action } from '../../../common/enums';
-import { CaslAbilitiesGuard, JwtGuard } from '../../../common/guards';
+import {
+  Public,
+  CheckAbilities,
+  GetUser,
+  Roles,
+} from '../../../common/decorators';
+import { GROUPS, Entities, Action, ROLE } from '../../../common/enums';
+import { CaslAbilitiesGuard, RolesGuard } from '../../../common/guards';
 import { ICrud } from '../../../common/interfaces';
 import { AuthAdminResponse } from '../interfaces';
 import { denied_error, item_not_found } from '../../../common/constants';
@@ -40,6 +45,8 @@ import { ADMIN_TYPES } from '../interfaces/type';
 @ApiBadRequestResponse({ description: 'Bad request' })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: item_not_found('Data') })
+@Roles(ROLE.ADMIN)
+@UseGuards(CaslAbilitiesGuard, RolesGuard)
 @Controller({ path: 'admins', version: '1' })
 export class AdminsController implements ICrud<Admin> {
   constructor(
@@ -60,7 +67,6 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @ApiOkResponse({ type: Admin })
-  @UseGuards(CaslAbilitiesGuard)
   @CheckAbilities({ action: Action.Create, subject: Entities.Admin })
   @SerializeOptions({ groups: [GROUPS.ADMIN] })
   @Post()
@@ -69,7 +75,6 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @ApiOkResponse({ type: Admin })
-  @UseGuards(CaslAbilitiesGuard)
   @CheckAbilities({ action: Action.Read, subject: Entities.Admin })
   @SerializeOptions({ groups: [GROUPS.ALL_ADMINS] })
   @Get()
@@ -78,7 +83,6 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @ApiOkResponse({ type: Admin })
-  @UseGuards(CaslAbilitiesGuard)
   @SerializeOptions({ groups: [GROUPS.ADMIN] })
   @CheckAbilities({ action: Action.Read, subject: Entities.Admin })
   @Get(':id')
@@ -87,7 +91,6 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @ApiOkResponse({ type: Admin })
-  @UseGuards(JwtGuard, CaslAbilitiesGuard)
   @SerializeOptions({ groups: [GROUPS.ADMIN] })
   @CheckAbilities({ action: Action.Update, subject: Entities.Admin })
   @Patch(':id')
@@ -95,7 +98,6 @@ export class AdminsController implements ICrud<Admin> {
     return this.adminsService.update(id, dto);
   }
 
-  @UseGuards(JwtGuard, CaslAbilitiesGuard)
   @CheckAbilities({ action: Action.Delete, subject: Entities.Admin })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')

@@ -5,4 +5,5 @@ export const roles: any[] = [
   { name: ROLE.SUPER_ADMIN },
   { name: ROLE.ADMIN },
   { name: ROLE.EMPLOYEE },
+  { name: ROLE.DRIVER },
 ];

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { GlobalEntity } from '../entities';
+import { GlobalEntity } from '../base';
 
 export class PaginatedResponse<T> {
   @ApiProperty()
@@ -13,4 +13,9 @@ export class PaginatedResponse<T> {
 
   @ApiProperty({ type: GlobalEntity })
   data: T[];
+}
+
+export class SendConfirm {
+  @ApiProperty()
+  message: string;
 }

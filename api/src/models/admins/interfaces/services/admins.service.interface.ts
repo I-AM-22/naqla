@@ -13,6 +13,8 @@ export interface IAdminsService {
 
   update(id: string, dto: UpdateAdminDto): Promise<Admin>;
 
+  validate(id: string, iat: number): Promise<Admin>;
+
   // recover(id: string): Promise<Admin>;
 
   remove(id: string): Promise<void>;

@@ -13,6 +13,7 @@ import { AuthAdminResponse } from '../interfaces';
 import {
   incorrect_credentials,
   item_not_found,
+  password_changed_recently,
 } from '../../../common/constants';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
@@ -35,7 +36,10 @@ export class AdminsService implements IAdminsService {
     if (!admin || !(await admin.verifyHash(admin.password, dto.password))) {
       throw new UnauthorizedException(incorrect_credentials);
     }
-    const token = await this.jwtTokenService.signToken(admin.id, Admin.name);
+    const token = await this.jwtTokenService.signToken(
+      admin.id,
+      Entities.Admin,
+    );
     return { token, admin };
   }
 
@@ -76,5 +80,19 @@ export class AdminsService implements IAdminsService {
   async remove(id: string): Promise<void> {
     const admin = await this.findOne(id);
     await this.adminRepository.remove(admin);
+  }
+
+  async validate(id: string, iat: number): Promise<Admin> {
+    const admin = await this.adminRepository.findOneById(id);
+
+    if (!admin) {
+      throw new UnauthorizedException('The user is not here');
+    }
+
+    if (admin.isPasswordChanged(iat)) {
+      throw new UnauthorizedException(password_changed_recently);
+    }
+
+    return admin;
   }
 }

@@ -6,6 +6,7 @@ import { Employee } from '../../models/employees';
 import { Permission } from '../../models/permissions';
 import { Role } from '../../models/roles';
 import { Admin } from '../../models/admins';
+import { Driver } from '../../models/drivers';
 
 export interface RequiredRole {
   action: Action;
@@ -19,6 +20,7 @@ export type Subjects =
       | typeof Permission
       | typeof Role
       | typeof User
+      | typeof Driver
     >
   | Entities
   | 'all';

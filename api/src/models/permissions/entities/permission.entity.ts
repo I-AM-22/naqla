@@ -1,21 +1,10 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  Unique,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToMany, Unique } from 'typeorm';
 import { IPermission } from '../interfaces';
 import { Role } from '../../roles';
 import { ApiProperty } from '@nestjs/swagger';
 import { GROUPS, Action, Entities } from '../../../common/enums';
-import { Exclude, Expose } from 'class-transformer';
-import { GlobalEntity } from '../../../common/entities';
+import { Expose } from 'class-transformer';
+import { GlobalEntity } from '../../../common/base';
 
 @Entity({ name: 'permissions' })
 @Unique('un_permission', ['action', 'subject'])

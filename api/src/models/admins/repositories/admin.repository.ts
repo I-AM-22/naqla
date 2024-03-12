@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IAdminRepository } from '../interfaces/repositories/admin.repository.interface';
 import { IAdminPhotosRepository } from '../interfaces/repositories/admin-photos.repository.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
-import { BaseAuthRepo } from '../../../common/entities';
+import { BaseAuthRepo } from '../../../common/base';
 import { defaultPhotoUrl } from '../../../common/constants';
 
 @Injectable()

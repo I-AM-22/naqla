@@ -5,7 +5,7 @@ import { Admin } from '../../entities/admin.entity';
 export interface IAdminRepository {
   findAll(withDeleted: boolean): Promise<Admin[]>;
 
-  findOneById(id: string, withDeleted: boolean): Promise<Admin>;
+  findOneById(id: string, withDeleted?: boolean): Promise<Admin>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Admin>;
 

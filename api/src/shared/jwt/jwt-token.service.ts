@@ -18,8 +18,8 @@ export class JwtTokenService {
       secret: this.jwtConfig.jwt_secret,
       expiresIn: this.jwtConfig.jwt_expires_in + 'd',
     });
-    await this.redisStoreService.storeToken(token);
-    await this.redisStoreService.storeUserId(id);
+    // await this.redisStoreService.storeToken(token);
+    // await this.redisStoreService.storeUserId(id);
     return token;
   }
 }

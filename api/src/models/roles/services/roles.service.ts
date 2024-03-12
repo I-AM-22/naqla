@@ -33,7 +33,9 @@ export class RolesService implements IRolesService {
   }
 
   async findByName(name: string) {
-    return this.roleRepository.findByName(name);
+    const role = await this.roleRepository.findByName(name);
+    if (!role) throw new NotFoundException(item_not_found(Entities.Role));
+    return role;
   }
   async create(dto: CreateRoleDto): Promise<Role> {
     const permissions = await this.permissionsService.find(dto.permissionsIds);

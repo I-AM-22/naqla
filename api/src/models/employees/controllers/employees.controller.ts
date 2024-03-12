@@ -29,8 +29,11 @@ import {
 import { Public, CheckAbilities } from '../../../common/decorators';
 import { GROUPS, Entities, Action } from '../../../common/enums';
 import { CaslAbilitiesGuard } from '../../../common/guards';
-import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos';
-import { LoginDto } from '../../../auth-user/dtos/login.dto';
+import {
+  CreateEmployeeDto,
+  LoginEmployeeDto,
+  UpdateEmployeeDto,
+} from '../dtos';
 import { ICrud } from '../../../common/interfaces';
 import { AuthEmployeeResponse } from '../interfaces';
 import {
@@ -64,7 +67,7 @@ export class EmployeesController implements ICrud<Employee> {
   @SerializeOptions({ groups: [GROUPS.EMPLOYEE] })
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() dto: LoginDto) {
+  login(@Body() dto: LoginEmployeeDto) {
     return this.employeesService.login(dto);
   }
 

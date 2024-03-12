@@ -1,19 +1,32 @@
 import { Admin } from '../../../models/admins';
 import { Employee } from '../../../models/employees';
 import { User } from '../../../models/users';
-import { SignUpDto, LoginDto, ConfirmDto, UpdatePhoneDto } from '../../dtos';
+import {
+  SignUpUserDto,
+  LoginUserDto,
+  ConfirmUserDto,
+  UpdateUserPhoneDto,
+} from '../../dtos';
 import { AuthUserResponse } from '../auth-user.interface';
-import { jwtPayload } from '../jwt-payload.interface';
-import { SendConfirm } from '../type';
+import { jwtPayload } from '../../../common/interfaces/jwt-payload.interface';
+import { SendConfirm } from '../../../common/types';
 
-export interface IAuthService {
-  signup(dto: SignUpDto): Promise<SendConfirm>;
+export interface IAuthUserService {
+  signup(dto: SignUpUserDto, ip: string): Promise<SendConfirm>;
 
-  login(dto: LoginDto): Promise<SendConfirm>;
+  login(dto: LoginUserDto, ip: string): Promise<SendConfirm>;
 
-  updatePhone(dto: UpdatePhoneDto, user: User): Promise<SendConfirm>;
+  updatePhone(
+    dto: UpdateUserPhoneDto,
+    ip: string,
+    user: User,
+  ): Promise<SendConfirm>;
 
-  confirm(dto: ConfirmDto, phoneConfirm: boolean): Promise<AuthUserResponse>;
+  confirm(
+    dto: ConfirmUserDto,
+    ip: string,
+    phoneConfirm: boolean,
+  ): Promise<AuthUserResponse>;
 
   validate(payload: jwtPayload): Promise<User | Admin | Employee>;
 }

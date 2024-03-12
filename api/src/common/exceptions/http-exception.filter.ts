@@ -43,10 +43,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (error.message === 'Unauthorized') error = handelPassportError();
 
     if (this.appConfig.env === 'production') {
-      if (error.getStatus() === 500) console.log(exception);
+      console.log(exception);
       const rep = {
-        type: error.errors ? 'form' : 'default',
-        message: error.message,
+        type: error.response.errors ? 'form' : 'default',
+        message: error.response.errors ? undefined : error.message,
         errors: error.response.errors,
       };
       this.reply(response, rep, error.getStatus());

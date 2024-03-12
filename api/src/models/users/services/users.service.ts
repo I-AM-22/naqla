@@ -1,5 +1,10 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateUserDto } from '../dtos';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
 import { Entities } from './../../../common/enums';
 import { item_not_found } from '../../../common/constants';
@@ -10,6 +15,8 @@ import { PaginatedResponse } from '../../../common/types';
 import { UserPhoto } from '../entities/user-photo.entity';
 import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
 import { USER_TYPES } from '../interfaces/type';
+import { Role } from '../../roles';
+import { UpdateUserPhoneDto } from '../../../auth-user';
 
 @Injectable()
 export class UsersService implements IUsersService {
@@ -19,6 +26,10 @@ export class UsersService implements IUsersService {
 
     @Inject(CITY_TYPES.service) private citiesService: ICitiesService,
   ) {}
+
+  create(dto: CreateUserDto, role: Role): Promise<User> {
+    return this.userRepository.create(dto, role);
+  }
 
   async find(
     page: number,
@@ -31,6 +42,11 @@ export class UsersService implements IUsersService {
   async findOne(id: string, withDeleted = false): Promise<User> {
     const user = await this.userRepository.findOneById(id, withDeleted);
     if (!user) throw new NotFoundException(item_not_found(Entities.User));
+    return user;
+  }
+
+  async findOneByPhone(id: string, withDeleted?: boolean): Promise<User> {
+    const user = await this.userRepository.findOneByPhone(id, withDeleted);
     return user;
   }
 
@@ -52,6 +68,10 @@ export class UsersService implements IUsersService {
     return updateUser;
   }
 
+  async updatePhone(user: User, dto: UpdateUserPhoneDto): Promise<User> {
+    return this.userRepository.updatePhone(user, dto);
+  }
+
   // async recover(id: string): Promise<User> {
   //   const user = await this.findOne(id, true);
   //   if (!user) throw new NotFoundException(item_not_found(Entities.User));
@@ -59,9 +79,21 @@ export class UsersService implements IUsersService {
   //   return user;
   // }
 
+  confirm(nonConfirmedUser: User): Promise<User> {
+    return this.userRepository.confirm(nonConfirmedUser);
+  }
+
   async remove(id: string): Promise<void> {
     const user = await this.findOne(id);
     await this.userRepository.remove(user);
     return;
+  }
+
+  async validate(id: string): Promise<User> {
+    const user = await this.userRepository.findOneById(id);
+    if (!user) {
+      throw new UnauthorizedException('The user is not here');
+    }
+    return user;
   }
 }

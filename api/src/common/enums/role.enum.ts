@@ -3,4 +3,5 @@ export enum ROLE {
   ADMIN = 'admin',
   SUPER_ADMIN = 'superadmin',
   EMPLOYEE = 'employee',
+  DRIVER = 'driver',
 }

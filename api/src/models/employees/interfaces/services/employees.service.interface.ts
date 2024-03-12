@@ -1,11 +1,11 @@
-import { LoginDto } from '../../../../auth-user/dtos';
+import { LoginUserDto } from '../../../../auth-user';
 import { PaginatedResponse } from '../../../../common/types';
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../../dtos';
 import { Employee } from '../../entities/employee.entity';
 import { AuthEmployeeResponse } from '../auth-employee.interface';
 
 export interface IEmployeesService {
-  login(dto: LoginDto): Promise<AuthEmployeeResponse>;
+  login(dto: LoginUserDto): Promise<AuthEmployeeResponse>;
 
   find(role: string): Promise<Employee[] | PaginatedResponse<Employee>>;
 

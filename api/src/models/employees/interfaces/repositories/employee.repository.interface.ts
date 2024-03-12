@@ -5,7 +5,7 @@ import { Employee } from '../../entities/employee.entity';
 export interface IEmployeeRepository {
   find(withDeleted: boolean): Promise<Employee[]>;
 
-  findOneById(id: string, withDeleted: boolean): Promise<Employee>;
+  findOneById(id: string, withDeleted?: boolean): Promise<Employee>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Employee>;
 

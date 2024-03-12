@@ -5,6 +5,8 @@ export enum GROUPS {
   PERMISSION = 'group_permission_details',
   ALL_USERS = 'group_all_users',
   USER = 'group_user_details',
+  ALL_DRIVERS = 'group_all_drivers',
+  DRIVER = 'group_driver_details',
   ALL_ADMINS = 'group_all_admins',
   ADMIN = 'group_admin_details',
   ALL_EMPLOYEES = 'group_all_employees',

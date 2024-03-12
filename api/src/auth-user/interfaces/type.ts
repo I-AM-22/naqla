@@ -1,10 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
-
 export const AUTH_TYPES = {
-  service: 'IAuthService',
+  service: 'IAuthUserService',
 };
-
-export class SendConfirm {
-  @ApiProperty()
-  message: string;
-}

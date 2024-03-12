@@ -29,7 +29,7 @@ export class CitiesService implements ICitiesService {
 
   async findOne(id: string, withDeleted?: boolean): Promise<City> {
     const city = await this.cityRepository.findOneById(id, withDeleted);
-    if (!city) throw new NotFoundException(item_not_found(Entities.Category));
+    if (!city) throw new NotFoundException(item_not_found(Entities.City));
     return city;
   }
 

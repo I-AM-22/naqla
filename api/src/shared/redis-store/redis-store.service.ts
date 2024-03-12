@@ -10,23 +10,23 @@ export class RedisStoreService {
     private readonly configService: ConfigService,
     @InjectRedis(DEFAULT_REDIS_NAMESPACE) private readonly redis: Redis,
   ) {}
-  async storeUserId(id: string) {
-    const redisExpire =
-      parseInt(this.configService.get('JWT_EXPIRES_IN')) * 24 * 3600;
-    return this.redis.set(user_key, id, 'EX', redisExpire);
-  }
+  // async storeUserId(id: string) {
+  //   const redisExpire =
+  //     parseInt(this.configService.get('JWT_EXPIRES_IN')) * 24 * 3600;
+  //   return this.redis.set(user_key, id, 'EX', redisExpire);
+  // }
 
-  async getStoredUserId() {
-    return this.redis.get(user_key);
-  }
+  // async getStoredUserId() {
+  //   return this.redis.get(user_key);
+  // }
 
-  async storeToken(token: string) {
-    const redisExpire =
-      parseInt(this.configService.get('JWT_EXPIRES_IN')) * 24 * 3600;
-    return this.redis.set(token_key, token, 'EX', redisExpire);
-  }
+  // async storeToken(token: string) {
+  //   const redisExpire =
+  //     parseInt(this.configService.get('JWT_EXPIRES_IN')) * 24 * 3600;
+  //   return this.redis.set(token_key, token, 'EX', redisExpire);
+  // }
 
-  async getStoredToken() {
-    return this.redis.get(token_key);
-  }
+  // async getStoredToken() {
+  //   return this.redis.get(token_key);
+  // }
 }

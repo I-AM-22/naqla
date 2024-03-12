@@ -1,7 +1,7 @@
 import { Module, Provider } from '@nestjs/common';
 import { UserRepository } from './repositories/user.repository';
 import { UserPhotosRepository } from './repositories/user-photos.repository';
-import { WalletRepository } from './repositories/wallet.repository';
+import { WalletUserRepository } from './repositories/user-wallet.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Wallet } from './entities/wallet.entity';
@@ -27,9 +27,9 @@ export const UserPhotosRepositoryProvider: Provider = {
   useClass: UserPhotosRepository,
 };
 
-export const WalletRepositoryProvider: Provider = {
+export const WalletUserRepositoryProvider: Provider = {
   provide: USER_TYPES.repository.wallet,
-  useClass: WalletRepository,
+  useClass: WalletUserRepository,
 };
 @Module({
   imports: [
@@ -40,14 +40,14 @@ export const WalletRepositoryProvider: Provider = {
   providers: [
     UserPhotosRepositoryProvider,
     UserRepositoryProvider,
-    WalletRepositoryProvider,
+    WalletUserRepositoryProvider,
     UsersServiceProvider,
     RoleRepository,
   ],
   exports: [
     UserPhotosRepositoryProvider,
     UserRepositoryProvider,
-    WalletRepositoryProvider,
+    WalletUserRepositoryProvider,
     UsersServiceProvider,
   ],
 })

@@ -8,7 +8,7 @@ import { Employee } from '../entities/employee.entity';
 import { IEmployeeRepository } from '../interfaces/repositories/employee.repository.interface';
 import { IEmployeePhotosRepository } from '../interfaces/repositories/employee-photos.repository.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
-import { BaseAuthRepo } from '../../../common/entities';
+import { BaseAuthRepo } from '../../../common/base';
 import { defaultPhotoUrl } from '../../../common/constants';
 
 @Injectable()

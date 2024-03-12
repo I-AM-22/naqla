@@ -22,6 +22,14 @@ async function bootstrap() {
     snapshot: true,
     cors: true,
   });
+
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  });
+
   const httpAdapter = app.get(HttpAdapterHost);
   const logger = app.get(Logger);
   const appConfig: ConfigType<typeof AppConfig> = app

@@ -1,4 +1,4 @@
-import { UpdatePhoneDto } from '../../../../auth-user';
+import { UpdateUserPhoneDto } from '../../../../auth-user';
 import { PaginatedResponse } from '../../../../common/types';
 import { Role } from '../../../roles';
 import { CreateUserDto, UpdateUserDto } from '../../dtos';
@@ -26,7 +26,7 @@ export interface IUserRepository {
 
   getMyPhotos(userId: string): Promise<UserPhoto[]>;
 
-  updatePhone(user: User, dto: UpdatePhoneDto): Promise<User>;
+  updatePhone(user: User, dto: UpdateUserPhoneDto): Promise<User>;
 
   // recover(user: User): Promise<User>;
 

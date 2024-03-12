@@ -6,12 +6,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
 import { IUserPhotosRepository } from '../interfaces/repositories/user-photos.repository.interface';
 import { USER_TYPES } from '../interfaces/type';
-import { IWalletRepository } from '../interfaces/repositories/wallet.repository.interface';
-import { BaseAuthRepo } from '../../../common/entities';
+import { IWalletUserRepository } from '../interfaces/repositories/user-wallet.repository.interface';
+import { BaseAuthRepo } from '../../../common/base';
 import { defaultPhotoUrl } from '../../../common/constants';
-import { UpdatePhoneDto } from '../../../auth-user';
 import { pagination } from '../../../common/helpers';
 import { PaginatedResponse } from '../../../common/types';
+import { UpdateUserPhoneDto } from '../../../auth-user';
 
 @Injectable()
 export class UserRepository
@@ -23,7 +23,7 @@ export class UserRepository
     @Inject(USER_TYPES.repository.user_photos)
     private readonly userPhotosRepository: IUserPhotosRepository,
     @Inject(USER_TYPES.repository.wallet)
-    private readonly walletRepository: IWalletRepository,
+    private readonly walletUserRepository: IWalletUserRepository,
   ) {
     super(userRepo);
   }
@@ -47,7 +47,7 @@ export class UserRepository
   }
 
   async create(dto: CreateUserDto, role: Role): Promise<User> {
-    const wallet = this.walletRepository.create();
+    const wallet = this.walletUserRepository.create();
     const photo = await this.userPhotosRepository.uploadPhoto(defaultPhotoUrl);
     const user = this.userRepo.create({
       ...dto,
@@ -65,7 +65,7 @@ export class UserRepository
     return this.findOneById(nonConfirmedUser.id);
   }
 
-  async updatePhone(user: User, dto: UpdatePhoneDto): Promise<User> {
+  async updatePhone(user: User, dto: UpdateUserPhoneDto): Promise<User> {
     Object.assign(user, dto);
     await this.userRepo.save(user);
     return this.findOneById(user.id);

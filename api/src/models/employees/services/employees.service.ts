@@ -14,6 +14,7 @@ import { AuthEmployeeResponse } from '../interfaces';
 import {
   incorrect_credentials,
   item_not_found,
+  password_changed_recently,
 } from '../../../common/constants';
 import { IEmployeeService } from '../interfaces/employee-services.interface';
 import { PaginatedResponse } from '../../../common/types';
@@ -43,7 +44,7 @@ export class EmployeesService implements IEmployeeService {
     }
     const token = await this.jwtTokenService.signToken(
       employee.id,
-      Employee.name,
+      Entities.Employee,
     );
     return { token, employee };
   }
@@ -84,5 +85,19 @@ export class EmployeesService implements IEmployeeService {
     const emp = await this.findOne(id);
     await this.employeeRepository.remove(emp);
     return;
+  }
+
+  async validate(id: string, iat: number): Promise<Employee> {
+    const emp = await this.employeeRepository.findOneById(id);
+
+    if (!emp) {
+      throw new UnauthorizedException('The user is not here');
+    }
+
+    if (emp.isPasswordChanged(iat)) {
+      throw new UnauthorizedException(password_changed_recently);
+    }
+
+    return emp;
   }
 }

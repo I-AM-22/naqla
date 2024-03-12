@@ -6,7 +6,8 @@ import { Permission } from '../../permissions';
 import { User } from '../../users';
 import { Admin } from '../../admins';
 import { Employee } from '../../employees';
-import { GlobalEntity } from '../../../common/entities';
+import { GlobalEntity } from '../../../common/base';
+import { Driver } from '../../drivers';
 
 @Entity({ name: 'roles' })
 export class Role extends GlobalEntity {
@@ -42,4 +43,8 @@ export class Role extends GlobalEntity {
   @Exclude()
   @OneToMany(() => Employee, (employee) => employee.role, { cascade: true })
   employees: Employee[];
+
+  @Exclude()
+  @OneToMany(() => Driver, (driver) => driver.role, { cascade: true })
+  drivers: Driver[];
 }

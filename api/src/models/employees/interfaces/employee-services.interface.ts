@@ -1,11 +1,14 @@
-import { LoginDto } from '../../../auth-user';
 import { PaginatedResponse } from '../../../common/types';
 import { Employee } from '../entities/employee.entity';
-import { CreateEmployeeDto, UpdateEmployeeDto } from './../dtos'; // Import necessary DTOs
+import {
+  CreateEmployeeDto,
+  LoginEmployeeDto,
+  UpdateEmployeeDto,
+} from './../dtos'; // Import necessary DTOs
 import { AuthEmployeeResponse } from './auth-employee.interface';
 
 export interface IEmployeeService {
-  login(dto: LoginDto): Promise<AuthEmployeeResponse>;
+  login(dto: LoginEmployeeDto): Promise<AuthEmployeeResponse>;
 
   find(withDeleted: boolean): Promise<Employee[] | PaginatedResponse<Employee>>;
 
@@ -16,6 +19,7 @@ export interface IEmployeeService {
   update(id: string, dto: UpdateEmployeeDto): Promise<Employee>;
 
   // recover(id: string): Promise<Employee>;
+  validate(id: string, iat: number): Promise<Employee>;
 
   remove(id: string): Promise<void>;
 }

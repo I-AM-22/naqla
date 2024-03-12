@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { Role } from '../../roles';
 import { AdminPhoto } from './admin-photo.entity';
-import { BasePersonWithPass, BasePhoto } from '../../../common/entities';
+import { BasePersonWithPass, BasePhoto } from '../../../common/base';
 import { GROUPS } from '../../../common/enums';
 import { ApiProperty } from '@nestjs/swagger';
 

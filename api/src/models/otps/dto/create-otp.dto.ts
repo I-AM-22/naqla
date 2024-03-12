@@ -5,6 +5,10 @@ export class CreateOtpDto {
   @IsUUID()
   readonly userId: string;
 
+  @IsNotEmpty()
+  @IsString()
+  ip: string;
+
   @IsString()
   @IsNotEmpty()
   readonly phone: string;

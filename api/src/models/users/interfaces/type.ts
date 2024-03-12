@@ -3,6 +3,6 @@ export const USER_TYPES = {
   repository: {
     user: 'IUserRepository',
     user_photos: 'IUserPhotosRepository',
-    wallet: 'IWalletRepository',
+    wallet: 'IWalletUserRepository',
   },
 };
