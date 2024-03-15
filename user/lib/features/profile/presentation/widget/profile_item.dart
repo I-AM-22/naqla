@@ -14,7 +14,9 @@ class ProfileItem extends StatelessWidget {
       this.onTap,
       this.isFlag = false,
       this.width,
-      this.height});
+      this.height,
+      this.isSelected = true,
+      this.suffixIconColor});
   final String title;
   final String prefixIcon;
   final String? suffixIcon;
@@ -22,6 +24,8 @@ class ProfileItem extends StatelessWidget {
   final bool isFlag;
   final double? width;
   final double? height;
+  final bool isSelected;
+  final Color? suffixIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +36,8 @@ class ProfileItem extends StatelessWidget {
         padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
         height: 60.h,
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                color: context.colorScheme.black.withOpacity(.24),
-                offset: const Offset(0, 0),
-                blurRadius: 1)
-          ],
-          border: Border.all(color: context.colorScheme.primary),
+          boxShadow: [BoxShadow(color: context.colorScheme.black.withOpacity(.24), offset: const Offset(0, 0), blurRadius: 1)],
+          border: Border.all(color: isSelected ? context.colorScheme.primary : context.colorScheme.systemGray.shade200),
           borderRadius: BorderRadius.circular(8),
           color: context.colorScheme.onPrimary,
         ),
@@ -63,6 +62,7 @@ class ProfileItem extends StatelessWidget {
                       ? Assets.icons.arrow.leftArrow.path
                       : Assets.icons.arrow.rightArrow.path,
               size: 15,
+              color: suffixIconColor,
             ),
           ],
         ),

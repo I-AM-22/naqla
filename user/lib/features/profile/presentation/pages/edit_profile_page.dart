@@ -61,9 +61,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         ),
         body: Padding(
-          padding: REdgeInsets.symmetric(
-              vertical: UIConstants.screenPadding30,
-              horizontal: UIConstants.screenPadding16),
+          padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
           child: FormBuilder(
             key: _key,
             child: SingleChildScrollView(
@@ -80,14 +78,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             clipBehavior: Clip.hardEdge,
                             width: 138.w,
                             height: 138.w,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: context.colorScheme.primary)),
-                            child: BlurHash(
-                                imageFit: BoxFit.cover,
-                                hash: widget.param.user.photo.blurHash,
-                                image: widget.param.user.photo.profileUrl),
+                            decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
+                            child:
+                                BlurHash(imageFit: BoxFit.cover, hash: widget.param.user.photo.blurHash, image: widget.param.user.photo.profileUrl),
                           ),
                           onSuccess: (data) {
                             photo = data;
@@ -95,10 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               clipBehavior: Clip.hardEdge,
                               width: 138.w,
                               height: 138.w,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                      color: context.colorScheme.primary)),
+                              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
                               child: Image(
                                 image: NetworkImage(data),
                                 fit: BoxFit.cover,
@@ -114,15 +104,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   return RSizedBox(
                                     width: double.infinity,
                                     child: Padding(
-                                      padding: REdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 10),
+                                      padding: REdgeInsets.symmetric(horizontal: 16, vertical: 10),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           AppButton.ghost(
                                             title: 'camera',
+                                            postfixIcon: AppImage.asset(Assets.icons.essential.camera.path),
                                             onPressed: () {
                                               bloc.add((PickImageEvent(
                                                 ImageSource.camera,
@@ -153,10 +142,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             width: 25.h,
                             height: 25.h,
                             decoration: BoxDecoration(
-                                color: const Color(0xFFFAFAFA),
-                                border: Border.all(
-                                    color: context.colorScheme.primary),
-                                shape: BoxShape.circle),
+                                color: const Color(0xFFFAFAFA), border: Border.all(color: context.colorScheme.primary), shape: BoxShape.circle),
                             child: Center(
                               child: AppImage.asset(
                                 Assets.icons.essential.edit.path,
@@ -198,10 +184,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           if (_key.currentState?.isValid ?? false) {
                             bloc.add(EditPersonalInfoEvent(
                                 EditPersonalInfoParam(
-                                    firstName:
-                                        _key.currentState?.value['firstName'],
-                                    lastName:
-                                        _key.currentState?.value['lastName'],
+                                    firstName: _key.currentState?.value['firstName'],
+                                    lastName: _key.currentState?.value['lastName'],
                                     photo: photo), (p0) {
                               showMessage('edit successfully', isSuccess: true);
                               context.pop();

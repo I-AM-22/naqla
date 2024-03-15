@@ -24,11 +24,21 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "Welcome": MessageLookupByLibrary.simpleMessage("مرحبا"),
+        "__________________________chat________________________________":
+            MessageLookupByLibrary.simpleMessage(""),
         "__________________________home______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "__________________________order_______________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "__________________________profile______________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "__________________________wallet______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "_________________authentication________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "________________onBoarding____________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("من نحن"),
         "ago": MessageLookupByLibrary.simpleMessage("منذ"),
@@ -36,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
         "anywhere_you_are":
             MessageLookupByLibrary.simpleMessage("في أي مكان كنت"),
+        "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "are_you_sure_you_want_to_delete_account":
             MessageLookupByLibrary.simpleMessage(
                 "هل انت متأكد انك تريد حذف حسابك؟ يرجى قراءة كيف سيؤثر حذف الحساب.\nيؤدي حذف حسابك إلى إزالة المعلومات الشخصية من قاعدة بياناتنا."),
@@ -49,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "book_your_car":
             MessageLookupByLibrary.simpleMessage("اختر السيارة التي تريد"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
+        "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
+        "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
             "اختر موقعك للبدء في العثور على الطلب من حولك"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
@@ -68,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
         "enable_your_location":
             MessageLookupByLibrary.simpleMessage("تمكين موقعك"),
+        "english": MessageLookupByLibrary.simpleMessage("الانكليزية"),
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور الخاصة بك"),
         "enter_code": MessageLookupByLibrary.simpleMessage("أدخل رمز "),
@@ -89,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
+        "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
             MessageLookupByLibrary.simpleMessage("الاموال المعلقة : "),
@@ -117,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("استخدام موقعي"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
+        "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
             "حسابك جاهز للاستخدام. ستتم إعادة توجيهك إلى الصفحة الرئيسية في بضع ثوان."),

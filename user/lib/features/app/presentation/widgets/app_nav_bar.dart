@@ -46,18 +46,18 @@ class AppNavigationBar extends StatelessWidget {
               Assets.icons.essential.home.path,
               size: 24.h,
             ),
-            activeIcon: CustomActiveIcon(
-                image: Assets.icons.essential.house.path, label: ''),
+            activeIcon: CustomActiveIcon(image: Assets.icons.essential.house.path, label: S.of(context).orders),
           ),
           BottomNavigationBarItem(
             label: "",
             icon: AppImage.asset(
-              Assets.icons.essential.home.path,
+              Assets.icons.essential.chat.path,
+              color: context.colorScheme.systemGray.shade300,
               size: 24.h,
             ),
             activeIcon: CustomActiveIcon(
-              image: Assets.icons.essential.wallet2.path,
-              label: S.of(context).wallet,
+              image: Assets.icons.essential.chat.path,
+              label: S.of(context).chat,
             ),
           ),
           BottomNavigationBarItem(
@@ -66,9 +66,7 @@ class AppNavigationBar extends StatelessWidget {
               Assets.icons.essential.profile.path,
               size: 24.h,
             ),
-            activeIcon: CustomActiveIcon(
-                image: Assets.icons.essential.user.path,
-                label: S.of(context).profile),
+            activeIcon: CustomActiveIcon(image: Assets.icons.essential.user.path, label: S.of(context).profile),
           ),
         ],
         onTap: onTap,

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -19,8 +18,7 @@ class LoggerInterceptor extends Interceptor with LoggerHelper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (GetIt.I<PrefsRepository>().registeredUser) {
-      options.headers[HttpHeaders.authorizationHeader] =
-          'Bearer ${GetIt.I<PrefsRepository>().token}';
+      options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${GetIt.I<PrefsRepository>().token}';
     }
 
     if (kDebugMode) {
@@ -53,11 +51,9 @@ class LoggerInterceptor extends Interceptor with LoggerHelper {
       final requestRoute = response.requestOptions.path;
 
       if (statusType == _StatusType.failed) {
-        prettyPrinterError(
-            '***|| ${statusType.name.toUpperCase()} Response into -> $requestRoute ||***');
+        prettyPrinterError('***|| ${statusType.name.toUpperCase()} Response into -> $requestRoute ||***');
       } else {
-        prettyPrinterV(
-            '***|| ${statusType.name.toUpperCase()} Response into -> $requestRoute ||***');
+        prettyPrinterV('***|| ${statusType.name.toUpperCase()} Response into -> $requestRoute ||***');
       }
       prettyPrinterWtf(
         "***|| INFO Response Request $requestRoute ${statusType == _StatusType.succeed ? '✊' : ''} ||***"
@@ -89,7 +85,7 @@ class LoggerInterceptor extends Interceptor with LoggerHelper {
     final data = err.response?.data;
     if (data != null && data != "") {
       if (data is Map<String, dynamic>) {
-        showMessage(data['message']);
+        showMessage(_mapResponseError(data));
       } else {
         showMessage('Something went wrong!!');
       }
@@ -114,5 +110,15 @@ mixin LoggerHelper {
 
   void prettyPrinterV(final String message) {
     Logger(printer: PrettyPrinter(methodCount: 0)).f(message);
+  }
+}
+String _mapResponseError(Map<String, dynamic> response) {
+  switch (response['type']) {
+    case 'default':
+      return response['message'];
+    case 'form':
+      return response['errors'][0]['message'];
+    default:
+      return 'some thing went wrong';
   }
 }

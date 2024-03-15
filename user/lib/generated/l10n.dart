@@ -50,7 +50,15 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  // skipped getter for the '*****************date*********************' key
+  /// ``
+  String get _______________date__________________________ {
+    return Intl.message(
+      '',
+      name: '_______________date__________________________',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `day`
   String get day {
@@ -112,7 +120,15 @@ class S {
     );
   }
 
-  // skipped getter for the '****************onBoarding*****************' key
+  /// ``
+  String get ________________onBoarding____________________ {
+    return Intl.message(
+      '',
+      name: '________________onBoarding____________________',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `Anywhere you are`
   String get anywhere_you_are {
@@ -154,7 +170,15 @@ class S {
     );
   }
 
-  // skipped getter for the '***************authentication***************' key
+  /// ``
+  String get _________________authentication________________ {
+    return Intl.message(
+      '',
+      name: '_________________authentication________________',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `Enable your location`
   String get enable_your_location {
@@ -587,6 +611,56 @@ class S {
   }
 
   /// ``
+  String get __________________________chat________________________________ {
+    return Intl.message(
+      '',
+      name: '__________________________chat________________________________',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chat`
+  String get chat {
+    return Intl.message(
+      'Chat',
+      name: 'chat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a message`
+  String get write_message {
+    return Intl.message(
+      'Write a message',
+      name: 'write_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get __________________________order_______________________________ {
+    return Intl.message(
+      '',
+      name: '__________________________order_______________________________',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders`
+  String get orders {
+    return Intl.message(
+      'Orders',
+      name: 'orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
   String get __________________________profile______________________________ {
     return Intl.message(
       '',
@@ -741,6 +815,36 @@ class S {
     return Intl.message(
       'Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database.',
       name: 'are_you_sure_you_want_to_delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arabic`
+  String get arabic {
+    return Intl.message(
+      'Arabic',
+      name: 'arabic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Language`
+  String get change_language {
+    return Intl.message(
+      'Change Language',
+      name: 'change_language',
       desc: '',
       args: [],
     );

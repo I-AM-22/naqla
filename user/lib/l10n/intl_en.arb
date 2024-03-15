@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
 
-  "*****************date*********************": "",
+  "_______________date__________________________": "",
   "day": "day",
   "month": "Month",
   "ago": "ago",
@@ -9,13 +9,13 @@
   "hour": "hour",
   "second": "second",
 
-  "****************onBoarding*****************": "",
+  "________________onBoarding____________________": "",
   "anywhere_you_are": "Anywhere you are",
   "sell_houses_easily_with_the_help_of_Listenoryx": "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more",
   "at_anytime": "At anytime",
   "book_your_car": "Book your car",
 
-  "***************authentication***************": "",
+  "_________________authentication________________": "",
   "enable_your_location": "Enable your location",
   "choose_your_location_to_start": "Choose your location to start find the request around you",
   "use_my_location": "Use my location",
@@ -62,6 +62,13 @@
   "total_money": "Total Money : ",
   "pending_money": "Pending Money : ",
 
+  "__________________________chat________________________________": "",
+  "chat": "Chat",
+  "write_message": "Write a message",
+
+  "__________________________order_______________________________": "",
+  "orders": "Orders",
+
   "__________________________profile______________________________":"",
   "profile":"profile",
   "update": "Update",
@@ -77,5 +84,8 @@
   "no": "No",
   "yes": "Yes",
   "delete_account": "Delete Account",
-  "are_you_sure_you_want_to_delete_account": "Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database."
+  "are_you_sure_you_want_to_delete_account": "Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database.",
+  "english": "English",
+  "arabic": "Arabic",
+  "change_language": "Change Language"
 }

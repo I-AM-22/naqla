@@ -16,23 +16,17 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: context.isArabic
-          ? const BorderRadius.only(
-              topLeft: Radius.circular(80), bottomLeft: Radius.circular(80))
-          : const BorderRadius.only(
-              topRight: Radius.circular(80), bottomRight: Radius.circular(80)),
+          ? const BorderRadius.only(topLeft: Radius.circular(80), bottomLeft: Radius.circular(80))
+          : const BorderRadius.only(topRight: Radius.circular(80), bottomRight: Radius.circular(80)),
       child: Drawer(
         backgroundColor: context.colorScheme.onPrimary,
         child: ListView(
-          padding: REdgeInsets.symmetric(
-              horizontal: UIConstants.screenPadding16,
-              vertical: UIConstants.screenPadding30),
+          padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding30),
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppImage.asset(context.isArabic
-                    ? Assets.icons.arrow.rightArrow.path
-                    : Assets.icons.arrow.leftArrow.path),
+                AppImage.asset(context.isArabic ? Assets.icons.arrow.rightArrow.path : Assets.icons.arrow.leftArrow.path),
                 AppText.subHeadMedium(S.of(context).back),
               ],
             ),
@@ -47,15 +41,9 @@ class AppDrawer extends StatelessWidget {
             AppText.headlineSmall('majed'),
             AppText.bodySmall('majed@gmail.com'),
             40.verticalSpace,
-            DrawerItem(
-                icon: Assets.icons.essential.profile.path,
-                title: S.of(context).edit_profile),
-            DrawerItem(
-                icon: Assets.icons.essential.info.path,
-                title: S.of(context).about_us),
-            DrawerItem(
-                icon: Assets.icons.essential.info.path,
-                title: S.of(context).help_and_support),
+            DrawerItem(icon: Assets.icons.essential.profile.path, title: S.of(context).edit_profile),
+            DrawerItem(icon: Assets.icons.essential.info.path, title: S.of(context).about_us),
+            DrawerItem(icon: Assets.icons.essential.info.path, title: S.of(context).help_and_support),
             DrawerItem(
               icon: Assets.icons.essential.website.path,
               title: S.of(context).language,

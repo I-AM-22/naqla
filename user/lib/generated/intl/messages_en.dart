@@ -24,11 +24,21 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Save": MessageLookupByLibrary.simpleMessage("Save"),
         "Welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
+        "__________________________chat________________________________":
+            MessageLookupByLibrary.simpleMessage(""),
         "__________________________home______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "__________________________order_______________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "__________________________profile______________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "__________________________wallet______________________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "_________________authentication________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "________________onBoarding____________________":
+            MessageLookupByLibrary.simpleMessage(""),
+        "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("About Us"),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
@@ -36,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
         "anywhere_you_are":
             MessageLookupByLibrary.simpleMessage("Anywhere you are"),
+        "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
         "are_you_sure_you_want_to_delete_account":
             MessageLookupByLibrary.simpleMessage(
                 "Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database."),
@@ -49,6 +60,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "book_your_car": MessageLookupByLibrary.simpleMessage("Book your car"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "change_language":
+            MessageLookupByLibrary.simpleMessage("Change Language"),
+        "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
             "Choose your location to start find the request around you"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
@@ -70,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enable_your_location":
             MessageLookupByLibrary.simpleMessage("Enable your location"),
+        "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("Enter Your Password"),
         "enter_code": MessageLookupByLibrary.simpleMessage("Enter your "),
@@ -92,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
             MessageLookupByLibrary.simpleMessage("Pending Money : "),
@@ -117,6 +133,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Use my location"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
+        "write_message":
+            MessageLookupByLibrary.simpleMessage("Write a message"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
             "Your account is ready to use. You will be redirected to the Home Page in a few seconds."),

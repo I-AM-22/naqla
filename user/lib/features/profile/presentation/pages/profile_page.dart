@@ -21,8 +21,10 @@ import 'package:naqla/features/profile/presentation/widget/profile_item.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
+import 'about_us_page.dart';
 import 'delete_account_page.dart';
 import 'edit_profile_page.dart';
+import 'help_and_support_page.dart';
 import 'language_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -62,9 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                         width: 34.w,
                         height: 34.w,
-                        decoration: BoxDecoration(
-                            color: const Color(0xFFE5E5E5),
-                            borderRadius: BorderRadius.circular(4)),
+                        decoration: BoxDecoration(color: const Color(0xFFE5E5E5), borderRadius: BorderRadius.circular(4)),
                         child: Center(
                           child: AppImage.asset(
                             Assets.icons.essential.moreIcon.path,
@@ -80,9 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
           body: AppCommonStateBuilder<ProfileBloc, User>(
             index: ProfileState.getPersonalInfo,
             onSuccess: (data) => Padding(
-              padding: REdgeInsets.symmetric(
-                  vertical: UIConstants.screenPadding30,
-                  horizontal: UIConstants.screenPadding16),
+              padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -92,14 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         clipBehavior: Clip.hardEdge,
                         width: 138.w,
                         height: 138.w,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border:
-                                Border.all(color: context.colorScheme.primary)),
-                        child: BlurHash(
-                            imageFit: BoxFit.cover,
-                            hash: data.photo.blurHash,
-                            image: data.photo.profileUrl),
+                        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
+                        child: BlurHash(imageFit: BoxFit.cover, hash: data.photo.blurHash, image: data.photo.profileUrl),
                       ),
                     ),
                     24.verticalSpace,
@@ -113,15 +105,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     24.verticalSpace,
                     ProfileItem(
-                        onTap: () => context.pushNamed(EditProfilePage.name,
-                            extra: EditProfileParam(bloc: bloc, user: data)),
+                        onTap: () => context.pushNamed(EditProfilePage.name, extra: EditProfileParam(bloc: bloc, user: data)),
                         title: S.of(context).edit_profile,
                         prefixIcon: Assets.icons.essential.profile.path),
                     16.verticalSpace,
                     ProfileItem(
-                        onTap: () => context.pushNamed(EditPhoneNumberPage.name,
-                            extra:
-                                EditPhoneParam(bloc: bloc, phone: data.phone)),
+                        onTap: () => context.pushNamed(EditPhoneNumberPage.name, extra: EditPhoneParam(bloc: bloc, phone: data.phone)),
                         title: S.of(context).edit_phone,
                         prefixIcon: Assets.icons.essential.mobile.path),
                     16.verticalSpace,
@@ -135,16 +124,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     16.verticalSpace,
                     ProfileItem(
                         title: S.of(context).about_us,
+                        onTap: () => context.pushNamed(AboutUsPage.name),
                         prefixIcon: Assets.icons.essential.circleQuistion.path),
                     16.verticalSpace,
                     ProfileItem(
-                        title: S.of(context).help_and_support,
-                        prefixIcon: Assets.icons.essential.info.path),
+                      title: S.of(context).help_and_support,
+                      prefixIcon: Assets.icons.essential.info.path,
+                      onTap: () => context.pushNamed(HelpAndSupportPage.name),
+                    ),
                     16.verticalSpace,
-                    ProfileItem(
-                        onTap: () => Logout.logOut(context),
-                        title: S.of(context).logOut,
-                        prefixIcon: Assets.icons.essential.logout.path),
+                    ProfileItem(onTap: () => Logout.logOut(context), title: S.of(context).logOut, prefixIcon: Assets.icons.essential.logout.path),
                     16.verticalSpace,
                     ProfileItem(
                         onTap: () => context.pushNamed(DeleteAccountPage.name),
@@ -179,9 +168,7 @@ class Logout {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 AppButton.ghost(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateColor.resolveWith(
-                            (states) => context.colorScheme.error)),
+                    style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => context.colorScheme.error)),
                     buttonSize: ButtonSize.medium,
                     child: AppText.bodySmall(
                       S.of(context).logOut,

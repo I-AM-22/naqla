@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -13,15 +14,16 @@ Future<T> throwAppException<T>(FutureOr<T> Function() call) async {
   try {
     return (await call());
   } on AppException catch (_) {
+    print('error');
     rethrow;
   } on SocketException catch (e) {
-    throw AppNetworkException(
-        reason: AppNetworkExceptionReason.noInternet,
-        exception: e,
-        message: e.message);
+    print(e.message);
+    throw AppNetworkException(reason: AppNetworkExceptionReason.noInternet, exception: e, message: e.message);
   } on Exception catch (e) {
+    print(e.toString());
     throw AppException.unknown(message: e.toString(), exception: e);
   } catch (e, s) {
+    print(e.toString());
     log(e.toString(), stackTrace: s);
     throw AppException.unknown(message: e.toString(), exception: e);
   }
