@@ -3,7 +3,8 @@ import { Text } from "@/components/ui/text";
 import { phoneRegex } from "@/constants/regex";
 import i18n from "@/lib/i18next";
 import z from "@/lib/zod";
-import { authControllerLogin } from "@/swagger/api";
+import { authDriverControllerLogin } from "@/swagger/api";
+import { parseResponseError } from "@/utils/apiHelpers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Stack, useRouter } from "expo-router";
@@ -28,13 +29,14 @@ export default function Page() {
 
   const router = useRouter();
   const login = useMutation({
-    mutationFn: authControllerLogin,
+    mutationFn: authDriverControllerLogin,
   });
   const onSubmit = (data: z.infer<typeof schema>) => {
     login.mutate(data, {
       onSuccess: () => {
         router.push({ pathname: "/auth/login/otp", params: { phone: data.phone } });
       },
+      onError: parseResponseError({ setFormError: form.setError }),
     });
   };
 

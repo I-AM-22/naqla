@@ -42,6 +42,7 @@ export function createDocument(app: INestApplication): {
     swaggerOptions: {
       persistAuthorization: true,
     },
+    jsonDocumentUrl: '/api.json',
     customSiteTitle: 'naqleh',
     customCssUrl: '/assets/swagger.css',
   };

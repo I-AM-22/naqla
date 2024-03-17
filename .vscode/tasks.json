@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Swagger Generation",
+      "type": "shell",
+      "command": "cd driver && yarn swagger",
+      "group": "none",
+      "problemMatcher": []
+    }
+  ]
+}

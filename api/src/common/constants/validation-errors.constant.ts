@@ -3,7 +3,7 @@ export const denied_error = 'You can not perform this action';
 export const item_not_found = (item: string) => `${item} not found`;
 export const item_already_exist = (item: string) => `${item} already exist`;
 export const incorrect_current_password = 'كلمة المرور الحالية غير صحيحة';
-export const incorrect_phone_number = 'mobile not fpund';
+export const incorrect_phone_number = 'mobile not found';
 export const incorrect_credentials = 'Phone or OTP not correct';
 export const password_changed_recently =
   'User recently changed the password!, please login again.';

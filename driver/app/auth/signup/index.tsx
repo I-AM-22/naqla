@@ -3,12 +3,12 @@ import { Text } from "@/components/ui/text";
 import { phoneRegex } from "@/constants/regex";
 import i18n from "@/lib/i18next";
 import z from "@/lib/zod";
-import { authControllerSignup } from "@/swagger/api";
+import { authDriverControllerSignup } from "@/swagger/api";
+import { parseResponseError } from "@/utils/apiHelpers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Stack, useRouter } from "expo-router";
 import { FormProvider, useForm } from "react-hook-form";
-
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { Button } from "react-native-paper";
@@ -31,16 +31,14 @@ export default function Page() {
   const form = useForm({ defaultValues, resolver: zodResolver(schema) });
   const router = useRouter();
   const signup = useMutation({
-    mutationFn: authControllerSignup,
+    mutationFn: authDriverControllerSignup,
   });
-  const onSubmit = (data: z.infer<typeof schema>) => {
-    signup.mutate(data, {
+  const onSubmit = async (data: z.infer<typeof schema>) => {
+    await signup.mutateAsync(data, {
       onSuccess: () => {
         router.push({ pathname: "/auth/signup/otp", params: { phone: data.phone } });
       },
-      onError: (e) => {
-        console.log(e.data.error.response.errors);
-      },
+      onError: parseResponseError({ setFormError: form.setError }),
     });
   };
 
@@ -70,7 +68,11 @@ export default function Page() {
             textContentType="telephoneNumber"
           />
           <View style={{ flex: 1 }} />
-          <Button mode="contained" loading={signup.isPending} onPress={form.handleSubmit(onSubmit)}>
+          <Button
+            mode="contained"
+            loading={form.formState.isSubmitting}
+            onPress={form.handleSubmit(onSubmit)}
+          >
             {t("next")}
           </Button>
         </View>

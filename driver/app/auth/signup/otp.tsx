@@ -2,8 +2,9 @@ import { FormInput } from "@/components/ui/form";
 import { Text } from "@/components/ui/text";
 import z from "@/lib/zod";
 import useUserStore from "@/stores/userStore";
-import { authControllerConfirm } from "@/swagger/api";
-import { ConfirmDto } from "@/swagger/api.schemas";
+import { authDriverControllerConfirm } from "@/swagger/api";
+import { ConfirmDriverDto } from "@/swagger/api.schemas";
+import { parseResponseError } from "@/utils/apiHelpers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Redirect, Stack, useLocalSearchParams, useRouter } from "expo-router";
@@ -26,7 +27,8 @@ export default function Page() {
   const router = useRouter();
   const user = useUserStore();
   const confirm = useMutation({
-    mutationFn: (dto: ConfirmDto) => authControllerConfirm(dto, { phoneConfirm: false }),
+    mutationFn: (dto: ConfirmDriverDto) =>
+      authDriverControllerConfirm(dto, { phoneConfirm: false }),
   });
 
   if (!phone || typeof phone !== "string") return <Redirect href={"/auth/signup"} />;
@@ -36,9 +38,10 @@ export default function Page() {
       { ...data, phone },
       {
         onSuccess: ({ data }) => {
-          user.set({ token: data.token, ...data.user });
+          user.set({ token: data.token, ...data.driver });
           router.push("/");
         },
+        onError: parseResponseError({ setFormError: form.setError }),
       }
     );
   };

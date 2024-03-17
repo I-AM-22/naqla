@@ -5,21 +5,33 @@
  * naqleh API
  * OpenAPI spec version: 1.0
  */
-export type DriverControllerRemovePathParameters = {
-  id: string;
-};
-export type DriverControllerUpdatePathParameters = {
-  id: string;
-};
-export type DriverControllerFindOnePathParameters = {
-  id: string;
-};
 export type PhotosControllerUploadMultipleBody = {
   photos: Blob[];
 };
 
 export type PhotosControllerUploadSingleBody = {
   photo: Blob;
+};
+
+export type DriversControllerRemovePathParameters = {
+  id: string;
+};
+export type DriversControllerUpdatePathParameters = {
+  id: string;
+};
+export type DriversControllerFindOnePathParameters = {
+  id: string;
+};
+export type DriversControllerFindParams = {
+  page?: number;
+  limit?: number;
+};
+
+export type AuthDriverControllerConfirmParams = {
+  /**
+   * assign true to the field to confirm new number
+   */
+  phoneConfirm: boolean;
 };
 
 export type PermissionsControllerFindOnePathParameters = {
@@ -78,16 +90,53 @@ export type UsersControllerFindParams = {
   limit?: number;
 };
 
-export type AuthControllerConfirmParams = {
+export type AuthUserControllerConfirmParams = {
   /**
    * assign true to the field to confirm new number
    */
   phoneConfirm: boolean;
 };
 
-export type UpdateDriverDto = { [key: string]: any };
+export type UpdateDriverDto = {
+  firstName: string;
+  lastName: string;
+  photo?: string;
+};
 
-export type CreateDriverDto = { [key: string]: any };
+export type UpdateDriverPhoneDto = {
+  phone: string;
+};
+
+export type Driver = {
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+  wallet: Wallet;
+};
+
+export type AuthDriverResponse = {
+  driver: Driver;
+  token: string;
+};
+
+export type ConfirmDriverDto = {
+  otp: string;
+  phone: string;
+};
+
+export type LoginDriverDto = {
+  phone: string;
+};
+
+export type SignUpDriverDto = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+};
 
 export type UpdateRoleDto = {
   permissionsIds: string[];
@@ -137,16 +186,6 @@ export type CreateAdminDto = {
   photo?: string;
 };
 
-export type Admin = {
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
-  phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-};
-
 export type AuthAdminResponse = {
   admin: Admin;
   token: string;
@@ -174,19 +213,9 @@ export type CreateEmployeeDto = {
   photo?: string;
 };
 
-export type Employee = {
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
+export type LoginEmployeeDto = {
+  password: string;
   phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-};
-
-export type AuthEmployeeResponse = {
-  employee: Employee;
-  token: string;
 };
 
 export type UpdateCityDto = {
@@ -223,7 +252,7 @@ export type PaginatedResponse = {
   totalPages: number;
 };
 
-export type UpdatePhoneDto = {
+export type UpdateUserPhoneDto = {
   phone: string;
 };
 
@@ -235,6 +264,31 @@ export type BasePhoto = {
   profileUrl: string;
   updatedAt: Date;
   webUrl: string;
+};
+
+export type Admin = {
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+};
+
+export type Employee = {
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+};
+
+export type AuthEmployeeResponse = {
+  employee: Employee;
+  token: string;
 };
 
 export type User = {
@@ -264,12 +318,12 @@ export type Wallet = {
   updatedAt: Date;
 };
 
-export type ConfirmDto = {
+export type ConfirmUserDto = {
   otp: string;
   phone: string;
 };
 
-export type LoginDto = {
+export type LoginUserDto = {
   phone: string;
 };
 
@@ -277,7 +331,7 @@ export type SendConfirm = {
   message: string;
 };
 
-export type SignUpDto = {
+export type SignUpUserDto = {
   firstName: string;
   lastName: string;
   phone: string;
