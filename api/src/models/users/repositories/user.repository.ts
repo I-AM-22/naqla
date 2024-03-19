@@ -1,17 +1,14 @@
 import { Role } from '../../roles';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto, User, UserPhoto } from '..';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
-import { IUserPhotosRepository } from '../interfaces/repositories/user-photos.repository.interface';
-import { USER_TYPES } from '../interfaces/type';
-import { IWalletUserRepository } from '../interfaces/repositories/user-wallet.repository.interface';
 import { BaseAuthRepo } from '../../../common/base';
-import { defaultPhotoUrl } from '../../../common/constants';
 import { pagination } from '../../../common/helpers';
 import { PaginatedResponse } from '../../../common/types';
 import { UpdateUserPhoneDto } from '../../../auth-user';
+import { UserWallet } from '../entities/user-wallet.entity';
 
 @Injectable()
 export class UserRepository
@@ -20,10 +17,6 @@ export class UserRepository
 {
   constructor(
     @InjectRepository(User) private readonly userRepo: Repository<User>,
-    @Inject(USER_TYPES.repository.user_photos)
-    private readonly userPhotosRepository: IUserPhotosRepository,
-    @Inject(USER_TYPES.repository.wallet)
-    private readonly walletUserRepository: IWalletUserRepository,
   ) {
     super(userRepo);
   }
@@ -46,9 +39,12 @@ export class UserRepository
     return pagination(page, limit, totalDataCount, data);
   }
 
-  async create(dto: CreateUserDto, role: Role): Promise<User> {
-    const wallet = this.walletUserRepository.create();
-    const photo = await this.userPhotosRepository.uploadPhoto(defaultPhotoUrl);
+  async create(
+    dto: CreateUserDto,
+    wallet: UserWallet,
+    photo: UserPhoto,
+    role: Role,
+  ): Promise<User> {
     const user = this.userRepo.create({
       ...dto,
       role,
@@ -71,8 +67,12 @@ export class UserRepository
     return this.findOneById(user.id);
   }
 
-  async update(user: User, dto: UpdateUserDto): Promise<User> {
-    user.photos.push(await this.userPhotosRepository.uploadPhoto(dto.photo));
+  async update(
+    user: User,
+    dto: UpdateUserDto,
+    photo: UserPhoto,
+  ): Promise<User> {
+    user.photos.push(photo);
     Object.assign(user, {
       firstName: dto.firstName,
       lastName: dto.lastName,
@@ -91,10 +91,6 @@ export class UserRepository
       },
       relations: { photos: true },
     });
-  }
-
-  async getMyPhotos(userId: string): Promise<UserPhoto[]> {
-    return this.userPhotosRepository.findPhotosByUser(userId);
   }
 
   // async recover(user: User): Promise<User> {

@@ -3,14 +3,13 @@ import {
   UnauthorizedException,
   NotFoundException,
   Inject,
-  UnprocessableEntityException,
 } from '@nestjs/common';
 import { Entities, ROLE } from '../../../common/enums';
-import { JwtTokenService } from '../../../shared/jwt';
 import { CreateAdminDto, LoginAdminDto, UpdateAdminDto } from '../dtos';
 import { Admin } from '../entities/admin.entity';
 import { AuthAdminResponse } from '../interfaces';
 import {
+  defaultPhotoUrl,
   incorrect_credentials,
   item_not_found,
   password_changed_recently,
@@ -18,17 +17,22 @@ import {
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
 import { IAdminRepository } from '../interfaces/repositories/admin.repository.interface';
+import { JwtTokenService } from '../../../shared/jwt';
+import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
 import { ROLE_TYPES } from '../../roles/interfaces/type';
-import { IRoleRepository } from '../../roles/interfaces/repositories/role.repository.interface';
+import { IPhotosRepository } from '../../../common/interfaces';
+import { AdminPhoto } from '../entities/admin-photo.entity';
 
 @Injectable()
 export class AdminsService implements IAdminsService {
   constructor(
-    private jwtTokenService: JwtTokenService,
-    @Inject(ROLE_TYPES.repository)
-    private roleRepository: IRoleRepository,
     @Inject(ADMIN_TYPES.repository.admin)
     private adminRepository: IAdminRepository,
+    @Inject(ADMIN_TYPES.repository.admin_photos)
+    private adminPhotosRepository: IPhotosRepository<AdminPhoto>,
+    private jwtTokenService: JwtTokenService,
+    @Inject(ROLE_TYPES.service)
+    private rolesService: IRolesService,
   ) {}
 
   async login(dto: LoginAdminDto): Promise<AuthAdminResponse> {
@@ -58,18 +62,19 @@ export class AdminsService implements IAdminsService {
   }
 
   async create(dto: CreateAdminDto): Promise<Admin> {
-    const role = await this.roleRepository.findByName(ROLE.ADMIN);
-    if (!role) throw new UnprocessableEntityException('role not found');
-
-    const admin = await this.adminRepository.create(dto, role);
-
+    const role = await this.rolesService.findByName(ROLE.ADMIN);
+    let photo;
+    if (dto.photo)
+      photo = await this.adminPhotosRepository.uploadPhoto(dto.photo);
+    else photo = await this.adminPhotosRepository.uploadPhoto(defaultPhotoUrl);
+    const admin = await this.adminRepository.create(dto, photo, role);
     return admin;
   }
 
   async update(id: string, dto: UpdateAdminDto): Promise<Admin> {
     const admin = await this.findOne(id);
-
-    return this.adminRepository.update(admin, dto);
+    const photo = await this.adminPhotosRepository.uploadPhoto(dto.photo);
+    return this.adminRepository.update(admin, dto, photo);
   }
 
   // async recover(id: string): Promise<Admin> {

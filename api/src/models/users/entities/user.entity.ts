@@ -12,7 +12,7 @@ import { GROUPS } from '../../../common/enums';
 import { Role } from '../../roles';
 import { UserPhoto } from './user-photo.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { Wallet } from './wallet.entity';
+import { UserWallet } from './user-wallet.entity';
 
 @Entity({ name: 'users' })
 export class User extends BasePersonWithActive {
@@ -26,13 +26,13 @@ export class User extends BasePersonWithActive {
   @Column()
   roleId: string;
 
-  @ApiProperty({ type: Wallet })
+  @ApiProperty({ type: UserWallet })
   @Expose({ groups: [GROUPS.USER] })
-  @OneToOne(() => Wallet, (wallet) => wallet.user, {
+  @OneToOne(() => UserWallet, (wallet) => wallet.user, {
     onDelete: 'CASCADE',
     cascade: true,
   })
-  wallet: Wallet;
+  wallet: UserWallet;
 
   @Exclude()
   @OneToMany(() => UserPhoto, (userPhoto) => userPhoto.user, {

@@ -108,7 +108,7 @@ export class DriversController implements ICrud<Driver> {
   @Roles(ROLE.DRIVER)
   @Patch('me')
   async updateMe(@Body() dto: UpdateDriverDto, @GetUser() driver: Driver) {
-    return this.driversService.updateMe(dto, driver);
+    return this.driversService.updateMe(driver, dto);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

@@ -6,9 +6,13 @@ import { jwtPayload } from '../interfaces';
 import { IAuthUserService } from '../interfaces/services/auth.service.interface';
 import { AUTH_TYPES } from '../interfaces/type';
 import { Entities } from '../../common/enums';
+import { strategies } from '../../common/constants/jwt.type';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class JwtUserStrategy extends PassportStrategy(
+  Strategy,
+  strategies.user,
+) {
   constructor(
     config: ConfigService,
     @Inject(AUTH_TYPES.service) private authUserService: IAuthUserService,
@@ -20,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
   async validate(payload: jwtPayload) {
-    if (payload.entity === Entities.Driver) return;
+    if (payload.entity !== Entities.User) return;
 
     const user = this.authUserService.validate(payload);
 

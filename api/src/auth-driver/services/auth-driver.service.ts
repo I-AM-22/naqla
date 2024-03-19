@@ -16,11 +16,10 @@ import { AuthDriverResponse, jwtPayload } from '../interfaces';
 
 import {
   confirmMessage,
-  incorrect_credentials,
+  incorrect_credentials_OTP,
   incorrect_phone_number,
   item_already_exist,
 } from '../../common/constants';
-import { MailService } from '../../shared/mail/mail.service';
 import { DRIVER_TYPES } from '../../models/drivers/interfaces/type';
 import { ROLE_TYPES } from '../../models/roles/interfaces/type';
 import { OtpsService } from '../../models/otps/otps.service';
@@ -40,7 +39,6 @@ export class AuthDriverService implements IAuthDriverService {
     private readonly driversService: IDriversService,
     @Inject(ROLE_TYPES.service)
     private readonly rolesService: IRolesService,
-    private readonly mailService: MailService,
     private otpsService: OtpsService,
   ) {}
   async signup(dto: SignUpDriverDto, ip: string): Promise<SendConfirm> {
@@ -122,11 +120,11 @@ export class AuthDriverService implements IAuthDriverService {
       phoneConfirm,
     );
     if (!otp) {
-      throw new UnauthorizedException(incorrect_credentials);
+      throw new UnauthorizedException(incorrect_credentials_OTP);
     }
     const nonConfirmedDriver = await this.driversService.findOne(otp.userId);
     if (!nonConfirmedDriver) {
-      throw new UnauthorizedException(incorrect_credentials);
+      throw new UnauthorizedException(incorrect_credentials_OTP);
     }
 
     if (phoneConfirm) {

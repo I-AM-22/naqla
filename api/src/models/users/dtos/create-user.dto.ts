@@ -1,8 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, Length, Matches } from 'class-validator';
-import { IsUnique } from '../../../common/decorators';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Length,
+  Matches,
+} from 'class-validator';
+import { IsPhotoExist, IsUnique } from '../../../common/decorators';
 import { Entities } from '../../../common/enums';
-import { item_already_exist } from '../../../common/constants';
+import { item_already_exist, item_not_found } from '../../../common/constants';
+import { Transform } from 'class-transformer';
+import { getPhotoPath } from '../../../common/helpers';
 
 export class CreateUserDto {
   @ApiProperty({ default: 'bahaa Alden' })
@@ -21,4 +29,11 @@ export class CreateUserDto {
   @Matches(/^09[345689]\d{7}$/)
   @IsUnique(Entities.User, { message: item_already_exist('Phone') })
   readonly phone: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  @Transform(({ value }: { value: string }) => getPhotoPath(value))
+  @IsPhotoExist({ message: item_not_found(Entities.Photo) })
+  readonly photo?: string;
 }

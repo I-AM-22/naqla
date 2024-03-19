@@ -1,15 +1,16 @@
 import { Repository } from 'typeorm';
-import { Wallet } from '../entities/wallet.entity';
+import { UserWallet } from '../entities/user-wallet.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IWalletUserRepository } from '../interfaces/repositories/user-wallet.repository.interface';
+import { IWalletRepository } from '../../../common/interfaces';
 
 @Injectable()
-export class WalletUserRepository implements IWalletUserRepository {
+export class UserWalletRepository implements IWalletRepository<UserWallet> {
   constructor(
-    @InjectRepository(Wallet) private readonly walletRepo: Repository<Wallet>,
+    @InjectRepository(UserWallet)
+    private readonly walletRepo: Repository<UserWallet>,
   ) {}
-  create(): Wallet {
+  create(): UserWallet {
     return this.walletRepo.create();
   }
 }

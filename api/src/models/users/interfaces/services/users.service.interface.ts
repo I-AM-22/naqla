@@ -1,12 +1,11 @@
 import { UpdateUserPhoneDto } from '../../../../auth-user';
 import { PaginatedResponse } from '../../../../common/types';
-import { Role } from '../../../roles';
 import { CreateUserDto, UpdateUserDto } from '../../dtos';
 import { UserPhoto } from '../../entities/user-photo.entity';
 import { User } from '../../entities/user.entity';
 
 export interface IUsersService {
-  create(dto: CreateUserDto, role: Role): Promise<User>;
+  create(dto: CreateUserDto): Promise<User>;
 
   confirm(nonConfirmedUser: User): Promise<User>;
 
@@ -18,7 +17,7 @@ export interface IUsersService {
 
   findOne(id: string, withDeleted?: boolean): Promise<User>;
 
-  updateMe(dto: UpdateUserDto, user: User): Promise<User>;
+  updateMe(user: User, dto: UpdateUserDto): Promise<User>;
 
   updatePhone(user: User, dto: UpdateUserPhoneDto): Promise<User>;
 

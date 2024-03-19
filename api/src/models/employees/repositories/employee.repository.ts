@@ -6,10 +6,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos';
 import { Employee } from '../entities/employee.entity';
 import { IEmployeeRepository } from '../interfaces/repositories/employee.repository.interface';
-import { IEmployeePhotosRepository } from '../interfaces/repositories/employee-photos.repository.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { BaseAuthRepo } from '../../../common/base';
-import { defaultPhotoUrl } from '../../../common/constants';
+import { EmployeePhoto } from '../entities/employee-photo.entity';
+import { IPhotosRepository } from '../../../common/interfaces';
 
 @Injectable()
 export class EmployeeRepository
@@ -20,21 +20,18 @@ export class EmployeeRepository
     @InjectRepository(Employee)
     private readonly employeeRepo: Repository<Employee>,
     @Inject(EMPLOYEE_TYPES.repository.employee_photos)
-    private readonly employeePhotosRepository: IEmployeePhotosRepository,
+    private readonly employeePhotosRepository: IPhotosRepository<EmployeePhoto>,
   ) {
     super(employeeRepo);
   }
 
-  async create(dto: CreateEmployeeDto, role: Role) {
-    const photo =
-      await this.employeePhotosRepository.uploadPhoto(defaultPhotoUrl);
+  async create(dto: CreateEmployeeDto, photo: EmployeePhoto, role: Role) {
     const employee = this.employeeRepo.create({
       ...dto,
       role,
       photos: [photo],
     });
-
-    await employee.save();
+    await this.employeeRepo.save(employee);
     return employee;
   }
 
@@ -46,10 +43,12 @@ export class EmployeeRepository
     });
   }
 
-  async update(employee: Employee, dto: UpdateEmployeeDto): Promise<Employee> {
-    employee.photos.push(
-      await this.employeePhotosRepository.uploadPhoto(dto.photo),
-    );
+  async update(
+    employee: Employee,
+    dto: UpdateEmployeeDto,
+    photo?: EmployeePhoto,
+  ): Promise<Employee> {
+    if (photo) employee.photos.push(photo);
     Object.assign<Employee, any>(employee, {
       phone: dto.phone,
       name: dto.name,

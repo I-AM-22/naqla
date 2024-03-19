@@ -1,17 +1,22 @@
 import { Module, Provider } from '@nestjs/common';
-import { DriverRepository } from './repositories/driver.repository';
-import { DriverPhotosRepository } from './repositories/driver-photos.repository';
-import { WalletDriverRepository } from './repositories/driver-wallet.repository';
+import { DriverRepository } from './repositories/driver/driver.repository';
+import { DriverPhotosRepository } from './repositories/driver/driver-photos.repository';
+import { DriverWalletRepository } from './repositories/driver/driver-wallet.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Driver } from './entities/driver.entity';
-import { Wallet } from './entities/wallet.entity';
 import { DriverPhoto } from './entities/driver-photo.entity';
-import { Role } from '../roles/entities/role.entity';
-import { RoleRepository } from '../roles/repositories/role.repository';
 import { DriversController } from './controllers/drivers.controller';
 import { DriversService } from './services/drivers.service';
 import { CitiesModule } from '../cities/cities.module';
-import { DRIVER_TYPES } from './interfaces/type';
+import { CAR_TYPES, DRIVER_TYPES } from './interfaces/type';
+import { DriverWallet } from './entities/driver-wallet.entity';
+import { RolesModule } from '../roles/roles.module';
+import { CarsService } from './services/cars.service';
+import { CarRepository } from './repositories/car/car.repository';
+import { CarController } from './controllers/cars.controller';
+import { CarPhotoRepository } from './repositories/car/car-photo.repository';
+import { Car } from './entities/car.entity';
+import { CarPhoto } from './entities/car-photo.entity';
 
 export const DriversServiceProvider: Provider = {
   provide: DRIVER_TYPES.service,
@@ -23,31 +28,55 @@ export const DriverRepositoryProvider: Provider = {
   useClass: DriverRepository,
 };
 export const DriverPhotosRepositoryProvider: Provider = {
-  provide: DRIVER_TYPES.repository.driver_photos,
+  provide: DRIVER_TYPES.repository.photos,
   useClass: DriverPhotosRepository,
 };
 
-export const WalletDriverRepositoryProvider: Provider = {
+export const DriverWalletRepositoryProvider: Provider = {
   provide: DRIVER_TYPES.repository.wallet,
-  useClass: WalletDriverRepository,
+  useClass: DriverWalletRepository,
+};
+
+export const CarsServiceProvider: Provider = {
+  provide: CAR_TYPES.service,
+  useClass: CarsService,
+};
+
+export const CarRepositoryProvider: Provider = {
+  provide: CAR_TYPES.repository.car,
+  useClass: CarRepository,
+};
+
+export const CarPhotoRepositoryProvider: Provider = {
+  provide: CAR_TYPES.repository.photo,
+  useClass: CarPhotoRepository,
 };
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Driver, Wallet, DriverPhoto, Role]),
+    TypeOrmModule.forFeature([
+      Driver,
+      DriverWallet,
+      DriverPhoto,
+      Car,
+      CarPhoto,
+    ]),
+    RolesModule,
     CitiesModule,
   ],
-  controllers: [DriversController],
+  controllers: [DriversController, CarController],
   providers: [
     DriverPhotosRepositoryProvider,
     DriverRepositoryProvider,
-    WalletDriverRepositoryProvider,
+    DriverWalletRepositoryProvider,
     DriversServiceProvider,
-    RoleRepository,
+    CarsServiceProvider,
+    CarRepositoryProvider,
+    CarPhotoRepositoryProvider,
   ],
   exports: [
     DriverPhotosRepositoryProvider,
     DriverRepositoryProvider,
-    WalletDriverRepositoryProvider,
+    DriverWalletRepositoryProvider,
     DriversServiceProvider,
   ],
 })

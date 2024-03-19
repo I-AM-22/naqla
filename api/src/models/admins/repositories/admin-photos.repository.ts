@@ -1,19 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { AdminPhoto } from '../../../models/admins';
 import { Repository } from 'typeorm';
-import { createBlurHash } from '../../../common/helpers';
 import { CloudinaryService } from '../../../shared/cloudinary';
-import { IPhoto } from '../../../common/interfaces';
+import { IPhoto, IPhotosRepository } from '../../../common/interfaces';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IAdminPhotosRepository } from '../interfaces/repositories/admin-photos.repository.interface';
 
 @Injectable()
-export class AdminPhotosRepository implements IAdminPhotosRepository {
+export class AdminPhotosRepository implements IPhotosRepository<AdminPhoto> {
   constructor(
     @InjectRepository(AdminPhoto)
     private readonly adminPhotosRepo: Repository<AdminPhoto>,
     private readonly cloudinaryService: CloudinaryService,
   ) {}
+
+  async findPhotosByOwner(ownerId: string): Promise<AdminPhoto[]> {
+    return this.adminPhotosRepo.find({ where: { adminId: ownerId } });
+  }
 
   create(params: IPhoto): AdminPhoto {
     return this.adminPhotosRepo.create(params);
@@ -21,11 +23,12 @@ export class AdminPhotosRepository implements IAdminPhotosRepository {
 
   async uploadPhoto(path: string): Promise<AdminPhoto> {
     if (!path) return;
-    const blurHash = await createBlurHash(path);
-    const uploaded = await this.cloudinaryService.uploadSinglePhoto(blurHash);
+    const uploaded = await this.cloudinaryService.uploadSinglePhoto(path);
     const photo = this.adminPhotosRepo.create({
       ...uploaded,
     });
     return photo;
   }
+
+  async remove(photo: AdminPhoto): Promise<void> {}
 }

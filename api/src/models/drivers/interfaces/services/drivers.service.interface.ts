@@ -19,7 +19,7 @@ export interface IDriversService {
 
   findOne(id: string, withDeleted?: boolean): Promise<Driver>;
 
-  updateMe(dto: UpdateDriverDto, driver: Driver): Promise<Driver>;
+  updateMe(driver: Driver, dto: UpdateDriverDto): Promise<Driver>;
 
   updatePhone(driver: Driver, dto: UpdateDriverPhoneDto): Promise<Driver>;
 
@@ -34,6 +34,8 @@ export interface IDriversService {
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Driver>;
 
   validate(id: string): Promise<Driver>;
+
+  // addCar(carDto:CarDto,driver:Driver):Promise<Car>
 
   // recover(id: string): Promise<Driver>;
 }

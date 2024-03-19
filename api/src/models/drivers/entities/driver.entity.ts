@@ -12,7 +12,8 @@ import { GROUPS } from '../../../common/enums';
 import { Role } from '../../roles';
 import { DriverPhoto } from './driver-photo.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { Wallet } from './wallet.entity';
+import { DriverWallet } from './driver-wallet.entity';
+import { Car } from './car.entity';
 
 @Entity({ name: 'drivers' })
 export class Driver extends BasePersonWithActive {
@@ -26,13 +27,16 @@ export class Driver extends BasePersonWithActive {
   @Column()
   roleId: string;
 
-  @ApiProperty({ type: Wallet })
+  @ApiProperty({ type: DriverWallet })
   @Expose({ groups: [GROUPS.DRIVER] })
-  @OneToOne(() => Wallet, (wallet) => wallet.driver, {
+  @OneToOne(() => DriverWallet, (wallet) => wallet.driver, {
     onDelete: 'CASCADE',
     cascade: true,
   })
-  wallet: Wallet;
+  wallet: DriverWallet;
+
+  @OneToMany(() => Car, (car) => car.driver, { cascade: true })
+  cars: Car[];
 
   @Exclude()
   @OneToMany(() => DriverPhoto, (driverPhoto) => driverPhoto.driver, {

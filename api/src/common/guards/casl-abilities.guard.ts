@@ -20,6 +20,7 @@ export class CaslAbilitiesGuard implements CanActivate {
         context.getHandler(),
         context.getClass(),
       ]) || [];
+    if (!rules.length) return true;
     const { user }: { user: User } = context.switchToHttp().getRequest();
     const ability = this.caslAbilityFactory.defineAbility(user);
 

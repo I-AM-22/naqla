@@ -1,0 +1,30 @@
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CloudinaryService } from '../../../../shared/cloudinary';
+import { CarPhoto } from '../../entities/car-photo.entity';
+import { IPhoto, IPhotosRepository } from '../../../../common/interfaces';
+
+@Injectable()
+export class CarPhotoRepository implements IPhotosRepository<CarPhoto> {
+  constructor(
+    @InjectRepository(CarPhoto)
+    private readonly carPhotoRepo: Repository<CarPhoto>,
+    private cloudinaryService: CloudinaryService,
+  ) {}
+
+  create(params: IPhoto) {
+    return this.carPhotoRepo.create(params);
+  }
+
+  async uploadPhoto(path: string) {
+    if (!path) return;
+    const uploaded = await this.cloudinaryService.uploadSinglePhoto(path);
+    const photo = this.carPhotoRepo.create(uploaded);
+    return photo;
+  }
+
+  remove(photo: CarPhoto): Promise<void> {
+    return;
+  }
+}

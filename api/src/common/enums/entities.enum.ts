@@ -10,6 +10,7 @@ export enum Entities {
   City = 'City',
   Payment = 'Payment',
   Driver = 'Driver',
+  Car = 'Car',
   Profit = 'Profit',
   Statistics = 'Statistics',
   Wallet = 'Wallet',

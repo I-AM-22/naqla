@@ -2,7 +2,6 @@ import { PassportModule } from '@nestjs/passport';
 import { Module, Provider } from '@nestjs/common';
 import { AuthDriverController } from './controllers/auth-driver.controller';
 import { AuthDriverService } from './services/auth-driver.service';
-import { MailModule } from '../shared/mail/mail.module';
 import { DriversModule } from '../models/drivers/drivers.module';
 import { RolesModule } from '../models/roles/roles.module';
 import { AUTH_DRIVER_TYPES } from './interfaces/type';
@@ -16,7 +15,6 @@ export const AuthDriverServiceProvider: Provider = {
 @Module({
   imports: [
     PassportModule.register({}),
-    MailModule,
     DriversModule,
     RolesModule,
     OtpsModule,

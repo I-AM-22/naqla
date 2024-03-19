@@ -1,14 +1,14 @@
 import { CloudinaryService } from './../../../shared/cloudinary/cloudinary.service';
 import { Injectable } from '@nestjs/common';
-import { createBlurHash } from '../../../common/helpers';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IPhoto } from '../../../common/interfaces';
+import { IPhoto, IPhotosRepository } from '../../../common/interfaces';
 import { EmployeePhoto } from '../entities/employee-photo.entity';
-import { IEmployeePhotosRepository } from '../interfaces/repositories/employee-photos.repository.interface';
 
 @Injectable()
-export class EmployeePhotosRepository implements IEmployeePhotosRepository {
+export class EmployeePhotosRepository
+  implements IPhotosRepository<EmployeePhoto>
+{
   constructor(
     @InjectRepository(EmployeePhoto)
     private readonly employeePhotosRepo: Repository<EmployeePhoto>,
@@ -18,11 +18,17 @@ export class EmployeePhotosRepository implements IEmployeePhotosRepository {
   create(params: IPhoto): EmployeePhoto {
     return this.employeePhotosRepo.create(params);
   }
+  async findPhotosByOwner(ownerId: string): Promise<EmployeePhoto[]> {
+    return this.employeePhotosRepo.find({ where: { employeeId: ownerId } });
+  }
+
+  async remove(photo: EmployeePhoto): Promise<void> {
+    return;
+  }
 
   async uploadPhoto(path: string): Promise<EmployeePhoto> {
     if (!path) return;
-    const blurHash = await createBlurHash(path);
-    const uploaded = await this.cloudinaryService.uploadSinglePhoto(blurHash);
+    const uploaded = await this.cloudinaryService.uploadSinglePhoto(path);
     const photo = this.employeePhotosRepo.create({
       ...uploaded,
     });

@@ -1,17 +1,16 @@
 import { Module, Provider } from '@nestjs/common';
 import { UserRepository } from './repositories/user.repository';
 import { UserPhotosRepository } from './repositories/user-photos.repository';
-import { WalletUserRepository } from './repositories/user-wallet.repository';
+import { UserWalletRepository } from './repositories/user-wallet.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Wallet } from './entities/wallet.entity';
+import { UserWallet } from './entities/user-wallet.entity';
 import { UserPhoto } from './entities/user-photo.entity';
-import { Role } from '../roles/entities/role.entity';
-import { RoleRepository } from '../roles/repositories/role.repository';
 import { UsersController } from './controllers/users.controller';
 import { UsersService } from './services/users.service';
 import { CitiesModule } from '../cities/cities.module';
 import { USER_TYPES } from './interfaces/type';
+import { RolesModule } from '../roles/roles.module';
 
 export const UsersServiceProvider: Provider = {
   provide: USER_TYPES.service,
@@ -23,31 +22,31 @@ export const UserRepositoryProvider: Provider = {
   useClass: UserRepository,
 };
 export const UserPhotosRepositoryProvider: Provider = {
-  provide: USER_TYPES.repository.user_photos,
+  provide: USER_TYPES.repository.photos,
   useClass: UserPhotosRepository,
 };
 
-export const WalletUserRepositoryProvider: Provider = {
+export const UserWalletRepositoryProvider: Provider = {
   provide: USER_TYPES.repository.wallet,
-  useClass: WalletUserRepository,
+  useClass: UserWalletRepository,
 };
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Wallet, UserPhoto, Role]),
+    TypeOrmModule.forFeature([User, UserWallet, UserPhoto]),
+    RolesModule,
     CitiesModule,
   ],
   controllers: [UsersController],
   providers: [
     UserPhotosRepositoryProvider,
     UserRepositoryProvider,
-    WalletUserRepositoryProvider,
+    UserWalletRepositoryProvider,
     UsersServiceProvider,
-    RoleRepository,
   ],
   exports: [
     UserPhotosRepositoryProvider,
     UserRepositoryProvider,
-    WalletUserRepositoryProvider,
+    UserWalletRepositoryProvider,
     UsersServiceProvider,
   ],
 })

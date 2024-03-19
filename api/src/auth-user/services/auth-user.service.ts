@@ -13,29 +13,19 @@ import {
   UpdateUserPhoneDto,
 } from '../dtos';
 import { AuthUserResponse, jwtPayload } from '../interfaces';
-import { Admin } from '../../models/admins';
 
 import {
   confirmMessage,
-  incorrect_credentials,
+  incorrect_credentials_OTP,
   incorrect_phone_number,
   item_already_exist,
 } from '../../common/constants';
-import { Employee } from '../../models/employees';
-import { MailService } from '../../shared/mail/mail.service';
-import { ADMIN_TYPES } from '../../models/admins/interfaces/type';
-import { EMPLOYEE_TYPES } from '../../models/employees/interfaces/type';
 import { USER_TYPES } from '../../models/users/interfaces/type';
-import { ROLE_TYPES } from '../../models/roles/interfaces/type';
 import { IAuthUserService } from '../interfaces/services/auth.service.interface';
-import { RedisStoreService } from '../../shared/redis-store';
 import { OtpsService } from '../../models/otps/otps.service';
 import { OTP_TYPE } from '../../models/otps/otp.enum';
-import { Entities, ROLE } from '../../common/enums';
-import { IRolesService } from '../../models/roles/interfaces/services/roles.service.interface';
+import { Entities } from '../../common/enums';
 import { IUsersService } from '../../models/users/interfaces/services/users.service.interface';
-import { IAdminsService } from '../../models/admins/interfaces/services/admins.service.interface';
-import { IEmployeeService } from '../../models/employees/interfaces/employee-services.interface';
 import { IOtp } from '../../models/otps/interfaces/otp.interface';
 import { SendConfirm } from '../../common/types';
 
@@ -45,14 +35,6 @@ export class AuthUserService implements IAuthUserService {
     private readonly jwtTokenService: JwtTokenService,
     @Inject(USER_TYPES.service)
     private readonly usersService: IUsersService,
-    @Inject(ADMIN_TYPES.service)
-    private readonly adminsService: IAdminsService,
-    @Inject(EMPLOYEE_TYPES.service)
-    private readonly employeesService: IEmployeeService,
-    @Inject(ROLE_TYPES.service)
-    private readonly rolesService: IRolesService,
-    private readonly mailService: MailService,
-    private redisStoreService: RedisStoreService,
     private otpsService: OtpsService,
   ) {}
   async signup(dto: SignUpUserDto, ip: string): Promise<SendConfirm> {
@@ -67,9 +49,8 @@ export class AuthUserService implements IAuthUserService {
       if (otp) {
         throw new UnprocessableEntityException(item_already_exist('mobile'));
       }
-      const role = await this.rolesService.findByName(ROLE.USER);
 
-      const newUser = await this.usersService.create(dto, role);
+      const newUser = await this.usersService.create(dto);
 
       await this.otpsService.createForUser({
         phone: newUser.phone,
@@ -134,11 +115,11 @@ export class AuthUserService implements IAuthUserService {
       phoneConfirm,
     );
     if (!otp) {
-      throw new UnauthorizedException(incorrect_credentials);
+      throw new UnauthorizedException(incorrect_credentials_OTP);
     }
     const nonConfirmedUser = await this.usersService.findOne(otp.userId);
     if (!nonConfirmedUser) {
-      throw new UnauthorizedException(incorrect_credentials);
+      throw new UnauthorizedException(incorrect_credentials_OTP);
     }
 
     if (phoneConfirm) {
@@ -192,17 +173,9 @@ export class AuthUserService implements IAuthUserService {
     return { token, user };
   }
 
-  async validate(payload: jwtPayload): Promise<User | Admin | Employee> {
-    let user: any;
-
-    if (payload.entity === Entities.Admin) {
-      user = await this.adminsService.validate(payload.sub, payload.iat);
-    } else if (payload.entity === Entities.User) {
-      user = await this.usersService.validate(payload.sub);
-    } else {
-      user = await this.employeesService.validate(payload.sub, payload.iat);
-    }
-
+  async validate(payload: jwtPayload): Promise<User> {
+    if (payload.entity !== Entities.User) return;
+    const user = await this.usersService.validate(payload.sub);
     return user;
   }
 }

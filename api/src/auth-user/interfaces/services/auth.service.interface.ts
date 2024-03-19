@@ -1,5 +1,3 @@
-import { Admin } from '../../../models/admins';
-import { Employee } from '../../../models/employees';
 import { User } from '../../../models/users';
 import {
   SignUpUserDto,
@@ -28,5 +26,5 @@ export interface IAuthUserService {
     phoneConfirm: boolean,
   ): Promise<AuthUserResponse>;
 
-  validate(payload: jwtPayload): Promise<User | Admin | Employee>;
+  validate(payload: jwtPayload): Promise<User>;
 }

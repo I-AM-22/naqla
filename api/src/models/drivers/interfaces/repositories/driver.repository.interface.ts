@@ -3,6 +3,7 @@ import { PaginatedResponse } from '../../../../common/types';
 import { Role } from '../../../roles';
 import { CreateDriverDto, UpdateDriverDto } from '../../dtos';
 import { DriverPhoto } from '../../entities/driver-photo.entity';
+import { DriverWallet } from '../../entities/driver-wallet.entity';
 import { Driver } from '../../entities/driver.entity';
 
 export interface IDriverRepository {
@@ -18,13 +19,20 @@ export interface IDriverRepository {
 
   findOneByIdForThings(id: string): Promise<Driver>;
 
-  create(dto: CreateDriverDto, role: Role): Promise<Driver>;
+  create(
+    dto: CreateDriverDto,
+    wallet: DriverWallet,
+    photo: DriverPhoto,
+    role: Role,
+  ): Promise<Driver>;
 
   confirm(nonConfirmedDriver: Driver): Promise<Driver>;
 
-  update(driver: Driver, dto: UpdateDriverDto): Promise<Driver>;
-
-  getMyPhotos(driverId: string): Promise<DriverPhoto[]>;
+  update(
+    driver: Driver,
+    dto: UpdateDriverDto,
+    photo: DriverPhoto,
+  ): Promise<Driver>;
 
   updatePhone(driver: Driver, dto: UpdateDriverPhoneDto): Promise<Driver>;
 

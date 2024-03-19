@@ -1,18 +1,18 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { GlobalEntity } from '../../../common/base';
-import { User } from './user.entity';
+import { Driver } from './driver.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 
-@Entity('users_wallets')
-export class Wallet extends GlobalEntity {
-  @OneToOne(() => User, (user) => user.wallet)
-  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
-  user: User;
+@Entity('drivers_wallets')
+export class DriverWallet extends GlobalEntity {
+  @OneToOne(() => Driver, (driver) => driver.wallet)
+  @JoinColumn({ name: 'driverId', referencedColumnName: 'id' })
+  driver: Driver;
 
   @Exclude()
   @Column('uuid')
-  userId: string;
+  driverId: string;
 
   @ApiProperty({ default: 0 })
   @Column({ type: 'int', default: 0 })

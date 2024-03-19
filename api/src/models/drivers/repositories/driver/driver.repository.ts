@@ -1,18 +1,15 @@
-import { Role } from '../../roles';
-import { Inject, Injectable } from '@nestjs/common';
+import { Role } from '../../../roles';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { CreateDriverDto, UpdateDriverDto, Driver, DriverPhoto } from '..';
+import { CreateDriverDto, UpdateDriverDto, Driver, DriverPhoto } from '../..';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IDriverRepository } from '../interfaces/repositories/driver.repository.interface';
-import { IDriverPhotosRepository } from '../interfaces/repositories/driver-photos.repository.interface';
-import { DRIVER_TYPES } from '../interfaces/type';
-import { IWalletDriverRepository } from '../interfaces/repositories/driver-wallet.repository.interface';
-import { BaseAuthRepo } from '../../../common/base';
-import { defaultPhotoUrl } from '../../../common/constants';
+import { IDriverRepository } from '../../interfaces/repositories/driver.repository.interface';
+import { BaseAuthRepo } from '../../../../common/base';
 // import { UpdatePhoneDto } from '../../../auth-driver';
-import { pagination } from '../../../common/helpers';
-import { PaginatedResponse } from '../../../common/types';
-import { UpdateDriverPhoneDto } from '../../../auth-driver';
+import { pagination } from '../../../../common/helpers';
+import { PaginatedResponse } from '../../../../common/types';
+import { UpdateDriverPhoneDto } from '../../../../auth-driver';
+import { DriverWallet } from '../../entities/driver-wallet.entity';
 
 @Injectable()
 export class DriverRepository
@@ -21,10 +18,6 @@ export class DriverRepository
 {
   constructor(
     @InjectRepository(Driver) private readonly driverRepo: Repository<Driver>,
-    @Inject(DRIVER_TYPES.repository.driver_photos)
-    private readonly driverPhotosRepository: IDriverPhotosRepository,
-    @Inject(DRIVER_TYPES.repository.wallet)
-    private readonly walletDriverRepository: IWalletDriverRepository,
   ) {
     super(driverRepo);
   }
@@ -47,10 +40,12 @@ export class DriverRepository
     return pagination(page, limit, totalDataCount, data);
   }
 
-  async create(dto: CreateDriverDto, role: Role): Promise<Driver> {
-    const wallet = this.walletDriverRepository.create();
-    const photo =
-      await this.driverPhotosRepository.uploadPhoto(defaultPhotoUrl);
+  async create(
+    dto: CreateDriverDto,
+    wallet: DriverWallet,
+    photo: DriverPhoto,
+    role: Role,
+  ): Promise<Driver> {
     const driver = this.driverRepo.create({
       ...dto,
       role,
@@ -77,10 +72,12 @@ export class DriverRepository
     return this.findOneById(driver.id);
   }
 
-  async update(driver: Driver, dto: UpdateDriverDto): Promise<Driver> {
-    driver.photos.push(
-      await this.driverPhotosRepository.uploadPhoto(dto.photo),
-    );
+  async update(
+    driver: Driver,
+    dto: UpdateDriverDto,
+    photo: DriverPhoto,
+  ): Promise<Driver> {
+    driver.photos.push(photo);
     Object.assign(driver, {
       firstName: dto.firstName,
       lastName: dto.lastName,
@@ -99,10 +96,6 @@ export class DriverRepository
       },
       relations: { photos: true },
     });
-  }
-
-  async getMyPhotos(driverId: string): Promise<DriverPhoto[]> {
-    return this.driverPhotosRepository.findPhotosByDriver(driverId);
   }
 
   // async recover(driver: Driver): Promise<Driver> {

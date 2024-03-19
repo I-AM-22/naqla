@@ -1,3 +1,4 @@
-export * from './photo-repo.interface';
 export * from './controller.interface';
 export * from './photos.interface';
+export * from './photo.repository.interface';
+export * from './wallet.repository';

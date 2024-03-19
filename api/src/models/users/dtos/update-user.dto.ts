@@ -8,19 +8,21 @@ import { item_not_found } from '../../../common/constants';
 
 export class UpdateUserDto {
   @ApiProperty({ default: 'bahaa Alden' })
+  @IsOptional()
   @IsString()
   @Length(3, 16)
   readonly firstName: string;
 
   @ApiProperty({ default: 'Abdo' })
+  @IsOptional()
   @IsString()
   @Length(3, 16)
   readonly lastName: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty()
   @IsOptional()
   @IsString()
   @Transform(({ value }: { value: string }) => getPhotoPath(value))
   @IsPhotoExist({ message: item_not_found(Entities.Photo) })
-  readonly photo?: string;
+  readonly photo: string;
 }

@@ -6,11 +6,12 @@ import { jwtPayload } from '../interfaces';
 import { AUTH_DRIVER_TYPES } from '../interfaces/type';
 import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
 import { Entities } from '../../common/enums';
+import { strategies } from '../../common/constants/jwt.type';
 
 @Injectable()
 export class JwtDriverStrategy extends PassportStrategy(
   Strategy,
-  'jwt-driver',
+  strategies.driver,
 ) {
   constructor(
     config: ConfigService,

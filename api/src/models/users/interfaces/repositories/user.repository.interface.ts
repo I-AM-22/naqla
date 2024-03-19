@@ -4,6 +4,7 @@ import { Role } from '../../../roles';
 import { CreateUserDto, UpdateUserDto } from '../../dtos';
 import { UserPhoto } from '../../entities/user-photo.entity';
 import { User } from '../../entities/user.entity';
+import { UserWallet } from '../../entities/user-wallet.entity';
 
 export interface IUserRepository {
   find(
@@ -18,13 +19,16 @@ export interface IUserRepository {
 
   findOneByIdForThings(id: string): Promise<User>;
 
-  create(dto: CreateUserDto, role: Role): Promise<User>;
+  create(
+    dto: CreateUserDto,
+    wallet: UserWallet,
+    photo: UserPhoto,
+    role: Role,
+  ): Promise<User>;
 
   confirm(nonConfirmedUser: User): Promise<User>;
 
-  update(user: User, dto: UpdateUserDto): Promise<User>;
-
-  getMyPhotos(userId: string): Promise<UserPhoto[]>;
+  update(user: User, dto: UpdateUserDto, photo: UserPhoto): Promise<User>;
 
   updatePhone(user: User, dto: UpdateUserPhoneDto): Promise<User>;
 

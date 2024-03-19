@@ -1,9 +1,9 @@
 import { HttpException, Inject, Injectable } from '@nestjs/common';
 import * as cloudinary from 'cloudinary';
 import { ConfigType } from '@nestjs/config';
-import { CheckUrl } from '../../common/types';
 import { IPhoto } from '../../common/interfaces';
 import { CloudinaryConfig } from '../../config/app';
+import { createBlurHash, createBlurHashs } from '../../common/helpers';
 
 @Injectable()
 export class CloudinaryService {
@@ -54,17 +54,17 @@ export class CloudinaryService {
     };
   }
 
-  async uploadSinglePhoto({ path, blurHash }: CheckUrl) {
+  async uploadSinglePhoto(path: string) {
+    const blurHash = await createBlurHash(path);
     const result = await this.uploadPhoto(path);
     return this.FormatPhoto(result, blurHash);
   }
 
-  async uploadMultiplePhotos(res: CheckUrl[]) {
-    const results = await Promise.all(res.map((e) => this.uploadPhoto(e.path)));
+  async uploadMultiplePhotos(paths: string[]) {
+    const blurHashs = await createBlurHashs(paths);
+    const results = await Promise.all(paths.map((e) => this.uploadPhoto(e)));
     return Promise.all(
-      results.map((e, index: number) =>
-        this.FormatPhoto(e, res[index].blurHash),
-      ),
+      results.map((e, i) => this.FormatPhoto(e, blurHashs[i])),
     );
   }
   async removePhoto(publicId: string) {

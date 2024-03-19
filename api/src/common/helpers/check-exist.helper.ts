@@ -1,9 +1,8 @@
 import { encode } from 'blurhash';
 import * as fs from 'fs';
-import { CheckUrl } from '../types';
 import sharp from 'sharp';
 
-export const createBlurHash = async (path: string): Promise<CheckUrl> => {
+export const createBlurHash = async (path: string): Promise<string> => {
   const image = fs.readFileSync(path);
   const { info, data } = await sharp(image)
     .resize(200, 200)
@@ -18,7 +17,7 @@ export const createBlurHash = async (path: string): Promise<CheckUrl> => {
     4,
     4,
   );
-  return { path, blurHash };
+  return blurHash;
 };
 
 export const createBlurHashs = async (paths: string[]) => {
@@ -33,6 +32,7 @@ export const getPhotosPath = (url: string[]) => {
 };
 
 export const getPhotoPath = (p: string) => {
+  if (!p) return;
   const dir = p.substring(p.indexOf('/photos'));
   const path = `public${dir}`;
   return path;

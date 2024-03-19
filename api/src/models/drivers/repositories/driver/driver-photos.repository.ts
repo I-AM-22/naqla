@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { DriverPhoto } from '..';
+import { DriverPhoto } from '../..';
 import { Repository } from 'typeorm';
-import { createBlurHash } from '../../../common/helpers';
-import { CloudinaryService } from '../../../shared/cloudinary';
+import { CloudinaryService } from '../../../../shared/cloudinary';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IPhoto } from '../../../common/interfaces';
+import { IPhoto } from '../../../../common/interfaces';
 
 @Injectable()
 export class DriverPhotosRepository {
@@ -23,8 +22,7 @@ export class DriverPhotosRepository {
 
   async uploadPhoto(path: string) {
     if (!path) return;
-    const blurHash = await createBlurHash(path);
-    const uploaded = await this.cloudinaryService.uploadSinglePhoto(blurHash);
+    const uploaded = await this.cloudinaryService.uploadSinglePhoto(path);
     const photo = this.driverPhotoRepo.create(uploaded);
     return photo;
   }

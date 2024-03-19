@@ -108,7 +108,7 @@ export class UsersController implements ICrud<User> {
   @Roles(ROLE.USER)
   @Patch('me')
   async updateMe(@Body() dto: UpdateUserDto, @GetUser() user: User) {
-    return this.usersService.updateMe(dto, user);
+    return this.usersService.updateMe(user, dto);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

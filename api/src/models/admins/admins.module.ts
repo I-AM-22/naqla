@@ -4,11 +4,11 @@ import { AdminsService } from './services/admins.service';
 import { AdminPhotosRepository } from './repositories/admin-photos.repository';
 import { AdminRepository } from './repositories/admin.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Role } from '../roles';
 import { Admin } from './entities/admin.entity';
 import { AdminPhoto } from './entities/admin-photo.entity';
 import { ADMIN_TYPES } from './interfaces/type';
-import { RoleRepositoryProvider } from '../roles/roles.module';
+import { JwtAdminStrategy } from './strategy/jwt-admin.strategy';
+import { RolesModule } from '../roles/roles.module';
 
 export const AdminsServiceProvider: Provider = {
   provide: ADMIN_TYPES.service,
@@ -24,13 +24,13 @@ export const AdminPhotosRepositoryProvider: Provider = {
   useClass: AdminPhotosRepository,
 };
 @Module({
-  imports: [TypeOrmModule.forFeature([Role, Admin, AdminPhoto])],
+  imports: [TypeOrmModule.forFeature([Admin, AdminPhoto]), RolesModule],
   controllers: [AdminsController],
   providers: [
     AdminsServiceProvider,
     AdminRepositoryProvider,
     AdminPhotosRepositoryProvider,
-    RoleRepositoryProvider,
+    JwtAdminStrategy,
   ],
   exports: [
     AdminsServiceProvider,

@@ -1,5 +1,6 @@
 import { Role } from '../../../roles';
 import { CreateAdminDto, UpdateAdminDto } from '../../dtos';
+import { AdminPhoto } from '../../entities/admin-photo.entity';
 import { Admin } from '../../entities/admin.entity';
 
 export interface IAdminRepository {
@@ -9,9 +10,9 @@ export interface IAdminRepository {
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Admin>;
 
-  create(dto: CreateAdminDto, role: Role): Promise<Admin>;
+  create(dto: CreateAdminDto, photo: AdminPhoto, role: Role): Promise<Admin>;
 
-  update(admin: Admin, dto: UpdateAdminDto): Promise<Admin>;
+  update(admin: Admin, dto: UpdateAdminDto, photo: AdminPhoto): Promise<Admin>;
 
   // recover(admin: Admin): Promise<Admin>;
 

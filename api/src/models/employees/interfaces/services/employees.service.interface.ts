@@ -15,6 +15,8 @@ export interface IEmployeesService {
 
   update(id: string, dto: UpdateEmployeeDto): Promise<Employee>;
 
+  validate(id: string, iat: number): Promise<Employee>;
+
   // recover(id: string): Promise<Employee>;
 
   remove(id: string): Promise<void>;

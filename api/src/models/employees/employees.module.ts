@@ -4,11 +4,11 @@ import { EmployeesController } from './controllers/employees.controller';
 import { Employee } from './entities/employee.entity';
 import { EmployeePhoto } from './entities/employee-photo.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Role } from '../roles';
 import { EmployeePhotosRepository } from './repositories/employee-photos.repository';
 import { EmployeeRepository } from './repositories/employee.repository';
 import { EMPLOYEE_TYPES } from './interfaces/type';
-import { RoleRepositoryProvider } from '../roles/roles.module';
+import { RolesModule } from '../roles/roles.module';
+import { JwtEmployeeStrategy } from './strategy/jwt-employess.strategy';
 
 export const EmployeesServiceProvider: Provider = {
   provide: EMPLOYEE_TYPES.service,
@@ -24,13 +24,13 @@ export const EmployeePhotosRepositoryProvider: Provider = {
   useClass: EmployeePhotosRepository,
 };
 @Module({
-  imports: [TypeOrmModule.forFeature([Employee, EmployeePhoto, Role])],
+  imports: [TypeOrmModule.forFeature([Employee, EmployeePhoto]), RolesModule],
   controllers: [EmployeesController],
   providers: [
     EmployeePhotosRepositoryProvider,
     EmployeeRepositoryProvider,
     EmployeesServiceProvider,
-    RoleRepositoryProvider,
+    JwtEmployeeStrategy,
   ],
   exports: [
     EmployeePhotosRepositoryProvider,

@@ -9,6 +9,7 @@ import {
   Patch,
   Query,
   Ip,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -41,6 +42,7 @@ import { Driver } from '../../models/drivers';
 import { item_already_exist } from '../../common/constants/validation-errors.constant';
 import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
 import { SendConfirm } from '../../common/types';
+import { RolesGuard } from '../../common/guards';
 
 /**
  * @ngdoc controller
@@ -55,6 +57,7 @@ import { SendConfirm } from '../../common/types';
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })
 @ApiUnprocessableEntityResponse({ description: item_already_exist('mobile') })
+@UseGuards(RolesGuard)
 @Controller({ path: 'auth/driver', version: '1' })
 export class AuthDriverController {
   constructor(
