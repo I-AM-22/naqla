@@ -1,18 +1,3 @@
-type HttpInterceptor = (
-  options: FetchOptions,
-) => Promise<FetchOptions> | FetchOptions;
-
-type HttpInstance = {
-  baseURL: string;
-  headers: Record<string, string>;
-  interceptors: Record<string, HttpInterceptor>;
-};
-export const HTTP_INSTANCE: HttpInstance = {
-  baseURL: "https://petstore.swagger.io/v2",
-  headers: {},
-  interceptors: {},
-};
-
 export type FetchOptions = {
   baseURL?: string;
   headers?: Record<string, string>;
@@ -68,8 +53,6 @@ export const fetchInstance = async <T>(
   const isFormData = config.headers?.["Content-Type"] === "multipart/form-data";
   const isJson = config.headers?.["Content-Type"] === "application/json";
 
-  const baseUrl = `https://petstore.swagger.io/v2`;
-
   const headers = {
     ...config.headers,
     ...(isJson ? { "Content-Type": "application/json" } : {}),
@@ -81,7 +64,7 @@ export const fetchInstance = async <T>(
   }
 
   const response = await fetch(
-    `${baseUrl}${config.url}` +
+    `http://192.168.1.110:5500${config.url}` +
       (config.params ? `?${new URLSearchParams(config.params)}` : ""),
     {
       method: config.method,

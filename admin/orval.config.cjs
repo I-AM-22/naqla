@@ -2,7 +2,7 @@
 module.exports = {
   /** @type {import('orval').Options} */
   api: {
-    input: `./petstore.yaml`,
+    input: `http://localhost:5500/api.json`,
     output: {
       mode: "split",
       target: "./service/api.ts",

@@ -1,10 +1,10 @@
+import { getUser } from "@/actions/auth";
 import { LayoutProps } from "@/app/type";
 import { NavigationBar } from "@/components/layouts/navigation-bar";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default function Layout({ children }: LayoutProps) {
-  const user = cookies().get("user")?.value;
+  const user = getUser();
   if (!user) redirect("/login");
 
   return (

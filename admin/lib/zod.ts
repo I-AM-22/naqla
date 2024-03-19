@@ -6,3 +6,4 @@ export async function zodI18nInitServer(language: string) {
   const { t } = await getTranslation(language);
   z.setErrorMap(makeZodI18nMap({ t }));
 }
+export * as z from "zod";

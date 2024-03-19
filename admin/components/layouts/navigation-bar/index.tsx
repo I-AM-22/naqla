@@ -14,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUser } from "@/hooks/use-user";
 import { useTranslation } from "@/i18n/client";
 import { locales } from "@/i18n/settings";
 import { cn } from "@/lib/utils";
@@ -48,19 +49,26 @@ const routes: Route[][] = [
 
 export type NavigationBarProps = {};
 export const NavigationBar: FC<NavigationBarProps> = ({}) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const activeRoute = usePathname().split("/")[0];
   const { t } = useTranslation("layout");
   const { setTheme, themes, theme } = useTheme();
   const { lng } = useParams<PageProps["params"]>();
+  const user = useUser();
   const pathname = usePathname();
   const pathnameWithoutLocale = pathname.split("/")[2] ?? "";
   const handleLogout = () => {
     logoutUser();
   };
   return (
-    <aside className="sticky bottom-0 start-0 top-0 flex h-screen max-h-screen w-fit flex-col overflow-y-auto border-e-2 border-e-border">
-      <div className="sticky top-0 me-auto ms-1 bg-background">
+    <aside
+      className={cn(
+        "sticky bottom-0 start-0 top-0 flex h-screen max-h-screen flex-col overflow-y-auto border-e-2 border-e-border",
+        isOpen && "w-52",
+        !isOpen && "w-fit",
+      )}
+    >
+      <div className="sticky top-0 me-auto ms-1 bg-background pe-1">
         <Button
           size={"icon"}
           onClick={() => setIsOpen((prev) => !prev)}
@@ -73,7 +81,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
           <Menu />
         </Button>
       </div>
-      <div className="flex flex-1 flex-col p-1 transition-all">
+      <div className="flex flex-1 flex-col gap-0.5 p-1 transition-all">
         {routes.map((section, index) => (
           <Fragment key={index}>
             {section.map((route) => (
@@ -94,7 +102,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
             <span
               className={cn(
                 "transition-colors duration-200",
-                "flex rounded p-1 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-primary", // Layout
+                "flex w-fit rounded p-1 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-primary", // Layout
                 "bg-background hover:bg-accent", // Light mode
               )}
             >
@@ -111,6 +119,10 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
             </span>
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={7} className="mb-2" side="right">
+            <DropdownMenuItem className="flex justify-center">
+              {`${user?.admin.firstName} ${user?.admin.lastName}`}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuLabel>{t("theme.theme")}</DropdownMenuLabel>
             <DropdownMenuRadioGroup
               value={theme}

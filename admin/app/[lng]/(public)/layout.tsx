@@ -1,10 +1,10 @@
+import { getUser } from "@/actions/auth";
 import { LayoutProps } from "@/app/type";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default function Layout({ children }: LayoutProps) {
-  const user = cookies().get("user")?.value;
+export default async function Layout({ children }: LayoutProps) {
+  const user = await getUser();
   if (user) redirect("/");
 
-  return children;
+  return <>{children}</>;
 }

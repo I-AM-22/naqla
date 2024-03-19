@@ -33,7 +33,7 @@ export const NavigationButton = ({
             <span
               className={cn(
                 "transition-colors duration-200",
-                "flex rounded p-1 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-primary", // Layout
+                "flex w-fit rounded p-1 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-primary", // Layout
                 "bg-background hover:bg-accent", // Light mode
                 `${isActive ? "bg-selection text-foreground shadow-sm" : ""}`,
               )}
