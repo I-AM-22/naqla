@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { Home, Menu, User } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { FC, Fragment, useState } from "react";
 import { NavigationButton } from "./navigation-button";
 import { Route } from "./type";
@@ -54,11 +54,13 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
   const { t } = useTranslation("layout");
   const { setTheme, themes, theme } = useTheme();
   const { lng } = useParams<PageProps["params"]>();
+  const router = useRouter();
   const user = useUser();
   const pathname = usePathname();
   const pathnameWithoutLocale = pathname.split("/")[2] ?? "";
-  const handleLogout = () => {
-    logoutUser();
+  const handleLogout = async () => {
+    await logoutUser();
+    router.push("/");
   };
   return (
     <aside
