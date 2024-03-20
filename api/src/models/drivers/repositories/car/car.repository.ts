@@ -6,6 +6,7 @@ import { Car } from '../../entities/car.entity';
 import { ICarRepository } from '../../interfaces/repositories/car.repository.interface';
 import { Driver } from '../../entities/driver.entity';
 import { CarPhoto } from '../../entities/car-photo.entity';
+import { Advantage } from '../../../advantages/entities/advantage.entity';
 
 @Injectable()
 export class CarRepository implements ICarRepository {
@@ -36,7 +37,19 @@ export class CarRepository implements ICarRepository {
   }
 
   async findOneForOwner(id: string, driverId: string): Promise<Car> {
-    return this.carRepository.findOne({ where: { id, driverId } });
+    return this.carRepository.findOne({
+      where: { id, driverId },
+      select: {
+        id: true,
+        model: true,
+        brand: true,
+        color: true,
+        advantages: { id: true, name: true, cost: true },
+        createdAt: true,
+        updatedAt: true,
+      },
+      relations: { advantages: true },
+    });
   }
 
   async findOne(id: string): Promise<Car> {
@@ -70,5 +83,21 @@ export class CarRepository implements ICarRepository {
 
   async delete(car: Car): Promise<void> {
     await this.carRepository.softRemove(car);
+  }
+
+  async addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void> {
+    await this.carRepository
+      .createQueryBuilder()
+      .relation(Car, 'advantages')
+      .of(car)
+      .add(advantages);
+  }
+
+  async removeAdvantageFromCar(car: Car, advantage: Advantage): Promise<void> {
+    await this.carRepository
+      .createQueryBuilder()
+      .relation(Car, 'advantages')
+      .of(car)
+      .remove(advantage);
   }
 }

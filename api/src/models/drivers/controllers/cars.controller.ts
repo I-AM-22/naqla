@@ -8,8 +8,9 @@ import {
   UseGuards,
   UseInterceptors,
   ParseUUIDPipe,
+  SerializeOptions,
 } from '@nestjs/common';
-import { CreateCarDto, UpdateCarDto } from '../dtos';
+import { AddAdvansToCarDto, CreateCarDto, UpdateCarDto } from '../dtos';
 import { Param, Get, Patch, Delete } from '@nestjs/common';
 import { Car } from '../entities/car.entity';
 import { ICarsService } from '../interfaces/services/cars.service.interface';
@@ -33,7 +34,7 @@ import {
 } from '../../../common/constants';
 import { CaslAbilitiesGuard, RolesGuard } from '../../../common/guards';
 import { LoggingInterceptor } from '../../../common/interceptors';
-import { ROLE } from '../../../common/enums';
+import { GROUPS, ROLE } from '../../../common/enums';
 
 @ApiTags('cars')
 @ApiBearerAuth('token')
@@ -48,6 +49,7 @@ export class CarController {
     @Inject(CAR_TYPES.service) private readonly carsService: ICarsService,
   ) {}
 
+  @SerializeOptions({ groups: [GROUPS.ALL_CARS] })
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: Car, isArray: true })
   @Get('mine')
@@ -55,6 +57,7 @@ export class CarController {
     return this.carsService.findMyCars(driverId);
   }
 
+  @SerializeOptions({ groups: [GROUPS.CAR] })
   @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Car, isArray: true })
   @Get('all')
@@ -62,6 +65,7 @@ export class CarController {
     return this.carsService.find();
   }
 
+  @SerializeOptions({ groups: [GROUPS.CAR] })
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: Car })
   @Get(':id')
@@ -74,6 +78,7 @@ export class CarController {
     return car;
   }
 
+  @SerializeOptions({ groups: [GROUPS.CAR] })
   @Roles(ROLE.DRIVER)
   @ApiCreatedResponse({ type: Car })
   @Post()
@@ -84,6 +89,7 @@ export class CarController {
     return await this.carsService.create(driver, createCarDto);
   }
 
+  @SerializeOptions({ groups: [GROUPS.CAR] })
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: Car })
   @Patch(':id')
@@ -103,5 +109,27 @@ export class CarController {
     @GetUser('id') driverId: string,
   ): Promise<void> {
     await this.carsService.delete(id, driverId);
+  }
+
+  @Roles(ROLE.DRIVER)
+  @ApiOkResponse()
+  @Post(':id/advantages')
+  async addAdvantagesToCar(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() createAdvantageDto: AddAdvansToCarDto,
+    @GetUser() driver: Driver,
+  ) {
+    return this.carsService.addAdvantagesToCar(id, createAdvantageDto, driver);
+  }
+
+  @Roles(ROLE.DRIVER)
+  @ApiOkResponse()
+  @Delete(':id/advantages/:advantageId')
+  async removeAdvantagesFromCar(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('advantageId', ParseUUIDPipe) advantageId: string,
+    @GetUser() driver: Driver,
+  ) {
+    return this.carsService.removeAdvantagesFromCar(id, advantageId, driver);
   }
 }

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { OtpsService } from './otps.service';
+import { OtpsService } from './services/otps.service';
 import { OtpRepository } from './repositories/otp.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Otp } from './entities/otp.entity';

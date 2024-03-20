@@ -3,7 +3,7 @@ import { Otp } from '../entities/otp.entity';
 import { MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateOtpDto } from '../dto/create-otp.dto';
-import { OTP_PERSON, OTP_TYPE } from '../otp.enum';
+import { OTP_PERSON, OTP_TYPE } from '../interfaces/otp.enum';
 import { IOtp } from '../interfaces/otp.interface';
 
 @Injectable()

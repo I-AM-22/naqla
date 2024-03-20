@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
-import { OTP_TYPE } from '../otp.enum';
+import { OTP_TYPE } from '../interfaces/otp.enum';
 
 export class CreateOtpDto {
   @IsUUID()

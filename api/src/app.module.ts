@@ -29,6 +29,7 @@ import { AuthUserModule } from './auth-user/auth-user.module';
 import { AuthDriverModule } from './auth-driver/auth-driver.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './common/guards';
+import { AdvantagesModule } from './models/advantages/advantages.module';
 
 @Module({
   imports: [
@@ -70,6 +71,7 @@ import { JwtGuard } from './common/guards';
     RedisStoreModule,
     LoggerModule,
     OtpsModule,
+    AdvantagesModule,
   ],
   providers: [
     IsUniqueConstraint,

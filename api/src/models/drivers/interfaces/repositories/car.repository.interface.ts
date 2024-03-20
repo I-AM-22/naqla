@@ -1,3 +1,4 @@
+import { Advantage } from '../../../advantages/entities/advantage.entity';
 import { UpdateCarDto } from '../../dtos';
 import { CreateCarDto } from '../../dtos/create-car.dto';
 import { CarPhoto } from '../../entities/car-photo.entity';
@@ -12,4 +13,7 @@ export interface ICarRepository {
   create(driver: Driver, photo: CarPhoto, dto: CreateCarDto): Promise<Car>;
   update(car: Car, dto: UpdateCarDto, photo: CarPhoto): Promise<Car>;
   delete(car: Car): Promise<void>;
+  addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void>;
+
+  removeAdvantageFromCar(car: Car, advantage: Advantage): Promise<void>;
 }

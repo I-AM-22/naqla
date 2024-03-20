@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose, Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
@@ -21,9 +21,12 @@ export abstract class GlobalEntity extends BaseEntity {
       GROUPS.EMPLOYEE,
       GROUPS.PERMISSION,
       GROUPS.ROLE,
-      GROUPS.ALL_PRODUCTS,
-      GROUPS.PRODUCT,
+      GROUPS.ADVANTAGE,
+      GROUPS.CAR,
+      GROUPS.DRIVER,
+      GROUPS.ADVANTAGE,
     ],
+    toPlainOnly: true,
   })
   @ApiProperty()
   @CreateDateColumn()
@@ -36,9 +39,12 @@ export abstract class GlobalEntity extends BaseEntity {
       GROUPS.EMPLOYEE,
       GROUPS.PERMISSION,
       GROUPS.ROLE,
-      GROUPS.ALL_PRODUCTS,
-      GROUPS.PRODUCT,
+      GROUPS.ADVANTAGE,
+      GROUPS.CAR,
+      GROUPS.DRIVER,
+      GROUPS.ADVANTAGE,
     ],
+    toPlainOnly: true,
   })
   @ApiProperty()
   @UpdateDateColumn()

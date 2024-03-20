@@ -1,4 +1,4 @@
-import { UpdateCarDto } from '../../dtos';
+import { AddAdvansToCarDto, UpdateCarDto } from '../../dtos';
 import { CreateCarDto } from '../../dtos/create-car.dto';
 import { Car } from '../../entities/car.entity';
 import { Driver } from '../../entities/driver.entity';
@@ -11,4 +11,15 @@ export interface ICarsService {
   create(driver: Driver, dto: CreateCarDto): Promise<Car>;
   update(id: string, driverId: string, dto: UpdateCarDto): Promise<Car>;
   delete(id: string, driverId: string): Promise<void>;
+  addAdvantagesToCar(
+    id: string,
+    createAdvantageDto: AddAdvansToCarDto,
+    driver: Driver,
+  ): Promise<void>;
+
+  removeAdvantagesFromCar(
+    id: string,
+    advantageId: string,
+    driver: Driver,
+  ): Promise<void>;
 }

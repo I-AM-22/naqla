@@ -22,8 +22,8 @@ import {
 } from '../../common/constants';
 import { DRIVER_TYPES } from '../../models/drivers/interfaces/type';
 import { ROLE_TYPES } from '../../models/roles/interfaces/type';
-import { OtpsService } from '../../models/otps/otps.service';
-import { OTP_TYPE } from '../../models/otps/otp.enum';
+import { OtpsService } from '../../models/otps/services/otps.service';
+import { OTP_TYPE } from '../../models/otps/interfaces/otp.enum';
 import { Entities, ROLE } from '../../common/enums';
 import { IRolesService } from '../../models/roles/interfaces/services/roles.service.interface';
 import { IDriversService } from '../../models/drivers/interfaces/services/drivers.service.interface';

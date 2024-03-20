@@ -22,8 +22,8 @@ import {
 } from '../../common/constants';
 import { USER_TYPES } from '../../models/users/interfaces/type';
 import { IAuthUserService } from '../interfaces/services/auth.service.interface';
-import { OtpsService } from '../../models/otps/otps.service';
-import { OTP_TYPE } from '../../models/otps/otp.enum';
+import { OtpsService } from '../../models/otps/services/otps.service';
+import { OTP_TYPE } from '../../models/otps/interfaces/otp.enum';
 import { Entities } from '../../common/enums';
 import { IUsersService } from '../../models/users/interfaces/services/users.service.interface';
 import { IOtp } from '../../models/otps/interfaces/otp.interface';

@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CAR_TYPES } from '../interfaces/type';
-import { CreateCarDto, UpdateCarDto } from '../dtos';
+import { AddAdvansToCarDto, CreateCarDto, UpdateCarDto } from '../dtos';
 import { Car } from '../entities/car.entity';
 import { ICarRepository } from '../interfaces/repositories/car.repository.interface';
 import { Driver } from '../entities/driver.entity';
@@ -9,6 +9,8 @@ import { item_not_found } from '../../../common/constants';
 import { Entities } from '../../../common/enums';
 import { IPhotosRepository } from '../../../common/interfaces';
 import { CarPhoto } from '../entities/car-photo.entity';
+import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
+import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
 
 @Injectable()
 export class CarsService implements ICarsService {
@@ -17,6 +19,8 @@ export class CarsService implements ICarsService {
     private readonly carRepository: ICarRepository,
     @Inject(CAR_TYPES.repository.photo)
     private readonly carPhotoRepository: IPhotosRepository<CarPhoto>,
+    @Inject(ADVANTAGE_TYPES.service)
+    private readonly advantagesService: IAdvantagesService,
   ) {}
 
   async find(): Promise<Car[]> {
@@ -53,5 +57,25 @@ export class CarsService implements ICarsService {
   async delete(id: string, driverId: string): Promise<void> {
     const car = await this.findOneForOwner(id, driverId);
     return this.carRepository.delete(car);
+  }
+
+  async addAdvantagesToCar(
+    id: string,
+    dto: AddAdvansToCarDto,
+    driver: Driver,
+  ): Promise<void> {
+    const car = await this.findOneForOwner(id, driver.id);
+    const advantages = await this.advantagesService.findInIds(dto.advantages);
+    return this.carRepository.addAdvantageToCar(car, advantages);
+  }
+
+  async removeAdvantagesFromCar(
+    id: string,
+    advantageId: string,
+    driver: Driver,
+  ): Promise<void> {
+    const car = await this.findOneForOwner(id, driver.id);
+    const advantage = await this.advantagesService.findOne(advantageId);
+    return this.carRepository.removeAdvantageFromCar(car, advantage);
   }
 }

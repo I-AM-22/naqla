@@ -17,6 +17,7 @@ import { CarController } from './controllers/cars.controller';
 import { CarPhotoRepository } from './repositories/car/car-photo.repository';
 import { Car } from './entities/car.entity';
 import { CarPhoto } from './entities/car-photo.entity';
+import { AdvantagesModule } from '../advantages/advantages.module';
 
 export const DriversServiceProvider: Provider = {
   provide: DRIVER_TYPES.service,
@@ -62,6 +63,7 @@ export const CarPhotoRepositoryProvider: Provider = {
     ]),
     RolesModule,
     CitiesModule,
+    AdvantagesModule,
   ],
   controllers: [DriversController, CarController],
   providers: [

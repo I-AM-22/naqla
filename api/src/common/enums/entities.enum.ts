@@ -1,4 +1,6 @@
 export enum Entities {
+  Order = 'Order',
+  Suborder = 'Suborder',
   Role = 'Role',
   Permission = 'Permission',
   User = 'User',
@@ -12,6 +14,7 @@ export enum Entities {
   Driver = 'Driver',
   Car = 'Car',
   Profit = 'Profit',
+  Advantage = 'Advantage',
   Statistics = 'Statistics',
   Wallet = 'Wallet',
   All = 'all',

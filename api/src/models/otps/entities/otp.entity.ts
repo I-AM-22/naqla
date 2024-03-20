@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { GlobalEntity } from '../../../common/base';
-import { OTP_PERSON, OTP_TYPE } from '../otp.enum';
+import { OTP_PERSON, OTP_TYPE } from '../interfaces/otp.enum';
 
 @Entity('otps')
 export class Otp extends GlobalEntity {

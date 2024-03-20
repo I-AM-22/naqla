@@ -1,4 +1,4 @@
-import { OTP_PERSON, OTP_TYPE } from '../otp.enum';
+import { OTP_PERSON, OTP_TYPE } from './otp.enum';
 
 export interface IOtp {
   id?: string;

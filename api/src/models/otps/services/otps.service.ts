@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOtpDto } from './dto/create-otp.dto';
-import { OtpRepository } from './repositories/otp.repository';
-import { OTP_PERSON, OTP_TYPE } from './otp.enum';
-import { IOtp } from './interfaces/otp.interface';
+import { CreateOtpDto } from '../dto/create-otp.dto';
+import { OtpRepository } from '../repositories/otp.repository';
+import { OTP_PERSON, OTP_TYPE } from '../interfaces/otp.enum';
+import { IOtp } from '../interfaces/otp.interface';
 
 @Injectable()
 export class OtpsService {
