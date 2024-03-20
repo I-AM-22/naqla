@@ -55,6 +55,6 @@ export class Car extends GlobalEntity {
   @Expose({ groups: [GROUPS.CAR] })
   @ApiProperty()
   @ManyToMany(() => Advantage, (advantage) => advantage.cars, { cascade: true })
-  @JoinTable()
+  @JoinTable({ name: 'cars_advantages' })
   advantages: Advantage[];
 }
