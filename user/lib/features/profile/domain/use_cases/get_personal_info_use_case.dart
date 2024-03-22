@@ -1,8 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:naqla/core/type_definitions.dart';
 import 'package:naqla/core/use_case/use_case.dart';
-import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:naqla/features/profile/domain/repositories/profile_repository.dart';
+
+import '../../../auth/data/model/user_model.dart';
 
 @injectable
 class GetPersonalInfoUseCase extends UseCase<User, NoParams> {

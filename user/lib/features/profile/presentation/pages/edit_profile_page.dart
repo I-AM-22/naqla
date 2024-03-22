@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -13,13 +12,12 @@ import 'package:naqla/features/profile/domain/use_cases/edit_personal_info_use_c
 
 import '../../../../core/api/api_utils.dart';
 import '../../../../core/common/constants/constants.dart';
-import '../../../../core/di/di_container.dart';
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/app_scaffold.dart';
 import '../../../app/presentation/widgets/customer_appbar.dart';
 import '../../../app/presentation/widgets/params_appbar.dart';
-import '../../../auth/data/model/auth_model.dart';
+import '../../../auth/data/model/user_model.dart';
 import '../state/bloc/profile_bloc.dart';
 
 class EditProfileParam {

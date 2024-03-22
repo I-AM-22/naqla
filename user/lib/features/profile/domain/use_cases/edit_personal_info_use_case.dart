@@ -3,7 +3,7 @@ import 'package:naqla/core/type_definitions.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/features/profile/domain/repositories/profile_repository.dart';
 
-import '../../../auth/data/model/auth_model.dart';
+import '../../../auth/data/model/user_model.dart';
 
 @injectable
 class EditPersonalInfoUseCase extends UseCase<User, EditPersonalInfoParam> {
@@ -21,8 +21,7 @@ class EditPersonalInfoParam {
   final String lastName;
   final String photo;
 
-  EditPersonalInfoParam(
-      {required this.firstName, required this.lastName, required this.photo});
+  EditPersonalInfoParam({required this.firstName, required this.lastName, required this.photo});
 
   Map<String, dynamic> get map {
     return photo.isEmpty

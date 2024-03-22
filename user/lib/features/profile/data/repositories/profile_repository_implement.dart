@@ -1,11 +1,12 @@
 import 'package:injectable/injectable.dart';
 import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/type_definitions.dart';
-import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:naqla/features/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:naqla/features/profile/domain/repositories/profile_repository.dart';
 import 'package:naqla/features/profile/domain/use_cases/edit_personal_info_use_case.dart';
 import 'package:naqla/features/profile/domain/use_cases/upload_single_photo_use_case.dart';
+
+import '../../../auth/data/model/user_model.dart';
 
 @Injectable(as: ProfileRepository)
 class ProfileRepositoryImplement implements ProfileRepository {

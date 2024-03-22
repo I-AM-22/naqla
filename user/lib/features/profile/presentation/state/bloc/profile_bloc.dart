@@ -9,6 +9,7 @@ import 'package:naqla/core/util/core_helper_functions.dart';
 import 'package:naqla/core/util/secure_image_picker.dart';
 import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../auth/data/model/user_model.dart';
 import '../../../domain/use_cases/delete_account_use_case.dart';
 import '../../../domain/use_cases/edit_personal_info_use_case.dart';
 import '../../../domain/use_cases/get_personal_info_use_case.dart';
@@ -25,19 +26,12 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
   final UploadSinglePhotoUseCase _uploadSinglePhotoUseCase;
   final UpdatePhoneNumberUseCase _updatePhoneNumberUseCase;
   final DeleteAccountUseCase _deleteAccountUseCase;
-  ProfileBloc(
-      this._personalInfoUseCase,
-      this._editPersonalInfoUseCase,
-      this._uploadSinglePhotoUseCase,
-      this._updatePhoneNumberUseCase,
+  ProfileBloc(this._personalInfoUseCase, this._editPersonalInfoUseCase, this._uploadSinglePhotoUseCase, this._updatePhoneNumberUseCase,
       this._deleteAccountUseCase)
       : super(ProfileState.iniState) {
     on<GetPersonalInfoEvent>((event, emit) {
       return CoreHelperFunctions.handelMultiApiResult(
-          callback: () async => _personalInfoUseCase(NoParams()),
-          emit: emit,
-          state: state,
-          index: ProfileState.getPersonalInfo);
+          callback: () async => _personalInfoUseCase(NoParams()), emit: emit, state: state, index: ProfileState.getPersonalInfo);
     });
 
     on<EditPersonalInfoEvent>((event, emit) {
@@ -45,11 +39,9 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
           callback: () async => _editPersonalInfoUseCase(event.param),
           emit: emit,
           onSuccess: (data) {
-            final oldState = CoreHelperFunctions.getCommonState(
-                state, ProfileState.getPersonalInfo);
+            final oldState = CoreHelperFunctions.getCommonState(state, ProfileState.getPersonalInfo);
             if (oldState is SuccessState) {
-              emit(state.setState(
-                  ProfileState.getPersonalInfo, SuccessState(data)));
+              emit(state.setState(ProfileState.getPersonalInfo, SuccessState(data)));
             }
             event.onSuccess.call(data);
           },
@@ -68,10 +60,7 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
 
     on<UploadSinglePhotoEvent>((event, emit) {
       return CoreHelperFunctions.handelMultiApiResult(
-          callback: () async => _uploadSinglePhotoUseCase(event.param),
-          emit: emit,
-          state: state,
-          index: ProfileState.uploadSinglePhoto);
+          callback: () async => _uploadSinglePhotoUseCase(event.param), emit: emit, state: state, index: ProfileState.uploadSinglePhoto);
     });
 
     on<DeleteAccountEvent>((event, emit) {
@@ -85,11 +74,9 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
 
     on<PickImageEvent>((event, emit) async {
       emit(state.setState(ProfileState.pickImage, const LoadingState<File?>()));
-      final image = await SecureFilePicker.pickImage(event.source,
-          context: event.context);
+      final image = await SecureFilePicker.pickImage(event.source, context: event.context);
       if (image != null) {
-        emit(
-            state.setState(ProfileState.pickImage, SuccessState<File?>(image)));
+        emit(state.setState(ProfileState.pickImage, SuccessState<File?>(image)));
         event.onSuccess.call(image);
         add(UploadSinglePhotoEvent(UploadSinglePhotoParam(image)));
       } else {

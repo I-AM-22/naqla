@@ -1,4 +1,4 @@
-import 'package:naqla/features/auth/data/model/auth_model.dart';
+import '../../../auth/data/model/user_model.dart';
 
 abstract class PrefsRepository {
   String? get token;

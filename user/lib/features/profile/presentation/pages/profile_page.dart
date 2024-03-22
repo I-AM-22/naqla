@@ -8,12 +8,10 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/domain/repository/prefs_repository.dart';
 import 'package:naqla/features/app/presentation/widgets/animated_dialog.dart';
-import 'package:naqla/features/app/presentation/widgets/app_drawer.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
-import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:naqla/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import 'package:naqla/features/profile/presentation/pages/edit_phone_number_page.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
@@ -21,6 +19,7 @@ import 'package:naqla/features/profile/presentation/widget/profile_item.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
+import '../../../auth/data/model/user_model.dart';
 import 'about_us_page.dart';
 import 'delete_account_page.dart';
 import 'edit_profile_page.dart';
@@ -52,7 +51,6 @@ class _ProfilePageState extends State<ProfilePage> {
     return BlocProvider.value(
       value: bloc,
       child: AppScaffold(
-          drawer: const AppDrawer(),
           appBar: AppAppBar(
             appBarParams: AppBarParams(
               title: S.of(context).profile,
