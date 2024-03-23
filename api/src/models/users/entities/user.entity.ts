@@ -11,6 +11,7 @@ import { Exclude, Expose, Transform } from 'class-transformer';
 import { GROUPS } from '../../../common/enums';
 import { Role } from '../../roles';
 import { UserPhoto } from './user-photo.entity';
+import { Order } from '../../orders/entities/order.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { UserWallet } from './user-wallet.entity';
 
@@ -47,4 +48,7 @@ export class User extends BasePersonWithActive {
     if (this.photos) return this.photos[this.photos.length - 1];
     return undefined;
   }
+
+  @OneToMany(() => Order, (order) => order.user, { cascade: true })
+  orders: Order[];
 }

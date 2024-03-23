@@ -5,6 +5,7 @@ import { GlobalEntity } from '../../../common/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 import { GROUPS } from '../../../common/enums';
+import { Order } from '../../orders/entities/order.entity';
 
 @Entity('advantages')
 export class Advantage extends GlobalEntity {
@@ -24,4 +25,7 @@ export class Advantage extends GlobalEntity {
 
   @ManyToMany(() => Car, (car) => car.advantages)
   cars: Car[];
+
+  @ManyToMany(() => Order, (order) => order.advantages)
+  orders: Order[];
 }

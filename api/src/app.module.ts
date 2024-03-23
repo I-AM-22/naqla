@@ -13,6 +13,7 @@ import { AdminsModule } from './models/admins/admins.module';
 import { PermissionsModule } from './models/permissions/permissions.module';
 import { RolesModule } from './models/roles/roles.module';
 import { UsersModule } from './models/users/users.module';
+import { OrdersModule } from './models/orders/orders.module';
 import { DatabaseModule } from './providers/database';
 import { CaslModule } from './shared/casl';
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
@@ -72,6 +73,7 @@ import { AdvantagesModule } from './models/advantages/advantages.module';
     LoggerModule,
     OtpsModule,
     AdvantagesModule,
+    OrdersModule,
   ],
   providers: [
     IsUniqueConstraint,
