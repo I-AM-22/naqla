@@ -11,7 +11,7 @@ export interface IOrdersService {
   findOne(id: string): Promise<Order>;
   findOneForOwner(id: string, driverId: string): Promise<Order>;
   create(user: User, dto: CreateOrderDto): Promise<Order>;
-  update(id: string, orderId: string, dto: UpdateOrderDto): Promise<Order>;
+  update(id: string, user: User, dto: UpdateOrderDto): Promise<Order>;
   delete(id: string, orderId: string): Promise<void>;
   addAdvantagesToOrder(
     id: string,

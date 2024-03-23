@@ -80,5 +80,4 @@ export class Order extends GlobalEntity {
   })
   @JoinTable({ name: 'orders_advantages' })
   advantages: Advantage[];
-  order: OrderPhoto;
 }

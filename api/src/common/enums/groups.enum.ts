@@ -13,6 +13,8 @@ export enum GROUPS {
   DRIVER = 'group_driver_details',
   ALL_CARS = 'group_all_cars',
   CAR = 'group_car_details',
+  ALL_ORDERS = 'group_all_orders',
+  ORDER = 'group_order_details',
   ALL_ADVANTAGES = 'group_all_advantages',
   ADVANTAGE = 'group_advantage_details',
 }

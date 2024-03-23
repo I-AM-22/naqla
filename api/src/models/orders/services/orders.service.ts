@@ -38,7 +38,8 @@ export class OrdersService implements IOrdersService {
   }
 
   async findMyOrders(userId: string): Promise<Order[]> {
-    return this.OrderRepository.findMyOrder(userId);
+    const object = await this.OrderRepository.findMyOrder(userId);
+    return object;
   }
 
   async findOneForOwner(id: string, userId: string): Promise<Order> {
@@ -48,18 +49,14 @@ export class OrdersService implements IOrdersService {
   }
 
   async create(user: User, dto: CreateOrderDto): Promise<Order> {
-    const photo = await this.orderPhotoRepository.uploadPhotoulti(dto.photo);
+    const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
     return this.OrderRepository.create(user, photo, dto);
   }
 
-  async update(
-    id: string,
-    userId: string,
-    dto: UpdateOrderDto,
-  ): Promise<Order> {
-    const order = await this.findOneForOwner(id, userId);
-    const photo = await this.orderPhotoRepository.uploadPhotoulti(dto.photo);
-    return this.OrderRepository.update(order, dto, photo);
+  async update(id: string, user: User, dto: UpdateOrderDto): Promise<Order> {
+    const order = await this.findOneForOwner(id, user.id);
+    const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
+    return this.OrderRepository.update(user, order, dto, photo);
   }
 
   async delete(id: string, orderId: string): Promise<void> {

@@ -13,6 +13,7 @@ export interface IOrderRepository {
   findOneForOwner(id: string, userId: string): Promise<Order>;
   create(user: User, photo: OrderPhoto[], dto: CreateOrderDto): Promise<Order>;
   update(
+    user: User,
     order: Order,
     dto: UpdateOrderDto,
     photo: OrderPhoto[],

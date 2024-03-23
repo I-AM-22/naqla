@@ -9,12 +9,10 @@ import { Order } from '../../orders/entities/order.entity';
 
 @Entity('advantages')
 export class Advantage extends GlobalEntity {
-  @Expose({ groups: [GROUPS.ADVANTAGE, GROUPS.ALL_ADVANTAGES, GROUPS.CAR] })
   @ApiProperty()
   @Column({ unique: true })
   name: string;
 
-  @Expose({ groups: [GROUPS.ADVANTAGE, GROUPS.ALL_ADVANTAGES, GROUPS.CAR] })
   @ApiProperty()
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   cost: number;

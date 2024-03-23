@@ -43,10 +43,10 @@ import { ROLE } from '../../../common/enums';
 @ApiNotFoundResponse({ description: data_not_found })
 @UseInterceptors(new LoggingInterceptor())
 @UseGuards(CaslAbilitiesGuard, RolesGuard)
-@Controller({ path: 'drivers/Orders', version: '1' })
+@Controller({ path: 'orders', version: '1' })
 export class OrderController {
   constructor(
-    @Inject(ORDER_TYPES.service) private readonly OrdersService: IOrdersService,
+    @Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService,
   ) {}
 
   // @SerializeOptions({ groups: [GROUPS.ALL_OrderS] })
@@ -54,7 +54,7 @@ export class OrderController {
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('mine')
   async findMine(@GetUser('id') userId: string): Promise<Order[]> {
-    return this.OrdersService.findMyOrders(userId);
+    return this.ordersService.findMyOrders(userId);
   }
 
   // @SerializeOptions({ groups: [GROUPS.Order] })
@@ -62,14 +62,14 @@ export class OrderController {
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('all')
   async findAll(): Promise<Order[]> {
-    return this.OrdersService.find();
+    return this.ordersService.find();
   }
 
   @Roles(ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('waiting')
   async findAllwaiting(): Promise<Order[]> {
-    return this.OrdersService.findwaiting();
+    return this.ordersService.findwaiting();
   }
 
   // @SerializeOptions({ groups: [GROUPS.Order] })
@@ -80,7 +80,7 @@ export class OrderController {
     @Param('id', ParseUUIDPipe) id: string,
     @GetUser('id') userId: string,
   ): Promise<Order> {
-    const order = await this.OrdersService.findOneForOwner(id, userId);
+    const order = await this.ordersService.findOneForOwner(id, userId);
     return order;
   }
 
@@ -92,7 +92,7 @@ export class OrderController {
     @Body() createOrderDto: CreateOrderDto,
     @GetUser() user: User,
   ): Promise<Order> {
-    return await this.OrdersService.create(user, createOrderDto);
+    return await this.ordersService.create(user, createOrderDto);
   }
 
   // @SerializeOptions({ groups: [GROUPS.Order] })
@@ -101,10 +101,10 @@ export class OrderController {
   @Patch(':id')
   async update(
     @Param('id', ParseUUIDPipe) id: string,
-    @GetUser('id') userId: string,
+    @GetUser() user: User,
     @Body() dto: UpdateOrderDto,
   ): Promise<Order> {
-    return await this.OrdersService.update(id, userId, dto);
+    return await this.ordersService.update(id, user, dto);
   }
 
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
@@ -114,7 +114,7 @@ export class OrderController {
     @Param('id', ParseUUIDPipe) id: string,
     @GetUser('id') driverId: string,
   ): Promise<void> {
-    await this.OrdersService.delete(id, driverId);
+    await this.ordersService.delete(id, driverId);
   }
 
   @Roles(ROLE.USER)
@@ -125,7 +125,7 @@ export class OrderController {
     @Body() createAdvantageDto: AddAdvansToOrderDto,
     @GetUser() user: User,
   ) {
-    return this.OrdersService.addAdvantagesToOrder(
+    return this.ordersService.addAdvantagesToOrder(
       id,
       createAdvantageDto,
       user,
@@ -140,6 +140,6 @@ export class OrderController {
     @Param('advantageId', ParseUUIDPipe) advantageId: string,
     @GetUser() user: User,
   ) {
-    return this.OrdersService.removeAdvantagesFromOrder(id, advantageId, user);
+    return this.ordersService.removeAdvantagesFromOrder(id, advantageId, user);
   }
 }

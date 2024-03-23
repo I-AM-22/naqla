@@ -60,19 +60,21 @@ export class OrderRepository implements IOrderRepository {
           region: true,
           street: true,
         },
+        advantages: { name: true },
         user: { id: true, firstName: true, lastName: true },
         photos: true,
         createdAt: true,
         updatedAt: true,
       },
       where: { status: 'waiting' },
-      relations: { user: true, photos: true },
+      relations: { user: true, photos: true, advantages: true },
     });
   }
 
   async findMyOrder(userId: string): Promise<Order[]> {
     return this.OrderRepository.find({
       where: { userId },
+      relations: { advantages: true },
     });
   }
 
@@ -99,8 +101,9 @@ export class OrderRepository implements IOrderRepository {
         photos: true,
         createdAt: true,
         updatedAt: true,
+        advantages: { name: true },
       },
-      relations: { user: true, photos: true },
+      relations: { user: true, photos: true, advantages: true },
     });
   }
 
@@ -110,33 +113,33 @@ export class OrderRepository implements IOrderRepository {
 
   async create(
     user: User,
-    photo: OrderPhoto[],
+    photos: OrderPhoto[],
     dto: CreateOrderDto,
   ): Promise<Order> {
-    const order = new Order();
+    const order = this.OrderRepository.create();
     order.receiving_date = dto.receiving_date;
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
-    order.status = dto.status;
-    // order.photos = photo;
+    order.photos = photos;
     order.user = user;
     order.userId = user.id;
     order.cost = 0;
     order.status = 'waiting';
-    return this.OrderRepository.save(Order);
+    return this.OrderRepository.save(order);
   }
 
   async update(
+    user: User,
     order: Order,
     dto: UpdateOrderDto,
-    photo: OrderPhoto[],
+    photos: OrderPhoto[],
   ): Promise<Order> {
     order.receiving_date = dto.receiving_date;
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
     order.status = dto.status;
-    order.photos = photo;
-    order.userId = dto.userId;
+    order.photos = photos;
+    order.userId = user.id;
     order.cost = dto.cost;
     this.OrderRepository.save(Order);
 
