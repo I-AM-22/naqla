@@ -1,12 +1,7 @@
 {
   "navLink": {
     "home": "الرئيسية",
-    "customers": "العملاء",
-    "billing": "الفواتير",
-    "reports": "التقارير",
-    "admins": "المسؤولين",
-    "settings": "الإعدادات",
-    "about": "حول",
-    "policy": "السياسة"
+    "settings": "الإعدادت",
+    "cars": "سياراتي"
   }
 }

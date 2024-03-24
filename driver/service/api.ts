@@ -6,16 +6,28 @@
  * OpenAPI spec version: 1.0
  */
 import type {
+  AddAdvansToCarDto,
+  AddAdvansToOrderDto,
   Admin,
   AdminsControllerFindOnePathParameters,
   AdminsControllerRemovePathParameters,
   AdminsControllerUpdatePathParameters,
+  Advantage,
+  AdvantagesControllerFindOnePathParameters,
+  AdvantagesControllerRemovePathParameters,
+  AdvantagesControllerUpdatePathParameters,
   AuthAdminResponse,
   AuthDriverControllerConfirmParams,
   AuthDriverResponse,
   AuthEmployeeResponse,
   AuthUserControllerConfirmParams,
   AuthUserResponse,
+  Car,
+  CarControllerAddAdvantagesToCarPathParameters,
+  CarControllerDeletePathParameters,
+  CarControllerFindOnePathParameters,
+  CarControllerRemoveAdvantagesFromCarPathParameters,
+  CarControllerUpdatePathParameters,
   CitiesControllerFindOnePathParameters,
   CitiesControllerRemovePathParameters,
   CitiesControllerUpdatePathParameters,
@@ -23,8 +35,11 @@ import type {
   ConfirmDriverDto,
   ConfirmUserDto,
   CreateAdminDto,
+  CreateAdvantageDto,
+  CreateCarDto,
   CreateCityDto,
   CreateEmployeeDto,
+  CreateOrderDto,
   CreateRoleDto,
   Driver,
   DriversControllerFindOnePathParameters,
@@ -40,6 +55,12 @@ import type {
   LoginEmployeeDto,
   LoginUserDto,
   OmitTypeClass,
+  Order,
+  OrderControllerAddAdvantagesToOrderPathParameters,
+  OrderControllerDeletePathParameters,
+  OrderControllerFindOnePathParameters,
+  OrderControllerRemoveAdvantagesFromOrderPathParameters,
+  OrderControllerUpdatePathParameters,
   PaginatedResponse,
   Permission,
   PermissionsControllerFindOnePathParameters,
@@ -54,10 +75,13 @@ import type {
   SignUpDriverDto,
   SignUpUserDto,
   UpdateAdminDto,
+  UpdateAdvantageDto,
+  UpdateCarDto,
   UpdateCityDto,
   UpdateDriverDto,
   UpdateDriverPhoneDto,
   UpdateEmployeeDto,
+  UpdateOrderDto,
   UpdateRoleDto,
   UpdateUserDto,
   UpdateUserPhoneDto,
@@ -226,6 +250,113 @@ export const usersControllerRemove = (
 ) => {
   return fetchInstance<void>(
     { url: `/api/v1/users/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const rolesControllerFind = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<OmitTypeClass[]>(
+    { url: `/api/v1/roles`, method: "GET" },
+    options,
+  );
+};
+
+export const rolesControllerCreate = (
+  createRoleDto: CreateRoleDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Role>(
+    {
+      url: `/api/v1/roles`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createRoleDto,
+    },
+    options,
+  );
+};
+
+export const rolesControllerFindOne = (
+  { id }: RolesControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Role>(
+    { url: `/api/v1/roles/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const rolesControllerUpdate = (
+  { id }: RolesControllerUpdatePathParameters,
+  updateRoleDto: UpdateRoleDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Role>(
+    {
+      url: `/api/v1/roles/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateRoleDto,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary add permissions to the role
+ */
+export const rolesControllerAddPermissions = (
+  { id }: RolesControllerAddPermissionsPathParameters,
+  updateRoleDto: UpdateRoleDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Role>(
+    {
+      url: `/api/v1/roles/${id}/permissions`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: updateRoleDto,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary remove permissions from the role
+ */
+export const rolesControllerDeletePermissions = (
+  { id }: RolesControllerDeletePermissionsPathParameters,
+  updateRoleDto: UpdateRoleDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Role>(
+    {
+      url: `/api/v1/roles/${id}/permissions`,
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      data: updateRoleDto,
+    },
+    options,
+  );
+};
+
+export const permissionsControllerFind = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<OmitTypeClass[]>(
+    { url: `/api/v1/permissions`, method: "GET" },
+    options,
+  );
+};
+
+export const permissionsControllerFindOne = (
+  { id }: PermissionsControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Permission>(
+    { url: `/api/v1/permissions/${id}`, method: "GET" },
     options,
   );
 };
@@ -446,113 +577,6 @@ export const adminsControllerRemove = (
   );
 };
 
-export const rolesControllerFind = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<OmitTypeClass[]>(
-    { url: `/api/v1/roles`, method: "GET" },
-    options,
-  );
-};
-
-export const rolesControllerCreate = (
-  createRoleDto: CreateRoleDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Role>(
-    {
-      url: `/api/v1/roles`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: createRoleDto,
-    },
-    options,
-  );
-};
-
-export const rolesControllerFindOne = (
-  { id }: RolesControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Role>(
-    { url: `/api/v1/roles/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const rolesControllerUpdate = (
-  { id }: RolesControllerUpdatePathParameters,
-  updateRoleDto: UpdateRoleDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Role>(
-    {
-      url: `/api/v1/roles/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateRoleDto,
-    },
-    options,
-  );
-};
-
-/**
- * @summary add permissions to the role
- */
-export const rolesControllerAddPermissions = (
-  { id }: RolesControllerAddPermissionsPathParameters,
-  updateRoleDto: UpdateRoleDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Role>(
-    {
-      url: `/api/v1/roles/${id}/permissions`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: updateRoleDto,
-    },
-    options,
-  );
-};
-
-/**
- * @summary remove permissions from the role
- */
-export const rolesControllerDeletePermissions = (
-  { id }: RolesControllerDeletePermissionsPathParameters,
-  updateRoleDto: UpdateRoleDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Role>(
-    {
-      url: `/api/v1/roles/${id}/permissions`,
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      data: updateRoleDto,
-    },
-    options,
-  );
-};
-
-export const permissionsControllerFind = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<OmitTypeClass[]>(
-    { url: `/api/v1/permissions`, method: "GET" },
-    options,
-  );
-};
-
-export const permissionsControllerFindOne = (
-  { id }: PermissionsControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Permission>(
-    { url: `/api/v1/permissions/${id}`, method: "GET" },
-    options,
-  );
-};
-
 export const authDriverControllerSignup = (
   signUpDriverDto: SignUpDriverDto,
   options?: SecondParameter<typeof fetchInstance>,
@@ -712,6 +736,164 @@ export const driversControllerRemove = (
   );
 };
 
+export const carControllerFindMine = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car[]>(
+    { url: `/api/v1/drivers/cars/mine`, method: "GET" },
+    options,
+  );
+};
+
+export const carControllerFindAll = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car[]>(
+    { url: `/api/v1/drivers/cars/all`, method: "GET" },
+    options,
+  );
+};
+
+export const carControllerFindOne = (
+  { id }: CarControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car>(
+    { url: `/api/v1/drivers/cars/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const carControllerUpdate = (
+  { id }: CarControllerUpdatePathParameters,
+  updateCarDto: UpdateCarDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car>(
+    {
+      url: `/api/v1/drivers/cars/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateCarDto,
+    },
+    options,
+  );
+};
+
+export const carControllerDelete = (
+  { id }: CarControllerDeletePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/drivers/cars/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const carControllerCreate = (
+  createCarDto: CreateCarDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car>(
+    {
+      url: `/api/v1/drivers/cars`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createCarDto,
+    },
+    options,
+  );
+};
+
+export const carControllerAddAdvantagesToCar = (
+  { id }: CarControllerAddAdvantagesToCarPathParameters,
+  addAdvansToCarDto: AddAdvansToCarDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    {
+      url: `/api/v1/drivers/cars/${id}/advantages`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: addAdvansToCarDto,
+    },
+    options,
+  );
+};
+
+export const carControllerRemoveAdvantagesFromCar = (
+  { id, advantageId }: CarControllerRemoveAdvantagesFromCarPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    {
+      url: `/api/v1/drivers/cars/${id}/advantages/${advantageId}`,
+      method: "DELETE",
+    },
+    options,
+  );
+};
+
+export const advantagesControllerCreate = (
+  createAdvantageDto: CreateAdvantageDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Advantage>(
+    {
+      url: `/api/v1/advantages`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createAdvantageDto,
+    },
+    options,
+  );
+};
+
+export const advantagesControllerFindAll = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Advantage[]>(
+    { url: `/api/v1/advantages`, method: "GET" },
+    options,
+  );
+};
+
+export const advantagesControllerFindOne = (
+  { id }: AdvantagesControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Advantage>(
+    { url: `/api/v1/advantages/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const advantagesControllerUpdate = (
+  { id }: AdvantagesControllerUpdatePathParameters,
+  updateAdvantageDto: UpdateAdvantageDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Advantage>(
+    {
+      url: `/api/v1/advantages/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateAdvantageDto,
+    },
+    options,
+  );
+};
+
+export const advantagesControllerRemove = (
+  { id }: AdvantagesControllerRemovePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/advantages/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
 /**
  * @summary Upload single photo
  */
@@ -757,6 +939,110 @@ export const photosControllerUploadMultiple = (
   );
 };
 
+export const orderControllerFindMine = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/mine`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindAll = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/all`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindAllwaiting = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/waiting`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindOne = (
+  { id }: OrderControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    { url: `/api/v1/orders/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerUpdate = (
+  { id }: OrderControllerUpdatePathParameters,
+  updateOrderDto: UpdateOrderDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    {
+      url: `/api/v1/orders/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateOrderDto,
+    },
+    options,
+  );
+};
+
+export const orderControllerDelete = (
+  { id }: OrderControllerDeletePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/orders/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const orderControllerCreate = (
+  createOrderDto: CreateOrderDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    {
+      url: `/api/v1/orders`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createOrderDto,
+    },
+    options,
+  );
+};
+
+export const orderControllerAddAdvantagesToOrder = (
+  { id }: OrderControllerAddAdvantagesToOrderPathParameters,
+  addAdvansToOrderDto: AddAdvansToOrderDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    {
+      url: `/api/v1/orders/${id}/advantages`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: addAdvansToOrderDto,
+    },
+    options,
+  );
+};
+
+export const orderControllerRemoveAdvantagesFromOrder = (
+  { id, advantageId }: OrderControllerRemoveAdvantagesFromOrderPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/orders/${id}/advantages/${advantageId}`, method: "DELETE" },
+    options,
+  );
+};
+
 export type AuthUserControllerSignupResult = NonNullable<
   Awaited<ReturnType<typeof authUserControllerSignup>>
 >;
@@ -792,6 +1078,30 @@ export type UsersControllerUpdateResult = NonNullable<
 >;
 export type UsersControllerRemoveResult = NonNullable<
   Awaited<ReturnType<typeof usersControllerRemove>>
+>;
+export type RolesControllerFindResult = NonNullable<
+  Awaited<ReturnType<typeof rolesControllerFind>>
+>;
+export type RolesControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof rolesControllerCreate>>
+>;
+export type RolesControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof rolesControllerFindOne>>
+>;
+export type RolesControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof rolesControllerUpdate>>
+>;
+export type RolesControllerAddPermissionsResult = NonNullable<
+  Awaited<ReturnType<typeof rolesControllerAddPermissions>>
+>;
+export type RolesControllerDeletePermissionsResult = NonNullable<
+  Awaited<ReturnType<typeof rolesControllerDeletePermissions>>
+>;
+export type PermissionsControllerFindResult = NonNullable<
+  Awaited<ReturnType<typeof permissionsControllerFind>>
+>;
+export type PermissionsControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof permissionsControllerFindOne>>
 >;
 export type CitiesControllerCreateResult = NonNullable<
   Awaited<ReturnType<typeof citiesControllerCreate>>
@@ -844,30 +1154,6 @@ export type AdminsControllerUpdateResult = NonNullable<
 export type AdminsControllerRemoveResult = NonNullable<
   Awaited<ReturnType<typeof adminsControllerRemove>>
 >;
-export type RolesControllerFindResult = NonNullable<
-  Awaited<ReturnType<typeof rolesControllerFind>>
->;
-export type RolesControllerCreateResult = NonNullable<
-  Awaited<ReturnType<typeof rolesControllerCreate>>
->;
-export type RolesControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof rolesControllerFindOne>>
->;
-export type RolesControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof rolesControllerUpdate>>
->;
-export type RolesControllerAddPermissionsResult = NonNullable<
-  Awaited<ReturnType<typeof rolesControllerAddPermissions>>
->;
-export type RolesControllerDeletePermissionsResult = NonNullable<
-  Awaited<ReturnType<typeof rolesControllerDeletePermissions>>
->;
-export type PermissionsControllerFindResult = NonNullable<
-  Awaited<ReturnType<typeof permissionsControllerFind>>
->;
-export type PermissionsControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof permissionsControllerFindOne>>
->;
 export type AuthDriverControllerSignupResult = NonNullable<
   Awaited<ReturnType<typeof authDriverControllerSignup>>
 >;
@@ -904,9 +1190,75 @@ export type DriversControllerUpdateResult = NonNullable<
 export type DriversControllerRemoveResult = NonNullable<
   Awaited<ReturnType<typeof driversControllerRemove>>
 >;
+export type CarControllerFindMineResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerFindMine>>
+>;
+export type CarControllerFindAllResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerFindAll>>
+>;
+export type CarControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerFindOne>>
+>;
+export type CarControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerUpdate>>
+>;
+export type CarControllerDeleteResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerDelete>>
+>;
+export type CarControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerCreate>>
+>;
+export type CarControllerAddAdvantagesToCarResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerAddAdvantagesToCar>>
+>;
+export type CarControllerRemoveAdvantagesFromCarResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerRemoveAdvantagesFromCar>>
+>;
+export type AdvantagesControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerCreate>>
+>;
+export type AdvantagesControllerFindAllResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerFindAll>>
+>;
+export type AdvantagesControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerFindOne>>
+>;
+export type AdvantagesControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerUpdate>>
+>;
+export type AdvantagesControllerRemoveResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerRemove>>
+>;
 export type PhotosControllerUploadSingleResult = NonNullable<
   Awaited<ReturnType<typeof photosControllerUploadSingle>>
 >;
 export type PhotosControllerUploadMultipleResult = NonNullable<
   Awaited<ReturnType<typeof photosControllerUploadMultiple>>
+>;
+export type OrderControllerFindMineResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindMine>>
+>;
+export type OrderControllerFindAllResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindAll>>
+>;
+export type OrderControllerFindAllwaitingResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindAllwaiting>>
+>;
+export type OrderControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindOne>>
+>;
+export type OrderControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerUpdate>>
+>;
+export type OrderControllerDeleteResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerDelete>>
+>;
+export type OrderControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerCreate>>
+>;
+export type OrderControllerAddAdvantagesToOrderResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerAddAdvantagesToOrder>>
+>;
+export type OrderControllerRemoveAdvantagesFromOrderResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerRemoveAdvantagesFromOrder>>
 >;

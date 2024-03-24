@@ -25,11 +25,13 @@ type Feedbacks = {
 };
 export function parseResponseError({ showToast = true, setFormError }: Feedbacks) {
   return (err: FetchError<ApiError>) => {
+    console.log(err);
     const data = err.data;
-    if (showToast && data.error.response.message) {
+    if (!data) ToastAndroid.show(String(err), ToastAndroid.SHORT);
+    if (showToast && data?.error?.response?.message) {
       ToastAndroid.show(data.error.response.message, ToastAndroid.SHORT);
     }
-    if (data.error.response.errors) {
+    if (data?.error?.response?.errors) {
       if (setFormError) {
         data.error.response.errors?.forEach((error) =>
           setFormError?.(`${error.path.join(".")}`, { message: error.message })
@@ -37,6 +39,6 @@ export function parseResponseError({ showToast = true, setFormError }: Feedbacks
       }
     }
 
-    if (data.error) return err;
+    return err;
   };
 }

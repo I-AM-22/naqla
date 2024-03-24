@@ -1,3 +1,5 @@
+import { userStore } from "@/stores/userStore";
+
 export type FetchOptions = {
   baseURL?: string;
   headers?: Record<string, string>;
@@ -22,6 +24,7 @@ export type FetchError<T = unknown> = {
   status: number;
 };
 
+let token = userStore.getState().user?.token;
 export const getResponseBody = <T>(response: Response): Promise<T> => {
   const contentType = response.headers.get("content-type");
 
@@ -44,6 +47,7 @@ export const fetchInstance = async <T>(
   const isJson = config.headers?.["Content-Type"] === "application/json";
 
   const headers = {
+    authorization: config.headers?.["authorization"] ?? `Bearer ${token}`,
     ...config.headers,
     ...(isJson ? { "Content-Type": "application/json" } : {}),
   };
@@ -54,7 +58,7 @@ export const fetchInstance = async <T>(
   }
 
   const response = await fetch(
-    `http://192.168.1.110:5500${config.url}` +
+    `${process.env.EXPO_PUBLIC_SERVER_URL}${config.url}` +
       (config.params ? `?${new URLSearchParams(config.params)}` : ""),
     {
       method: config.method,
@@ -81,3 +85,6 @@ export const fetchInstance = async <T>(
     data,
   };
 };
+userStore.subscribe(({ user }) => {
+  token = user?.token;
+});
