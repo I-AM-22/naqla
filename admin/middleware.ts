@@ -7,7 +7,7 @@ function getLocale(request: NextRequest) {
   if (cookies().get("locale")) {
     request.headers.set(
       "accept-language",
-      cookies().get("locale")?.value ?? "",
+      cookies().get("locale")?.value ?? "ar",
     );
   }
   let languages = new Negotiator({

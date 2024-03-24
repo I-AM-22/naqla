@@ -22,7 +22,6 @@ const LoadingButton = forwardRef(function Fr(
     <Button
       ref={ref}
       disabled={isLoading || error || disabled}
-      variant="secondary"
       type="submit"
       {...props}
     >

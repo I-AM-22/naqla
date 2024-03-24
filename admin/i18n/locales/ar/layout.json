@@ -1,6 +1,7 @@
 {
   "navigation": {
-    "home": "الصفحة الرئيسية",
+    "home": "الرئيسية",
+    "car-advantages": "ميزات السيارات",
     "preferences": "التفضيلات"
   },
   "logout": "تسجيل الخروج",

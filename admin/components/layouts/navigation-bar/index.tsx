@@ -18,7 +18,7 @@ import { useUser } from "@/hooks/use-user";
 import { useTranslation } from "@/i18n/client";
 import { locales } from "@/i18n/settings";
 import { cn } from "@/lib/utils";
-import { Home, Menu, User } from "lucide-react";
+import { CarFront, Home, Menu, User } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -28,29 +28,27 @@ import { Route } from "./type";
 
 const routes: Route[][] = [
   [
-    { link: "/", icon: <Home />, label: "home", key: "home1" },
-    { link: "/", icon: <Home />, label: "home", key: "home2" },
-    { link: "/", icon: <Home />, label: "home", key: "home3" },
-    { link: "/", icon: <Home />, label: "home", key: "home4" },
+    {
+      href: "/",
+      icon: <Home />,
+      label: "home",
+      key: "",
+    },
   ],
   [
-    { link: "/", icon: <Home />, label: "home", key: "home5" },
-    { link: "/", icon: <Home />, label: "home", key: "home6" },
-    { link: "/", icon: <Home />, label: "home", key: "home7" },
-    { link: "/", icon: <Home />, label: "home", key: "home8" },
+    {
+      href: "/car-advantages",
+      icon: <CarFront />,
+      label: "car-advantages",
+      key: "car-advantages",
+    },
   ],
-  [
-    { link: "/", icon: <Home />, label: "home", key: "home9" },
-    { link: "/", icon: <Home />, label: "home", key: "home10" },
-    { link: "/", icon: <Home />, label: "home", key: "home11" },
-  ],
-  [{ link: "/", icon: <Home />, label: "home", key: "home12" }],
 ];
 
 export type NavigationBarProps = {};
 export const NavigationBar: FC<NavigationBarProps> = ({}) => {
   const [isOpen, setIsOpen] = useState(true);
-  const activeRoute = usePathname().split("/")[0];
+  const activeRoute = usePathname().split("/")[2] ?? "";
   const { t } = useTranslation("layout");
   const { setTheme, themes, theme } = useTheme();
   const { lng } = useParams<PageProps["params"]>();
@@ -67,7 +65,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
       className={cn(
         "sticky bottom-0 start-0 top-0 flex h-screen max-h-screen flex-col overflow-y-auto border-e-2 border-e-border",
         isOpen && "w-52",
-        !isOpen && "w-fit",
+        !isOpen && "w-fit overflow-hidden",
       )}
     >
       <div className="sticky top-0 me-auto ms-1 bg-background pe-1">
@@ -76,7 +74,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
           onClick={() => setIsOpen((prev) => !prev)}
           className={cn(
             "transition-all duration-200",
-            "flex w-full rounded p-1 [&_svg]:h-7 [&_svg]:w-7 [&_svg]:text-primary", // Layout
+            "flex w-full rounded p-1 [&_svg]:min-h-7 [&_svg]:min-w-7 [&_svg]:text-primary", // Layout
             "bg-background shadow-none hover:bg-accent hover:shadow-sm", // Light mode
           )}
         >
@@ -104,7 +102,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
             <span
               className={cn(
                 "transition-colors duration-200",
-                "flex w-fit rounded p-1 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-primary", // Layout
+                "flex w-fit rounded p-1 [&_svg]:min-h-6 [&_svg]:min-w-6 [&_svg]:text-primary", // Layout
                 "bg-background hover:bg-accent", // Light mode
               )}
             >

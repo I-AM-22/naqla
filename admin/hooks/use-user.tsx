@@ -4,8 +4,6 @@ import { useCookies } from "react-cookie";
 
 export function useUser() {
   const [{ user }] = useCookies(["user"]);
-  console.log(user);
-
   return user as AuthAdminResponse | undefined;
 }
 

@@ -1,3 +1,7 @@
 {
-  "hello": "العالم"
+  "add": "إضافة",
+  "submit": "إرسال",
+  "somethingWentWrong": "حصل خطأ ما!!",
+  "noData": "لا يوجد بيانات",
+  "construction": "قيد التطوير"
 }

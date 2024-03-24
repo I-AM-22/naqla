@@ -1,3 +1,7 @@
+import { getUser } from "@/actions/auth";
+import { AuthAdminResponse } from "@/service/api.schemas";
+import { getCookie } from "@/utils/cookies";
+
 export type FetchOptions = {
   baseURL?: string;
   headers?: Record<string, string>;
@@ -45,15 +49,23 @@ export const getResponseBody = <T>(response: Response): Promise<T> => {
 
   return response.text() as Promise<T>;
 };
-
+export function getUserClient() {
+  const userCookie = getCookie("user");
+  const user = userCookie
+    ? (JSON.parse(userCookie) as AuthAdminResponse)
+    : undefined;
+  return user;
+}
 export const fetchInstance = async <T>(
   config: FetchOptions,
   init?: RequestInit,
 ): Promise<FetchResponse<T>> => {
   const isFormData = config.headers?.["Content-Type"] === "multipart/form-data";
   const isJson = config.headers?.["Content-Type"] === "application/json";
+  const user = typeof window === undefined ? getUserClient() : await getUser();
 
   const headers = {
+    authorization: config.headers?.["authorization"] ?? `Bearer ${user?.token}`,
     ...config.headers,
     ...(isJson ? { "Content-Type": "application/json" } : {}),
   };
@@ -64,7 +76,7 @@ export const fetchInstance = async <T>(
   }
 
   const response = await fetch(
-    `http://192.168.1.110:5500${config.url}` +
+    `${process.env.NEXT_PUBLIC_SERVER_URL}${config.url}` +
       (config.params ? `?${new URLSearchParams(config.params)}` : ""),
     {
       method: config.method,
@@ -74,6 +86,7 @@ export const fetchInstance = async <T>(
       headers,
       signal: config.signal,
       ...init,
+      next: { revalidate: 10, ...init?.next },
     },
   );
 
@@ -85,7 +98,6 @@ export const fetchInstance = async <T>(
       data,
     };
   }
-
   return {
     headers: {
       authorization: response.headers.get("authorization"),

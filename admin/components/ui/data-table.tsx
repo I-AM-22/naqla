@@ -15,6 +15,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useTranslation } from "@/i18n/client";
+import { GalleryHorizontalEnd } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -26,12 +28,14 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
+    manualPagination: true,
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+  const { t } = useTranslation();
   return (
-    <div className="rounded-md border">
+    <div className="w-full rounded-md border">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -68,7 +72,10 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                <p className="flex flex-col items-center gap-2 text-xl">
+                  <GalleryHorizontalEnd size={100} />
+                  {t("noData")}...
+                </p>
               </TableCell>
             </TableRow>
           )}

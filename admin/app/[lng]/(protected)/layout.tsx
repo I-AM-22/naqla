@@ -10,7 +10,7 @@ export default async function Layout({ children }: LayoutProps) {
   return (
     <div className="flex">
       <NavigationBar />
-      {children}
+      <div className="flex w-full flex-col p-4">{children}</div>
     </div>
   );
 }

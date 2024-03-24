@@ -19,6 +19,7 @@ export function useMutation<TData, TResult, TForm extends FieldValues>(
         return result;
       })
       .catch((err) => {
+        console.error(err);
         options?.onError?.(err) ??
           parseResponseError({ setFormError: form?.setError })(err);
         return undefined;

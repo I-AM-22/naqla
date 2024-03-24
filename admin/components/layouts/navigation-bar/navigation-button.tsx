@@ -27,15 +27,15 @@ export const NavigationButton = ({
       <Tooltip delayDuration={0}>
         <TooltipTrigger tabIndex={-1}>
           <ConditionalWrap
-            condition={route.link !== undefined}
-            wrap={(children) => <Link href={route.link ?? ""}>{children}</Link>}
+            condition={route.href !== undefined}
+            wrap={(children) => <Link href={route.href ?? ""}>{children}</Link>}
           >
             <span
               className={cn(
                 "transition-colors duration-200",
-                "flex w-fit rounded p-1 [&_svg]:h-6 [&_svg]:w-6 [&_svg]:text-primary", // Layout
+                "flex w-full rounded p-1 [&_svg]:min-h-6 [&_svg]:min-w-6 [&_svg]:text-primary", // Layout
                 "bg-background hover:bg-accent", // Light mode
-                `${isActive ? "bg-selection text-foreground shadow-sm" : ""}`,
+                `${isActive ? "bg-foreground/5 text-foreground shadow-sm" : ""}`,
               )}
             >
               {route.icon}

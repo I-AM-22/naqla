@@ -1,19 +1,14 @@
-import { Payment } from "./columns";
+import { PageProps } from "@/app/type";
+import { getTranslation } from "@/i18n/server";
+import { Construction } from "lucide-react";
 
-export default async function Page() {
-  const data = await getData();
+export default async function Page(props: PageProps) {
+  const { t } = await getTranslation(props.params.lng);
 
-  return <div className="container mx-auto py-10"></div>;
-}
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    // ...
-  ];
+  return (
+    <div className="container w-full py-10">
+      <Construction size={400} className="mx-auto" />
+      <p className="text-center text-7xl">{t("construction")}...</p>
+    </div>
+  );
 }
