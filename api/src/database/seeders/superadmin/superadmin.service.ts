@@ -27,7 +27,7 @@ export class SuperadminService {
     @InjectRepository(Admin)
     private readonly adminRepository: Repository<Admin>,
     @InjectRepository(AdminPhoto)
-    private adminPhotosRepository: Repository<AdminPhoto>,
+    private adminPhotoRepository: Repository<AdminPhoto>,
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
     @Inject(SuperAdminInfo.KEY)
@@ -61,7 +61,7 @@ export class SuperadminService {
           photos: [],
           role,
         });
-        admin.photos.push(this.adminPhotosRepository.create(defaultPhoto));
+        admin.photos.push(this.adminPhotoRepository.create(defaultPhoto));
         return Promise.resolve(
           // or create(superadmin).then(() => { ... });
           await this.adminRepository.save(admin),

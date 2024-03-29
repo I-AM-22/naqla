@@ -9,7 +9,7 @@ import { IEmployeeRepository } from '../interfaces/repositories/employee.reposit
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { BaseAuthRepo } from '../../../common/base';
 import { EmployeePhoto } from '../entities/employee-photo.entity';
-import { IPhotosRepository } from '../../../common/interfaces';
+import { IPhotoRepository } from '../../../common/interfaces';
 
 @Injectable()
 export class EmployeeRepository
@@ -19,8 +19,8 @@ export class EmployeeRepository
   constructor(
     @InjectRepository(Employee)
     private readonly employeeRepo: Repository<Employee>,
-    @Inject(EMPLOYEE_TYPES.repository.employee_photos)
-    private readonly employeePhotosRepository: IPhotosRepository<EmployeePhoto>,
+    @Inject(EMPLOYEE_TYPES.repository.photo)
+    private readonly employeePhotoRepository: IPhotoRepository<EmployeePhoto>,
   ) {
     super(employeeRepo);
   }

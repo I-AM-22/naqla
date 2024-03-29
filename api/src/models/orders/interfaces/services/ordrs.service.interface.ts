@@ -6,13 +6,13 @@ import { User } from '../../../users/entities/user.entity';
 
 export interface IOrdersService {
   find(): Promise<Order[]>;
-  findwaiting(): Promise<Order[]>;
-  findMyOrders(driverId: string): Promise<Order[]>;
+  findWaiting(): Promise<Order[]>;
+  findMyOrders(userId: string): Promise<Order[]>;
   findOne(id: string): Promise<Order>;
-  findOneForOwner(id: string, driverId: string): Promise<Order>;
+  findOneForOwner(id: string, userId: string): Promise<Order>;
   create(user: User, dto: CreateOrderDto): Promise<Order>;
   update(id: string, user: User, dto: UpdateOrderDto): Promise<Order>;
-  delete(id: string, orderId: string): Promise<void>;
+  delete(id: string, userId: string): Promise<void>;
   addAdvantagesToOrder(
     id: string,
     createAdvantageDto: AddAdvansToOrderDto,

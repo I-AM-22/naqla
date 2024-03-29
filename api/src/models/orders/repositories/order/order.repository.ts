@@ -12,15 +12,14 @@ import { User } from '../../../users';
 export class OrderRepository implements IOrderRepository {
   constructor(
     @InjectRepository(Order)
-    private readonly OrderRepository: Repository<Order>,
+    private readonly orderRepository: Repository<Order>,
   ) {}
 
   async find(): Promise<Order[]> {
-    return this.OrderRepository.find({
+    return this.orderRepository.find({
       select: {
         id: true,
-        receiving_date: true,
-        cost: true,
+        desiredDate: true,
         locationStart: {
           longitude: true,
           latitude: true,
@@ -42,12 +41,11 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async findwaiting(): Promise<Order[]> {
-    return this.OrderRepository.find({
+  async findWaiting(): Promise<Order[]> {
+    return this.orderRepository.find({
       select: {
         id: true,
-        receiving_date: true,
-        cost: true,
+        desiredDate: true,
         locationStart: {
           longitude: true,
           latitude: true,
@@ -72,19 +70,18 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findMyOrder(userId: string): Promise<Order[]> {
-    return this.OrderRepository.find({
+    return this.orderRepository.find({
       where: { userId },
       relations: { advantages: true },
     });
   }
 
   async findOneForOwner(id: string, userId: string): Promise<Order> {
-    return this.OrderRepository.findOne({
+    return this.orderRepository.findOne({
       where: { id, userId },
       select: {
         id: true,
-        receiving_date: true,
-        cost: true,
+        desiredDate: true,
         locationStart: {
           longitude: true,
           latitude: true,
@@ -108,7 +105,7 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findOne(id: string): Promise<Order> {
-    return this.OrderRepository.findOne({ where: { id } });
+    return this.orderRepository.findOne({ where: { id } });
   }
 
   async create(
@@ -116,16 +113,13 @@ export class OrderRepository implements IOrderRepository {
     photos: OrderPhoto[],
     dto: CreateOrderDto,
   ): Promise<Order> {
-    const order = this.OrderRepository.create();
-    order.receiving_date = dto.receiving_date;
+    const order = this.orderRepository.create({ photos: [] });
+    order.desiredDate = dto.desiredDate;
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
-    order.photos = photos;
+    order.photos.push(...photos);
     order.user = user;
-    order.userId = user.id;
-    order.cost = 0;
-    order.status = 'waiting';
-    return this.OrderRepository.save(order);
+    return this.orderRepository.save(order);
   }
 
   async update(
@@ -134,27 +128,26 @@ export class OrderRepository implements IOrderRepository {
     dto: UpdateOrderDto,
     photos: OrderPhoto[],
   ): Promise<Order> {
-    order.receiving_date = dto.receiving_date;
+    order.desiredDate = dto.desiredDate;
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
     order.status = dto.status;
-    order.photos = photos;
-    order.userId = user.id;
-    order.cost = dto.cost;
-    this.OrderRepository.save(Order);
+    order.photos.push(...photos);
+    this.orderRepository.save(Order);
 
     return this.findOne(order.id);
   }
 
   async delete(order: Order): Promise<void> {
-    await this.OrderRepository.softRemove(order);
+    await this.orderRepository.softRemove(order);
   }
 
   async addAdvantageToOrder(
     order: Order,
     advantages: Advantage[],
   ): Promise<void> {
-    await this.OrderRepository.createQueryBuilder()
+    await this.orderRepository
+      .createQueryBuilder()
       .relation(Order, 'advantages')
       .of(order)
       .add(advantages);
@@ -164,21 +157,22 @@ export class OrderRepository implements IOrderRepository {
     order: Order,
     advantage: Advantage,
   ): Promise<void> {
-    await this.OrderRepository.createQueryBuilder()
+    await this.orderRepository
+      .createQueryBuilder()
       .relation(Order, 'advantages')
       .of(order)
       .remove(advantage);
   }
 
   // async addPhotoToOrder(order: Order, advantages: Advantage[]): Promise<void> {
-  //   await this.OrderRepository.createQueryBuilder()
+  //   await this.orderRepository.createQueryBuilder()
   //     .relation(Order, 'advantages')
   //     .of(order)
   //     .add(advantages);
   // }
 
   // async removePhotoFromOrder(order: Order, photo: OrderPhoto): Promise<void> {
-  //   await this.OrderRepository.createQueryBuilder()
+  //   await this.orderRepository.createQueryBuilder()
   //     .relation(Order, 'photo')
   //     .of(order)
   //     .remove(photo);

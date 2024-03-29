@@ -7,7 +7,7 @@ import { User } from '../../../users/entities/user.entity';
 
 export interface IOrderRepository {
   find(): Promise<Order[]>;
-  findwaiting(): Promise<Order[]>;
+  findWaiting(): Promise<Order[]>;
   findMyOrder(userId: string): Promise<Order[]>;
   findOne(id: string): Promise<Order>;
   findOneForOwner(id: string, userId: string): Promise<Order>;

@@ -6,6 +6,7 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { GlobalEntity } from '../../../common/base';
 import { OrderPhoto } from './order-photo.entity';
@@ -14,44 +15,24 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Advantage } from '../../advantages/entities/advantage.entity';
 import { User } from '../../users/entities/user.entity';
 import { GROUPS } from '../../../common/enums';
+import { Location } from '../interfaces/location.interface';
+import { ORDER_STATUSES } from '../../../common/enums/order-statuses.enum';
+import { Payment } from './payment.entity';
 
-export class Location {
-  @ApiProperty()
-  longitude: number;
-
-  @ApiProperty()
-  latitude: number;
-
-  @ApiProperty()
-  region: string;
-
-  @ApiProperty()
-  street: string;
-}
-// type Location = {
-//   longitude: number;
-//   latitude: number;
-//   region: string;
-//   street: string;
-// };
 @Entity('orders')
 export class Order extends GlobalEntity {
   @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
   @ApiProperty()
   @Column()
-  receiving_date: Date;
+  desiredDate: Date;
 
-  @ApiProperty({ default: 'waiting' })
+  @ApiProperty({ default: ORDER_STATUSES.WAITING, enum: ORDER_STATUSES })
   @Column()
   status: string;
 
   @ApiProperty()
-  @Column()
-  cost: number;
-
-  @ApiProperty()
-  @Column({ type: 'jsonb', nullable: true })
   @Type(() => Location)
+  @Column({ type: 'jsonb', nullable: true })
   locationStart: Location; // Using custom type for locationStart
 
   @ApiProperty()
@@ -60,11 +41,11 @@ export class Order extends GlobalEntity {
   locationEnd: Location; // Using custom type for locationEnd
 
   @ManyToOne(() => User, (user) => user.orders)
-  @JoinColumn()
+  @JoinColumn({ referencedColumnName: 'id', name: 'userId' })
   user: User;
 
   @Exclude()
-  @Column()
+  @Column('uuid')
   userId: string;
 
   @ApiProperty()
@@ -80,4 +61,15 @@ export class Order extends GlobalEntity {
   })
   @JoinTable({ name: 'orders_advantages' })
   advantages: Advantage[];
+
+  @ApiProperty()
+  @OneToOne(() => Payment, (payment) => payment.order, {
+    cascade: true,
+  })
+  @JoinColumn({ referencedColumnName: 'id', name: 'paymentId' })
+  payment: Payment;
+
+  @Exclude()
+  @Column('uuid')
+  paymentId: string;
 }

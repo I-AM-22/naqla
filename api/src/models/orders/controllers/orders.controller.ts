@@ -5,20 +5,17 @@ import {
   Post,
   Body,
   Inject,
-  UseGuards,
   UseInterceptors,
   ParseUUIDPipe,
-  // SerializeOptions,
 } from '@nestjs/common';
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Param, Get, Patch, Delete } from '@nestjs/common';
 import { Order } from '../entities/order.entity';
 import { IOrdersService } from '../interfaces/services/ordrs.service.interface';
 import { ORDER_TYPES } from '../interfaces/type';
-import { GetUser, Roles } from '../../../common/decorators';
+import { Auth, GetUser, Id, Roles } from '../../../common/decorators';
 import { User } from '../../users/entities/user.entity';
 import {
-  ApiBearerAuth,
   ApiBadRequestResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
@@ -32,24 +29,21 @@ import {
   denied_error,
   data_not_found,
 } from '../../../common/constants';
-import { CaslAbilitiesGuard, RolesGuard } from '../../../common/guards';
 import { LoggingInterceptor } from '../../../common/interceptors';
 import { ROLE } from '../../../common/enums';
 
 @ApiTags('Orders')
-@ApiBearerAuth('token')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })
+@Auth()
 @UseInterceptors(new LoggingInterceptor())
-@UseGuards(CaslAbilitiesGuard, RolesGuard)
 @Controller({ path: 'orders', version: '1' })
 export class OrderController {
   constructor(
     @Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService,
   ) {}
 
-  // @SerializeOptions({ groups: [GROUPS.ALL_OrderS] })
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('mine')
@@ -57,7 +51,6 @@ export class OrderController {
     return this.ordersService.findMyOrders(userId);
   }
 
-  // @SerializeOptions({ groups: [GROUPS.Order] })
   @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('all')
@@ -68,23 +61,21 @@ export class OrderController {
   @Roles(ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('waiting')
-  async findAllwaiting(): Promise<Order[]> {
-    return this.ordersService.findwaiting();
+  async findAllWaiting(): Promise<Order[]> {
+    return this.ordersService.findWaiting();
   }
 
-  // @SerializeOptions({ groups: [GROUPS.Order] })
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order })
   @Get(':id')
   async findOne(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Id() id: string,
     @GetUser('id') userId: string,
   ): Promise<Order> {
     const order = await this.ordersService.findOneForOwner(id, userId);
     return order;
   }
 
-  // @SerializeOptions({ groups: [GROUPS.Order] })
   @Roles(ROLE.USER)
   @ApiCreatedResponse({ type: Order })
   @Post()
@@ -95,12 +86,11 @@ export class OrderController {
     return await this.ordersService.create(user, createOrderDto);
   }
 
-  // @SerializeOptions({ groups: [GROUPS.Order] })
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order })
   @Patch(':id')
   async update(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Id() id: string,
     @GetUser() user: User,
     @Body() dto: UpdateOrderDto,
   ): Promise<Order> {
@@ -110,18 +100,15 @@ export class OrderController {
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiNoContentResponse()
   @Delete(':id')
-  async delete(
-    @Param('id', ParseUUIDPipe) id: string,
-    @GetUser('id') driverId: string,
-  ): Promise<void> {
-    await this.ordersService.delete(id, driverId);
+  async delete(@Id() id: string, @GetUser('id') userId: string): Promise<void> {
+    await this.ordersService.delete(id, userId);
   }
 
   @Roles(ROLE.USER)
   @ApiOkResponse()
   @Post(':id/advantages')
   async addAdvantagesToOrder(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Id() id: string,
     @Body() createAdvantageDto: AddAdvansToOrderDto,
     @GetUser() user: User,
   ) {
@@ -136,7 +123,7 @@ export class OrderController {
   @ApiOkResponse()
   @Delete(':id/advantages/:advantageId')
   async removeAdvantagesFromOrder(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Id() id: string,
     @Param('advantageId', ParseUUIDPipe) advantageId: string,
     @GetUser() user: User,
   ) {

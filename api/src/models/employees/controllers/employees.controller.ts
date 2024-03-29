@@ -17,8 +17,6 @@ import {
   HttpCode,
   HttpStatus,
   Inject,
-  Param,
-  ParseUUIDPipe,
   Patch,
   Post,
   Req,
@@ -26,7 +24,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { Public, CheckAbilities } from '../../../common/decorators';
+import { Public, CheckAbilities, Id, Auth } from '../../../common/decorators';
 import { GROUPS, Entities, Action } from '../../../common/enums';
 import { CaslAbilitiesGuard } from '../../../common/guards';
 import {
@@ -47,11 +45,10 @@ import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { IEmployeeService } from '../interfaces/employee-services.interface';
 
 @ApiTags('Employees')
-@ApiBearerAuth('token')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })
-@UseGuards(CaslAbilitiesGuard)
+@Auth()
 @Controller({ path: 'employees', version: '1' })
 export class EmployeesController implements ICrud<Employee> {
   constructor(
@@ -93,7 +90,7 @@ export class EmployeesController implements ICrud<Employee> {
   @ApiOkResponse({ type: Employee })
   @CheckAbilities({ action: Action.Read, subject: Entities.Employee })
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
+  findOne(@Id() id: string) {
     return this.employeesService.findOne(id);
   }
 
@@ -101,10 +98,7 @@ export class EmployeesController implements ICrud<Employee> {
   @ApiOkResponse({ type: Employee })
   @CheckAbilities({ action: Action.Update, subject: Entities.Employee })
   @Patch(':id')
-  update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() dto: UpdateEmployeeDto,
-  ) {
+  update(@Id() id: string, @Body() dto: UpdateEmployeeDto) {
     return this.employeesService.update(id, dto);
   }
 
@@ -112,7 +106,7 @@ export class EmployeesController implements ICrud<Employee> {
   @CheckAbilities({ action: Action.Delete, subject: Entities.Employee })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id', ParseUUIDPipe) id: string) {
+  remove(@Id() id: string) {
     return this.employeesService.remove(id);
   }
 
@@ -121,7 +115,7 @@ export class EmployeesController implements ICrud<Employee> {
   // @SerializeOptions({ groups: [GROUPS.EMPLOYEE] })
   // @HttpCode(HttpStatus.OK)
   // @Post(':id/recover')
-  // recover(@Param('id', ParseUUIDPipe) id: string) {
+  // recover(@Id() id: string) {
   //   return this.employeesService.recover(id);
   // }
 }

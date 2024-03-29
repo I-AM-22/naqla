@@ -4,10 +4,7 @@ import {
   Post,
   Body,
   Patch,
-  Param,
   Delete,
-  UseGuards,
-  ParseUUIDPipe,
   HttpCode,
   HttpStatus,
   SerializeOptions,
@@ -17,7 +14,6 @@ import { UpdateAdminDto, CreateAdminDto, LoginAdminDto } from '../dtos';
 
 import {
   ApiBadRequestResponse,
-  ApiBearerAuth,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -31,21 +27,25 @@ import {
   CheckAbilities,
   GetUser,
   Roles,
+  Id,
+  Auth,
 } from '../../../common/decorators';
 import { GROUPS, Entities, Action, ROLE } from '../../../common/enums';
-import { CaslAbilitiesGuard, RolesGuard } from '../../../common/guards';
 import { ICrud } from '../../../common/interfaces';
 import { AuthAdminResponse } from '../interfaces';
-import { denied_error, item_not_found } from '../../../common/constants';
+import {
+  bad_req,
+  denied_error,
+  item_not_found,
+} from '../../../common/constants';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
 
 @ApiTags('Admins')
-@ApiBearerAuth('token')
-@ApiBadRequestResponse({ description: 'Bad request' })
+@ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: item_not_found('Data') })
-@UseGuards(CaslAbilitiesGuard, RolesGuard)
+@Auth()
 @Controller({ path: 'admins', version: '1' })
 export class AdminsController implements ICrud<Admin> {
   constructor(
@@ -88,7 +88,7 @@ export class AdminsController implements ICrud<Admin> {
   @SerializeOptions({ groups: [GROUPS.ADMIN] })
   @CheckAbilities({ action: Action.Read, subject: Entities.Admin })
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string, @GetUser('role') role: Role) {
+  findOne(@Id() id: string, @GetUser('role') role: Role) {
     return this.adminsService.findOne(id, role.name);
   }
 
@@ -97,7 +97,7 @@ export class AdminsController implements ICrud<Admin> {
   @SerializeOptions({ groups: [GROUPS.ADMIN] })
   @CheckAbilities({ action: Action.Update, subject: Entities.Admin })
   @Patch(':id')
-  update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateAdminDto) {
+  update(@Id() id: string, @Body() dto: UpdateAdminDto) {
     return this.adminsService.update(id, dto);
   }
 
@@ -105,7 +105,7 @@ export class AdminsController implements ICrud<Admin> {
   @Roles(ROLE.ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id', ParseUUIDPipe) id: string) {
+  remove(@Id() id: string) {
     return this.adminsService.remove(id);
   }
 
@@ -114,7 +114,7 @@ export class AdminsController implements ICrud<Admin> {
   // @SerializeOptions({ groups: [GROUPS.ADMIN] })
   // @HttpCode(HttpStatus.OK)
   // @Post(':id/recover')
-  // recover(@Param('id', ParseUUIDPipe) id: string) {
+  // recover(@Id() id: string) {
   //   return this.adminsService.recover(id);
   // }
 }

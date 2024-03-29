@@ -1,6 +1,6 @@
 import { IPhoto } from './photos.interface';
 
-export interface IPhotosRepository<T> {
+export interface IPhotoRepository<T> {
   create(params: IPhoto): T;
   uploadPhoto(path: string): Promise<T>;
   findPhotosByOwner?(ownerId: string): Promise<T[]>;

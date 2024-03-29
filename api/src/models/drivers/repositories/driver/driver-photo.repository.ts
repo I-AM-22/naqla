@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IPhoto } from '../../../../common/interfaces';
 
 @Injectable()
-export class DriverPhotosRepository {
+export class DriverPhotoRepository {
   constructor(
     @InjectRepository(DriverPhoto)
     private readonly driverPhotoRepo: Repository<DriverPhoto>,

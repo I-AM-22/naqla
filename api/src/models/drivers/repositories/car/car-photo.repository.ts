@@ -3,10 +3,10 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CloudinaryService } from '../../../../shared/cloudinary';
 import { CarPhoto } from '../../entities/car-photo.entity';
-import { IPhoto, IPhotosRepository } from '../../../../common/interfaces';
+import { IPhoto, IPhotoRepository } from '../../../../common/interfaces';
 
 @Injectable()
-export class CarPhotoRepository implements IPhotosRepository<CarPhoto> {
+export class CarPhotoRepository implements IPhotoRepository<CarPhoto> {
   constructor(
     @InjectRepository(CarPhoto)
     private readonly carPhotoRepo: Repository<CarPhoto>,

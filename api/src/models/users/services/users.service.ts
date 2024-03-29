@@ -19,7 +19,7 @@ import { UpdateUserPhoneDto } from '../../../auth-user';
 import { ROLE_TYPES } from '../../roles/interfaces/type';
 import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
 import {
-  IPhotosRepository,
+  IPhotoRepository,
   IWalletRepository,
 } from '../../../common/interfaces';
 import { UserWallet } from '../entities/user-wallet.entity';
@@ -29,8 +29,8 @@ export class UsersService implements IUsersService {
   constructor(
     @Inject(USER_TYPES.repository.user)
     private userRepository: IUserRepository,
-    @Inject(USER_TYPES.repository.photos)
-    private userPhotosRepository: IPhotosRepository<UserPhoto>,
+    @Inject(USER_TYPES.repository.photo)
+    private userPhotoRepository: IPhotoRepository<UserPhoto>,
     @Inject(USER_TYPES.repository.wallet)
     private userWalletRepository: IWalletRepository<UserWallet>,
     @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
@@ -42,8 +42,8 @@ export class UsersService implements IUsersService {
     const role = await this.rolesService.findByName(ROLE.USER);
     let photo;
     if (dto.photo)
-      photo = await this.userPhotosRepository.uploadPhoto(dto.photo);
-    else photo = await this.userPhotosRepository.uploadPhoto(defaultPhotoUrl);
+      photo = await this.userPhotoRepository.uploadPhoto(dto.photo);
+    else photo = await this.userPhotoRepository.uploadPhoto(defaultPhotoUrl);
     const wallet = this.userWalletRepository.create();
     return this.userRepository.create(dto, wallet, photo, role);
   }
@@ -68,7 +68,7 @@ export class UsersService implements IUsersService {
   }
 
   async updateMe(user: User, dto: UpdateUserDto): Promise<User> {
-    const photo = await this.userPhotosRepository.uploadPhoto(dto.photo);
+    const photo = await this.userPhotoRepository.uploadPhoto(dto.photo);
     const updateUser = await this.userRepository.update(user, dto, photo);
     return updateUser;
   }
@@ -78,12 +78,12 @@ export class UsersService implements IUsersService {
   }
 
   async getMyPhotos(user: User): Promise<UserPhoto[]> {
-    return this.userPhotosRepository.findPhotosByOwner(user.id);
+    return this.userPhotoRepository.findPhotosByOwner(user.id);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
     const user = await this.findOne(id);
-    const photo = await this.userPhotosRepository.uploadPhoto(dto.photo);
+    const photo = await this.userPhotoRepository.uploadPhoto(dto.photo);
     const updateUser = await this.userRepository.update(user, dto, photo);
     return updateUser;
   }

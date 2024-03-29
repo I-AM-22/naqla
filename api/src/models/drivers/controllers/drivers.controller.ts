@@ -1,5 +1,4 @@
 import {
-  UseGuards,
   UseInterceptors,
   Controller,
   SerializeOptions,
@@ -9,15 +8,12 @@ import {
   HttpCode,
   HttpStatus,
   Delete,
-  Param,
-  ParseUUIDPipe,
   Query,
   Req,
   Inject,
 } from '@nestjs/common';
 import {
   ApiTags,
-  ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
   ApiBadRequestResponse,
@@ -28,9 +24,8 @@ import {
 
 import { UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
-import { GetUser, Roles, CheckAbilities } from '../../../common/decorators';
+import { GetUser, Roles, CheckAbilities, Id } from '../../../common/decorators';
 import { GROUPS, ROLE, Entities, Action } from '../../../common/enums';
-import { CaslAbilitiesGuard, RolesGuard } from '../../../common/guards';
 import {
   LoggingInterceptor,
   WithDeletedInterceptor,
@@ -47,12 +42,10 @@ import { IDriversService } from '../interfaces/services/drivers.service.interfac
 import { DRIVER_TYPES } from '../interfaces/type';
 
 @ApiTags('drivers')
-@ApiBearerAuth('token')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })
 @UseInterceptors(new LoggingInterceptor())
-@UseGuards(CaslAbilitiesGuard, RolesGuard)
 @Controller({ path: 'drivers', version: '1' })
 export class DriversController implements ICrud<Driver> {
   constructor(
@@ -122,7 +115,7 @@ export class DriversController implements ICrud<Driver> {
   @ApiOkResponse({ type: Driver })
   @SerializeOptions({ groups: [GROUPS.DRIVER] })
   @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+  async findOne(@Id() id: string) {
     return this.driversService.findOne(id);
   }
 
@@ -130,10 +123,7 @@ export class DriversController implements ICrud<Driver> {
   @SerializeOptions({ groups: [GROUPS.DRIVER] })
   @CheckAbilities({ action: Action.Update, subject: Entities.Driver })
   @Patch(':id')
-  async update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() dto: UpdateDriverDto,
-  ) {
+  async update(@Id() id: string, @Body() dto: UpdateDriverDto) {
     return this.driversService.update(id, dto);
   }
 
@@ -141,7 +131,7 @@ export class DriversController implements ICrud<Driver> {
   @CheckAbilities({ action: Action.Delete, subject: Entities.Driver })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  async remove(@Param('id', ParseUUIDPipe) id: string) {
+  async remove(@Id() id: string) {
     return this.driversService.remove(id);
   }
 
@@ -150,7 +140,7 @@ export class DriversController implements ICrud<Driver> {
   // @SerializeOptions({ groups: [GROUPS.DRIVER] })
   // @HttpCode(HttpStatus.OK)
   // @Post(':id/recover')
-  // async recover(@Param('id', ParseUUIDPipe) id: string) {
+  // async recover(@Id() id: string) {
   //   return this.driversService.recover(id);
   // }
 }

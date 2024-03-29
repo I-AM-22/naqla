@@ -17,9 +17,9 @@ export class OrderPhotoRepository {
     return this.OrderPhotoRepo.create(params);
   }
 
-  async uploadPhotoMulti(path: string[]): Promise<OrderPhoto[]> {
-    if (!path) return;
-    const uploaded = await this.cloudinaryService.uploadMultiplePhotos(path);
+  async uploadPhotoMulti(paths: string[]): Promise<OrderPhoto[]> {
+    if (!paths) return;
+    const uploaded = await this.cloudinaryService.uploadMultiplePhotos(paths);
     const photo = this.OrderPhotoRepo.create(uploaded);
     return photo;
   }

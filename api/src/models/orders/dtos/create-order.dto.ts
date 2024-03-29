@@ -35,7 +35,7 @@ export class LocationDto {
 export class CreateOrderDto {
   @ApiProperty()
   @IsNotEmpty()
-  receiving_date: Date;
+  desiredDate: Date;
 
   @ApiProperty()
   @ValidateNested()

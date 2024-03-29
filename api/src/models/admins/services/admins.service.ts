@@ -20,7 +20,7 @@ import { IAdminRepository } from '../interfaces/repositories/admin.repository.in
 import { JwtTokenService } from '../../../shared/jwt';
 import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
 import { ROLE_TYPES } from '../../roles/interfaces/type';
-import { IPhotosRepository } from '../../../common/interfaces';
+import { IPhotoRepository } from '../../../common/interfaces';
 import { AdminPhoto } from '../entities/admin-photo.entity';
 
 @Injectable()
@@ -28,8 +28,8 @@ export class AdminsService implements IAdminsService {
   constructor(
     @Inject(ADMIN_TYPES.repository.admin)
     private adminRepository: IAdminRepository,
-    @Inject(ADMIN_TYPES.repository.admin_photos)
-    private adminPhotosRepository: IPhotosRepository<AdminPhoto>,
+    @Inject(ADMIN_TYPES.repository.photo)
+    private adminPhotoRepository: IPhotoRepository<AdminPhoto>,
     private jwtTokenService: JwtTokenService,
     @Inject(ROLE_TYPES.service)
     private rolesService: IRolesService,
@@ -65,15 +65,15 @@ export class AdminsService implements IAdminsService {
     const role = await this.rolesService.findByName(ROLE.ADMIN);
     let photo;
     if (dto.photo)
-      photo = await this.adminPhotosRepository.uploadPhoto(dto.photo);
-    else photo = await this.adminPhotosRepository.uploadPhoto(defaultPhotoUrl);
+      photo = await this.adminPhotoRepository.uploadPhoto(dto.photo);
+    else photo = await this.adminPhotoRepository.uploadPhoto(defaultPhotoUrl);
     const admin = await this.adminRepository.create(dto, photo, role);
     return admin;
   }
 
   async update(id: string, dto: UpdateAdminDto): Promise<Admin> {
     const admin = await this.findOne(id);
-    const photo = await this.adminPhotosRepository.uploadPhoto(dto.photo);
+    const photo = await this.adminPhotoRepository.uploadPhoto(dto.photo);
     return this.adminRepository.update(admin, dto, photo);
   }
 

@@ -9,8 +9,6 @@ import {
   HttpCode,
   HttpStatus,
   Delete,
-  Param,
-  ParseUUIDPipe,
   Query,
   Req,
   Inject,
@@ -28,7 +26,7 @@ import {
 
 import { UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
-import { GetUser, Roles, CheckAbilities } from '../../../common/decorators';
+import { GetUser, Roles, CheckAbilities, Id } from '../../../common/decorators';
 import { GROUPS, ROLE, Entities, Action } from '../../../common/enums';
 import { CaslAbilitiesGuard, RolesGuard } from '../../../common/guards';
 import {
@@ -122,7 +120,7 @@ export class UsersController implements ICrud<User> {
   @ApiOkResponse({ type: User })
   @SerializeOptions({ groups: [GROUPS.USER] })
   @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+  async findOne(@Id() id: string) {
     return this.usersService.findOne(id);
   }
 
@@ -130,10 +128,7 @@ export class UsersController implements ICrud<User> {
   @SerializeOptions({ groups: [GROUPS.USER] })
   @CheckAbilities({ action: Action.Update, subject: Entities.User })
   @Patch(':id')
-  async update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() dto: UpdateUserDto,
-  ) {
+  async update(@Id() id: string, @Body() dto: UpdateUserDto) {
     return this.usersService.update(id, dto);
   }
 
@@ -141,7 +136,7 @@ export class UsersController implements ICrud<User> {
   @CheckAbilities({ action: Action.Delete, subject: Entities.User })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  async remove(@Param('id', ParseUUIDPipe) id: string) {
+  async remove(@Id() id: string) {
     return this.usersService.remove(id);
   }
 
@@ -150,7 +145,7 @@ export class UsersController implements ICrud<User> {
   // @SerializeOptions({ groups: [GROUPS.USER] })
   // @HttpCode(HttpStatus.OK)
   // @Post(':id/recover')
-  // async recover(@Param('id', ParseUUIDPipe) id: string) {
+  // async recover(@Id() id: string) {
   //   return this.usersService.recover(id);
   // }
 }

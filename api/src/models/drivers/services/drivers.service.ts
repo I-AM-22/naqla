@@ -20,7 +20,7 @@ import { ROLE_TYPES } from '../../roles/interfaces/type';
 import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
 // import { UpdatePhoneDto } from '../../../auth-driver';
 import {
-  IPhotosRepository,
+  IPhotoRepository,
   IWalletRepository,
 } from '../../../common/interfaces';
 import { DriverWallet } from '../entities/driver-wallet.entity';
@@ -32,8 +32,8 @@ export class DriversService implements IDriversService {
     private driverRepository: IDriverRepository,
     @Inject(DRIVER_TYPES.repository.wallet)
     private driverWalletRepository: IWalletRepository<DriverWallet>,
-    @Inject(DRIVER_TYPES.repository.photos)
-    private driverPhotosRepository: IPhotosRepository<DriverPhoto>,
+    @Inject(DRIVER_TYPES.repository.photo)
+    private driverPhotoRepository: IPhotoRepository<DriverPhoto>,
     @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
     @Inject(CITY_TYPES.service) private citiesService: ICitiesService,
   ) {}
@@ -42,8 +42,8 @@ export class DriversService implements IDriversService {
     const role = await this.rolesService.findByName(ROLE.DRIVER);
     let photo;
     if (dto.photo)
-      photo = await this.driverPhotosRepository.uploadPhoto(dto.photo);
-    else photo = await this.driverPhotosRepository.uploadPhoto(defaultPhotoUrl);
+      photo = await this.driverPhotoRepository.uploadPhoto(dto.photo);
+    else photo = await this.driverPhotoRepository.uploadPhoto(defaultPhotoUrl);
     const wallet = this.driverWalletRepository.create();
     return this.driverRepository.create(dto, wallet, photo, role);
   }
@@ -68,7 +68,7 @@ export class DriversService implements IDriversService {
   }
 
   async updateMe(driver: Driver, dto: UpdateDriverDto): Promise<Driver> {
-    const photo = await this.driverPhotosRepository.uploadPhoto(dto.photo);
+    const photo = await this.driverPhotoRepository.uploadPhoto(dto.photo);
     const updateDriver = await this.driverRepository.update(driver, dto, photo);
     return updateDriver;
   }
@@ -77,12 +77,12 @@ export class DriversService implements IDriversService {
     await this.driverRepository.remove(driver);
   }
   async getMyPhotos(driver: Driver): Promise<DriverPhoto[]> {
-    return this.driverPhotosRepository.findPhotosByOwner(driver.id);
+    return this.driverPhotoRepository.findPhotosByOwner(driver.id);
   }
 
   async update(id: string, dto: UpdateDriverDto): Promise<Driver> {
     const driver = await this.findOne(id);
-    const photo = await this.driverPhotosRepository.uploadPhoto(dto.photo);
+    const photo = await this.driverPhotoRepository.uploadPhoto(dto.photo);
     const updateDriver = await this.driverRepository.update(driver, dto, photo);
     return updateDriver;
   }

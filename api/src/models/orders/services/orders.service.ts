@@ -7,7 +7,7 @@ import { User } from '../../users/entities/user.entity';
 import { IOrdersService } from '../interfaces/services/ordrs.service.interface';
 import { item_not_found } from '../../../common/constants';
 import { Entities } from '../../../common/enums';
-// import { IPhotosRepository } from '../../../common/interfaces';
+// import { IPhotoRepository } from '../../../common/interfaces';
 // import { OrderPhoto } from '../entities/order-photo.entity';
 import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
 import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
@@ -17,7 +17,7 @@ import { OrderPhotoRepository } from '../repositories/order/order-photo.reposito
 export class OrdersService implements IOrdersService {
   constructor(
     @Inject(ORDER_TYPES.repository.order)
-    private readonly OrderRepository: IOrderRepository,
+    private readonly orderRepository: IOrderRepository,
     @Inject(ORDER_TYPES.repository.photo)
     private readonly orderPhotoRepository: OrderPhotoRepository,
     @Inject(ADVANTAGE_TYPES.service)
@@ -25,43 +25,43 @@ export class OrdersService implements IOrdersService {
   ) {}
 
   async find(): Promise<Order[]> {
-    return this.OrderRepository.find();
+    return this.orderRepository.find();
   }
-  async findwaiting(): Promise<Order[]> {
-    return this.OrderRepository.findwaiting();
+  async findWaiting(): Promise<Order[]> {
+    return this.orderRepository.findWaiting();
   }
 
   async findOne(id: string): Promise<Order> {
-    const Order = await this.OrderRepository.findOne(id);
+    const Order = await this.orderRepository.findOne(id);
     if (!Order) throw new NotFoundException(item_not_found(Entities.Order));
     return Order;
   }
 
   async findMyOrders(userId: string): Promise<Order[]> {
-    const object = await this.OrderRepository.findMyOrder(userId);
+    const object = await this.orderRepository.findMyOrder(userId);
     return object;
   }
 
   async findOneForOwner(id: string, userId: string): Promise<Order> {
-    const order = await this.OrderRepository.findOneForOwner(id, userId);
+    const order = await this.orderRepository.findOneForOwner(id, userId);
     if (!order) throw new NotFoundException(item_not_found(Entities.Order));
     return order;
   }
 
   async create(user: User, dto: CreateOrderDto): Promise<Order> {
     const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
-    return this.OrderRepository.create(user, photo, dto);
+    return this.orderRepository.create(user, photo, dto);
   }
 
   async update(id: string, user: User, dto: UpdateOrderDto): Promise<Order> {
     const order = await this.findOneForOwner(id, user.id);
     const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
-    return this.OrderRepository.update(user, order, dto, photo);
+    return this.orderRepository.update(user, order, dto, photo);
   }
 
   async delete(id: string, orderId: string): Promise<void> {
     const order = await this.findOneForOwner(id, orderId);
-    return this.OrderRepository.delete(order);
+    return this.orderRepository.delete(order);
   }
 
   async addAdvantagesToOrder(
@@ -71,7 +71,7 @@ export class OrdersService implements IOrdersService {
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
     const advantages = await this.advantagesService.findInIds(dto.advantages);
-    return this.OrderRepository.addAdvantageToOrder(order, advantages);
+    return this.orderRepository.addAdvantageToOrder(order, advantages);
   }
 
   async removeAdvantagesFromOrder(
@@ -81,6 +81,6 @@ export class OrdersService implements IOrdersService {
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
     const advantage = await this.advantagesService.findOne(advantageId);
-    return this.OrderRepository.removeAdvantageFromOrder(order, advantage);
+    return this.orderRepository.removeAdvantageFromOrder(order, advantage);
   }
 }

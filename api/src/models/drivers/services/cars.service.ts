@@ -7,7 +7,7 @@ import { Driver } from '../entities/driver.entity';
 import { ICarsService } from '../interfaces/services/cars.service.interface';
 import { item_not_found } from '../../../common/constants';
 import { Entities } from '../../../common/enums';
-import { IPhotosRepository } from '../../../common/interfaces';
+import { IPhotoRepository } from '../../../common/interfaces';
 import { CarPhoto } from '../entities/car-photo.entity';
 import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
 import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
@@ -18,7 +18,7 @@ export class CarsService implements ICarsService {
     @Inject(CAR_TYPES.repository.car)
     private readonly carRepository: ICarRepository,
     @Inject(CAR_TYPES.repository.photo)
-    private readonly carPhotoRepository: IPhotosRepository<CarPhoto>,
+    private readonly carPhotoRepository: IPhotoRepository<CarPhoto>,
     @Inject(ADVANTAGE_TYPES.service)
     private readonly advantagesService: IAdvantagesService,
   ) {}

@@ -23,7 +23,7 @@ import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { ROLE_TYPES } from '../../roles/interfaces/type';
 import { LoginEmployeeDto } from '../dtos';
 import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
-import { IPhotosRepository } from '../../../common/interfaces';
+import { IPhotoRepository } from '../../../common/interfaces';
 import { EmployeePhoto } from '../entities/employee-photo.entity';
 
 @Injectable()
@@ -32,8 +32,8 @@ export class EmployeesService implements IEmployeeService {
     private jwtTokenService: JwtTokenService,
     @Inject(EMPLOYEE_TYPES.repository.employee)
     private employeeRepository: IEmployeeRepository,
-    @Inject(EMPLOYEE_TYPES.repository.employee_photos)
-    private employeePhotosRepository: IPhotosRepository<EmployeePhoto>,
+    @Inject(EMPLOYEE_TYPES.repository.photo)
+    private employeePhotoRepository: IPhotoRepository<EmployeePhoto>,
     @Inject(ROLE_TYPES.service)
     private rolesService: IRolesService,
   ) {}
@@ -71,16 +71,16 @@ export class EmployeesService implements IEmployeeService {
     const role = await this.rolesService.findByName(ROLE.EMPLOYEE);
     let photo;
     if (dto.photo)
-      photo = await this.employeePhotosRepository.uploadPhoto(dto.photo);
+      photo = await this.employeePhotoRepository.uploadPhoto(dto.photo);
     else
-      photo = await this.employeePhotosRepository.uploadPhoto(defaultPhotoUrl);
+      photo = await this.employeePhotoRepository.uploadPhoto(defaultPhotoUrl);
 
     return this.employeeRepository.create(dto, photo, role);
   }
 
   async update(id: string, dto: UpdateEmployeeDto): Promise<Employee> {
     const employee = await this.findOne(id);
-    const photo = await this.employeePhotosRepository.uploadPhoto(dto.photo);
+    const photo = await this.employeePhotoRepository.uploadPhoto(dto.photo);
     return this.employeeRepository.update(employee, dto, photo);
   }
 

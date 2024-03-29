@@ -7,7 +7,6 @@ import {
   Body,
   Param,
   Patch,
-  ParseUUIDPipe,
   Delete,
   Inject,
 } from '@nestjs/common';
@@ -26,7 +25,7 @@ import {
 
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities/role.entity';
-import { CheckAbilities } from '../../../common/decorators';
+import { CheckAbilities, Id } from '../../../common/decorators';
 import { Action, Entities, GROUPS } from '../../../common/enums';
 import { CaslAbilitiesGuard } from '../../../common/guards';
 import { ICrud } from '../../../common/interfaces';
@@ -80,7 +79,7 @@ export class RolesController implements ICrud<Role> {
   @SerializeOptions({ groups: [GROUPS.ROLE] })
   @Patch(':id')
   async update(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Id() id: string,
     @Body() dto: UpdateRoleDto,
   ): Promise<Role | undefined> {
     return this.rolesService.update(id, dto);
@@ -91,7 +90,7 @@ export class RolesController implements ICrud<Role> {
   @SerializeOptions({ groups: [GROUPS.ROLE] })
   @Post(':id/permissions')
   async addPermissions(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Id() id: string,
     @Body() dto: UpdateRoleDto,
   ): Promise<Role | undefined> {
     return this.rolesService.addPermissions(id, dto);
@@ -102,7 +101,7 @@ export class RolesController implements ICrud<Role> {
   @SerializeOptions({ groups: [GROUPS.ROLE] })
   @Delete(':id/permissions')
   async deletePermissions(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Id() id: string,
     @Body() dto: UpdateRoleDto,
   ): Promise<Role | undefined> {
     return this.rolesService.deletePermissions(id, dto);

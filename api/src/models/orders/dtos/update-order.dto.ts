@@ -3,6 +3,7 @@ import { Transform, Type } from 'class-transformer';
 import {
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
@@ -15,28 +16,34 @@ import { LocationDto } from './create-order.dto';
 export class UpdateOrderDto {
   @ApiProperty()
   @IsNotEmpty()
-  receiving_date?: Date;
+  @IsOptional()
+  desiredDate?: Date;
 
   @ApiProperty({ default: 'waiting' })
+  @IsOptional()
   @IsString()
   status?: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsNotEmpty()
   @IsNumber()
   cost?: number;
 
   @ApiProperty()
+  @IsOptional()
   @ValidateNested()
   @Type(() => LocationDto)
   locationStart?: LocationDto;
 
   @ApiProperty()
+  @IsOptional()
   @ValidateNested()
   @Type(() => LocationDto)
   locationEnd?: LocationDto;
 
   @ApiProperty()
+  @IsOptional()
   @IsString({ message: 'Please provide a photo' })
   @Transform(({ value }: { value: string[] }) => getPhotosPath(value))
   @IsPhotoExist({ message: item_not_found(Entities.Photo) })

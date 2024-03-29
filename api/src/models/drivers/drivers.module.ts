@@ -1,6 +1,6 @@
 import { Module, Provider } from '@nestjs/common';
 import { DriverRepository } from './repositories/driver/driver.repository';
-import { DriverPhotosRepository } from './repositories/driver/driver-photos.repository';
+import { DriverPhotoRepository } from './repositories/driver/driver-photo.repository';
 import { DriverWalletRepository } from './repositories/driver/driver-wallet.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Driver } from './entities/driver.entity';
@@ -28,9 +28,9 @@ export const DriverRepositoryProvider: Provider = {
   provide: DRIVER_TYPES.repository.driver,
   useClass: DriverRepository,
 };
-export const DriverPhotosRepositoryProvider: Provider = {
-  provide: DRIVER_TYPES.repository.photos,
-  useClass: DriverPhotosRepository,
+export const DriverPhotoRepositoryProvider: Provider = {
+  provide: DRIVER_TYPES.repository.photo,
+  useClass: DriverPhotoRepository,
 };
 
 export const DriverWalletRepositoryProvider: Provider = {
@@ -67,7 +67,7 @@ export const CarPhotoRepositoryProvider: Provider = {
   ],
   controllers: [DriversController, CarController],
   providers: [
-    DriverPhotosRepositoryProvider,
+    DriverPhotoRepositoryProvider,
     DriverRepositoryProvider,
     DriverWalletRepositoryProvider,
     DriversServiceProvider,
@@ -76,7 +76,7 @@ export const CarPhotoRepositoryProvider: Provider = {
     CarPhotoRepositoryProvider,
   ],
   exports: [
-    DriverPhotosRepositoryProvider,
+    DriverPhotoRepositoryProvider,
     DriverRepositoryProvider,
     DriverWalletRepositoryProvider,
     DriversServiceProvider,

@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   Inject,
-  UseGuards,
   UseInterceptors,
   SerializeOptions,
 } from '@nestjs/common';
@@ -17,7 +16,6 @@ import { IAdvantagesService } from '../interfaces/services/advantages.service.in
 import { ADVANTAGE_TYPES } from '../interfaces/type';
 import {
   ApiTags,
-  ApiBearerAuth,
   ApiBadRequestResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
@@ -30,19 +28,17 @@ import {
   denied_error,
   data_not_found,
 } from '../../../common/constants';
-import { CaslAbilitiesGuard, RolesGuard } from '../../../common/guards';
 import { LoggingInterceptor } from '../../../common/interceptors';
 import { Advantage } from '../entities/advantage.entity';
-import { Roles } from '../../../common/decorators';
+import { Auth, Roles } from '../../../common/decorators';
 import { GROUPS, ROLE } from '../../../common/enums';
 
 @ApiTags('advantages')
-@ApiBearerAuth('token')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })
 @UseInterceptors(new LoggingInterceptor())
-@UseGuards(CaslAbilitiesGuard, RolesGuard)
+@Auth()
 @Controller({ path: 'advantages', version: '1' })
 export class AdvantagesController {
   constructor(

@@ -1,10 +1,8 @@
 import {
   Controller,
   Get,
-  Param,
   UseGuards,
   SerializeOptions,
-  ParseUUIDPipe,
   Inject,
 } from '@nestjs/common';
 import { Permission } from '../entities/permission.entity';
@@ -18,7 +16,7 @@ import {
   OmitType,
 } from '@nestjs/swagger';
 import { CaslAbilitiesGuard } from '../../../common/guards';
-import { CheckAbilities } from '../../../common/decorators';
+import { CheckAbilities, Id } from '../../../common/decorators';
 import { Action, Entities, GROUPS } from '../../../common/enums';
 import {
   bad_req,
@@ -54,7 +52,7 @@ export class PermissionsController {
   @ApiOkResponse({ type: Permission })
   @SerializeOptions({ groups: [GROUPS.PERMISSION] })
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
+  findOne(@Id() id: string) {
     return this.permissionsService.findOne(id);
   }
 }
