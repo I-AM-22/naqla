@@ -7,6 +7,7 @@ import { IOrderRepository } from '../../interfaces/repositories/order.repository
 import { OrderPhoto } from '../../entities/order-photo.entity';
 import { Advantage } from '../../../advantages/entities/advantage.entity';
 import { User } from '../../../users';
+import { ORDER_STATUSES } from '../../../../common/enums';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -64,7 +65,7 @@ export class OrderRepository implements IOrderRepository {
         createdAt: true,
         updatedAt: true,
       },
-      where: { status: 'waiting' },
+      where: { status: ORDER_STATUSES.WAITING },
       relations: { user: true, photos: true, advantages: true },
     });
   }
@@ -123,7 +124,6 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async update(
-    user: User,
     order: Order,
     dto: UpdateOrderDto,
     photos: OrderPhoto[],
@@ -131,9 +131,8 @@ export class OrderRepository implements IOrderRepository {
     order.desiredDate = dto.desiredDate;
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
-    order.status = dto.status;
     order.photos.push(...photos);
-    this.orderRepository.save(Order);
+    this.orderRepository.save(order);
 
     return this.findOne(order.id);
   }

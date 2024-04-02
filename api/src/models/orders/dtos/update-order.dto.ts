@@ -19,11 +19,6 @@ export class UpdateOrderDto {
   @IsOptional()
   desiredDate?: Date;
 
-  @ApiProperty({ default: 'waiting' })
-  @IsOptional()
-  @IsString()
-  status?: string;
-
   @ApiProperty()
   @IsOptional()
   @IsNotEmpty()

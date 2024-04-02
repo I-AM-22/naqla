@@ -4,7 +4,7 @@ import { Reflector } from '@nestjs/core';
 import { ForbiddenError } from '@casl/ability';
 import { CaslAbilityFactory, RequiredRole } from '../../shared/casl';
 import { CHECK_ABILITY } from '../decorators';
-import { User } from '../../models/users';
+import { IPerson } from '../interfaces';
 
 @Injectable()
 export class CaslAbilitiesGuard implements CanActivate {
@@ -21,7 +21,7 @@ export class CaslAbilitiesGuard implements CanActivate {
         context.getClass(),
       ]) || [];
     if (!rules.length) return true;
-    const { user }: { user: User } = context.switchToHttp().getRequest();
+    const { user }: { user: IPerson } = context.switchToHttp().getRequest();
     const ability = this.caslAbilityFactory.defineAbility(user);
 
     rules.forEach((rule) =>

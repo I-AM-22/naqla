@@ -16,7 +16,7 @@ import { Advantage } from '../../advantages/entities/advantage.entity';
 import { User } from '../../users/entities/user.entity';
 import { GROUPS } from '../../../common/enums';
 import { Location } from '../interfaces/location.interface';
-import { ORDER_STATUSES } from '../../../common/enums/order-statuses.enum';
+import { ORDER_STATUSES } from '../../../common/enums';
 import { Payment } from './payment.entity';
 
 @Entity('orders')
@@ -26,9 +26,9 @@ export class Order extends GlobalEntity {
   @Column()
   desiredDate: Date;
 
-  @ApiProperty({ default: ORDER_STATUSES.WAITING, enum: ORDER_STATUSES })
-  @Column()
-  status: string;
+  @ApiProperty({ enum: ORDER_STATUSES })
+  @Column({ enum: ORDER_STATUSES, default: ORDER_STATUSES.WAITING })
+  status: ORDER_STATUSES;
 
   @ApiProperty()
   @Type(() => Location)
@@ -70,6 +70,6 @@ export class Order extends GlobalEntity {
   payment: Payment;
 
   @Exclude()
-  @Column('uuid')
+  @Column('uuid', { nullable: true })
   paymentId: string;
 }

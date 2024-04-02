@@ -1,6 +1,5 @@
 import {
   ApiBadRequestResponse,
-  ApiBearerAuth,
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -21,12 +20,10 @@ import {
   Post,
   Req,
   SerializeOptions,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { Public, CheckAbilities, Id, Auth } from '../../../common/decorators';
 import { GROUPS, Entities, Action } from '../../../common/enums';
-import { CaslAbilitiesGuard } from '../../../common/guards';
 import {
   CreateEmployeeDto,
   LoginEmployeeDto,
@@ -42,7 +39,7 @@ import {
 import { WithDeletedInterceptor } from '../../../common/interceptors';
 import { Request } from 'express';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
-import { IEmployeeService } from '../interfaces/employee-services.interface';
+import { IEmployeesService } from '../interfaces/services/employees.service.interface';
 
 @ApiTags('Employees')
 @ApiBadRequestResponse({ description: bad_req })
@@ -53,7 +50,7 @@ import { IEmployeeService } from '../interfaces/employee-services.interface';
 export class EmployeesController implements ICrud<Employee> {
   constructor(
     @Inject(EMPLOYEE_TYPES.service)
-    private readonly employeesService: IEmployeeService,
+    private readonly employeesService: IEmployeesService,
   ) {}
   @Public()
   @ApiOperation({ summary: 'Login' })

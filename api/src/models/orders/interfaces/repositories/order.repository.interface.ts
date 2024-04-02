@@ -13,7 +13,6 @@ export interface IOrderRepository {
   findOneForOwner(id: string, userId: string): Promise<Order>;
   create(user: User, photo: OrderPhoto[], dto: CreateOrderDto): Promise<Order>;
   update(
-    user: User,
     order: Order,
     dto: UpdateOrderDto,
     photo: OrderPhoto[],
@@ -21,5 +20,5 @@ export interface IOrderRepository {
   delete(order: Order): Promise<void>;
   addAdvantageToOrder(Order: Order, advantages: Advantage[]): Promise<void>;
 
-  removeAdvantageFromOrder(Order: Order, advantage: Advantage): Promise<void>;
+  removeAdvantageFromOrder(order: Order, advantage: Advantage): Promise<void>;
 }

@@ -1,5 +1,5 @@
 export const ORDER_TYPES = {
-  service: 'IOrderService',
+  service: 'IOrdersService',
   repository: {
     order: 'IOrderRepository',
     photo: 'IOrderPhotoRepository',

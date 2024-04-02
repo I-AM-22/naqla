@@ -16,7 +16,7 @@ import {
   item_not_found,
   password_changed_recently,
 } from '../../../common/constants';
-import { IEmployeeService } from '../interfaces/employee-services.interface';
+import { IEmployeesService } from '../interfaces/services/employees.service.interface';
 import { PaginatedResponse } from '../../../common/types';
 import { IEmployeeRepository } from '../interfaces/repositories/employee.repository.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
@@ -27,7 +27,7 @@ import { IPhotoRepository } from '../../../common/interfaces';
 import { EmployeePhoto } from '../entities/employee-photo.entity';
 
 @Injectable()
-export class EmployeesService implements IEmployeeService {
+export class EmployeesService implements IEmployeesService {
   constructor(
     private jwtTokenService: JwtTokenService,
     @Inject(EMPLOYEE_TYPES.repository.employee)

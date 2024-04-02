@@ -31,6 +31,7 @@ import {
 } from '../../../common/constants';
 import { LoggingInterceptor } from '../../../common/interceptors';
 import { ROLE } from '../../../common/enums';
+import { IPerson } from '../../../common/interfaces';
 
 @ApiTags('Orders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -44,18 +45,18 @@ export class OrderController {
     @Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService,
   ) {}
 
+  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
+  @ApiOkResponse({ type: Order, isArray: true })
+  @Get()
+  async findAll(): Promise<Order[]> {
+    return this.ordersService.find();
+  }
+
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('mine')
   async findMine(@GetUser('id') userId: string): Promise<Order[]> {
     return this.ordersService.findMyOrders(userId);
-  }
-
-  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
-  @ApiOkResponse({ type: Order, isArray: true })
-  @Get('all')
-  async findAll(): Promise<Order[]> {
-    return this.ordersService.find();
   }
 
   @Roles(ROLE.EMPLOYEE)
@@ -68,11 +69,8 @@ export class OrderController {
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order })
   @Get(':id')
-  async findOne(
-    @Id() id: string,
-    @GetUser('id') userId: string,
-  ): Promise<Order> {
-    const order = await this.ordersService.findOneForOwner(id, userId);
+  async findOne(@Id() id: string, @GetUser() user: IPerson): Promise<Order> {
+    const order = await this.ordersService.findOne(id, user);
     return order;
   }
 
@@ -91,7 +89,7 @@ export class OrderController {
   @Patch(':id')
   async update(
     @Id() id: string,
-    @GetUser() user: User,
+    @GetUser() user: IPerson,
     @Body() dto: UpdateOrderDto,
   ): Promise<Order> {
     return await this.ordersService.update(id, user, dto);
@@ -100,8 +98,8 @@ export class OrderController {
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiNoContentResponse()
   @Delete(':id')
-  async delete(@Id() id: string, @GetUser('id') userId: string): Promise<void> {
-    await this.ordersService.delete(id, userId);
+  async delete(@Id() id: string, @GetUser() user: IPerson): Promise<void> {
+    await this.ordersService.delete(id, user);
   }
 
   @Roles(ROLE.USER)

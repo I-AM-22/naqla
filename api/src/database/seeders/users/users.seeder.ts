@@ -9,6 +9,6 @@ export class UserSeeder implements Seeder {
   ): Promise<void> {
     const userFactory = factoryManager.get(User);
     const users = await userFactory.saveMany(5);
-    console.log('Complete seeding user,count: ' + users.length);
+    console.log('\nComplete seeding user,count: ' + users.length + '\n');
   }
 }

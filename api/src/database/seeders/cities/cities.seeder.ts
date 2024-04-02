@@ -9,6 +9,6 @@ export class CitySeeder implements Seeder {
   ): Promise<void> {
     const cityFactory = factoryManager.get(City);
     const cities = await cityFactory.saveMany(3);
-    console.log('Complete seeding cities,count: ' + cities.length);
+    console.log('\nComplete seeding cities,count: ' + cities.length + '\n');
   }
 }

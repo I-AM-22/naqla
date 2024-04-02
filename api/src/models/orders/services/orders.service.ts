@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ORDER_TYPES } from '../interfaces/type';
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
@@ -6,12 +11,13 @@ import { IOrderRepository } from '../interfaces/repositories/order.repository.in
 import { User } from '../../users/entities/user.entity';
 import { IOrdersService } from '../interfaces/services/ordrs.service.interface';
 import { item_not_found } from '../../../common/constants';
-import { Entities } from '../../../common/enums';
+import { Entities, ORDER_STATUSES, ROLE } from '../../../common/enums';
 // import { IPhotoRepository } from '../../../common/interfaces';
 // import { OrderPhoto } from '../entities/order-photo.entity';
 import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
 import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
 import { OrderPhotoRepository } from '../repositories/order/order-photo.repository';
+import { IPerson } from '../../../common/interfaces';
 
 @Injectable()
 export class OrdersService implements IOrdersService {
@@ -31,15 +37,17 @@ export class OrdersService implements IOrdersService {
     return this.orderRepository.findWaiting();
   }
 
-  async findOne(id: string): Promise<Order> {
-    const Order = await this.orderRepository.findOne(id);
-    if (!Order) throw new NotFoundException(item_not_found(Entities.Order));
-    return Order;
+  async findOne(id: string, person: IPerson): Promise<Order> {
+    if (person.role.name === ROLE.USER)
+      return this.findOneForOwner(id, person.id);
+
+    const order = await this.orderRepository.findOne(id);
+    if (!order) throw new NotFoundException(item_not_found(Entities.Order));
+    return order;
   }
 
   async findMyOrders(userId: string): Promise<Order[]> {
-    const object = await this.orderRepository.findMyOrder(userId);
-    return object;
+    return await this.orderRepository.findMyOrder(userId);
   }
 
   async findOneForOwner(id: string, userId: string): Promise<Order> {
@@ -53,14 +61,18 @@ export class OrdersService implements IOrdersService {
     return this.orderRepository.create(user, photo, dto);
   }
 
-  async update(id: string, user: User, dto: UpdateOrderDto): Promise<Order> {
-    const order = await this.findOneForOwner(id, user.id);
+  async update(
+    id: string,
+    person: IPerson,
+    dto: UpdateOrderDto,
+  ): Promise<Order> {
+    const order = await this.findOne(id, person);
     const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
-    return this.orderRepository.update(user, order, dto, photo);
+    return this.orderRepository.update(order, dto, photo);
   }
 
-  async delete(id: string, orderId: string): Promise<void> {
-    const order = await this.findOneForOwner(id, orderId);
+  async delete(id: string, person: IPerson): Promise<void> {
+    const order = await this.findOne(id, person);
     return this.orderRepository.delete(order);
   }
 
@@ -70,8 +82,16 @@ export class OrdersService implements IOrdersService {
     user: User,
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
-    const advantages = await this.advantagesService.findInIds(dto.advantages);
-    return this.orderRepository.addAdvantageToOrder(order, advantages);
+    if (
+      order.status === ORDER_STATUSES.WAITING ||
+      order.status === ORDER_STATUSES.READY
+    ) {
+      const advantages = await this.advantagesService.findInIds(dto.advantages);
+      return await this.orderRepository.addAdvantageToOrder(order, advantages);
+    }
+    throw new ForbiddenException(
+      'Can not update order advantages after accept the offer',
+    );
   }
 
   async removeAdvantagesFromOrder(
@@ -80,7 +100,15 @@ export class OrdersService implements IOrdersService {
     user: User,
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
-    const advantage = await this.advantagesService.findOne(advantageId);
-    return this.orderRepository.removeAdvantageFromOrder(order, advantage);
+    if (
+      order.status === ORDER_STATUSES.WAITING ||
+      order.status === ORDER_STATUSES.READY
+    ) {
+      const advantage = await this.advantagesService.findOne(advantageId);
+      return this.orderRepository.removeAdvantageFromOrder(order, advantage);
+    }
+    throw new ForbiddenException(
+      'Can not delete an advantage order after accept the offer',
+    );
   }
 }

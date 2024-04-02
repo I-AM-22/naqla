@@ -1,1 +1,1 @@
-export * from './permissions.interface';
+export * from './permission.interface';
