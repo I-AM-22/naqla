@@ -8,3 +8,9 @@ class SetCurrentLocation extends HomeEvent {
 
   SetCurrentLocation({required this.location});
 }
+
+class ChangeLocationEvent extends HomeEvent {
+  final Function(LatLng latLng) onSuccess;
+
+  ChangeLocationEvent({required this.onSuccess});
+}
