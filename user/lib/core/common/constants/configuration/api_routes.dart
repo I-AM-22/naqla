@@ -1,6 +1,6 @@
 class ApiRoutes {
   //////////////////?Base////////////////////
-  static const String baseUrl = 'http://192.168.1.102:5500';
+  static const String baseUrl = 'http://192.168.1.104:5500';
 
   //////////////////?Auth////////////////////
   static String login = '/api/v1/auth/user/login';

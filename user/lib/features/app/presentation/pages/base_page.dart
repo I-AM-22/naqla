@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_nav_bar.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
+import 'package:naqla/features/home/presentation/pages/create_order.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
 class BasePage extends StatelessWidget {
@@ -23,7 +24,7 @@ class BasePage extends StatelessWidget {
       floatingActionButton: child.currentIndex == 0
           ? FloatingActionButton(
               backgroundColor: context.colorScheme.primary,
-              onPressed: () {},
+              onPressed: ()=>context.pushNamed(CreateOrderPage.name),
               child: AppImage.asset(
                 Assets.icons.essential.home.path,
                 color: Colors.white,
