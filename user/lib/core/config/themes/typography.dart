@@ -1,15 +1,9 @@
 part of 'app_theme.dart';
 
 TextTheme textTheme = TextTheme(
-  displayLarge: TextStyle(
-      fontFamily: 'noor', fontSize: 57.0.sp, fontWeight: FontWeight.w400),
-  displayMedium: TextStyle(
-      fontFamily: 'noor',
-      fontSize: 32.0.sp,
-      fontWeight: FontWeight.w400,
-      height: 40.fromFigmaHeight(32)),
-  displaySmall: TextStyle(
-      fontFamily: 'noor', fontSize: 36.0.sp, fontWeight: FontWeight.w400),
+  displayLarge: TextStyle(fontFamily: 'noor', fontSize: 57.0.sp, fontWeight: FontWeight.w400),
+  displayMedium: TextStyle(fontFamily: 'noor', fontSize: 32.0.sp, fontWeight: FontWeight.w400, height: 40.fromFigmaHeight(32)),
+  displaySmall: TextStyle(fontFamily: 'noor', fontSize: 36.0.sp, fontWeight: FontWeight.w400),
 
   /// headline
   headlineLarge: TextStyle(
@@ -36,39 +30,29 @@ TextTheme textTheme = TextTheme(
   ),
 
   ///Title
-  titleLarge: TextStyle(
-      fontFamily: 'noor', fontSize: 22.0.sp, fontWeight: FontWeight.w400),
-  titleMedium: TextStyle(
-      fontFamily: 'noor',
-      fontSize: 28.0.sp,
-      fontWeight: FontWeight.w500,
-      height: 34.fromFigmaHeight(28)),
-  titleSmall: TextStyle(
-      fontFamily: 'noor', fontSize: 16.0.sp, fontWeight: FontWeight.w500),
+  titleLarge: TextStyle(fontFamily: 'noor', fontSize: 22.0.sp, fontWeight: FontWeight.w400),
+  titleMedium: TextStyle(fontFamily: 'noor', fontSize: 28.0.sp, fontWeight: FontWeight.w500, height: 34.fromFigmaHeight(28)),
+  titleSmall: TextStyle(fontFamily: 'noor', fontSize: 16.0.sp, fontWeight: FontWeight.w500),
 
   ///Label
-  labelLarge: TextStyle(
-      fontFamily: 'noor', fontSize: 14.0.sp, fontWeight: FontWeight.w500),
+  labelLarge: TextStyle(fontFamily: 'noor', fontSize: 14.0.sp, fontWeight: FontWeight.w500),
   labelMedium: TextStyle(
     fontFamily: 'noor',
     fontSize: 12.0.sp,
     fontWeight: FontWeight.w500,
     height: 16.fromFigmaHeight(12),
   ),
-  labelSmall: TextStyle(
-      fontFamily: 'noor', fontSize: 11.0.sp, fontWeight: FontWeight.w500),
+  labelSmall: TextStyle(fontFamily: 'noor', fontSize: 11.0.sp, fontWeight: FontWeight.w500),
 
   ///Body
-  bodyLarge: TextStyle(
-      fontFamily: 'noor', fontSize: 16.0.sp, fontWeight: FontWeight.w400),
+  bodyLarge: TextStyle(fontFamily: 'noor', fontSize: 16.0.sp, fontWeight: FontWeight.w400, height: 18.fromFigmaHeight(16)),
   bodyMedium: TextStyle(
     fontFamily: 'noor',
     fontSize: 12.0.sp,
     fontWeight: FontWeight.w500,
     height: 18.fromFigmaHeight(12),
   ),
-  bodySmall: TextStyle(
-      fontFamily: 'noor', fontSize: 12.0.sp, fontWeight: FontWeight.w400),
+  bodySmall: TextStyle(fontFamily: 'noor', fontSize: 12.0.sp, fontWeight: FontWeight.w400),
 );
 
 extension TextThemeExt on TextTheme {
@@ -80,32 +64,16 @@ extension TextThemeExt on TextTheme {
         fontFamily: 'noor',
       );
 
-  TextStyle get subHeadMedium => TextStyle(
-      fontFamily: 'noor',
-      fontWeight: FontWeight.w500,
-      fontSize: 14.sp,
-      height: 19.fromFigmaHeight(14));
+  TextStyle get subHeadMedium => TextStyle(fontFamily: 'noor', fontWeight: FontWeight.w500, fontSize: 14.sp, height: 19.fromFigmaHeight(14));
 
-  TextStyle get subHeadWebMedium => TextStyle(
-      fontFamily: 'noor',
-      fontWeight: FontWeight.w500,
-      fontSize: 16.sp,
-      color: const Color(0xFFA0A0A0),
-      height: 23.fromFigmaHeight(16));
+  TextStyle get subHeadWebMedium =>
+      TextStyle(fontFamily: 'noor', fontWeight: FontWeight.w500, fontSize: 16.sp, color: const Color(0xFFA0A0A0), height: 23.fromFigmaHeight(16));
 
-  TextStyle get bodyRegular => TextStyle(
-      fontFamily: 'noor',
-      fontWeight: FontWeight.w400,
-      fontSize: 16.sp,
-      color: const Color(0xFFA0A0A0),
-      height: 24.fromFigmaHeight(16));
+  TextStyle get bodyRegular =>
+      TextStyle(fontFamily: 'noor', fontWeight: FontWeight.w400, fontSize: 16.sp, color: const Color(0xFFA0A0A0), height: 24.fromFigmaHeight(16));
 
-  TextStyle get bodySmMedium => TextStyle(
-      fontFamily: 'noor',
-      fontWeight: FontWeight.w500,
-      fontSize: 12.sp,
-      color: const Color(0xFF898989),
-      height: 18.fromFigmaHeight(12));
+  TextStyle get bodySmMedium =>
+      TextStyle(fontFamily: 'noor', fontWeight: FontWeight.w500, fontSize: 12.sp, color: const Color(0xFF898989), height: 18.fromFigmaHeight(12));
 }
 
 extension FamilyUtils on TextStyle {

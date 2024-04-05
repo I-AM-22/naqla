@@ -14,3 +14,15 @@ class ChangeLocationEvent extends HomeEvent {
 
   ChangeLocationEvent({required this.onSuccess});
 }
+
+class UploadPhotosEvent extends HomeEvent {
+  final List<File?> photos;
+
+  UploadPhotosEvent({required this.photos});
+}
+
+class PickPhotosOrder extends HomeEvent {
+  final BuildContext context;
+
+  PickPhotosOrder({required this.context});
+}

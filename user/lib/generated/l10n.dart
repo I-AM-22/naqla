@@ -570,6 +570,66 @@ class S {
     );
   }
 
+  /// `use current location`
+  String get use_current_location {
+    return Intl.message(
+      'use current location',
+      name: 'use_current_location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New naqla`
+  String get new_naqla {
+    return Intl.message(
+      'New naqla',
+      name: 'new_naqla',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Point`
+  String get start_point {
+    return Intl.message(
+      'Start Point',
+      name: 'start_point',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End Point`
+  String get end_point {
+    return Intl.message(
+      'End Point',
+      name: 'end_point',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(

@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
         "enable_your_location":
             MessageLookupByLibrary.simpleMessage("تمكين موقعك"),
+        "end_point": MessageLookupByLibrary.simpleMessage("نقطة الوصول"),
         "english": MessageLookupByLibrary.simpleMessage("الانكليزية"),
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور الخاصة بك"),
@@ -102,6 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),
+        "new_naqla": MessageLookupByLibrary.simpleMessage("نقلة جديدة"),
+        "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
@@ -125,9 +128,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("التسجيل "),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
+        "start_point": MessageLookupByLibrary.simpleMessage("نقطة الانطلاق"),
         "total_money":
             MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),
+        "use_current_location":
+            MessageLookupByLibrary.simpleMessage("استخدام موقعك الحالي"),
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("استخدام موقعي"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),

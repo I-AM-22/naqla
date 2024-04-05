@@ -10,6 +10,7 @@ class ApiRoutes {
 
   //////////////////?File////////////////////
   static String single = '/api/v1/photos/single';
+  static String multiple = '/api/v1/photos/multiple';
 
   //////////////////?Account////////////////////
   static String personalInfo = '/api/v1/users/me';

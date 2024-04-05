@@ -7,7 +7,6 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/core/util/core_helper_functions.dart';
 import 'package:naqla/core/util/secure_image_picker.dart';
-import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../auth/data/model/user_model.dart';
 import '../../../domain/use_cases/delete_account_use_case.dart';

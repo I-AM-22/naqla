@@ -72,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Congratulations "),
         "create_an_account":
             MessageLookupByLibrary.simpleMessage("Create an account"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "day": MessageLookupByLibrary.simpleMessage("day"),
         "delete_account":
             MessageLookupByLibrary.simpleMessage("Delete Account"),
@@ -84,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enable_your_location":
             MessageLookupByLibrary.simpleMessage("Enable your location"),
+        "end_point": MessageLookupByLibrary.simpleMessage("End Point"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("Enter Your Password"),
@@ -106,6 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
+        "new_naqla": MessageLookupByLibrary.simpleMessage("New naqla"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
@@ -127,8 +131,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up "),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
+        "start_point": MessageLookupByLibrary.simpleMessage("Start Point"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
+        "use_current_location":
+            MessageLookupByLibrary.simpleMessage("use current location"),
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("Use my location"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),

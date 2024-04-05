@@ -107,6 +107,14 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get circleQuistion =>
       const SvgGenImage('assets/icons/essential/circle_quistion.svg');
 
+  /// File path: assets/icons/essential/clock 2.svg
+  SvgGenImage get clock2 =>
+      const SvgGenImage('assets/icons/essential/clock 2.svg');
+
+  /// File path: assets/icons/essential/current_location.svg
+  SvgGenImage get currentLocation =>
+      const SvgGenImage('assets/icons/essential/current_location.svg');
+
   /// File path: assets/icons/essential/delete.svg
   SvgGenImage get delete =>
       const SvgGenImage('assets/icons/essential/delete.svg');
@@ -182,6 +190,8 @@ class $AssetsIconsEssentialGen {
         checkCircle,
         checkCircle2,
         circleQuistion,
+        clock2,
+        currentLocation,
         delete,
         edit,
         emoje,

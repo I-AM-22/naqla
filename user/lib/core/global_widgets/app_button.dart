@@ -245,8 +245,7 @@ class _AppButtonState extends State<AppButton> {
   late final ValueNotifier<Color?> _overlayPostPrefixIconColor;
   late final ValueNotifier<Color?> _overlayTextColor;
 
-  CrossFadeState get crossFadeState =>
-      widget.isLoading ? CrossFadeState.showSecond : CrossFadeState.showFirst;
+  CrossFadeState get crossFadeState => widget.isLoading ? CrossFadeState.showSecond : CrossFadeState.showFirst;
 
   @override
   void initState() {
@@ -320,9 +319,7 @@ class _AppButtonState extends State<AppButton> {
               ),
             ],
             color: _isGray ? const Color(0xffF9FAFB) : null,
-            border: getSide({}) != null
-                ? Border.fromBorderSide(getSide({})!)
-                : null,
+            border: getSide({}) != null ? Border.fromBorderSide(getSide({})!) : null,
           ),
           child: ElevatedButton(
             onPressed: getOnPressed(widget.onPressed),
@@ -350,17 +347,14 @@ class _AppButtonState extends State<AppButton> {
   }
 
   void onTapUp(_) {
-    if (_isTertiary &&
-        widget.focusedFilledType == FocusedFilledButtonType.hover) {
+    if (_isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
       _overlayTextColor.value = _oldTextColor;
 
       _overlayPostPrefixIconColor.value = _oldIconColor;
     } else if (_isTertiary) {
       _overlayPostPrefixIconColor.value = _oldIconColor;
     }
-    if (widget._typeButton == AppButtonType.field &&
-        widget.focusedFilledType ==
-            FocusedFilledButtonType.hideBackgroundColor) {
+    if (widget._typeButton == AppButtonType.field && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
       _overlayPostPrefixIconColor.value = context.colorScheme.surface;
     }
   }
@@ -370,16 +364,13 @@ class _AppButtonState extends State<AppButton> {
   Color? _oldTextColor;
 
   void onTapDown(_) {
-    if (_isTertiary &&
-        widget.focusedFilledType == FocusedFilledButtonType.hover) {
+    if (_isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
       _overlayTextColor.value = context.colorScheme.onPrimary;
       _overlayPostPrefixIconColor.value = context.colorScheme.onPrimary;
     } else if (_isTertiary) {
       _overlayPostPrefixIconColor.value = context.colorScheme.onSurface;
     }
-    if (widget._typeButton == AppButtonType.field &&
-        widget.focusedFilledType ==
-            FocusedFilledButtonType.hideBackgroundColor) {
+    if (widget._typeButton == AppButtonType.field && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
       _overlayPostPrefixIconColor.value = context.colorScheme.onSurface;
     }
   }
@@ -423,10 +414,7 @@ class _AppButtonState extends State<AppButton> {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  constraints:
-                      BoxConstraints(maxWidth: constraints.maxWidth * 0.5),
-                  child: widget.prefixIcon!),
+              Container(constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.5), child: widget.prefixIcon!),
               Expanded(child: widget.postfixIcon!),
             ],
           );
@@ -445,34 +433,25 @@ class _AppButtonState extends State<AppButton> {
           valueListenable: _overlayPostPrefixIconColor,
           builder: (context, val, child) {
             return Row(
-              mainAxisSize:
-                  widget.stretch ? MainAxisSize.max : MainAxisSize.min,
-              mainAxisAlignment:
-                  widget.mainAxisAlignment ?? MainAxisAlignment.center,
+              mainAxisSize: widget.stretch ? MainAxisSize.max : MainAxisSize.min,
+              mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.center,
               children: [
                 if (widget.prefixIcon != null) ...[
-                  if (widget.spaceBetweenItem != 0)
-                    widget.spaceBetweenItem.horizontalSpace,
-                  if ((_isTertiary || _isField) &&
-                      widget.prefixIcon is AppImage)
+                  if (widget.spaceBetweenItem != 0) widget.spaceBetweenItem.horizontalSpace,
+                  if ((_isTertiary || _isField) && widget.prefixIcon is AppImage)
                     (widget.prefixIcon! as AppImage).copyWith(val)
                   else
                     widget.prefixIcon!
                 ],
                 if (!_isPayment) ...{
-                  if (_isTertiary &&
-                      widget.focusedFilledType ==
-                          FocusedFilledButtonType.hover &&
-                      buttonChild is AppText)
+                  if (_isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover && buttonChild is AppText)
                     buttonChild.copyWith(color: _overlayTextColor.value)
                   else
                     buttonChild
                 },
                 if (widget.postfixIcon != null) ...[
-                  if (widget.spaceBetweenItem != 0)
-                    widget.spaceBetweenItem.horizontalSpace,
-                  if ((_isTertiary || _isField) &&
-                      widget.postfixIcon is AppImage)
+                  if (widget.spaceBetweenItem != 0) widget.spaceBetweenItem.horizontalSpace,
+                  if ((_isTertiary || _isField) && widget.postfixIcon is AppImage)
                     (widget.postfixIcon! as AppImage).copyWith(val)
                   else
                     widget.postfixIcon!
@@ -492,8 +471,7 @@ class _AppButtonState extends State<AppButton> {
       }
       return context.textTheme.bodySmMedium;
     }
-    return textTheme.subHeadWebMedium
-        .merge(widget.textStyle ?? const TextStyle());
+    return textTheme.subHeadWebMedium.merge(widget.textStyle ?? const TextStyle());
   }
 
   bool get _isTertiary => widget._typeButton == AppButtonType.tertiary;
@@ -546,9 +524,7 @@ class _AppButtonState extends State<AppButton> {
   }
 
   BorderSide? getSide(Set<MaterialState> states) {
-    if (_isTertiary &&
-        states.contains(MaterialState.pressed) &&
-        widget.focusedFilledType == FocusedFilledButtonType.hover) {
+    if (_isTertiary && states.contains(MaterialState.pressed) && widget.focusedFilledType == FocusedFilledButtonType.hover) {
       return BorderSide.none;
     } else if (_isTertiary && states.contains(MaterialState.pressed)) {
       return BorderSide(
@@ -574,8 +550,7 @@ class _AppButtonState extends State<AppButton> {
     }
 
     if (_isGray) {
-      return BorderSide(
-          color: context.colorScheme.systemGray.shade100, width: 1.r);
+      return BorderSide(color: context.colorScheme.primary, width: 1.r);
     }
     return null;
   }
@@ -595,18 +570,13 @@ class _AppButtonState extends State<AppButton> {
                 return context.colorScheme.systemGray.shade300;
               }
 
-              if (_isField &&
-                  pressed &&
-                  widget.focusedFilledType ==
-                      FocusedFilledButtonType.hideBackgroundColor) {
+              if (_isField && pressed && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
                 return context.colorScheme.surface;
               }
               if (_isField) {
                 return context.colorScheme.primary;
               }
-              if (_isTertiary &&
-                  pressed &&
-                  widget.focusedFilledType == FocusedFilledButtonType.hover) {
+              if (_isTertiary && pressed && widget.focusedFilledType == FocusedFilledButtonType.hover) {
                 return context.colorScheme.primary;
               }
 
@@ -629,18 +599,14 @@ class _AppButtonState extends State<AppButton> {
                   }),
             overlayColor: MaterialStateProperty.resolveWith((states) {
               var selected = states.contains(MaterialState.pressed);
-              if (selected &&
-                  _isTertiary &&
-                  widget.focusedFilledType == FocusedFilledButtonType.hover) {
+              if (selected && _isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
                 return context.colorScheme.primary;
               }
 
               if (selected && _isTertiary) {
                 return context.colorScheme.surface;
               }
-              if (_isField &&
-                  widget.focusedFilledType ==
-                      FocusedFilledButtonType.hideBackgroundColor) {
+              if (_isField && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
                 return context.colorScheme.surface;
               }
 
@@ -650,22 +616,14 @@ class _AppButtonState extends State<AppButton> {
               return null;
             }),
             shadowColor: MaterialStateProperty.all(Colors.transparent),
-            side: _isLongerButton
-                ? null
-                : MaterialStateProperty.resolveWith(
-                    (states) => getSide(states)),
+            side: _isLongerButton ? null : MaterialStateProperty.resolveWith((states) => getSide(states)),
             foregroundColor: MaterialStateProperty.resolveWith((states) {
               ///to text
               var pressed = states.contains(MaterialState.pressed);
-              if (pressed &&
-                  _isField &&
-                  widget.focusedFilledType ==
-                      FocusedFilledButtonType.hideBackgroundColor) {
+              if (pressed && _isField && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
                 return context.colorScheme.onSurface;
               }
-              if (pressed &&
-                  _isTertiary &&
-                  widget.focusedFilledType == FocusedFilledButtonType.hover) {
+              if (pressed && _isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
                 return context.colorScheme.onPrimary;
               }
 
@@ -780,15 +738,10 @@ class _AppButtonState extends State<AppButton> {
   }
 
   RoundedRectangleBorder? getShape(Set<MaterialState> states) {
-    return getBorderRadius != null
-        ? RoundedRectangleBorder(
-            borderRadius: getBorderRadius!,
-            side: getSide(states) ?? BorderSide.none)
-        : null;
+    return getBorderRadius != null ? RoundedRectangleBorder(borderRadius: getBorderRadius!, side: getSide(states) ?? BorderSide.none) : null;
   }
 
-  BorderRadiusGeometry? get getBorderRadius =>
-      widget.borderRadius ?? BorderRadius.circular(8.r);
+  BorderRadiusGeometry? get getBorderRadius => widget.borderRadius ?? BorderRadius.circular(8.r);
 
   EdgeInsetsGeometry get getPadding {
     if (widget.padding != null) {

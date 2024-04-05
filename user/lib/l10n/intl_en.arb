@@ -56,6 +56,12 @@
   
   "__________________________home______________________________":"",
   "home":"home",
+  "use_current_location": "use current location",
+  "next": "Next",
+  "new_naqla": "New naqla",
+  "start_point": "Start Point",
+  "end_point": "End Point",
+  "date": "Date",
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",

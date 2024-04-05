@@ -24,9 +24,9 @@ class BasePage extends StatelessWidget {
       floatingActionButton: child.currentIndex == 0
           ? FloatingActionButton(
               backgroundColor: context.colorScheme.primary,
-              onPressed: ()=>context.pushNamed(CreateOrderPage.name),
-              child: AppImage.asset(
-                Assets.icons.essential.home.path,
+              onPressed: () => context.pushNamed(CreateOrderPage.name),
+              child: const Icon(
+                Icons.add,
                 color: Colors.white,
               ),
             )

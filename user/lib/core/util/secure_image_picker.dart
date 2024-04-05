@@ -12,9 +12,7 @@ import 'package:uuid/uuid.dart';
 class SecureFilePicker {
   static const fileSizeLimit = 4000000;
 
-  static Future<File?> pickImage(ImageSource source,
-      {CropAspectRatioPreset? cropAspectRatio,
-      required BuildContext context}) async {
+  static Future<File?> pickImage(ImageSource source, {CropAspectRatioPreset? cropAspectRatio, required BuildContext context}) async {
     final ImagePicker picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: source);
 
@@ -31,8 +29,32 @@ class SecureFilePicker {
     // if (!context.mounted) return null;
     // needs cropping
     if (cropAspectRatio != null) {
-      final croppedFile = await _cropImage(compressedFile,
-          aspectRatioPreset: cropAspectRatio, context: context);
+      final croppedFile = await _cropImage(compressedFile, aspectRatioPreset: cropAspectRatio, context: context);
+      return croppedFile;
+    }
+
+    return compressedFile;
+  }
+
+  static Future<List<File?>?> pickMultiImage({CropAspectRatioPreset? cropAspectRatio, required BuildContext context}) async {
+    final ImagePicker picker = ImagePicker();
+    final List<XFile> pickedFile = await picker.pickMultiImage();
+
+    final List<File> files = List<File>.generate(pickedFile.length, (index) => File(pickedFile[index].path));
+
+    if (files.isEmpty) return null;
+
+    final List<File> compressedFile = [];
+    for (var i = 0; i < files.length; i++) {
+      compressedFile.add(await _compressAndGetFile(File(files[i].path)));
+      if (!validateFile(compressedFile[i])) return null;
+    }
+
+    if (cropAspectRatio != null) {
+      final List<File?> croppedFile = [];
+      for (var i = 0; i < compressedFile.length; i++) {
+        croppedFile.add(await _cropImage(compressedFile[i], context: context));
+      }
       return croppedFile;
     }
 
@@ -50,8 +72,7 @@ class SecureFilePicker {
     return true;
   }
 
-  static Future<File> _compressAndGetFile(File sourceFile,
-      {int? targetSize}) async {
+  static Future<File> _compressAndGetFile(File sourceFile, {int? targetSize}) async {
     final dir = await getTemporaryDirectory();
     final targetPath = '${dir.absolute.path}/${const Uuid().v4()}.jpg';
 
@@ -72,9 +93,7 @@ class SecureFilePicker {
   }
 
   static Future<File?> _cropImage(final File file,
-      {CropAspectRatioPreset aspectRatioPreset =
-          CropAspectRatioPreset.ratio16x9,
-      required BuildContext context}) async {
+      {CropAspectRatioPreset aspectRatioPreset = CropAspectRatioPreset.ratio16x9, required BuildContext context}) async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: file.path,
       aspectRatioPresets: [aspectRatioPreset],
