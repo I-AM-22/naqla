@@ -152,18 +152,36 @@ export type LocationDto = {
 
 export type UpdateOrderDto = {
   cost: number;
+  desiredDate: Date;
   locationEnd: LocationDto;
   locationStart: LocationDto;
   photo: string[];
-  receiving_date: Date;
   status: string;
 };
 
 export type CreateOrderDto = {
+  desiredDate: Date;
   locationEnd: LocationDto;
   locationStart: LocationDto;
   photo: string[];
-  receiving_date: Date;
+};
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const OrderStatus = {
+  waiting: "waiting",
+  ready: "ready",
+  accepted: "accepted",
+  delivered: "delivered",
+  canceled: "canceled",
+  refused: "refused",
+} as const;
+
+export type Payment = {
+  createdAt: Date;
+  id: string;
+  updatedAt: Date;
 };
 
 export type Location = {
@@ -175,14 +193,14 @@ export type Location = {
 
 export type Order = {
   advantages: string[];
-  cost: number;
   createdAt: Date;
+  desiredDate: Date;
   id: string;
   locationEnd: Location;
   locationStart: Location;
+  payment: Payment;
   photos: string[];
-  receiving_date: Date;
-  status: string;
+  status: OrderStatus;
   updatedAt: Date;
 };
 
@@ -216,6 +234,7 @@ export type UpdateCarDto = {
 };
 
 export type CreateCarDto = {
+  advantages: string[];
   brand: string;
   color: string;
   model: string;

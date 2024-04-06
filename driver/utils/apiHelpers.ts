@@ -1,6 +1,6 @@
 import { FetchError } from "@/lib/fetch";
 import { UseFormSetError } from "react-hook-form";
-import { ToastAndroid } from "react-native";
+import { Platform, ToastAndroid } from "react-native";
 
 export type ApiError = {
   error: {
@@ -25,10 +25,10 @@ type Feedbacks = {
 };
 export function parseResponseError({ showToast = true, setFormError }: Feedbacks) {
   return (err: FetchError<ApiError>) => {
-    console.log(err);
     const data = err.data;
-    if (!data) ToastAndroid.show(String(err), ToastAndroid.SHORT);
-    if (showToast && data?.error?.response?.message) {
+
+    if (!data && Platform.OS === "android") ToastAndroid.show(String(err), ToastAndroid.SHORT);
+    if (showToast && data?.error?.response?.message && Platform.OS === "android") {
       ToastAndroid.show(data.error.response.message, ToastAndroid.SHORT);
     }
     if (data?.error?.response?.errors) {

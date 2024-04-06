@@ -1,4 +1,4 @@
-import useUserStore from "@/stores/userStore";
+import useUserStore from "@/stores/user-store";
 import { Tabs } from "expo-router";
 import { View } from "react-native";
 import Icon from "react-native-vector-icons/Feather";

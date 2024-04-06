@@ -4,7 +4,7 @@ module.exports = {
     input: `http://localhost:5500/api.json`,
     output: {
       mode: "split",
-      target: "./service/api.ts",
+      target: "./services/api.ts",
       override: {
         mutator: {
           path: "./lib/fetch.ts",

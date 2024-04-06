@@ -26,7 +26,16 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-router", "expo-localization"],
+    "plugins": [
+      "expo-router",
+      "expo-localization",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to pick a car image."
+        }
+      ]
+    ],
     "experiments": { "tsconfigPaths": true },
     "extra": {
       "supportsRTL": true

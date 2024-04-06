@@ -3,7 +3,7 @@ import { Text } from "@/components/ui/text";
 import { phoneRegex } from "@/constants/regex";
 import i18n from "@/lib/i18next";
 import z from "@/lib/zod";
-import { authDriverControllerSignup } from "@/swagger/api";
+import { authDriverControllerSignup } from "@/services/api";
 import { parseResponseError } from "@/utils/apiHelpers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";

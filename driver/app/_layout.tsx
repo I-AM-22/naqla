@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { I18nManager, Platform, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({ defaultOptions: { queries: {} } });
 export default function Layout() {
   const { i18n } = useTranslation();
   const [fontsLoaded, fontError] = useFonts({
@@ -37,8 +37,13 @@ export default function Layout() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
-          <Stack screenOptions={{ contentStyle: { backgroundColor: theme.colors?.background } }}>
+          <Stack
+            screenOptions={{
+              contentStyle: { backgroundColor: theme.colors?.background },
+            }}
+          >
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(authed)" options={{ headerShown: false }} />
           </Stack>
         </SafeAreaView>
       </ThemeProvider>

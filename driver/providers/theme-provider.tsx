@@ -7,7 +7,11 @@ export const theme: ThemeProp = {
   colors: {
     ...DefaultTheme.colors,
     primary: "#2c2c2c",
+    onPrimary: "#fff",
+    primaryContainer: "#2c2c2c",
+    onPrimaryContainer: "#fff",
     secondary: "#B7083C",
+    inversePrimary: "#fff",
     background: "#fff",
   },
   roundness: 2,

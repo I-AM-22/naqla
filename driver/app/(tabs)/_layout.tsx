@@ -1,4 +1,4 @@
-import useUserStore from "@/stores/userStore";
+import useUserStore from "@/stores/user-store";
 import { Redirect, Tabs } from "expo-router";
 import "intl-pluralrules";
 import "lib/i18next";
@@ -12,7 +12,6 @@ export default function Layout() {
   const { isAuthed, user } = useUserStore();
   const { t } = useTranslation("layout");
   const theme = useTheme();
-  console.log("(tabs) layout");
 
   if (!isAuthed) {
     return <Redirect href={"/auth"} />;
@@ -35,7 +34,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="cars/index"
+        name="cars"
         options={{
           title: t("navLink.cars"),
           tabBarIcon: () => <MIcon size={28} name="truck-cargo-container" />,

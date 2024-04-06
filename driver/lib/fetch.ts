@@ -1,22 +1,20 @@
-import { userStore } from "@/stores/userStore";
+import { userStore } from "@/stores/user-store";
+import ax, { AxiosRequestConfig } from "axios";
 
 export type FetchOptions = {
   baseURL?: string;
-  headers?: Record<string, string>;
+  headers?: AxiosRequestConfig<any>["headers"];
   url: string;
   method: "get" | "post" | "put" | "delete" | "patch" | "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   params?: any;
   data?: any;
   responseType?: string;
   signal?: AbortSignal;
+  options?: AxiosRequestConfig;
 };
 
 export type FetchResponse<T = unknown> = {
   data: T;
-  headers: {
-    authorization?: string | null;
-    "x-total-count"?: string | null;
-  };
 };
 
 export type FetchError<T = unknown> = {
@@ -24,66 +22,31 @@ export type FetchError<T = unknown> = {
   status: number;
 };
 
-let token = userStore.getState().user?.token;
-export const getResponseBody = <T>(response: Response): Promise<T> => {
-  const contentType = response.headers.get("content-type");
+let token: string | undefined;
+const axios = ax.create({
+  baseURL: `${process.env.EXPO_PUBLIC_SERVER_URL}`,
+});
+axios.interceptors.request.use((config) => {
+  token = token ?? userStore.getState().user?.token;
+  config.headers["accept"] = "*/*";
+  config.headers["Authorization"] = `Bearer ${token}`;
+  return config;
+});
 
-  if (contentType && contentType.includes("application/json")) {
-    return response.json();
-  }
-
-  if (contentType && contentType.includes("application/pdf")) {
-    return response.blob() as Promise<T>;
-  }
-
-  return response.text() as Promise<T>;
-};
-
-export const fetchInstance = async <T>(
-  config: FetchOptions,
-  init?: RequestInit
-): Promise<FetchResponse<T>> => {
-  const isFormData = config.headers?.["Content-Type"] === "multipart/form-data";
-  const isJson = config.headers?.["Content-Type"] === "application/json";
-
-  const headers = {
-    authorization: config.headers?.["authorization"] ?? `Bearer ${token}`,
-    ...config.headers,
-    ...(isJson ? { "Content-Type": "application/json" } : {}),
-  };
-
-  // Remove Content-Type header if it's not needed to avoid issues
-  if (!isJson) {
-    delete headers["Content-Type"];
-  }
-
-  const response = await fetch(
+export const fetchInstance = async <T>(config: FetchOptions): Promise<FetchResponse<T>> => {
+  await new Promise((res) => setTimeout(res, 1));
+  const response = await axios(
     `${process.env.EXPO_PUBLIC_SERVER_URL}${config.url}` +
       (config.params ? `?${new URLSearchParams(config.params)}` : ""),
     {
       method: config.method,
-      ...(config.data ? { body: !isFormData ? JSON.stringify(config.data) : config.data } : {}),
-      headers,
-      signal: config.signal,
-      ...init,
+      ...(config.data ? { data: config.data } : {}),
+      headers: config.headers,
+      ...config.options,
     }
   );
 
-  const data = await getResponseBody<T>(response);
-
-  if (!response.ok) {
-    throw {
-      status: response.status,
-      data,
-    };
-  }
-
-  return {
-    headers: {
-      authorization: response.headers.get("authorization"),
-    },
-    data,
-  };
+  return response;
 };
 userStore.subscribe(({ user }) => {
   token = user?.token;

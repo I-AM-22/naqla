@@ -1,9 +1,9 @@
 import { FormInput } from "@/components/ui/form";
 import { Text } from "@/components/ui/text";
 import z from "@/lib/zod";
-import useUserStore from "@/stores/userStore";
-import { authDriverControllerConfirm } from "@/swagger/api";
-import { ConfirmDriverDto } from "@/swagger/api.schemas";
+import { authDriverControllerConfirm } from "@/services/api";
+import { ConfirmDriverDto } from "@/services/api.schemas";
+import useUserStore from "@/stores/user-store";
 import { parseResponseError } from "@/utils/apiHelpers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";

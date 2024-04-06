@@ -963,7 +963,7 @@ export const orderControllerFindAll = (
   );
 };
 
-export const orderControllerFindAllwaiting = (
+export const orderControllerFindAllWaiting = (
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
   return fetchInstance<Order[]>(
@@ -1247,8 +1247,8 @@ export type OrderControllerFindMineResult = NonNullable<
 export type OrderControllerFindAllResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerFindAll>>
 >;
-export type OrderControllerFindAllwaitingResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerFindAllwaiting>>
+export type OrderControllerFindAllWaitingResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindAllWaiting>>
 >;
 export type OrderControllerFindOneResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerFindOne>>

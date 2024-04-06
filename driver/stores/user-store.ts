@@ -1,5 +1,5 @@
 import { createUseStore } from "@/lib/zustand";
-import { User as UserDto } from "@/swagger/api.schemas";
+import { User as UserDto } from "@/services/api.schemas";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";

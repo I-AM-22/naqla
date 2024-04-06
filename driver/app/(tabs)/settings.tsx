@@ -1,4 +1,4 @@
-import useUserStore from "@/stores/userStore";
+import useUserStore from "@/stores/user-store";
 import { View } from "react-native";
 import { Button, useTheme } from "react-native-paper";
 
