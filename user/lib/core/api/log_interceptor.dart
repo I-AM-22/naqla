@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -7,6 +8,7 @@ import 'package:logger/logger.dart';
 import 'package:naqla/core/di/di_container.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../common/enums/status_code_type.dart';
+import '../util/helper_functions.dart';
 import 'api_utils.dart';
 
 enum _StatusType {
@@ -14,23 +16,23 @@ enum _StatusType {
   failed,
 }
 
-class LoggerInterceptor extends Interceptor with LoggerHelper {
+class DioLogInterceptor extends Interceptor {
+  JsonEncoder encoder = const JsonEncoder.withIndent('  ');
+  final Logger logger = Logger();
+
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    if (GetIt.I<PrefsRepository>().registeredUser) {
+    if (getIt<PrefsRepository>().registeredUser) {
       options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${GetIt.I<PrefsRepository>().token}';
     }
-
     if (kDebugMode) {
-      prettyPrinterI(
-        "***|| INFO Request ${options.path} ||***"
-        "\n HTTP Method: ${options.method}"
-        "\n token : ${options.headers[HttpHeaders.authorizationHeader]?.substring(0, 20)}"
-        "\n query param : ${options.queryParameters}"
-        "\n param : ${options.data is FormData ? (options.data as FormData).fields : options.data}"
-        "\n url: ${options.path}"
-        "\n Header: ${options.headers}"
-        "\n timeout: ${options.connectTimeout! ~/ 1000}s",
+      logger.i(
+        "***|| INFO Request ${options.method} ${options.path} ||***"
+        "\n param : ${options.queryParameters}"
+        "\n data : ${options.data}"
+        "\n Header: ${encoder.convert(options.headers)}"
+        "\n timeout: ${options.connectTimeout ?? 0 ~/ 1000}s"
+        "\n curl command: ${HelperFunctions.getCurlCommandFromRequest(options)}s",
       );
     }
 
@@ -48,18 +50,18 @@ class LoggerInterceptor extends Interceptor with LoggerHelper {
       } else {
         statusType = _StatusType.failed;
       }
-      final requestRoute = response.requestOptions.path;
 
       if (statusType == _StatusType.failed) {
-        prettyPrinterError('***|| ${statusType.name.toUpperCase()} Response into -> $requestRoute ||***');
+        logger.e('***|| ${statusType.name.toUpperCase()} Response into -> ${response.requestOptions.uri.path} ||***');
       } else {
-        prettyPrinterV('***|| ${statusType.name.toUpperCase()} Response into -> $requestRoute ||***');
+        logger.t('***|| ${statusType.name.toUpperCase()} Response into -> ${response.requestOptions.uri.path} ||***');
       }
-      prettyPrinterWtf(
-        "***|| INFO Response Request $requestRoute ${statusType == _StatusType.succeed ? '✊' : ''} ||***"
+
+      logger.f(
+        "***|| INFO Response Request ${response.requestOptions.uri.path} ${statusType == _StatusType.succeed ? '✊' : ''} ||***"
         "\n Status code: ${response.statusCode}"
         "\n Status message: ${response.statusMessage}"
-        "\n Data: ${response.data}",
+        "\n Data: ${encoder.convert(response.data)}",
       );
     }
 
@@ -69,11 +71,11 @@ class LoggerInterceptor extends Interceptor with LoggerHelper {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response?.statusCode == 401) {
-      getIt<PrefsRepository>().clearUser();
+      print('401');
     }
     if (kDebugMode) {
-      prettyPrinterError(
-        "***|| SOMETHING ERROR 💔 ||***"
+      logger.e(
+        "***|| SOMETHING WENT WRONG 💔 ||***"
         "\n error: ${err.error}"
         "\n response: ${err.response}"
         "\n message: ${err.message}"
@@ -95,23 +97,6 @@ class LoggerInterceptor extends Interceptor with LoggerHelper {
   }
 }
 
-mixin LoggerHelper {
-  void prettyPrinterError(final String message) {
-    Logger(printer: PrettyPrinter(methodCount: 0)).e(message);
-  }
-
-  void prettyPrinterWtf(final String message) {
-    Logger(printer: PrettyPrinter(methodCount: 0)).w(message);
-  }
-
-  void prettyPrinterI(final String message) {
-    Logger(printer: PrettyPrinter(methodCount: 0)).i(message);
-  }
-
-  void prettyPrinterV(final String message) {
-    Logger(printer: PrettyPrinter(methodCount: 0)).f(message);
-  }
-}
 String _mapResponseError(Map<String, dynamic> response) {
   switch (response['type']) {
     case 'default':

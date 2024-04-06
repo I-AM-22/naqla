@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/core.dart';
@@ -64,7 +63,7 @@ class AppCheckbox extends StatelessWidget {
       if (isDisabled) {
         return const Color(0xffD0D5DD);
       } else {
-        return const Color(0xffE24D06);
+        return const Color(0xffD0D5DD);
       }
     }
     return isSelected ? context.colorScheme.primary : Colors.transparent;
@@ -84,14 +83,11 @@ class AppCheckbox extends StatelessWidget {
     if (isDisabled) {
       return isSelected ? const Color(0xffEAECF0) : const Color(0xffF2F4F7);
     }
-    return isSelected
-        ? context.colorScheme.primary
-        : context.colorScheme.surface;
+    return isSelected ? context.colorScheme.primary : context.colorScheme.surface;
   }
 
   bool get isDisabled => onChanged == null;
 }
-
 
 Color _shadowCard1(double opacity) {
   return Color.fromRGBO(16, 24, 40, opacity);

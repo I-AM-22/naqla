@@ -26,3 +26,11 @@ class PickPhotosOrder extends HomeEvent {
 
   PickPhotosOrder({required this.context});
 }
+
+class GetCarAdvantageEvent extends HomeEvent {}
+
+class ChangeSelectAdvantageEvent extends HomeEvent {
+  final CarAdvantage carAdvantage;
+
+  ChangeSelectAdvantageEvent({required this.carAdvantage});
+}

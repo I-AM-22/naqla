@@ -33,12 +33,11 @@ abstract class AppModule {
   @lazySingleton
   Dio dio(BaseOptions options, Logger logger) {
     final dio = Dio(options);
-    dio.interceptors.addAll([LoggerInterceptor()]);
+    dio.interceptors.addAll([DioLogInterceptor()]);
     return dio;
   }
 
   @preResolve
   @singleton
-  Future<SharedPreferences> get sharedPreferences =>
-      SharedPreferences.getInstance();
+  Future<SharedPreferences> get sharedPreferences => SharedPreferences.getInstance();
 }
