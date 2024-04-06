@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateCarDto, UpdateCarDto } from '../../dtos';
-import { Car } from '../../entities/car.entity';
-import { ICarRepository } from '../../interfaces/repositories/car.repository.interface';
-import { Driver } from '../../entities/driver.entity';
-import { CarPhoto } from '../../entities/car-photo.entity';
 import { Advantage } from '../../../advantages/entities/advantage.entity';
+import { CreateCarDto, UpdateCarDto } from '../../dtos';
+import { CarPhoto } from '../../entities/car-photo.entity';
+import { Car } from '../../entities/car.entity';
+import { Driver } from '../../entities/driver.entity';
+import { ICarRepository } from '../../interfaces/repositories/car.repository.interface';
 
 @Injectable()
 export class CarRepository implements ICarRepository {
@@ -59,6 +59,7 @@ export class CarRepository implements ICarRepository {
   async create(
     driver: Driver,
     photo: CarPhoto,
+    advantages: Advantage[],
     dto: CreateCarDto,
   ): Promise<Car> {
     const car = new Car();
@@ -67,6 +68,7 @@ export class CarRepository implements ICarRepository {
     car.color = dto.color;
     car.photo = photo;
     car.driver = driver;
+    car.advantages = advantages;
 
     return this.carRepository.save(car);
   }

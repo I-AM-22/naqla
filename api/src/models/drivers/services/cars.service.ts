@@ -1,16 +1,16 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CAR_TYPES } from '../interfaces/type';
-import { AddAdvansToCarDto, CreateCarDto, UpdateCarDto } from '../dtos';
-import { Car } from '../entities/car.entity';
-import { ICarRepository } from '../interfaces/repositories/car.repository.interface';
-import { Driver } from '../entities/driver.entity';
-import { ICarsService } from '../interfaces/services/cars.service.interface';
 import { item_not_found } from '../../../common/constants';
 import { Entities } from '../../../common/enums';
 import { IPhotoRepository } from '../../../common/interfaces';
-import { CarPhoto } from '../entities/car-photo.entity';
-import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
 import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
+import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
+import { AddAdvansToCarDto, CreateCarDto, UpdateCarDto } from '../dtos';
+import { CarPhoto } from '../entities/car-photo.entity';
+import { Car } from '../entities/car.entity';
+import { Driver } from '../entities/driver.entity';
+import { ICarRepository } from '../interfaces/repositories/car.repository.interface';
+import { ICarsService } from '../interfaces/services/cars.service.interface';
+import { CAR_TYPES } from '../interfaces/type';
 
 @Injectable()
 export class CarsService implements ICarsService {
@@ -45,7 +45,8 @@ export class CarsService implements ICarsService {
 
   async create(driver: Driver, dto: CreateCarDto): Promise<Car> {
     const photo = await this.carPhotoRepository.uploadPhoto(dto.photo);
-    return this.carRepository.create(driver, photo, dto);
+    const advantages = await this.advantagesService.findInIds(dto.advantages);
+    return this.carRepository.create(driver, photo, advantages, dto);
   }
 
   async update(id: string, driverId: string, dto: UpdateCarDto): Promise<Car> {

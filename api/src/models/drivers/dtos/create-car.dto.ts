@@ -2,7 +2,7 @@
 
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { item_not_found } from '../../../common/constants';
 import { IsPhotoExist } from '../../../common/decorators';
 import { Entities } from '../../../common/enums';
@@ -29,4 +29,8 @@ export class CreateCarDto {
   @Transform(({ value }: { value: string }) => getPhotoPath(value))
   @IsPhotoExist({ message: item_not_found(Entities.Photo) })
   readonly photo: string;
+
+  @ApiProperty()
+  @IsUUID('all', { each: true })
+  advantages: string[];
 }
