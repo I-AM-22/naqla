@@ -4,10 +4,15 @@ import "intl-pluralrules";
 import "lib/i18next";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
+import { StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 import Icon from "react-native-vector-icons/Feather";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
-
+const styles = StyleSheet.create({
+  base: {},
+  focused: {},
+  normal: {},
+});
 export default function Layout() {
   const { isAuthed, user } = useUserStore();
   const { t } = useTranslation("layout");
@@ -30,21 +35,27 @@ export default function Layout() {
         name="index"
         options={{
           title: t("navLink.home"),
-          tabBarIcon: () => <Icon size={28} name="home" />,
+          tabBarActiveTintColor: theme.colors.secondary,
+          tabBarInactiveTintColor: theme.colors.primary,
+          tabBarIcon: ({ color }) => <Icon color={color} size={28} name="home" />,
         }}
       />
       <Tabs.Screen
         name="cars"
         options={{
           title: t("navLink.cars"),
-          tabBarIcon: () => <MIcon size={28} name="truck-cargo-container" />,
+          tabBarActiveTintColor: theme.colors.secondary,
+          tabBarInactiveTintColor: theme.colors.primary,
+          tabBarIcon: ({ color }) => <MIcon color={color} size={28} name="truck-cargo-container" />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: t("navLink.settings"),
-          tabBarIcon: () => <Icon size={28} name="settings" />,
+          tabBarActiveTintColor: theme.colors.secondary,
+          tabBarInactiveTintColor: theme.colors.primary,
+          tabBarIcon: ({ color }) => <Icon size={28} color={color} name="settings" />,
         }}
       />
     </Tabs>

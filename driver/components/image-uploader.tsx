@@ -8,7 +8,7 @@ import * as ImagePicker from "expo-image-picker";
 import { ReactNode, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
-import { ActivityIndicator, IconButton, TouchableRipple } from "react-native-paper";
+import { ActivityIndicator, HelperText, IconButton, TouchableRipple } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Text } from "./ui/text";
 export type ImageUploaderProps = {
@@ -65,50 +65,59 @@ export function ImageUploader({
   };
 
   return (
-    <View style={[styles.container, containerStyle]}>
-      <TouchableRipple disabled={!!image} onPress={!image ? pickImage : () => {}}>
-        <>
-          <Text
-            variant="titleMedium"
-            style={{ paddingTop: 10, paddingRight: 13, color: theme.colors?.primary }}
-          >
-            {label}
-          </Text>
-          <View
-            style={{
-              height: 200,
-              position: "relative",
-              paddingBottom: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {image && (
-              <IconButton
-                icon={"delete"}
-                style={styles.delete}
-                iconColor="red"
-                mode="contained"
-                size={16}
-                onPress={() => {
-                  setImage(null);
-                  onRemove?.();
-                  name && form?.setValue(name, null);
+    <>
+      <View style={[styles.container, containerStyle]}>
+        <View style={[styles.input]}>
+          <TouchableRipple disabled={!!image} onPress={!image ? pickImage : () => {}}>
+            <>
+              <Text
+                variant="titleMedium"
+                style={{ paddingTop: 10, paddingRight: 13, color: theme.colors?.primary }}
+              >
+                {label}
+              </Text>
+              <View
+                style={{
+                  height: 200,
+                  position: "relative",
+                  paddingBottom: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-              />
-            )}
-            {!image && !uploadImage.isPending && (
-              <Icon name="file-upload-outline" style={{}} size={100} />
-            )}
-            {uploadImage.isPending && (
-              <ActivityIndicator animating={true} size={50} color={theme.colors?.primary} />
-            )}
-            {image && <Image source={{ uri: image }} contentFit="contain" style={styles.image} />}
-          </View>
-        </>
-      </TouchableRipple>
-    </View>
+              >
+                {image && (
+                  <IconButton
+                    icon={"delete"}
+                    style={styles.delete}
+                    iconColor="red"
+                    mode="contained"
+                    size={16}
+                    onPress={() => {
+                      setImage(null);
+                      onRemove?.();
+                      name && form?.setValue(name, null);
+                    }}
+                  />
+                )}
+                {!image && !uploadImage.isPending && (
+                  <Icon name="file-upload-outline" style={{}} size={100} />
+                )}
+                {uploadImage.isPending && (
+                  <ActivityIndicator animating={true} size={50} color={theme.colors?.primary} />
+                )}
+                {image && (
+                  <Image source={{ uri: image }} contentFit="contain" style={styles.image} />
+                )}
+              </View>
+            </>
+          </TouchableRipple>
+        </View>
+        {name && form.formState.errors[name] && (
+          <HelperText type="error">{form.formState.errors[name].message?.toString()}</HelperText>
+        )}
+      </View>
+    </>
   );
 }
 const styles = StyleSheet.create({
@@ -116,9 +125,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     gap: 1,
+  },
+  input: {
     borderWidth: 1,
     borderRadius: theme.roundness,
     borderColor: theme.colors?.primary,
+    display: "flex",
+    flexDirection: "column",
+    gap: 1,
   },
   button: {
     height: 200,

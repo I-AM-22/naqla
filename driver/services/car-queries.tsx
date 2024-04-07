@@ -1,8 +1,14 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import { useQuery } from "@tanstack/react-query";
-import { advantagesControllerFindAll, carControllerFindMine, carControllerFindOne } from "./api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  advantagesControllerFindAll,
+  carControllerCreate,
+  carControllerDelete,
+  carControllerFindMine,
+  carControllerFindOne,
+} from "./api";
 type CarDetailsParameters = Parameters<typeof carControllerFindOne>;
-export const keys = createQueryKeys("car", {
+export const carKeys = createQueryKeys("car", {
   advantages: { queryFn: advantagesControllerFindAll, queryKey: [""] },
   mine: { queryFn: carControllerFindMine, queryKey: [""] },
   details: (...params: CarDetailsParameters) => ({
@@ -12,7 +18,13 @@ export const keys = createQueryKeys("car", {
 });
 
 export const carQueries = {
-  useAdvantages: () => useQuery({ ...keys.advantages, staleTime: Infinity }),
-  useMine: () => useQuery({ ...keys.mine }),
-  useDetails: (...params: CarDetailsParameters) => useQuery({ ...keys.details(...params) }),
+  useAdvantages: () => useQuery({ ...carKeys.advantages, staleTime: Infinity }),
+  useMine: () => useQuery({ ...carKeys.mine }),
+  useDetails: (...params: CarDetailsParameters) => useQuery({ ...carKeys.details(...params) }),
+
+  useCreate: () =>
+    useMutation({
+      mutationFn: carControllerCreate,
+    }),
+  useRemove: () => useMutation({ mutationFn: carControllerDelete }),
 };

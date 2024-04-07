@@ -8,5 +8,7 @@
   "colorPlaceholder": "أبيض",
   "photo": "الصورة",
   "advantages": "ميزات إضافية",
-  "submit": "إضافة"
+  "submit": "إضافة",
+  "remove": "إزالة",
+  "removeSuccess": "تمت إزالة السيارة بنجاح"
 }

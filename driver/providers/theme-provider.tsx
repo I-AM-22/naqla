@@ -13,6 +13,7 @@ export const theme: ThemeProp = {
     secondary: "#B7083C",
     inversePrimary: "#fff",
     background: "#fff",
+    elevation: { ...DefaultTheme.colors.elevation, level1: "#fff", level2: "#fff" },
   },
   roundness: 2,
 };
