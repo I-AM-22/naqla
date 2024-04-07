@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ import 'package:naqla/core/global_widgets/custom_text_field.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
+import 'package:naqla/features/home/data/model/car_advantage.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 import 'package:naqla/features/home/presentation/pages/order_photos_page.dart';
 import 'package:naqla/generated/flutter_gen/assets.gen.dart';
@@ -40,6 +43,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
   final Set<Polygon> _polygon = HashSet<Polygon>();
   List<LatLng> points = [];
   int index = 0;
+  final ValueNotifier<bool> workers = ValueNotifier(false);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
       S.of(context).end_point,
     ];
     return BlocProvider.value(
-      value: getIt<HomeBloc>(),
+      value: getIt<HomeBloc>()..add(GetCarAdvantageEvent()),
       child: AppScaffold(
         bottomNavigationBar: Padding(
           padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
@@ -158,20 +162,9 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
               16.verticalSpace,
               Padding(
                 padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                child: AppTextFormField(
+                child: const AppTextFormField(
                   hintText: "Date",
-                  prefixIcon: AppImage.asset("assets/icons/essential/current_location.svg"),
-                ),
-              ),
-              16.verticalSpace,
-              Padding(
-                padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                child: AppTextFormField(
-                  hintText: "Time",
-                  prefixIcon: AppImage.asset(
-                    Assets.icons.essential.clock2.path,
-                    size: 16.w,
-                  ),
+                  prefixIcon: Icon(Icons.date_range),
                 ),
               ),
               20.verticalSpace,
@@ -179,7 +172,16 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                 child: Row(
                   children: [
-                    const AppCheckbox(),
+                    ValueListenableBuilder(
+                      builder: (context, value, _) => AppCheckbox(
+                        isSelected: value,
+                        onChanged: (value) {
+                          print(value);
+                          workers.value = value;
+                        },
+                      ),
+                      valueListenable: workers,
+                    ),
                     8.horizontalSpace,
                     AppText.bodySmMedium(
                       "حمالين",
@@ -202,21 +204,32 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   color: Colors.black,
                 ),
               ),
-              Padding(
-                padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  separatorBuilder: (context, index) => 14.verticalSpace,
-                  itemBuilder: (context, index) => Row(
-                    children: [
-                      const AppCheckbox(),
-                      8.horizontalSpace,
-                      AppText.bodySmMedium(
-                        "حمالين",
-                        color: Colors.black,
-                      )
-                    ],
+              AppCommonStateBuilder<HomeBloc, List<CarAdvantage>>(
+                index: HomeState.carAdvantage,
+                onSuccess: (data) => Padding(
+                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: 3,
+                    separatorBuilder: (context, index) => 14.verticalSpace,
+                    itemBuilder: (context, index) => Row(
+                      children: [
+                        AppCheckbox(
+                          isSelected: data[index].isSelect,
+                          onChanged: (value) {
+                            context.read<HomeBloc>().add(ChangeSelectAdvantageEvent(carAdvantage: data[index]));
+                          },
+                        ),
+                        8.horizontalSpace,
+                        Text.rich(
+                            style: context.textTheme.bodySmMedium,
+                            TextSpan(children: [
+                              TextSpan(text: data[index].name),
+                              WidgetSpan(child: 4.horizontalSpace),
+                              TextSpan(text: "[${data[index].cost}]")
+                            ])),
+                      ],
+                    ),
                   ),
                 ),
               )
