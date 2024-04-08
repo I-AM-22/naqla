@@ -3,6 +3,7 @@ import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/type_definitions.dart';
 import 'package:naqla/features/home/data/data_source/home_remote_data_source.dart';
 import 'package:naqla/features/home/data/model/car_advantage.dart';
+import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/domain/repositories/home_repository.dart';
 import 'package:naqla/features/home/domain/use_case/upload_photos_use_case.dart';
 
@@ -19,5 +20,10 @@ class HomeRepositoryImplement extends HomeRepository {
   @override
   FutureResult<List<CarAdvantage>> getCarAdvantages() {
     return toApiResult(() => dataSource.getCarAdvantage());
+  }
+
+  @override
+  FutureResult<List<OrderModel>> getOrders() {
+    return toApiResult(() => dataSource.getOrders());
   }
 }

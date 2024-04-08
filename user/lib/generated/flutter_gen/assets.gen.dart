@@ -88,6 +88,10 @@ class $AssetsIconsEssentialGen {
   /// File path: assets/icons/essential/_user.svg
   SvgGenImage get user => const SvgGenImage('assets/icons/essential/_user.svg');
 
+  /// File path: assets/icons/essential/calendar.svg
+  SvgGenImage get calendar =>
+      const SvgGenImage('assets/icons/essential/calendar.svg');
+
   /// File path: assets/icons/essential/camera.svg
   SvgGenImage get camera =>
       const SvgGenImage('assets/icons/essential/camera.svg');
@@ -185,6 +189,7 @@ class $AssetsIconsEssentialGen {
         more,
         house,
         user,
+        calendar,
         camera,
         chat,
         checkCircle,

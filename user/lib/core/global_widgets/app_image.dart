@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:naqla/core/util/extensions.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'image_place_holder.dart';
 
 enum Source { assets, network }
 
-// ignore: must_be_immutable
 class AppImage extends StatelessWidget {
-  AppImage.asset(
+  const AppImage.asset(
     this.path, {
     super.key,
     this.alignment,
@@ -20,7 +21,7 @@ class AppImage extends StatelessWidget {
     this.size,
   }) : _source = Source.assets;
 
-  AppImage.network(
+  const AppImage.network(
     this.path, {
     super.key,
     this.alignment,
@@ -41,7 +42,7 @@ class AppImage extends StatelessWidget {
   final BoxFit? fit;
   final double? height;
   final double? width;
-  Color? color;
+  final Color? color;
   final WidgetBuilder? loadingBuilder;
 
   ///pass size will overwrite height and width
@@ -60,10 +61,7 @@ class AppImage extends StatelessWidget {
         case Source.assets:
           return SvgPicture.asset(
             path,
-            colorFilter: colorFilter ??
-                (color != null
-                    ? ColorFilter.mode(color!, BlendMode.srcIn)
-                    : null),
+            colorFilter: colorFilter ?? (color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null),
             alignment: alignment ?? Alignment.center,
             fit: fit ?? BoxFit.contain,
             height: getHeight(),
@@ -72,10 +70,11 @@ class AppImage extends StatelessWidget {
         case Source.network:
           return SvgPicture.network(
             path,
-            placeholderBuilder: getLoadingBuilder,
-            colorFilter: color != null
-                ? ColorFilter.mode(color!, BlendMode.srcIn)
-                : null,
+            placeholderBuilder: (context) => ImagePlaceHolder(
+              width: (getWidth() ?? 50) * .8,
+              height: getHeight() ?? 50,
+            ),
+            colorFilter: color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
             alignment: alignment ?? Alignment.center,
             fit: fit ?? BoxFit.contain,
             height: getHeight(),
@@ -94,19 +93,23 @@ class AppImage extends StatelessWidget {
             width: getWidth(),
           );
         case Source.network:
-          return Image.network(
-            path,
+          return CachedNetworkImage(
+            imageUrl: path,
             color: color,
-            errorBuilder: (context, v, trace) {
-              return Container(
-                height: getHeight(),
-                width: getWidth(),
-                color: context.colorScheme.primary,
-                child: failedBuilder != null ? failedBuilder!(context) : null,
-              );
-            },
-            loadingBuilder: (context, child, loadingProgress) =>
-                getLoadingBuilder(context),
+
+            errorWidget: (context, url, error) => ImagePlaceHolder(
+              width: (getWidth() ?? 50) * .8,
+              height: getHeight() ?? 50,
+            ),
+            // errorBuilder: (context, v, trace) {
+            //   return ImagePlaceHolder(width:getWidth()!,height: getHeight()!, );
+            // },
+            // loadingBuilder: (context, child, loadingProgress) =>
+            //     ImagePlaceHolder(width:getWidth()!,height: getHeight()!, ),
+            placeholder: (context, url) => ImagePlaceHolder(
+              width: (getWidth() ?? 50) * .8,
+              height: getHeight() ?? 50,
+            ),
             alignment: alignment ?? Alignment.center,
             fit: fit,
             height: getHeight(),
@@ -125,9 +128,7 @@ class AppImage extends StatelessWidget {
       : SizedBox(
           height: getHeight(),
           width: getWidth(),
-          child: const CircularProgressIndicator(
-            strokeWidth: 1,
-          ),
+          child: const CircularProgressIndicator(strokeWidth: 1),
         );
 
   Widget copyWith(Color? color) {

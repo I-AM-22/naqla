@@ -38,8 +38,8 @@ class Photo {
 
   factory Photo.fromJson(Map<String, dynamic> json) => Photo(
         id: json["id"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        createdAt: DateTime.parse(json["createdAt"] ?? DateTime.now().toString()),
+        updatedAt: DateTime.parse(json["updatedAt"] ?? DateTime.now().toString()),
         blurHash: json["blurHash"],
         profileUrl: json["profileUrl"],
         mobileUrl: json["mobileUrl"],

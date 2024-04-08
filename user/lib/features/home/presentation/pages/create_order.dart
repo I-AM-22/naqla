@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
+import 'package:naqla/core/global_widgets/app_date_picker.dart';
 import 'package:naqla/core/global_widgets/custom_text_field.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
@@ -162,9 +162,9 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
               16.verticalSpace,
               Padding(
                 padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                child: const AppTextFormField(
-                  hintText: "Date",
-                  prefixIcon: Icon(Icons.date_range),
+                child: AppDatePicker(
+                  name: 'date',
+                  minimumDate: DateTime.now(),
                 ),
               ),
               20.verticalSpace,

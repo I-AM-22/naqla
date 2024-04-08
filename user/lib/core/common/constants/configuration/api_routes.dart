@@ -1,6 +1,6 @@
 class ApiRoutes {
   //////////////////?Base////////////////////
-  static const String baseUrl = 'http://192.168.1.104:5500';
+  static const String baseUrl = 'http://192.168.1.101:5500';
 
   //////////////////?Auth////////////////////
   static String login = '/api/v1/auth/user/login';
@@ -17,4 +17,7 @@ class ApiRoutes {
 
   //////////////////?Advantages////////////////////
   static String advantages = '/api/v1/advantages';
+
+  //////////////////?Order////////////////////
+  static String orderMine = '/api/v1/orders/mine';
 }

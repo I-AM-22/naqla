@@ -34,3 +34,5 @@ class ChangeSelectAdvantageEvent extends HomeEvent {
 
   ChangeSelectAdvantageEvent({required this.carAdvantage});
 }
+
+class GetOrdersActiveEvent extends HomeEvent {}

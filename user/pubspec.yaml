@@ -49,6 +49,8 @@ dependencies:
   path_provider: ^2.1.2
   uuid: ^4.3.3
   http_parser: ^4.0.2
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.1
 
   #State management
   flutter_bloc: ^8.1.3

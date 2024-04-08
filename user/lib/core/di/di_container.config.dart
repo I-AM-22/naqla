@@ -25,9 +25,9 @@ import '../../features/auth/data/repositories/auth_repository_implement.dart'
     as _i22;
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i21;
 import '../../features/auth/domain/use_cases/confirm_use_case.dart' as _i23;
-import '../../features/auth/domain/use_cases/login_use_case.dart' as _i29;
-import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i31;
-import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i32;
+import '../../features/auth/domain/use_cases/login_use_case.dart' as _i30;
+import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i32;
+import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i33;
 import '../../features/home/data/data_source/home_remote_data_source.dart'
     as _i9;
 import '../../features/home/data/repositories/home_repository_implement.dart'
@@ -35,9 +35,10 @@ import '../../features/home/data/repositories/home_repository_implement.dart'
 import '../../features/home/domain/repositories/home_repository.dart' as _i10;
 import '../../features/home/domain/use_case/get_car_advantage_use_case.dart'
     as _i26;
+import '../../features/home/domain/use_case/get_orders_use_case.dart' as _i27;
 import '../../features/home/domain/use_case/upload_photos_use_case.dart'
     as _i18;
-import '../../features/home/presentation/bloc/home_bloc.dart' as _i28;
+import '../../features/home/presentation/bloc/home_bloc.dart' as _i29;
 import '../../features/profile/data/data_source/profile_remote_data_source.dart'
     as _i14;
 import '../../features/profile/data/repositories/profile_repository_implement.dart'
@@ -49,15 +50,15 @@ import '../../features/profile/domain/use_cases/delete_account_use_case.dart'
 import '../../features/profile/domain/use_cases/edit_personal_info_use_case.dart'
     as _i25;
 import '../../features/profile/domain/use_cases/get_personal_info_use_case.dart'
-    as _i27;
+    as _i28;
 import '../../features/profile/domain/use_cases/update_phone_number_use_case.dart'
     as _i17;
 import '../../features/profile/domain/use_cases/upload_single_photo_use_case.dart'
     as _i19;
 import '../../features/profile/presentation/state/bloc/profile_bloc.dart'
-    as _i30;
+    as _i31;
 import '../network_info.dart' as _i6;
-import 'di_container.dart' as _i33;
+import 'di_container.dart' as _i34;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
@@ -112,29 +113,32 @@ Future<_i1.GetIt> $initGetIt(
       () => _i25.EditPersonalInfoUseCase(gh<_i15.ProfileRepository>()));
   gh.factory<_i26.GetCarAdvantageUseCase>(
       () => _i26.GetCarAdvantageUseCase(gh<_i10.HomeRepository>()));
-  gh.factory<_i27.GetPersonalInfoUseCase>(
-      () => _i27.GetPersonalInfoUseCase(gh<_i15.ProfileRepository>()));
-  gh.lazySingleton<_i28.HomeBloc>(() => _i28.HomeBloc(
+  gh.factory<_i27.GetOrdersUseCase>(
+      () => _i27.GetOrdersUseCase(gh<_i10.HomeRepository>()));
+  gh.factory<_i28.GetPersonalInfoUseCase>(
+      () => _i28.GetPersonalInfoUseCase(gh<_i15.ProfileRepository>()));
+  gh.lazySingleton<_i29.HomeBloc>(() => _i29.HomeBloc(
         gh<_i18.UploadPhotosUseCase>(),
         gh<_i26.GetCarAdvantageUseCase>(),
+        gh<_i27.GetOrdersUseCase>(),
       ));
-  gh.factory<_i29.LoginUseCase>(
-      () => _i29.LoginUseCase(gh<_i21.AuthRepository>()));
-  gh.factory<_i30.ProfileBloc>(() => _i30.ProfileBloc(
-        gh<_i27.GetPersonalInfoUseCase>(),
+  gh.factory<_i30.LoginUseCase>(
+      () => _i30.LoginUseCase(gh<_i21.AuthRepository>()));
+  gh.factory<_i31.ProfileBloc>(() => _i31.ProfileBloc(
+        gh<_i28.GetPersonalInfoUseCase>(),
         gh<_i25.EditPersonalInfoUseCase>(),
         gh<_i19.UploadSinglePhotoUseCase>(),
         gh<_i17.UpdatePhoneNumberUseCase>(),
         gh<_i24.DeleteAccountUseCase>(),
       ));
-  gh.factory<_i31.SignUpUseCase>(
-      () => _i31.SignUpUseCase(gh<_i21.AuthRepository>()));
-  gh.factory<_i32.AuthBloc>(() => _i32.AuthBloc(
-        gh<_i29.LoginUseCase>(),
-        gh<_i31.SignUpUseCase>(),
+  gh.factory<_i32.SignUpUseCase>(
+      () => _i32.SignUpUseCase(gh<_i21.AuthRepository>()));
+  gh.factory<_i33.AuthBloc>(() => _i33.AuthBloc(
+        gh<_i30.LoginUseCase>(),
+        gh<_i32.SignUpUseCase>(),
         gh<_i23.ConfirmUseCase>(),
       ));
   return getIt;
 }
 
-class _$AppModule extends _i33.AppModule {}
+class _$AppModule extends _i34.AppModule {}

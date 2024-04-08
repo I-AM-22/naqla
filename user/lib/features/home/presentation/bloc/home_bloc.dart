@@ -7,14 +7,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:location/location.dart';
 import 'package:naqla/core/core.dart';
-import 'package:naqla/core/state_managment/state/common_state.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/core/util/core_helper_functions.dart';
 import 'package:naqla/core/util/secure_image_picker.dart';
 import 'package:naqla/features/home/data/model/car_advantage.dart';
+import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/services/location_map_service.dart';
 
 import '../../domain/use_case/get_car_advantage_use_case.dart';
+import '../../domain/use_case/get_orders_use_case.dart';
 import '../../domain/use_case/upload_photos_use_case.dart';
 
 part 'home_event.dart';
@@ -24,7 +25,8 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, Map<int, CommonState>> {
   final UploadPhotosUseCase uploadPhotosUseCase;
   final GetCarAdvantageUseCase getCarAdvantageUseCase;
-  HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase) : super(HomeState.iniState) {
+  final GetOrdersUseCase getOrdersUseCase;
+  HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase) : super(HomeState.iniState) {
     on<ChangeLocationEvent>((event, emit) {
       return CoreHelperFunctions.handelMultiApiResult(
         callback: () async => LocationService().getLocation(),
@@ -83,6 +85,11 @@ class HomeBloc extends Bloc<HomeEvent, Map<int, CommonState>> {
     on<GetCarAdvantageEvent>(
       (event, emit) => CoreHelperFunctions.handelMultiApiResult(
           callback: () => getCarAdvantageUseCase(NoParams()), emit: emit, state: state, index: HomeState.carAdvantage),
+    );
+
+    on<GetOrdersActiveEvent>(
+      (event, emit) => CoreHelperFunctions.handelMultiApiResult(
+          callback: () => getOrdersUseCase(NoParams()), emit: emit, state: state, index: HomeState.ordersActive),
     );
   }
 }

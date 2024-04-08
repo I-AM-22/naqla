@@ -93,7 +93,9 @@ class GRouter {
               parentNavigatorKey: _shell1NavigatorKey,
               path: HomePage.path,
               name: HomePage.name,
-              builder: (context, state) => const HomePage(),
+              builder: (context, state) => HomePage(
+                    comeFromSplash: state.extra as bool,
+                  ),
               routes: [
                 GoRoute(
                   parentNavigatorKey: _rootNavigatorKey,
