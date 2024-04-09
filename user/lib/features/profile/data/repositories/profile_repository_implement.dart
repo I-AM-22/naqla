@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:naqla/core/api/api_utils.dart';
-import 'package:naqla/core/type_definitions.dart';
+import 'package:common_state/common_state.dart';
 import 'package:naqla/features/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:naqla/features/profile/domain/repositories/profile_repository.dart';
 import 'package:naqla/features/profile/domain/use_cases/edit_personal_info_use_case.dart';

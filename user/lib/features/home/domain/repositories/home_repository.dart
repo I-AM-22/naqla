@@ -1,4 +1,4 @@
-import 'package:naqla/core/type_definitions.dart';
+import 'package:common_state/common_state.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/domain/use_case/upload_photos_use_case.dart';
 

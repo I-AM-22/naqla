@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:naqla/core/type_definitions.dart';
+import 'package:common_state/common_state.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/features/auth/domain/repositories/auth_repository.dart';
 

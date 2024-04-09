@@ -1,3 +1,4 @@
+import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,42 +82,29 @@ class _RegisterPageState extends State<RegisterPage> {
                         String manimbulatedValue = '$value';
                         return manimbulatedValue;
                       },
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.minLength(10)
-                      ]),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(10)
-                      ],
+                      validator: FormBuilderValidators.compose([FormBuilderValidators.required(), FormBuilderValidators.minLength(10)]),
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
                       keyboardType: TextInputType.phone,
                     ),
                     20.verticalSpace,
-                    BlocSelector<AuthBloc, Map<int, CommonState>, CommonState>(
-                      selector: (state) => state[AuthState.signUp]!,
+                    BlocSelector<AuthBloc, AuthState, CommonState>(
+                      selector: (state) => state.getState(AuthState.signUp),
                       builder: (context, state) {
                         return AppButton.dark(
-                          isLoading: state.isLoading(),
+                          isLoading: state.isLoading,
                           onPressed: () {
                             _formKey.currentState?.save();
                             _formKey.currentState?.validate();
                             if (_formKey.currentState?.isValid ?? false) {
                               context.read<AuthBloc>().add(SignUpEvent(
                                       SignUpParam(
-                                        phone: _formKey
-                                            .currentState?.value['phoneNumber'],
-                                        firstName: _formKey
-                                            .currentState?.value['firstName'],
-                                        lastName: _formKey
-                                            .currentState?.value['lastName'],
+                                        phone: _formKey.currentState?.value['phoneNumber'],
+                                        firstName: _formKey.currentState?.value['firstName'],
+                                        lastName: _formKey.currentState?.value['lastName'],
                                       ), (p0) {
                                     showMessage(p0, isSuccess: true);
-                                    context.pushNamed(
-                                        PhoneVerificationPage.name,
-                                        extra: PhoneVerificationParam(
-                                            phone: _formKey.currentState
-                                                ?.value['phoneNumber'],
-                                            comeFromProfile: false));
+                                    context.pushNamed(PhoneVerificationPage.name,
+                                        extra: PhoneVerificationParam(phone: _formKey.currentState?.value['phoneNumber'], comeFromProfile: false));
                                   }));
                             }
                           },
@@ -137,15 +125,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           Flexible(
                             flex: 3,
-                            child: AppText.bodyMedium(
-                                S.of(context).already_have_an_account,
-                                color: context.colorScheme.systemGray.shade700),
+                            child: AppText.bodyMedium(S.of(context).already_have_an_account, color: context.colorScheme.systemGray.shade700),
                           ),
                           Flexible(
                             flex: 2,
                             child: TextButton(
-                                onPressed: () => context
-                                    .pushNamed(SignInPage.name, extra: false),
+                                onPressed: () => context.pushNamed(SignInPage.name, extra: false),
                                 child: AppText.bodyMedium(
                                   S.of(context).log_in,
                                 )),

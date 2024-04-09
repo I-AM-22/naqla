@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:naqla/core/api/api_utils.dart';
-import 'package:naqla/core/type_definitions.dart';
+import 'package:common_state/common_state.dart';
 import 'package:naqla/features/home/data/data_source/home_remote_data_source.dart';
 import 'package:naqla/features/home/data/model/car_advantage.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';

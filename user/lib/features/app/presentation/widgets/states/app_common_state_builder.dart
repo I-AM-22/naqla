@@ -1,41 +1,70 @@
+import 'package:common_state/common_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naqla/core/api/exceptions.dart';
-import 'package:naqla/core/state_managment/result_builder/common_state_builder.dart';
-import 'package:naqla/core/state_managment/state/common_state.dart';
-import 'package:naqla/features/app/presentation/widgets/app_loading_indicator.dart';
 import 'package:naqla/features/app/presentation/widgets/states/error_page.dart';
 
+import '../app_loading_indicator.dart';
 import 'empty_page.dart.dart';
 
-class AppCommonStateBuilder<B extends StateStreamable<Map<int, CommonState>>, T> extends StatelessWidget {
-  final int index;
+class AppCommonStateBuilder<B extends StateStreamable<BaseState>, T> extends StatelessWidget {
+  final String? stateName;
   final Widget Function(T data) onSuccess;
+  final void Function()? onErrorPressed;
+  final void Function()? onEmptyPressed;
 
   final Widget? onLoading;
   final Widget? onInit;
   final Widget? onEmpty;
-  final Widget Function(AppException exception)? onError;
+  final Widget Function(dynamic exception)? onError;
+  final bool isSliver;
+  final Size? appErrorPageSize;
+  final Size? size;
 
   const AppCommonStateBuilder({
     super.key,
-    required this.index,
+    this.appErrorPageSize,
+    this.isSliver = false,
+    this.stateName,
     required this.onSuccess,
     this.onInit,
     this.onEmpty,
     this.onError,
     this.onLoading,
+    this.onErrorPressed,
+    this.onEmptyPressed,
+    this.size,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CommonStateBuilder<B, T>(
-      index: index,
-      onSuccess: onSuccess,
-      onLoading: onLoading ?? const AppLoadingIndicator(),
-      onInit: onInit ?? const Text("init"),
-      onEmpty: onEmpty ?? const EmptyPage(),
-      onError: onError ?? (errorMessage) => const ErrorPage(),
+    return ResultBuilder<B, T>(
+      stateName: stateName,
+      loaded: onSuccess,
+      loading: onLoading ??
+          (isSliver
+              ? const SliverToBoxAdapter(
+                  child: AppLoadingIndicator(),
+                )
+              : const AppLoadingIndicator()),
+      initial: onInit ??
+          (isSliver
+              ? const SliverToBoxAdapter(
+                  child: Text("init"),
+                )
+              : const Text("init")),
+      empty: (message) =>
+          onEmpty ??
+          (isSliver
+              ? const SliverToBoxAdapter(
+                  child: EmptyPage(),
+                )
+              : const EmptyPage()),
+      failure: onError ??
+          (errorMessage) => isSliver
+              ? const SliverToBoxAdapter(
+                  child: ErrorPage(),
+                )
+              : const ErrorPage(),
     );
   }
 }

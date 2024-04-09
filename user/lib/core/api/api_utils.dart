@@ -2,12 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'dart:developer';
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
+import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../type_definitions.dart';
 import 'exceptions.dart';
 
 Future<T> throwAppException<T>(FutureOr<T> Function() call) async {

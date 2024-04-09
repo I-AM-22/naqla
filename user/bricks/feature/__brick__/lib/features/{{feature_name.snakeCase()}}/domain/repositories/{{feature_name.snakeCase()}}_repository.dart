@@ -1,5 +1,5 @@
 
-import 'package:naqla/core/type_definitions.dart';
+import 'package:common_state/common_state.dart';
 
 abstract
 class {{feature_name.pascalCase()}}Repository{

@@ -1,3 +1,4 @@
+import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,25 +62,18 @@ class _SignInPageState extends State<SignInPage> {
                         String manimbulatedValue = '$value';
                         return manimbulatedValue;
                       },
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.minLength(10)
-                      ]),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(10)
-                      ],
+                      validator: FormBuilderValidators.compose([FormBuilderValidators.required(), FormBuilderValidators.minLength(10)]),
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
                     ),
                   ),
                   40.verticalSpace,
                   RSizedBox(
                     width: double.infinity.w,
-                    child: BlocSelector<AuthBloc, Map<int, CommonState>,
-                        CommonState>(
-                      selector: (state) => state[AuthState.login]!,
+                    child: BlocSelector<AuthBloc, AuthState, CommonState>(
+                      selector: (state) => state.getState(AuthState.login),
                       builder: (context, state) {
                         return AppButton.dark(
-                          isLoading: state.isLoading(),
+                          isLoading: state.isLoading,
                           onPressed: () {
                             _formKey.currentState?.save();
                             _formKey.currentState?.validate();
@@ -87,16 +81,11 @@ class _SignInPageState extends State<SignInPage> {
                               context.read<AuthBloc>().add(
                                     LoginEvent(
                                         LoginParam(
-                                          _formKey.currentState
-                                              ?.value['phoneNumber'],
+                                          _formKey.currentState?.value['phoneNumber'],
                                         ), (p0) {
                                       showMessage(p0, isSuccess: true);
-                                      context.pushNamed(
-                                          PhoneVerificationPage.name,
-                                          extra: PhoneVerificationParam(
-                                              phone: _formKey.currentState
-                                                  ?.value['phoneNumber'],
-                                              comeFromProfile: false));
+                                      context.pushNamed(PhoneVerificationPage.name,
+                                          extra: PhoneVerificationParam(phone: _formKey.currentState?.value['phoneNumber'], comeFromProfile: false));
                                     }),
                                   );
                             }
@@ -118,15 +107,12 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         Flexible(
                           flex: 3,
-                          child: AppText.bodyMedium(
-                              S.of(context).do_not_have_an_account,
-                              color: context.colorScheme.systemGray.shade700),
+                          child: AppText.bodyMedium(S.of(context).do_not_have_an_account, color: context.colorScheme.systemGray.shade700),
                         ),
                         Flexible(
                           flex: 2,
                           child: TextButton(
-                              onPressed: () => context
-                                  .pushNamed(RegisterPage.name, extra: false),
+                              onPressed: () => context.pushNamed(RegisterPage.name, extra: false),
                               child: AppText.bodyMedium(
                                 S.of(context).sign_up,
                                 fontWeight: FontWeight.bold,

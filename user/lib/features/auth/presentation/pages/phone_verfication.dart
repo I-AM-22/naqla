@@ -1,3 +1,4 @@
+import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -44,11 +45,11 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
       child: AppScaffold(
           bottomNavigationBar: Padding(
             padding: REdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            child: BlocSelector<AuthBloc, Map<int, CommonState>, CommonState>(
-              selector: (state) => state[AuthState.confirm]!,
+            child: BlocSelector<AuthBloc, AuthState, CommonState>(
+              selector: (state) => state.getState(AuthState.confirm),
               builder: (context, state) {
                 return AppButton.dark(
-                  isLoading: state.isLoading(),
+                  isLoading: state.isLoading,
                   onPressed: () {
                     _key.currentState?.save();
                     _key.currentState?.validate();
@@ -93,7 +94,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                     40.verticalSpace,
                     FormBuilder(
                       key: _key,
-                      child: BlocBuilder<AuthBloc, Map<int, CommonState>>(
+                      child: BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, state) {
                           return VerificationNumber(
                             onChanged: (code) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:common_state/common_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BlocBuilder<HomeBloc, Map<int, CommonState>>(
+              BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) => CustomFormField<List<LatLng>>(
                     child: (p0) => Stack(
                           children: [
@@ -131,12 +132,12 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             Positioned(
                               bottom: 0,
                               left: 0,
-                              child: BlocSelector<HomeBloc, Map<int, CommonState>, CommonState>(
-                                selector: (state) => state[HomeState.changeLocationEvent]!,
+                              child: BlocSelector<HomeBloc, HomeState, CommonState>(
+                                selector: (state) => state.getState(HomeState.changeLocationEvent),
                                 builder: (context, state) {
                                   return AppButton.field(
                                     title: S.of(context).use_current_location,
-                                    isLoading: state.isLoading(),
+                                    isLoading: state.isLoading,
                                     prefixIcon: Padding(
                                       padding: REdgeInsetsDirectional.only(end: 8),
                                       child: AppImage.asset(
@@ -205,7 +206,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 ),
               ),
               AppCommonStateBuilder<HomeBloc, List<CarAdvantage>>(
-                index: HomeState.carAdvantage,
+                stateName: HomeState.carAdvantage,
                 onSuccess: (data) => Padding(
                   padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
                   child: ListView.separated(

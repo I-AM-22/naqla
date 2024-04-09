@@ -1,6 +1,6 @@
 
 
-import 'package:naqla/core/type_definitions.dart';
+import 'package:common_state/common_state.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 
 import '../repositories/{{feature_name.snakeCase()}}_repository.dart';

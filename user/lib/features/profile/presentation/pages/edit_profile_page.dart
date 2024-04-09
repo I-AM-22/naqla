@@ -1,3 +1,4 @@
+import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
@@ -71,7 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       alignment: Alignment.bottomRight,
                       children: [
                         AppCommonStateBuilder<ProfileBloc, String>(
-                          index: ProfileState.uploadSinglePhoto,
+                          stateName: ProfileState.uploadSinglePhoto,
                           onInit: Container(
                             clipBehavior: Clip.hardEdge,
                             width: 138.w,
@@ -118,7 +119,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               )));
                                             },
                                           ),
-                                          Divider(),
+                                          const Divider(),
                                           AppButton.ghost(
                                             onPressed: () {
                                               bloc.add((PickImageEvent(
@@ -169,11 +170,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     keyboardType: TextInputType.name,
                   ),
                   32.verticalSpace,
-                  BlocSelector<ProfileBloc, Map<int, CommonState>, CommonState>(
-                    selector: (state) => state[ProfileState.editPersonalInfo]!,
+                  BlocSelector<ProfileBloc, ProfileState, CommonState>(
+                    selector: (state) => state.getState(ProfileState.editPersonalInfo),
                     builder: (context, state) {
                       return AppButton.dark(
-                        isLoading: state.isLoading(),
+                        isLoading: state.isLoading,
                         stretch: true,
                         title: S.of(context).Save,
                         onPressed: () {

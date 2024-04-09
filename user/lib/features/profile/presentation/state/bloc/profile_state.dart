@@ -1,19 +1,20 @@
 part of 'profile_bloc.dart';
 
-class ProfileState {
-  static int getPersonalInfo = 0;
-  static int pickImage = 1;
-  static int uploadSinglePhoto = 2;
-  static int editPersonalInfo = 3;
-  static int editPhoneNumber = 4;
-  static int deleteAccount = 5;
+class ProfileState extends StateObject<ProfileState> {
+  static String getPersonalInfo = "getPersonalInfo";
+  static String pickImage = "pickImage";
+  static String uploadSinglePhoto = "uploadSinglePhoto";
+  static String editPersonalInfo = "editPersonalInfo";
+  static String editPhoneNumber = "editPhoneNumber";
+  static String deleteAccount = "deleteAccount";
 
-  static Map<int, CommonState> get iniState => {
-        getPersonalInfo: const InitialState<User>(),
-        pickImage: const InitialState<File?>(),
-        uploadSinglePhoto: const InitialState<String>(),
-        editPersonalInfo: const InitialState<User>(),
-        editPhoneNumber: const InitialState<String>(),
-        deleteAccount: const InitialState(),
-      };
+  ProfileState([States? states])
+      : super([
+          InitialState<User>(getPersonalInfo),
+          InitialState<File?>(pickImage),
+          InitialState<String>(uploadSinglePhoto),
+          InitialState<User>(editPhoneNumber),
+          InitialState<String>(editPersonalInfo),
+          InitialState(deleteAccount),
+        ], (states) => ProfileState(states), states);
 }

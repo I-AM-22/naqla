@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:naqla/core/type_definitions.dart';
+import 'package:common_state/common_state.dart';
 import '../data_sources/{{feature_name.snakeCase()}}_remote_datasource.dart';
 import '../../domain/repositories/{{feature_name.snakeCase()}}_repository.dart';
 

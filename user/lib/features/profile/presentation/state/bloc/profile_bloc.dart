@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:common_state/common_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:injectable/injectable.dart';
-import 'package:naqla/core/core.dart';
 import 'package:naqla/core/use_case/use_case.dart';
-import 'package:naqla/core/util/core_helper_functions.dart';
 import 'package:naqla/core/util/secure_image_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../auth/data/model/user_model.dart';
@@ -19,7 +19,7 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 @injectable
-class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
+class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetPersonalInfoUseCase _personalInfoUseCase;
   final EditPersonalInfoUseCase _editPersonalInfoUseCase;
   final UploadSinglePhotoUseCase _uploadSinglePhotoUseCase;
@@ -27,59 +27,45 @@ class ProfileBloc extends Bloc<ProfileEvent, Map<int, CommonState>> {
   final DeleteAccountUseCase _deleteAccountUseCase;
   ProfileBloc(this._personalInfoUseCase, this._editPersonalInfoUseCase, this._uploadSinglePhotoUseCase, this._updatePhoneNumberUseCase,
       this._deleteAccountUseCase)
-      : super(ProfileState.iniState) {
-    on<GetPersonalInfoEvent>((event, emit) {
-      return CoreHelperFunctions.handelMultiApiResult(
-          callback: () async => _personalInfoUseCase(NoParams()), emit: emit, state: state, index: ProfileState.getPersonalInfo);
-    });
+      : super(ProfileState()) {
+    multiStateApiCall<GetPersonalInfoEvent, User>(ProfileState.getPersonalInfo, (event) => _personalInfoUseCase(NoParams()));
 
-    on<EditPersonalInfoEvent>((event, emit) {
-      return CoreHelperFunctions.handelMultiApiResult(
-          callback: () async => _editPersonalInfoUseCase(event.param),
-          emit: emit,
-          onSuccess: (data) {
-            final oldState = CoreHelperFunctions.getCommonState(state, ProfileState.getPersonalInfo);
-            if (oldState is SuccessState) {
-              emit(state.setState(ProfileState.getPersonalInfo, SuccessState(data)));
-            }
-            event.onSuccess.call(data);
-          },
-          state: state,
-          index: ProfileState.editPersonalInfo);
-    });
+    multiStateApiCall<EditPersonalInfoEvent, User>(
+      ProfileState.editPersonalInfo,
+      (event) => _editPersonalInfoUseCase(event.param),
+      onSuccess: (data, event, emit) async {
+        emit(state.updateData<User>(ProfileState.getPersonalInfo, data));
+        event.onSuccess(data);
+      },
+    );
 
-    on<UpdatePhoneNumberEvent>((event, emit) {
-      return CoreHelperFunctions.handelMultiApiResult(
-          callback: () async => _updatePhoneNumberUseCase(event.param),
-          emit: emit,
-          onSuccess: event.onSuccess,
-          state: state,
-          index: ProfileState.editPhoneNumber);
-    });
+    multiStateApiCall<UpdatePhoneNumberEvent, String>(
+      ProfileState.editPhoneNumber,
+      (event) => _updatePhoneNumberUseCase(event.param),
+      onSuccess: (data, event, emit) async {
+        event.onSuccess(data);
+      },
+    );
 
-    on<UploadSinglePhotoEvent>((event, emit) {
-      return CoreHelperFunctions.handelMultiApiResult(
-          callback: () async => _uploadSinglePhotoUseCase(event.param), emit: emit, state: state, index: ProfileState.uploadSinglePhoto);
-    });
+    multiStateApiCall<UploadSinglePhotoEvent, String>(
+      ProfileState.uploadSinglePhoto,
+      (event) => _uploadSinglePhotoUseCase(event.param),
+    );
 
-    on<DeleteAccountEvent>((event, emit) {
-      return CoreHelperFunctions.handelMultiApiResult(
-          callback: () async => _deleteAccountUseCase(NoParams()),
-          emit: emit,
-          state: state,
-          onSuccess: event.onSuccess,
-          index: ProfileState.deleteAccount);
-    });
+    multiStateApiCall<DeleteAccountEvent, void>(
+      ProfileState.deleteAccount,
+      (event) => _deleteAccountUseCase(NoParams()),
+    );
 
     on<PickImageEvent>((event, emit) async {
-      emit(state.setState(ProfileState.pickImage, const LoadingState<File?>()));
-      final image = await SecureFilePicker.pickImage(event.source, context: event.context);
+      emit(state.updateState(ProfileState.pickImage, const LoadingState()));
+      final image = await SecureFilePicker.pickImage(event.source, context: event.context, cropAspectRatio: CropAspectRatioPreset.square);
       if (image != null) {
-        emit(state.setState(ProfileState.pickImage, SuccessState<File?>(image)));
-        event.onSuccess.call(image);
+        emit(state.updateState(ProfileState.pickImage, SuccessState<File?>(image)));
+        event.onSuccess(image);
         add(UploadSinglePhotoEvent(UploadSinglePhotoParam(image)));
       } else {
-        emit(state.setState(ProfileState.pickImage, const EmptyState<File?>()));
+        emit(state.updateState(ProfileState.pickImage, const EmptyState()));
       }
     });
   }

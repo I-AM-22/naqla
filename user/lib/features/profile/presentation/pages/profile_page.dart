@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
             back: false,
           ),
           body: AppCommonStateBuilder<ProfileBloc, User>(
-            index: ProfileState.getPersonalInfo,
+            stateName: ProfileState.getPersonalInfo,
             onSuccess: (data) => Padding(
               padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
               child: SingleChildScrollView(

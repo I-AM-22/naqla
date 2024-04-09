@@ -1,7 +1,6 @@
-import 'package:dartz/dartz.dart';
+import 'package:common_state/common_state.dart';
 import 'package:location/location.dart';
 import 'package:naqla/core/api/exceptions.dart';
-import 'package:naqla/core/type_definitions.dart';
 
 class LocationService {
   FutureResult<LocationData?> getLocation() async {

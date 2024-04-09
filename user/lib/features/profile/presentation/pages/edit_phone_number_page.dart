@@ -1,3 +1,4 @@
+import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,6 @@ import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/auth/presentation/pages/phone_verfication.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
 
-import '../../../../core/global_widgets/app_text_field.dart';
 import '../../../../generated/l10n.dart';
 
 class EditPhoneParam {
@@ -44,9 +44,7 @@ class _EditPhoneNumberPageState extends State<EditPhoneNumberPage> {
       child: AppScaffold(
           appBar: AppAppBar(appBarParams: AppBarParams(), back: true),
           body: Padding(
-            padding: REdgeInsets.symmetric(
-                vertical: UIConstants.screenPadding30,
-                horizontal: UIConstants.screenPadding16),
+            padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -62,23 +60,17 @@ class _EditPhoneNumberPageState extends State<EditPhoneNumberPage> {
                       String manimbulatedValue = '$value';
                       return manimbulatedValue;
                     },
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(),
-                      FormBuilderValidators.minLength(10)
-                    ]),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(10)
-                    ],
+                    validator: FormBuilderValidators.compose([FormBuilderValidators.required(), FormBuilderValidators.minLength(10)]),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
                   ),
                 ),
                 30.verticalSpace,
-                BlocSelector<ProfileBloc, Map<int, CommonState>, CommonState>(
-                  selector: (state) => state[ProfileState.editPhoneNumber]!,
+                BlocSelector<ProfileBloc, ProfileState, CommonState>(
+                  selector: (state) => state.getState(ProfileState.editPhoneNumber),
                   builder: (context, state) {
                     return AppButton.dark(
                       stretch: true,
-                      isLoading: state.isLoading(),
+                      isLoading: state.isLoading,
                       title: S.of(context).Save,
                       onPressed: () {
                         _key.currentState?.save();
@@ -90,8 +82,7 @@ class _EditPhoneNumberPageState extends State<EditPhoneNumberPage> {
                               (p0) => context.pushNamed(
                                 PhoneVerificationPage.name,
                                 extra: PhoneVerificationParam(
-                                  phone:
-                                      _key.currentState?.value['phoneNumber'],
+                                  phone: _key.currentState?.value['phoneNumber'],
                                   comeFromProfile: true,
                                 ),
                               ),

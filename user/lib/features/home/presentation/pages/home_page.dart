@@ -68,13 +68,13 @@ class _HomePageState extends State<HomePage> {
       child: AppScaffold(
           appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
           body: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
-            index: HomeState.ordersActive,
+            stateName: HomeState.ordersActive,
             onSuccess: (data) {
               return ListView.separated(
                 itemCount: data.length,
                 separatorBuilder: (context, index) => 16.verticalSpace,
                 itemBuilder: (context, index) => Padding(
-                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding30),
+                  padding: UIConstants.screenPadding,
                   child: Container(
                     padding: REdgeInsets.all(8),
                     decoration: BoxDecoration(

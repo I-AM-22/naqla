@@ -5,7 +5,7 @@ abstract class AuthEvent {}
 
 class LoginEvent extends AuthEvent {
   final LoginParam param;
-  final Function(dynamic) onSuccess;
+  final Function(String) onSuccess;
 
   LoginEvent(this.param, this.onSuccess);
 }

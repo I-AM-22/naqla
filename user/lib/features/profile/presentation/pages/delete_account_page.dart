@@ -1,3 +1,4 @@
+import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,24 +31,21 @@ class DeleteAccountPage extends StatelessWidget {
             back: true,
           ),
           body: Padding(
-            padding: REdgeInsets.symmetric(
-                horizontal: UIConstants.screenPadding16,
-                vertical: UIConstants.screenPadding30),
+            padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 AppText.subHeadRegular(
                   S.of(context).are_you_sure_you_want_to_delete_account,
-                  textDirection:
-                      context.isArabic ? TextDirection.rtl : TextDirection.ltr,
+                  textDirection: context.isArabic ? TextDirection.rtl : TextDirection.ltr,
                   color: context.colorScheme.systemGray.shade600,
                 ),
                 32.verticalSpace,
-                BlocSelector<ProfileBloc, Map<int, CommonState>, CommonState>(
-                  selector: (state) => state[ProfileState.deleteAccount]!,
+                BlocSelector<ProfileBloc, ProfileState, CommonState>(
+                  selector: (state) => state.getState(ProfileState.deleteAccount),
                   builder: (context, state) {
                     return AppButton.dark(
-                      isLoading: state.isLoading(),
+                      isLoading: state.isLoading,
                       title: S.of(context).delete_account,
                       onPressed: () {
                         context.read<ProfileBloc>().add(DeleteAccountEvent(
@@ -59,9 +57,7 @@ class DeleteAccountPage extends StatelessWidget {
                         ));
                       },
                       stretch: true,
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateColor.resolveWith(
-                              (states) => context.colorScheme.error)),
+                      style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => context.colorScheme.error)),
                     );
                   },
                 )

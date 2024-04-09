@@ -1,13 +1,18 @@
 part of 'auth_bloc.dart';
 
-class AuthState<T> {
-  static int login = 0;
-  static int signUp = 1;
-  static int confirm = 2;
+class AuthState extends StateObject<AuthState> {
+  static String login = "login";
+  static String signUp = "signUp";
+  static String confirm = "Confirm";
 
-  static Map<int, CommonState> get initState => {
-        login: const InitialState<String>(),
-        signUp: const InitialState<String>(),
-        confirm: const InitialState<AuthModel>(),
-      };
+  AuthState([States? states])
+      : super(
+          [
+            InitialState<String>(login),
+            InitialState<String>(signUp),
+            InitialState<AuthModel>(confirm),
+          ],
+          (states) => AuthState(states),
+          states,
+        );
 }

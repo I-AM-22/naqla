@@ -51,7 +51,7 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
                 16.verticalSpace,
                 Expanded(
                   child: AppCommonStateBuilder<HomeBloc, List<String>>(
-                    index: HomeState.uploadPhotos,
+                    stateName: HomeState.uploadPhotos,
                     onInit: const SizedBox(),
                     onSuccess: (data) => ListView.separated(
                         itemBuilder: (context, index) => Image(
