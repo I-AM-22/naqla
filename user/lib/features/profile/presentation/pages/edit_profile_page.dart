@@ -109,7 +109,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           AppButton.ghost(
-                                            title: 'camera',
+                                            title: S.of(context).camera,
                                             postfixIcon: AppImage.asset(Assets.icons.essential.camera.path),
                                             onPressed: () {
                                               bloc.add((PickImageEvent(
@@ -128,7 +128,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                 (p0) => context.pop(),
                                               )));
                                             },
-                                            title: 'gallery',
+                                            title: S.of(context).gallery,
                                           ),
                                         ],
                                       ),

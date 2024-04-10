@@ -93,5 +93,7 @@
   "are_you_sure_you_want_to_delete_account": "Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database.",
   "english": "English",
   "arabic": "Arabic",
-  "change_language": "Change Language"
+  "change_language": "Change Language",
+  "camera": "Camera",
+  "gallery": "Gallery"
 }

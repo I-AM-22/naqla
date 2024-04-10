@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "At least 1 number or a special character"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "book_your_car": MessageLookupByLibrary.simpleMessage("Book your car"),
+        "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
@@ -94,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forget_password":
             MessageLookupByLibrary.simpleMessage("Forget password?"),
         "full_Name": MessageLookupByLibrary.simpleMessage("Full Name"),
+        "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "go": MessageLookupByLibrary.simpleMessage("GO"),
         "have_a_better_sharing_experience":
             MessageLookupByLibrary.simpleMessage(

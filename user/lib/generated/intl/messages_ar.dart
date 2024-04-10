@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
         "book_your_car":
             MessageLookupByLibrary.simpleMessage("اختر السيارة التي تريد"),
+        "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
@@ -90,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forget_password":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
         "full_Name": MessageLookupByLibrary.simpleMessage("الاسم كامل"),
+        "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "go": MessageLookupByLibrary.simpleMessage("اذهب"),
         "have_a_better_sharing_experience":
             MessageLookupByLibrary.simpleMessage("تمتع بتجربة مشاركة أفضل"),
