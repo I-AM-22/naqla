@@ -2,9 +2,9 @@ part of 'home_bloc.dart';
 
 class HomeState extends StateObject<HomeState> {
   static String changeLocationEvent = "changeLocationEvent";
-  static String uploadPhotos = "changeLocationEvent";
-  static String carAdvantage = "changeLocationEvent";
-  static String ordersActive = "changeLocationEvent";
+  static String uploadPhotos = "uploadPhotos";
+  static String carAdvantage = "carAdvantage";
+  static String ordersActive = "ordersActive";
 
   HomeState([States? states])
       : super(
