@@ -1,18 +1,13 @@
-import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:naqla/core/core.dart';
-import 'package:intl/src/intl/date_format.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../../features/app/presentation/widgets/animated_dialog.dart';
 import '../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import '../../generated/l10n.dart';
-import '../api/exceptions.dart';
-import '../common/model/pagenatio_model.dart';
 import '../di/di_container.dart';
-import '../type_definitions.dart';
 
 class CoreHelperFunctions {
   /// Cast to [T] if possible or return null
