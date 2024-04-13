@@ -1,4 +1,5 @@
 import 'package:common_state/common_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
@@ -69,14 +70,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 children: [
                   Center(
                     child: Stack(
-                      alignment: Alignment.bottomRight,
                       children: [
                         AppCommonStateBuilder<ProfileBloc, String>(
                           stateName: ProfileState.uploadSinglePhoto,
                           onInit: Container(
                             clipBehavior: Clip.hardEdge,
-                            width: 138.w,
-                            height: 138.w,
+                            width: 130.w,
+                            height: 130.w,
                             decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
                             child:
                                 BlurHash(imageFit: BoxFit.cover, hash: widget.param.user.photo.blurHash, image: widget.param.user.photo.profileUrl),
@@ -85,68 +85,70 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             photo = data;
                             return Container(
                               clipBehavior: Clip.hardEdge,
-                              width: 138.w,
-                              height: 138.w,
+                              width: 130.w,
+                              height: 130.w,
                               decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                              child: Image(
-                                image: NetworkImage(data),
-                                fit: BoxFit.cover,
-                              ),
+                              child: AppImage.network(data),
                             );
                           },
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return RSizedBox(
-                                    width: double.infinity,
-                                    child: Padding(
-                                      padding: REdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          AppButton.ghost(
-                                            title: S.of(context).camera,
-                                            postfixIcon: AppImage.asset(Assets.icons.essential.camera.path),
-                                            onPressed: () {
-                                              bloc.add((PickImageEvent(
-                                                ImageSource.camera,
-                                                context,
-                                                (p0) => context.pop(),
-                                              )));
-                                            },
-                                          ),
-                                          const Divider(),
-                                          AppButton.ghost(
-                                            onPressed: () {
-                                              bloc.add((PickImageEvent(
-                                                ImageSource.gallery,
-                                                context,
-                                                (p0) => context.pop(),
-                                              )));
-                                            },
-                                            title: S.of(context).gallery,
-                                          ),
-                                        ],
+                        Positioned(
+                          left: 105.w,
+                          right: 0,
+                          bottom: 5,
+                          child: GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return RSizedBox(
+                                      width: double.infinity,
+                                      child: Padding(
+                                        padding: REdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            AppButton.ghost(
+                                              title: S.of(context).camera,
+                                              postfixIcon: AppImage.asset(Assets.icons.essential.camera.path),
+                                              onPressed: () {
+                                                bloc.add((PickImageEvent(
+                                                  ImageSource.camera,
+                                                  context,
+                                                  (p0) => context.pop(),
+                                                )));
+                                              },
+                                            ),
+                                            const Divider(),
+                                            AppButton.ghost(
+                                              onPressed: () {
+                                                bloc.add((PickImageEvent(
+                                                  ImageSource.gallery,
+                                                  context,
+                                                  (p0) => context.pop(),
+                                                )));
+                                              },
+                                              title: S.of(context).gallery,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                });
-                          },
-                          child: Container(
-                            margin: REdgeInsets.only(right: 10),
-                            width: 25.h,
-                            height: 25.h,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFAFAFA), border: Border.all(color: context.colorScheme.primary), shape: BoxShape.circle),
-                            child: Center(
-                              child: AppImage.asset(
-                                Assets.icons.essential.edit.path,
-                                size: 15.r,
-                                color: context.colorScheme.primary,
+                                    );
+                                  });
+                            },
+                            child: Container(
+                              margin: REdgeInsets.only(right: 10),
+                              width: 25.h,
+                              height: 25.h,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFFFAFAFA), border: Border.all(color: context.colorScheme.primary), shape: BoxShape.circle),
+                              child: Center(
+                                child: AppImage.asset(
+                                  Assets.icons.essential.edit.path,
+                                  size: 15.r,
+                                  color: context.colorScheme.primary,
+                                ),
                               ),
                             ),
                           ),
