@@ -3,8 +3,7 @@ import { Column, Entity, ManyToMany } from 'typeorm';
 import { Car } from '../../drivers/entities/car.entity';
 import { GlobalEntity } from '../../../common/base';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
-import { GROUPS } from '../../../common/enums';
+import { Exclude } from 'class-transformer';
 import { Order } from '../../orders/entities/order.entity';
 
 @Entity('advantages')

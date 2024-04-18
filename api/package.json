@@ -36,6 +36,7 @@
     "db:rq:up": "yarn db:dev:up && yarn redis:queue:up",
     "db:rq:rm": "yarn db:dev:rm && yarn redis:queue:rm",
     "db:rq:restart": "yarn db:dev:restart && yarn redis:queue:restart",
+    "docker:stop": "docker compose stop",
     "db:create": "ts-node -r dotenv/config ./node_modules/typeorm-extension/bin/cli.cjs db:create  -r src/config/database/postgres --initialDatabase=postgres",
     "db:drop": "ts-node -r dotenv/config ./node_modules/typeorm-extension/bin/cli.cjs db:drop  -r src/config/database/postgres --initialDatabase=postgres",
     "db:seed:fake": "ts-node -r dotenv/config ./node_modules/typeorm-extension/bin/cli.cjs seed:run  -r src/config/database/postgres",

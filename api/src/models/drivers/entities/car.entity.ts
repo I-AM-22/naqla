@@ -5,10 +5,10 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
-import { GlobalEntity } from '../../../common/base';
+import { BasePhoto, GlobalEntity } from '../../../common/base';
 import { Driver } from './driver.entity';
-import { OneToOne } from 'typeorm';
 import { CarPhoto } from './car-photo.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
@@ -44,17 +44,24 @@ export class Car extends GlobalEntity {
   @Column()
   driverId: string;
 
-  @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
+  @Exclude()
   @ApiProperty()
-  @OneToOne(() => CarPhoto, (photo) => photo.car, {
+  @OneToMany(() => CarPhoto, (photo) => photo.car, {
     cascade: true,
     eager: true,
   })
-  photo: CarPhoto;
+  photos: CarPhoto[];
 
   @Expose({ groups: [GROUPS.CAR] })
   @ApiProperty()
   @ManyToMany(() => Advantage, (advantage) => advantage.cars, { cascade: true })
   @JoinTable({ name: 'cars_advantages' })
   advantages: Advantage[];
+
+  @Expose({})
+  @ApiProperty({ type: BasePhoto })
+  photo() {
+    if (this.photos) return this.photos[this.photos.length - 1];
+    return undefined;
+  }
 }

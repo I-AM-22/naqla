@@ -58,7 +58,8 @@ export class OrdersService implements IOrdersService {
 
   async create(user: User, dto: CreateOrderDto): Promise<Order> {
     const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
-    return this.orderRepository.create(user, photo, dto);
+    const advantages = await this.advantagesService.findInIds(dto.advantages);
+    return this.orderRepository.create(user, photo, advantages, dto);
   }
 
   async update(
@@ -66,7 +67,6 @@ export class OrdersService implements IOrdersService {
     person: IPerson,
     dto: UpdateOrderDto,
   ): Promise<Order> {
-    console.log(person);
     const order = await this.findOne(id, person);
     const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
     return this.orderRepository.update(order, dto, photo);

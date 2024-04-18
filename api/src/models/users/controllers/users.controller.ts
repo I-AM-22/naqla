@@ -34,7 +34,6 @@ import {
   WithDeletedInterceptor,
 } from '../../../common/interceptors';
 import { PaginatedResponse } from '../../../common/types';
-import { ICrud } from '../../../common/interfaces';
 import {
   bad_req,
   data_not_found,
@@ -52,7 +51,7 @@ import { USER_TYPES } from '../interfaces/type';
 @UseInterceptors(new LoggingInterceptor())
 @UseGuards(CaslAbilitiesGuard, RolesGuard)
 @Controller({ path: 'users', version: '1' })
-export class UsersController implements ICrud<User> {
+export class UsersController {
   constructor(
     @Inject(USER_TYPES.service) private usersService: IUsersService,
   ) {}
@@ -88,9 +87,6 @@ export class UsersController implements ICrud<User> {
   @Get('myPhotos')
   async getMyPhotos(@GetUser() user: User) {
     return this.usersService.getMyPhotos(user);
-  }
-  create(...n: any[]): Promise<User> {
-    return;
   }
 
   @ApiOkResponse({ type: User })

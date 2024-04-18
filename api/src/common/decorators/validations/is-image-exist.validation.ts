@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
-  ValidationArguments,
   ValidationOptions,
   registerDecorator,
 } from 'class-validator';
@@ -11,7 +10,7 @@ import {
 @ValidatorConstraint({ name: 'isPhotoExist', async: true })
 @Injectable()
 export class IsPhotoExistConstraint implements ValidatorConstraintInterface {
-  async validate(value: any, args: ValidationArguments) {
+  async validate(value: any) {
     if (!fs.existsSync(value)) {
       return false;
     }

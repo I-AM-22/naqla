@@ -31,6 +31,7 @@ import { AuthDriverModule } from './auth-driver/auth-driver.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './common/guards';
 import { AdvantagesModule } from './models/advantages/advantages.module';
+import { SubOrdersModule } from './models/sub-orders/sub-orders.module';
 
 @Module({
   imports: [
@@ -74,6 +75,7 @@ import { AdvantagesModule } from './models/advantages/advantages.module';
     OtpsModule,
     AdvantagesModule,
     OrdersModule,
+    SubOrdersModule,
   ],
   providers: [
     IsUniqueConstraint,

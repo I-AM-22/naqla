@@ -1,7 +1,6 @@
 import { InjectRedis, DEFAULT_REDIS_NAMESPACE } from '@liaoliaots/nestjs-redis';
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
-import { user_key, token_key } from '../../common/constants';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()

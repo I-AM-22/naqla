@@ -112,6 +112,7 @@ export class OrderRepository implements IOrderRepository {
   async create(
     user: User,
     photos: OrderPhoto[],
+    advantages: Advantage[],
     dto: CreateOrderDto,
   ): Promise<Order> {
     const order = this.orderRepository.create({ photos: [] });
@@ -119,6 +120,7 @@ export class OrderRepository implements IOrderRepository {
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
     order.photos.push(...photos);
+    order.advantages = advantages;
     order.user = user;
     return this.orderRepository.save(order);
   }

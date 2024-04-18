@@ -1,8 +1,7 @@
 import { IsArray, IsOptional, IsUUID, NotEquals } from 'class-validator';
 import { Entities, ROLE } from '../../../common/enums';
-import { UUID } from 'crypto';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsExist, IsUnique } from '../../../common/decorators';
+import { IsUnique } from '../../../common/decorators';
 import { item_already_exist } from '../../../common/constants';
 
 export class CreateRoleDto {

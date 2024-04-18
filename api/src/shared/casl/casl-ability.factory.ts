@@ -10,9 +10,7 @@ import { IPerson } from '../../common/interfaces';
 @Injectable()
 export class CaslAbilityFactory {
   defineAbility(currentUser: IPerson) {
-    const { can, build, cannot } = new AbilityBuilder<AppAbility>(
-      createMongoAbility,
-    );
+    const { can, build } = new AbilityBuilder<AppAbility>(createMongoAbility);
     currentUser.role.permissions.forEach((p) => {
       can(p.action, p.subject);
     });

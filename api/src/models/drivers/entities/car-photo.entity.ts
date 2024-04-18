@@ -1,11 +1,11 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BasePhoto } from '../../../common/base';
 import { Car } from './car.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'cars_photos' })
 export class CarPhoto extends BasePhoto {
-  @OneToOne(() => Car, (car) => car.photo)
+  @ManyToOne(() => Car, (car) => car.photos)
   @JoinColumn({ name: 'carId' })
   car: Car;
 

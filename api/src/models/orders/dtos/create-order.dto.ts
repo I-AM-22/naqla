@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
+  IsUUID,
   // IsUUID,
   ValidateNested,
 } from 'class-validator';
@@ -52,4 +53,8 @@ export class CreateOrderDto {
   @Transform(({ value }: { value: string[] }) => getPhotosPath(value))
   @IsPhotoExist({ message: item_not_found(Entities.Photo), each: true })
   readonly photo: string[];
+
+  @ApiProperty()
+  @IsUUID('all', { each: true })
+  advantages: string[];
 }

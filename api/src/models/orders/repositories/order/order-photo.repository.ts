@@ -24,7 +24,7 @@ export class OrderPhotoRepository {
     return photo;
   }
 
-  remove(photo: OrderPhoto): Promise<void> {
-    return;
-  }
+  // remove(photo: OrderPhoto): Promise<void> {
+  //   return;
+  // }
 }

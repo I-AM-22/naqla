@@ -66,7 +66,8 @@ export class CarRepository implements ICarRepository {
     car.model = dto.model;
     car.brand = dto.brand;
     car.color = dto.color;
-    car.photo = photo;
+    car.photos = [];
+    car.photos.push(photo);
     car.driver = driver;
     car.advantages = advantages;
 
@@ -77,7 +78,7 @@ export class CarRepository implements ICarRepository {
     car.brand = dto.brand;
     car.color = dto.color;
     car.model = dto.model;
-    car.photo = photo;
+    car.photos.push(photo);
     this.carRepository.save(car);
 
     return this.findOne(car.id);
