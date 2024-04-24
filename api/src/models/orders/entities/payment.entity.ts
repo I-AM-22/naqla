@@ -1,14 +1,14 @@
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import { Order } from './order.entity';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { GlobalEntity } from '../../../common/base';
 
 @Entity('payments')
 export class Payment extends GlobalEntity {
-  @Column({ nullable: true, default: 0 })
-  total: number;
+  @Column({ default: 0 })
+  cost: number;
 
-  @Column({ nullable: true, default: 0 })
+  @Column({ default: 0 })
   additionalCost: number;
 
   @Column({ nullable: true })
@@ -21,4 +21,9 @@ export class Payment extends GlobalEntity {
   @Exclude()
   @Column('uuid')
   orderId: string;
+
+  @Expose()
+  total() {
+    return this.cost + this.additionalCost;
+  }
 }

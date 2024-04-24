@@ -41,7 +41,7 @@ import { Request } from 'express';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { DRIVER_TYPES } from '../interfaces/type';
 
-@ApiTags('drivers')
+@ApiTags('Drivers')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })

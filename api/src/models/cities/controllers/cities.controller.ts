@@ -32,7 +32,7 @@ import {
 import { ICitiesService } from '../interfaces/services/cities.service.interface';
 import { CITY_TYPES } from '../interfaces/type';
 
-@ApiTags('cities')
+@ApiTags('Cities')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })

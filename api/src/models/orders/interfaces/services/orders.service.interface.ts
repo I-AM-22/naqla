@@ -1,6 +1,5 @@
 import { AddAdvansToOrderDto, UpdateOrderDto } from '../../dtos';
 import { CreateOrderDto } from '../../dtos/create-order.dto';
-// import { OrderPhoto } from '../../entities/order-photo.entity';
 import { Order } from '../../entities/order.entity';
 import { User } from '../../../users/entities/user.entity';
 import { IPerson } from '../../../../common/interfaces';

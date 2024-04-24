@@ -18,6 +18,7 @@ import { GROUPS } from '../../../common/enums';
 import { Location } from '../interfaces/location.interface';
 import { ORDER_STATUSES } from '../../../common/enums';
 import { Payment } from './payment.entity';
+import { SubOrder } from '../../sub-orders/entities/sub-order.entity';
 
 @Entity('orders')
 export class Order extends GlobalEntity {
@@ -56,9 +57,7 @@ export class Order extends GlobalEntity {
   photos: OrderPhoto[];
 
   @ApiProperty()
-  @ManyToMany(() => Advantage, (advantage) => advantage.orders, {
-    cascade: true,
-  })
+  @ManyToMany(() => Advantage, (advantage) => advantage.orders)
   @JoinTable({ name: 'orders_advantages' })
   advantages: Advantage[];
 
@@ -72,4 +71,8 @@ export class Order extends GlobalEntity {
   @Exclude()
   @Column('uuid', { nullable: true })
   paymentId: string;
+
+  @Exclude()
+  @OneToMany(() => SubOrder, (subOrder) => subOrder.order, { cascade: true })
+  subOrders: SubOrder[];
 }

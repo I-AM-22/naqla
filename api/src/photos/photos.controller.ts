@@ -22,7 +22,7 @@ import { Request } from 'express';
 import { SharpPipe } from '../common/pipes';
 import { PhotosService } from './photos.service';
 
-@ApiTags('photos')
+@ApiTags('Photos')
 @ApiBearerAuth('token')
 @Controller({ path: 'photos', version: '1' })
 export class PhotosController {

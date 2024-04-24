@@ -11,7 +11,7 @@ import {
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Param, Get, Patch, Delete } from '@nestjs/common';
 import { Order } from '../entities/order.entity';
-import { IOrdersService } from '../interfaces/services/ordrs.service.interface';
+import { IOrdersService } from '../interfaces/services/orders.service.interface';
 import { ORDER_TYPES } from '../interfaces/type';
 import { Auth, GetUser, Id, Roles } from '../../../common/decorators';
 import { User } from '../../users/entities/user.entity';

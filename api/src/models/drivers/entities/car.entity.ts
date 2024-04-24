@@ -14,6 +14,7 @@ import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { Advantage } from '../../advantages/entities/advantage.entity';
 import { GROUPS } from '../../../common/enums';
+import { SubOrder } from '../../sub-orders/entities/sub-order.entity';
 
 @Entity('cars')
 export class Car extends GlobalEntity {
@@ -54,9 +55,13 @@ export class Car extends GlobalEntity {
 
   @Expose({ groups: [GROUPS.CAR] })
   @ApiProperty()
-  @ManyToMany(() => Advantage, (advantage) => advantage.cars, { cascade: true })
+  @ManyToMany(() => Advantage, (advantage) => advantage.cars)
   @JoinTable({ name: 'cars_advantages' })
   advantages: Advantage[];
+
+  @Exclude()
+  @OneToMany(() => SubOrder, (subOrder) => subOrder.car)
+  subOrders: SubOrder[];
 
   @Expose({})
   @ApiProperty({ type: BasePhoto })

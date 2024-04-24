@@ -50,7 +50,7 @@ import { SendConfirm } from '../../common/types';
  * @description
  * My controller description.
  */
-@ApiTags('auth-user')
+@ApiTags('Auth-User')
 @ApiBearerAuth('token')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })

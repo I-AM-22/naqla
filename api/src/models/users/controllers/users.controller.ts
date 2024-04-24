@@ -43,7 +43,7 @@ import { Request } from 'express';
 import { IUsersService } from '../interfaces/services/users.service.interface';
 import { USER_TYPES } from '../interfaces/type';
 
-@ApiTags('users')
+@ApiTags('Users')
 @ApiBearerAuth('token')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })

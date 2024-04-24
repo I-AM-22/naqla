@@ -9,14 +9,14 @@ import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
 import { User } from '../../users/entities/user.entity';
-import { IOrdersService } from '../interfaces/services/ordrs.service.interface';
+import { IOrdersService } from '../interfaces/services/orders.service.interface';
 import { item_not_found } from '../../../common/constants';
 import { Entities, ORDER_STATUSES, ROLE } from '../../../common/enums';
 // import { IPhotoRepository } from '../../../common/interfaces';
 // import { OrderPhoto } from '../entities/order-photo.entity';
 import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
 import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
-import { OrderPhotoRepository } from '../repositories/order/order-photo.repository';
+import { OrderPhotoRepository } from '../repositories/order-photo.repository';
 import { IPerson } from '../../../common/interfaces';
 
 @Injectable()

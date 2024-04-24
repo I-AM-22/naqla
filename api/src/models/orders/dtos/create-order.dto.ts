@@ -3,6 +3,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -47,6 +48,10 @@ export class CreateOrderDto {
   @ValidateNested()
   @Type(() => LocationDto)
   locationEnd: LocationDto;
+
+  @ApiProperty({ default: false })
+  @IsBoolean()
+  porters: boolean;
 
   @ApiProperty()
   @IsString({ message: 'Please provide a photo', each: true })

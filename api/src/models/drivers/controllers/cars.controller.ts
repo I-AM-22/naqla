@@ -33,7 +33,7 @@ import {
 import { LoggingInterceptor } from '../../../common/interceptors';
 import { GROUPS, ROLE } from '../../../common/enums';
 
-@ApiTags('cars')
+@ApiTags('Cars')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })

@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateOrderDto, UpdateOrderDto } from '../../dtos';
-import { Order } from '../../entities/order.entity';
-import { IOrderRepository } from '../../interfaces/repositories/order.repository.interface';
-import { OrderPhoto } from '../../entities/order-photo.entity';
-import { Advantage } from '../../../advantages/entities/advantage.entity';
-import { User } from '../../../users';
-import { ORDER_STATUSES } from '../../../../common/enums';
+import { CreateOrderDto, UpdateOrderDto } from '../dtos';
+import { Order } from '../entities/order.entity';
+import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
+import { OrderPhoto } from '../entities/order-photo.entity';
+import { Advantage } from '../../advantages/entities/advantage.entity';
+import { User } from '../../users';
+import { ORDER_STATUSES } from '../../../common/enums';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {

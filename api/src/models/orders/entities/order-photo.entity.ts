@@ -5,6 +5,7 @@ import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'orders_photos' })
 export class OrderPhoto extends BasePhoto {
+  @Exclude()
   @ManyToOne(() => Order, (order) => order.photos)
   @JoinColumn({ name: 'orderId' })
   order: Order;

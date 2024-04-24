@@ -6,6 +6,9 @@ DOTENV_PATH := dotenv/config
 TYPORM_EXTENSION_PATH := ./node_modules/typeorm-extension/bin/cli.cjs
 DATA_BASE_CONFIG := src/config/database/postgres
 TS_CONFIG := tsconfig-paths/register
+CMD :=
+EXTRA_ARGS :=
+NAME :=
 
 install: package.json
 	yarn install
@@ -44,11 +47,11 @@ lint-fix:
 	npx eslint "{src,apps,libs,test}/**/*.ts" --fix
 
 typeorm:
-	npx env-cmd ts-node -r ${TS_CONFIG} ./node_modules/typeorm/cli.js  --dataSource=${DATA_SOURCE_PATH} $(CMD)
+	npx env-cmd ts-node -r ${TS_CONFIG} ./node_modules/typeorm/cli.js  --dataSource=${DATA_SOURCE_PATH} ${CMD}
 
 migration-generate:
 	@echo "Generating new migration..."
-	make typeorm  CMD="migration:generate ${MIGRATIONS_FOLDER}/$(name)"
+	make typeorm  CMD="migration:generate ${MIGRATIONS_FOLDER}/${NAME}"
 
 migrations-run:
 	@echo "Running migrations..."
@@ -90,7 +93,7 @@ docker-stop:
 	docker compose stop
 
 typeorm-extension:
-	npx env-cmd ts-node -r ${DOTENV_PATH} ${TYPORM_EXTENSION_PATH} $(CMD) -r ${DATA_BASE_CONFIG} $(EXTRA_ARGS)
+	npx env-cmd ts-node -r ${DOTENV_PATH} ${TYPORM_EXTENSION_PATH} ${CMD} -r ${DATA_BASE_CONFIG} ${EXTRA_ARGS}
 
 db-create:
 	make typeorm-extension CMD="db:create" EXTRA_ARGS="--initialDatabase=postgres"
@@ -102,7 +105,7 @@ db-seed-fake:
 	make typeorm-extension CMD="seed:run"
 
 db-seed-create:
-	make typeorm-extension CMD="seed:create" EXTRA_ARGS="--name src/database/seeders/$(name)/$(name).seeder.ts"
+	make typeorm-extension CMD="seed:create" EXTRA_ARGS="--name src/database/seeders/${NAME}/${NAME}.seeder.ts"
 
 db-seed-real:
 	npx env-cmd ts-node -r ${TS_CONFIG} src/seed.ts

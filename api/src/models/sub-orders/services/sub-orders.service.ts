@@ -3,11 +3,12 @@ import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { SUB_ORDER_TYPES } from '../interfaces/type';
+import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
 
 @Injectable()
-export class SubOrdersService {
+export class SubOrdersService implements ISubOrdersService {
   constructor(
-    @Inject(SUB_ORDER_TYPES.repository)
+    @Inject(SUB_ORDER_TYPES.repository.subOrder)
     private readonly subOrderRepository: ISubOrderRepository,
   ) {}
 

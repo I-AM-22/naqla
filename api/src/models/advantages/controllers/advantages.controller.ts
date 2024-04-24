@@ -33,7 +33,7 @@ import { Advantage } from '../entities/advantage.entity';
 import { Auth, Roles } from '../../../common/decorators';
 import { GROUPS, ROLE } from '../../../common/enums';
 
-@ApiTags('advantages')
+@ApiTags('Advantages')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })

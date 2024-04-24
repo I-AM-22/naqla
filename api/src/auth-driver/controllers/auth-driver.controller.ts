@@ -51,7 +51,7 @@ import { RolesGuard } from '../../common/guards';
  * @description
  * My controller description.
  */
-@ApiTags('auth-driver')
+@ApiTags('Auth-Driver')
 @ApiBearerAuth('token')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })

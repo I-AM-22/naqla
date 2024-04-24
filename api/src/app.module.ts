@@ -32,6 +32,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './common/guards';
 import { AdvantagesModule } from './models/advantages/advantages.module';
 import { SubOrdersModule } from './models/sub-orders/sub-orders.module';
+import { SettingsModule } from './models/settings/settings.module';
 
 @Module({
   imports: [
@@ -76,6 +77,7 @@ import { SubOrdersModule } from './models/sub-orders/sub-orders.module';
     AdvantagesModule,
     OrdersModule,
     SubOrdersModule,
+    SettingsModule,
   ],
   providers: [
     IsUniqueConstraint,
