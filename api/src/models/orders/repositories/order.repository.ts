@@ -7,7 +7,7 @@ import { IOrderRepository } from '../interfaces/repositories/order.repository.in
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { Advantage } from '../../advantages/entities/advantage.entity';
 import { User } from '../../users';
-import { ORDER_STATUSES } from '../../../common/enums';
+import { ORDER_STATUS } from '../../../common/enums';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -65,7 +65,7 @@ export class OrderRepository implements IOrderRepository {
         createdAt: true,
         updatedAt: true,
       },
-      where: { status: ORDER_STATUSES.WAITING },
+      where: { status: ORDER_STATUS.WAITING },
       relations: { user: true, photos: true, advantages: true },
     });
   }

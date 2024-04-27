@@ -11,7 +11,7 @@ import { IOrderRepository } from '../interfaces/repositories/order.repository.in
 import { User } from '../../users/entities/user.entity';
 import { IOrdersService } from '../interfaces/services/orders.service.interface';
 import { item_not_found } from '../../../common/constants';
-import { Entities, ORDER_STATUSES, ROLE } from '../../../common/enums';
+import { Entities, ORDER_STATUS, ROLE } from '../../../common/enums';
 // import { IPhotoRepository } from '../../../common/interfaces';
 // import { OrderPhoto } from '../entities/order-photo.entity';
 import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
@@ -84,8 +84,8 @@ export class OrdersService implements IOrdersService {
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
     if (
-      order.status === ORDER_STATUSES.WAITING ||
-      order.status === ORDER_STATUSES.READY
+      order.status === ORDER_STATUS.WAITING ||
+      order.status === ORDER_STATUS.READY
     ) {
       const advantages = await this.advantagesService.findInIds(dto.advantages);
       return await this.orderRepository.addAdvantageToOrder(order, advantages);
@@ -102,8 +102,8 @@ export class OrdersService implements IOrdersService {
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
     if (
-      order.status === ORDER_STATUSES.WAITING ||
-      order.status === ORDER_STATUSES.READY
+      order.status === ORDER_STATUS.WAITING ||
+      order.status === ORDER_STATUS.READY
     ) {
       const advantage = await this.advantagesService.findOne(advantageId);
       return this.orderRepository.removeAdvantageFromOrder(order, advantage);

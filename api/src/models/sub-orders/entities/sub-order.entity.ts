@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { GlobalEntity } from '../../../common/base';
-import { Order } from '../../orders';
+import { Order, OrderPhoto } from '../../orders';
 import { Car } from '../../drivers/entities/car.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { SubOrderPhoto } from './sub-order-photo.entity';
+import { SUB_ORDER_STATUS } from '../../../common/enums';
 
 @Entity('sub_orders')
 export class SubOrder extends GlobalEntity {
@@ -14,6 +14,10 @@ export class SubOrder extends GlobalEntity {
   @ApiProperty()
   @Column({ default: 0 })
   cost: number;
+
+  @ApiProperty()
+  @Column({ default: SUB_ORDER_STATUS.READY })
+  status: SUB_ORDER_STATUS;
 
   @ApiProperty()
   @Column({ nullable: true })
@@ -40,9 +44,8 @@ export class SubOrder extends GlobalEntity {
   carId: string;
 
   @ApiProperty()
-  @OneToMany(() => SubOrderPhoto, (photo) => photo.subOrder, {
-    cascade: true,
+  @OneToMany(() => OrderPhoto, (photo) => photo.subOrder, {
     eager: true,
   })
-  photos: SubOrderPhoto[];
+  photos: OrderPhoto[];
 }

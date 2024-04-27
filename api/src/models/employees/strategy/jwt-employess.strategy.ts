@@ -7,7 +7,7 @@ import { IEmployeesService } from '../interfaces/services/employees.service.inte
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { jwtPayload } from '../../../auth-user';
 import { Entities } from '../../../common/enums';
-import { strategies } from '../../../common/constants/jwt.type';
+import { strategies } from '../../../common/constants/jwt.constant';
 
 @Injectable()
 export class JwtEmployeeStrategy extends PassportStrategy(

@@ -1,4 +1,4 @@
-export enum ORDER_STATUSES {
+export enum ORDER_STATUS {
   WAITING = 'waiting',
   READY = 'ready',
   ACCEPTED = 'accepted',

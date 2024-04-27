@@ -16,7 +16,7 @@ import { Advantage } from '../../advantages/entities/advantage.entity';
 import { User } from '../../users/entities/user.entity';
 import { GROUPS } from '../../../common/enums';
 import { Location } from '../interfaces/location.interface';
-import { ORDER_STATUSES } from '../../../common/enums';
+import { ORDER_STATUS } from '../../../common/enums';
 import { Payment } from './payment.entity';
 import { SubOrder } from '../../sub-orders/entities/sub-order.entity';
 
@@ -27,9 +27,9 @@ export class Order extends GlobalEntity {
   @Column()
   desiredDate: Date;
 
-  @ApiProperty({ enum: ORDER_STATUSES })
-  @Column({ enum: ORDER_STATUSES, default: ORDER_STATUSES.WAITING })
-  status: ORDER_STATUSES;
+  @ApiProperty({ enum: ORDER_STATUS })
+  @Column({ enum: ORDER_STATUS, default: ORDER_STATUS.WAITING })
+  status: ORDER_STATUS;
 
   @ApiProperty()
   @Type(() => Location)
