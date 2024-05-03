@@ -20,4 +20,5 @@ class ApiRoutes {
 
   //////////////////?Order////////////////////
   static String orderMine = '/api/v1/orders/mine';
+  static String order = '/api/v1/orders';
 }

@@ -36,3 +36,20 @@ class ChangeSelectAdvantageEvent extends HomeEvent {
 }
 
 class GetOrdersActiveEvent extends HomeEvent {}
+
+class SetOrderEvent extends HomeEvent {
+  // final SetOrderParam param;
+  //
+  // SetOrderEvent({required this.param});
+}
+
+class SetOrderParamEvent extends HomeEvent {
+  final String? desiredDate;
+  final LocationModel? locationStart;
+  final LocationModel? locationEnd;
+  final bool? porters;
+  final List<String>? photo;
+  final List<String>? advantages;
+
+  SetOrderParamEvent({this.desiredDate, this.locationStart, this.locationEnd, this.porters, this.photo, this.advantages});
+}

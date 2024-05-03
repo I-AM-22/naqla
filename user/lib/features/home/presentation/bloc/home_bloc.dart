@@ -10,7 +10,9 @@ import 'package:location/location.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/core/util/secure_image_picker.dart';
 import 'package:naqla/features/home/data/model/car_advantage.dart';
+import 'package:naqla/features/home/data/model/location_model.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
+import 'package:naqla/features/home/domain/use_case/set_order_use_case.dart';
 import 'package:naqla/services/location_map_service.dart';
 
 import '../../domain/use_case/get_car_advantage_use_case.dart';
@@ -25,7 +27,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final UploadPhotosUseCase uploadPhotosUseCase;
   final GetCarAdvantageUseCase getCarAdvantageUseCase;
   final GetOrdersUseCase getOrdersUseCase;
-  HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase) : super(HomeState()) {
+  final SetOrderUseCase setOrderUseCase;
+  HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase, this.setOrderUseCase) : super(HomeState()) {
     multiStateApiCall<ChangeLocationEvent, LocationData?>(
       HomeState.changeLocationEvent,
       (event) => LocationService().getLocation(),
@@ -35,6 +38,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     multiStateApiCall<GetCarAdvantageEvent, List<CarAdvantage>>(HomeState.carAdvantage, (event) => getCarAdvantageUseCase(NoParams()));
 
     multiStateApiCall<GetOrdersActiveEvent, List<OrderModel>>(HomeState.ordersActive, (event) => getOrdersUseCase(NoParams()));
+
+    multiStateApiCall<SetOrderEvent, OrderModel>(HomeState.setOrder, (event) => setOrderUseCase(state.setOrderParam));
+
+    on<SetOrderParamEvent>(
+      (event, emit) {
+        emit(
+          state.copyWith(
+            setOrderParam:
+                state.setOrderParam.copyWith(event.desiredDate, event.locationStart, event.locationEnd, event.porters, event.photo, event.advantages),
+          ),
+        );
+      },
+    );
 
     on<UploadPhotosEvent>(
       (event, emit) async {

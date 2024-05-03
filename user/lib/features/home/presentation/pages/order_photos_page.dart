@@ -1,7 +1,10 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:common_state/common_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -10,9 +13,11 @@ import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
+import 'package:naqla/features/home/presentation/pages/home_page.dart';
 
 import '../../../../generated/l10n.dart';
 
+@RoutePage()
 class OrderPhotosPage extends StatefulWidget {
   const OrderPhotosPage({super.key});
 
@@ -33,6 +38,26 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
       child: AppScaffold(
           appBar: AppAppBar(
             appBarParams: AppBarParams(title: S.of(context).new_naqla),
+          ),
+          bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              return Padding(
+                padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
+                child: AppButton.dark(
+                  isLoading: state.getState(HomeState.setOrder).isLoading,
+                  title: S.of(context).next,
+                  onPressed: () {
+                    if (true) {
+                      context.read<HomeBloc>().add(SetOrderParamEvent(photo: []));
+                      context.read<HomeBloc>().add(SetOrderEvent());
+                      print(state.setOrderParam);
+
+                      context.goNamed(HomePage.name, extra: false);
+                    }
+                  },
+                ),
+              );
+            },
           ),
           body: Padding(
             padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),

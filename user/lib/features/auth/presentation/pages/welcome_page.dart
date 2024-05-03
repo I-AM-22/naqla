@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +10,7 @@ import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
 import '../../../../generated/l10n.dart';
 
+@RoutePage()
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
   static const String path = "/WelcomePage";

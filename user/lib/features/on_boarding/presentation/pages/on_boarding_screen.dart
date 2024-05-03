@@ -4,7 +4,7 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
-import 'package:naqla/features/auth/presentation/pages/set_location_page.dart';
+import 'package:naqla/features/auth/presentation/pages/welcome_page.dart';
 import 'package:naqla/features/on_boarding/presentation/widget/on_boarding_slide.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
@@ -29,7 +29,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               backgroundColor: context.colorScheme.background,
               action: [
                 TextButton(
-                  onPressed: () => context.goNamed(SetLocationPage.name),
+                  onPressed: () => context.goNamed(WelcomePage.name),
                   child: AppText.subHeadRegular(
                     S.of(context).skip,
                     color: context.colorScheme.onTertiary,
@@ -71,7 +71,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   S.of(context).sell_houses_easily_with_the_help_of_Listenoryx,
               path: Assets.lottie.car2.path,
               onPressed: () {
-                context.goNamed(SetLocationPage.name);
+                context.goNamed(WelcomePage.name);
               },
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/common/constants/constants.dart';
@@ -7,7 +8,7 @@ import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 
 import '../../../../generated/l10n.dart';
-
+@RoutePage()
 class HelpAndSupportPage extends StatelessWidget {
   const HelpAndSupportPage({super.key});
 

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 
 import '../../../../generated/l10n.dart';
 
+@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.comeFromSplash});
 
@@ -66,7 +68,9 @@ class _HomePageState extends State<HomePage> {
     return BlocProvider(
       create: (context) => _bloc,
       child: AppScaffold(
-          appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
+          appBar: AppAppBar(
+              back: false,
+              appBarParams: AppBarParams(title: S.of(context).home)),
           body: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
             stateName: HomeState.ordersActive,
             onSuccess: (data) {
@@ -79,13 +83,22 @@ class _HomePageState extends State<HomePage> {
                     padding: REdgeInsets.all(8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        boxShadow: [BoxShadow(color: context.colorScheme.primary.withOpacity(.1), offset: const Offset(0, 0), blurRadius: 1)]),
+                        boxShadow: [
+                          BoxShadow(
+                              color:
+                                  context.colorScheme.primary.withOpacity(.1),
+                              offset: const Offset(0, 0),
+                              blurRadius: 1)
+                        ]),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                             padding: REdgeInsets.all(8),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: context.colorScheme.warning.withOpacity(.2)),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: context.colorScheme.warning
+                                    .withOpacity(.2)),
                             child: AppText(data[index].status)),
                         16.verticalSpace,
                         AppText("From"),
@@ -105,9 +118,11 @@ class _HomePageState extends State<HomePage> {
                               child: BlurHash(
                                   imageFit: BoxFit.cover,
                                   hash: data[index].photos[indexPhoto].blurHash,
-                                  image: data[index].photos[indexPhoto].mobileUrl),
+                                  image:
+                                      data[index].photos[indexPhoto].mobileUrl),
                             ),
-                            separatorBuilder: (context, indexPhoto) => 8.horizontalSpace,
+                            separatorBuilder: (context, indexPhoto) =>
+                                8.horizontalSpace,
                             itemCount: data[index].photos.length,
                           ),
                         ),

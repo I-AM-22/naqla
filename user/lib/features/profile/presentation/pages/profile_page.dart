@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
@@ -24,6 +25,7 @@ import 'edit_profile_page.dart';
 import 'help_and_support_page.dart';
 import 'language_page.dart';
 
+@RoutePage()
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -58,7 +60,9 @@ class _ProfilePageState extends State<ProfilePage> {
           body: AppCommonStateBuilder<ProfileBloc, User>(
             stateName: ProfileState.getPersonalInfo,
             onSuccess: (data) => Padding(
-              padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
+              padding: REdgeInsets.symmetric(
+                  vertical: UIConstants.screenPadding30,
+                  horizontal: UIConstants.screenPadding16),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -68,8 +72,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         clipBehavior: Clip.hardEdge,
                         width: 138.w,
                         height: 138.w,
-                        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                        child: BlurHash(imageFit: BoxFit.cover, hash: data.photo.blurHash, image: data.photo.profileUrl),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border:
+                                Border.all(color: context.colorScheme.primary)),
+                        child: BlurHash(
+                            imageFit: BoxFit.cover,
+                            hash: data.photo.blurHash,
+                            image: data.photo.profileUrl),
                       ),
                     ),
                     24.verticalSpace,
@@ -83,12 +93,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     24.verticalSpace,
                     ProfileItem(
-                        onTap: () => context.pushNamed(EditProfilePage.name, extra: EditProfileParam(bloc: bloc, user: data)),
+                        onTap: () => context.pushNamed(EditProfilePage.name,
+                            extra: EditProfileParam(bloc: bloc, user: data)),
                         title: S.of(context).edit_profile,
                         prefixIcon: Assets.icons.essential.profile.path),
                     16.verticalSpace,
                     ProfileItem(
-                        onTap: () => context.pushNamed(EditPhoneNumberPage.name, extra: EditPhoneParam(bloc: bloc, phone: data.phone)),
+                        onTap: () => context.pushNamed(EditPhoneNumberPage.name,
+                            extra:
+                                EditPhoneParam(bloc: bloc, phone: data.phone)),
                         title: S.of(context).edit_phone,
                         prefixIcon: Assets.icons.essential.mobile.path),
                     16.verticalSpace,

@@ -10,7 +10,6 @@ import 'package:naqla/features/orders/presentation/pages/order_page.dart';
 
 import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/register_page.dart';
-import '../../../features/auth/presentation/pages/set_location_page.dart';
 import '../../../features/auth/presentation/pages/sign_in_page.dart';
 import '../../../features/auth/presentation/pages/welcome_page.dart';
 import '../../../features/chat/presentation/pages/messages_page.dart';
@@ -51,12 +50,6 @@ class GRouter {
         name: OnBoardingScreen.name,
         pageBuilder: (BuildContext context, GoRouterState state) {
           return _builderPage(child: const OnBoardingScreen(), state: state);
-        }),
-    GoRoute(
-        path: SetLocationPage.path,
-        name: SetLocationPage.name,
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return _builderPage(child: const SetLocationPage(), state: state);
         }),
     GoRoute(
         path: WelcomePage.path,

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ class PhoneVerificationParam {
   PhoneVerificationParam({required this.phone, this.comeFromProfile = false});
 }
 
+@RoutePage()
 class PhoneVerificationPage extends StatefulWidget {
   const PhoneVerificationPage({super.key, required this.param});
   final PhoneVerificationParam param;
@@ -54,9 +56,11 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                     _key.currentState?.save();
                     _key.currentState?.validate();
                     if (code.isNotEmpty && code.length > 5) {
-                      context
-                          .read<AuthBloc>()
-                          .add(ConfirmEvent(ConfirmParam(otp: code, phone: widget.param.phone, widget.param.comeFromProfile), (p0) {
+                      context.read<AuthBloc>().add(ConfirmEvent(
+                              ConfirmParam(
+                                  otp: code,
+                                  phone: widget.param.phone,
+                                  widget.param.comeFromProfile), (p0) {
                             context.goNamed(HomePage.name, extra: true);
                           }));
                     }
@@ -83,7 +87,9 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                     12.verticalSpace,
                     RichText(
                       text: TextSpan(
-                        style: TextStyle(color: context.colorScheme.systemGray, fontSize: 16.sp),
+                        style: TextStyle(
+                            color: context.colorScheme.systemGray,
+                            fontSize: 16.sp),
                         children: [
                           TextSpan(text: S.of(context).enter_code),
                           TextSpan(text: S.of(context).otp),
@@ -102,8 +108,11 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                             },
                             onCompleted: (val) {
                               context.read<AuthBloc>().add(ConfirmEvent(
-                                  ConfirmParam(otp: val, phone: widget.param.phone, widget.param.comeFromProfile),
-                                  (p0) => context.goNamed(HomePage.name)));
+                                  ConfirmParam(
+                                      otp: val,
+                                      phone: widget.param.phone,
+                                      widget.param.comeFromProfile),
+                                  (p0) => context.goNamed(HomePage.name,extra: true)));
                             },
                           );
                         },
@@ -113,7 +122,9 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AppText.subHeadMedium(S.of(context).did_not_receive_code, color: context.colorScheme.systemGray.shade700),
+                        AppText.subHeadMedium(
+                            S.of(context).did_not_receive_code,
+                            color: context.colorScheme.systemGray.shade700),
                         Flexible(
                           child: TextButton(
                               onPressed: () {},
