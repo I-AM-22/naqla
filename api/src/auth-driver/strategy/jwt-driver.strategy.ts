@@ -6,7 +6,7 @@ import { jwtPayload } from '../interfaces';
 import { AUTH_DRIVER_TYPES } from '../interfaces/type';
 import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
 import { Entities } from '../../common/enums';
-import { strategies } from '../../common/constants/jwt.type';
+import { strategies } from '../../common/constants/jwt.constant';
 
 @Injectable()
 export class JwtDriverStrategy extends PassportStrategy(
