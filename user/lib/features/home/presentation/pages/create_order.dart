@@ -39,17 +39,23 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
   final GlobalKey<FormBuilderState> _key = GlobalKey();
   List<LatLng> latLng = [];
   int length = 0;
+  final HomeBloc _bloc = getIt<HomeBloc>();
+  DateTime dateTime = DateTime.now();
+  @override
+  void initState() {
+    _bloc.add(GetCarAdvantageEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: getIt<HomeBloc>()..add(GetCarAdvantageEvent()),
+      value: _bloc,
       child: AppScaffold(
         bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             return Padding(
-              padding: REdgeInsets.symmetric(
-                  horizontal: UIConstants.screenPadding16, vertical: 10),
+              padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
               child: AppButton.dark(
                 title: S.of(context).next,
                 onPressed: () {
@@ -57,21 +63,12 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   _key.currentState?.validate();
                   if ((_key.currentState?.isValid ?? false) && length >= 2) {
                     context.read<HomeBloc>().add(SetOrderParamEvent(
-                        desiredDate: _key.currentState?.value["date"],
-                        locationStart: LocationModel(
-                            region: '',
-                            street: '',
-                            latitude: latLng[0].latitude,
-                            longitude: latLng[0].longitude),
-                        locationEnd: LocationModel(
-                            latitude: latLng[1].latitude,
-                            longitude: latLng[1].longitude,
-                            street: '',
-                            region: ''),
+                        desiredDate: dateTime.toIso8601String(),
+                        locationStart: LocationModel(region: '', street: '', latitude: latLng[0].latitude, longitude: latLng[0].longitude),
+                        locationEnd: LocationModel(latitude: latLng[1].latitude, longitude: latLng[1].longitude, street: '', region: ''),
                         porters: porters.value,
                         advantages: state
-                            .getState<List<CarAdvantage>>(
-                                HomeState.carAdvantage)
+                            .getState<List<CarAdvantage>>(HomeState.carAdvantage)
                             .data
                             ?.where((element) => element.isSelect)
                             .map((e) => e.id)
@@ -83,8 +80,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
             );
           },
         ),
-        appBar: AppAppBar(
-            appBarParams: AppBarParams(title: S.of(context).new_naqla)),
+        appBar: AppAppBar(appBarParams: AppBarParams(title: S.of(context).new_naqla)),
         body: SingleChildScrollView(
           child: FormBuilder(
             key: _key,
@@ -97,18 +93,17 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 ),
                 16.verticalSpace,
                 Padding(
-                  padding: REdgeInsets.symmetric(
-                      horizontal: UIConstants.screenPadding16),
+                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                   child: AppDatePicker(
                     validator: FormBuilderValidators.required(),
                     name: 'date',
+                    onDateTimeChanged: (p0) => dateTime = p0,
                     minimumDate: DateTime.now(),
                   ),
                 ),
                 20.verticalSpace,
                 Padding(
-                  padding: REdgeInsets.symmetric(
-                      horizontal: UIConstants.screenPadding16),
+                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                   child: Row(
                     children: [
                       ValueListenableBuilder(
@@ -131,15 +126,12 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 ),
                 11.verticalSpace,
                 Padding(
-                  padding: REdgeInsets.symmetric(
-                      horizontal: UIConstants.screenPadding16),
-                  child: AppText.bodySmMedium(
-                      "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
+                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
+                  child: AppText.bodySmMedium("الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
                 ),
                 18.verticalSpace,
                 Padding(
-                  padding: REdgeInsets.symmetric(
-                      horizontal: UIConstants.screenPadding16),
+                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                   child: AppText.bodySmMedium(
                     "مواصفات إضافية للسيارة:",
                     fontWeight: FontWeight.w700,
@@ -149,8 +141,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 AppCommonStateBuilder<HomeBloc, List<CarAdvantage>>(
                   stateName: HomeState.carAdvantage,
                   onSuccess: (data) => Padding(
-                    padding: REdgeInsets.symmetric(
-                        horizontal: UIConstants.screenPadding16, vertical: 10),
+                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
                     child: ListView.separated(
                       shrinkWrap: true,
                       itemCount: 3,
@@ -160,9 +151,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           AppCheckbox(
                             isSelected: data[index].isSelect,
                             onChanged: (value) {
-                              context.read<HomeBloc>().add(
-                                  ChangeSelectAdvantageEvent(
-                                      carAdvantage: data[index]));
+                              context.read<HomeBloc>().add(ChangeSelectAdvantageEvent(carAdvantage: data[index]));
                             },
                           ),
                           8.horizontalSpace,

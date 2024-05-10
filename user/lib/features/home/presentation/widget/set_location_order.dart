@@ -19,8 +19,7 @@ import '../../../../generated/l10n.dart';
 import '../bloc/home_bloc.dart';
 
 class SetLocationOrder extends StatefulWidget {
-  const SetLocationOrder(
-      {super.key, required this.onValid, required this.onChanged});
+  const SetLocationOrder({super.key, required this.onValid, required this.onChanged});
   final Function(List? value) onValid;
   final Function(List<LatLng>? value) onChanged;
 
@@ -53,9 +52,9 @@ class _SetLocationOrderState extends State<SetLocationOrder> {
         return CustomFormField<List<LatLng>>(
             validator: (value) {
               widget.onValid(value);
-              if (value?.isEmpty ?? false) {
+              if (value == null || (value.isEmpty)) {
                 return "يجب تحديد نقطة البداية والنهاية";
-              } else if ((value?.length ?? 0) < 2) {
+              } else if ((value.length) < 2) {
                 return "يجب تحديد نقطة النهاية";
               } else {
                 return null;
@@ -70,10 +69,7 @@ class _SetLocationOrderState extends State<SetLocationOrder> {
                         mapType: MapType.normal,
                         zoomControlsEnabled: false,
                         polygons: _polygon,
-                        gestureRecognizers: {
-                          Factory<OneSequenceGestureRecognizer>(
-                              () => EagerGestureRecognizer())
-                        },
+                        gestureRecognizers: {Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer())},
                         initialCameraPosition: cameraPosition ??
                             const CameraPosition(
                               target: LatLng(36.203977, 37.132782),
@@ -90,16 +86,14 @@ class _SetLocationOrderState extends State<SetLocationOrder> {
                             _polygon.clear();
                           }
                           final con = await _googleMapController.future;
-                          con.animateCamera(CameraUpdate.newCameraPosition(
-                              CameraPosition(zoom: 16, target: argument)));
+                          con.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(zoom: 16, target: argument)));
 
                           listMarkers.add(argument);
                           p0.didChange(listMarkers);
                           markers.add(
                             Marker(
                               markerId: MarkerId('${p0.value?[index]}'),
-                              position: p0.value?[index] ??
-                                  const LatLng(36.203977, 37.132782),
+                              position: p0.value?[index] ?? const LatLng(36.203977, 37.132782),
                               infoWindow: InfoWindow(
                                 title: startEndPoint[index],
                               ),
@@ -132,8 +126,7 @@ class _SetLocationOrderState extends State<SetLocationOrder> {
                       bottom: 0,
                       left: 0,
                       child: BlocSelector<HomeBloc, HomeState, CommonState>(
-                        selector: (state) =>
-                            state.getState(HomeState.changeLocationEvent),
+                        selector: (state) => state.getState(HomeState.changeLocationEvent),
                         builder: (context, state) {
                           return AppButton.field(
                             title: S.of(context).use_current_location,
@@ -148,13 +141,9 @@ class _SetLocationOrderState extends State<SetLocationOrder> {
                             margin: EdgeInsets.only(bottom: 16.h, left: 16.w),
                             textStyle: context.textTheme.subHeadMedium,
                             onPressed: () async {
-                              context.read<HomeBloc>().add(
-                                  ChangeLocationEvent(onSuccess: (value) async {
+                              context.read<HomeBloc>().add(ChangeLocationEvent(onSuccess: (value) async {
                                 final con = await _googleMapController.future;
-                                con.animateCamera(
-                                    CameraUpdate.newCameraPosition(
-                                        CameraPosition(
-                                            zoom: 16, target: value)));
+                                con.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(zoom: 16, target: value)));
                               }));
                             },
                           );

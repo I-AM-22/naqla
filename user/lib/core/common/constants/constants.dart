@@ -14,7 +14,7 @@ class UIConstants {
 
   static final screenPadding16 = 16.w;
   static final screenPadding30 = 30.h;
+  static final screenPadding20 = 20.w;
 
-  static getShadow(BuildContext context) =>
-      context.colorScheme.outlineVariant.withOpacity(0.25);
+  static getShadow(BuildContext context) => context.colorScheme.outlineVariant.withOpacity(0.25);
 }

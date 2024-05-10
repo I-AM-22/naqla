@@ -38,9 +38,9 @@ class ChangeSelectAdvantageEvent extends HomeEvent {
 class GetOrdersActiveEvent extends HomeEvent {}
 
 class SetOrderEvent extends HomeEvent {
-  // final SetOrderParam param;
-  //
-  // SetOrderEvent({required this.param});
+  final VoidCallback onSuccess;
+
+  SetOrderEvent({required this.onSuccess});
 }
 
 class SetOrderParamEvent extends HomeEvent {

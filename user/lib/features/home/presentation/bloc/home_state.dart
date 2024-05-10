@@ -23,8 +23,7 @@ class HomeState extends StateObject<HomeState> {
           states,
         );
 
-  HomeState copyWith({SetOrderParam? setOrderParam}) =>
-      HomeState(setOrderParam: setOrderParam ?? this.setOrderParam);
+  HomeState copyWith({SetOrderParam? setOrderParam}) => HomeState(setOrderParam: setOrderParam ?? this.setOrderParam, states: states);
 
   @override
   List<Object?> get props => [states, setOrderParam];

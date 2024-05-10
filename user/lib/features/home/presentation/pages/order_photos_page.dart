@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -13,9 +13,9 @@ import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
-import 'package:naqla/features/home/presentation/pages/home_page.dart';
 
 import '../../../../generated/l10n.dart';
+import 'home_page.dart';
 
 @RoutePage()
 class OrderPhotosPage extends StatefulWidget {
@@ -47,12 +47,17 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
                   isLoading: state.getState(HomeState.setOrder).isLoading,
                   title: S.of(context).next,
                   onPressed: () {
-                    if (true) {
-                      context.read<HomeBloc>().add(SetOrderParamEvent(photo: []));
-                      context.read<HomeBloc>().add(SetOrderEvent());
-                      print(state.setOrderParam);
-
-                      context.goNamed(HomePage.name, extra: false);
+                    if (state.getState<List<String>>(HomeState.uploadPhotos).data?.isNotEmpty ?? false) {
+                      context
+                          .read<HomeBloc>()
+                          .add(SetOrderParamEvent(photo: context.read<HomeBloc>().state.getState<List<String>>(HomeState.uploadPhotos).data));
+                      context.read<HomeBloc>().add(SetOrderEvent(
+                        onSuccess: () {
+                          context.goNamed(HomePage.name, extra: false);
+                        },
+                      ));
+                    } else {
+                      showMessage('يجب رفع صورة على الاقل', isSuccess: false);
                     }
                   },
                 ),
@@ -78,9 +83,11 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
                   child: AppCommonStateBuilder<HomeBloc, List<String>>(
                     stateName: HomeState.uploadPhotos,
                     onInit: const SizedBox(),
+                    onLoading: CircularProgressIndicator(),
                     onSuccess: (data) => ListView.separated(
-                        itemBuilder: (context, index) => Image(
-                              image: NetworkImage(data[index]),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => AppImage.network(
+                              data[index],
                               fit: BoxFit.contain,
                             ),
                         separatorBuilder: (context, index) => 10.verticalSpace,
