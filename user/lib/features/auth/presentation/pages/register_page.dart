@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/core.dart';
@@ -61,7 +60,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: AppTextFormField(
                             name: 'firstName',
                             hintText: S.of(context).first_name,
-                            validator: FormBuilderValidators.required(),
+                            validator: (value) {
+                              if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
+                              return null;
+                            },
                             keyboardType: TextInputType.name,
                           ),
                         ),
@@ -70,7 +72,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: AppTextFormField(
                             name: 'lastName',
                             hintText: S.of(context).last_name,
-                            validator: FormBuilderValidators.required(),
+                            validator: (value) {
+                              if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
+                              return null;
+                            },
                             keyboardType: TextInputType.name,
                           ),
                         ),
@@ -84,7 +89,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         String manimbulatedValue = '$value';
                         return manimbulatedValue;
                       },
-                      validator: FormBuilderValidators.compose([FormBuilderValidators.required(), FormBuilderValidators.minLength(10)]),
+                      validator: (value) {
+                        if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
+                        if ((value.length < 10)) return 'رقم الموبايل يجب ان يتالف من 10 ارقام';
+                        return null;
+                      },
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
                       keyboardType: TextInputType.phone,
                     ),

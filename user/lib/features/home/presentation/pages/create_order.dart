@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:naqla/core/common/constants/constants.dart';
@@ -95,7 +94,10 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 Padding(
                   padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                   child: AppDatePicker(
-                    validator: FormBuilderValidators.required(),
+                    validator: (value) {
+                      if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
+                      return null;
+                    },
                     name: 'date',
                     onDateTimeChanged: (p0) => dateTime = p0,
                     minimumDate: DateTime.now(),

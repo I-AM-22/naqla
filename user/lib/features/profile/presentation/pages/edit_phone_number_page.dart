@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
@@ -23,6 +22,7 @@ class EditPhoneParam {
 
   EditPhoneParam({required this.bloc, required this.phone});
 }
+
 @RoutePage()
 class EditPhoneNumberPage extends StatefulWidget {
   const EditPhoneNumberPage({super.key, required this.param});
@@ -61,7 +61,11 @@ class _EditPhoneNumberPageState extends State<EditPhoneNumberPage> {
                       String manimbulatedValue = '$value';
                       return manimbulatedValue;
                     },
-                    validator: FormBuilderValidators.compose([FormBuilderValidators.required(), FormBuilderValidators.minLength(10)]),
+                    validator: (value) {
+                      if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
+                      if ((value.length < 10)) return 'رقم الموبايل يجب ان يتالف من 10 ارقام';
+                      return null;
+                    },
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
                   ),
                 ),

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:naqla/core/core.dart';
@@ -161,7 +160,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   AppTextFormField(
                     initialValue: widget.param.user.firstName,
                     name: 'firstName',
-                    validator: FormBuilderValidators.required(),
+                    validator: (value) {
+                      if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
+                      return null;
+                    },
                     keyboardType: TextInputType.name,
                   ),
                   24.verticalSpace,
@@ -169,7 +171,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     name: 'lastName',
                     title: S.of(context).last_name,
                     initialValue: widget.param.user.lastName,
-                    validator: FormBuilderValidators.required(),
+                    validator: (value) {
+                      if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
+
+                      return null;
+                    },
                     keyboardType: TextInputType.name,
                   ),
                   32.verticalSpace,
