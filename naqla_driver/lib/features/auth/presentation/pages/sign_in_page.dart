@@ -5,7 +5,6 @@ import 'package:naqla_driver/features/auth/presentation/widget/sign_up_container
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../app/presentation/widgets/app_scaffold.dart';
-import '../widget/login_container.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -17,7 +16,7 @@ class SignUpPage extends StatelessWidget {
     return AppScaffold(
       backgroundColor: Color(0xff222636),
       body: Container(
-        margin: REdgeInsets.only(top: 50),
+        margin: REdgeInsets.only(top: 100),
         padding: REdgeInsets.symmetric(
           horizontal: UIConstants.screenPadding30,
           vertical: 50.h,

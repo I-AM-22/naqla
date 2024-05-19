@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/core/core.dart';
+import 'package:naqla_driver/features/auth/presentation/pages/sign_up_page.dart';
 
 import '../app/domain/repository/prefs_repository.dart';
 import '../app/presentation/widgets/app_scaffold.dart';
-import '../auth/presentation/pages/sign_in_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 2), () {
       if (GetIt.I<PrefsRepository>().registeredUser) {
       } else {
-        context.goNamed(SignUpPage.name);
+        context.goNamed(SignInPage.name);
       }
     });
     super.initState();

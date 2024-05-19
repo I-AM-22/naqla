@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naqla_driver/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
 import 'package:naqla_driver/features/orders/presentation/pages/orders_page.dart';
 import 'package:naqla_driver/features/profile/presentation/pages/profile_page.dart';
@@ -31,10 +32,10 @@ class GRouter {
           return _builderPage(child: const SplashScreen(), state: state);
         }),
     GoRoute(
-        path: SignUpPage.path,
-        name: SignUpPage.name,
+        path: SignInPage.path,
+        name: SignInPage.name,
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return _builderPage(child: const SignUpPage(), state: state);
+          return _builderPage(child: const SignInPage(), state: state);
         }),
     GoRoute(
       path: PhoneVerificationPage.path,
