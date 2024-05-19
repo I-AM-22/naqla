@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 2), () {
       if (GetIt.I<PrefsRepository>().registeredUser) {
       } else {
-        context.goNamed(SignInPage.name);
+        context.goNamed(SignUpPage.name);
       }
     });
     super.initState();
