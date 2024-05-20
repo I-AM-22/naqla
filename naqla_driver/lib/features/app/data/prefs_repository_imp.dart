@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
+import 'package:naqla_driver/features/auth/data/model/driver_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/common/constants/configuration/prefs_key.dart';
@@ -11,7 +14,7 @@ class PrefsRepositoryImpl extends PrefsRepository {
   PrefsRepositoryImpl({required this.sharedPreferences});
   @override
   Future<bool> clearUser() async {
-    return (await Future.wait([sharedPreferences.remove(PrefsKey.token), sharedPreferences.remove(PrefsKey.user), sharedPreferences.clear()]))
+    return (await Future.wait([sharedPreferences.remove(PrefsKey.token), sharedPreferences.remove(PrefsKey.driver), sharedPreferences.clear()]))
         .reduce((value, element) => value && element);
   }
 
@@ -24,11 +27,14 @@ class PrefsRepositoryImpl extends PrefsRepository {
   @override
   String? get token => sharedPreferences.getString(PrefsKey.token);
 
-  // @override
-  // Future<bool> setUser(User user) {
-  //   throw UnimplementedError();
-  // }
-  //
-  // @override
-  // User? get user => throw UnimplementedError();
+  @override
+  DriverModel? get driver {
+    final result = sharedPreferences.getString(PrefsKey.driver);
+    return DriverModel.fromJson(json.decode(result ?? ''));
+  }
+
+  @override
+  Future<bool> setDriver(DriverModel driverModel) {
+    return sharedPreferences.setString(PrefsKey.driver, json.encode(driverModel.toJson()));
+  }
 }

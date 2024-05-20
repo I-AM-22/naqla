@@ -3,10 +3,10 @@ class ApiRoutes {
   static const String baseUrl = 'http://192.168.1.110:5500';
 
   //////////////////?Auth////////////////////
-  static String login = '/api/v1/auth/user/login';
-  static String signup = '/api/v1/auth/user/signup';
-  static String confirm = '/api/v1/auth/user/confirm';
-  static String updateMyNumber = '/api/v1/auth/user/updateMyNumber';
+  static String login = '/api/v1/auth/driver/login';
+  static String signup = '/api/v1/auth/driver/signup';
+  static String confirm = '/api/v1/auth/driver/confirm';
+  static String updateMyNumber = '/api/v1/auth/driver/updateMyNumber';
 
   //////////////////?File////////////////////
   static String single = '/api/v1/photos/single';

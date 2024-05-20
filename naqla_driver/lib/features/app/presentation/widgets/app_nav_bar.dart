@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/custom_active_icon.dart';
 
+import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 
 class AppNavigationBar extends StatelessWidget {
@@ -31,31 +32,31 @@ class AppNavigationBar extends StatelessWidget {
           BottomNavigationBarItem(
             label: "",
             icon: AppImage.asset(
-              '',
+              Assets.icons.essential.home.path,
               size: 24.h,
             ),
             activeIcon: CustomActiveIcon(
-              image: '',
+              image: Assets.icons.essential.aHouse.path,
               label: S.of(context).home,
             ),
           ),
           BottomNavigationBarItem(
             label: "",
             icon: AppImage.asset(
-              '',
+              Assets.icons.essential.chat.path,
               size: 24.h,
             ),
-            activeIcon: CustomActiveIcon(image: '', label: S.of(context).orders),
+            activeIcon: CustomActiveIcon(image: Assets.icons.essential.chat.path, label: S.of(context).orders),
           ),
           BottomNavigationBarItem(
             label: "",
             icon: AppImage.asset(
-              '',
+              Assets.icons.essential.profile.path,
               color: context.colorScheme.systemGray.shade300,
               size: 24.h,
             ),
             activeIcon: CustomActiveIcon(
-              image: '',
+              image: Assets.icons.essential.aUser.path,
               label: S.of(context).profile,
             ),
           ),

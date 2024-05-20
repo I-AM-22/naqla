@@ -1,12 +1,19 @@
+import 'package:common_state/common_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/core/core.dart';
+import 'package:naqla_driver/features/auth/domain/usecases/signup_use_case.dart';
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../pages/phone_verfication.dart';
+import '../state/auth_bloc.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({super.key});
@@ -63,17 +70,38 @@ class _SignUpContainerState extends State<SignUpContainer> {
               AppTextFormField(
                 name: 'mobileNumber',
                 hintText: S.of(context).your_mobile_number,
-              ),
-              16.verticalSpace,
-              AppPasswordField(
-                name: 'password',
-                hintText: S.of(context).enter_Your_Password,
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(),
+                  FormBuilderValidators.minLength(10),
+                ]),
+                maxLength: 10,
+                keyboardType: TextInputType.phone,
               ),
               32.verticalSpace,
-              AppButton.dark(
-                title: S.of(context).register,
-                onPressed: () async {},
-              )
+              BlocSelector<AuthBloc, AuthState, CommonState>(
+                selector: (state) => state.getState(AuthState.signUp),
+                builder: (context, state) {
+                  return AppButton.dark(
+                    isLoading: state.isLoading,
+                    title: S.of(context).register,
+                    onPressed: () async {
+                      _formKey.currentState?.save();
+                      _formKey.currentState?.validate();
+                      if (_formKey.currentState?.isValid ?? false) {
+                        context.read<AuthBloc>().add(SignUpEvent(
+                              param: SignUpParam(
+                                  phoneNumber: _formKey.currentState?.value['mobileNumber'],
+                                  firstName: _formKey.currentState?.value['firstName'],
+                                  lastName: _formKey.currentState?.value['lastName']),
+                              onSuccess: () {
+                                context.pushNamed(PhoneVerificationPage.name);
+                              },
+                            ));
+                      }
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),

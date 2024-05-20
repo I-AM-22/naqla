@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/core/core.dart';
-import 'package:naqla_driver/features/auth/presentation/pages/sign_up_page.dart';
+import 'package:naqla_driver/core/di/di_container.dart';
+import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
+import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
 
+import '../../generated/flutter_gen/assets.gen.dart';
 import '../app/domain/repository/prefs_repository.dart';
 import '../app/presentation/widgets/app_scaffold.dart';
 
@@ -21,7 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
-      if (GetIt.I<PrefsRepository>().registeredUser) {
+      if (getIt<PrefsRepository>().registeredUser) {
+        context.goNamed(HomePage.name);
       } else {
         context.goNamed(SignInPage.name);
       }
@@ -37,7 +40,13 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            CircleAvatar(backgroundColor: context.colorScheme.primary, radius: 50.r, backgroundImage: AssetImage('')),
+            Container(
+              width: 50.r,
+              height: 50.r,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(shape: BoxShape.circle, color: context.colorScheme.primary),
+              child: AppImage.asset(Assets.images.jpg.logo.path),
+            ),
             const Spacer(),
             AppText.subHeadMedium(
               "Naqla Driver",

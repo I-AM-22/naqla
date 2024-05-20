@@ -1,5 +1,5 @@
 abstract class PrefsKey {
   static const token = '~*token*~';
-  static const user = '~*user*~';
+  static const driver = '~*driver*~';
   static const theme = '~*theme*~';
 }
