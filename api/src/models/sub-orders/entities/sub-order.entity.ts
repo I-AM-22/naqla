@@ -21,11 +21,23 @@ export class SubOrder extends GlobalEntity {
 
   @ApiProperty()
   @Column({ nullable: true })
-  arrivalDate: string;
+  acceptedAt: string;
 
   @ApiProperty()
   @Column({ nullable: true })
-  deliveryDate: string;
+  arrivedAt: string;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  deliveredAt: string;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  driverAssignedAt: string;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  pickedUpAt: string;
 
   @ApiProperty()
   @ManyToOne(() => Order, (order) => order.subOrders)

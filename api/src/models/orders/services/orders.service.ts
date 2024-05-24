@@ -68,6 +68,14 @@ export class OrdersService implements IOrdersService {
     dto: UpdateOrderDto,
   ): Promise<Order> {
     const order = await this.findOne(id, person);
+    if (
+      order.status !== ORDER_STATUS.WAITING &&
+      order.status !== ORDER_STATUS.READY
+    ) {
+      throw new ForbiddenException(
+        'Can not update order advantages after accept the offer',
+      );
+    }
     const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
     return this.orderRepository.update(order, dto, photo);
   }
@@ -83,16 +91,18 @@ export class OrdersService implements IOrdersService {
     user: User,
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
+
     if (
-      order.status === ORDER_STATUS.WAITING ||
-      order.status === ORDER_STATUS.READY
+      order.status !== ORDER_STATUS.WAITING &&
+      order.status !== ORDER_STATUS.READY
     ) {
-      const advantages = await this.advantagesService.findInIds(dto.advantages);
-      return await this.orderRepository.addAdvantageToOrder(order, advantages);
+      throw new ForbiddenException(
+        'Can not update order advantages after accept the offer',
+      );
     }
-    throw new ForbiddenException(
-      'Can not update order advantages after accept the offer',
-    );
+
+    const advantages = await this.advantagesService.findInIds(dto.advantages);
+    return await this.orderRepository.addAdvantageToOrder(order, advantages);
   }
 
   async removeAdvantagesFromOrder(
@@ -102,14 +112,14 @@ export class OrdersService implements IOrdersService {
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
     if (
-      order.status === ORDER_STATUS.WAITING ||
-      order.status === ORDER_STATUS.READY
+      order.status !== ORDER_STATUS.WAITING &&
+      order.status !== ORDER_STATUS.READY
     ) {
-      const advantage = await this.advantagesService.findOne(advantageId);
-      return this.orderRepository.removeAdvantageFromOrder(order, advantage);
+      throw new ForbiddenException(
+        'Can not update order advantages after accept the offer',
+      );
     }
-    throw new ForbiddenException(
-      'Can not delete an advantage order after accept the offer',
-    );
+    const advantage = await this.advantagesService.findOne(advantageId);
+    return this.orderRepository.removeAdvantageFromOrder(order, advantage);
   }
 }

@@ -21,6 +21,6 @@ export class SettingsController {
   @ApiOkResponse({ type: Setting })
   @Get(':id')
   findOne(@Id() id: string) {
-    return this.settingsService.findOneById(id);
+    return this.settingsService.findById(id);
   }
 }

@@ -56,7 +56,7 @@ export class EmployeeRepository
       address: dto.address,
     });
     await this.employeeRepo.save(employee);
-    return this.findOneById(employee.id);
+    return this.findById(employee.id);
   }
 
   // async recover(employee: Employee): Promise<Employee> {

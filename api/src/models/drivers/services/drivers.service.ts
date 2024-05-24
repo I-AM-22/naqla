@@ -57,7 +57,7 @@ export class DriversService implements IDriversService {
   }
 
   async findOne(id: string, withDeleted = false): Promise<Driver> {
-    const driver = await this.driverRepository.findOneById(id, withDeleted);
+    const driver = await this.driverRepository.findById(id, withDeleted);
     if (!driver) throw new NotFoundException(item_not_found(Entities.Driver));
     return driver;
   }
@@ -113,7 +113,7 @@ export class DriversService implements IDriversService {
   }
 
   async validate(id: string): Promise<Driver> {
-    const driver = await this.driverRepository.findOneById(id);
+    const driver = await this.driverRepository.findById(id);
     if (!driver) {
       throw new UnauthorizedException('The driver is not here');
     }

@@ -60,7 +60,7 @@ export class EmployeesService implements IEmployeesService {
   }
 
   async findOne(id: string, withDeleted?: boolean): Promise<Employee> {
-    const employee = await this.employeeRepository.findOneById(id, withDeleted);
+    const employee = await this.employeeRepository.findById(id, withDeleted);
     if (!employee) {
       throw new NotFoundException(item_not_found(Entities.Employee));
     }
@@ -97,7 +97,7 @@ export class EmployeesService implements IEmployeesService {
   }
 
   async validate(id: string, iat: number): Promise<Employee> {
-    const emp = await this.employeeRepository.findOneById(id);
+    const emp = await this.employeeRepository.findById(id);
 
     if (!emp) {
       throw new UnauthorizedException('The user is not here');

@@ -103,6 +103,15 @@ export class OtpRepository {
   }
 
   async update(otp: IOtp) {
-    await this.otpRepo.update(otp.id, { valid: false });
+    await this.otpRepo.update(
+      {
+        userId: otp.userId,
+        phone: otp.phone,
+        ip: otp.ip,
+        type: otp.type,
+        perType: otp.perType,
+      },
+      { valid: false },
+    );
   }
 }

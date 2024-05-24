@@ -59,7 +59,7 @@ export class DriverRepository
   async confirm(nonConfirmedDriver: Driver): Promise<Driver> {
     nonConfirmedDriver.active = true;
     await this.driverRepo.save(nonConfirmedDriver);
-    return this.findOneById(nonConfirmedDriver.id);
+    return this.findById(nonConfirmedDriver.id);
   }
 
   //TODO
@@ -69,7 +69,7 @@ export class DriverRepository
   ): Promise<Driver> {
     Object.assign(driver, dto);
     await this.driverRepo.save(driver);
-    return this.findOneById(driver.id);
+    return this.findById(driver.id);
   }
 
   async update(
@@ -83,10 +83,10 @@ export class DriverRepository
       lastName: dto.lastName,
     });
     await this.driverRepo.save(driver);
-    return this.findOneById(driver.id);
+    return this.findById(driver.id);
   }
 
-  async findOneByIdForThings(id: string): Promise<Driver> {
+  async findByIdForThings(id: string): Promise<Driver> {
     return await this.driverRepo.findOne({
       where: { id, active: true },
       select: {

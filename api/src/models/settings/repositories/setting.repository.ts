@@ -18,7 +18,7 @@ export class SettingRepository implements ISettingRepository {
     return this.settingRepository.findOne({ where: { name } });
   }
 
-  async findOneById(id: string): Promise<Setting> {
+  async findById(id: string): Promise<Setting> {
     return this.settingRepository.findOne({ where: { id } });
   }
 }

@@ -19,7 +19,7 @@ export class SettingsService implements ISettingsService {
     return this.settingRepository.findOneByName(name);
   }
 
-  async findOneById(id: string): Promise<Setting> {
-    return this.settingRepository.findOneById(id);
+  async findById(id: string): Promise<Setting> {
+    return this.settingRepository.findById(id);
   }
 }
