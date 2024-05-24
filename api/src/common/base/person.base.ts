@@ -18,6 +18,7 @@ export class BasePerson extends GlobalEntity {
   @Expose({
     groups: [
       GROUPS.USER,
+      GROUPS.DRIVER,
       GROUPS.ALL_ADMINS,
       GROUPS.ADMIN,
       GROUPS.ALL_EMPLOYEES,
