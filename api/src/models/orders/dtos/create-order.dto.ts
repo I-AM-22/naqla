@@ -49,9 +49,9 @@ export class CreateOrderDto {
   @Type(() => LocationDto)
   locationEnd: LocationDto;
 
-  @ApiProperty({ default: false })
-  @IsBoolean()
-  porters: boolean;
+  @ApiProperty({ default: 0 })
+  @IsNumber()
+  porters: number;
 
   @ApiProperty()
   @IsString({ message: 'Please provide a photo', each: true })

@@ -4,39 +4,93 @@ import {
   Post,
   Body,
   Patch,
-  Param,
+  // Param,
   Delete,
   Inject,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
 import { SUB_ORDER_TYPES } from '../interfaces/type';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiForbiddenResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Auth, Id, Roles } from '../../../common/decorators';
+import { SubOrder } from '../entities/sub-order.entity';
+import { ROLE } from '../../../common/enums';
+import { LoggingInterceptor } from '../../../common/interceptors';
+import {
+  bad_req,
+  data_not_found,
+  denied_error,
+} from '../../../common/constants';
+import { GpsDrivinagService } from '../../../shared/gpsDrivinag';
+import { Car } from '../../drivers/entities/car.entity';
 
 @ApiTags('SubOrders')
-@Controller('sub-orders')
+@ApiBadRequestResponse({ description: bad_req })
+@ApiForbiddenResponse({ description: denied_error })
+@ApiNotFoundResponse({ description: data_not_found })
+@Auth()
+@UseInterceptors(new LoggingInterceptor())
+@Controller({ path: 'sub-orders', version: '1' })
 export class SubOrdersController {
   constructor(
     @Inject(SUB_ORDER_TYPES.service)
     private readonly subOrdersService: ISubOrdersService,
   ) {}
-
+  // @Roles(ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: SubOrder })
   @Post()
-  create(@Body() createSubOrderDto: CreateSubOrderDto) {}
+  create(@Body() createSubOrderDto: CreateSubOrderDto) {
+    return this.subOrdersService.create(createSubOrderDto);
+  }
 
+  // @Roles(ROLE.DRIVER)
+  @ApiOkResponse({ type: SubOrder, isArray: true })
   @Get()
-  findAll() {}
+  async findAll(): Promise<SubOrder[]> {
+    return this.subOrdersService.find();
+  }
 
+  @Roles(ROLE.USER, ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: SubOrder })
   @Get(':id')
-  findOne(@Param('id') id: string) {}
+  async findOne(@Id() id: string): Promise<SubOrder> {
+    const suborder = await this.subOrdersService.findOne(id);
+    return suborder;
+  }
 
+  @Roles(ROLE.USER, ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: SubOrder })
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateSubOrderDto: UpdateSubOrderDto,
-  ) {}
+  async update(
+    @Id() id: string,
+    @Body() dto: UpdateSubOrderDto,
+  ): Promise<SubOrder> {
+    return await this.subOrdersService.update(id, dto);
+  }
 
+  @Roles(ROLE.DRIVER)
+  @ApiOkResponse({ type: SubOrder })
+  @Patch(':id/setDriver')
+  async setDriver(
+    @Id() id: string,
+    @Body() dto: UpdateSubOrderDto,
+  ): Promise<SubOrder> {
+    return await this.subOrdersService.setDriver(id, dto.car);
+  }
+
+  @Roles(ROLE.EMPLOYEE)
+  @ApiNoContentResponse()
   @Delete(':id')
-  remove(@Param('id') id: string) {}
+  async delete(@Id() id: string): Promise<void> {
+    await this.subOrdersService.delete(id);
+  }
 }

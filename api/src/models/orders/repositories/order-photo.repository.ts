@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CloudinaryService } from '../../../shared/cloudinary';
 import { OrderPhoto } from '../entities/order-photo.entity';
@@ -22,5 +22,8 @@ export class OrderPhotoRepository implements IPhotoRepository<OrderPhoto> {
     const uploaded = await this.cloudinaryService.uploadMultiplePhotos(paths);
     const photos = this.orderPhotoRepo.create(uploaded);
     return photos;
+  }
+  async setPhotoSub(photos: string[], id: string): Promise<any> {
+    return this.orderPhotoRepo.update({ id: In(photos) }, { subOrderId: id });
   }
 }

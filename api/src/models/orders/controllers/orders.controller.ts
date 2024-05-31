@@ -32,6 +32,8 @@ import {
 import { LoggingInterceptor } from '../../../common/interceptors';
 import { ROLE } from '../../../common/enums';
 import { IPerson } from '../../../common/interfaces';
+import { SUB_ORDER_TYPES } from '../../sub-orders/interfaces/type';
+import { SubOrdersService } from '../../sub-orders/services/sub-orders.service';
 
 @ApiTags('Orders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -43,6 +45,7 @@ import { IPerson } from '../../../common/interfaces';
 export class OrderController {
   constructor(
     @Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService,
+    private readonly subordersService: SubOrdersService,
   ) {}
 
   @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
@@ -71,6 +74,38 @@ export class OrderController {
   @Get(':id')
   async findOne(@Id() id: string, @GetUser() user: IPerson): Promise<Order> {
     const order = await this.ordersService.findOne(id, user);
+    return order;
+  }
+  @Roles(ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: Order })
+  @Get(':id/divisionDone')
+  async divisionDone(@Id() id: string): Promise<Order> {
+    const order = await this.ordersService.divisionDone(id);
+    return order;
+  }
+
+  @Roles(ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: Order })
+  @Get(':id/acceptance')
+  async acceptance(@Id() id: string): Promise<Order> {
+    await this.subordersService.ready(id);
+    const order = await this.ordersService.acceptance(id);
+    return order;
+  }
+  @Roles(ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: Order })
+  @Get(':id/cancellation')
+  async cancellation(@Id() id: string): Promise<Order> {
+    const order = await this.ordersService.cancellation(id);
+    return order;
+  }
+
+  @Roles(ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: Order })
+  @Get(':id/refusal')
+  async refusal(@Id() id: string): Promise<Order> {
+    const order = await this.ordersService.refusal(id);
+    await this.subordersService.deleteForOrder(id);
     return order;
   }
 

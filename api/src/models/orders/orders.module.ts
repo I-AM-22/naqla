@@ -1,4 +1,4 @@
-import { Module, Provider } from '@nestjs/common';
+import { forwardRef, Module, Provider } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { ORDER_TYPES } from './interfaces/type';
@@ -7,7 +7,14 @@ import { OrderRepository } from './repositories/order.repository';
 import { OrderController } from './controllers/orders.controller';
 import { OrderPhotoRepository } from './repositories/order-photo.repository';
 import { OrderPhoto } from './entities/order-photo.entity';
-import { AdvantagesModule } from '../advantages/advantages.module';
+import {
+  AdvantageRepositoryProvider,
+  AdvantagesModule,
+} from '../advantages/advantages.module';
+import { SettingsModule } from '../settings/settings.module';
+import { PymentRepository } from './repositories/pyment.repository';
+import { Payment } from './entities/payment.entity';
+import { SubOrdersModule } from '../sub-orders/sub-orders.module';
 
 export const OrdersServiceProvider: Provider = {
   provide: ORDER_TYPES.service,
@@ -23,18 +30,29 @@ export const OrderPhotoRepositoryProvider: Provider = {
   provide: ORDER_TYPES.repository.photo,
   useClass: OrderPhotoRepository,
 };
+export const PymentRepositoryProvider: Provider = {
+  provide: 'PymentRepository',
+  useClass: PymentRepository,
+};
 @Module({
-  imports: [TypeOrmModule.forFeature([Order, OrderPhoto]), AdvantagesModule],
+  imports: [
+    TypeOrmModule.forFeature([Order, OrderPhoto, Payment]),
+    AdvantagesModule,
+    SettingsModule,
+    forwardRef(() => SubOrdersModule),
+  ],
   controllers: [OrderController],
   providers: [
     OrdersServiceProvider,
     OrderRepositoryProvider,
     OrderPhotoRepositoryProvider,
+    PymentRepositoryProvider,
   ],
   exports: [
     OrderRepositoryProvider,
     OrderPhotoRepositoryProvider,
     OrdersServiceProvider,
+    PymentRepositoryProvider,
   ],
 })
 export class OrdersModule {}

@@ -10,11 +10,11 @@ import {
 } from 'typeorm';
 import { GlobalEntity } from '../../../common/base';
 import { OrderPhoto } from './order-photo.entity';
-import { Exclude, Expose, Type } from 'class-transformer';
+import { Exclude, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { Advantage } from '../../advantages/entities/advantage.entity';
 import { User } from '../../users/entities/user.entity';
-import { GROUPS } from '../../../common/enums';
+// import { GROUPS } from '../../../common/enums';
 import { Location } from '../interfaces/location.interface';
 import { ORDER_STATUS } from '../../../common/enums';
 import { Payment } from './payment.entity';
@@ -22,7 +22,6 @@ import { SubOrder } from '../../sub-orders/entities/sub-order.entity';
 
 @Entity('orders')
 export class Order extends GlobalEntity {
-  @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
   @ApiProperty()
   @Column()
   desiredDate: Date;
@@ -61,7 +60,7 @@ export class Order extends GlobalEntity {
   @JoinTable({ name: 'orders_advantages' })
   advantages: Advantage[];
 
-  @ApiProperty()
+  // @ApiProperty()
   @OneToOne(() => Payment, (payment) => payment.order, {
     cascade: true,
   })

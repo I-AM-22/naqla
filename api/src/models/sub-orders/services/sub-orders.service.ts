@@ -4,31 +4,95 @@ import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { SUB_ORDER_TYPES } from '../interfaces/type';
 import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
+import { SubOrder } from '../entities/sub-order.entity';
+import { ORDER_TYPES } from '../../orders/interfaces/type';
+import { OrderPhotoRepository } from '../../orders/repositories/order-photo.repository';
+import { OrderRepository } from '../../orders/repositories/order.repository';
+import { ISettingRepository } from '../../settings/interfaces/repositories/setting.repository.interface';
+import { GpsDrivinagService } from '../../../shared/gpsDrivinag';
+import { Setting } from '../../settings/entities/setting.entity';
+import { Car } from '../../drivers/entities/car.entity';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {
   constructor(
     @Inject(SUB_ORDER_TYPES.repository.subOrder)
     private readonly subOrderRepository: ISubOrderRepository,
+    @Inject(ORDER_TYPES.repository.photo)
+    private readonly orderPhotoRepository: OrderPhotoRepository,
+    @Inject(ORDER_TYPES.repository.order)
+    private readonly orderRepository: OrderRepository,
+    @Inject('ISettingRepository')
+    private readonly settingepository: ISettingRepository,
+    private readonly gpsDrivinagService: GpsDrivinagService,
   ) {}
 
-  create(createSubOrderDto: CreateSubOrderDto) {
-    return 'This action adds a new subOrder';
+  async create(createSubOrderDto: CreateSubOrderDto): Promise<SubOrder> {
+    const pointes = await this.orderRepository.findOne(
+      createSubOrderDto.orderId,
+    );
+    let settingWeight: Setting;
+    {
+      if (createSubOrderDto.weight < 1000) {
+        settingWeight =
+          await this.settingepository.findOneByName('defaultWeight');
+      } else if (
+        createSubOrderDto.weight < 2000 &&
+        createSubOrderDto.weight >= 1000
+      )
+        settingWeight = await this.settingepository.findOneByName('minWeight');
+      else if (
+        createSubOrderDto.weight < 3000 &&
+        createSubOrderDto.weight >= 2000
+      )
+        settingWeight = await this.settingepository.findOneByName('midWeight');
+      else if (createSubOrderDto.weight >= 3000)
+        settingWeight = await this.settingepository.findOneByName('maxWeight');
+    }
+
+    const costDistance =
+      +(await this.gpsDrivinagService.costDistance(
+        pointes.locationStart,
+        pointes.locationEnd,
+      )) * +settingWeight.cost;
+    const sub = await this.subOrderRepository.create(
+      createSubOrderDto,
+      costDistance,
+    );
+    this.orderPhotoRepository.setPhotoSub(createSubOrderDto.photos, sub.id);
+    return sub;
   }
 
-  findAll() {
-    return `This action returns all subOrders`;
+  find(): Promise<SubOrder[]> {
+    return this.subOrderRepository.find();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} subOrder`;
+  findWaiting(): Promise<SubOrder[]> {
+    return this.subOrderRepository.findWaiting();
   }
 
-  update(id: string, updateSubOrderDto: UpdateSubOrderDto) {
-    return `This action updates a #${id} subOrder`;
+  findForOrder(idOrder: string): Promise<SubOrder[]> {
+    return this.subOrderRepository.findForOrder(idOrder);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} subOrder`;
+  findOne(id: string): Promise<SubOrder> {
+    return this.subOrderRepository.findOne(id);
+  }
+
+  update(id: string, updateSubOrderDto: UpdateSubOrderDto): Promise<SubOrder> {
+    return this.subOrderRepository.update(id, updateSubOrderDto);
+  }
+  ready(id: string): Promise<SubOrder[]> {
+    return this.subOrderRepository.ready(id);
+  }
+  setDriver(idsup: string, car: Car): Promise<SubOrder> {
+    return this.subOrderRepository.setDriver(idsup, car);
+  }
+
+  delete(id: string): Promise<void> {
+    return this.subOrderRepository.delete(id);
+  }
+  deleteForOrder(id: string): Promise<void> {
+    return this.subOrderRepository.deleteForOrder(id);
   }
 }

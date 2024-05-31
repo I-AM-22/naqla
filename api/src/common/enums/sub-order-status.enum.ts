@@ -1,5 +1,7 @@
 export enum SUB_ORDER_STATUS {
+  WAITING = 'waiting',
+  TAKEN = 'taken',
   READY = 'ready',
-  ACCEPTED = 'accepted',
-  CANCELLED = 'cancelled',
+  ON_THE_WAY = 'on the way',
+  DELIVERED = 'delivered',
 }

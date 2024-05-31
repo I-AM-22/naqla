@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
@@ -73,7 +73,10 @@ export class OrderRepository implements IOrderRepository {
   async findMyOrder(userId: string): Promise<Order[]> {
     return this.orderRepository.find({
       where: { userId },
-      relations: { advantages: true },
+      select: {
+        advantages: { id: false, cost: false, name: true },
+      },
+      relations: { photos: true, advantages: true },
     });
   }
 
@@ -95,7 +98,6 @@ export class OrderRepository implements IOrderRepository {
           region: true,
           street: true,
         },
-        user: { id: true, firstName: true, lastName: true },
         photos: true,
         createdAt: true,
         updatedAt: true,
@@ -106,7 +108,31 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findOne(id: string): Promise<Order> {
-    return this.orderRepository.findOne({ where: { id } });
+    return this.orderRepository.findOne({
+      where: { id },
+      select: {
+        id: true,
+        desiredDate: true,
+        locationStart: {
+          longitude: true,
+          latitude: true,
+          region: true,
+          street: true,
+        },
+        locationEnd: {
+          longitude: true,
+          latitude: true,
+          region: true,
+          street: true,
+        },
+        user: { firstName: true, lastName: true },
+        photos: true,
+        createdAt: true,
+        updatedAt: true,
+        advantages: { name: true },
+      },
+      relations: { user: true, photos: true, advantages: true },
+    });
   }
 
   async create(
@@ -137,6 +163,28 @@ export class OrderRepository implements IOrderRepository {
     this.orderRepository.save(order);
 
     return this.findOne(order.id);
+  }
+  async divisionDone(id: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = ORDER_STATUS.ACCEPTED;
+    return order;
+  }
+  async acceptance(id: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = ORDER_STATUS.READY;
+    return order;
+  }
+
+  async cancellation(id: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = ORDER_STATUS.CANCELED;
+    return order;
+  }
+
+  async refusal(id: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = ORDER_STATUS.REFUSED;
+    return order;
   }
 
   async delete(order: Order): Promise<void> {
