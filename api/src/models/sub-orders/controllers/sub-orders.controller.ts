@@ -30,8 +30,6 @@ import {
   data_not_found,
   denied_error,
 } from '../../../common/constants';
-import { GpsDrivinagService } from '../../../shared/gpsDrivinag';
-import { Car } from '../../drivers/entities/car.entity';
 
 @ApiTags('SubOrders')
 @ApiBadRequestResponse({ description: bad_req })

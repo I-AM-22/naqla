@@ -33,7 +33,7 @@ import { JwtGuard } from './common/guards';
 import { AdvantagesModule } from './models/advantages/advantages.module';
 import { SubOrdersModule } from './models/sub-orders/sub-orders.module';
 import { SettingsModule } from './models/settings/settings.module';
-import { GpsDrivinagModule } from './shared/gpsDrivinag';
+import { GpsDrivingModule } from './shared/gpsDriving';
 
 @Module({
   imports: [
@@ -79,7 +79,7 @@ import { GpsDrivinagModule } from './shared/gpsDrivinag';
     OrdersModule,
     SubOrdersModule,
     SettingsModule,
-    GpsDrivinagModule,
+    GpsDrivingModule,
   ],
   providers: [
     IsUniqueConstraint,

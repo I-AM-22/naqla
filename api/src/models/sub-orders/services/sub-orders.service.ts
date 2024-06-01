@@ -9,7 +9,7 @@ import { ORDER_TYPES } from '../../orders/interfaces/type';
 import { OrderPhotoRepository } from '../../orders/repositories/order-photo.repository';
 import { OrderRepository } from '../../orders/repositories/order.repository';
 import { ISettingRepository } from '../../settings/interfaces/repositories/setting.repository.interface';
-import { GpsDrivinagService } from '../../../shared/gpsDrivinag';
+import { GpsDrivingService } from '../../../shared/gpsDriving';
 import { Setting } from '../../settings/entities/setting.entity';
 import { Car } from '../../drivers/entities/car.entity';
 
@@ -24,7 +24,7 @@ export class SubOrdersService implements ISubOrdersService {
     private readonly orderRepository: OrderRepository,
     @Inject('ISettingRepository')
     private readonly settingepository: ISettingRepository,
-    private readonly gpsDrivinagService: GpsDrivinagService,
+    private readonly gpsDrivingService: GpsDrivingService,
   ) {}
 
   async create(createSubOrderDto: CreateSubOrderDto): Promise<SubOrder> {
@@ -51,7 +51,7 @@ export class SubOrdersService implements ISubOrdersService {
     }
 
     const costDistance =
-      +(await this.gpsDrivinagService.costDistance(
+      +(await this.gpsDrivingService.costDistance(
         pointes.locationStart,
         pointes.locationEnd,
       )) * +settingWeight.cost;
