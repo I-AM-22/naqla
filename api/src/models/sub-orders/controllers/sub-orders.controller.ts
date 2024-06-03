@@ -45,7 +45,7 @@ export class SubOrdersController {
     @Inject(SUB_ORDER_TYPES.service)
     private readonly subOrdersService: ISubOrdersService,
   ) {}
-  // @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.EMPLOYEE)
   @ApiOkResponse({ type: SubOrder })
   @Post()
   create(@Body() createSubOrderDto: CreateSubOrderDto) {

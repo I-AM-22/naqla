@@ -33,6 +33,7 @@ export class CarRepository implements ICarRepository {
   async findMyCar(driverId: string): Promise<Car[]> {
     return this.carRepository.find({
       where: { driverId },
+      relations: { advantages: true, photos: true },
     });
   }
 

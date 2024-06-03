@@ -49,15 +49,17 @@ export class SubOrdersService implements ISubOrdersService {
       else if (createSubOrderDto.weight >= 3000)
         settingWeight = await this.settingepository.findOneByName('maxWeight');
     }
-
+    ///تم القسمة على الف لانه ال المسافة ترجع بالمتر من اجل ان اردها الى الكيلو متر واضربها بسعر الفردي لكل كيلو
     const costDistance =
-      +(await this.gpsDrivingService.costDistance(
+      (+(await this.gpsDrivingService.costDistance(
         pointes.locationStart,
         pointes.locationEnd,
-      )) * +settingWeight.cost;
+      )) /
+        1000) *
+      +settingWeight.cost;
     const sub = await this.subOrderRepository.create(
       createSubOrderDto,
-      costDistance,
+      Math.round(costDistance),
     );
     this.orderPhotoRepository.setPhotoSub(createSubOrderDto.photos, sub.id);
     return sub;

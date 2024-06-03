@@ -83,7 +83,7 @@ export class OrderController {
     return order;
   }
 
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order })
   @Get(':id/acceptance')
   async acceptance(@Id() id: string): Promise<Order> {
@@ -99,7 +99,7 @@ export class OrderController {
     return order;
   }
 
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order })
   @Get(':id/refusal')
   async refusal(@Id() id: string): Promise<Order> {

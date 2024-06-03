@@ -44,29 +44,11 @@ export class OrderRepository implements IOrderRepository {
 
   async findWaiting(): Promise<Order[]> {
     return this.orderRepository.find({
-      select: {
-        id: true,
-        desiredDate: true,
-        locationStart: {
-          longitude: true,
-          latitude: true,
-          region: true,
-          street: true,
-        },
-        locationEnd: {
-          longitude: true,
-          latitude: true,
-          region: true,
-          street: true,
-        },
-        advantages: { name: true },
-        user: { id: true, firstName: true, lastName: true },
-        photos: true,
-        createdAt: true,
-        updatedAt: true,
-      },
       where: { status: ORDER_STATUS.WAITING },
-      relations: { user: true, photos: true, advantages: true },
+      select: {
+        advantages: { id: false, cost: false, name: true },
+      },
+      relations: { photos: true, advantages: true },
     });
   }
 

@@ -1,7 +1,7 @@
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { And, Repository } from 'typeorm';
 // import { Order } from '../entities/order.entity';
 // import { OrderPhoto } from '../../orders/entities/order-photo.entity';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
@@ -35,22 +35,34 @@ export class SubOrderRepository implements ISubOrderRepository {
   }
 
   async findForDriver(cars: Car[]): Promise<SubOrder[]> {
-    let supOrderToDriver: SubOrder[];
-    const subReady = await this.suporderRepository
+    const subOrderQuery = this.suporderRepository
       .createQueryBuilder('subOrder')
       .leftJoinAndSelect('subOrder.order', 'order')
+      .leftJoinAndSelect('subOrder.photos', 'photos')
       .leftJoinAndSelect('order.advantages', 'advantage')
-      .where((qb) => {
-        cars.forEach((car) => {
-          car.advantages.forEach((advantage) => {
-            qb.andWhere('advantage.id = :advantageId', {
-              advantageId: advantage.id,
-            });
-          });
-        });
-      });
+      .where('subOrder.status = :status', { status: SUB_ORDER_STATUS.READY })
+      .andWhere('subOrder.carId is null')
+      .select([
+        'subOrder.id',
+        'subOrder.cost',
+        'subOrder.weight',
+        'photos',
+        'order.locationStart',
+        'order.locationEnd', // حقول order التي تريد عرضها
+        'order.desiredDate',
+        'advantage.name', // حقول advantage التي تريد عرضها
+      ]);
 
-    return supOrderToDriver;
+    const carAdvantagesIds = cars.flatMap((car) =>
+      car.advantages.map((adv) => adv.id),
+    );
+
+    if (carAdvantagesIds.length > 0) {
+      subOrderQuery.andWhere('advantage.id IN (:...carAdvantagesIds)', {
+        carAdvantagesIds,
+      });
+    }
+    return await subOrderQuery.getMany();
   }
 
   async findOne(id: string): Promise<SubOrder> {
