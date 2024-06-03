@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, Length, Matches } from 'class-validator';
 
 export class ConfirmDto {
-  @ApiProperty()
+  @ApiProperty({ default: '123456' })
   @Length(6, 6, { message: 'Otp must contain 6 characters' })
   @IsNotEmpty()
   otp: string;

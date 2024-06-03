@@ -32,7 +32,6 @@ import {
 import { LoggingInterceptor } from '../../../common/interceptors';
 import { ROLE } from '../../../common/enums';
 import { IPerson } from '../../../common/interfaces';
-import { SUB_ORDER_TYPES } from '../../sub-orders/interfaces/type';
 import { SubOrdersService } from '../../sub-orders/services/sub-orders.service';
 
 @ApiTags('Orders')

@@ -36,18 +36,20 @@ export class SubOrderRepository implements ISubOrderRepository {
 
   async findForDriver(cars: Car[]): Promise<SubOrder[]> {
     let supOrderToDriver: SubOrder[];
-    const subReady = await this.suporderRepository.find({
-      where: { status: SUB_ORDER_STATUS.READY, carId: null },
-      relations: { order: true },
-    });
-    for (let i = 0; i < subReady.length; i++) {
-      cars.forEach((item) => {
-        if (item.advantages == subReady[i].order.advantages) {
-          supOrderToDriver.push(subReady[i]);
-          return;
-        }
+    const subReady = await this.suporderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.order', 'order')
+      .leftJoinAndSelect('order.advantages', 'advantage')
+      .where((qb) => {
+        cars.forEach((car) => {
+          car.advantages.forEach((advantage) => {
+            qb.andWhere('advantage.id = :advantageId', {
+              advantageId: advantage.id,
+            });
+          });
+        });
       });
-    }
+
     return supOrderToDriver;
   }
 

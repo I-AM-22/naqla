@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CloudinaryService } from '../../../shared/cloudinary';
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { IPhoto, IPhotoRepository } from '../../../common/interfaces';
+import { Item } from '../interfaces/item.inteface';
 
 @Injectable()
 export class OrderPhotoRepository implements IPhotoRepository<OrderPhoto> {
@@ -17,9 +18,19 @@ export class OrderPhotoRepository implements IPhotoRepository<OrderPhoto> {
     return this.orderPhotoRepo.create(params);
   }
 
-  async uploadPhotoMulti(paths: string[]): Promise<OrderPhoto[]> {
-    if (!paths) return [];
-    const uploaded = await this.cloudinaryService.uploadMultiplePhotos(paths);
+  async uploadPhotoMultiple(items: Item[]): Promise<OrderPhoto[]> {
+    if (!items) return [];
+    let uploaded = await this.cloudinaryService.uploadMultiplePhotos(
+      items.map((item) => item.photo),
+    );
+
+    uploaded = uploaded.map((up, index) => {
+      up.weight = items[index].weight;
+      up.length = items[index].length;
+      up.width = items[index].width;
+      return up;
+    });
+
     const photos = this.orderPhotoRepo.create(uploaded);
     return photos;
   }

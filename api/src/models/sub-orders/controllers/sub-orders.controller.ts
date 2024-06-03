@@ -61,7 +61,7 @@ export class SubOrdersController {
 
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: SubOrder, isArray: true })
-  @Get()
+  @Get('for-driver')
   async findAllForDriver(@GetUser('id') driverId: string): Promise<SubOrder[]> {
     const cars = await this.carService.findMyCars(driverId);
     return this.subOrdersService.findForDriver(cars);

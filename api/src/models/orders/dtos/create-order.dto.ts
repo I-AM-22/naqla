@@ -11,9 +11,10 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { item_not_found } from '../../../common/constants';
-import { IsPhotoExist } from '../../../common/decorators';
+import { IsItemExist, IsPhotoExist } from '../../../common/decorators';
 import { Entities } from '../../../common/enums';
-import { getPhotosPath } from '../../../common/helpers';
+import { getItemsPath } from '../../../common/helpers';
+import { Item } from '../interfaces/item.inteface';
 
 export class LocationDto {
   @ApiProperty()
@@ -52,11 +53,11 @@ export class CreateOrderDto {
   @IsNumber()
   porters: number;
 
-  @ApiProperty()
-  @IsString({ message: 'Please provide a photo', each: true })
-  @Transform(({ value }: { value: string[] }) => getPhotosPath(value))
-  @IsPhotoExist({ message: item_not_found(Entities.Photo), each: true })
-  readonly photo: string[];
+  @ApiProperty({ isArray: true, type: Item })
+  @Transform(({ value }: { value: Item[] }) => getItemsPath(value))
+  @IsItemExist({ message: item_not_found(Entities.Photo), each: true })
+  @Type(() => Item)
+  readonly items: Item[];
 
   @ApiProperty()
   @IsUUID('all', { each: true })

@@ -7,7 +7,6 @@ import {
   DeleteDateColumn,
   BaseEntity,
 } from 'typeorm';
-import { GROUPS } from '../enums';
 
 export abstract class GlobalEntity extends BaseEntity {
   @ApiProperty()

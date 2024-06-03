@@ -15,6 +15,15 @@ export class OrderPhoto extends BasePhoto {
   @Column()
   orderId: string;
 
+  @Column({ default: 0 })
+  weight: number;
+
+  @Column({ default: 0 })
+  length: number;
+
+  @Column({ default: 0 })
+  width: number;
+
   @Exclude()
   @ManyToOne(() => SubOrder, (subOrder) => subOrder.photos, { nullable: true })
   @JoinColumn({ name: 'subOrderId' })

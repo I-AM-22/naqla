@@ -63,7 +63,10 @@ export class OrdersService implements IOrdersService {
   }
 
   async create(user: User, dto: CreateOrderDto): Promise<Order> {
-    const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
+    const photo = await this.orderPhotoRepository.uploadPhotoMultiple(
+      dto.items,
+    );
+
     const advantages = await this.advantagesService.findInIds(dto.advantages);
     let sum: number = 0;
     advantages.forEach((item) => {
@@ -98,7 +101,7 @@ export class OrdersService implements IOrdersService {
         'Can not update order advantages after accept the offer',
       );
     }
-    const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
+    const photo = await this.orderPhotoRepository.uploadPhotoMultiple([]);
     return this.orderRepository.update(order, dto, photo);
   }
   async divisionDone(id: string): Promise<Order> {

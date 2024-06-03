@@ -4,4 +4,7 @@ export interface IPhoto {
   profileUrl: string;
   mobileUrl: string;
   publicId: string;
+  weight?: number;
+  length?: number;
+  width?: number;
 }
