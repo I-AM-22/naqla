@@ -8,6 +8,7 @@ import { SubOrder } from './entities/sub-order.entity';
 import { OrderPhoto } from '../orders';
 import { OrdersModule } from '../orders/orders.module';
 import { SettingsModule } from '../settings/settings.module';
+import { DriversModule } from '../drivers/drivers.module';
 
 export const SubOrdersServiceProvider: Provider = {
   provide: SUB_ORDER_TYPES.service,
@@ -24,6 +25,7 @@ export const SubOrderRepositoryProvider: Provider = {
     TypeOrmModule.forFeature([SubOrder, OrderPhoto]),
     forwardRef(() => OrdersModule),
     SettingsModule,
+    DriversModule,
   ],
   controllers: [SubOrdersController],
   providers: [

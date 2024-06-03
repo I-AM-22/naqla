@@ -160,30 +160,33 @@ export class OrderRepository implements IOrderRepository {
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
     order.photos.push(...photos);
-    this.orderRepository.save(order);
-
+    await this.orderRepository.save(order);
     return this.findOne(order.id);
   }
   async divisionDone(id: string): Promise<Order> {
     const order = await this.findOne(id);
     order.status = ORDER_STATUS.ACCEPTED;
+    await this.orderRepository.save(order);
     return order;
   }
   async acceptance(id: string): Promise<Order> {
     const order = await this.findOne(id);
     order.status = ORDER_STATUS.READY;
+    await this.orderRepository.save(order);
     return order;
   }
 
   async cancellation(id: string): Promise<Order> {
     const order = await this.findOne(id);
     order.status = ORDER_STATUS.CANCELED;
+    await this.orderRepository.save(order);
     return order;
   }
 
   async refusal(id: string): Promise<Order> {
     const order = await this.findOne(id);
     order.status = ORDER_STATUS.REFUSED;
+    await this.orderRepository.save(order);
     return order;
   }
 
@@ -212,18 +215,4 @@ export class OrderRepository implements IOrderRepository {
       .of(order)
       .remove(advantage);
   }
-
-  // async addPhotoToOrder(order: Order, advantages: Advantage[]): Promise<void> {
-  //   await this.orderRepository.createQueryBuilder()
-  //     .relation(Order, 'advantages')
-  //     .of(order)
-  //     .add(advantages);
-  // }
-
-  // async removePhotoFromOrder(order: Order, photo: OrderPhoto): Promise<void> {
-  //   await this.orderRepository.createQueryBuilder()
-  //     .relation(Order, 'photo')
-  //     .of(order)
-  //     .remove(photo);
-  // }
 }

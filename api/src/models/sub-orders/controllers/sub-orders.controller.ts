@@ -21,7 +21,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Auth, Id, Roles } from '../../../common/decorators';
+import { Auth, GetUser, Id, Roles } from '../../../common/decorators';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ROLE } from '../../../common/enums';
 import { LoggingInterceptor } from '../../../common/interceptors';
@@ -30,6 +30,7 @@ import {
   data_not_found,
   denied_error,
 } from '../../../common/constants';
+import { CarsService } from '../../drivers/services/cars.service';
 
 @ApiTags('SubOrders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -40,6 +41,7 @@ import {
 @Controller({ path: 'sub-orders', version: '1' })
 export class SubOrdersController {
   constructor(
+    private readonly carService: CarsService,
     @Inject(SUB_ORDER_TYPES.service)
     private readonly subOrdersService: ISubOrdersService,
   ) {}
@@ -55,6 +57,14 @@ export class SubOrdersController {
   @Get()
   async findAll(): Promise<SubOrder[]> {
     return this.subOrdersService.find();
+  }
+
+  @Roles(ROLE.DRIVER)
+  @ApiOkResponse({ type: SubOrder, isArray: true })
+  @Get()
+  async findAllForDriver(@GetUser('id') driverId: string): Promise<SubOrder[]> {
+    const cars = await this.carService.findMyCars(driverId);
+    return this.subOrdersService.findForDriver(cars);
   }
 
   @Roles(ROLE.USER, ROLE.EMPLOYEE)

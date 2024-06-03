@@ -1,7 +1,7 @@
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 // import { Order } from '../entities/order.entity';
 // import { OrderPhoto } from '../../orders/entities/order-photo.entity';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
@@ -34,6 +34,23 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
+  async findForDriver(cars: Car[]): Promise<SubOrder[]> {
+    let supOrderToDriver: SubOrder[];
+    const subReady = await this.suporderRepository.find({
+      where: { status: SUB_ORDER_STATUS.READY, carId: null },
+      relations: { order: true },
+    });
+    for (let i = 0; i < subReady.length; i++) {
+      cars.forEach((item) => {
+        if (item.advantages == subReady[i].order.advantages) {
+          supOrderToDriver.push(subReady[i]);
+          return;
+        }
+      });
+    }
+    return supOrderToDriver;
+  }
+
   async findOne(id: string): Promise<SubOrder> {
     return this.suporderRepository.findOne({
       where: { id },
@@ -47,20 +64,19 @@ export class SubOrderRepository implements ISubOrderRepository {
       cost,
       // cost: Math.floor(Math.random() * 1000),
     });
-    return this.suporderRepository.save(sub);
+    return await this.suporderRepository.save(sub);
   }
 
   async update(id: string, dto: UpdateSubOrderDto): Promise<SubOrder> {
     const doc = await this.suporderRepository.findOne({ where: { id } });
     doc.rating = dto.rating;
-    this.suporderRepository.save(doc);
-    return doc;
+    return await this.suporderRepository.save(doc);
   }
 
   async ready(id: string): Promise<any> {
-    return this.suporderRepository.update(
+    return await this.suporderRepository.update(
       { orderId: id },
-      { status: SUB_ORDER_STATUS.READY, acceptedAt: Date.now().toString() },
+      { status: SUB_ORDER_STATUS.READY, acceptedAt: new Date().toISOString() },
     );
   }
 
@@ -76,9 +92,8 @@ export class SubOrderRepository implements ISubOrderRepository {
     const doc = await this.suporderRepository.findOne({ where: { id } });
     doc.carId = car.id;
     doc.car = car;
-    doc.driverAssignedAt = Date.now().toString();
+    doc.driverAssignedAt = new Date().toISOString();
     doc.status = SUB_ORDER_STATUS.TAKEN;
-    this.suporderRepository.save(doc);
-    return doc;
+    return await this.suporderRepository.save(doc);
   }
 }

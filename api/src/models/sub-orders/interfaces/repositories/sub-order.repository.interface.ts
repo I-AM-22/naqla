@@ -6,6 +6,7 @@ import { SubOrder } from '../../entities/sub-order.entity';
 export interface ISubOrderRepository {
   find(): Promise<SubOrder[]>;
   findForOrder(orderId: string): Promise<SubOrder[]>;
+  findForDriver(cars: Car[]): Promise<SubOrder[]>;
   findWaiting(): Promise<SubOrder[]>;
   findOne(id: string): Promise<SubOrder>;
   create(dto: CreateSubOrderDto, cost: number): Promise<SubOrder>;

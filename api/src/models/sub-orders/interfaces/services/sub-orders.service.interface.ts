@@ -8,6 +8,7 @@ import { SubOrder } from '../../entities/sub-order.entity';
 export interface ISubOrdersService {
   find(): Promise<SubOrder[]>;
   findForOrder(idOrder: string): Promise<SubOrder[]>;
+  findForDriver(cars: Car[]): Promise<SubOrder[]>;
   findWaiting(): Promise<SubOrder[]>;
   findOne(id: string): Promise<SubOrder>;
   create(dto: CreateSubOrderDto): Promise<SubOrder>;

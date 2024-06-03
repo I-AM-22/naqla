@@ -66,6 +66,9 @@ export class SubOrdersService implements ISubOrdersService {
   find(): Promise<SubOrder[]> {
     return this.subOrderRepository.find();
   }
+  findForDriver(cars: Car[]): Promise<SubOrder[]> {
+    return this.subOrderRepository.findForDriver(cars);
+  }
 
   findWaiting(): Promise<SubOrder[]> {
     return this.subOrderRepository.findWaiting();
