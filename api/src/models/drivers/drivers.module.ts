@@ -74,12 +74,14 @@ export const CarPhotoRepositoryProvider: Provider = {
     CarsServiceProvider,
     CarRepositoryProvider,
     CarPhotoRepositoryProvider,
+    CarsService,
   ],
   exports: [
     DriverPhotoRepositoryProvider,
     DriverRepositoryProvider,
     DriverWalletRepositoryProvider,
     DriversServiceProvider,
+    CarsService,
   ],
 })
 export class DriversModule {}

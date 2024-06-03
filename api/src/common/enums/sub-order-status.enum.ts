@@ -1,12 +1,7 @@
 export enum SUB_ORDER_STATUS {
+  WAITING = 'waiting',
+  TAKEN = 'taken',
   READY = 'ready',
-  ACCEPTED = 'accepted',
-  REFUSED = 'refused',
-  DRIVER_ASSIGNED = 'driver_assigned',
-  ON_THE_WAY = 'on_the_way',
-  PICKED_UP = 'picked_up',
-  IN_TRANSIT = 'in_transit',
+  ON_THE_WAY = 'on the way',
   DELIVERED = 'delivered',
-  CANCELLED = 'cancelled',
-  FAILED = 'failed',
 }

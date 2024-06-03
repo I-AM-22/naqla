@@ -3,10 +3,11 @@ import { PermissionsSeederModule } from './permissions';
 import { DatabaseModule } from '../../providers/database';
 import { InitialDatabaseSeeder } from './seeder';
 import { ConfigModule } from '@nestjs/config';
-import { SuperadminModule } from './superadmin';
+import { SuperadminSeederModule } from './superadmin';
 import { RolesSeederModule } from './roles';
 import { LoggerModule } from '../../shared/logger/logger.module';
 import * as Joi from 'joi';
+import { SettingsSeederModule } from './settings';
 
 @Module({
   imports: [
@@ -26,9 +27,10 @@ import * as Joi from 'joi';
     }),
     DatabaseModule,
     PermissionsSeederModule,
-    SuperadminModule,
+    SuperadminSeederModule,
     RolesSeederModule,
     LoggerModule,
+    SettingsSeederModule,
   ],
   providers: [InitialDatabaseSeeder],
 })

@@ -57,7 +57,7 @@ export class UsersService implements IUsersService {
   }
 
   async findOne(id: string, withDeleted = false): Promise<User> {
-    const user = await this.userRepository.findOneById(id, withDeleted);
+    const user = await this.userRepository.findById(id, withDeleted);
     if (!user) throw new NotFoundException(item_not_found(Entities.User));
     return user;
   }
@@ -110,7 +110,7 @@ export class UsersService implements IUsersService {
   }
 
   async validate(id: string): Promise<User> {
-    const user = await this.userRepository.findOneById(id);
+    const user = await this.userRepository.findById(id);
     if (!user) {
       throw new UnauthorizedException('The user is not here');
     }

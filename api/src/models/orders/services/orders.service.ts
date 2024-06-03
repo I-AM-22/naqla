@@ -18,16 +18,22 @@ import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
 import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
 import { OrderPhotoRepository } from '../repositories/order-photo.repository';
 import { IPerson } from '../../../common/interfaces';
+import { PymentRepository } from '../repositories/pyment.repository';
+import { ISettingRepository } from '../../settings/interfaces/repositories/setting.repository.interface';
 
 @Injectable()
 export class OrdersService implements IOrdersService {
   constructor(
     @Inject(ORDER_TYPES.repository.order)
     private readonly orderRepository: IOrderRepository,
+    @Inject('ISettingRepository')
+    private readonly settingepository: ISettingRepository,
     @Inject(ORDER_TYPES.repository.photo)
     private readonly orderPhotoRepository: OrderPhotoRepository,
     @Inject(ADVANTAGE_TYPES.service)
     private readonly advantagesService: IAdvantagesService,
+    @Inject('PymentRepository')
+    private readonly pymentRepository: PymentRepository,
   ) {}
 
   async find(): Promise<Order[]> {
@@ -57,9 +63,28 @@ export class OrdersService implements IOrdersService {
   }
 
   async create(user: User, dto: CreateOrderDto): Promise<Order> {
-    const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
+    const photo = await this.orderPhotoRepository.uploadPhotoMultiple(
+      dto.items,
+    );
+
     const advantages = await this.advantagesService.findInIds(dto.advantages);
-    return this.orderRepository.create(user, photo, advantages, dto);
+    let sum: number = 0;
+    advantages.forEach((item) => {
+      sum += +item.cost;
+    });
+    const order = await this.orderRepository.create(
+      user,
+      photo,
+      advantages,
+      dto,
+    );
+    if (dto.porters > 0) {
+      const settingPorters =
+        await this.settingepository.findOneByName('porters');
+      sum += +dto.porters * +settingPorters.cost;
+    }
+    await this.pymentRepository.create(order, sum);
+    return order;
   }
 
   async update(
@@ -68,8 +93,53 @@ export class OrdersService implements IOrdersService {
     dto: UpdateOrderDto,
   ): Promise<Order> {
     const order = await this.findOne(id, person);
-    const photo = await this.orderPhotoRepository.uploadPhotoMulti(dto.photo);
+    if (
+      order.status !== ORDER_STATUS.WAITING &&
+      order.status !== ORDER_STATUS.READY
+    ) {
+      throw new ForbiddenException(
+        'Can not update order advantages after accept the offer',
+      );
+    }
+    const photo = await this.orderPhotoRepository.uploadPhotoMultiple([]);
     return this.orderRepository.update(order, dto, photo);
+  }
+  async divisionDone(id: string): Promise<Order> {
+    // const order = await this.orderRepository.findOne(id);
+    // if (order.status !== ORDER_STATUS.WAITING) {
+    //   throw new ForbiddenException(
+    //     'Can not division Done this order becouss him status is not waiting',
+    //   );
+    // }
+    return this.orderRepository.divisionDone(id);
+  }
+  acceptance(id: string): Promise<Order> {
+    // const order = await this.orderRepository.findOne(id);
+    // if (order.status !== ORDER_STATUS.WAITING) {
+    //   throw new ForbiddenException(
+    //     'Can not division Done this order becouss him status is not waiting',
+    //   );
+    // }
+    return this.orderRepository.acceptance(id);
+  }
+  cancellation(id: string): Promise<Order> {
+    // const order = await this.orderRepository.findOne(id);
+    // if (order.status !== ORDER_STATUS.WAITING) {
+    //   throw new ForbiddenException(
+    //     'Can not division Done this order becouss him status is not waiting',
+    //   );
+    // }
+    return this.orderRepository.cancellation(id);
+  }
+
+  refusal(id: string): Promise<Order> {
+    // const order = await this.orderRepository.findOne(id);
+    // if (order.status !== ORDER_STATUS.WAITING) {
+    //   throw new ForbiddenException(
+    //     'Can not division Done this order becouss him status is not waiting',
+    //   );
+    // }
+    return this.orderRepository.refusal(id);
   }
 
   async delete(id: string, person: IPerson): Promise<void> {
@@ -83,16 +153,18 @@ export class OrdersService implements IOrdersService {
     user: User,
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
+
     if (
-      order.status === ORDER_STATUS.WAITING ||
-      order.status === ORDER_STATUS.READY
+      order.status !== ORDER_STATUS.WAITING &&
+      order.status !== ORDER_STATUS.READY
     ) {
-      const advantages = await this.advantagesService.findInIds(dto.advantages);
-      return await this.orderRepository.addAdvantageToOrder(order, advantages);
+      throw new ForbiddenException(
+        'Can not update order advantages after accept the offer',
+      );
     }
-    throw new ForbiddenException(
-      'Can not update order advantages after accept the offer',
-    );
+
+    const advantages = await this.advantagesService.findInIds(dto.advantages);
+    return await this.orderRepository.addAdvantageToOrder(order, advantages);
   }
 
   async removeAdvantagesFromOrder(
@@ -102,14 +174,14 @@ export class OrdersService implements IOrdersService {
   ): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
     if (
-      order.status === ORDER_STATUS.WAITING ||
-      order.status === ORDER_STATUS.READY
+      order.status !== ORDER_STATUS.WAITING &&
+      order.status !== ORDER_STATUS.READY
     ) {
-      const advantage = await this.advantagesService.findOne(advantageId);
-      return this.orderRepository.removeAdvantageFromOrder(order, advantage);
+      throw new ForbiddenException(
+        'Can not update order advantages after accept the offer',
+      );
     }
-    throw new ForbiddenException(
-      'Can not delete an advantage order after accept the offer',
-    );
+    const advantage = await this.advantagesService.findOne(advantageId);
+    return this.orderRepository.removeAdvantageFromOrder(order, advantage);
   }
 }

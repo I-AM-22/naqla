@@ -15,7 +15,7 @@ import { ConfigType } from '@nestjs/config';
  *
  * @class
  */
-export class SuperadminService {
+export class SuperadminSeederService {
   /**
    * Create an instance of class.
    *

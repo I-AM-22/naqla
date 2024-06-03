@@ -13,11 +13,11 @@ export interface IUserRepository {
     withDeleted: boolean,
   ): Promise<PaginatedResponse<User> | User[]>;
 
-  findOneById(id: string, withDeleted?: boolean): Promise<User>;
+  findById(id: string, withDeleted?: boolean): Promise<User>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<User>;
 
-  findOneByIdForThings(id: string): Promise<User>;
+  findByIdForThings(id: string): Promise<User>;
 
   create(
     dto: CreateUserDto,

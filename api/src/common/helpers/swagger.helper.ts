@@ -44,7 +44,6 @@ export function createDocument(app: INestApplication): {
     },
     jsonDocumentUrl: '/api.json',
     customSiteTitle: 'naqleh',
-    customCssUrl: '/assets/swagger.css',
   };
   return { document, setupOptions };
 }

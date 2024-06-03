@@ -46,7 +46,7 @@ export class BaseAuthRepo<Entity> {
     const person = await qb.getOne();
     return person;
   }
-  async findOneById(id: string, withDeleted = false): Promise<Entity> {
+  async findById(id: string, withDeleted = false): Promise<Entity> {
     const qb = this.repository.createQueryBuilder('entity');
 
     qb.where('entity.id = :id', { id });
@@ -77,6 +77,8 @@ export class BaseAuthRepo<Entity> {
         'wallet.id',
         'wallet.total',
         'wallet.pending',
+        'wallet.createdAt',
+        'wallet.updatedAt',
         'entity.active',
       ]);
     } else {

@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { PermissionSeederService } from './permissions';
-import { SuperadminService } from './superadmin';
+import { SuperadminSeederService } from './superadmin';
 import { RoleSeederService } from './roles';
-import { LoggerService } from '../../shared/logger/logger.service';
+import { LoggerService } from '../../shared/logger';
+import { SettingSeederService } from './settings';
 
 @Injectable()
 export class InitialDatabaseSeeder {
   constructor(
     private readonly logger: LoggerService,
     private readonly permissionSeederService: PermissionSeederService,
-    private readonly superadminService: SuperadminService,
+    private readonly superadminService: SuperadminSeederService,
     private readonly roleSeederService: RoleSeederService,
+    private readonly settingSeederService: SettingSeederService,
   ) {}
 
   async seed() {
@@ -49,6 +51,19 @@ export class InitialDatabaseSeeder {
         this.logger.error('Seeder', 'Failed seeding superadmin...');
         Promise.reject(error);
       });
+
+    await this.Settings()
+      .then((completed) => {
+        this.logger.debug(
+          'Seeder',
+          'Successfully completed seeding settings...',
+        );
+        Promise.resolve(completed);
+      })
+      .catch((error) => {
+        this.logger.error('Seeder', 'Failed seeding settings...');
+        Promise.reject(error);
+      });
   }
 
   async Permissions() {
@@ -58,7 +73,6 @@ export class InitialDatabaseSeeder {
         this.logger.debug(
           'Seeder',
           'No. of Permissions created : ' +
-            // Remove all null values and return only created Permissions.
             createdPermissions.filter(
               (nullValueOrCreatedPermission) => nullValueOrCreatedPermission,
             ).length,
@@ -67,10 +81,10 @@ export class InitialDatabaseSeeder {
       })
       .catch((error) => Promise.reject(error));
   }
+
   async SuperAdmin() {
     return await Promise.resolve(this.superadminService.create())
       .then((createdSuper) => {
-        // Can also use this.logger.verbose('...');
         if (!createdSuper)
           this.logger.debug('Seeder', 'super admin already exist');
         else this.logger.debug('Seeder', 'super admin created');
@@ -78,15 +92,29 @@ export class InitialDatabaseSeeder {
       })
       .catch((error) => Promise.reject(error));
   }
+
   async Roles() {
     return await Promise.all(this.roleSeederService.create())
       .then((createdRoles) => {
-        // Can also use this.logger.verbose('...');
         this.logger.debug(
           'Seeder',
           'No. of Roles created : ' +
-            // Remove all null values and return only created Roles.
             createdRoles.filter(
+              (nullValueOrCreatedRole) => nullValueOrCreatedRole,
+            ).length,
+        );
+        return Promise.resolve(true);
+      })
+      .catch((error) => Promise.reject(error));
+  }
+
+  async Settings() {
+    return await Promise.all(this.settingSeederService.create())
+      .then((createdSettings) => {
+        this.logger.debug(
+          'Seeder',
+          'No. of Settings created : ' +
+            createdSettings.filter(
               (nullValueOrCreatedRole) => nullValueOrCreatedRole,
             ).length,
         );

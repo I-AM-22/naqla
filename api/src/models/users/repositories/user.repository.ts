@@ -58,13 +58,13 @@ export class UserRepository
   async confirm(nonConfirmedUser: User): Promise<User> {
     nonConfirmedUser.active = true;
     await this.userRepo.save(nonConfirmedUser);
-    return this.findOneById(nonConfirmedUser.id);
+    return this.findById(nonConfirmedUser.id);
   }
 
   async updatePhone(user: User, dto: UpdateUserPhoneDto): Promise<User> {
     Object.assign(user, dto);
     await this.userRepo.save(user);
-    return this.findOneById(user.id);
+    return this.findById(user.id);
   }
 
   async update(
@@ -78,10 +78,10 @@ export class UserRepository
       lastName: dto.lastName,
     });
     await this.userRepo.save(user);
-    return this.findOneById(user.id);
+    return this.findById(user.id);
   }
 
-  async findOneByIdForThings(id: string): Promise<User> {
+  async findByIdForThings(id: string): Promise<User> {
     return await this.userRepo.findOne({
       where: { id, active: true },
       select: {

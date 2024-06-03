@@ -16,6 +16,7 @@ export enum Entities {
   Profit = 'Profit',
   Advantage = 'Advantage',
   Statistics = 'Statistics',
+  Setting = 'Setting',
   Wallet = 'Wallet',
   All = 'all',
 }

@@ -21,7 +21,7 @@ export class CityRepository implements ICityRepository {
     return cities.getMany();
   }
 
-  async findOneById(
+  async findById(
     id: string,
     withDeleted?: boolean,
     relations?: FindOptionsRelations<City>,
@@ -44,7 +44,7 @@ export class CityRepository implements ICityRepository {
   async update(city: City, dto: UpdateCityDto) {
     Object.assign(city, dto);
     await city.save();
-    return this.findOneById(city.id);
+    return this.findById(city.id);
   }
 
   async remove(city: City): Promise<void> {

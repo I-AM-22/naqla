@@ -1,9 +1,17 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  Relation,
+} from 'typeorm';
 import { GlobalEntity } from '../../../common/base';
 import { Order, OrderPhoto } from '../../orders';
 import { Car } from '../../drivers/entities/car.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { SUB_ORDER_STATUS } from '../../../common/enums';
+import { IsOptional } from 'class-validator';
 
 @Entity('sub_orders')
 export class SubOrder extends GlobalEntity {
@@ -13,34 +21,53 @@ export class SubOrder extends GlobalEntity {
 
   @ApiProperty()
   @Column({ default: 0 })
+  weight: number;
+
+  @ApiProperty()
+  @Column({ default: 0 })
   cost: number;
 
   @ApiProperty()
-  @Column({ default: SUB_ORDER_STATUS.READY })
+  @Column({ default: SUB_ORDER_STATUS.WAITING })
   status: SUB_ORDER_STATUS;
 
   @ApiProperty()
   @Column({ nullable: true })
-  arrivalDate: string;
+  acceptedAt: string;
 
   @ApiProperty()
   @Column({ nullable: true })
-  deliveryDate: string;
+  arrivedAt: string;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  deliveredAt: string;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  driverAssignedAt: string;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  pickedUpAt: string;
 
   @ApiProperty()
   @ManyToOne(() => Order, (order) => order.subOrders)
   @JoinColumn({ name: 'orderId', referencedColumnName: 'id' })
-  order: Order;
+  order: Relation<Order>;
 
   @Column('uuid')
   orderId: string;
 
-  @ApiProperty()
-  @ManyToOne(() => Car, (car) => car.subOrders)
+  @ApiPropertyOptional()
+  @IsOptional()
+  @ManyToOne(() => Car, (car) => car.subOrders, { nullable: true })
   @JoinColumn({ name: 'carId', referencedColumnName: 'id' })
   car: Car;
 
-  @Column('uuid')
+  @ApiPropertyOptional()
+  @IsOptional()
+  @Column('uuid', { nullable: true })
   carId: string;
 
   @ApiProperty()

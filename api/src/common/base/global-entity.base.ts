@@ -7,45 +7,18 @@ import {
   DeleteDateColumn,
   BaseEntity,
 } from 'typeorm';
-import { GROUPS } from '../enums';
 
 export abstract class GlobalEntity extends BaseEntity {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Expose({
-    groups: [
-      GROUPS.USER,
-      GROUPS.ADMIN,
-      GROUPS.EMPLOYEE,
-      GROUPS.PERMISSION,
-      GROUPS.ROLE,
-      GROUPS.ADVANTAGE,
-      GROUPS.CAR,
-      GROUPS.DRIVER,
-      GROUPS.ADVANTAGE,
-    ],
-    toPlainOnly: true,
-  })
+  @Expose()
   @ApiProperty()
   @CreateDateColumn()
   createdAt: Date;
 
-  @Expose({
-    groups: [
-      GROUPS.USER,
-      GROUPS.ADMIN,
-      GROUPS.EMPLOYEE,
-      GROUPS.PERMISSION,
-      GROUPS.ROLE,
-      GROUPS.ADVANTAGE,
-      GROUPS.CAR,
-      GROUPS.DRIVER,
-      GROUPS.ADVANTAGE,
-    ],
-    toPlainOnly: true,
-  })
+  @Expose({})
   @ApiProperty()
   @UpdateDateColumn()
   updatedAt: Date;

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
@@ -44,36 +44,21 @@ export class OrderRepository implements IOrderRepository {
 
   async findWaiting(): Promise<Order[]> {
     return this.orderRepository.find({
-      select: {
-        id: true,
-        desiredDate: true,
-        locationStart: {
-          longitude: true,
-          latitude: true,
-          region: true,
-          street: true,
-        },
-        locationEnd: {
-          longitude: true,
-          latitude: true,
-          region: true,
-          street: true,
-        },
-        advantages: { name: true },
-        user: { id: true, firstName: true, lastName: true },
-        photos: true,
-        createdAt: true,
-        updatedAt: true,
-      },
       where: { status: ORDER_STATUS.WAITING },
-      relations: { user: true, photos: true, advantages: true },
+      select: {
+        advantages: { id: false, cost: false, name: true },
+      },
+      relations: { photos: true, advantages: true },
     });
   }
 
   async findMyOrder(userId: string): Promise<Order[]> {
     return this.orderRepository.find({
       where: { userId },
-      relations: { advantages: true },
+      select: {
+        advantages: { id: false, cost: false, name: true },
+      },
+      relations: { photos: true, advantages: true },
     });
   }
 
@@ -95,7 +80,6 @@ export class OrderRepository implements IOrderRepository {
           region: true,
           street: true,
         },
-        user: { id: true, firstName: true, lastName: true },
         photos: true,
         createdAt: true,
         updatedAt: true,
@@ -106,7 +90,31 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findOne(id: string): Promise<Order> {
-    return this.orderRepository.findOne({ where: { id } });
+    return this.orderRepository.findOne({
+      where: { id },
+      select: {
+        id: true,
+        desiredDate: true,
+        locationStart: {
+          longitude: true,
+          latitude: true,
+          region: true,
+          street: true,
+        },
+        locationEnd: {
+          longitude: true,
+          latitude: true,
+          region: true,
+          street: true,
+        },
+        user: { firstName: true, lastName: true },
+        photos: true,
+        createdAt: true,
+        updatedAt: true,
+        advantages: { name: true },
+      },
+      relations: { user: true, photos: true, advantages: true },
+    });
   }
 
   async create(
@@ -134,9 +142,34 @@ export class OrderRepository implements IOrderRepository {
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
     order.photos.push(...photos);
-    this.orderRepository.save(order);
-
+    await this.orderRepository.save(order);
     return this.findOne(order.id);
+  }
+  async divisionDone(id: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = ORDER_STATUS.ACCEPTED;
+    await this.orderRepository.save(order);
+    return order;
+  }
+  async acceptance(id: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = ORDER_STATUS.READY;
+    await this.orderRepository.save(order);
+    return order;
+  }
+
+  async cancellation(id: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = ORDER_STATUS.CANCELED;
+    await this.orderRepository.save(order);
+    return order;
+  }
+
+  async refusal(id: string): Promise<Order> {
+    const order = await this.findOne(id);
+    order.status = ORDER_STATUS.REFUSED;
+    await this.orderRepository.save(order);
+    return order;
   }
 
   async delete(order: Order): Promise<void> {
@@ -164,18 +197,4 @@ export class OrderRepository implements IOrderRepository {
       .of(order)
       .remove(advantage);
   }
-
-  // async addPhotoToOrder(order: Order, advantages: Advantage[]): Promise<void> {
-  //   await this.orderRepository.createQueryBuilder()
-  //     .relation(Order, 'advantages')
-  //     .of(order)
-  //     .add(advantages);
-  // }
-
-  // async removePhotoFromOrder(order: Order, photo: OrderPhoto): Promise<void> {
-  //   await this.orderRepository.createQueryBuilder()
-  //     .relation(Order, 'photo')
-  //     .of(order)
-  //     .remove(photo);
-  // }
 }

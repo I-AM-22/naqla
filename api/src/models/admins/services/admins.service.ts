@@ -54,7 +54,7 @@ export class AdminsService implements IAdminsService {
 
   async findOne(id: string, role?: string): Promise<Admin> {
     const withDeleted = role === ROLE.SUPER_ADMIN ? true : false;
-    const admin = await this.adminRepository.findOneById(id, withDeleted);
+    const admin = await this.adminRepository.findById(id, withDeleted);
     if (!admin) {
       throw new NotFoundException(item_not_found(Entities.Admin));
     }
@@ -88,7 +88,7 @@ export class AdminsService implements IAdminsService {
   }
 
   async validate(id: string, iat: number): Promise<Admin> {
-    const admin = await this.adminRepository.findOneById(id);
+    const admin = await this.adminRepository.findById(id);
 
     if (!admin) {
       throw new UnauthorizedException('The user is not here');

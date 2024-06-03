@@ -1,6 +1,7 @@
 import { encode } from 'blurhash';
 import * as fs from 'fs';
 import sharp from 'sharp';
+import { Item } from '../../models/orders/interfaces/item.inteface';
 
 export const createBlurHash = async (path: string): Promise<string> => {
   const image = fs.readFileSync(path);
@@ -25,6 +26,13 @@ export const createBlurHashs = async (paths: string[]) => {
     paths.map(async (p) => await createBlurHash(p)),
   );
   return res;
+};
+
+export const getItemsPath = (items: Item[]) => {
+  return items.map((p: Item) => {
+    p.photo = getPhotoPath(p.photo);
+    return p;
+  });
 };
 
 export const getPhotosPath = (url: string[]) => {

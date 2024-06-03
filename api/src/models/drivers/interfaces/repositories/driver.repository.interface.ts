@@ -13,11 +13,11 @@ export interface IDriverRepository {
     withDeleted: boolean,
   ): Promise<PaginatedResponse<Driver> | Driver[]>;
 
-  findOneById(id: string, withDeleted?: boolean): Promise<Driver>;
+  findById(id: string, withDeleted?: boolean): Promise<Driver>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Driver>;
 
-  findOneByIdForThings(id: string): Promise<Driver>;
+  findByIdForThings(id: string): Promise<Driver>;
 
   create(
     dto: CreateDriverDto,

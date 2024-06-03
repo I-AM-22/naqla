@@ -50,7 +50,7 @@ export class AdminRepository
       password: dto.password,
     });
     await this.adminRepository.save(admin);
-    return this.findOneById(admin.id);
+    return this.findById(admin.id);
   }
 
   // async recover(admin: Admin): Promise<Admin> {
