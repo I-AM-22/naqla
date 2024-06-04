@@ -36,16 +36,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "_________________authentication________________":
             MessageLookupByLibrary.simpleMessage(""),
-        "________________onBoarding____________________":
-            MessageLookupByLibrary.simpleMessage(""),
         "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("من نحن"),
+        "add_car": MessageLookupByLibrary.simpleMessage("اضافة سيارة"),
         "ago": MessageLookupByLibrary.simpleMessage("منذ"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
-        "anywhere_you_are":
-            MessageLookupByLibrary.simpleMessage("في أي مكان كنت"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "are_you_sure_you_want_to_delete_account":
             MessageLookupByLibrary.simpleMessage(
@@ -53,22 +50,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "are_you_sure_you_want_to_log_out":
             MessageLookupByLibrary.simpleMessage(
                 "هل انت متأكد أنك تريد تسجيل الخروج من هذا الحساب؟"),
-        "at_anytime": MessageLookupByLibrary.simpleMessage("في أي وقت"),
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage("رقم 1 على الأقل أو حرف خاص"),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
-        "book_your_car":
-            MessageLookupByLibrary.simpleMessage("اختر السيارة التي تريد"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
-        "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
-            "اختر موقعك للبدء في العثور على الطلب من حولك"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
-        "congratulations": MessageLookupByLibrary.simpleMessage("مبروك "),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
         "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
@@ -80,9 +71,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_profile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
-        "enable_your_location":
-            MessageLookupByLibrary.simpleMessage("تمكين موقعك"),
-        "end_point": MessageLookupByLibrary.simpleMessage("نقطة الوصول"),
         "english": MessageLookupByLibrary.simpleMessage("الانكليزية"),
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور الخاصة بك"),
@@ -93,8 +81,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "full_Name": MessageLookupByLibrary.simpleMessage("الاسم كامل"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "go": MessageLookupByLibrary.simpleMessage("اذهب"),
-        "have_a_better_sharing_experience":
-            MessageLookupByLibrary.simpleMessage("تمتع بتجربة مشاركة أفضل"),
         "help_and_support":
             MessageLookupByLibrary.simpleMessage("المساعدة والدعم"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
@@ -105,7 +91,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),
-        "new_naqla": MessageLookupByLibrary.simpleMessage("نقلة جديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
@@ -119,9 +104,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "resend_again":
             MessageLookupByLibrary.simpleMessage("إعادة الإرسال مرة أخرى"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),
-        "sell_houses_easily_with_the_help_of_Listenoryx":
-            MessageLookupByLibrary.simpleMessage(
-                "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more"),
         "set_password":
             MessageLookupByLibrary.simpleMessage("تعيين كلمة المرور"),
         "set_your_password":
@@ -130,20 +112,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("التسجيل "),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
-        "start_point": MessageLookupByLibrary.simpleMessage("نقطة الانطلاق"),
         "total_money":
             MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),
-        "use_current_location":
-            MessageLookupByLibrary.simpleMessage("استخدام موقعك الحالي"),
-        "use_my_location":
-            MessageLookupByLibrary.simpleMessage("استخدام موقعي"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
-        "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
-            "حسابك جاهز للاستخدام. ستتم إعادة توجيهك إلى الصفحة الرئيسية في بضع ثوان."),
         "your_code": MessageLookupByLibrary.simpleMessage(" الخاص بك"),
         "your_mobile_number":
             MessageLookupByLibrary.simpleMessage("رقم هاتفك المحمول")

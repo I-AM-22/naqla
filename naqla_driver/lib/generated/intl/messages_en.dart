@@ -36,16 +36,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "_________________authentication________________":
             MessageLookupByLibrary.simpleMessage(""),
-        "________________onBoarding____________________":
-            MessageLookupByLibrary.simpleMessage(""),
         "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("About Us"),
+        "add_car": MessageLookupByLibrary.simpleMessage("Add car"),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
-        "anywhere_you_are":
-            MessageLookupByLibrary.simpleMessage("Anywhere you are"),
         "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
         "are_you_sure_you_want_to_delete_account":
             MessageLookupByLibrary.simpleMessage(
@@ -53,24 +50,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "are_you_sure_you_want_to_log_out":
             MessageLookupByLibrary.simpleMessage(
                 "Are you sure you want to log out?"),
-        "at_anytime": MessageLookupByLibrary.simpleMessage("At anytime"),
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage(
                 "At least 1 number or a special character"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
-        "book_your_car": MessageLookupByLibrary.simpleMessage("Book your car"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
-        "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
-            "Choose your location to start find the request around you"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
-        "congratulations":
-            MessageLookupByLibrary.simpleMessage("Congratulations "),
         "create_an_account":
             MessageLookupByLibrary.simpleMessage("Create an account"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -84,9 +75,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_phone": MessageLookupByLibrary.simpleMessage("Edit Phone Number"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
-        "enable_your_location":
-            MessageLookupByLibrary.simpleMessage("Enable your location"),
-        "end_point": MessageLookupByLibrary.simpleMessage("End Point"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("Enter Your Password"),
@@ -97,9 +85,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "full_Name": MessageLookupByLibrary.simpleMessage("Full Name"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "go": MessageLookupByLibrary.simpleMessage("GO"),
-        "have_a_better_sharing_experience":
-            MessageLookupByLibrary.simpleMessage(
-                "Have a better sharing experience"),
         "help_and_support":
             MessageLookupByLibrary.simpleMessage("Help and Support"),
         "home": MessageLookupByLibrary.simpleMessage("home"),
@@ -110,7 +95,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
-        "new_naqla": MessageLookupByLibrary.simpleMessage("New naqla"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
@@ -123,9 +107,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
-        "sell_houses_easily_with_the_help_of_Listenoryx":
-            MessageLookupByLibrary.simpleMessage(
-                "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more"),
         "set_password": MessageLookupByLibrary.simpleMessage("Set password"),
         "set_your_password":
             MessageLookupByLibrary.simpleMessage("Set your password"),
@@ -133,20 +114,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up "),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
-        "start_point": MessageLookupByLibrary.simpleMessage("Start Point"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
-        "use_current_location":
-            MessageLookupByLibrary.simpleMessage("use current location"),
-        "use_my_location":
-            MessageLookupByLibrary.simpleMessage("Use my location"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
         "write_message":
             MessageLookupByLibrary.simpleMessage("Write a message"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
-        "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
-            "Your account is ready to use. You will be redirected to the Home Page in a few seconds."),
         "your_code": MessageLookupByLibrary.simpleMessage(" code"),
         "your_mobile_number":
             MessageLookupByLibrary.simpleMessage("Your mobile number")

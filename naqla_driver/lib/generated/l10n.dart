@@ -121,90 +121,10 @@ class S {
   }
 
   /// ``
-  String get ________________onBoarding____________________ {
-    return Intl.message(
-      '',
-      name: '________________onBoarding____________________',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Anywhere you are`
-  String get anywhere_you_are {
-    return Intl.message(
-      'Anywhere you are',
-      name: 'anywhere_you_are',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more`
-  String get sell_houses_easily_with_the_help_of_Listenoryx {
-    return Intl.message(
-      'Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more',
-      name: 'sell_houses_easily_with_the_help_of_Listenoryx',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `At anytime`
-  String get at_anytime {
-    return Intl.message(
-      'At anytime',
-      name: 'at_anytime',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Book your car`
-  String get book_your_car {
-    return Intl.message(
-      'Book your car',
-      name: 'book_your_car',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// ``
   String get _________________authentication________________ {
     return Intl.message(
       '',
       name: '_________________authentication________________',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Enable your location`
-  String get enable_your_location {
-    return Intl.message(
-      'Enable your location',
-      name: 'enable_your_location',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Choose your location to start find the request around you`
-  String get choose_your_location_to_start {
-    return Intl.message(
-      'Choose your location to start find the request around you',
-      name: 'choose_your_location_to_start',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Use my location`
-  String get use_my_location {
-    return Intl.message(
-      'Use my location',
-      name: 'use_my_location',
       desc: '',
       args: [],
     );
@@ -225,16 +145,6 @@ class S {
     return Intl.message(
       'Welcome',
       name: 'Welcome',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Have a better sharing experience`
-  String get have_a_better_sharing_experience {
-    return Intl.message(
-      'Have a better sharing experience',
-      name: 'have_a_better_sharing_experience',
       desc: '',
       args: [],
     );
@@ -530,26 +440,6 @@ class S {
     );
   }
 
-  /// `Congratulations `
-  String get congratulations {
-    return Intl.message(
-      'Congratulations ',
-      name: 'congratulations',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Your account is ready to use. You will be redirected to the Home Page in a few seconds.`
-  String get your_account_is_ready_to_use {
-    return Intl.message(
-      'Your account is ready to use. You will be redirected to the Home Page in a few seconds.',
-      name: 'your_account_is_ready_to_use',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// ``
   String get __________________________home______________________________ {
     return Intl.message(
@@ -570,16 +460,6 @@ class S {
     );
   }
 
-  /// `use current location`
-  String get use_current_location {
-    return Intl.message(
-      'use current location',
-      name: 'use_current_location',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Next`
   String get next {
     return Intl.message(
@@ -590,41 +470,21 @@ class S {
     );
   }
 
-  /// `New naqla`
-  String get new_naqla {
-    return Intl.message(
-      'New naqla',
-      name: 'new_naqla',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Start Point`
-  String get start_point {
-    return Intl.message(
-      'Start Point',
-      name: 'start_point',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `End Point`
-  String get end_point {
-    return Intl.message(
-      'End Point',
-      name: 'end_point',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Date`
   String get date {
     return Intl.message(
       'Date',
       name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add car`
+  String get add_car {
+    return Intl.message(
+      'Add car',
+      name: 'add_car',
       desc: '',
       args: [],
     );
