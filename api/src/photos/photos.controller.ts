@@ -19,7 +19,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Request } from 'express';
-import { SharpPipe } from '../common/pipes';
+import { SharpPipe } from '@common/pipes';
 import { PhotosService } from './photos.service';
 
 @ApiTags('Photos')

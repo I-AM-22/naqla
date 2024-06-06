@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { BasePhoto } from '../../../common/base';
+import { BasePhoto } from '@common/base';
 import { Order } from './order.entity';
 import { Exclude } from 'class-transformer';
-import { SubOrder } from '../../sub-orders/entities/sub-order.entity';
+import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 
 @Entity({ name: 'orders_photos' })
 export class OrderPhoto extends BasePhoto {

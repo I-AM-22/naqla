@@ -1,4 +1,4 @@
-import { User } from '../../../models/users/entities/user.entity';
+import { User } from '@models/users/entities/user.entity';
 import {
   SignUpUserDto,
   LoginUserDto,
@@ -6,8 +6,8 @@ import {
   UpdateUserPhoneDto,
 } from '../../dtos';
 import { AuthUserResponse } from '../auth-user.interface';
-import { jwtPayload } from '../../../common/interfaces/jwt-payload.interface';
-import { SendConfirm } from '../../../common/types';
+import { jwtPayload } from '@common/interfaces/jwt-payload.interface';
+import { SendConfirm } from '@common/types';
 
 export interface IAuthUserService {
   signup(dto: SignUpUserDto, ip: string): Promise<SendConfirm>;

@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Exclude, Expose, Transform } from 'class-transformer';
-import { Role } from '../../roles/entities/role.entity';
+import { Role } from '@models/roles/entities/role.entity';
 import { AdminPhoto } from './admin-photo.entity';
-import { BasePersonWithPass, BasePhoto } from '../../../common/base';
-import { GROUPS } from '../../../common/enums';
+import { BasePersonWithPass, BasePhoto } from '@common/base';
+import { GROUPS } from '@common/enums';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'admins' })

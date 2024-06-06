@@ -7,21 +7,18 @@ import {
 import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
 import { Entities, ROLE } from './../../../common/enums';
-import { defaultPhotoUrl, item_not_found } from '../../../common/constants';
-import { ICitiesService } from '../../cities/interfaces/services/cities.service.interface';
-import { CITY_TYPES } from '../../cities/interfaces/type';
+import { defaultPhotoUrl, item_not_found } from '@common/constants';
+import { ICitiesService } from '@models/cities/interfaces/services/cities.service.interface';
+import { CITY_TYPES } from '@models/cities/interfaces/type';
 import { IUsersService } from '../interfaces/services/users.service.interface';
-import { PaginatedResponse } from '../../../common/types';
+import { PaginatedResponse } from '@common/types';
 import { UserPhoto } from '../entities/user-photo.entity';
 import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
 import { USER_TYPES } from '../interfaces/type';
 import { UpdateUserPhoneDto } from '../../../auth-user';
-import { ROLE_TYPES } from '../../roles/interfaces/type';
-import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
-import {
-  IPhotoRepository,
-  IWalletRepository,
-} from '../../../common/interfaces';
+import { ROLE_TYPES } from '@models/roles/interfaces/type';
+import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
+import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { UserWallet } from '../entities/user-wallet.entity';
 
 @Injectable()

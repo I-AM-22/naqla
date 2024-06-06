@@ -4,8 +4,8 @@ import {
   Inject,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { Driver } from '../../models/drivers/entities/driver.entity';
-import { JwtTokenService } from '../../shared/jwt';
+import { Driver } from '@models/drivers/entities/driver.entity';
+import { JwtTokenService } from '@shared/jwt';
 import {
   SignUpDriverDto,
   LoginDriverDto,
@@ -19,17 +19,17 @@ import {
   incorrect_credentials_OTP,
   incorrect_phone_number,
   item_already_exist,
-} from '../../common/constants';
-import { DRIVER_TYPES } from '../../models/drivers/interfaces/type';
-import { ROLE_TYPES } from '../../models/roles/interfaces/type';
-import { OtpsService } from '../../models/otps/services/otps.service';
-import { OTP_TYPE } from '../../common/enums/otp.enum';
-import { Entities, ROLE } from '../../common/enums';
-import { IRolesService } from '../../models/roles/interfaces/services/roles.service.interface';
-import { IDriversService } from '../../models/drivers/interfaces/services/drivers.service.interface';
-import { IOtp } from '../../models/otps/interfaces/otp.interface';
+} from '@common/constants';
+import { DRIVER_TYPES } from '@models/drivers/interfaces/type';
+import { ROLE_TYPES } from '@models/roles/interfaces/type';
+import { OtpsService } from '@models/otps/services/otps.service';
+import { OTP_TYPE } from '@common/enums/otp.enum';
+import { Entities, ROLE } from '@common/enums';
+import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
+import { IDriversService } from '@models/drivers/interfaces/services/drivers.service.interface';
+import { IOtp } from '@models/otps/interfaces/otp.interface';
 import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
-import { SendConfirm } from '../../common/types';
+import { SendConfirm } from '@common/types';
 
 @Injectable()
 export class AuthDriverService implements IAuthDriverService {

@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, Length, Matches } from 'class-validator';
-import { IsUnique } from '../../common/decorators';
-import { Entities } from '../../common/enums';
-import { item_already_exist } from '../../common/constants';
+import { IsUnique } from '@common/decorators';
+import { Entities } from '@common/enums';
+import { item_already_exist } from '@common/constants';
 
 export class UpdatePhoneDto {
   @ApiProperty({ default: '0962535253' })

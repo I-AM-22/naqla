@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Role } from '../../../models/roles/entities/role.entity';
-import { Admin } from '../../../models/admins/entities/admin.entity';
-import { ROLE } from '../../../common/enums';
-import { defaultPhoto } from '../../../common/constants';
-import { SuperAdminInfo } from '../../../config/app';
+import { Role } from '@models/roles/entities/role.entity';
+import { Admin } from '@models/admins/entities/admin.entity';
+import { ROLE } from '@common/enums';
+import { defaultPhoto } from '@common/constants';
+import { SuperAdminInfo } from '@config/app';
 import { ConfigType } from '@nestjs/config';
-import { AdminPhoto } from '../../../models/admins/entities/admin-photo.entity';
+import { AdminPhoto } from '@models/admins/entities/admin-photo.entity';
 
 @Injectable()
 

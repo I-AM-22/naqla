@@ -3,7 +3,7 @@ import {
   RedisOptionsFactory,
 } from '@liaoliaots/nestjs-redis';
 import { Inject, Injectable } from '@nestjs/common';
-import MailConfig from '../../config/mail/mail.config';
+import MailConfig from '@config/mail/mail.config';
 import { ConfigType } from '@nestjs/config';
 
 @Injectable()

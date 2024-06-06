@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { RedisStoreService } from '../../shared/redis-store';
+import { RedisStoreService } from '@shared/redis-store';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {

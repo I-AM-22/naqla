@@ -26,19 +26,15 @@ import {
 
 import { UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
-import { GetUser, Roles, CheckAbilities, Id } from '../../../common/decorators';
-import { GROUPS, ROLE, Entities, Action } from '../../../common/enums';
-import { CaslAbilitiesGuard, RolesGuard } from '../../../common/guards';
+import { GetUser, Roles, CheckAbilities, Id } from '@common/decorators';
+import { GROUPS, ROLE, Entities, Action } from '@common/enums';
+import { CaslAbilitiesGuard, RolesGuard } from '@common/guards';
 import {
   LoggingInterceptor,
   WithDeletedInterceptor,
-} from '../../../common/interceptors';
-import { PaginatedResponse } from '../../../common/types';
-import {
-  bad_req,
-  data_not_found,
-  denied_error,
-} from '../../../common/constants';
+} from '@common/interceptors';
+import { PaginatedResponse } from '@common/types';
+import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { Request } from 'express';
 import { IUsersService } from '../interfaces/services/users.service.interface';
 import { USER_TYPES } from '../interfaces/type';

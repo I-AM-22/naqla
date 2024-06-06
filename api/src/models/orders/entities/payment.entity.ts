@@ -1,7 +1,7 @@
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import { Order } from './order.entity';
 import { Exclude, Expose } from 'class-transformer';
-import { GlobalEntity } from '../../../common/base';
+import { GlobalEntity } from '@common/base';
 
 @Entity('payments')
 export class Payment extends GlobalEntity {

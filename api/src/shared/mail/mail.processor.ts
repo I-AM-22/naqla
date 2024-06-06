@@ -10,10 +10,10 @@ import {
 import { Inject } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { Job } from 'bull';
-import { QUEUE_NAME, mailLive } from '../../common/constants';
-import { AppConfig } from '../../config/app';
-import MailConfig from '../../config/mail/mail.config';
-import { User } from '../../models/users/entities/user.entity';
+import { QUEUE_NAME, mailLive } from '@common/constants';
+import { AppConfig } from '@config/app';
+import MailConfig from '@config/mail/mail.config';
+import { User } from '@models/users/entities/user.entity';
 import { LoggerService } from '../logger/logger.service';
 
 // Import utility functions and configurations

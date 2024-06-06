@@ -13,8 +13,8 @@ import { Param, Get, Patch, Delete } from '@nestjs/common';
 import { Order } from '../entities/order.entity';
 import { IOrdersService } from '../interfaces/services/orders.service.interface';
 import { ORDER_TYPES } from '../interfaces/type';
-import { Auth, GetUser, Id, Roles } from '../../../common/decorators';
-import { User } from '../../users/entities/user.entity';
+import { Auth, GetUser, Id, Roles } from '@common/decorators';
+import { User } from '@models/users/entities/user.entity';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -24,15 +24,11 @@ import {
   ApiNoContentResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import {
-  bad_req,
-  denied_error,
-  data_not_found,
-} from '../../../common/constants';
-import { LoggingInterceptor } from '../../../common/interceptors';
-import { ROLE } from '../../../common/enums';
-import { IPerson } from '../../../common/interfaces';
-import { SubOrdersService } from '../../sub-orders/services/sub-orders.service';
+import { bad_req, denied_error, data_not_found } from '@common/constants';
+import { LoggingInterceptor } from '@common/interceptors';
+import { ROLE } from '@common/enums';
+import { IPerson } from '@common/interfaces';
+import { SubOrdersService } from '@models/sub-orders/services/sub-orders.service';
 
 @ApiTags('Orders')
 @ApiBadRequestResponse({ description: bad_req })

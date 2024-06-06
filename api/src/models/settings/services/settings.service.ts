@@ -4,8 +4,8 @@ import { SETTING_TYPES } from '../interfaces/type';
 import { Setting } from '../entities/setting.entity';
 import { ISettingRepository } from '../interfaces/repositories/setting.repository.interface';
 import { UpdateSettingDto } from '../dtos';
-import { item_not_found } from '../../../common/constants';
-import { Entities } from '../../../common/enums';
+import { item_not_found } from '@common/constants';
+import { Entities } from '@common/enums';
 
 @Injectable()
 export class SettingsService implements ISettingsService {

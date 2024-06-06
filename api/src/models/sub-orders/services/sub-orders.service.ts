@@ -5,13 +5,13 @@ import { ISubOrderRepository } from '../interfaces/repositories/sub-order.reposi
 import { SUB_ORDER_TYPES } from '../interfaces/type';
 import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
 import { SubOrder } from '../entities/sub-order.entity';
-import { ORDER_TYPES } from '../../orders/interfaces/type';
-import { OrderPhotoRepository } from '../../orders/repositories/order-photo.repository';
-import { OrderRepository } from '../../orders/repositories/order.repository';
-import { ISettingRepository } from '../../settings/interfaces/repositories/setting.repository.interface';
+import { ORDER_TYPES } from '@models/orders/interfaces/type';
+import { OrderPhotoRepository } from '@models/orders/repositories/order-photo.repository';
+import { OrderRepository } from '@models/orders/repositories/order.repository';
+import { ISettingRepository } from '@models/settings/interfaces/repositories/setting.repository.interface';
 import { GpsDrivingService } from '../../../shared/gpsDriving';
-import { Setting } from '../../settings/entities/setting.entity';
-import { Car } from '../../drivers/entities/car.entity';
+import { Setting } from '@models/settings/entities/setting.entity';
+import { Car } from '@models/drivers/entities/car.entity';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {

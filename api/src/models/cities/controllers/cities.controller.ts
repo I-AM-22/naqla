@@ -20,15 +20,11 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Auth, CheckAbilities, Id } from '../../../common/decorators';
-import { Action, Entities } from '../../../common/enums';
+import { Auth, CheckAbilities, Id } from '@common/decorators';
+import { Action, Entities } from '@common/enums';
 import { City } from '../entities/city.entity';
-import { ICrud } from '../../../common/interfaces';
-import {
-  bad_req,
-  data_not_found,
-  denied_error,
-} from '../../../common/constants';
+import { ICrud } from '@common/interfaces';
+import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { ICitiesService } from '../interfaces/services/cities.service.interface';
 import { CITY_TYPES } from '../interfaces/type';
 

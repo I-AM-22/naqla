@@ -6,8 +6,8 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { IEmployeesService } from '../interfaces/services/employees.service.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { jwtPayload } from '../../../auth-user';
-import { Entities } from '../../../common/enums';
-import { strategies } from '../../../common/constants/jwt.constant';
+import { Entities } from '@common/enums';
+import { strategies } from '@common/constants/jwt.constant';
 
 @Injectable()
 export class JwtEmployeeStrategy extends PassportStrategy(

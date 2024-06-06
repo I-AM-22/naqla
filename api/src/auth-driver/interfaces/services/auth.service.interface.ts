@@ -1,4 +1,4 @@
-import { Driver } from '../../../models/drivers/entities/driver.entity';
+import { Driver } from '@models/drivers/entities/driver.entity';
 import {
   SignUpDriverDto,
   LoginDriverDto,
@@ -6,8 +6,8 @@ import {
   UpdateDriverPhoneDto,
 } from '../../dtos';
 import { AuthDriverResponse } from '../auth-driver.interface';
-import { jwtPayload } from '../../../common/interfaces/jwt-payload.interface';
-import { SendConfirm } from '../../../common/types';
+import { jwtPayload } from '@common/interfaces/jwt-payload.interface';
+import { SendConfirm } from '@common/types';
 
 export interface IAuthDriverService {
   signup(dto: SignUpDriverDto, ip: string): Promise<SendConfirm>;

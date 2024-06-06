@@ -3,15 +3,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // import { Order } from '../entities/order.entity';
-// import { OrderPhoto } from '../../orders/entities/order-photo.entity';
+// import { OrderPhoto } from '@models/orders/entities/order-photo.entity';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
-// import { Advantage } from '../../advantages/entities/advantage.entity';
-// import { User } from '../../users';
-// import { SUB_ORDER_STATUS } from '../../../common/enums';
+// import { Advantage } from '@models/advantages/entities/advantage.entity';
+// import { User } from '@models/users';
+// import { SUB_ORDER_STATUS } from '@common/enums';
 import { SubOrder } from '../entities/sub-order.entity';
-import { SUB_ORDER_STATUS } from '../../../common/enums';
-import { Car } from '../../drivers/entities/car.entity';
+import { SUB_ORDER_STATUS } from '@common/enums';
+import { Car } from '@models/drivers/entities/car.entity';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {

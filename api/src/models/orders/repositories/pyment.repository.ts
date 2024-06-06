@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { OrderPhoto } from '../entities/order-photo.entity';
-// import { Advantage } from '../../advantages/entities/advantage.entity';
-// import { User } from '../../users';
+// import { Advantage } from '@models/advantages/entities/advantage.entity';
+// import { User } from '@models/users';
 import { Payment } from '../entities/payment.entity';
 
 @Injectable()

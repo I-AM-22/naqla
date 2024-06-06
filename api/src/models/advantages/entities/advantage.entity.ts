@@ -1,10 +1,10 @@
 // advantage.entity.ts
 import { Column, Entity, ManyToMany } from 'typeorm';
-import { Car } from '../../drivers/entities/car.entity';
-import { GlobalEntity } from '../../../common/base';
+import { Car } from '@models/drivers/entities/car.entity';
+import { GlobalEntity } from '@common/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { Order } from '../../orders/entities/order.entity';
+import { Order } from '@models/orders/entities/order.entity';
 
 @Entity('advantages')
 export class Advantage extends GlobalEntity {

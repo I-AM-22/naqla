@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ROLE } from '../../../common/enums';
-import { Permission } from '../../permissions/entities/permission.entity';
+import { ROLE } from '@common/enums';
+import { Permission } from '@models/permissions/entities/permission.entity';
 import { Repository, Not, And, Equal } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateRoleDto } from '../dtos';

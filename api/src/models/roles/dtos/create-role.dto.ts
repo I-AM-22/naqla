@@ -1,8 +1,8 @@
 import { IsArray, IsOptional, IsUUID, NotEquals } from 'class-validator';
-import { Entities, ROLE } from '../../../common/enums';
+import { Entities, ROLE } from '@common/enums';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsUnique } from '../../../common/decorators';
-import { item_already_exist } from '../../../common/constants';
+import { IsUnique } from '@common/decorators';
+import { item_already_exist } from '@common/constants';
 
 export class CreateRoleDto {
   @ApiProperty({ description: 'the rule name' })

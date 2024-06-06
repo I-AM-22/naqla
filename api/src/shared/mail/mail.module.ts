@@ -4,11 +4,11 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { BullModule } from '@nestjs/bull';
 import { MailService } from './mail.service';
 import { ConfigModule } from '@nestjs/config';
-import { QUEUE_NAME } from '../../common/constants';
-import { AppConfig } from '../../config/app';
-import MailConfig from '../../config/mail/mail.config';
-import { BullService } from '../../providers/bull';
-import { MailerOptionService } from '../../providers/mailer';
+import { QUEUE_NAME } from '@common/constants';
+import { AppConfig } from '@config/app';
+import MailConfig from '@config/mail/mail.config';
+import { BullService } from '@providers/bull';
+import { MailerOptionService } from '@providers/mailer';
 
 @Module({
   imports: [

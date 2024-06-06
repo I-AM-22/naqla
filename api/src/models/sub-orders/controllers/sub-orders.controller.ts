@@ -21,16 +21,12 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Auth, GetUser, Id, Roles } from '../../../common/decorators';
+import { Auth, GetUser, Id, Roles } from '@common/decorators';
 import { SubOrder } from '../entities/sub-order.entity';
-import { ROLE } from '../../../common/enums';
-import { LoggingInterceptor } from '../../../common/interceptors';
-import {
-  bad_req,
-  data_not_found,
-  denied_error,
-} from '../../../common/constants';
-import { CarsService } from '../../drivers/services/cars.service';
+import { ROLE } from '@common/enums';
+import { LoggingInterceptor } from '@common/interceptors';
+import { bad_req, data_not_found, denied_error } from '@common/constants';
+import { CarsService } from '@models/drivers/services/cars.service';
 
 @ApiTags('SubOrders')
 @ApiBadRequestResponse({ description: bad_req })

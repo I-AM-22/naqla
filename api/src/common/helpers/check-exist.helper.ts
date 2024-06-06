@@ -1,7 +1,7 @@
 import { encode } from 'blurhash';
 import * as fs from 'fs';
 import sharp from 'sharp';
-import { Item } from '../../models/orders/interfaces/item.inteface';
+import { Item } from '@models/orders/interfaces/item.inteface';
 
 export const createBlurHash = async (path: string): Promise<string> => {
   const image = fs.readFileSync(path);

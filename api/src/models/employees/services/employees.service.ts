@@ -4,7 +4,7 @@ import {
   NotFoundException,
   Inject,
 } from '@nestjs/common';
-import { Entities, ROLE } from '../../../common/enums';
+import { Entities, ROLE } from '@common/enums';
 import { JwtTokenService } from '../../../shared/jwt';
 import { CreateEmployeeDto } from '../dtos/create-employee.dto';
 import { UpdateEmployeeDto } from '../dtos/update-employee.dto';
@@ -15,15 +15,15 @@ import {
   incorrect_credentials,
   item_not_found,
   password_changed_recently,
-} from '../../../common/constants';
+} from '@common/constants';
 import { IEmployeesService } from '../interfaces/services/employees.service.interface';
-import { PaginatedResponse } from '../../../common/types';
+import { PaginatedResponse } from '@common/types';
 import { IEmployeeRepository } from '../interfaces/repositories/employee.repository.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
-import { ROLE_TYPES } from '../../roles/interfaces/type';
+import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { LoginEmployeeDto } from '../dtos';
-import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
-import { IPhotoRepository } from '../../../common/interfaces';
+import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
+import { IPhotoRepository } from '@common/interfaces';
 import { EmployeePhoto } from '../entities/employee-photo.entity';
 
 @Injectable()

@@ -8,17 +8,17 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { GlobalEntity } from '../../../common/base';
+import { GlobalEntity } from '@common/base';
 import { OrderPhoto } from './order-photo.entity';
 import { Exclude, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Advantage } from '../../advantages/entities/advantage.entity';
-import { User } from '../../users/entities/user.entity';
-// import { GROUPS } from '../../../common/enums';
+import { Advantage } from '@models/advantages/entities/advantage.entity';
+import { User } from '@models/users/entities/user.entity';
+// import { GROUPS } from '@common/enums';
 import { Location } from '../interfaces/location.interface';
-import { ORDER_STATUS } from '../../../common/enums';
+import { ORDER_STATUS } from '@common/enums';
 import { Payment } from './payment.entity';
-import { SubOrder } from '../../sub-orders/entities/sub-order.entity';
+import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 
 @Entity('orders')
 export class Order extends GlobalEntity {

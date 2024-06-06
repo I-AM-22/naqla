@@ -1,4 +1,4 @@
-import { SETTING } from '../../../common/enums';
+import { SETTING } from '@common/enums';
 
 export const settings: any[] = [
   { name: SETTING.PORTERS, cost: 20 },

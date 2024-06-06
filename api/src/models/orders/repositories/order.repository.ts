@@ -5,9 +5,9 @@ import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
 import { OrderPhoto } from '../entities/order-photo.entity';
-import { Advantage } from '../../advantages/entities/advantage.entity';
-import { User } from '../../users/entities/user.entity';
-import { ORDER_STATUS } from '../../../common/enums';
+import { Advantage } from '@models/advantages/entities/advantage.entity';
+import { User } from '@models/users/entities/user.entity';
+import { ORDER_STATUS } from '@common/enums';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {

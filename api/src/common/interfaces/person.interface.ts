@@ -1,4 +1,4 @@
-import { IRole } from '../../models/roles/interfaces/role.interface';
+import { IRole } from '@models/roles/interfaces/role.interface';
 
 export interface IPerson {
   id: string;

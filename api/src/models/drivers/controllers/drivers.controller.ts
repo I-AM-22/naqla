@@ -24,19 +24,15 @@ import {
 
 import { UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
-import { GetUser, Roles, CheckAbilities, Id } from '../../../common/decorators';
-import { GROUPS, ROLE, Entities, Action } from '../../../common/enums';
+import { GetUser, Roles, CheckAbilities, Id } from '@common/decorators';
+import { GROUPS, ROLE, Entities, Action } from '@common/enums';
 import {
   LoggingInterceptor,
   WithDeletedInterceptor,
-} from '../../../common/interceptors';
-import { PaginatedResponse } from '../../../common/types';
-import { ICrud } from '../../../common/interfaces';
-import {
-  bad_req,
-  data_not_found,
-  denied_error,
-} from '../../../common/constants';
+} from '@common/interceptors';
+import { PaginatedResponse } from '@common/types';
+import { ICrud } from '@common/interfaces';
+import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { Request } from 'express';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { DRIVER_TYPES } from '../interfaces/type';

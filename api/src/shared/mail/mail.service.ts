@@ -1,8 +1,8 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
-import { QUEUE_NAME } from '../../common/constants';
-import { User } from '../../models/users/entities/user.entity';
+import { QUEUE_NAME } from '@common/constants';
+import { User } from '@models/users/entities/user.entity';
 import { LoggerService } from '../logger/logger.service';
 
 @Injectable()

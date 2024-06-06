@@ -1,7 +1,7 @@
 import { JwtService } from '@nestjs/jwt';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { JwtConfig } from '../../config/app';
+import { JwtConfig } from '@config/app';
 import { RedisStoreService } from '../redis-store/redis-store.service';
 
 @Injectable()

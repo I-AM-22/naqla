@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { Location } from '../../models/orders/interfaces/location.interface';
+import { Location } from '@models/orders/interfaces/location.interface';
 
 @Injectable()
 export class GpsDrivingService {

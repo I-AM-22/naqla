@@ -4,8 +4,8 @@ import { CreateAdvantageDto, UpdateAdvantageDto } from '../dto';
 import { Advantage } from '../entities/advantage.entity';
 import { IAdvantageRepository } from '../interfaces/repositories/advantages.repository.interface';
 import { IAdvantagesService } from '../interfaces/services/advantages.service.interface';
-import { item_not_found } from '../../../common/constants';
-import { Entities } from '../../../common/enums';
+import { item_not_found } from '@common/constants';
+import { Entities } from '@common/enums';
 
 @Injectable()
 export class AdvantagesService implements IAdvantagesService {

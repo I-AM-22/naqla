@@ -4,7 +4,7 @@ import {
   NotFoundException,
   Inject,
 } from '@nestjs/common';
-import { Entities, ROLE } from '../../../common/enums';
+import { Entities, ROLE } from '@common/enums';
 import { CreateAdminDto, LoginAdminDto, UpdateAdminDto } from '../dtos';
 import { Admin } from '../entities/admin.entity';
 import { AuthAdminResponse } from '../interfaces';
@@ -13,14 +13,14 @@ import {
   incorrect_credentials,
   item_not_found,
   password_changed_recently,
-} from '../../../common/constants';
+} from '@common/constants';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
 import { IAdminRepository } from '../interfaces/repositories/admin.repository.interface';
 import { JwtTokenService } from '../../../shared/jwt';
-import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
-import { ROLE_TYPES } from '../../roles/interfaces/type';
-import { IPhotoRepository } from '../../../common/interfaces';
+import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
+import { ROLE_TYPES } from '@models/roles/interfaces/type';
+import { IPhotoRepository } from '@common/interfaces';
 import { AdminPhoto } from '../entities/admin-photo.entity';
 
 @Injectable()

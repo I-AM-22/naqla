@@ -2,8 +2,8 @@ import { Global, Module } from '@nestjs/common';
 import { RedisStoreService } from './redis-store.service';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { ConfigModule } from '@nestjs/config';
-import MailConfig from '../../config/mail/mail.config';
-import { RedisConfigService } from '../../providers/redis';
+import MailConfig from '@config/mail/mail.config';
+import { RedisConfigService } from '@providers/redis';
 
 @Global()
 @Module({

@@ -23,8 +23,8 @@ import {
   ApiNotFoundResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { GetUser, Public, Roles } from '../../common/decorators';
-import { GROUPS, ROLE } from '../../common/enums';
+import { GetUser, Public, Roles } from '@common/decorators';
+import { GROUPS, ROLE } from '@common/enums';
 import {
   SignUpDriverDto,
   LoginDriverDto,
@@ -37,12 +37,12 @@ import {
   confirmMessage,
   data_not_found,
   denied_error,
-} from '../../common/constants';
-import { Driver } from '../../models/drivers/entities/driver.entity';
-import { item_already_exist } from '../../common/constants';
+} from '@common/constants';
+import { Driver } from '@models/drivers/entities/driver.entity';
+import { item_already_exist } from '@common/constants';
 import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
-import { SendConfirm } from '../../common/types';
-import { RolesGuard } from '../../common/guards';
+import { SendConfirm } from '@common/types';
+import { RolesGuard } from '@common/guards';
 
 /**
  * @ngdoc controller

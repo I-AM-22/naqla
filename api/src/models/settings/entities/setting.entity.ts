@@ -1,5 +1,5 @@
 import { Entity, Column } from 'typeorm';
-import { GlobalEntity } from '../../../common/base';
+import { GlobalEntity } from '@common/base';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('settings')

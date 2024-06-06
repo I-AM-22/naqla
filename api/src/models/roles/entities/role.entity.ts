@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Exclude } from 'class-transformer';
 import { Entity, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
-import { GROUPS, ROLE } from '../../../common/enums';
-import { Permission } from '../../permissions/entities/permission.entity';
-import { User } from '../../users/entities/user.entity';
-import { Admin } from '../../admins/entities/admin.entity';
-import { Employee } from '../../employees/entities/employee.entity';
-import { GlobalEntity } from '../../../common/base';
-import { Driver } from '../../drivers/entities/driver.entity';
+import { GROUPS, ROLE } from '@common/enums';
+import { Permission } from '@models/permissions/entities/permission.entity';
+import { User } from '@models/users/entities/user.entity';
+import { Admin } from '@models/admins/entities/admin.entity';
+import { Employee } from '@models/employees/entities/employee.entity';
+import { GlobalEntity } from '@common/base';
+import { Driver } from '@models/drivers/entities/driver.entity';
 
 @Entity({ name: 'roles' })
 export class Role extends GlobalEntity {

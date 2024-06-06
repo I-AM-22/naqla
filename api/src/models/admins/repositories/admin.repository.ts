@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Role } from '../../../models/roles/entities/role.entity';
+import { Role } from '@models/roles/entities/role.entity';
 import { Repository, Equal } from 'typeorm';
-import { ROLE } from '../../../common/enums';
+import { ROLE } from '@common/enums';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IAdminRepository } from '../interfaces/repositories/admin.repository.interface';
-import { BaseAuthRepo } from '../../../common/base';
+import { BaseAuthRepo } from '@common/base';
 import { CreateAdminDto, UpdateAdminDto } from '../dtos';
 import { AdminPhoto } from '../entities/admin-photo.entity';
 import { Admin } from '../entities/admin.entity';

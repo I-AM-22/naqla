@@ -7,10 +7,10 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { item_not_found } from '../../../common/constants';
-import { IsPhotoExist } from '../../../common/decorators';
-import { Entities } from '../../../common/enums';
-import { getPhotosPath } from '../../../common/helpers';
+import { item_not_found } from '@common/constants';
+import { IsPhotoExist } from '@common/decorators';
+import { Entities } from '@common/enums';
+import { getPhotosPath } from '@common/helpers';
 import { LocationDto } from './create-order.dto';
 
 export class UpdateOrderDto {

@@ -6,13 +6,13 @@ import {
   OneToMany,
   Relation,
 } from 'typeorm';
-import { GlobalEntity } from '../../../common/base';
-import { Car } from '../../drivers/entities/car.entity';
+import { GlobalEntity } from '@common/base';
+import { Car } from '@models/drivers/entities/car.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { SUB_ORDER_STATUS } from '../../../common/enums';
+import { SUB_ORDER_STATUS } from '@common/enums';
 import { IsOptional } from 'class-validator';
-import { OrderPhoto } from '../../orders/entities/order-photo.entity';
-import { Order } from '../../orders/entities/order.entity';
+import { OrderPhoto } from '@models/orders/entities/order-photo.entity';
+import { Order } from '@models/orders/entities/order.entity';
 
 @Entity('sub_orders')
 export class SubOrder extends GlobalEntity {

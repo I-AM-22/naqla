@@ -1,15 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ROLE } from '../../../common/enums';
-import { Role } from '../../roles/entities/role.entity';
+import { ROLE } from '@common/enums';
+import { Role } from '@models/roles/entities/role.entity';
 import { Repository, Equal } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos';
 import { Employee } from '../entities/employee.entity';
 import { IEmployeeRepository } from '../interfaces/repositories/employee.repository.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
-import { BaseAuthRepo } from '../../../common/base';
+import { BaseAuthRepo } from '@common/base';
 import { EmployeePhoto } from '../entities/employee-photo.entity';
-import { IPhotoRepository } from '../../../common/interfaces';
+import { IPhotoRepository } from '@common/interfaces';
 
 @Injectable()
 export class EmployeeRepository

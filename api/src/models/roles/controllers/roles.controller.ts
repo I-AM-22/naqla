@@ -25,15 +25,11 @@ import {
 
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities/role.entity';
-import { CheckAbilities, Id } from '../../../common/decorators';
-import { Action, Entities, GROUPS } from '../../../common/enums';
-import { CaslAbilitiesGuard } from '../../../common/guards';
-import { ICrud } from '../../../common/interfaces';
-import {
-  bad_req,
-  data_not_found,
-  denied_error,
-} from '../../../common/constants';
+import { CheckAbilities, Id } from '@common/decorators';
+import { Action, Entities, GROUPS } from '@common/enums';
+import { CaslAbilitiesGuard } from '@common/guards';
+import { ICrud } from '@common/interfaces';
+import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { ROLE_TYPES } from '../interfaces/type';
 import { IRolesService } from '../interfaces/services/roles.service.interface';
 

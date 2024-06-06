@@ -3,7 +3,7 @@ import {
   SharedBullConfigurationFactory,
 } from '@nestjs/bull';
 import { ConfigType } from '@nestjs/config';
-import MailConfig from '../../config/mail/mail.config';
+import MailConfig from '@config/mail/mail.config';
 import { Inject } from '@nestjs/common';
 
 export class BullService implements SharedBullConfigurationFactory {

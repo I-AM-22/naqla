@@ -5,7 +5,7 @@ import {
 } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { AppAbility, Subjects } from './casl.interface';
-import { IPerson } from '../../common/interfaces';
+import { IPerson } from '@common/interfaces';
 
 @Injectable()
 export class CaslAbilityFactory {

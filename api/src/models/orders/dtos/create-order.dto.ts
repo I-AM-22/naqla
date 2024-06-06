@@ -10,10 +10,10 @@ import {
   // IsUUID,
   ValidateNested,
 } from 'class-validator';
-import { item_not_found } from '../../../common/constants';
-import { IsItemExist, IsPhotoExist } from '../../../common/decorators';
-import { Entities } from '../../../common/enums';
-import { getItemsPath } from '../../../common/helpers';
+import { item_not_found } from '@common/constants';
+import { IsItemExist } from '@common/decorators';
+import { Entities } from '@common/enums';
+import { getItemsPath } from '@common/helpers';
 import { Item } from '../interfaces/item.inteface';
 
 export class LocationDto {

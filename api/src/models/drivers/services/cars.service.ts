@@ -1,9 +1,8 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { item_not_found } from '../../../common/constants';
-import { Entities } from '../../../common/enums';
-import { IPhotoRepository } from '../../../common/interfaces';
-import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
-import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
+import { item_not_found } from '@common/constants';
+import { Entities } from '@common/enums';
+import { IPhotoRepository } from '@common/interfaces';
+import { IAdvantagesService } from '@models/advantages/interfaces/services/advantages.service.interface';
 import { AddAdvansToCarDto, CreateCarDto, UpdateCarDto } from '../dtos';
 import { CarPhoto } from '../entities/car-photo.entity';
 import { Car } from '../entities/car.entity';
@@ -11,6 +10,7 @@ import { Driver } from '../entities/driver.entity';
 import { ICarRepository } from '../interfaces/repositories/car.repository.interface';
 import { ICarsService } from '../interfaces/services/cars.service.interface';
 import { CAR_TYPES } from '../interfaces/type';
+import { ADVANTAGE_TYPES } from '@models/advantages/interfaces/type';
 
 @Injectable()
 export class CarsService implements ICarsService {
