@@ -1,6 +1,6 @@
 import { UpdateUserPhoneDto } from '../../../../auth-user';
 import { PaginatedResponse } from '../../../../common/types';
-import { Role } from '../../../roles';
+import { Role } from '../../../roles/entities/role.entity';
 import { CreateUserDto, UpdateUserDto } from '../../dtos';
 import { UserPhoto } from '../../entities/user-photo.entity';
 import { User } from '../../entities/user.entity';

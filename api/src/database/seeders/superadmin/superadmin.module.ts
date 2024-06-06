@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { SuperadminSeederService } from './superadmin.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Permission } from '../../../models/permissions';
-import { Role } from '../../../models/roles';
-import { Admin, AdminPhoto } from '../../../models/admins';
+import { Permission } from '../../../models/permissions/entities/permission.entity';
+import { Role } from '../../../models/roles/entities/role.entity';
+import { Admin } from '../../../models/admins/entities/admin.entity';
 import { ConfigModule } from '@nestjs/config';
 import { SuperAdminInfo } from '../../../config/app';
+import { AdminPhoto } from '../../../models/admins/entities/admin-photo.entity';
 
 @Module({
   imports: [

@@ -38,8 +38,8 @@ import {
   data_not_found,
   denied_error,
 } from '../../common/constants';
-import { Driver } from '../../models/drivers';
-import { item_already_exist } from '../../common/constants/validation-errors.constant';
+import { Driver } from '../../models/drivers/entities/driver.entity';
+import { item_already_exist } from '../../common/constants';
 import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
 import { SendConfirm } from '../../common/types';
 import { RolesGuard } from '../../common/guards';

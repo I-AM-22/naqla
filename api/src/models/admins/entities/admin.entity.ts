@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Exclude, Expose, Transform } from 'class-transformer';
-import { Role } from '../../roles';
+import { Role } from '../../roles/entities/role.entity';
 import { AdminPhoto } from './admin-photo.entity';
 import { BasePersonWithPass, BasePhoto } from '../../../common/base';
 import { GROUPS } from '../../../common/enums';

@@ -1,4 +1,4 @@
-import { User } from '../../../models/users';
+import { User } from '../../../models/users/entities/user.entity';
 import {
   SignUpUserDto,
   LoginUserDto,

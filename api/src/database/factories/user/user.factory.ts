@@ -1,8 +1,8 @@
 import { setSeederFactory } from 'typeorm-extension';
 import { User } from '../../../models/users/entities/user.entity';
-import { UserPhoto } from '../../../models/users';
+import { UserPhoto } from '../../../models/users/entities/user-photo.entity';
 import { defaultPhoto } from '../../../common/constants';
-import { Role } from '../../../models/roles';
+import { Role } from '../../../models/roles/entities/role.entity';
 import { ROLE } from '../../../common/enums';
 import { UserWallet } from '../../../models/users/entities/user-wallet.entity';
 

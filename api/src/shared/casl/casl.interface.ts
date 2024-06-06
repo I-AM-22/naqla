@@ -1,12 +1,12 @@
 import { InferSubjects, MongoAbility, MongoQuery } from '@casl/ability';
-import { User } from '../../models/users';
+import { User } from '../../models/users/entities/user.entity';
 import { Action, Entities } from '../../common/enums';
-import { City } from '../../models/cities';
-import { Employee } from '../../models/employees';
-import { Permission } from '../../models/permissions';
-import { Role } from '../../models/roles';
-import { Admin } from '../../models/admins';
-import { Driver } from '../../models/drivers';
+import { City } from '../../models/cities/entities/city.entity';
+import { Employee } from '../../models/employees/entities/employee.entity';
+import { Permission } from '../../models/permissions/entities/permission.entity';
+import { Role } from '../../models/roles/entities/role.entity';
+import { Admin } from '../../models/admins/entities/admin.entity';
+import { Driver } from '../../models/drivers/entities/driver.entity';
 
 export interface RequiredRole {
   action: Action;

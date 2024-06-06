@@ -4,7 +4,7 @@ import {
   Inject,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { User } from '../../models/users';
+import { User } from '../../models/users/entities/user.entity';
 import { JwtTokenService } from '../../shared/jwt';
 import {
   SignUpUserDto,

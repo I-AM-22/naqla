@@ -39,7 +39,7 @@ import {
   data_not_found,
   denied_error,
 } from '../../common/constants';
-import { User } from '../../models/users';
+import { User } from '../../models/users/entities/user.entity';
 import { item_already_exist } from '../../common/constants/validation-errors.constant';
 import { SendConfirm } from '../../common/types';
 

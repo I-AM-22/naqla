@@ -1,4 +1,4 @@
-import { Role } from '../../../roles';
+import { Role } from '../../../roles/entities/role.entity';
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../../dtos';
 import { EmployeePhoto } from '../../entities/employee-photo.entity';
 import { Employee } from '../../entities/employee.entity';

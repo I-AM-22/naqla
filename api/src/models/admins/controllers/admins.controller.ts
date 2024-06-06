@@ -21,7 +21,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Admin } from '../entities/admin.entity';
-import { Role } from '../../roles';
+import { Role } from '../../roles/entities/role.entity';
 import {
   Public,
   CheckAbilities,

@@ -1,4 +1,4 @@
-import { Driver } from '../../../models/drivers';
+import { Driver } from '../../../models/drivers/entities/driver.entity';
 import {
   SignUpDriverDto,
   LoginDriverDto,

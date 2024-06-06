@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { Advantage } from '../../advantages/entities/advantage.entity';
-import { User } from '../../users';
+import { User } from '../../users/entities/user.entity';
 import { ORDER_STATUS } from '../../../common/enums';
 
 @Injectable()

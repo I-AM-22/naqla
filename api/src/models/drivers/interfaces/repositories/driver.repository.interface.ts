@@ -1,6 +1,6 @@
 import { UpdateDriverPhoneDto } from '../../../../auth-driver';
 import { PaginatedResponse } from '../../../../common/types';
-import { Role } from '../../../roles';
+import { Role } from '../../../roles/entities/role.entity';
 import { CreateDriverDto, UpdateDriverDto } from '../../dtos';
 import { DriverPhoto } from '../../entities/driver-photo.entity';
 import { DriverWallet } from '../../entities/driver-wallet.entity';

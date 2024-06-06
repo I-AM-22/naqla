@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ROLE } from '../../../common/enums';
-import { Role } from '../../roles';
+import { Role } from '../../roles/entities/role.entity';
 import { Repository, Equal } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos';

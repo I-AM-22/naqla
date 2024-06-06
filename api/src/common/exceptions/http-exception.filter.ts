@@ -15,6 +15,7 @@ import { Response } from 'express';
 import { AppConfig } from '../../config/app';
 import { ConfigType } from '@nestjs/config';
 import { denied_error } from '../constants';
+import { LoggerService } from '../../shared/logger';
 
 const handelPassportError = () =>
   new UnauthorizedException({ message: 'الرجاء تسجيل الدخول' });
@@ -24,6 +25,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
   constructor(
     private readonly httpAdapterHost: HttpAdapterHost,
     private readonly appConfig: ConfigType<typeof AppConfig>,
+    private loggerService: LoggerService,
   ) {}
 
   catch(exception: any, host: ArgumentsHost) {
@@ -43,7 +45,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (error.message === 'Unauthorized') error = handelPassportError();
 
     if (this.appConfig.env === 'production') {
-      console.log(exception);
+      this.loggerService.error(this.constructor.name, exception);
       const rep = {
         type: error.response.errors ? 'form' : 'default',
         message: error.response.errors ? undefined : error.message,

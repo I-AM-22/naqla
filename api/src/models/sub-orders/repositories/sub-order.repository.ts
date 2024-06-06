@@ -1,7 +1,7 @@
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { And, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 // import { Order } from '../entities/order.entity';
 // import { OrderPhoto } from '../../orders/entities/order-photo.entity';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';

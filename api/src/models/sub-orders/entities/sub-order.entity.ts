@@ -7,11 +7,12 @@ import {
   Relation,
 } from 'typeorm';
 import { GlobalEntity } from '../../../common/base';
-import { Order, OrderPhoto } from '../../orders';
 import { Car } from '../../drivers/entities/car.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { SUB_ORDER_STATUS } from '../../../common/enums';
 import { IsOptional } from 'class-validator';
+import { OrderPhoto } from '../../orders/entities/order-photo.entity';
+import { Order } from '../../orders/entities/order.entity';
 
 @Entity('sub_orders')
 export class SubOrder extends GlobalEntity {

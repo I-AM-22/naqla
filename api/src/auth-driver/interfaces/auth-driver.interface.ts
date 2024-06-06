@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Driver } from '../../models/drivers';
+import { Driver } from '../../models/drivers/entities/driver.entity';
 
 export abstract class AuthDriverResponse {
   @ApiProperty()

@@ -1,4 +1,4 @@
-import { Permission } from '../../../permissions';
+import { Permission } from '../../../permissions/entities/permission.entity';
 import { CreateRoleDto } from '../../dtos';
 import { Role } from '../../entities/role.entity';
 

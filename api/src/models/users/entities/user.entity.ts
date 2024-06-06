@@ -9,7 +9,7 @@ import {
 import { BasePersonWithActive, BasePhoto } from '../../../common/base';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { GROUPS } from '../../../common/enums';
-import { Role } from '../../roles';
+import { Role } from '../../roles/entities/role.entity';
 import { UserPhoto } from './user-photo.entity';
 import { Order } from '../../orders/entities/order.entity';
 import { ApiProperty } from '@nestjs/swagger';

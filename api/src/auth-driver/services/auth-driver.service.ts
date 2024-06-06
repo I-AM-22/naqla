@@ -4,7 +4,7 @@ import {
   Inject,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { Driver } from '../../models/drivers';
+import { Driver } from '../../models/drivers/entities/driver.entity';
 import { JwtTokenService } from '../../shared/jwt';
 import {
   SignUpDriverDto,

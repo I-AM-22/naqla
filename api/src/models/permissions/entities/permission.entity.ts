@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, Unique } from 'typeorm';
 import { IPermission } from '../interfaces';
-import { Role } from '../../roles';
+import { Role } from '../../roles/entities/role.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { GROUPS, Action, Entities } from '../../../common/enums';
 import { Expose } from 'class-transformer';
