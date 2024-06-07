@@ -39,9 +39,18 @@ export class PymentRepository {
   async create(order: Order, sum: number): Promise<Payment> {
     const payment = this.paymentRepository.create();
     payment.additionalCost = sum;
-    payment.order = order;
     payment.orderId = order.id;
-    return this.paymentRepository.save(payment);
+    await this.paymentRepository.save(payment);
+    order.paymentId = payment.id;
+    await this.orderRepository.save(order);
+    return payment;
+  }
+  async setTotal(id: string, cost: number): Promise<Payment> {
+    const payment = await this.paymentRepository.findOne({
+      where: { orderId: id },
+    });
+    payment.cost = cost;
+    return await this.paymentRepository.save(payment);
   }
 
   async update(

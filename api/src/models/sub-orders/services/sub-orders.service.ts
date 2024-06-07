@@ -100,4 +100,7 @@ export class SubOrdersService implements ISubOrdersService {
   deleteForOrder(id: string): Promise<void> {
     return this.subOrderRepository.deleteForOrder(id);
   }
+  findTotalCost(id: string): Promise<number> {
+    return this.subOrderRepository.findTotalCost(id);
+  }
 }

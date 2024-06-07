@@ -48,9 +48,9 @@ export class SubOrderRepository implements ISubOrderRepository {
         'subOrder.weight',
         'photos',
         'order.locationStart',
-        'order.locationEnd', // حقول order التي تريد عرضها
+        'order.locationEnd',
         'order.desiredDate',
-        'advantage.name', // حقول advantage التي تريد عرضها
+        'advantage.name',
       ]);
 
     const carAdvantagesIds = cars.flatMap((car) =>
@@ -109,5 +109,20 @@ export class SubOrderRepository implements ISubOrderRepository {
     doc.driverAssignedAt = new Date().toISOString();
     doc.status = SUB_ORDER_STATUS.TAKEN;
     return await this.suporderRepository.save(doc);
+  }
+
+  async findTotalCost(id: string): Promise<number> {
+    //1)
+    // const suporders = await this.suporderRepository.find({
+    //   where: { orderId: id },
+    // });
+    // const totalCost = suporders.reduce((sum, order) => sum + order.cost, 0);
+    // return totalCost;
+    const result = await this.suporderRepository
+      .createQueryBuilder('suporder')
+      .select('SUM(suporder.cost)', 'totalCost')
+      .where('suporder.orderId = :id', { id })
+      .getRawOne();
+    return result.totalCost ?? 0;
   }
 }

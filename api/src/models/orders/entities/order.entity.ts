@@ -48,7 +48,7 @@ export class Order extends GlobalEntity {
   @Column('uuid')
   userId: string;
 
-  @ApiProperty()
+  @ApiProperty({ isArray: true, type: OrderPhoto })
   @OneToMany(() => OrderPhoto, (photo) => photo.order, {
     cascade: true,
     eager: true,
@@ -60,7 +60,7 @@ export class Order extends GlobalEntity {
   @JoinTable({ name: 'orders_advantages' })
   advantages: Advantage[];
 
-  // @ApiProperty()
+  @ApiProperty()
   @OneToOne(() => Payment, (payment) => payment.order, {
     cascade: true,
   })

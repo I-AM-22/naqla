@@ -75,7 +75,8 @@ export class OrderController {
   @ApiOkResponse({ type: Order })
   @Get(':id/divisionDone')
   async divisionDone(@Id() id: string): Promise<Order> {
-    const order = await this.ordersService.divisionDone(id);
+    const cost = await this.subordersService.findTotalCost(id);
+    const order = await this.ordersService.divisionDone(id, cost);
     return order;
   }
 

@@ -58,7 +58,7 @@ export class OrderRepository implements IOrderRepository {
       select: {
         advantages: { id: false, cost: false, name: true },
       },
-      relations: { photos: true, advantages: true },
+      relations: { photos: true, advantages: true, payment: true },
     });
   }
 

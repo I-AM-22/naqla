@@ -104,13 +104,14 @@ export class OrdersService implements IOrdersService {
     const photo = await this.orderPhotoRepository.uploadPhotoMultiple([]);
     return this.orderRepository.update(order, dto, photo);
   }
-  async divisionDone(id: string): Promise<Order> {
+  async divisionDone(id: string, cost: number): Promise<Order> {
     // const order = await this.orderRepository.findOne(id);
     // if (order.status !== ORDER_STATUS.WAITING) {
     //   throw new ForbiddenException(
     //     'Can not division Done this order becouss him status is not waiting',
     //   );
     // }
+    await this.pymentRepository.setTotal(id, cost);
     return this.orderRepository.divisionDone(id);
   }
   acceptance(id: string): Promise<Order> {
