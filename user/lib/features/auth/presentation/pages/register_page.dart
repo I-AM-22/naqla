@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +19,6 @@ import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
 
 import '../../../../generated/l10n.dart';
 
-@RoutePage()
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.showTextButton});
   final bool showTextButton;

@@ -16,30 +16,37 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
 import 'package:logger/logger.dart' as _i5;
 import 'package:shared_preferences/shared_preferences.dart' as _i8;
 
-import '../../features/app/data/prefs_repository_imp.dart' as _i13;
-import '../../features/app/domain/repository/prefs_repository.dart' as _i12;
-import '../../features/app/presentation/bloc/app_bloc.dart' as _i3;
-import '../../features/auth/data/data_sources/auth_remote_data_source.dart'
+import '../../features/app/data/datasources/app_remote_data_source.dart'
     as _i21;
-import '../../features/auth/data/repositories/auth_repository_implement.dart'
+import '../../features/app/data/repositories/app_repository_implement.dart'
     as _i23;
-import '../../features/auth/domain/repositories/auth_repository.dart' as _i22;
-import '../../features/auth/domain/use_cases/confirm_use_case.dart' as _i24;
-import '../../features/auth/domain/use_cases/login_use_case.dart' as _i31;
-import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i33;
-import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i34;
+import '../../features/app/data/repositories/prefs_repository_imp.dart' as _i13;
+import '../../features/app/domain/repository/app_repository.dart' as _i22;
+import '../../features/app/domain/repository/prefs_repository.dart' as _i12;
+import '../../features/app/domain/usecases/upload_image_use_case.dart' as _i37;
+import '../../features/app/presentation/state/bloc/app_bloc.dart' as _i3;
+import '../../features/app/presentation/state/upload_image_cubit.dart' as _i39;
+import '../../features/auth/data/data_sources/auth_remote_data_source.dart'
+    as _i24;
+import '../../features/auth/data/repositories/auth_repository_implement.dart'
+    as _i26;
+import '../../features/auth/domain/repositories/auth_repository.dart' as _i25;
+import '../../features/auth/domain/use_cases/confirm_use_case.dart' as _i27;
+import '../../features/auth/domain/use_cases/login_use_case.dart' as _i34;
+import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i36;
+import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i38;
 import '../../features/home/data/data_source/home_remote_data_source.dart'
     as _i9;
 import '../../features/home/data/repositories/home_repository_implement.dart'
     as _i11;
 import '../../features/home/domain/repositories/home_repository.dart' as _i10;
 import '../../features/home/domain/use_case/get_car_advantage_use_case.dart'
-    as _i27;
-import '../../features/home/domain/use_case/get_orders_use_case.dart' as _i28;
+    as _i30;
+import '../../features/home/domain/use_case/get_orders_use_case.dart' as _i31;
 import '../../features/home/domain/use_case/set_order_use_case.dart' as _i17;
 import '../../features/home/domain/use_case/upload_photos_use_case.dart'
     as _i19;
-import '../../features/home/presentation/bloc/home_bloc.dart' as _i30;
+import '../../features/home/presentation/bloc/home_bloc.dart' as _i33;
 import '../../features/profile/data/data_source/profile_remote_data_source.dart'
     as _i14;
 import '../../features/profile/data/repositories/profile_repository_implement.dart'
@@ -47,19 +54,19 @@ import '../../features/profile/data/repositories/profile_repository_implement.da
 import '../../features/profile/domain/repositories/profile_repository.dart'
     as _i15;
 import '../../features/profile/domain/use_cases/delete_account_use_case.dart'
-    as _i25;
+    as _i28;
 import '../../features/profile/domain/use_cases/edit_personal_info_use_case.dart'
-    as _i26;
-import '../../features/profile/domain/use_cases/get_personal_info_use_case.dart'
     as _i29;
+import '../../features/profile/domain/use_cases/get_personal_info_use_case.dart'
+    as _i32;
 import '../../features/profile/domain/use_cases/update_phone_number_use_case.dart'
     as _i18;
 import '../../features/profile/domain/use_cases/upload_single_photo_use_case.dart'
     as _i20;
 import '../../features/profile/presentation/state/bloc/profile_bloc.dart'
-    as _i32;
+    as _i35;
 import '../network_info.dart' as _i6;
-import 'di_container.dart' as _i35;
+import 'di_container.dart' as _i40;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
@@ -104,45 +111,53 @@ Future<_i1.GetIt> $initGetIt(
       () => _i19.UploadPhotosUseCase(gh<_i10.HomeRepository>()));
   gh.factory<_i20.UploadSinglePhotoUseCase>(
       () => _i20.UploadSinglePhotoUseCase(gh<_i15.ProfileRepository>()));
-  gh.factory<_i21.AuthRemoteDataSource>(
-      () => _i21.AuthRemoteDataSource(gh<_i4.Dio>()));
-  gh.factory<_i22.AuthRepository>(
-      () => _i23.AuthRepositoryImplement(gh<_i21.AuthRemoteDataSource>()));
-  gh.factory<_i24.ConfirmUseCase>(
-      () => _i24.ConfirmUseCase(gh<_i22.AuthRepository>()));
-  gh.factory<_i25.DeleteAccountUseCase>(
-      () => _i25.DeleteAccountUseCase(gh<_i15.ProfileRepository>()));
-  gh.factory<_i26.EditPersonalInfoUseCase>(
-      () => _i26.EditPersonalInfoUseCase(gh<_i15.ProfileRepository>()));
-  gh.factory<_i27.GetCarAdvantageUseCase>(
-      () => _i27.GetCarAdvantageUseCase(gh<_i10.HomeRepository>()));
-  gh.factory<_i28.GetOrdersUseCase>(
-      () => _i28.GetOrdersUseCase(gh<_i10.HomeRepository>()));
-  gh.factory<_i29.GetPersonalInfoUseCase>(
-      () => _i29.GetPersonalInfoUseCase(gh<_i15.ProfileRepository>()));
-  gh.lazySingleton<_i30.HomeBloc>(() => _i30.HomeBloc(
+  gh.factory<_i21.AppRemoteDataSource>(
+      () => _i21.AppRemoteDataSource(gh<_i4.Dio>()));
+  gh.factory<_i22.AppRepository>(
+      () => _i23.AppRepositoryImplement(gh<_i21.AppRemoteDataSource>()));
+  gh.factory<_i24.AuthRemoteDataSource>(
+      () => _i24.AuthRemoteDataSource(gh<_i4.Dio>()));
+  gh.factory<_i25.AuthRepository>(
+      () => _i26.AuthRepositoryImplement(gh<_i24.AuthRemoteDataSource>()));
+  gh.factory<_i27.ConfirmUseCase>(
+      () => _i27.ConfirmUseCase(gh<_i25.AuthRepository>()));
+  gh.factory<_i28.DeleteAccountUseCase>(
+      () => _i28.DeleteAccountUseCase(gh<_i15.ProfileRepository>()));
+  gh.factory<_i29.EditPersonalInfoUseCase>(
+      () => _i29.EditPersonalInfoUseCase(gh<_i15.ProfileRepository>()));
+  gh.factory<_i30.GetCarAdvantageUseCase>(
+      () => _i30.GetCarAdvantageUseCase(gh<_i10.HomeRepository>()));
+  gh.factory<_i31.GetOrdersUseCase>(
+      () => _i31.GetOrdersUseCase(gh<_i10.HomeRepository>()));
+  gh.factory<_i32.GetPersonalInfoUseCase>(
+      () => _i32.GetPersonalInfoUseCase(gh<_i15.ProfileRepository>()));
+  gh.lazySingleton<_i33.HomeBloc>(() => _i33.HomeBloc(
         gh<_i19.UploadPhotosUseCase>(),
-        gh<_i27.GetCarAdvantageUseCase>(),
-        gh<_i28.GetOrdersUseCase>(),
+        gh<_i30.GetCarAdvantageUseCase>(),
+        gh<_i31.GetOrdersUseCase>(),
         gh<_i17.SetOrderUseCase>(),
       ));
-  gh.factory<_i31.LoginUseCase>(
-      () => _i31.LoginUseCase(gh<_i22.AuthRepository>()));
-  gh.factory<_i32.ProfileBloc>(() => _i32.ProfileBloc(
-        gh<_i29.GetPersonalInfoUseCase>(),
-        gh<_i26.EditPersonalInfoUseCase>(),
+  gh.factory<_i34.LoginUseCase>(
+      () => _i34.LoginUseCase(gh<_i25.AuthRepository>()));
+  gh.factory<_i35.ProfileBloc>(() => _i35.ProfileBloc(
+        gh<_i32.GetPersonalInfoUseCase>(),
+        gh<_i29.EditPersonalInfoUseCase>(),
         gh<_i20.UploadSinglePhotoUseCase>(),
         gh<_i18.UpdatePhoneNumberUseCase>(),
-        gh<_i25.DeleteAccountUseCase>(),
+        gh<_i28.DeleteAccountUseCase>(),
       ));
-  gh.factory<_i33.SignUpUseCase>(
-      () => _i33.SignUpUseCase(gh<_i22.AuthRepository>()));
-  gh.factory<_i34.AuthBloc>(() => _i34.AuthBloc(
-        gh<_i31.LoginUseCase>(),
-        gh<_i33.SignUpUseCase>(),
-        gh<_i24.ConfirmUseCase>(),
+  gh.factory<_i36.SignUpUseCase>(
+      () => _i36.SignUpUseCase(gh<_i25.AuthRepository>()));
+  gh.factory<_i37.UploadImageUseCase>(
+      () => _i37.UploadImageUseCase(gh<_i22.AppRepository>()));
+  gh.factory<_i38.AuthBloc>(() => _i38.AuthBloc(
+        gh<_i34.LoginUseCase>(),
+        gh<_i36.SignUpUseCase>(),
+        gh<_i27.ConfirmUseCase>(),
       ));
+  gh.factory<_i39.UploadImageCubit>(
+      () => _i39.UploadImageCubit(gh<_i37.UploadImageUseCase>()));
   return getIt;
 }
 
-class _$AppModule extends _i35.AppModule {}
+class _$AppModule extends _i40.AppModule {}

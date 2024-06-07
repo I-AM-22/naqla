@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +22,6 @@ class EditPhoneParam {
   EditPhoneParam({required this.bloc, required this.phone});
 }
 
-@RoutePage()
 class EditPhoneNumberPage extends StatefulWidget {
   const EditPhoneNumberPage({super.key, required this.param});
   final EditPhoneParam param;

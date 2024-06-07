@@ -38,9 +38,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "________________onBoarding____________________":
             MessageLookupByLibrary.simpleMessage(""),
+        "________________validation___________________":
+            MessageLookupByLibrary.simpleMessage(""),
         "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("About Us"),
+        "add_photo": MessageLookupByLibrary.simpleMessage("Add photo"),
+        "additional_specifications_of_the_car":
+            MessageLookupByLibrary.simpleMessage(
+                "Additional specifications of the car:"),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
@@ -104,6 +110,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Help and Support"),
         "home": MessageLookupByLibrary.simpleMessage("home"),
         "hour": MessageLookupByLibrary.simpleMessage("hour"),
+        "item_length": MessageLookupByLibrary.simpleMessage("Item length (M)"),
+        "item_weight": MessageLookupByLibrary.simpleMessage("Item weight (KG)"),
+        "item_width": MessageLookupByLibrary.simpleMessage("Item width (M)"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
         "logOut": MessageLookupByLibrary.simpleMessage("LogOut"),
@@ -113,16 +122,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_naqla": MessageLookupByLibrary.simpleMessage("New naqla"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "order_date": MessageLookupByLibrary.simpleMessage("Order date: "),
+        "order_details": MessageLookupByLibrary.simpleMessage("Order details"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
             MessageLookupByLibrary.simpleMessage("Pending Money : "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),
+        "please_take_photos_of_the_items_to_be_transported":
+            MessageLookupByLibrary.simpleMessage(
+                "Please take photos of the items to be transported to help find a suitable vehicle (or vehicles)."),
+        "porters": MessageLookupByLibrary.simpleMessage("Porters"),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
+        "select_photo": MessageLookupByLibrary.simpleMessage("Select photo"),
         "sell_houses_easily_with_the_help_of_Listenoryx":
             MessageLookupByLibrary.simpleMessage(
                 "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more"),
@@ -134,7 +150,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "start_point": MessageLookupByLibrary.simpleMessage("Start Point"),
+        "this_field_is_required":
+            MessageLookupByLibrary.simpleMessage("This field is required"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
+        "total_number_of_floors":
+            MessageLookupByLibrary.simpleMessage("Total number of floors:"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "use_current_location":
             MessageLookupByLibrary.simpleMessage("use current location"),

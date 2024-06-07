@@ -1,7 +1,6 @@
 import 'package:naqla/core/common/enums/order_status.dart';
 import 'package:naqla/features/home/data/model/location_model.dart';
-
-import '../../../auth/data/model/photo_model.dart';
+import 'package:naqla/features/home/data/model/order_photos_model.dart';
 
 class OrderModel {
   final String id;
@@ -11,7 +10,7 @@ class OrderModel {
   final LocationModel locationStart;
   final LocationModel locationEnd;
   final List<String> advantages;
-  final List<Photo> photos;
+  final List<OrderPhotosModel> photos;
 
   OrderModel({
     required this.id,
@@ -32,7 +31,7 @@ class OrderModel {
     LocationModel? locationStart,
     LocationModel? locationEnd,
     List<String>? advantages,
-    List<Photo>? photos,
+    List<OrderPhotosModel>? photos,
   }) =>
       OrderModel(
         id: id ?? this.id,
@@ -52,8 +51,8 @@ class OrderModel {
         status: SubOrderStatus.values.byName(json["status"]),
         locationStart: LocationModel.fromJson(json["locationStart"]),
         locationEnd: LocationModel.fromJson(json["locationEnd"]),
-        advantages: List<String>.from(json["advantages"].map((x) => x)),
-        photos: List<Photo>.from(json["photos"].map((x) => Photo.fromJson(x))),
+        advantages: List<String>.from(json["advantages"].map((x) => x['name'])),
+        photos: List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

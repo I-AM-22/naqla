@@ -61,14 +61,25 @@ class _AppDatePickerState extends State<AppDatePicker> {
                 initialDateTime: widget.initialDateTime,
                 mode: CupertinoDatePickerMode.date,
                 onDateTimeChanged: (val) {
-                  _controller.text = DateFormat('yyyy-MM-dd').format(val);
+                  _controller.text = DateFormat('yyyy/MM/dd').format(val);
                   widget.onDateTimeChanged?.call(val);
                 },
               ),
             ),
             const Spacer(),
             // Close the modal
-            CupertinoButton(child: const Text('OK'), onPressed: () => Navigator.pop(context)),
+            CupertinoButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  if (widget.initialValue != null) {
+                    _controller.text = DateFormat('yyyy/MM/dd').parse(widget.initialValue!).toString();
+                  } else if (widget.minimumDate != null) {
+                    _controller.text = DateFormat('yyyy/MM/dd').format(widget.minimumDate!);
+                  } else if (widget.initialDateTime != null) {
+                    _controller.text = DateFormat('yyyy/MM/dd').format(widget.initialDateTime!);
+                  }
+                  Navigator.pop(context);
+                }),
             const Spacer(),
           ],
         ),

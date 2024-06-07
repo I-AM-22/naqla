@@ -7,7 +7,6 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:location/location.dart';
-import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/core/util/secure_image_picker.dart';
 import 'package:naqla/features/home/data/model/car_advantage.dart';
@@ -48,12 +47,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       },
     );
 
+    on<UpdateFormPhoto>(
+      (event, emit) {
+        if (event.add) {
+          final count = state.formCount + 1;
+          emit(state.copyWith(formCount: count));
+        } else {
+          final count = state.formCount - 1;
+          emit(state.copyWith(formCount: count));
+        }
+      },
+    );
+
     on<SetOrderParamEvent>(
       (event, emit) {
         emit(
           state.copyWith(
             setOrderParam:
-                state.setOrderParam.copyWith(event.desiredDate, event.locationStart, event.locationEnd, event.porters, event.photo, event.advantages),
+                state.setOrderParam.copyWith(event.desiredDate, event.locationStart, event.locationEnd, event.porters, event.items, event.advantages),
           ),
         );
       },
@@ -71,7 +82,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         result.fold((l) {
           if (oldData != null) {
             emit(state.updateState(HomeState.uploadPhotos, SuccessState(oldData)));
-            showMessage('تعذر رفع الصور', isSuccess: false);
           } else {
             emit(state.updateState(HomeState.uploadPhotos, FailureState(l)));
           }

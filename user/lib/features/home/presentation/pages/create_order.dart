@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:naqla/core/common/constants/constants.dart';
@@ -19,10 +19,10 @@ import 'package:naqla/features/home/data/model/location_model.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 import 'package:naqla/features/home/presentation/pages/order_photos_page.dart';
 import 'package:naqla/features/home/presentation/widget/set_location_order.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 import '../../../../generated/l10n.dart';
 
-@RoutePage()
 class CreateOrderPage extends StatefulWidget {
   const CreateOrderPage({super.key});
 
@@ -46,6 +46,8 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
     super.initState();
   }
 
+  int _currentValue = 1;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -65,7 +67,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                         desiredDate: dateTime.toIso8601String(),
                         locationStart: LocationModel(region: '', street: '', latitude: latLng[0].latitude, longitude: latLng[0].longitude),
                         locationEnd: LocationModel(latitude: latLng[1].latitude, longitude: latLng[1].longitude, street: '', region: ''),
-                        porters: porters.value,
+                        porters: porters.value ? _currentValue : 0,
                         advantages: state
                             .getState<List<CarAdvantage>>(HomeState.carAdvantage)
                             .data
@@ -94,10 +96,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 Padding(
                   padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                   child: AppDatePicker(
-                    validator: (value) {
-                      if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
-                      return null;
-                    },
+                    validator: FormBuilderValidators.required(errorText: S.of(context).this_field_is_required),
                     name: 'date',
                     onDateTimeChanged: (p0) => dateTime = p0,
                     minimumDate: DateTime.now(),
@@ -112,15 +111,15 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                         builder: (context, value, _) => AppCheckbox(
                           isSelected: value,
                           onChanged: (value) {
-                            print(value);
                             porters.value = value;
+                            setState(() {});
                           },
                         ),
                         valueListenable: porters,
                       ),
                       8.horizontalSpace,
                       AppText.bodySmMedium(
-                        "حمالين",
+                        S.of(context).porters,
                         color: Colors.black,
                       )
                     ],
@@ -131,11 +130,40 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                   child: AppText.bodySmMedium("الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
                 ),
+                10.verticalSpace,
+                AnimatedOpacity(
+                  duration: const Duration(milliseconds: 300),
+                  opacity: porters.value ? 1 : 0,
+                  child: AnimatedSize(
+                    duration: const Duration(milliseconds: 300),
+                    reverseDuration: const Duration(milliseconds: 1000),
+                    child: Padding(
+                      padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
+                      child: porters.value
+                          ? Row(
+                              children: [
+                                Flexible(child: AppText.titleSmall(S.of(context).total_number_of_floors)),
+                                10.horizontalSpace,
+                                NumberPicker(
+                                  decoration:
+                                      BoxDecoration(border: Border.all(color: context.colorScheme.outline), borderRadius: BorderRadius.circular(8)),
+                                  value: _currentValue,
+                                  textStyle: context.textTheme.bodySmMedium,
+                                  minValue: 1,
+                                  maxValue: 100,
+                                  onChanged: (value) => setState(() => _currentValue = value),
+                                ),
+                              ],
+                            )
+                          : const SizedBox(),
+                    ),
+                  ),
+                ),
                 18.verticalSpace,
                 Padding(
                   padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                   child: AppText.bodySmMedium(
-                    "مواصفات إضافية للسيارة:",
+                    S.of(context).additional_specifications_of_the_car,
                     fontWeight: FontWeight.w700,
                     color: Colors.black,
                   ),
@@ -145,8 +173,9 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   onSuccess: (data) => Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
                     child: ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 3,
+                      itemCount: data.length,
                       separatorBuilder: (context, index) => 14.verticalSpace,
                       itemBuilder: (context, index) => Row(
                         children: [

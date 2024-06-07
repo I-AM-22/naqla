@@ -20,16 +20,6 @@ class BasePage extends StatelessWidget {
     return AppScaffold(
       body: child,
       resizeToAvoidBottomInset: false,
-      floatingActionButton: child.currentIndex == 0
-          ? FloatingActionButton(
-              backgroundColor: context.colorScheme.primary,
-              onPressed: () => context.pushNamed(CreateOrderPage.name),
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-            )
-          : null,
       bottomNavigationBar: AppNavigationBar(
           currentIndex: child.currentIndex,
           onTap: (index) {

@@ -47,9 +47,22 @@ class SetOrderParamEvent extends HomeEvent {
   final String? desiredDate;
   final LocationModel? locationStart;
   final LocationModel? locationEnd;
-  final bool? porters;
-  final List<String>? photo;
+  final int? porters;
+  final List<OrderItemsParam>? items;
   final List<String>? advantages;
 
-  SetOrderParamEvent({this.desiredDate, this.locationStart, this.locationEnd, this.porters, this.photo, this.advantages});
+  SetOrderParamEvent({
+    this.desiredDate,
+    this.locationStart,
+    this.locationEnd,
+    this.porters,
+    this.items,
+    this.advantages,
+  });
+}
+
+class UpdateFormPhoto extends HomeEvent {
+  final bool add;
+
+  UpdateFormPhoto({required this.add});
 }

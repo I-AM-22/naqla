@@ -1,11 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconly/iconly.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
@@ -17,8 +16,8 @@ import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 import 'package:naqla/features/home/presentation/widget/order_status_card.dart';
 
 import '../../../../generated/l10n.dart';
+import 'create_order.dart';
 
-@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.comeFromSplash});
 
@@ -66,14 +65,27 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => _bloc,
-      child: AppScaffold(
-          appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
-          body: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
-            stateName: HomeState.ordersActive,
-            onSuccess: (data) {
-              return OrderStatusCard(orders: data);
-            },
-          )),
+      child: RefreshIndicator(
+        onRefresh: () async => _bloc.add(GetOrdersActiveEvent()),
+        child: AppScaffold(
+            floatingActionButton: FloatingActionButton.extended(
+              backgroundColor: context.colorScheme.primary,
+              onPressed: () => context.pushNamed(CreateOrderPage.name),
+              label: AppText(
+                S.of(context).new_naqla,
+                color: Colors.white,
+              ),
+              icon: const Icon(
+                IconlyBroken.plus,
+                color: Colors.white,
+              ),
+            ),
+            appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
+            body: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
+              stateName: HomeState.ordersActive,
+              onSuccess: (data) => OrderStatusCard(orders: data),
+            )),
+      ),
     );
   }
 }

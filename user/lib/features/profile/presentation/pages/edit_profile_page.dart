@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +27,6 @@ class EditProfileParam {
   EditProfileParam({required this.bloc, required this.user});
 }
 
-@RoutePage()
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key, required this.param});
   final EditProfileParam param;

@@ -171,6 +171,26 @@ class S {
   }
 
   /// ``
+  String get ________________validation___________________ {
+    return Intl.message(
+      '',
+      name: '________________validation___________________',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This field is required`
+  String get this_field_is_required {
+    return Intl.message(
+      'This field is required',
+      name: 'this_field_is_required',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
   String get _________________authentication________________ {
     return Intl.message(
       '',
@@ -625,6 +645,116 @@ class S {
     return Intl.message(
       'Date',
       name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please take photos of the items to be transported to help find a suitable vehicle (or vehicles).`
+  String get please_take_photos_of_the_items_to_be_transported {
+    return Intl.message(
+      'Please take photos of the items to be transported to help find a suitable vehicle (or vehicles).',
+      name: 'please_take_photos_of_the_items_to_be_transported',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select photo`
+  String get select_photo {
+    return Intl.message(
+      'Select photo',
+      name: 'select_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item width (M)`
+  String get item_width {
+    return Intl.message(
+      'Item width (M)',
+      name: 'item_width',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item length (M)`
+  String get item_length {
+    return Intl.message(
+      'Item length (M)',
+      name: 'item_length',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item weight (KG)`
+  String get item_weight {
+    return Intl.message(
+      'Item weight (KG)',
+      name: 'item_weight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add photo`
+  String get add_photo {
+    return Intl.message(
+      'Add photo',
+      name: 'add_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total number of floors:`
+  String get total_number_of_floors {
+    return Intl.message(
+      'Total number of floors:',
+      name: 'total_number_of_floors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Additional specifications of the car:`
+  String get additional_specifications_of_the_car {
+    return Intl.message(
+      'Additional specifications of the car:',
+      name: 'additional_specifications_of_the_car',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Porters`
+  String get porters {
+    return Intl.message(
+      'Porters',
+      name: 'porters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order details`
+  String get order_details {
+    return Intl.message(
+      'Order details',
+      name: 'order_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order date: `
+  String get order_date {
+    return Intl.message(
+      'Order date: ',
+      name: 'order_date',
       desc: '',
       args: [],
     );
