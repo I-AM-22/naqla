@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "PORT=9876 next dev",
+    "win_dev": "cross-env PORT=9876 next dev",
     "build": "next build",
     "start": "next start",
     "swagger": "npx orval --config ./orval.config.cjs && sed -i '1i//@ts-nocheck' service/api.schemas.ts",
@@ -22,6 +23,7 @@
     "@types/negotiator": "^0.6.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "cross-env": "^7.0.3",
     "i18next": "^23.7.13",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-resources-to-backend": "^1.2.0",

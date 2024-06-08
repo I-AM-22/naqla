@@ -31,8 +31,7 @@ class CustomDropDownLanguage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             AppMenuItem(
-              isSelected:
-                  getColorSelectLanguage(const Locale('en', 'US'), context),
+              isSelected: !context.isArabic,
               showCheck: true,
               onChanged: (select) {
                 if (select) {
@@ -40,10 +39,7 @@ class CustomDropDownLanguage extends StatelessWidget {
                 }
               },
               showImage: false,
-              textColor:
-                  getColorSelectLanguage(const Locale('en', 'US'), context)
-                      ? context.colorScheme.primary
-                      : context.colorScheme.systemGray.shade400,
+              textColor: !context.isArabic ? context.colorScheme.primary : context.colorScheme.systemGray.shade400,
               text: 'English',
               image: '',
               isLastItem: false,
@@ -52,8 +48,7 @@ class CustomDropDownLanguage extends StatelessWidget {
               },
             ),
             AppMenuItem(
-              isSelected:
-                  getColorSelectLanguage(const Locale('ar', 'SY'), context),
+              isSelected: context.isArabic,
               showCheck: true,
               showImage: false,
               onChanged: (select) {
@@ -62,10 +57,7 @@ class CustomDropDownLanguage extends StatelessWidget {
                   // HiveService.hive.put('language', 'ar');
                 }
               },
-              textColor:
-                  getColorSelectLanguage(const Locale('ar', 'SY'), context)
-                      ? context.colorScheme.primary
-                      : context.colorScheme.systemGray.shade400,
+              textColor: context.isArabic ? context.colorScheme.primary : context.colorScheme.systemGray.shade400,
               text: 'Arabic',
               image: '',
               isLastItem: true,
@@ -84,6 +76,5 @@ class CustomDropDownLanguage extends StatelessWidget {
     );
   }
 
-  bool getColorSelectLanguage(Locale locale, BuildContext context) =>
-      context.locale == locale;
+  bool getColorSelectLanguage(Locale locale, BuildContext context) => context.locale == locale;
 }

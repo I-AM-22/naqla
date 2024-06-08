@@ -35,7 +35,7 @@ class AppNavigationBar extends StatelessWidget {
               color: context.colorScheme.primary,
             ),
             activeIcon: CustomActiveIcon(
-              iconData: Icons.home,
+              iconData: IconlyBold.home,
               label: S.of(context).home,
             ),
           ),

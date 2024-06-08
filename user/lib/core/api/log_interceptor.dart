@@ -6,10 +6,12 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:naqla/core/di/di_container.dart';
+import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../common/enums/status_code_type.dart';
 import '../util/helper_functions.dart';
 import 'api_utils.dart';
+import '../config/router/router.dart';
 
 enum _StatusType {
   succeed,
@@ -24,16 +26,15 @@ class DioLogInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (getIt<PrefsRepository>().registeredUser) {
       options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${GetIt.I<PrefsRepository>().token}';
+      options.sendTimeout = Duration(seconds: 60);
+      options.connectTimeout = Duration(seconds: 60);
+      options.receiveTimeout = Duration(seconds: 60);
     }
     if (kDebugMode) {
-      logger.i(
-        "***|| INFO Request ${options.method} ${options.path} ||***"
-        "\n param : ${options.queryParameters}"
-        "\n data : ${options.data}"
-        "\n Header: ${encoder.convert(options.headers)}"
-        "\n timeout: ${options.connectTimeout ?? 0 ~/ 1000}s"
-        "\n curl command: ${HelperFunctions.getCurlCommandFromRequest(options)}s",
-      );
+      logger.i("***|| INFO Request ${options.method} ${options.path} ||***"
+          "\n param : ${options.queryParameters}"
+          "\n data : ${options.data}"
+          "\n Header: ${encoder.convert(options.headers)}");
     }
 
     handler.next(options);
@@ -70,9 +71,6 @@ class DioLogInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    if (err.response?.statusCode == 401) {
-      print('401');
-    }
     if (kDebugMode) {
       logger.e(
         "***|| SOMETHING WENT WRONG 💔 ||***"

@@ -33,7 +33,10 @@ class LanguagePage extends StatelessWidget {
                 isFlag: true,
                 width: 25.w,
                 height: 25.h,
-                prefixIcon: Assets.icons.flags.english.path,
+                prefixIcon: AppImage.asset(
+                  Assets.icons.flags.english.path,
+                  size: 15,
+                ),
                 isSelected: !context.isArabic,
                 suffixIconColor: !context.isArabic ? context.colorScheme.primary : context.colorScheme.systemGray,
                 suffixIcon: context.isArabic ? Assets.icons.essential.checkCircle.path : Assets.icons.essential.checkCircle2.path,
@@ -45,7 +48,10 @@ class LanguagePage extends StatelessWidget {
                 isFlag: true,
                 width: 25.w,
                 height: 25.h,
-                prefixIcon: Assets.icons.flags.syria.path,
+                prefixIcon: AppImage.asset(
+                  Assets.icons.flags.syria.path,
+                  size: 15,
+                ),
                 isSelected: context.isArabic,
                 suffixIconColor: context.isArabic ? context.colorScheme.primary : context.colorScheme.systemGray,
                 suffixIcon: context.isArabic ? Assets.icons.essential.checkCircle2.path : Assets.icons.essential.checkCircle.path,

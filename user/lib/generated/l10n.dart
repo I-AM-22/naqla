@@ -760,6 +760,16 @@ class S {
     );
   }
 
+  /// `The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties.`
+  String get the_remuneration_will_depend_on_the_number_of_porters_required {
+    return Intl.message(
+      'The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties.',
+      name: 'the_remuneration_will_depend_on_the_number_of_porters_required',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(

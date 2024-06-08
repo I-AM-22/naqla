@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:naqla/core/core.dart';
 
@@ -71,12 +72,14 @@ class _AppDatePickerState extends State<AppDatePicker> {
             CupertinoButton(
                 child: const Text('OK'),
                 onPressed: () {
-                  if (widget.initialValue != null) {
-                    _controller.text = DateFormat('yyyy/MM/dd').parse(widget.initialValue!).toString();
-                  } else if (widget.minimumDate != null) {
-                    _controller.text = DateFormat('yyyy/MM/dd').format(widget.minimumDate!);
-                  } else if (widget.initialDateTime != null) {
-                    _controller.text = DateFormat('yyyy/MM/dd').format(widget.initialDateTime!);
+                  if (_controller.text.isEmpty) {
+                    if (widget.initialValue != null) {
+                      _controller.text = DateFormat('yyyy/MM/dd').parse(widget.initialValue!).toString();
+                    } else if (widget.minimumDate != null) {
+                      _controller.text = DateFormat('yyyy/MM/dd').format(widget.minimumDate!);
+                    } else if (widget.initialDateTime != null) {
+                      _controller.text = DateFormat('yyyy/MM/dd').format(widget.initialDateTime!);
+                    }
                   }
                   Navigator.pop(context);
                 }),
@@ -127,15 +130,10 @@ class _AppDatePickerState extends State<AppDatePicker> {
         name: widget.name,
         controller: _controller,
         hintText: 'YYYY-MM-DD',
-        suffixIcon: Padding(
-          padding: REdgeInsets.symmetric(vertical: 14.w),
-          child: AppImage.asset(
-            Assets.icons.essential.calendar.path,
-            size: 15.w,
-            height: 15.w,
-            width: 15.w,
-            color: context.colorScheme.primary,
-          ),
+        suffixIcon: Icon(
+          IconlyBroken.calendar,
+          size: 20.w,
+          color: context.colorScheme.primary,
         ),
       ),
     );
