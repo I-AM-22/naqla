@@ -12,15 +12,24 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ExpoLocalization_supportsRTL": true
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.islamnaasani.driver"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -36,9 +45,17 @@
         }
       ]
     ],
-    "experiments": { "tsconfigPaths": true },
+    "experiments": {
+      "tsconfigPaths": true
+    },
     "extra": {
-      "supportsRTL": true
+      "supportsRTL": true,
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "178b19a0-9d81-43ec-abfc-7c61540f17c9"
+      }
     }
   }
 }

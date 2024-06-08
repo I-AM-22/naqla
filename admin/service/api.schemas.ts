@@ -156,7 +156,6 @@ export type UpdateOrderDto = {
   locationEnd: LocationDto;
   locationStart: LocationDto;
   photo: string[];
-  status: string;
 };
 
 export type CreateOrderDto = {
@@ -173,9 +172,9 @@ export const OrderStatus = {
   waiting: "waiting",
   ready: "ready",
   accepted: "accepted",
+  refused: "refused",
   delivered: "delivered",
   canceled: "canceled",
-  refused: "refused",
 } as const;
 
 export type Payment = {
@@ -320,6 +319,10 @@ export type UpdateAdminDto = {
 };
 
 export type CreateAdminDto = {
+  /**
+   * hmmm
+   * @deprecated
+   */
   firstName: string;
   lastName: string;
   password: string;

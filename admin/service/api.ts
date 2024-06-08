@@ -945,20 +945,35 @@ export const photosControllerUploadMultiple = (
   );
 };
 
+export const orderControllerFindAll = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerCreate = (
+  createOrderDto: CreateOrderDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    {
+      url: `/api/v1/orders`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createOrderDto,
+    },
+    options,
+  );
+};
+
 export const orderControllerFindMine = (
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
   return fetchInstance<Order[]>(
     { url: `/api/v1/orders/mine`, method: "GET" },
-    options,
-  );
-};
-
-export const orderControllerFindAll = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order[]>(
-    { url: `/api/v1/orders/all`, method: "GET" },
     options,
   );
 };
@@ -1004,21 +1019,6 @@ export const orderControllerDelete = (
 ) => {
   return fetchInstance<void>(
     { url: `/api/v1/orders/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-export const orderControllerCreate = (
-  createOrderDto: CreateOrderDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order>(
-    {
-      url: `/api/v1/orders`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: createOrderDto,
-    },
     options,
   );
 };
@@ -1241,11 +1241,14 @@ export type PhotosControllerUploadSingleResult = NonNullable<
 export type PhotosControllerUploadMultipleResult = NonNullable<
   Awaited<ReturnType<typeof photosControllerUploadMultiple>>
 >;
-export type OrderControllerFindMineResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerFindMine>>
->;
 export type OrderControllerFindAllResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerFindAll>>
+>;
+export type OrderControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerCreate>>
+>;
+export type OrderControllerFindMineResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindMine>>
 >;
 export type OrderControllerFindAllWaitingResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerFindAllWaiting>>
@@ -1258,9 +1261,6 @@ export type OrderControllerUpdateResult = NonNullable<
 >;
 export type OrderControllerDeleteResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerDelete>>
->;
-export type OrderControllerCreateResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerCreate>>
 >;
 export type OrderControllerAddAdvantagesToOrderResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerAddAdvantagesToOrder>>

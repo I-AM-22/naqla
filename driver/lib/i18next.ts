@@ -12,17 +12,14 @@ declare module "i18next" {
   }
 }
 export const availableLanguages = Object.keys(resources);
-i18n
-  .use(initReactI18next)
-  // .use(I18nextBrowserLanguageDetector)
-  .init({
-    resources,
-    fallbackLng: "ar",
-    defaultNS: "common",
-    returnNull: false,
-    debug: false,
-    react: { useSuspense: false },
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  fallbackLng: "ar",
+  defaultNS: "common",
+  returnNull: false,
+  debug: false,
+  react: { useSuspense: false },
+});
 i18n.on("languageChanged", (language) => {
   if (i18n.language !== language) i18n.changeLanguage(language);
 });
