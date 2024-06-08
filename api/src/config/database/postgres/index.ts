@@ -9,7 +9,7 @@ const PostgresConfig = registerAs('postgres', () => ({
   url: process.env.POSTGRES_URL,
   synchronize: process.env.POSTGRES_SYNCHRONIZE,
   max: process.env.POSTGRES_MAX_CONNECTIONS,
-  ssl: process.env.POSTGRES_SSL_ENABLE,
+  ssl: process.env.POSTGRES_SSL_ENABLED,
   ca: process.env.POSTGRES_CA,
   key: process.env.POSTGRES_KEY,
   cert: process.env.POSTGRES_CERT,

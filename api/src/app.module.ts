@@ -21,7 +21,6 @@ import { CitiesModule } from '@models/cities/cities.module';
 import { EmployeesModule } from '@models/employees/employees.module';
 import { JwtTokenModule } from '@shared/jwt';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
-import { RedisStoreModule } from '@shared/redis-store/redis-store.module';
 import { LoggerMiddleware } from '@common/middlewares';
 import { LoggerModule } from '@shared/logger/logger.module';
 import { OtpsModule } from '@models/otps/otps.module';
@@ -72,7 +71,6 @@ import { GpsDrivingModule } from '@shared/gpsDriving';
     PhotoCleanupModule,
     CaslModule,
     CloudinaryModule,
-    RedisStoreModule,
     LoggerModule,
     OtpsModule,
     AdvantagesModule,
