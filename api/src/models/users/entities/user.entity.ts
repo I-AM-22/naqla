@@ -42,13 +42,13 @@ export class User extends BasePersonWithActive {
   })
   photos: UserPhoto[];
 
+  @OneToMany(() => Order, (order) => order.user, { cascade: true })
+  orders: Order[];
+
   @Expose({})
   @ApiProperty({ type: BasePhoto })
   photo() {
     if (this.photos) return this.photos[this.photos.length - 1];
     return undefined;
   }
-
-  @OneToMany(() => Order, (order) => order.user, { cascade: true })
-  orders: Order[];
 }

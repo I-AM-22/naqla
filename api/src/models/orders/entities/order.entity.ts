@@ -12,7 +12,6 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
-  Relation,
 } from 'typeorm';
 import { OrderPhoto } from './order-photo.entity';
 // import { GROUPS } from '@common/enums';
@@ -20,6 +19,7 @@ import { ORDER_STATUS } from '@common/enums';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 import { Location } from '../interfaces/location.interface';
 import { Payment } from './payment.entity';
+import { MiniUser } from '@models/users/interfaces/mini-user.interface';
 
 @Entity('orders')
 export class Order extends GlobalEntity {
@@ -41,16 +41,16 @@ export class Order extends GlobalEntity {
   @Type(() => Location)
   locationEnd: Location; // Using custom type for locationEnd
 
-  @ApiProperty()
+  @ApiProperty({ type: () => MiniUser })
   @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn({ referencedColumnName: 'id', name: 'userId' })
-  user: Relation<User>;
+  user: User;
 
   @Exclude()
   @Column('uuid')
   userId: string;
 
-  @ApiProperty({ isArray: true, type: OrderPhoto })
+  @ApiProperty({ isArray: true, type: () => OrderPhoto })
   @OneToMany(() => OrderPhoto, (photo) => photo.order, {
     cascade: true,
     eager: true,

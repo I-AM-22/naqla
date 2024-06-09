@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  Relation,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { GlobalEntity } from '@common/base';
 import { Car } from '@models/drivers/entities/car.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
@@ -52,19 +45,19 @@ export class SubOrder extends GlobalEntity {
   @Column({ nullable: true })
   pickedUpAt: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => Order })
   @ManyToOne(() => Order, (order) => order.subOrders)
   @JoinColumn({ name: 'orderId', referencedColumnName: 'id' })
-  order: Relation<Order>;
+  order: Order;
 
   @Column('uuid')
   orderId: string;
 
-  @ApiPropertyOptional()
+  @ApiProperty({ type: () => Car })
   @IsOptional()
   @ManyToOne(() => Car, (car) => car.subOrders, { nullable: true })
   @JoinColumn({ name: 'carId', referencedColumnName: 'id' })
-  car: Relation<Car>;
+  car: Car;
 
   @ApiPropertyOptional()
   @IsOptional()
