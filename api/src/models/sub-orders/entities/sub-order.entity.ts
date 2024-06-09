@@ -64,7 +64,7 @@ export class SubOrder extends GlobalEntity {
   @IsOptional()
   @ManyToOne(() => Car, (car) => car.subOrders, { nullable: true })
   @JoinColumn({ name: 'carId', referencedColumnName: 'id' })
-  car: Car;
+  car: Relation<Car>;
 
   @ApiPropertyOptional()
   @IsOptional()
