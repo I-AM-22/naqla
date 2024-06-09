@@ -105,7 +105,7 @@ export class SubOrdersController {
     return await this.subOrdersService.setPickedUpAt(id);
   }
 
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: SubOrder })
   @Patch(':id/setDeliveredAt')
   async setDeliveredAt(@Id() id: string): Promise<SubOrder> {
