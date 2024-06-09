@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/common/constants/constants.dart';
@@ -11,7 +10,7 @@ import 'package:naqla/features/profile/presentation/widget/profile_item.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
-@RoutePage()
+
 class LanguagePage extends StatelessWidget {
   const LanguagePage({super.key});
 
@@ -34,7 +33,10 @@ class LanguagePage extends StatelessWidget {
                 isFlag: true,
                 width: 25.w,
                 height: 25.h,
-                prefixIcon: Assets.icons.flags.english.path,
+                prefixIcon: AppImage.asset(
+                  Assets.icons.flags.english.path,
+                  size: 15,
+                ),
                 isSelected: !context.isArabic,
                 suffixIconColor: !context.isArabic ? context.colorScheme.primary : context.colorScheme.systemGray,
                 suffixIcon: context.isArabic ? Assets.icons.essential.checkCircle.path : Assets.icons.essential.checkCircle2.path,
@@ -46,7 +48,10 @@ class LanguagePage extends StatelessWidget {
                 isFlag: true,
                 width: 25.w,
                 height: 25.h,
-                prefixIcon: Assets.icons.flags.syria.path,
+                prefixIcon: AppImage.asset(
+                  Assets.icons.flags.syria.path,
+                  size: 15,
+                ),
                 isSelected: context.isArabic,
                 suffixIconColor: context.isArabic ? context.colorScheme.primary : context.colorScheme.systemGray,
                 suffixIcon: context.isArabic ? Assets.icons.essential.checkCircle2.path : Assets.icons.essential.checkCircle.path,

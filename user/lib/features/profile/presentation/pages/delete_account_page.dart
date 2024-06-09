@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,7 @@ import 'package:naqla/features/auth/presentation/pages/welcome_page.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
 
 import '../../../../generated/l10n.dart';
-@RoutePage()
+
 class DeleteAccountPage extends StatelessWidget {
   const DeleteAccountPage({super.key});
 

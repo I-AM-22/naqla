@@ -38,9 +38,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "________________onBoarding____________________":
             MessageLookupByLibrary.simpleMessage(""),
+        "________________validation___________________":
+            MessageLookupByLibrary.simpleMessage(""),
         "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("من نحن"),
+        "add_photo": MessageLookupByLibrary.simpleMessage("ٳضافة صورة"),
+        "additional_specifications_of_the_car":
+            MessageLookupByLibrary.simpleMessage("مواصفات إضافية للسيارة:"),
         "ago": MessageLookupByLibrary.simpleMessage("منذ"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
@@ -57,8 +62,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage("رقم 1 على الأقل أو حرف خاص"),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
-        "book_your_car":
-            MessageLookupByLibrary.simpleMessage("اختر السيارة التي تريد"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
@@ -99,6 +102,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("المساعدة والدعم"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "hour": MessageLookupByLibrary.simpleMessage("ساعة"),
+        "item_length": MessageLookupByLibrary.simpleMessage("طول الغرض (M)"),
+        "item_weight": MessageLookupByLibrary.simpleMessage("وزن الغرض (KG)"),
+        "item_width": MessageLookupByLibrary.simpleMessage("عرض الغرض (M)"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "last_name": MessageLookupByLibrary.simpleMessage("الاسم الاخير"),
         "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
@@ -108,17 +114,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_naqla": MessageLookupByLibrary.simpleMessage("نقلة جديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
+        "order_date": MessageLookupByLibrary.simpleMessage("تاريخ الطلب: "),
+        "order_details": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
             MessageLookupByLibrary.simpleMessage("الاموال المعلقة : "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
+        "please_take_photos_of_the_items_to_be_transported":
+            MessageLookupByLibrary.simpleMessage(
+                "يرجى إلتقاط صور للإغراض التي سيتم نقلها للمساعدة بالعثور على سيارة (او عدة سيارات) مناسبة."),
+        "porters": MessageLookupByLibrary.simpleMessage("حمالين"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "resend_again":
             MessageLookupByLibrary.simpleMessage("إعادة الإرسال مرة أخرى"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),
+        "select_photo": MessageLookupByLibrary.simpleMessage("اختيار صورة"),
         "sell_houses_easily_with_the_help_of_Listenoryx":
             MessageLookupByLibrary.simpleMessage(
                 "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more"),
@@ -131,8 +144,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
         "start_point": MessageLookupByLibrary.simpleMessage("نقطة الانطلاق"),
+        "the_remuneration_will_depend_on_the_number_of_porters_required":
+            MessageLookupByLibrary.simpleMessage(
+                "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
+        "this_field_is_required":
+            MessageLookupByLibrary.simpleMessage("هذا الحقل مطلوب"),
         "total_money":
             MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
+        "total_number_of_floors":
+            MessageLookupByLibrary.simpleMessage("عدد الطوابق الكلي:"),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),
         "use_current_location":
             MessageLookupByLibrary.simpleMessage("استخدام موقعك الحالي"),

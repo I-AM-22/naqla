@@ -6,23 +6,20 @@ import {
 } from '@nestjs/common';
 import { CreateDriverDto, UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
-import { Entities, ROLE } from '../../../common/enums';
-import { defaultPhotoUrl, item_not_found } from '../../../common/constants';
-import { ICitiesService } from '../../cities/interfaces/services/cities.service.interface';
-import { CITY_TYPES } from '../../cities/interfaces/type';
+import { Entities, ROLE } from '@common/enums';
+import { defaultPhotoUrl, item_not_found } from '@common/constants';
+import { ICitiesService } from '@models/cities/interfaces/services/cities.service.interface';
+import { CITY_TYPES } from '@models/cities/interfaces/type';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
-import { PaginatedResponse } from '../../../common/types';
+import { PaginatedResponse } from '@common/types';
 import { DriverPhoto } from '../entities/driver-photo.entity';
 import { IDriverRepository } from '../interfaces/repositories/driver.repository.interface';
 import { DRIVER_TYPES } from '../interfaces/type';
 import { UpdateDriverPhoneDto } from '../../../auth-driver';
-import { ROLE_TYPES } from '../../roles/interfaces/type';
-import { IRolesService } from '../../roles/interfaces/services/roles.service.interface';
+import { ROLE_TYPES } from '@models/roles/interfaces/type';
+import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
 // import { UpdatePhoneDto } from '../../../auth-driver';
-import {
-  IPhotoRepository,
-  IWalletRepository,
-} from '../../../common/interfaces';
+import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { DriverWallet } from '../entities/driver-wallet.entity';
 
 @Injectable()

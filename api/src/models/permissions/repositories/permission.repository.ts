@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Action, Entities } from '../../../common/enums';
+import { Action, Entities } from '@common/enums';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Permission } from '../entities/permission.entity';

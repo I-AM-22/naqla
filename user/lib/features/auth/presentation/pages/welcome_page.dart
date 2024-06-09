@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +9,6 @@ import 'package:naqla/generated/flutter_gen/assets.gen.dart';
 
 import '../../../../generated/l10n.dart';
 
-@RoutePage()
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
   static const String path = "/WelcomePage";
@@ -52,9 +50,7 @@ class WelcomePage extends StatelessWidget {
               onTap: () => context.pushNamed(SignInPage.name, extra: true),
               child: Container(
                 padding: REdgeInsets.symmetric(vertical: 8),
-                decoration: BoxDecoration(
-                    border: Border.all(color: context.colorScheme.primary),
-                    borderRadius: BorderRadius.circular(8.r)),
+                decoration: BoxDecoration(border: Border.all(color: context.colorScheme.primary), borderRadius: BorderRadius.circular(8.r)),
                 child: Center(
                   child: AppText.subHeadWebMedium(
                     S.of(context).log_in,

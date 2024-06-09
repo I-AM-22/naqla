@@ -5,10 +5,11 @@ import { SUB_ORDER_TYPES } from './interfaces/type';
 import { SubOrderRepository } from './repositories/sub-order.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SubOrder } from './entities/sub-order.entity';
-import { OrderPhoto } from '../orders';
+import { OrderPhoto } from '../orders/entities/order-photo.entity';
 import { OrdersModule } from '../orders/orders.module';
 import { SettingsModule } from '../settings/settings.module';
 import { DriversModule } from '../drivers/drivers.module';
+import { PymentRepository } from '@models/orders/repositories/pyment.repository';
 
 export const SubOrdersServiceProvider: Provider = {
   provide: SUB_ORDER_TYPES.service,

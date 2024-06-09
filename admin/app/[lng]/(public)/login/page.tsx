@@ -9,6 +9,7 @@ import { useMutation } from "@/hooks/use-mutation";
 import { useTranslation } from "@/i18n/client";
 import { z } from "@/lib/zod";
 import { adminsControllerLogin } from "@/service/api";
+import { parseResponseError } from "@/utils/apiHelpers";
 import { withT } from "@/utils/i18n";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -31,7 +32,9 @@ export default function Page() {
   });
   const login = useMutation(adminsControllerLogin, form);
   const onSubmit = async (data: FormSchema) => {
-    const response = await login(data);
+    const response = await login(data, {
+      onError: parseResponseError({ setFormError: form.setError }),
+    });
     if (response) loginUser(response.data);
   };
   return (

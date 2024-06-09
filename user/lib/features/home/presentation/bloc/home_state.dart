@@ -8,9 +8,11 @@ class HomeState extends StateObject<HomeState> {
   static String setOrder = "setOrder";
 
   final SetOrderParam setOrderParam;
+  final int formCount;
 
-  HomeState({States? states, SetOrderParam? setOrderParam})
+  HomeState({States? states, SetOrderParam? setOrderParam, int? formCount})
       : setOrderParam = setOrderParam ?? SetOrderParam.empty(),
+        formCount = formCount ?? 1,
         super(
           [
             InitialState<LocationData?>(changeLocationEvent),
@@ -19,12 +21,13 @@ class HomeState extends StateObject<HomeState> {
             InitialState<List<OrderModel>>(ordersActive),
             InitialState<OrderModel>(setOrder),
           ],
-          (states) => HomeState(states: states, setOrderParam: setOrderParam),
+          (states) => HomeState(states: states, setOrderParam: setOrderParam, formCount: formCount),
           states,
         );
 
-  HomeState copyWith({SetOrderParam? setOrderParam}) => HomeState(setOrderParam: setOrderParam ?? this.setOrderParam, states: states);
+  HomeState copyWith({SetOrderParam? setOrderParam, int? formCount}) =>
+      HomeState(setOrderParam: setOrderParam ?? this.setOrderParam, states: states, formCount: formCount ?? this.formCount);
 
   @override
-  List<Object?> get props => [states, setOrderParam];
+  List<Object?> get props => [states, setOrderParam, formCount];
 }

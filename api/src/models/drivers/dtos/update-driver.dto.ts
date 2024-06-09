@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsOptional, Length } from 'class-validator';
-import { IsPhotoExist } from '../../../common/decorators';
-import { Entities } from '../../../common/enums';
+import { IsPhotoExist } from '@common/decorators';
+import { Entities } from '@common/enums';
 import { Transform } from 'class-transformer';
-import { getPhotoPath } from '../../../common/helpers';
-import { item_not_found } from '../../../common/constants';
+import { getPhotoPath } from '@common/helpers';
+import { item_not_found } from '@common/constants';
 
 export class UpdateDriverDto {
   @ApiProperty({ default: 'bahaa Alden' })

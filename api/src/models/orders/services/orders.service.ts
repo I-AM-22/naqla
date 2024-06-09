@@ -8,18 +8,18 @@ import { ORDER_TYPES } from '../interfaces/type';
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
-import { User } from '../../users/entities/user.entity';
+import { User } from '@models/users/entities/user.entity';
 import { IOrdersService } from '../interfaces/services/orders.service.interface';
-import { item_not_found } from '../../../common/constants';
-import { Entities, ORDER_STATUS, ROLE } from '../../../common/enums';
-// import { IPhotoRepository } from '../../../common/interfaces';
+import { item_not_found } from '@common/constants';
+import { Entities, ORDER_STATUS, ROLE } from '@common/enums';
+// import { IPhotoRepository } from '@common/interfaces';
 // import { OrderPhoto } from '../entities/order-photo.entity';
-import { ADVANTAGE_TYPES } from '../../advantages/interfaces/type';
-import { IAdvantagesService } from '../../advantages/interfaces/services/advantages.service.interface';
+import { ADVANTAGE_TYPES } from '@models/advantages/interfaces/type';
+import { IAdvantagesService } from '@models/advantages/interfaces/services/advantages.service.interface';
 import { OrderPhotoRepository } from '../repositories/order-photo.repository';
-import { IPerson } from '../../../common/interfaces';
+import { IPerson } from '@common/interfaces';
 import { PymentRepository } from '../repositories/pyment.repository';
-import { ISettingRepository } from '../../settings/interfaces/repositories/setting.repository.interface';
+import { ISettingRepository } from '@models/settings/interfaces/repositories/setting.repository.interface';
 
 @Injectable()
 export class OrdersService implements IOrdersService {
@@ -104,13 +104,14 @@ export class OrdersService implements IOrdersService {
     const photo = await this.orderPhotoRepository.uploadPhotoMultiple([]);
     return this.orderRepository.update(order, dto, photo);
   }
-  async divisionDone(id: string): Promise<Order> {
+  async divisionDone(id: string, cost: number): Promise<Order> {
     // const order = await this.orderRepository.findOne(id);
     // if (order.status !== ORDER_STATUS.WAITING) {
     //   throw new ForbiddenException(
     //     'Can not division Done this order becouss him status is not waiting',
     //   );
     // }
+    await this.pymentRepository.setTotal(id, cost);
     return this.orderRepository.divisionDone(id);
   }
   acceptance(id: string): Promise<Order> {

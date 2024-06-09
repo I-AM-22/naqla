@@ -6,11 +6,11 @@ import {
   IsNotEmpty,
   Matches,
 } from 'class-validator';
-import { IsPhotoExist, IsUnique } from '../../../common/decorators';
-import { Entities } from '../../../common/enums';
+import { IsPhotoExist, IsUnique } from '@common/decorators';
+import { Entities } from '@common/enums';
 import { Transform } from 'class-transformer';
-import { getPhotoPath } from '../../../common/helpers';
-import { item_already_exist } from '../../../common/constants';
+import { getPhotoPath } from '@common/helpers';
+import { item_already_exist } from '@common/constants';
 
 export class UpdateEmployeeDto {
   @IsString()

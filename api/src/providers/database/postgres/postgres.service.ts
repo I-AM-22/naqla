@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigType } from '@nestjs/config';
-import PostgresConfig from '../../../config/database/postgres';
-import { AppConfig } from '../../../config/app';
+import PostgresConfig from '@config/database/postgres';
+import { AppConfig } from '@config/app';
 import { DataSourceOptions } from 'typeorm';
 
 @Injectable()
@@ -14,14 +14,18 @@ export class PostgresService implements TypeOrmOptionsFactory {
     private readonly appConfig: ConfigType<typeof AppConfig>,
   ) {}
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    // if (this.appConfig.env === 'production') {
-    //   return {
-    //     type: 'postgres',
-    //     url: this.postgresConfig.url,
-    //     entities: [__dirname + '/../../../models/**/entities/*.entity.{js,ts}'],
-    //     synchronize: true,
-    //   };
-    // }
+    if (this.appConfig.env === 'production') {
+      return {
+        type: 'postgres',
+        url: this.postgresConfig.url,
+        entities: [__dirname + '/../../../models/**/entities/*.entity.{js,ts}'],
+        synchronize: true,
+        ssl: {
+          rejectUnauthorized: false,
+          ca: this.postgresConfig.ca,
+        },
+      };
+    }
 
     const type: DataSourceOptions['type'] = 'postgres';
     const entities: DataSourceOptions['entities'] = [

@@ -1,11 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
@@ -28,7 +29,6 @@ class EditProfileParam {
   EditProfileParam({required this.bloc, required this.user});
 }
 
-@RoutePage()
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key, required this.param});
   final EditProfileParam param;
@@ -88,7 +88,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               width: 130.w,
                               height: 130.w,
                               decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                              child: AppImage.network(data),
+                              child: AppImage.network(
+                                data,
+                                fit: BoxFit.cover,
+                              ),
                             );
                           },
                         ),
@@ -111,7 +114,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           children: [
                                             AppButton.ghost(
                                               title: S.of(context).camera,
-                                              postfixIcon: AppImage.asset(Assets.icons.essential.camera.path),
+                                              postfixIcon: Icon(IconlyBroken.camera),
                                               onPressed: () {
                                                 bloc.add((PickImageEvent(
                                                   ImageSource.camera,
@@ -129,6 +132,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                   (p0) => context.pop(),
                                                 )));
                                               },
+                                              postfixIcon: Icon(IconlyBroken.image),
                                               title: S.of(context).gallery,
                                             ),
                                           ],
@@ -144,10 +148,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               decoration: BoxDecoration(
                                   color: const Color(0xFFFAFAFA), border: Border.all(color: context.colorScheme.primary), shape: BoxShape.circle),
                               child: Center(
-                                child: AppImage.asset(
-                                  Assets.icons.essential.edit.path,
-                                  size: 15.r,
-                                  color: context.colorScheme.primary,
+                                child: Icon(
+                                  IconlyBroken.edit_square,
+                                  size: 18.r,
                                 ),
                               ),
                             ),
@@ -160,10 +163,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   AppTextFormField(
                     initialValue: widget.param.user.firstName,
                     name: 'firstName',
-                    validator: (value) {
-                      if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
-                      return null;
-                    },
+                    validator: FormBuilderValidators.required(),
                     keyboardType: TextInputType.name,
                   ),
                   24.verticalSpace,
@@ -171,11 +171,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     name: 'lastName',
                     title: S.of(context).last_name,
                     initialValue: widget.param.user.lastName,
-                    validator: (value) {
-                      if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
-
-                      return null;
-                    },
+                    validator: FormBuilderValidators.required(),
                     keyboardType: TextInputType.name,
                   ),
                   32.verticalSpace,

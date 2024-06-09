@@ -1,10 +1,10 @@
 import { setSeederFactory } from 'typeorm-extension';
-import { User } from '../../../models/users/entities/user.entity';
-import { UserPhoto } from '../../../models/users';
-import { defaultPhoto } from '../../../common/constants';
-import { Role } from '../../../models/roles';
-import { ROLE } from '../../../common/enums';
-import { UserWallet } from '../../../models/users/entities/user-wallet.entity';
+import { User } from '@models/users/entities/user.entity';
+import { UserPhoto } from '@models/users/entities/user-photo.entity';
+import { defaultPhoto } from '@common/constants';
+import { Role } from '@models/roles/entities/role.entity';
+import { ROLE } from '@common/enums';
+import { UserWallet } from '@models/users/entities/user-wallet.entity';
 
 export const userFactory = setSeederFactory(User, async (faker) =>
   User.create({

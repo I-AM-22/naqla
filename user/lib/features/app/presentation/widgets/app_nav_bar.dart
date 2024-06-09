@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iconly/iconly.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/custom_active_icon.dart';
 
-import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 
 class AppNavigationBar extends StatelessWidget {
@@ -31,42 +30,41 @@ class AppNavigationBar extends StatelessWidget {
         items: [
           BottomNavigationBarItem(
             label: "",
-            icon: AppImage.asset(
-              Assets.icons.essential.home.path,
-              size: 24.h,
+            icon: Icon(
+              IconlyLight.home,
+              color: context.colorScheme.primary,
             ),
             activeIcon: CustomActiveIcon(
-              image: Assets.icons.essential.house.path,
+              iconData: IconlyBold.home,
               label: S.of(context).home,
             ),
           ),
           BottomNavigationBarItem(
             label: "",
-            icon: AppImage.asset(
-              Assets.icons.essential.home.path,
-              size: 24.h,
+            icon: Icon(
+              IconlyBroken.buy,
+              color: context.colorScheme.primary,
             ),
-            activeIcon: CustomActiveIcon(image: Assets.icons.essential.house.path, label: S.of(context).orders),
+            activeIcon: CustomActiveIcon(iconData: IconlyBold.buy, label: S.of(context).orders),
           ),
           BottomNavigationBarItem(
             label: "",
-            icon: AppImage.asset(
-              Assets.icons.essential.chat.path,
-              color: context.colorScheme.systemGray.shade300,
-              size: 24.h,
+            icon: Icon(
+              IconlyBroken.chat,
+              color: context.colorScheme.primary,
             ),
             activeIcon: CustomActiveIcon(
-              image: Assets.icons.essential.chat.path,
+              iconData: IconlyBold.chat,
               label: S.of(context).chat,
             ),
           ),
           BottomNavigationBarItem(
             label: "",
-            icon: AppImage.asset(
-              Assets.icons.essential.profile.path,
-              size: 24.h,
+            icon: Icon(
+              IconlyBroken.profile,
+              color: context.colorScheme.primary,
             ),
-            activeIcon: CustomActiveIcon(image: Assets.icons.essential.user.path, label: S.of(context).profile),
+            activeIcon: CustomActiveIcon(iconData: IconlyBold.profile, label: S.of(context).profile),
           ),
         ],
         onTap: onTap,

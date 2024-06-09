@@ -6,11 +6,47 @@
  * naqleh API
  * OpenAPI spec version: 1.0
  */
+export type SubOrdersControllerSetDriverPathParameters = {
+  id: string;
+};
+export type SubOrdersControllerSetDeliveredAtPathParameters = {
+  id: string;
+};
+export type SubOrdersControllerSetPickedUpAtPathParameters = {
+  id: string;
+};
+export type SubOrdersControllerSetArrivedAtPathParameters = {
+  id: string;
+};
+export type SubOrdersControllerDeletePathParameters = {
+  id: string;
+};
+export type SubOrdersControllerUpdatePathParameters = {
+  id: string;
+};
+export type SubOrdersControllerFindOnePathParameters = {
+  id: string;
+};
+export type SettingsControllerUpdatePathParameters = {
+  id: string;
+};
+export type SettingsControllerFindOnePathParameters = {
+  id: string;
+};
 export type OrderControllerRemoveAdvantagesFromOrderPathParameters = {
   id: string;
   advantageId: string;
 };
 export type OrderControllerAddAdvantagesToOrderPathParameters = {
+  id: string;
+};
+export type OrderControllerRefusalPathParameters = {
+  id: string;
+};
+export type OrderControllerCancellationPathParameters = {
+  id: string;
+};
+export type OrderControllerAcceptancePathParameters = {
   id: string;
 };
 export type OrderControllerDeletePathParameters = {
@@ -139,8 +175,65 @@ export type AuthUserControllerConfirmParams = {
   phoneConfirm: boolean;
 };
 
+export type UpdateSubOrderDto = {
+  car: Car;
+  rating: number;
+};
+
+export type SubOrderOrder = { [key: string]: any };
+
+export type SubOrderCar = { [key: string]: any };
+
+export type SubOrder = {
+  acceptedAt: string;
+  arrivedAt: string;
+  car?: SubOrderCar;
+  carId?: string;
+  cost: number;
+  createdAt: Date;
+  deliveredAt: string;
+  driverAssignedAt: string;
+  id: string;
+  order: SubOrderOrder;
+  photos: string[];
+  pickedUpAt: string;
+  rating: number;
+  status: string;
+  updatedAt: Date;
+  weight: number;
+};
+
+export type Sub = {
+  photos: string[];
+  weight: number;
+};
+
+export type CreateSubOrderDto = {
+  orderId: string;
+  subOrders: Sub[];
+};
+
+export type UpdateSettingDto = {
+  cost?: number;
+};
+
+export type Setting = {
+  cost: number;
+  createdAt: Date;
+  id: string;
+  name: string;
+  updatedAt: Date;
+};
+
 export type AddAdvansToOrderDto = {
   advantages: string[];
+};
+
+export type Item = {
+  length: number;
+  photo: string;
+  weight: number;
+  width: number;
 };
 
 export type LocationDto = {
@@ -156,15 +249,18 @@ export type UpdateOrderDto = {
   locationEnd: LocationDto;
   locationStart: LocationDto;
   photo: string[];
-  status: string;
 };
 
 export type CreateOrderDto = {
+  advantages: string[];
   desiredDate: Date;
+  items: Item[];
   locationEnd: LocationDto;
   locationStart: LocationDto;
-  photo: string[];
+  porters: number;
 };
+
+export type OrderUser = { [key: string]: any };
 
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
 
@@ -173,15 +269,32 @@ export const OrderStatus = {
   waiting: "waiting",
   ready: "ready",
   accepted: "accepted",
+  refused: "refused",
+  on_the_way: "on the way",
   delivered: "delivered",
   canceled: "canceled",
-  refused: "refused",
 } as const;
 
 export type Payment = {
+  additionalCost: number;
+  cost: number;
   createdAt: Date;
+  deliveredDate: Date;
   id: string;
   updatedAt: Date;
+};
+
+export type OrderPhoto = {
+  blurHash: string;
+  createdAt: Date;
+  id: string;
+  length: number;
+  mobileUrl: string;
+  profileUrl: string;
+  updatedAt: Date;
+  webUrl: string;
+  weight: number;
+  width: number;
 };
 
 export type Location = {
@@ -199,9 +312,10 @@ export type Order = {
   locationEnd: Location;
   locationStart: Location;
   payment: Payment;
-  photos: string[];
+  photos: OrderPhoto[];
   status: OrderStatus;
   updatedAt: Date;
+  user: OrderUser;
 };
 
 export type UpdateAdvantageDto = {
@@ -241,16 +355,6 @@ export type CreateCarDto = {
   photo: string;
 };
 
-export type CarPhoto = {
-  blurHash: string;
-  createdAt: Date;
-  id: string;
-  mobileUrl: string;
-  profileUrl: string;
-  updatedAt: Date;
-  webUrl: string;
-};
-
 export type Car = {
   advantages: string[];
   brand: string;
@@ -258,7 +362,8 @@ export type Car = {
   createdAt: Date;
   id: string;
   model: string;
-  photo: CarPhoto;
+  photo: BasePhoto;
+  photos: string[];
   updatedAt: Date;
 };
 

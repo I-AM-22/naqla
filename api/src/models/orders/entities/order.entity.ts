@@ -1,3 +1,8 @@
+import { GlobalEntity } from '@common/base';
+import { Advantage } from '@models/advantages/entities/advantage.entity';
+import { User } from '@models/users/entities/user.entity';
+import { ApiProperty } from '@nestjs/swagger';
+import { Exclude, Type } from 'class-transformer';
 import {
   Column,
   Entity,
@@ -8,17 +13,13 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { GlobalEntity } from '../../../common/base';
 import { OrderPhoto } from './order-photo.entity';
-import { Exclude, Type } from 'class-transformer';
-import { ApiProperty } from '@nestjs/swagger';
-import { Advantage } from '../../advantages/entities/advantage.entity';
-import { User } from '../../users/entities/user.entity';
-// import { GROUPS } from '../../../common/enums';
+// import { GROUPS } from '@common/enums';
+import { ORDER_STATUS } from '@common/enums';
+import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 import { Location } from '../interfaces/location.interface';
-import { ORDER_STATUS } from '../../../common/enums';
 import { Payment } from './payment.entity';
-import { SubOrder } from '../../sub-orders/entities/sub-order.entity';
+import { MiniUser } from '@models/users/interfaces/mini-user.interface';
 
 @Entity('orders')
 export class Order extends GlobalEntity {
@@ -40,6 +41,7 @@ export class Order extends GlobalEntity {
   @Type(() => Location)
   locationEnd: Location; // Using custom type for locationEnd
 
+  @ApiProperty({ type: () => MiniUser })
   @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn({ referencedColumnName: 'id', name: 'userId' })
   user: User;
@@ -48,7 +50,7 @@ export class Order extends GlobalEntity {
   @Column('uuid')
   userId: string;
 
-  @ApiProperty()
+  @ApiProperty({ isArray: true, type: () => OrderPhoto })
   @OneToMany(() => OrderPhoto, (photo) => photo.order, {
     cascade: true,
     eager: true,
@@ -60,7 +62,7 @@ export class Order extends GlobalEntity {
   @JoinTable({ name: 'orders_advantages' })
   advantages: Advantage[];
 
-  // @ApiProperty()
+  @ApiProperty()
   @OneToOne(() => Payment, (payment) => payment.order, {
     cascade: true,
   })

@@ -1,7 +1,5 @@
-import { Role } from '../../../roles';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { CreateDriverDto, UpdateDriverDto, Driver, DriverPhoto } from '../..';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IDriverRepository } from '../../interfaces/repositories/driver.repository.interface';
 import { BaseAuthRepo } from '../../../../common/base';
@@ -10,6 +8,10 @@ import { pagination } from '../../../../common/helpers';
 import { PaginatedResponse } from '../../../../common/types';
 import { UpdateDriverPhoneDto } from '../../../../auth-driver';
 import { DriverWallet } from '../../entities/driver-wallet.entity';
+import { Role } from '../../../roles/entities/role.entity';
+import { CreateDriverDto, UpdateDriverDto } from '../../dtos';
+import { DriverPhoto } from '../../entities/driver-photo.entity';
+import { Driver } from '../../entities/driver.entity';
 
 @Injectable()
 export class DriverRepository

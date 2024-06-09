@@ -7,14 +7,14 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { BasePhoto, GlobalEntity } from '../../../common/base';
+import { BasePhoto, GlobalEntity } from '@common/base';
 import { Driver } from './driver.entity';
 import { CarPhoto } from './car-photo.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Advantage } from '../../advantages/entities/advantage.entity';
-import { GROUPS } from '../../../common/enums';
-import { SubOrder } from '../../sub-orders/entities/sub-order.entity';
+import { Advantage } from '@models/advantages/entities/advantage.entity';
+import { GROUPS } from '@common/enums';
+import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 
 @Entity('cars')
 export class Car extends GlobalEntity {

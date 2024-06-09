@@ -22,21 +22,17 @@ import {
   SerializeOptions,
   UseInterceptors,
 } from '@nestjs/common';
-import { Public, CheckAbilities, Id, Auth } from '../../../common/decorators';
-import { GROUPS, Entities, Action } from '../../../common/enums';
+import { Public, CheckAbilities, Id, Auth } from '@common/decorators';
+import { GROUPS, Entities, Action } from '@common/enums';
 import {
   CreateEmployeeDto,
   LoginEmployeeDto,
   UpdateEmployeeDto,
 } from '../dtos';
-import { ICrud } from '../../../common/interfaces';
+import { ICrud } from '@common/interfaces';
 import { AuthEmployeeResponse } from '../interfaces';
-import {
-  bad_req,
-  data_not_found,
-  denied_error,
-} from '../../../common/constants';
-import { WithDeletedInterceptor } from '../../../common/interceptors';
+import { bad_req, data_not_found, denied_error } from '@common/constants';
+import { WithDeletedInterceptor } from '@common/interceptors';
 import { Request } from 'express';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { IEmployeesService } from '../interfaces/services/employees.service.interface';

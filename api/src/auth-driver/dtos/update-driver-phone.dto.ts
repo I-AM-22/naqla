@@ -1,3 +1,3 @@
-import { UpdatePhoneDto } from '../../common/dtos';
+import { UpdatePhoneDto } from '@common/dtos';
 
 export class UpdateDriverPhoneDto extends UpdatePhoneDto {}

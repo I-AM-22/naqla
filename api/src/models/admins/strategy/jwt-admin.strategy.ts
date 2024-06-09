@@ -4,8 +4,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { jwtPayload } from '../../../auth-user';
-import { Entities } from '../../../common/enums';
-import { strategies } from '../../../common/constants/jwt.constant';
+import { Entities } from '@common/enums';
+import { strategies } from '@common/constants/jwt.constant';
 import { ADMIN_TYPES } from '../interfaces/type';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 

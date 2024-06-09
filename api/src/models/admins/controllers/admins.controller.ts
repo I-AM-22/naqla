@@ -21,7 +21,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Admin } from '../entities/admin.entity';
-import { Role } from '../../roles';
+import { Role } from '@models/roles/entities/role.entity';
 import {
   Public,
   CheckAbilities,
@@ -29,15 +29,11 @@ import {
   Roles,
   Id,
   Auth,
-} from '../../../common/decorators';
-import { GROUPS, Entities, Action, ROLE } from '../../../common/enums';
-import { ICrud } from '../../../common/interfaces';
+} from '@common/decorators';
+import { GROUPS, Entities, Action, ROLE } from '@common/enums';
+import { ICrud } from '@common/interfaces';
 import { AuthAdminResponse } from '../interfaces';
-import {
-  bad_req,
-  denied_error,
-  item_not_found,
-} from '../../../common/constants';
+import { bad_req, denied_error, item_not_found } from '@common/constants';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
 

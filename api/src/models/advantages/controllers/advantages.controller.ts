@@ -23,15 +23,11 @@ import {
   ApiOkResponse,
   ApiNoContentResponse,
 } from '@nestjs/swagger';
-import {
-  bad_req,
-  denied_error,
-  data_not_found,
-} from '../../../common/constants';
-import { LoggingInterceptor } from '../../../common/interceptors';
+import { bad_req, denied_error, data_not_found } from '@common/constants';
+import { LoggingInterceptor } from '@common/interceptors';
 import { Advantage } from '../entities/advantage.entity';
-import { Auth, Roles } from '../../../common/decorators';
-import { GROUPS, ROLE } from '../../../common/enums';
+import { Auth, Roles } from '@common/decorators';
+import { GROUPS, ROLE } from '@common/enums';
 
 @ApiTags('Advantages')
 @ApiBadRequestResponse({ description: bad_req })

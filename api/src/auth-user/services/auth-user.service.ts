@@ -4,8 +4,8 @@ import {
   Inject,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { User } from '../../models/users';
-import { JwtTokenService } from '../../shared/jwt';
+import { User } from '@models/users/entities/user.entity';
+import { JwtTokenService } from '@shared/jwt';
 import {
   SignUpUserDto,
   LoginUserDto,
@@ -19,15 +19,15 @@ import {
   incorrect_credentials_OTP,
   incorrect_phone_number,
   item_already_exist,
-} from '../../common/constants';
-import { USER_TYPES } from '../../models/users/interfaces/type';
+} from '@common/constants';
+import { USER_TYPES } from '@models/users/interfaces/type';
 import { IAuthUserService } from '../interfaces/services/auth.service.interface';
-import { OtpsService } from '../../models/otps/services/otps.service';
-import { OTP_TYPE } from '../../common/enums/otp.enum';
-import { Entities } from '../../common/enums';
-import { IUsersService } from '../../models/users/interfaces/services/users.service.interface';
-import { IOtp } from '../../models/otps/interfaces/otp.interface';
-import { SendConfirm } from '../../common/types';
+import { OtpsService } from '@models/otps/services/otps.service';
+import { OTP_TYPE } from '@common/enums/otp.enum';
+import { Entities } from '@common/enums';
+import { IUsersService } from '@models/users/interfaces/services/users.service.interface';
+import { IOtp } from '@models/otps/interfaces/otp.interface';
+import { SendConfirm } from '@common/types';
 
 @Injectable()
 export class AuthUserService implements IAuthUserService {

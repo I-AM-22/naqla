@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { User } from './user.entity';
-import { BasePhoto } from '../../../common/base';
+import { BasePhoto } from '@common/base';
 import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'users_photos' })

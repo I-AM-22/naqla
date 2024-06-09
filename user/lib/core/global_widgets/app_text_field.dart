@@ -196,8 +196,7 @@ class AppTextFormField extends StatelessWidget {
             children: [
               Material(
                 elevation: elevation,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 shadowColor: context.colorScheme.shadow.withOpacity(.2),
                 child: SizedBox(
                   height: minLines != null ? height : 48.h,
@@ -214,56 +213,50 @@ class AppTextFormField extends StatelessWidget {
                       isDense: true,
                       label: label != null ? AppText(label!) : null,
                       hintText: hintText,
-                      hintStyle: hintStyle ??
-                          context.textTheme.subHeadMedium.copyWith(
-                              color: context.colorScheme.systemGray.shade200),
+                      hintStyle: hintStyle ?? context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.systemGray.shade200),
                       floatingLabelAlignment: FloatingLabelAlignment.start,
                       hintMaxLines: hintMaxLines,
                       hintTextDirection: hintTextDirection,
-                      contentPadding: REdgeInsetsDirectional.only(
-                          start: 16, top: 16, bottom: 10),
+                      contentPadding: REdgeInsetsDirectional.only(start: 16, top: 16, bottom: 10),
                       fillColor: fillColor ?? context.colorScheme.onPrimary,
                       focusColor: context.colorScheme.surface,
                       alignLabelWithHint: alignLabelWithHint,
                       suffixIcon: suffixIcon,
-                      suffixIconConstraints: BoxConstraints(
-                          maxHeight: 40.h, minHeight: 10.h, minWidth: 40.w),
+                      suffixIconConstraints: BoxConstraints(maxHeight: 40.h, minHeight: 10.h, minWidth: 40.w),
                       constraints: BoxConstraints(minHeight: 48.h),
-                      prefixIconConstraints: BoxConstraints(
-                          maxHeight: 40.h, minHeight: 10.h, minWidth: 40.w),
+                      prefixIconConstraints: BoxConstraints(maxHeight: 40.h, minHeight: 10.h, minWidth: 40.w),
                       prefixIcon: prefixIcon,
                       filled: filled,
                       border: border ??
                           OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: context.colorScheme.outline),
+                            borderSide: BorderSide(color: context.colorScheme.outline),
                             borderRadius: BorderRadius.circular(8),
                           ),
                       disabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: context.colorScheme.outline),
+                        borderSide: BorderSide(color: context.colorScheme.outline),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       enabledBorder: enabledBorder ??
                           OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: context.colorScheme.outline),
+                            borderSide: BorderSide(color: context.colorScheme.outline),
                             borderRadius: BorderRadius.circular(8),
                           ),
                       focusedBorder: focusedBorder ??
                           OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: context.colorScheme.primary),
+                            borderSide: BorderSide(color: context.colorScheme.primary),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                      errorBorder: errorBorder ??
+                          OutlineInputBorder(
+                            borderSide: BorderSide(color: context.colorScheme.error),
                             borderRadius: BorderRadius.circular(8),
                           ),
                     ).applyDefaults(
-                      context.theme.inputDecorationTheme
-                          .copyWith(alignLabelWithHint: alignLabelWithHint),
+                      context.theme.inputDecorationTheme.copyWith(alignLabelWithHint: alignLabelWithHint),
                     ),
                 valueTransformer: valueTransformer,
                 keyboardType: keyboardType,
-                textCapitalization:
-                    textCapitalization ?? TextCapitalization.none,
+                textCapitalization: textCapitalization ?? TextCapitalization.none,
                 textInputAction: textInputAction,
                 style: style,
                 strutStyle: strutStyle,

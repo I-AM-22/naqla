@@ -1,3 +1,3 @@
-import { SignUpDto } from '../../common/dtos';
+import { SignUpDto } from '@common/dtos';
 
 export abstract class SignUpDriverDto extends SignUpDto {}

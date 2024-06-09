@@ -1,17 +1,18 @@
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { And, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 // import { Order } from '../entities/order.entity';
-// import { OrderPhoto } from '../../orders/entities/order-photo.entity';
-import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
+// import { OrderPhoto } from '@models/orders/entities/order-photo.entity';
+import { sub } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
-// import { Advantage } from '../../advantages/entities/advantage.entity';
-// import { User } from '../../users';
-// import { SUB_ORDER_STATUS } from '../../../common/enums';
+// import { Advantage } from '@models/advantages/entities/advantage.entity';
+// import { User } from '@models/users';
+// import { SUB_ORDER_STATUS } from '@common/enums';
 import { SubOrder } from '../entities/sub-order.entity';
-import { SUB_ORDER_STATUS } from '../../../common/enums';
-import { Car } from '../../drivers/entities/car.entity';
+import { SUB_ORDER_STATUS } from '@common/enums';
+import { Car } from '@models/drivers/entities/car.entity';
+import { IsString } from 'class-validator';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -48,9 +49,9 @@ export class SubOrderRepository implements ISubOrderRepository {
         'subOrder.weight',
         'photos',
         'order.locationStart',
-        'order.locationEnd', // حقول order التي تريد عرضها
+        'order.locationEnd',
         'order.desiredDate',
-        'advantage.name', // حقول advantage التي تريد عرضها
+        'advantage.name',
       ]);
 
     const carAdvantagesIds = cars.flatMap((car) =>
@@ -71,9 +72,9 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
-  async create(dto: CreateSubOrderDto, cost: number): Promise<SubOrder> {
+  async create(id: string, dto: sub, cost: number): Promise<SubOrder> {
     const sub = this.suporderRepository.create({
-      orderId: dto.orderId,
+      orderId: id,
       weight: dto.weight,
       cost,
       // cost: Math.floor(Math.random() * 1000),
@@ -84,6 +85,22 @@ export class SubOrderRepository implements ISubOrderRepository {
   async update(id: string, dto: UpdateSubOrderDto): Promise<SubOrder> {
     const doc = await this.suporderRepository.findOne({ where: { id } });
     doc.rating = dto.rating;
+    return await this.suporderRepository.save(doc);
+  }
+  async setArrivedAt(id: string): Promise<SubOrder> {
+    const doc = await this.suporderRepository.findOne({ where: { id } });
+    doc.arrivedAt = new Date().toISOString();
+    return await this.suporderRepository.save(doc);
+  }
+
+  async setPickedUpAt(id: string): Promise<SubOrder> {
+    const doc = await this.suporderRepository.findOne({ where: { id } });
+    doc.pickedUpAt = new Date().toISOString();
+    return await this.suporderRepository.save(doc);
+  }
+  async setDeliveredAt(id: string): Promise<SubOrder> {
+    const doc = await this.suporderRepository.findOne({ where: { id } });
+    doc.deliveredAt = new Date().toISOString();
     return await this.suporderRepository.save(doc);
   }
 
@@ -109,5 +126,20 @@ export class SubOrderRepository implements ISubOrderRepository {
     doc.driverAssignedAt = new Date().toISOString();
     doc.status = SUB_ORDER_STATUS.TAKEN;
     return await this.suporderRepository.save(doc);
+  }
+
+  async findTotalCost(id: string): Promise<number> {
+    //1)
+    // const suporders = await this.suporderRepository.find({
+    //   where: { orderId: id },
+    // });
+    // const totalCost = suporders.reduce((sum, order) => sum + order.cost, 0);
+    // return totalCost;
+    const result = await this.suporderRepository
+      .createQueryBuilder('suporder')
+      .select('SUM(suporder.cost)', 'totalCost')
+      .where('suporder.orderId = :id', { id })
+      .getRawOne();
+    return result.totalCost ?? 0;
   }
 }

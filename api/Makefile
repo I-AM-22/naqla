@@ -15,7 +15,7 @@ install: package.json
 
 pre-build:
 	@echo "Cleaning up dist directory..."
-	@./node_modules/.bin/rimraf dist
+	@C:/myfiles/projects/naqla/api/node_modules/.bin/rimraf dist
 
 build: pre-build
 	nest build
@@ -30,7 +30,7 @@ debug:
 	nest start --debug --watch
 
 prod: build
-	ENV=production node dist/main
+	cross-env ENV=production node dist/main
 
 format:
 	npx prettier --write "src/**/*.ts" "test/**/*.ts"

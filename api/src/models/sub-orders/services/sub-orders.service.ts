@@ -5,13 +5,14 @@ import { ISubOrderRepository } from '../interfaces/repositories/sub-order.reposi
 import { SUB_ORDER_TYPES } from '../interfaces/type';
 import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
 import { SubOrder } from '../entities/sub-order.entity';
-import { ORDER_TYPES } from '../../orders/interfaces/type';
-import { OrderPhotoRepository } from '../../orders/repositories/order-photo.repository';
-import { OrderRepository } from '../../orders/repositories/order.repository';
-import { ISettingRepository } from '../../settings/interfaces/repositories/setting.repository.interface';
+import { ORDER_TYPES } from '@models/orders/interfaces/type';
+import { OrderPhotoRepository } from '@models/orders/repositories/order-photo.repository';
+import { OrderRepository } from '@models/orders/repositories/order.repository';
+import { ISettingRepository } from '@models/settings/interfaces/repositories/setting.repository.interface';
 import { GpsDrivingService } from '../../../shared/gpsDriving';
-import { Setting } from '../../settings/entities/setting.entity';
-import { Car } from '../../drivers/entities/car.entity';
+import { Setting } from '@models/settings/entities/setting.entity';
+import { Car } from '@models/drivers/entities/car.entity';
+import { PymentRepository } from '@models/orders/repositories/pyment.repository';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {
@@ -22,46 +23,59 @@ export class SubOrdersService implements ISubOrdersService {
     private readonly orderPhotoRepository: OrderPhotoRepository,
     @Inject(ORDER_TYPES.repository.order)
     private readonly orderRepository: OrderRepository,
+    private readonly paymentRepository: PymentRepository,
     @Inject('ISettingRepository')
     private readonly settingepository: ISettingRepository,
     private readonly gpsDrivingService: GpsDrivingService,
   ) {}
 
-  async create(createSubOrderDto: CreateSubOrderDto): Promise<SubOrder> {
+  async create(createSubOrderDto: CreateSubOrderDto): Promise<SubOrder[]> {
+    const sub: SubOrder[] = [];
     const pointes = await this.orderRepository.findOne(
       createSubOrderDto.orderId,
     );
     let settingWeight: Setting;
-    {
-      if (createSubOrderDto.weight < 1000) {
-        settingWeight =
-          await this.settingepository.findOneByName('defaultWeight');
-      } else if (
-        createSubOrderDto.weight < 2000 &&
-        createSubOrderDto.weight >= 1000
-      )
-        settingWeight = await this.settingepository.findOneByName('minWeight');
-      else if (
-        createSubOrderDto.weight < 3000 &&
-        createSubOrderDto.weight >= 2000
-      )
-        settingWeight = await this.settingepository.findOneByName('midWeight');
-      else if (createSubOrderDto.weight >= 3000)
-        settingWeight = await this.settingepository.findOneByName('maxWeight');
+    for (let i = 0; i < createSubOrderDto.subOrders.length; i++) {
+      {
+        if (createSubOrderDto.subOrders[i].weight < 1000) {
+          settingWeight =
+            await this.settingepository.findOneByName('defaultWeight');
+        } else if (
+          createSubOrderDto.subOrders[i].weight < 2000 &&
+          createSubOrderDto.subOrders[i].weight >= 1000
+        )
+          settingWeight =
+            await this.settingepository.findOneByName('minWeight');
+        else if (
+          createSubOrderDto.subOrders[i].weight < 3000 &&
+          createSubOrderDto.subOrders[i].weight >= 2000
+        )
+          settingWeight =
+            await this.settingepository.findOneByName('midWeight');
+        else if (createSubOrderDto.subOrders[i].weight >= 3000)
+          settingWeight =
+            await this.settingepository.findOneByName('maxWeight');
+      }
+      ///تم القسمة على الف لانه ال المسافة ترجع بالمتر من اجل ان اردها الى الكيلو متر واضربها بسعر الفردي لكل كيلو
+      const costDistance =
+        (+(await this.gpsDrivingService.costDistance(
+          pointes.locationStart,
+          pointes.locationEnd,
+        )) /
+          1000) *
+        +settingWeight.cost;
+      sub.push(
+        await this.subOrderRepository.create(
+          createSubOrderDto.orderId,
+          createSubOrderDto.subOrders[i],
+          Math.round(costDistance),
+        ),
+      );
+      this.orderPhotoRepository.setPhotoSub(
+        createSubOrderDto.subOrders[i].photos,
+        sub[sub.length - 1].id,
+      );
     }
-    ///تم القسمة على الف لانه ال المسافة ترجع بالمتر من اجل ان اردها الى الكيلو متر واضربها بسعر الفردي لكل كيلو
-    const costDistance =
-      (+(await this.gpsDrivingService.costDistance(
-        pointes.locationStart,
-        pointes.locationEnd,
-      )) /
-        1000) *
-      +settingWeight.cost;
-    const sub = await this.subOrderRepository.create(
-      createSubOrderDto,
-      Math.round(costDistance),
-    );
-    this.orderPhotoRepository.setPhotoSub(createSubOrderDto.photos, sub.id);
     return sub;
   }
 
@@ -87,6 +101,20 @@ export class SubOrdersService implements ISubOrdersService {
   update(id: string, updateSubOrderDto: UpdateSubOrderDto): Promise<SubOrder> {
     return this.subOrderRepository.update(id, updateSubOrderDto);
   }
+  setArrivedAt(id: string): Promise<SubOrder> {
+    return this.subOrderRepository.setArrivedAt(id);
+  }
+
+  setPickedUpAt(id: string): Promise<SubOrder> {
+    return this.subOrderRepository.setPickedUpAt(id);
+  }
+
+  async setDeliveredAt(id: string): Promise<SubOrder> {
+    const sub = await this.subOrderRepository.setDeliveredAt(id);
+    await this.paymentRepository.setDeliveredDate(sub.orderId);
+    return sub;
+  }
+
   ready(id: string): Promise<SubOrder[]> {
     return this.subOrderRepository.ready(id);
   }
@@ -99,5 +127,8 @@ export class SubOrdersService implements ISubOrdersService {
   }
   deleteForOrder(id: string): Promise<void> {
     return this.subOrderRepository.deleteForOrder(id);
+  }
+  findTotalCost(id: string): Promise<number> {
+    return this.subOrderRepository.findTotalCost(id);
   }
 }

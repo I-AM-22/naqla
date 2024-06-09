@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PermissionSeederService } from './permissions';
 import { SuperadminSeederService } from './superadmin';
 import { RoleSeederService } from './roles';
-import { LoggerService } from '../../shared/logger';
+import { LoggerService } from '@shared/logger';
 import { SettingSeederService } from './settings';
 
 @Injectable()

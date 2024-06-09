@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/core.dart';
@@ -16,11 +16,9 @@ import 'package:naqla/features/auth/domain/use_cases/sign_up_use_case.dart';
 import 'package:naqla/features/auth/presentation/pages/phone_verfication.dart';
 import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
-import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
 
 import '../../../../generated/l10n.dart';
 
-@RoutePage()
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key, required this.showTextButton});
   final bool showTextButton;
@@ -60,10 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: AppTextFormField(
                             name: 'firstName',
                             hintText: S.of(context).first_name,
-                            validator: (value) {
-                              if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
-                              return null;
-                            },
+                            validator: FormBuilderValidators.required(),
                             keyboardType: TextInputType.name,
                           ),
                         ),
@@ -72,10 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: AppTextFormField(
                             name: 'lastName',
                             hintText: S.of(context).last_name,
-                            validator: (value) {
-                              if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
-                              return null;
-                            },
+                            validator: FormBuilderValidators.required(),
                             keyboardType: TextInputType.name,
                           ),
                         ),
@@ -89,11 +81,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         String manimbulatedValue = '$value';
                         return manimbulatedValue;
                       },
-                      validator: (value) {
-                        if (value == null || (value.isEmpty)) return 'هذا الحقل مطلوب';
-                        if ((value.length < 10)) return 'رقم الموبايل يجب ان يتالف من 10 ارقام';
-                        return null;
-                      },
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.minLength(10),
+                      ]),
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)],
                       keyboardType: TextInputType.phone,
                     ),
@@ -125,10 +116,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         );
                       },
                     ),
-                    20.verticalSpace,
-                    const WordDivider(),
-                    15.verticalSpace,
-                    const CustomSocial(),
                     if (widget.showTextButton) ...{
                       40.verticalSpace,
                       Row(

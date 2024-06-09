@@ -20,8 +20,8 @@ class SetOrderParam {
   final String desiredDate;
   final LocationModel locationStart;
   final LocationModel locationEnd;
-  final bool porters;
-  final List<String> photo;
+  final int porters;
+  final List<OrderItemsParam> items;
   final List<String>? advantages;
 
   SetOrderParam(
@@ -29,41 +29,61 @@ class SetOrderParam {
       required this.locationStart,
       required this.locationEnd,
       required this.porters,
-      required this.photo,
+      required this.items,
       required this.advantages});
 
   SetOrderParam copyWith(
     final String? desiredDate,
     final LocationModel? locationStart,
     final LocationModel? locationEnd,
-    final bool? porters,
-    final List<String>? photo,
+    final int? porters,
+    final List<OrderItemsParam>? items,
     final List<String>? advantages,
   ) =>
       SetOrderParam(
-          desiredDate: desiredDate ?? this.desiredDate,
-          locationStart: locationStart ?? this.locationStart,
-          locationEnd: locationEnd ?? this.locationEnd,
-          porters: porters ?? this.porters,
-          photo: photo ?? this.photo,
-          advantages: advantages ?? this.advantages);
+        desiredDate: desiredDate ?? this.desiredDate,
+        locationStart: locationStart ?? this.locationStart,
+        locationEnd: locationEnd ?? this.locationEnd,
+        porters: porters ?? this.porters,
+        items: items ?? this.items,
+        advantages: advantages ?? this.advantages,
+      );
 
   factory SetOrderParam.empty() => SetOrderParam(
-      desiredDate: "",
-      locationStart:
-          LocationModel(latitude: 0, longitude: 0, region: "", street: ""),
-      locationEnd:
-          LocationModel(latitude: 0, longitude: 0, region: "", street: ""),
-      porters: false,
-      photo: [],
-      advantages: []);
+        desiredDate: "",
+        locationStart: LocationModel(latitude: 0, longitude: 0, region: "", street: ""),
+        locationEnd: LocationModel(latitude: 0, longitude: 0, region: "", street: ""),
+        porters: 0,
+        items: [],
+        advantages: [],
+      );
 
   Map<String, dynamic> get toMap => {
         "desiredDate": desiredDate,
         "locationStart": locationStart.toJson(),
         "locationEnd": locationEnd.toJson(),
-        "photo": photo,
+        "items": items
+            .map(
+              (e) => e.toMap,
+            )
+            .toList(),
         "porters": porters,
-        "advantages": advantages ?? []
+        "advantages": advantages ?? [],
+      };
+}
+
+class OrderItemsParam {
+  final String photo;
+  final String width;
+  final String length;
+  final String weight;
+
+  OrderItemsParam({required this.photo, required this.width, required this.length, required this.weight});
+
+  Map<String, dynamic> get toMap => {
+        "photo": photo,
+        "weight": weight,
+        "length": length,
+        "width": width,
       };
 }

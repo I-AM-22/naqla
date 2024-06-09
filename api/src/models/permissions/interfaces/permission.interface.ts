@@ -1,4 +1,4 @@
-import { Action, Entities } from '../../../common/enums';
+import { Action, Entities } from '@common/enums';
 
 /**
  * Language variable type declaration.

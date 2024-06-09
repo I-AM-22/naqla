@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Driver } from './driver.entity';
-import { BasePhoto } from '../../../common/base';
+import { BasePhoto } from '@common/base';
 import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'drivers_photos' })

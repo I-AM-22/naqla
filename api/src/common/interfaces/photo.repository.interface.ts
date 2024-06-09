@@ -1,4 +1,4 @@
-import { Item } from '../../models/orders/interfaces/item.inteface';
+import { Item } from '@models/orders/interfaces/item.inteface';
 import { IPhoto } from './photos.interface';
 
 export interface IPhotoRepository<T> {

@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { item_not_found } from '../../../common/constants';
-import { Entities } from '../../../common/enums';
+import { item_not_found } from '@common/constants';
+import { Entities } from '@common/enums';
 import { Permission } from '../entities/permission.entity';
 import { IPermissionRepository } from '../interfaces/repositories/permission.repository.interface';
 import { PERMISSION_TYPES } from '../interfaces/type';

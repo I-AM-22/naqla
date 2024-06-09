@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { GlobalEntity } from '../../../common/base';
+import { GlobalEntity } from '@common/base';
 import { User } from './user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';

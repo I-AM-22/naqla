@@ -6,11 +6,11 @@ import {
   Length,
   Matches,
 } from 'class-validator';
-import { IsPhotoExist, IsUnique } from '../../../common/decorators';
-import { Entities } from '../../../common/enums';
-import { item_already_exist, item_not_found } from '../../../common/constants';
+import { IsPhotoExist, IsUnique } from '@common/decorators';
+import { Entities } from '@common/enums';
+import { item_already_exist, item_not_found } from '@common/constants';
 import { Transform } from 'class-transformer';
-import { getPhotoPath } from '../../../common/helpers';
+import { getPhotoPath } from '@common/helpers';
 
 export class CreateUserDto {
   @ApiProperty({ default: 'bahaa Alden' })

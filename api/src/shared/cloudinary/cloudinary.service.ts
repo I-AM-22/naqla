@@ -1,9 +1,9 @@
 import { HttpException, Inject, Injectable } from '@nestjs/common';
 import * as cloudinary from 'cloudinary';
 import { ConfigType } from '@nestjs/config';
-import { IPhoto } from '../../common/interfaces';
-import { CloudinaryConfig } from '../../config/app';
-import { createBlurHash, createBlurHashs } from '../../common/helpers';
+import { IPhoto } from '@common/interfaces';
+import { CloudinaryConfig } from '@config/app';
+import { createBlurHash, createBlurHashs } from '@common/helpers';
 
 @Injectable()
 export class CloudinaryService {

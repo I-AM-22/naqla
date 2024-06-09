@@ -3,10 +3,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
-import { item_not_found } from '../../../common/constants';
-import { IsPhotoExist } from '../../../common/decorators';
-import { Entities } from '../../../common/enums';
-import { getPhotoPath } from '../../../common/helpers';
+import { item_not_found } from '@common/constants';
+import { IsPhotoExist } from '@common/decorators';
+import { Entities } from '@common/enums';
+import { getPhotoPath } from '@common/helpers';
 
 export class CreateCarDto {
   @ApiProperty()

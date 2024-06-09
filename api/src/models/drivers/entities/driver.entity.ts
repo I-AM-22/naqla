@@ -6,10 +6,10 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { BasePersonWithActive, BasePhoto } from '../../../common/base';
+import { BasePersonWithActive, BasePhoto } from '@common/base';
 import { Exclude, Expose, Transform } from 'class-transformer';
-import { GROUPS } from '../../../common/enums';
-import { Role } from '../../roles';
+import { GROUPS } from '@common/enums';
+import { Role } from '@models/roles/entities/role.entity';
 import { DriverPhoto } from './driver-photo.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { DriverWallet } from './driver-wallet.entity';

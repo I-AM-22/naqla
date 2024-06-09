@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Permission } from '../../../models/permissions';
+import { Permission } from '@models/permissions/entities/permission.entity';
 import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { permissions } from './data';
-import { Role } from '../../../models/roles';
+import { Role } from '@models/roles/entities/role.entity';
 
 /**
  * Service dealing with Permission based operations.

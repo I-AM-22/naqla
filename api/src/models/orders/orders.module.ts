@@ -47,12 +47,16 @@ export const PymentRepositoryProvider: Provider = {
     OrderRepositoryProvider,
     OrderPhotoRepositoryProvider,
     PymentRepositoryProvider,
+    OrdersService,
+    PymentRepository,
   ],
   exports: [
     OrderRepositoryProvider,
     OrderPhotoRepositoryProvider,
     OrdersServiceProvider,
     PymentRepositoryProvider,
+    OrdersService,
+    PymentRepository,
   ],
 })
 export class OrdersModule {}

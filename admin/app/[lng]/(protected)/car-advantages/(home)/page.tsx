@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { getTranslation } from "@/i18n/server";
 import { advantagesControllerFindAll } from "@/service/api";
-import { carAdvantagesCache } from "@/service/car-advantages";
+import { carAdvantagesTagKeys } from "@/service/car-advantages";
 import Link from "next/link";
 
 export default async function Page(props: PageProps) {
   const { t } = await getTranslation(props.params.lng, "car-advantages");
   const { t: ct } = await getTranslation(props.params.lng);
   const res = await advantagesControllerFindAll({
-    next: { tags: carAdvantagesCache.all() },
+    next: { tags: carAdvantagesTagKeys.all() },
   });
   return (
     <article className="flex flex-col gap-2">

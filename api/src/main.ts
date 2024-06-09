@@ -7,13 +7,13 @@ import {
   ValidationPipe,
   VersioningType,
 } from '@nestjs/common';
-import { HttpExceptionFilter } from './common/exceptions';
+import { HttpExceptionFilter } from '@common/exceptions';
 import { SwaggerModule } from '@nestjs/swagger';
-import { createDocument, errorsFormat } from './common/helpers';
+import { createDocument, errorsFormat } from '@common/helpers';
 import { useContainer } from 'class-validator';
 import { join } from 'path';
 import { ConfigService, ConfigType } from '@nestjs/config';
-import { AppConfig } from './config/app';
+import { AppConfig } from '@config/app';
 import morgan from 'morgan';
 import helmet from 'helmet';
 

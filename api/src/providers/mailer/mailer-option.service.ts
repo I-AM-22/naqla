@@ -1,6 +1,6 @@
 import { MailerOptions, MailerOptionsFactory } from '@nestjs-modules/mailer';
 import { Inject, Injectable } from '@nestjs/common';
-import MailConfig from '../../config/mail/mail.config';
+import MailConfig from '@config/mail/mail.config';
 import { ConfigType } from '@nestjs/config';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import path = require('path');

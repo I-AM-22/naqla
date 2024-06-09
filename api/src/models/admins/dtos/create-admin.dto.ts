@@ -6,11 +6,11 @@ import {
   IsOptional,
   Matches,
 } from 'class-validator';
-import { IsPhotoExist, IsUnique } from '../../../common/decorators';
+import { IsPhotoExist, IsUnique } from '@common/decorators';
 import { Transform } from 'class-transformer';
-import { getPhotoPath } from '../../../common/helpers';
-import { Entities } from '../../../common/enums';
-import { item_already_exist } from '../../../common/constants';
+import { getPhotoPath } from '@common/helpers';
+import { Entities } from '@common/enums';
+import { item_already_exist } from '@common/constants';
 
 export class CreateAdminDto {
   @ApiProperty({ default: 'bahaa Alden' })

@@ -1,4 +1,4 @@
-import { ROLE } from '../../../common/enums';
+import { ROLE } from '@common/enums';
 
 export const roles: any[] = [
   { name: ROLE.USER },

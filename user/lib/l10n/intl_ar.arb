@@ -13,7 +13,10 @@
   "anywhere_you_are": "في أي مكان كنت",
   "sell_houses_easily_with_the_help_of_Listenoryx": "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more",
   "at_anytime": "في أي وقت",
-  "book_your_car": "اختر السيارة التي تريد",
+
+
+  "________________validation___________________": "",
+  "this_field_is_required": "هذا الحقل مطلوب",
 
   "_________________authentication________________": "",
   "enable_your_location": "تمكين موقعك",
@@ -61,6 +64,18 @@
   "new_naqla": "نقلة جديدة",
   "start_point": "نقطة الانطلاق",
   "end_point": "نقطة الوصول",
+  "please_take_photos_of_the_items_to_be_transported": "يرجى إلتقاط صور للإغراض التي سيتم نقلها للمساعدة بالعثور على سيارة (او عدة سيارات) مناسبة.",
+  "select_photo": "اختيار صورة",
+  "item_width": "عرض الغرض (M)",
+  "item_length": "طول الغرض (M)",
+  "item_weight": "وزن الغرض (KG)",
+  "add_photo": "ٳضافة صورة",
+  "total_number_of_floors": "عدد الطوابق الكلي:",
+  "additional_specifications_of_the_car": "مواصفات إضافية للسيارة:",
+  "porters": "حمالين",
+  "order_details": "تفاصيل الطلب",
+  "order_date": "تاريخ الطلب: ",
+  "the_remuneration_will_depend_on_the_number_of_porters_required": "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين.",
 
   "__________________________wallet______________________________":"",
   "wallet":"المحفظة",

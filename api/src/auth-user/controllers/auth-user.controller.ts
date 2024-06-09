@@ -22,8 +22,8 @@ import {
   ApiNotFoundResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { GetUser, Public, Roles } from '../../common/decorators';
-import { GROUPS, ROLE } from '../../common/enums';
+import { GetUser, Public, Roles } from '@common/decorators';
+import { GROUPS, ROLE } from '@common/enums';
 import {
   SignUpUserDto,
   LoginUserDto,
@@ -38,10 +38,10 @@ import {
   confirmMessage,
   data_not_found,
   denied_error,
-} from '../../common/constants';
-import { User } from '../../models/users';
-import { item_already_exist } from '../../common/constants/validation-errors.constant';
-import { SendConfirm } from '../../common/types';
+} from '@common/constants';
+import { User } from '@models/users/entities/user.entity';
+import { item_already_exist } from '@common/constants/validation-errors.constant';
+import { SendConfirm } from '@common/types';
 
 /**
  * @ngdoc controller

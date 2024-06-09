@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Inject, Patch } from '@nestjs/common';
 import { ISettingsService } from '../interfaces/services/settings.service.interface';
 import { SETTING_TYPES } from '../interfaces/type';
-import { Id, Roles } from '../../../common/decorators';
+import { Id, Roles } from '@common/decorators';
 import {
   ApiBearerAuth,
   ApiForbiddenResponse,
@@ -10,8 +10,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Setting } from '../entities/setting.entity';
-import { data_not_found, denied_error } from '../../../common/constants';
-import { ROLE } from '../../../common/enums';
+import { data_not_found, denied_error } from '@common/constants';
+import { ROLE } from '@common/enums';
 import { UpdateSettingDto } from '../dtos';
 
 @ApiTags('Settings')

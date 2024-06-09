@@ -1,10 +1,10 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities/role.entity';
-import { item_not_found } from '../../../common/constants';
-import { Entities } from '../../../common/enums';
-import { IPermissionsService } from '../../permissions/interfaces/services/permissions.service.interface';
-import { PERMISSION_TYPES } from '../../permissions/interfaces/type';
+import { item_not_found } from '@common/constants';
+import { Entities } from '@common/enums';
+import { IPermissionsService } from '@models/permissions/interfaces/services/permissions.service.interface';
+import { PERMISSION_TYPES } from '@models/permissions/interfaces/type';
 import { IRoleRepository } from '../interfaces/repositories/role.repository.interface';
 import { ROLE_TYPES } from '../interfaces/type';
 import { IRolesService } from '../interfaces/services/roles.service.interface';

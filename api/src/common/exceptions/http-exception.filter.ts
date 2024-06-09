@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Response } from 'express';
-import { AppConfig } from '../../config/app';
+import { AppConfig } from '@config/app';
 import { ConfigType } from '@nestjs/config';
 import { denied_error } from '../constants';
 
@@ -43,7 +43,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (error.message === 'Unauthorized') error = handelPassportError();
 
     if (this.appConfig.env === 'production') {
-      console.log(exception);
+      console.log(error);
       const rep = {
         type: error.response.errors ? 'form' : 'default',
         message: error.response.errors ? undefined : error.message,

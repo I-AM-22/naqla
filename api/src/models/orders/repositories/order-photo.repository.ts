@@ -3,7 +3,7 @@ import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CloudinaryService } from '../../../shared/cloudinary';
 import { OrderPhoto } from '../entities/order-photo.entity';
-import { IPhoto, IPhotoRepository } from '../../../common/interfaces';
+import { IPhoto, IPhotoRepository } from '@common/interfaces';
 import { Item } from '../interfaces/item.inteface';
 
 @Injectable()

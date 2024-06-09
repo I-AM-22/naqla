@@ -15,14 +15,10 @@ import {
   ApiTags,
   OmitType,
 } from '@nestjs/swagger';
-import { CaslAbilitiesGuard } from '../../../common/guards';
-import { CheckAbilities, Id } from '../../../common/decorators';
-import { Action, Entities, GROUPS } from '../../../common/enums';
-import {
-  bad_req,
-  data_not_found,
-  denied_error,
-} from '../../../common/constants';
+import { CaslAbilitiesGuard } from '@common/guards';
+import { CheckAbilities, Id } from '@common/decorators';
+import { Action, Entities, GROUPS } from '@common/enums';
+import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { IPermissionsService } from '../interfaces/services/permissions.service.interface';
 import { PERMISSION_TYPES } from '../interfaces/type';
 

@@ -32,7 +32,7 @@ const LoadingButton = forwardRef(function Fr(
         <Loader2
           {...LoadingProps}
           className={cn(
-            "absolute mx-auto aspect-square h-full animate-spin",
+            "absolute mx-auto aspect-square h-full max-h-10 animate-spin",
             LoadingProps?.className,
           )}
         />

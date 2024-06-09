@@ -29,10 +29,11 @@ export function parseResponseError({
 }: Feedbacks) {
   return (err: FetchError<ApiError>) => {
     const data = err.data;
+
     if (showToast && (!data || data?.error.response?.message)) {
       toast.error(data?.error.response?.message ?? String(err));
     }
-    if (data.error.response?.errors) {
+    if (data && data.error?.response?.errors) {
       if (setFormError) {
         data.error.response.errors?.forEach(
           (error) =>
@@ -42,7 +43,7 @@ export function parseResponseError({
         );
       }
     }
-    if (showToast && !data.error.response) {
+    if (showToast && data && !data.error.response) {
       toast.error(data.message, {});
     }
     return undefined;

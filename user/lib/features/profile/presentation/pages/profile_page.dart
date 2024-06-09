@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconly/iconly.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -25,7 +25,6 @@ import 'edit_profile_page.dart';
 import 'help_and_support_page.dart';
 import 'language_page.dart';
 
-@RoutePage()
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -60,9 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
           body: AppCommonStateBuilder<ProfileBloc, User>(
             stateName: ProfileState.getPersonalInfo,
             onSuccess: (data) => Padding(
-              padding: REdgeInsets.symmetric(
-                  vertical: UIConstants.screenPadding30,
-                  horizontal: UIConstants.screenPadding16),
+              padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -72,14 +69,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         clipBehavior: Clip.hardEdge,
                         width: 138.w,
                         height: 138.w,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border:
-                                Border.all(color: context.colorScheme.primary)),
-                        child: BlurHash(
-                            imageFit: BoxFit.cover,
-                            hash: data.photo.blurHash,
-                            image: data.photo.profileUrl),
+                        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
+                        child: BlurHash(imageFit: BoxFit.cover, hash: data.photo.blurHash, image: data.photo.profileUrl),
                       ),
                     ),
                     24.verticalSpace,
@@ -93,46 +84,49 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     24.verticalSpace,
                     ProfileItem(
-                        onTap: () => context.pushNamed(EditProfilePage.name,
-                            extra: EditProfileParam(bloc: bloc, user: data)),
+                        onTap: () => context.pushNamed(EditProfilePage.name, extra: EditProfileParam(bloc: bloc, user: data)),
                         title: S.of(context).edit_profile,
-                        prefixIcon: Assets.icons.essential.profile.path),
+                        prefixIcon: Icon(IconlyBroken.edit)),
                     16.verticalSpace,
                     ProfileItem(
-                        onTap: () => context.pushNamed(EditPhoneNumberPage.name,
-                            extra:
-                                EditPhoneParam(bloc: bloc, phone: data.phone)),
+                        onTap: () => context.pushNamed(EditPhoneNumberPage.name, extra: EditPhoneParam(bloc: bloc, phone: data.phone)),
                         title: S.of(context).edit_phone,
-                        prefixIcon: Assets.icons.essential.mobile.path),
+                        prefixIcon: Icon(IconlyBroken.call)),
                     16.verticalSpace,
                     ProfileItem(
                       onTap: () => context.pushNamed(
                         LanguagePage.name,
                       ),
                       title: S.of(context).language,
-                      prefixIcon: Assets.icons.essential.website.path,
+                      prefixIcon: AppImage.asset(
+                        Assets.icons.essential.website.path,
+                        size: 20,
+                        color: context.colorScheme.primary,
+                      ),
                     ),
                     16.verticalSpace,
                     ProfileItem(
-                        title: S.of(context).about_us,
-                        onTap: () => context.pushNamed(AboutUsPage.name),
-                        prefixIcon: Assets.icons.essential.circleQuistion.path),
+                      title: S.of(context).about_us,
+                      onTap: () => context.pushNamed(AboutUsPage.name),
+                      prefixIcon: AppImage.asset(
+                        Assets.icons.essential.circleQuistion.path,
+                        size: 20,
+                        color: context.colorScheme.primary,
+                      ),
+                    ),
                     16.verticalSpace,
                     ProfileItem(
                       title: S.of(context).help_and_support,
-                      prefixIcon: Assets.icons.essential.info.path,
+                      prefixIcon: Icon(IconlyBroken.info_circle),
                       onTap: () => context.pushNamed(HelpAndSupportPage.name),
                     ),
                     16.verticalSpace,
-                    ProfileItem(
-                        onTap: () => CoreHelperFunctions.logOut(context),
-                        title: S.of(context).logOut,
-                        prefixIcon: Assets.icons.essential.logout.path),
+                    ProfileItem(onTap: () => CoreHelperFunctions.logOut(context), title: S.of(context).logOut, prefixIcon: Icon(IconlyBroken.logout)),
                     16.verticalSpace,
                     ProfileItem(
                         onTap: () => context.pushNamed(DeleteAccountPage.name),
                         title: S.of(context).delete_account,
-                        prefixIcon: Assets.icons.essential.delete.path),
+                        prefixIcon: Icon(IconlyBroken.delete)),
                     32.verticalSpace,
                     AppText.subHeadRegular(
                       'Naqla V1.0.0',

@@ -5,7 +5,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable, tap } from 'rxjs';
-import { User } from '../../models/users';
+import { User } from '@models/users/entities/user.entity';
 
 @Injectable()
 export class WithDeletedInterceptor implements NestInterceptor {

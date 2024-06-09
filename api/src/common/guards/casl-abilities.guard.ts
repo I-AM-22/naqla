@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 import { ForbiddenError } from '@casl/ability';
-import { CaslAbilityFactory, RequiredRole } from '../../shared/casl';
+import { CaslAbilityFactory, RequiredRole } from '@shared/casl';
 import { CHECK_ABILITY } from '../decorators';
 import { IPerson } from '../interfaces';
 

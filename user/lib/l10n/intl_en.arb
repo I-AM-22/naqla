@@ -15,6 +15,9 @@
   "at_anytime": "At anytime",
   "book_your_car": "Book your car",
 
+  "________________validation___________________": "",
+  "this_field_is_required": "This field is required",
+
   "_________________authentication________________": "",
   "enable_your_location": "Enable your location",
   "choose_your_location_to_start": "Choose your location to start find the request around you",
@@ -62,6 +65,18 @@
   "start_point": "Start Point",
   "end_point": "End Point",
   "date": "Date",
+  "please_take_photos_of_the_items_to_be_transported": "Please take photos of the items to be transported to help find a suitable vehicle (or vehicles).",
+  "select_photo": "Select photo",
+  "item_width": "Item width (M)",
+  "item_length": "Item length (M)",
+  "item_weight": "Item weight (KG)",
+  "add_photo": "Add photo",
+  "total_number_of_floors": "Total number of floors:",
+  "additional_specifications_of_the_car": "Additional specifications of the car:",
+  "porters": "Porters",
+  "order_details": "Order details",
+  "order_date": "Order date: ",
+  "the_remuneration_will_depend_on_the_number_of_porters_required": "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties.",
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",

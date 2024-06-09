@@ -6,12 +6,12 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { BasePersonWithActive, BasePhoto } from '../../../common/base';
+import { BasePersonWithActive, BasePhoto } from '@common/base';
 import { Exclude, Expose, Transform } from 'class-transformer';
-import { GROUPS } from '../../../common/enums';
-import { Role } from '../../roles';
+import { GROUPS } from '@common/enums';
+import { Role } from '@models/roles/entities/role.entity';
 import { UserPhoto } from './user-photo.entity';
-import { Order } from '../../orders/entities/order.entity';
+import { Order } from '@models/orders/entities/order.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { UserWallet } from './user-wallet.entity';
 
@@ -42,13 +42,13 @@ export class User extends BasePersonWithActive {
   })
   photos: UserPhoto[];
 
+  @OneToMany(() => Order, (order) => order.user, { cascade: true })
+  orders: Order[];
+
   @Expose({})
   @ApiProperty({ type: BasePhoto })
   photo() {
     if (this.photos) return this.photos[this.photos.length - 1];
     return undefined;
   }
-
-  @OneToMany(() => Order, (order) => order.user, { cascade: true })
-  orders: Order[];
 }

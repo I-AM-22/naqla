@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Setting } from '../../../models/settings/entities/setting.entity';
+import { Setting } from '@models/settings/entities/setting.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { settings } from './data';
