@@ -150,6 +150,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "start_point": MessageLookupByLibrary.simpleMessage("Start Point"),
+        "the_remuneration_will_depend_on_the_number_of_porters_required":
+            MessageLookupByLibrary.simpleMessage(
+                "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties."),
         "this_field_is_required":
             MessageLookupByLibrary.simpleMessage("This field is required"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),

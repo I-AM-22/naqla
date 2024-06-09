@@ -38,7 +38,7 @@ class App extends StatelessWidget {
                     title: 'NaqlaCustomer',
                     debugShowCheckedModeBanner: false,
                     theme: theme.lightTheme,
-                    routerConfig: GRouter.router,
+                    routerConfig: router,
                     locale: value ? LanguageService.supportedLocales.last : LanguageService.supportedLocales.first,
                     localizationsDelegates: const [
                       S.delegate,

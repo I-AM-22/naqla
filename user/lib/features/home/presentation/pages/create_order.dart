@@ -46,7 +46,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
     super.initState();
   }
 
-  int _currentValue = 1;
+  int _currentValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                         desiredDate: dateTime.toIso8601String(),
                         locationStart: LocationModel(region: '', street: '', latitude: latLng[0].latitude, longitude: latLng[0].longitude),
                         locationEnd: LocationModel(latitude: latLng[1].latitude, longitude: latLng[1].longitude, street: '', region: ''),
-                        porters: porters.value ? _currentValue : 0,
+                        porters: porters.value ? _currentValue + 1 : 0,
                         advantages: state
                             .getState<List<CarAdvantage>>(HomeState.carAdvantage)
                             .data
@@ -128,7 +128,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 11.verticalSpace,
                 Padding(
                   padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                  child: AppText.bodySmMedium("الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
+                  child: AppText.bodySmMedium(S.of(context).the_remuneration_will_depend_on_the_number_of_porters_required),
                 ),
                 10.verticalSpace,
                 AnimatedOpacity(
@@ -149,7 +149,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                       BoxDecoration(border: Border.all(color: context.colorScheme.outline), borderRadius: BorderRadius.circular(8)),
                                   value: _currentValue,
                                   textStyle: context.textTheme.bodySmMedium,
-                                  minValue: 1,
+                                  minValue: 0,
                                   maxValue: 100,
                                   onChanged: (value) => setState(() => _currentValue = value),
                                 ),

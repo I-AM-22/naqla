@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iconly/iconly.dart';
 import 'package:naqla/core/core.dart';
 
 import '../../../../core/common/constants/constants.dart';
@@ -18,7 +19,7 @@ class ProfileItem extends StatelessWidget {
       this.isSelected = true,
       this.suffixIconColor});
   final String title;
-  final String prefixIcon;
+  final Widget prefixIcon;
   final String? suffixIcon;
   final void Function()? onTap;
   final bool isFlag;
@@ -43,13 +44,7 @@ class ProfileItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            AppImage.asset(
-              prefixIcon,
-              size: width != null ? null : 15,
-              width: width,
-              height: height,
-              color: !isFlag ? context.colorScheme.primary : null,
-            ),
+            prefixIcon,
             8.horizontalSpace,
             AppText.subHeadMedium(
               title,

@@ -4,10 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:naqla/features/app/domain/repository/prefs_repository.dart';
+import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
+import 'package:naqla/features/auth/presentation/pages/welcome_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/log_interceptor.dart';
 import '../common/constants/configuration/api_routes.dart';
+import '../config/router/router.dart';
 import 'di_container.config.dart';
 
 final getIt = GetIt.I;
@@ -33,7 +37,18 @@ abstract class AppModule {
   @lazySingleton
   Dio dio(BaseOptions options, Logger logger) {
     final dio = Dio(options);
-    dio.interceptors.addAll([DioLogInterceptor()]);
+    dio.interceptors.addAll([
+      DioLogInterceptor(),
+      InterceptorsWrapper(
+        onError: (error, handler) async {
+          if (error.response?.statusCode == 401) {
+            await getIt<PrefsRepository>().clearUser();
+            router.goNamed(WelcomePage.name);
+          }
+          return handler.next(error);
+        },
+      )
+    ]);
     return dio;
   }
 

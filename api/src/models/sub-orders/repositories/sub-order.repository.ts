@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // import { Order } from '../entities/order.entity';
 // import { OrderPhoto } from '@models/orders/entities/order-photo.entity';
-import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
+import { sub } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 // import { Advantage } from '@models/advantages/entities/advantage.entity';
 // import { User } from '@models/users';
@@ -12,6 +12,7 @@ import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { SUB_ORDER_STATUS } from '@common/enums';
 import { Car } from '@models/drivers/entities/car.entity';
+import { IsString } from 'class-validator';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -71,9 +72,9 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
-  async create(dto: CreateSubOrderDto, cost: number): Promise<SubOrder> {
+  async create(id: string, dto: sub, cost: number): Promise<SubOrder> {
     const sub = this.suporderRepository.create({
-      orderId: dto.orderId,
+      orderId: id,
       weight: dto.weight,
       cost,
       // cost: Math.floor(Math.random() * 1000),
