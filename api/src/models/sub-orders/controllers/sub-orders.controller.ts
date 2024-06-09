@@ -91,6 +91,27 @@ export class SubOrdersController {
     return await this.subOrdersService.update(id, dto);
   }
 
+  @Roles(ROLE.USER)
+  @ApiOkResponse({ type: SubOrder })
+  @Patch(':id/setArrivedAt')
+  async setArrivedAt(@Id() id: string): Promise<SubOrder> {
+    return await this.subOrdersService.setArrivedAt(id);
+  }
+
+  @Roles(ROLE.USER)
+  @ApiOkResponse({ type: SubOrder })
+  @Patch(':id/setPickedUpAt')
+  async setPickedUpAt(@Id() id: string): Promise<SubOrder> {
+    return await this.subOrdersService.setPickedUpAt(id);
+  }
+
+  @Roles(ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: SubOrder })
+  @Patch(':id/setDeliveredAt')
+  async setDeliveredAt(@Id() id: string): Promise<SubOrder> {
+    return await this.subOrdersService.setDeliveredAt(id);
+  }
+
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: SubOrder })
   @Patch(':id/setDriver')

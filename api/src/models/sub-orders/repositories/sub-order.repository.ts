@@ -87,6 +87,22 @@ export class SubOrderRepository implements ISubOrderRepository {
     doc.rating = dto.rating;
     return await this.suporderRepository.save(doc);
   }
+  async setArrivedAt(id: string): Promise<SubOrder> {
+    const doc = await this.suporderRepository.findOne({ where: { id } });
+    doc.arrivedAt = new Date().toISOString();
+    return await this.suporderRepository.save(doc);
+  }
+
+  async setPickedUpAt(id: string): Promise<SubOrder> {
+    const doc = await this.suporderRepository.findOne({ where: { id } });
+    doc.pickedUpAt = new Date().toISOString();
+    return await this.suporderRepository.save(doc);
+  }
+  async setDeliveredAt(id: string): Promise<SubOrder> {
+    const doc = await this.suporderRepository.findOne({ where: { id } });
+    doc.deliveredAt = new Date().toISOString();
+    return await this.suporderRepository.save(doc);
+  }
 
   async ready(id: string): Promise<any> {
     return await this.suporderRepository.update(

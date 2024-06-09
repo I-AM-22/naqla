@@ -12,6 +12,7 @@ import { ISettingRepository } from '@models/settings/interfaces/repositories/set
 import { GpsDrivingService } from '../../../shared/gpsDriving';
 import { Setting } from '@models/settings/entities/setting.entity';
 import { Car } from '@models/drivers/entities/car.entity';
+import { PymentRepository } from '@models/orders/repositories/pyment.repository';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {
@@ -22,6 +23,7 @@ export class SubOrdersService implements ISubOrdersService {
     private readonly orderPhotoRepository: OrderPhotoRepository,
     @Inject(ORDER_TYPES.repository.order)
     private readonly orderRepository: OrderRepository,
+    private readonly paymentRepository: PymentRepository,
     @Inject('ISettingRepository')
     private readonly settingepository: ISettingRepository,
     private readonly gpsDrivingService: GpsDrivingService,
@@ -99,6 +101,20 @@ export class SubOrdersService implements ISubOrdersService {
   update(id: string, updateSubOrderDto: UpdateSubOrderDto): Promise<SubOrder> {
     return this.subOrderRepository.update(id, updateSubOrderDto);
   }
+  setArrivedAt(id: string): Promise<SubOrder> {
+    return this.subOrderRepository.setArrivedAt(id);
+  }
+
+  setPickedUpAt(id: string): Promise<SubOrder> {
+    return this.subOrderRepository.setPickedUpAt(id);
+  }
+
+  async setDeliveredAt(id: string): Promise<SubOrder> {
+    const sub = await this.subOrderRepository.setDeliveredAt(id);
+    await this.paymentRepository.setDeliveredDate(sub.orderId);
+    return sub;
+  }
+
   ready(id: string): Promise<SubOrder[]> {
     return this.subOrderRepository.ready(id);
   }

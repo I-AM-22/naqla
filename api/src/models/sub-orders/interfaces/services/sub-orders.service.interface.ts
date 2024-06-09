@@ -14,6 +14,9 @@ export interface ISubOrdersService {
   findTotalCost(id: string): Promise<number>;
   create(dto: CreateSubOrderDto): Promise<SubOrder[]>;
   update(id: string, dto: UpdateSubOrderDto): Promise<SubOrder>;
+  setArrivedAt(id: string): Promise<SubOrder>;
+  setPickedUpAt(id: string): Promise<SubOrder>;
+  setDeliveredAt(id: string): Promise<SubOrder>;
   ready(id: string): Promise<SubOrder[]>;
   setDriver(idsup: string, car: Car): Promise<SubOrder>;
   delete(id: string): Promise<void>;
