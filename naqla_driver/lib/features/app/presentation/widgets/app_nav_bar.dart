@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iconly/iconly.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/custom_active_icon.dart';
 
@@ -31,32 +32,31 @@ class AppNavigationBar extends StatelessWidget {
         items: [
           BottomNavigationBarItem(
             label: "",
-            icon: AppImage.asset(
-              Assets.icons.essential.home.path,
-              size: 24.h,
+            icon: Icon(
+              IconlyBroken.home,
+              color: context.colorScheme.primary,
             ),
             activeIcon: CustomActiveIcon(
-              image: Assets.icons.essential.aHouse.path,
+              icon: IconlyBold.home,
               label: S.of(context).home,
             ),
           ),
           BottomNavigationBarItem(
             label: "",
-            icon: AppImage.asset(
-              Assets.icons.essential.chat.path,
-              size: 24.h,
+            icon: Icon(
+              IconlyBroken.chat,
+              color: context.colorScheme.primary,
             ),
-            activeIcon: CustomActiveIcon(image: Assets.icons.essential.chat.path, label: S.of(context).orders),
+            activeIcon: CustomActiveIcon(icon: IconlyBold.chat, label: S.of(context).chat),
           ),
           BottomNavigationBarItem(
             label: "",
-            icon: AppImage.asset(
-              Assets.icons.essential.profile.path,
-              color: context.colorScheme.systemGray.shade300,
-              size: 24.h,
+            icon: Icon(
+              IconlyBroken.profile,
+              color: context.colorScheme.primary,
             ),
             activeIcon: CustomActiveIcon(
-              image: Assets.icons.essential.aUser.path,
+              icon: IconlyBold.profile,
               label: S.of(context).profile,
             ),
           ),

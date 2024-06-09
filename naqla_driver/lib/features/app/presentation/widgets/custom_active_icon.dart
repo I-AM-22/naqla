@@ -6,14 +6,14 @@ class CustomActiveIcon extends StatelessWidget {
   const CustomActiveIcon({
     super.key,
     required this.label,
-    required this.image,
+    required this.icon,
     this.foregroundColor,
     this.backgroundColor,
   });
 
   final String label;
 
-  final String image;
+  final IconData icon;
   final Color? foregroundColor;
   final Color? backgroundColor;
 
@@ -23,11 +23,9 @@ class CustomActiveIcon extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AppImage.asset(
-          image,
-          width: 24.w,
-          height: 24.h,
-          color: foregroundColor ?? context.colorScheme.primary,
+        Icon(
+          icon,
+          color: context.colorScheme.primary,
         ),
         6.verticalSpace,
         AppText.bodySmMedium(

@@ -185,7 +185,7 @@ class AppTextFormField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (title != null) ...{
-            AppText.bodyRegular(
+            AppText.bodySmMedium(
               title!,
               color: context.colorScheme.primary,
             ),
@@ -244,6 +244,11 @@ class AppTextFormField extends StatelessWidget {
                       focusedBorder: focusedBorder ??
                           OutlineInputBorder(
                             borderSide: BorderSide(color: context.colorScheme.primary),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                      errorBorder: errorBorder ??
+                          OutlineInputBorder(
+                            borderSide: BorderSide(color: context.colorScheme.error),
                             borderRadius: BorderRadius.circular(8),
                           ),
                     ).applyDefaults(

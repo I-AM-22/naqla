@@ -490,6 +490,66 @@ class S {
     );
   }
 
+  /// `Brand`
+  String get brand {
+    return Intl.message(
+      'Brand',
+      name: 'brand',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Color`
+  String get color {
+    return Intl.message(
+      'Color',
+      name: 'color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Model`
+  String get model {
+    return Intl.message(
+      'Model',
+      name: 'model',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photo`
+  String get photo {
+    return Intl.message(
+      'Photo',
+      name: 'photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Additional specifications of the car`
+  String get additional_specifications_of_the_car {
+    return Intl.message(
+      'Additional specifications of the car',
+      name: 'additional_specifications_of_the_car',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick a color`
+  String get pick_a_color {
+    return Intl.message(
+      'Pick a color',
+      name: 'pick_a_color',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(

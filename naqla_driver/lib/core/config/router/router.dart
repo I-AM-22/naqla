@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
 import 'package:naqla_driver/features/auth/presentation/state/auth_bloc.dart';
+import 'package:naqla_driver/features/home/presentation/pages/add_car_page.dart';
 import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
 import 'package:naqla_driver/features/orders/presentation/pages/orders_page.dart';
 import 'package:naqla_driver/features/profile/presentation/pages/profile_page.dart';
@@ -87,11 +88,13 @@ class GRouter {
         },
         branches: [
           StatefulShellBranch(initialLocation: HomePage.path, navigatorKey: _shell1NavigatorKey, routes: [
-            GoRoute(
-              path: HomePage.path,
-              name: HomePage.name,
-              builder: (context, state) => const HomePage(),
-            )
+            GoRoute(path: HomePage.path, name: HomePage.name, builder: (context, state) => const HomePage(), routes: [
+              GoRoute(
+                path: AddCarPage.path,
+                name: AddCarPage.name,
+                builder: (context, state) => const AddCarPage(),
+              )
+            ])
           ]),
           StatefulShellBranch(initialLocation: OrdersPage.path, navigatorKey: _shell2NavigatorKey, routes: [
             GoRoute(

@@ -19,11 +19,9 @@ class AppBarParams {
     this.onBack,
     this.tittleStyle,
     this.shape,
-    this.label,
   });
   final Widget? leading;
   final String? title;
-  final String? label;
   final Widget? child;
   final List<Widget>? action;
   final bool translateTitle;

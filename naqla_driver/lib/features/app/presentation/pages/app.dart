@@ -10,8 +10,8 @@ import '../../../../core/config/themes/app_theme.dart';
 import '../../../../core/config/themes/colors_scheme.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../services/language_service.dart';
-import '../bloc/app_bloc.dart';
-import '../bloc/app_state.dart';
+import '../state/bloc/app_bloc.dart';
+import '../state/bloc/app_state.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

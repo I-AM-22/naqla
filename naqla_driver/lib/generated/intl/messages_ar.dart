@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("من نحن"),
         "add_car": MessageLookupByLibrary.simpleMessage("اضافة سيارة"),
+        "additional_specifications_of_the_car":
+            MessageLookupByLibrary.simpleMessage("مواصفات اضافية للسيارة"),
         "ago": MessageLookupByLibrary.simpleMessage("منذ"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
@@ -53,11 +55,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage("رقم 1 على الأقل أو حرف خاص"),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
+        "brand": MessageLookupByLibrary.simpleMessage("العلامة التجارية"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
+        "color": MessageLookupByLibrary.simpleMessage("اللون"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
@@ -90,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
+        "model": MessageLookupByLibrary.simpleMessage("الموديل"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
@@ -99,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الاموال المعلقة : "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
+        "photo": MessageLookupByLibrary.simpleMessage("الصورة"),
+        "pick_a_color": MessageLookupByLibrary.simpleMessage("اختر لون"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "resend_again":

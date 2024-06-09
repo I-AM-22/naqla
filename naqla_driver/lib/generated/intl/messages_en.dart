@@ -40,6 +40,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("About Us"),
         "add_car": MessageLookupByLibrary.simpleMessage("Add car"),
+        "additional_specifications_of_the_car":
+            MessageLookupByLibrary.simpleMessage(
+                "Additional specifications of the car"),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
@@ -54,12 +57,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "At least 1 number or a special character"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
+        "brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
+        "color": MessageLookupByLibrary.simpleMessage("Color"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "create_an_account":
@@ -94,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logOut": MessageLookupByLibrary.simpleMessage("LogOut"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
+        "model": MessageLookupByLibrary.simpleMessage("Model"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
@@ -103,6 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pending Money : "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),
+        "photo": MessageLookupByLibrary.simpleMessage("Photo"),
+        "pick_a_color": MessageLookupByLibrary.simpleMessage("Pick a color"),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),

@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:naqla_driver/features/auth/data/model/driver_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/common/constants/configuration/prefs_key.dart';
-import '../domain/repository/prefs_repository.dart';
+import '../../../../core/common/constants/configuration/prefs_key.dart';
+import '../../domain/repository/prefs_repository.dart';
 
 @Injectable(as: PrefsRepository)
 class PrefsRepositoryImpl extends PrefsRepository {

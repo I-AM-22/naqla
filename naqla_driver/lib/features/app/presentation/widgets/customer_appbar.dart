@@ -5,6 +5,8 @@ import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla_driver/services/language_service.dart';
 
+import '../../../../generated/flutter_gen/assets.gen.dart';
+
 class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AppAppBar({
     super.key,
@@ -57,7 +59,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget leadingAppBar(BuildContext context) => appBarParams.hasLeading
       ? IconButton(
           icon: AppImage.asset(
-            context.locale == const Locale('en', 'US') ? 'Assets.icons.arrow.leftArrow.path' : 'Assets.icons.arrow.rightArrow.path',
+            context.locale == const Locale('en', 'US') ? Assets.icons.arrow.leftArrow.path : Assets.icons.arrow.rightArrow.path,
             // width: 8.w,
             // height: 15.h,
             color: context.colorScheme.systemGray.shade900,

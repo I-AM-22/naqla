@@ -47,6 +47,12 @@
   "next": "Next",
   "date": "Date",
   "add_car":"Add car",
+  "brand": "Brand",
+  "color": "Color",
+  "model": "Model",
+  "photo": "Photo",
+  "additional_specifications_of_the_car": "Additional specifications of the car",
+  "pick_a_color": "Pick a color",
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",
