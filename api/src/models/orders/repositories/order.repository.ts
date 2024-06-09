@@ -1,13 +1,13 @@
+import { ORDER_STATUS } from '@common/enums';
+import { Advantage } from '@models/advantages/entities/advantage.entity';
+import { User } from '@models/users/entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos';
+import { OrderPhoto } from '../entities/order-photo.entity';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
-import { OrderPhoto } from '../entities/order-photo.entity';
-import { Advantage } from '@models/advantages/entities/advantage.entity';
-import { User } from '@models/users/entities/user.entity';
-import { ORDER_STATUS } from '@common/enums';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -46,9 +46,10 @@ export class OrderRepository implements IOrderRepository {
     return this.orderRepository.find({
       where: { status: ORDER_STATUS.WAITING },
       select: {
+        user: { firstName: true, lastName: true },
         advantages: { id: false, cost: false, name: true },
       },
-      relations: { photos: true, advantages: true },
+      relations: { photos: true, advantages: true, user: true },
     });
   }
 

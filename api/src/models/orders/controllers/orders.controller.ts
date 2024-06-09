@@ -1,34 +1,37 @@
 // Order.controller.ts
 
+import { bad_req, data_not_found, denied_error } from '@common/constants';
+import { Auth, GetUser, Id, Roles } from '@common/decorators';
+import { ROLE } from '@common/enums';
+import { LoggingInterceptor } from '@common/interceptors';
+import { IPerson } from '@common/interfaces';
+import { SubOrdersService } from '@models/sub-orders/services/sub-orders.service';
+import { User } from '@models/users/entities/user.entity';
 import {
-  Controller,
-  Post,
   Body,
+  Controller,
+  Delete,
+  Get,
   Inject,
-  UseInterceptors,
+  Param,
   ParseUUIDPipe,
+  Patch,
+  Post,
+  UseInterceptors,
 } from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
-import { Param, Get, Patch, Delete } from '@nestjs/common';
 import { Order } from '../entities/order.entity';
 import { IOrdersService } from '../interfaces/services/orders.service.interface';
 import { ORDER_TYPES } from '../interfaces/type';
-import { Auth, GetUser, Id, Roles } from '@common/decorators';
-import { User } from '@models/users/entities/user.entity';
-import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import { bad_req, denied_error, data_not_found } from '@common/constants';
-import { LoggingInterceptor } from '@common/interceptors';
-import { ROLE } from '@common/enums';
-import { IPerson } from '@common/interfaces';
-import { SubOrdersService } from '@models/sub-orders/services/sub-orders.service';
 
 @ApiTags('Orders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -56,8 +59,7 @@ export class OrderController {
   async findMine(@GetUser('id') userId: string): Promise<Order[]> {
     return this.ordersService.findMyOrders(userId);
   }
-
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('waiting')
   async findAllWaiting(): Promise<Order[]> {

@@ -1,3 +1,8 @@
+import { GlobalEntity } from '@common/base';
+import { Advantage } from '@models/advantages/entities/advantage.entity';
+import { User } from '@models/users/entities/user.entity';
+import { ApiProperty } from '@nestjs/swagger';
+import { Exclude, Type } from 'class-transformer';
 import {
   Column,
   Entity,
@@ -7,18 +12,14 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
+  Relation,
 } from 'typeorm';
-import { GlobalEntity } from '@common/base';
 import { OrderPhoto } from './order-photo.entity';
-import { Exclude, Type } from 'class-transformer';
-import { ApiProperty } from '@nestjs/swagger';
-import { Advantage } from '@models/advantages/entities/advantage.entity';
-import { User } from '@models/users/entities/user.entity';
 // import { GROUPS } from '@common/enums';
-import { Location } from '../interfaces/location.interface';
 import { ORDER_STATUS } from '@common/enums';
-import { Payment } from './payment.entity';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
+import { Location } from '../interfaces/location.interface';
+import { Payment } from './payment.entity';
 
 @Entity('orders')
 export class Order extends GlobalEntity {
@@ -40,9 +41,10 @@ export class Order extends GlobalEntity {
   @Type(() => Location)
   locationEnd: Location; // Using custom type for locationEnd
 
+  @ApiProperty()
   @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn({ referencedColumnName: 'id', name: 'userId' })
-  user: User;
+  user: Relation<User>;
 
   @Exclude()
   @Column('uuid')
