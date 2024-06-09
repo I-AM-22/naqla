@@ -1,5 +1,5 @@
 import { Car } from '../../../drivers/entities/car.entity';
-import { CreateSubOrderDto } from '../../dto/create-sub-order.dto';
+import { CreateSubOrderDto, sub } from '../../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../../dto/update-sub-order.dto';
 import { SubOrder } from '../../entities/sub-order.entity';
 
@@ -10,7 +10,7 @@ export interface ISubOrderRepository {
   findWaiting(): Promise<SubOrder[]>;
   findOne(id: string): Promise<SubOrder>;
   findTotalCost(id: string): Promise<number>;
-  create(dto: CreateSubOrderDto, cost: number): Promise<SubOrder>;
+  create(id: string, dto: sub, cost: number): Promise<SubOrder>;
   update(id: string, dto: UpdateSubOrderDto): Promise<SubOrder>;
   ready(id: string): Promise<SubOrder[]>;
   setDriver(idsup: string, icar: Car): Promise<SubOrder>;

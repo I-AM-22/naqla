@@ -27,6 +27,8 @@ import { ROLE } from '@common/enums';
 import { LoggingInterceptor } from '@common/interceptors';
 import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { CarsService } from '@models/drivers/services/cars.service';
+import { OrdersService } from '@models/orders/services/orders.service';
+import { Order } from '@models/orders/entities/order.entity';
 
 @ApiTags('SubOrders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -40,12 +42,20 @@ export class SubOrdersController {
     private readonly carService: CarsService,
     @Inject(SUB_ORDER_TYPES.service)
     private readonly subOrdersService: ISubOrdersService,
+    private readonly ordersService: OrdersService,
   ) {}
   @Roles(ROLE.EMPLOYEE)
-  @ApiOkResponse({ type: SubOrder })
+  @ApiOkResponse({ type: Order })
   @Post()
-  create(@Body() createSubOrderDto: CreateSubOrderDto) {
-    return this.subOrdersService.create(createSubOrderDto);
+  async create(@Body() createSubOrderDto: CreateSubOrderDto) {
+    await this.subOrdersService.create(createSubOrderDto);
+    const cost = await this.subOrdersService.findTotalCost(
+      createSubOrderDto.orderId,
+    );
+    return await this.ordersService.divisionDone(
+      createSubOrderDto.orderId,
+      cost,
+    );
   }
 
   // @Roles(ROLE.DRIVER)

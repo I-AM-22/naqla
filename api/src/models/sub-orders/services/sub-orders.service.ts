@@ -27,41 +27,53 @@ export class SubOrdersService implements ISubOrdersService {
     private readonly gpsDrivingService: GpsDrivingService,
   ) {}
 
-  async create(createSubOrderDto: CreateSubOrderDto): Promise<SubOrder> {
+  async create(createSubOrderDto: CreateSubOrderDto): Promise<SubOrder[]> {
+    const sub: SubOrder[] = [];
     const pointes = await this.orderRepository.findOne(
       createSubOrderDto.orderId,
     );
     let settingWeight: Setting;
-    {
-      if (createSubOrderDto.weight < 1000) {
-        settingWeight =
-          await this.settingepository.findOneByName('defaultWeight');
-      } else if (
-        createSubOrderDto.weight < 2000 &&
-        createSubOrderDto.weight >= 1000
-      )
-        settingWeight = await this.settingepository.findOneByName('minWeight');
-      else if (
-        createSubOrderDto.weight < 3000 &&
-        createSubOrderDto.weight >= 2000
-      )
-        settingWeight = await this.settingepository.findOneByName('midWeight');
-      else if (createSubOrderDto.weight >= 3000)
-        settingWeight = await this.settingepository.findOneByName('maxWeight');
+    for (let i = 0; i < createSubOrderDto.subOrders.length; i++) {
+      {
+        if (createSubOrderDto.subOrders[i].weight < 1000) {
+          settingWeight =
+            await this.settingepository.findOneByName('defaultWeight');
+        } else if (
+          createSubOrderDto.subOrders[i].weight < 2000 &&
+          createSubOrderDto.subOrders[i].weight >= 1000
+        )
+          settingWeight =
+            await this.settingepository.findOneByName('minWeight');
+        else if (
+          createSubOrderDto.subOrders[i].weight < 3000 &&
+          createSubOrderDto.subOrders[i].weight >= 2000
+        )
+          settingWeight =
+            await this.settingepository.findOneByName('midWeight');
+        else if (createSubOrderDto.subOrders[i].weight >= 3000)
+          settingWeight =
+            await this.settingepository.findOneByName('maxWeight');
+      }
+      ///تم القسمة على الف لانه ال المسافة ترجع بالمتر من اجل ان اردها الى الكيلو متر واضربها بسعر الفردي لكل كيلو
+      const costDistance =
+        (+(await this.gpsDrivingService.costDistance(
+          pointes.locationStart,
+          pointes.locationEnd,
+        )) /
+          1000) *
+        +settingWeight.cost;
+      sub.push(
+        await this.subOrderRepository.create(
+          createSubOrderDto.orderId,
+          createSubOrderDto.subOrders[i],
+          Math.round(costDistance),
+        ),
+      );
+      this.orderPhotoRepository.setPhotoSub(
+        createSubOrderDto.subOrders[i].photos,
+        sub[sub.length - 1].id,
+      );
     }
-    ///تم القسمة على الف لانه ال المسافة ترجع بالمتر من اجل ان اردها الى الكيلو متر واضربها بسعر الفردي لكل كيلو
-    const costDistance =
-      (+(await this.gpsDrivingService.costDistance(
-        pointes.locationStart,
-        pointes.locationEnd,
-      )) /
-        1000) *
-      +settingWeight.cost;
-    const sub = await this.subOrderRepository.create(
-      createSubOrderDto,
-      Math.round(costDistance),
-    );
-    this.orderPhotoRepository.setPhotoSub(createSubOrderDto.photos, sub.id);
     return sub;
   }
 

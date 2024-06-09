@@ -71,14 +71,14 @@ export class OrderController {
     const order = await this.ordersService.findOne(id, user);
     return order;
   }
-  @Roles(ROLE.EMPLOYEE)
-  @ApiOkResponse({ type: Order })
-  @Get(':id/divisionDone')
-  async divisionDone(@Id() id: string): Promise<Order> {
-    const cost = await this.subordersService.findTotalCost(id);
-    const order = await this.ordersService.divisionDone(id, cost);
-    return order;
-  }
+  // @Roles(ROLE.EMPLOYEE)
+  // @ApiOkResponse({ type: Order })
+  // @Get(':id/divisionDone')
+  // async divisionDone(@Id() id: string): Promise<Order> {
+  //   const cost = await this.subordersService.findTotalCost(id);
+  //   const order = await this.ordersService.divisionDone(id, cost);
+  //   return order;
+  // }
 
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order })
