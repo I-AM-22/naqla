@@ -66,7 +66,7 @@ export class OrderController {
     return this.ordersService.findWaiting();
   }
 
-  @Roles(ROLE.USER, ROLE.EMPLOYEE)
+  @Roles(ROLE.USER, ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Order })
   @Get(':id')
   async findOne(@Id() id: string, @GetUser() user: IPerson): Promise<Order> {

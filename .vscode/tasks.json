@@ -4,7 +4,7 @@
     {
       "label": "Swagger Generation",
       "type": "shell",
-      "command": "cd driver && yarn swagger && cd ../admin && yarn swagger",
+      "command": "cd admin && yarn swagger",
       "group": "none",
       "problemMatcher": []
     }
