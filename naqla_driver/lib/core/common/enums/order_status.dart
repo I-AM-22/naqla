@@ -1,6 +1,7 @@
 enum SubOrderStatus {
   waiting,
   ready,
-  accepted,
-  cancelled,
+  taken,
+  onTheWay,
+  delivered,
 }

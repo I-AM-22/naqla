@@ -66,6 +66,6 @@ class CarModel {
         "brand": brand,
         "color": color,
         // "advantages": List<dynamic>.from(advantages.map((x) => x)),
-        "photo": photo.toJson(),
+        "photo": photo.toJson,
       };
 }

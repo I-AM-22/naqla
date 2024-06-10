@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
 import 'package:naqla_driver/features/auth/presentation/state/auth_bloc.dart';
+import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
 import 'package:naqla_driver/features/home/presentation/pages/add_car_page.dart';
 import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
 import 'package:naqla_driver/features/orders/presentation/pages/orders_page.dart';
@@ -14,6 +15,7 @@ import 'package:naqla_driver/features/profile/presentation/pages/profile_page.da
 import '../../../features/app/presentation/pages/base_page.dart';
 import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/sign_up_page.dart';
+import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/welcome/splash.dart';
 import '../../di/di_container.dart';
 
@@ -93,7 +95,14 @@ class GRouter {
                 path: AddCarPage.path,
                 name: AddCarPage.name,
                 builder: (context, state) => const AddCarPage(),
-              )
+              ),
+              GoRoute(
+                path: OrderDetailsPage.path,
+                name: OrderDetailsPage.name,
+                builder: (context, state) => OrderDetailsPage(
+                  subOrderModel: state.extra as SubOrderModel,
+                ),
+              ),
             ])
           ]),
           StatefulShellBranch(initialLocation: OrdersPage.path, navigatorKey: _shell2NavigatorKey, routes: [

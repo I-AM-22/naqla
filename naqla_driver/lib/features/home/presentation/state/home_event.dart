@@ -17,3 +17,5 @@ class ChangeSelectAdvantageEvent extends HomeEvent {
 }
 
 class GetCarAdvantageEvent extends HomeEvent {}
+
+class GetSubOrdersEvent extends HomeEvent {}

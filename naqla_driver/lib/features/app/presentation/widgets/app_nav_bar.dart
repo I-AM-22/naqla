@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/custom_active_icon.dart';
 
-import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 
 class AppNavigationBar extends StatelessWidget {

@@ -62,6 +62,6 @@ class DriverModel {
         "lastName": lastName,
         // "phone": phone,
         "wallet": wallet.toJson(),
-        "photo": photo.toJson(),
+        "photo": photo.toJson,
       };
 }

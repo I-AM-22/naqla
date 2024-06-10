@@ -24,4 +24,7 @@ class ApiRoutes {
 
   //////////////////?Car////////////////////
   static String cars = '/api/v1/drivers/cars';
+
+  //////////////////?Sub-Order////////////////////
+  static String subOrders = '/api/v1/sub-orders';
 }

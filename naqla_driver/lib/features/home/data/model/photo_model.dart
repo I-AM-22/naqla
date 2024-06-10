@@ -6,6 +6,9 @@ class PhotoModel {
   final String profileUrl;
   final String mobileUrl;
   final String webUrl;
+  final num? weight;
+  final num? length;
+  final num? width;
 
   PhotoModel({
     required this.id,
@@ -15,6 +18,9 @@ class PhotoModel {
     required this.profileUrl,
     required this.mobileUrl,
     required this.webUrl,
+    this.width,
+    this.length,
+    this.weight,
   });
 
   PhotoModel copyWith({
@@ -25,6 +31,9 @@ class PhotoModel {
     String? profileUrl,
     String? mobileUrl,
     String? webUrl,
+    num? length,
+    num? weight,
+    num? width,
   }) =>
       PhotoModel(
         id: id ?? this.id,
@@ -34,6 +43,9 @@ class PhotoModel {
         profileUrl: profileUrl ?? this.profileUrl,
         mobileUrl: mobileUrl ?? this.mobileUrl,
         webUrl: webUrl ?? this.webUrl,
+        length: length ?? this.length,
+        weight: weight ?? this.weight,
+        width: width ?? this.width,
       );
 
   factory PhotoModel.fromJson(Map<String, dynamic> json) => PhotoModel(
@@ -44,6 +56,9 @@ class PhotoModel {
         profileUrl: json["profileUrl"],
         mobileUrl: json["mobileUrl"],
         webUrl: json["webUrl"],
+        width: json["width"],
+        weight: json["weight"],
+        length: json["length"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,5 +69,8 @@ class PhotoModel {
         "profileUrl": profileUrl,
         "mobileUrl": mobileUrl,
         "webUrl": webUrl,
+        "weight": weight,
+        "length": length,
+        "width": width,
       };
 }

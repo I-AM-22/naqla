@@ -46,7 +46,7 @@ class PhotoModel {
         webUrl: json["webUrl"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> get toJson => {
         "id": id,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),

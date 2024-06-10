@@ -10,8 +10,6 @@ import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
 import '../../../../core/common/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/app_scaffold.dart';
-import '../../../app/presentation/widgets/customer_appbar.dart';
-import '../../../app/presentation/widgets/params_appbar.dart';
 import '../widget/verification_number.dart';
 
 class PhoneVerificationPage extends StatefulWidget {

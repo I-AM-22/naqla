@@ -92,7 +92,6 @@ flutter:
     - assets/images/jpg/
     - assets/icons/essential/
     - assets/icons/arrow/
-    - assets/icons/social/
     - assets/icons/flags/
 
   fonts:
