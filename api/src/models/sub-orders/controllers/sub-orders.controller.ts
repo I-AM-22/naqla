@@ -44,7 +44,7 @@ export class SubOrdersController {
     private readonly subOrdersService: ISubOrdersService,
     private readonly ordersService: OrdersService,
   ) {}
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.EMPLOYEE,ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Order })
   @Post()
   async create(@Body() createSubOrderDto: CreateSubOrderDto) {
