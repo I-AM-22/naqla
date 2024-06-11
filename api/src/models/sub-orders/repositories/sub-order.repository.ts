@@ -2,17 +2,11 @@ import { ISubOrderRepository } from '../interfaces/repositories/sub-order.reposi
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-// import { Order } from '../entities/order.entity';
-// import { OrderPhoto } from '@models/orders/entities/order-photo.entity';
 import { sub } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
-// import { Advantage } from '@models/advantages/entities/advantage.entity';
-// import { User } from '@models/users';
-// import { SUB_ORDER_STATUS } from '@common/enums';
 import { SubOrder } from '../entities/sub-order.entity';
 import { SUB_ORDER_STATUS } from '@common/enums';
 import { Car } from '@models/drivers/entities/car.entity';
-import { IsString } from 'class-validator';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -96,11 +90,13 @@ export class SubOrderRepository implements ISubOrderRepository {
   async setPickedUpAt(id: string): Promise<SubOrder> {
     const doc = await this.suporderRepository.findOne({ where: { id } });
     doc.pickedUpAt = new Date().toISOString();
+    doc.status = SUB_ORDER_STATUS.ON_THE_WAY;
     return await this.suporderRepository.save(doc);
   }
   async setDeliveredAt(id: string): Promise<SubOrder> {
     const doc = await this.suporderRepository.findOne({ where: { id } });
     doc.deliveredAt = new Date().toISOString();
+    doc.status = SUB_ORDER_STATUS.DELIVERED;
     return await this.suporderRepository.save(doc);
   }
 

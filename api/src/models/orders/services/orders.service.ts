@@ -56,6 +56,10 @@ export class OrdersService implements IOrdersService {
     return await this.orderRepository.findMyOrder(userId);
   }
 
+  async findMineforAccepted(userId: string): Promise<Order[]> {
+    return await this.orderRepository.findMineforAccepted(userId);
+  }
+
   async findOneForOwner(id: string, userId: string): Promise<Order> {
     const order = await this.orderRepository.findOneForOwner(id, userId);
     if (!order) throw new NotFoundException(item_not_found(Entities.Order));

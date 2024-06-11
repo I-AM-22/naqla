@@ -9,6 +9,7 @@ export interface IOrderRepository {
   find(): Promise<Order[]>;
   findWaiting(): Promise<Order[]>;
   findMyOrder(userId: string): Promise<Order[]>;
+  findMineforAccepted(userId: string): Promise<Order[]>;
   findOne(id: string): Promise<Order>;
   findOneForOwner(id: string, userId: string): Promise<Order>;
   create(
