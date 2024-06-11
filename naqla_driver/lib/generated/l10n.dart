@@ -550,6 +550,96 @@ class S {
     );
   }
 
+  /// `Weight: `
+  String get weight {
+    return Intl.message(
+      'Weight: ',
+      name: 'weight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cost: `
+  String get cost {
+    return Intl.message(
+      'Cost: ',
+      name: 'cost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Porters: `
+  String get porters {
+    return Intl.message(
+      'Porters: ',
+      name: 'porters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start point`
+  String get start_point {
+    return Intl.message(
+      'Start point',
+      name: 'start_point',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End point`
+  String get end_point {
+    return Intl.message(
+      'End point',
+      name: 'end_point',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More details`
+  String get more_details {
+    return Intl.message(
+      'More details',
+      name: 'more_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order details`
+  String get order_details {
+    return Intl.message(
+      'Order details',
+      name: 'order_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept order`
+  String get accept_order {
+    return Intl.message(
+      'Accept order',
+      name: 'accept_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photos`
+  String get photos {
+    return Intl.message(
+      'Photos',
+      name: 'photos',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(
@@ -725,6 +815,16 @@ class S {
     return Intl.message(
       'LogOut',
       name: 'logOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cars`
+  String get cars {
+    return Intl.message(
+      'Cars',
+      name: 'cars',
       desc: '',
       args: [],
     );

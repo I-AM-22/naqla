@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:naqla_driver/core/di/di_container.dart';
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../../core/config/router/router.dart';
@@ -11,7 +12,6 @@ import '../../../../core/config/themes/colors_scheme.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../services/language_service.dart';
 import '../state/bloc/app_bloc.dart';
-import '../state/bloc/app_state.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -29,8 +29,8 @@ class App extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: FocusManager.instance.primaryFocus?.unfocus,
         child: BlocProvider.value(
-            value: GetIt.I<AppCubit>(),
-            child: BlocBuilder<AppCubit, AppState>(
+            value: getIt<AppBloc>()..add(GetAllCarsEvent()),
+            child: BlocBuilder<AppBloc, AppState>(
               builder: (context, state) {
                 final theme = AppTheme.init(darkColorScheme: darkColorScheme, lightColorScheme: lightColorScheme);
                 return ValueListenableBuilder(

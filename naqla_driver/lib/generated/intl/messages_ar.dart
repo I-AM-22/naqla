@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("من نحن"),
+        "accept_order": MessageLookupByLibrary.simpleMessage("قبول الطلب"),
         "add_car": MessageLookupByLibrary.simpleMessage("اضافة سيارة"),
         "additional_specifications_of_the_car":
             MessageLookupByLibrary.simpleMessage("مواصفات اضافية للسيارة"),
@@ -58,12 +59,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "brand": MessageLookupByLibrary.simpleMessage("العلامة التجارية"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
+        "cars": MessageLookupByLibrary.simpleMessage("السيارات"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
         "color": MessageLookupByLibrary.simpleMessage("اللون"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
+        "cost": MessageLookupByLibrary.simpleMessage("الكلفة: "),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
         "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
@@ -75,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_profile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
+        "end_point": MessageLookupByLibrary.simpleMessage("نقطة النهاية"),
         "english": MessageLookupByLibrary.simpleMessage("الانكليزية"),
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور الخاصة بك"),
@@ -96,8 +100,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "model": MessageLookupByLibrary.simpleMessage("الموديل"),
         "month": MessageLookupByLibrary.simpleMessage("شهر"),
+        "more_details":
+            MessageLookupByLibrary.simpleMessage("المزيد من التفاصيل"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
+        "order_details": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
@@ -105,7 +112,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
         "photo": MessageLookupByLibrary.simpleMessage("الصورة"),
+        "photos": MessageLookupByLibrary.simpleMessage("الصور"),
         "pick_a_color": MessageLookupByLibrary.simpleMessage("اختر لون"),
+        "porters": MessageLookupByLibrary.simpleMessage("الحمالين: "),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "resend_again":
@@ -119,11 +128,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("التسجيل "),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
+        "start_point": MessageLookupByLibrary.simpleMessage("نقطة البداية"),
         "total_money":
             MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
+        "weight": MessageLookupByLibrary.simpleMessage("الوزن: "),
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "your_code": MessageLookupByLibrary.simpleMessage(" الخاص بك"),

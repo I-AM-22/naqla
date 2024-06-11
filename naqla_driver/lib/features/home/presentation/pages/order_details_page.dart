@@ -23,23 +23,25 @@ class OrderDetailsPage extends StatelessWidget {
         bottomNavigationBar: Padding(
           padding: REdgeInsets.all(10),
           child: AppButton.dark(
-            title: 'قبول الطلب',
+            title: S.of(context).accept_order,
             onPressed: () {},
           ),
         ),
         appBar: AppAppBar(
-          appBarParams: AppBarParams(title: 'order'),
+          appBarParams: AppBarParams(title: S.of(context).order_details),
         ),
         body: Padding(
           padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppText.subHeadWebMedium('الوزن: ${subOrderModel.weight}'),
+              AppText.subHeadWebMedium('${S.of(context).weight}${subOrderModel.weight}'),
               16.verticalSpace,
-              AppText.subHeadWebMedium('الكلفة: ${subOrderModel.cost}'),
+              AppText.subHeadWebMedium('${S.of(context).cost}${subOrderModel.cost}'),
+              10.verticalSpace,
+              AppText.bodySmMedium('${S.of(context).porters}${subOrderModel.order.porters.toString()}'),
               16.verticalSpace,
-              AppText.subHeadWebMedium(S.of(context).photo),
+              if (subOrderModel.photos.isNotEmpty) AppText.subHeadWebMedium(S.of(context).photos),
               8.verticalSpace,
               Expanded(
                 child: ListView.separated(

@@ -1,5 +1,7 @@
 import 'package:naqla_driver/features/auth/data/model/photo_model.dart';
 
+import 'car_advantage.dart';
+
 class CarModel {
   final String id;
   final DateTime createdAt;
@@ -7,7 +9,7 @@ class CarModel {
   final String model;
   final String brand;
   final String color;
-  // final List<CarAdvantage> advantages;
+  final List<CarAdvantage> advantages;
   final PhotoModel photo;
 
   CarModel({
@@ -17,7 +19,7 @@ class CarModel {
     required this.model,
     required this.brand,
     required this.color,
-    // required this.advantages,
+    required this.advantages,
     required this.photo,
   });
 
@@ -29,7 +31,7 @@ class CarModel {
     String? brand,
     String? color,
     List<String>? photos,
-    // List<CarAdvantage>? advantages,
+    List<CarAdvantage>? advantages,
     PhotoModel? photo,
   }) =>
       CarModel(
@@ -39,7 +41,7 @@ class CarModel {
         model: model ?? this.model,
         brand: brand ?? this.brand,
         color: color ?? this.color,
-        // advantages: advantages ?? this.advantages,
+        advantages: advantages ?? this.advantages,
         photo: photo ?? this.photo,
       );
 
@@ -50,11 +52,7 @@ class CarModel {
         model: json["model"],
         brand: json["brand"],
         color: json["color"],
-        // advantages: (json['advantages'] as List)
-        //     .map(
-        //       (e) => CarAdvantage.fromJson(e),
-        //     )
-        //     .toList(),
+        advantages: List<CarAdvantage>.from(json["advantages"].map((x) => CarAdvantage.fromJson(x))),
         photo: PhotoModel.fromJson(json["photo"]),
       );
 
