@@ -33,6 +33,7 @@ import { AdvantagesModule } from '@models/advantages/advantages.module';
 import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
 import { SettingsModule } from '@models/settings/settings.module';
 import { GpsDrivingModule } from '@shared/gpsDriving';
+import { PaymentsModule } from './models/payments/payments.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { GpsDrivingModule } from '@shared/gpsDriving';
     SubOrdersModule,
     SettingsModule,
     GpsDrivingModule,
+    PaymentsModule,
   ],
   providers: [
     IsUniqueConstraint,

@@ -63,8 +63,8 @@ export class OrderController {
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('accepted')
-  async findMineforAccepted(@GetUser('id') userId: string): Promise<Order[]> {
-    return this.ordersService.findMineforAccepted(userId);
+  async findMineForAccepted(@GetUser('id') userId: string): Promise<Order[]> {
+    return this.ordersService.findMineForAccepted(userId);
   }
 
   @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)

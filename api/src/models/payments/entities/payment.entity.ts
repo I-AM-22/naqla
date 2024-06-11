@@ -1,5 +1,5 @@
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
-import { Order } from './order.entity';
+import { Order } from '../../orders/entities/order.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { GlobalEntity } from '../../../common/base';
 import { ApiProperty } from '@nestjs/swagger';
@@ -9,9 +9,11 @@ export class Payment extends GlobalEntity {
   @ApiProperty()
   @Column({ default: 0 })
   cost: number;
+
   @ApiProperty()
   @Column({ default: 0 })
   additionalCost: number;
+
   @ApiProperty({ default: '2022-2-2' })
   @Column({ nullable: true })
   deliveredDate: Date;
