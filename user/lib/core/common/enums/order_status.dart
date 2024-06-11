@@ -1,6 +1,9 @@
-enum SubOrderStatus {
+enum OrderStatus {
   waiting,
   ready,
   accepted,
-  cancelled,
+  refused,
+  canceled,
+  onTheWay,
+  delivered,
 }

@@ -1,16 +1,18 @@
 import 'package:naqla/core/common/enums/order_status.dart';
 import 'package:naqla/features/home/data/model/location_model.dart';
 import 'package:naqla/features/home/data/model/order_photos_model.dart';
+import 'package:naqla/features/home/data/model/payment_model.dart';
 
 class OrderModel {
   final String id;
   final DateTime createdAt;
   final DateTime desiredDate;
-  final SubOrderStatus status;
+  final OrderStatus status;
   final LocationModel locationStart;
   final LocationModel locationEnd;
   final List<String> advantages;
   final List<OrderPhotosModel> photos;
+  final PaymentModel paymentModel;
 
   OrderModel({
     required this.id,
@@ -21,17 +23,19 @@ class OrderModel {
     required this.locationEnd,
     required this.advantages,
     required this.photos,
+    required this.paymentModel,
   });
 
   OrderModel copyWith({
     String? id,
     DateTime? createdAt,
     DateTime? desiredDate,
-    SubOrderStatus? status,
+    OrderStatus? status,
     LocationModel? locationStart,
     LocationModel? locationEnd,
     List<String>? advantages,
     List<OrderPhotosModel>? photos,
+    PaymentModel? paymentModel,
   }) =>
       OrderModel(
         id: id ?? this.id,
@@ -42,17 +46,19 @@ class OrderModel {
         locationEnd: locationEnd ?? this.locationEnd,
         advantages: advantages ?? this.advantages,
         photos: photos ?? this.photos,
+        paymentModel: paymentModel ?? this.paymentModel,
       );
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         id: json["id"],
         desiredDate: json['desiredDate'] == null ? DateTime.now() : DateTime.parse(json['desiredDate']),
         createdAt: json['createdAt'] == null ? DateTime.now() : DateTime.parse(json['createdAt']),
-        status: SubOrderStatus.values.byName(json["status"]),
+        status: OrderStatus.values.byName(json["status"]),
         locationStart: LocationModel.fromJson(json["locationStart"]),
         locationEnd: LocationModel.fromJson(json["locationEnd"]),
         advantages: List<String>.from(json["advantages"].map((x) => x['name'])),
         photos: List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
+        paymentModel: PaymentModel.fromJson(json["payment"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -63,6 +69,7 @@ class OrderModel {
         "advantages": List<dynamic>.from(advantages.map((x) => x)),
         "photos": List<dynamic>.from(photos.map((x) => x.toJson())),
         "createdAt": createdAt.toIso8601String(),
-        "desiredDate": desiredDate.toIso8601String()
+        "desiredDate": desiredDate.toIso8601String(),
+        "payment": paymentModel.toJson(),
       };
 }

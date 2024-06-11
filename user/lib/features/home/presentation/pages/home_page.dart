@@ -13,10 +13,12 @@ import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
-import 'package:naqla/features/home/presentation/widget/order_status_card.dart';
+import 'package:naqla/features/home/presentation/widget/order_card.dart';
 
+import '../../../../core/common/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import 'create_order.dart';
+import 'order_details_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.comeFromSplash});
@@ -83,7 +85,28 @@ class _HomePageState extends State<HomePage> {
             appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
             body: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
               stateName: HomeState.ordersActive,
-              onSuccess: (data) => OrderStatusCard(orders: data),
+              onSuccess: (data) => Padding(
+                padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding20, horizontal: UIConstants.screenPadding16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(S.of(context).please_confirm_order),
+                    16.verticalSpace,
+                    Expanded(
+                      child: ListView.separated(
+                        itemCount: data.length,
+                        separatorBuilder: (context, index) => 16.verticalSpace,
+                        itemBuilder: (context, index) => InkWell(
+                          onTap: () => context.pushNamed(OrderDetailsPage.name, extra: data[index]),
+                          child: OrderCard(
+                            orderModel: data[index],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )),
       ),
     );

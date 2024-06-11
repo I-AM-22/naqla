@@ -31,7 +31,7 @@ abstract class AppModule {
       receiveTimeout: const Duration(seconds: 20),
       headers: <String, String>{HttpHeaders.acceptHeader: 'application/json'});
 
-  @singleton
+  @lazySingleton
   Logger get logger => Logger();
 
   @lazySingleton

@@ -15,6 +15,13 @@ class ChangeLocationEvent extends HomeEvent {
   ChangeLocationEvent({required this.onSuccess});
 }
 
+class AcceptOrderEvent extends HomeEvent {
+  final AcceptOrderParam param;
+  final VoidCallback onSuccess;
+
+  AcceptOrderEvent({required this.param, required this.onSuccess});
+}
+
 class UploadPhotosEvent extends HomeEvent {
   final List<File?> photos;
 

@@ -64,7 +64,6 @@ dependencies:
   get_it: ^7.6.0
 
   injectable: ^2.3.0
-  internet_connection_checker: any
   logger: ^2.0.2+1
   shared_preferences: ^2.2.2
 
@@ -80,15 +79,13 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-
-dev_dependencies:
-  flutter_launcher_icons: "^0.13.1"
-
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/images/jpg/logo.jpg"
   min_sdk_android: 21
+
+dev_dependencies:
 
   flutter_test:
     sdk: flutter
@@ -102,7 +99,7 @@ flutter_launcher_icons:
 
 flutter:
   uses-material-design: true
-#  generate: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:

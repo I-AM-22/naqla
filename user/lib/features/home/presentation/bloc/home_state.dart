@@ -6,6 +6,7 @@ class HomeState extends StateObject<HomeState> {
   static String carAdvantage = "carAdvantage";
   static String ordersActive = "ordersActive";
   static String setOrder = "setOrder";
+  static String acceptOrder = "acceptOrder";
 
   final SetOrderParam setOrderParam;
   final int formCount;
@@ -20,6 +21,7 @@ class HomeState extends StateObject<HomeState> {
             InitialState<List<CarAdvantage>>(carAdvantage),
             InitialState<List<OrderModel>>(ordersActive),
             InitialState<OrderModel>(setOrder),
+            InitialState<OrderModel>(acceptOrder),
           ],
           (states) => HomeState(states: states, setOrderParam: setOrderParam, formCount: formCount),
           states,

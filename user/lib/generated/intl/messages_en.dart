@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("About Us"),
+        "active_orders": MessageLookupByLibrary.simpleMessage("Active orders"),
         "add_photo": MessageLookupByLibrary.simpleMessage("Add photo"),
         "additional_specifications_of_the_car":
             MessageLookupByLibrary.simpleMessage(
@@ -75,8 +76,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "confirm_order": MessageLookupByLibrary.simpleMessage("Confirm order"),
         "congratulations":
             MessageLookupByLibrary.simpleMessage("Congratulations "),
+        "cost": MessageLookupByLibrary.simpleMessage("Cost: "),
         "create_an_account":
             MessageLookupByLibrary.simpleMessage("Create an account"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -124,16 +127,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "order_date": MessageLookupByLibrary.simpleMessage("Order date: "),
         "order_details": MessageLookupByLibrary.simpleMessage("Order details"),
+        "order_status": MessageLookupByLibrary.simpleMessage("Order status: "),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
             MessageLookupByLibrary.simpleMessage("Pending Money : "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),
+        "please_confirm_order":
+            MessageLookupByLibrary.simpleMessage("Please confirm order(s)"),
         "please_take_photos_of_the_items_to_be_transported":
             MessageLookupByLibrary.simpleMessage(
                 "Please take photos of the items to be transported to help find a suitable vehicle (or vehicles)."),
         "porters": MessageLookupByLibrary.simpleMessage("Porters"),
+        "previous_orders":
+            MessageLookupByLibrary.simpleMessage("Previous orders"),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
@@ -150,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "start_point": MessageLookupByLibrary.simpleMessage("Start Point"),
+        "syp": MessageLookupByLibrary.simpleMessage("SYP"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties."),

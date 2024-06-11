@@ -5,6 +5,7 @@ import 'package:naqla/features/home/data/data_source/home_remote_data_source.dar
 import 'package:naqla/features/home/data/model/car_advantage.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/domain/repositories/home_repository.dart';
+import 'package:naqla/features/home/domain/use_case/accept_order_use_case.dart';
 import 'package:naqla/features/home/domain/use_case/set_order_use_case.dart';
 import 'package:naqla/features/home/domain/use_case/upload_photos_use_case.dart';
 
@@ -31,5 +32,12 @@ class HomeRepositoryImplement extends HomeRepository {
   @override
   FutureResult<OrderModel> setOrder(SetOrderParam param) {
     return toApiResult(() => dataSource.setOrder(param));
+  }
+
+  @override
+  FutureResult<OrderModel> acceptOrder(AcceptOrderParam param) {
+    return toApiResult(
+      () => dataSource.acceptOrder(param),
+    );
   }
 }
