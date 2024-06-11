@@ -123,8 +123,9 @@ export class OrderRepository implements IOrderRepository {
         createdAt: true,
         updatedAt: true,
         advantages: { name: true },
+        payment: { additionalCost: true },
       },
-      relations: { user: true, photos: true, advantages: true },
+      relations: { user: true, photos: true, advantages: true, payment: true },
     });
   }
 
@@ -138,6 +139,7 @@ export class OrderRepository implements IOrderRepository {
     order.desiredDate = dto.desiredDate;
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
+    order.porters = dto.porters;
     order.photos.push(...photos);
     order.advantages = advantages;
     order.user = user;
@@ -157,16 +159,30 @@ export class OrderRepository implements IOrderRepository {
     return this.findOne(order.id);
   }
   async divisionDone(id: string): Promise<Order> {
-    const order = await this.findOne(id);
-    order.status = ORDER_STATUS.ACCEPTED;
-    await this.orderRepository.save(order);
-    return order;
+    await this.orderRepository
+      .createQueryBuilder()
+      .update(Order)
+      .set({ status: ORDER_STATUS.ACCEPTED })
+      .where('id = :id', { id })
+      .execute();
+    const updatedOrder = await this.findOne(id);
+    if (!updatedOrder) {
+      throw new Error('Order not found');
+    }
+    return updatedOrder;
   }
   async acceptance(id: string): Promise<Order> {
-    const order = await this.findOne(id);
-    order.status = ORDER_STATUS.READY;
-    await this.orderRepository.save(order);
-    return order;
+    await this.orderRepository
+      .createQueryBuilder()
+      .update(Order)
+      .set({ status: ORDER_STATUS.READY })
+      .where('id = :id', { id })
+      .execute();
+    const updatedOrder = await this.findOne(id);
+    if (!updatedOrder) {
+      throw new Error('Order not found');
+    }
+    return updatedOrder;
   }
 
   async cancellation(id: string): Promise<Order> {
@@ -177,10 +193,17 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async refusal(id: string): Promise<Order> {
-    const order = await this.findOne(id);
-    order.status = ORDER_STATUS.REFUSED;
-    await this.orderRepository.save(order);
-    return order;
+    await this.orderRepository
+      .createQueryBuilder()
+      .update(Order)
+      .set({ status: ORDER_STATUS.REFUSED })
+      .where('id = :id', { id })
+      .execute();
+    const updatedOrder = await this.findOne(id);
+    if (!updatedOrder) {
+      throw new Error('Order not found');
+    }
+    return updatedOrder;
   }
 
   async delete(order: Order): Promise<void> {

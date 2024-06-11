@@ -45,6 +45,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         'order.locationStart',
         'order.locationEnd',
         'order.desiredDate',
+        'order.porters',
         'advantage.name',
       ]);
 
@@ -71,7 +72,6 @@ export class SubOrderRepository implements ISubOrderRepository {
       orderId: id,
       weight: dto.weight,
       cost,
-      // cost: Math.floor(Math.random() * 1000),
     });
     return await this.suporderRepository.save(sub);
   }
@@ -125,12 +125,6 @@ export class SubOrderRepository implements ISubOrderRepository {
   }
 
   async findTotalCost(id: string): Promise<number> {
-    //1)
-    // const suporders = await this.suporderRepository.find({
-    //   where: { orderId: id },
-    // });
-    // const totalCost = suporders.reduce((sum, order) => sum + order.cost, 0);
-    // return totalCost;
     const result = await this.suporderRepository
       .createQueryBuilder('suporder')
       .select('SUM(suporder.cost)', 'totalCost')

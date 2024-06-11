@@ -34,12 +34,33 @@ export class PymentRepository {
     const payment = await this.paymentRepository.findOne({
       where: { orderId: id },
     });
-    payment.deliveredDate =
-      payment.deliveredDate == null
+
+    if (!payment) {
+      throw new Error('Payment not found');
+    }
+
+    const newDeliveredDate =
+      payment.deliveredDate == null ||
+      payment.deliveredDate.getTime() < Date.now()
         ? new Date()
-        : payment.deliveredDate.getTime() < Date.now()
-          ? new Date()
-          : payment.deliveredDate;
-    return await this.paymentRepository.save(payment);
+        : payment.deliveredDate;
+
+    await this.paymentRepository
+      .createQueryBuilder()
+      .update(Payment)
+      .set({ deliveredDate: newDeliveredDate })
+      .where('orderId = :id', { id })
+      .execute();
+
+    // استرجاع الدفع بعد التحديث
+    const updatedPayment = await this.paymentRepository.findOne({
+      where: { orderId: id },
+    });
+
+    if (!updatedPayment) {
+      throw new Error('Payment not found after update');
+    }
+
+    return updatedPayment;
   }
 }

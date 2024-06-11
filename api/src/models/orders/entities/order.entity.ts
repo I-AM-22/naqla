@@ -31,6 +31,10 @@ export class Order extends GlobalEntity {
   @Column({ enum: ORDER_STATUS, default: ORDER_STATUS.WAITING })
   status: ORDER_STATUS;
 
+  @ApiProperty({ default: 0 })
+  @Column({ default: 0 })
+  porters: number;
+
   @ApiProperty()
   @Type(() => Location)
   @Column({ type: 'jsonb', nullable: true })

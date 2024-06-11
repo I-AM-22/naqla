@@ -82,11 +82,6 @@ export class OrdersService implements IOrdersService {
       advantages,
       dto,
     );
-    if (dto.porters > 0) {
-      const settingPorters =
-        await this.settingepository.findOneByName('porters');
-      sum += +dto.porters * +settingPorters.cost;
-    }
     await this.pymentRepository.create(order, sum);
     return order;
   }
@@ -118,6 +113,7 @@ export class OrdersService implements IOrdersService {
     await this.pymentRepository.setTotal(id, cost);
     return this.orderRepository.divisionDone(id);
   }
+
   acceptance(id: string): Promise<Order> {
     // const order = await this.orderRepository.findOne(id);
     // if (order.status !== ORDER_STATUS.WAITING) {
