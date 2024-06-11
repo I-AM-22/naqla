@@ -1,0 +1,49 @@
+// async create(CreateSubOrdersDto: CreateSubOrdersDto): Promise<SubOrder[]> {
+//   const sub: SubOrder[] = [];
+//   const pointes = await this.orderRepository.findOne(
+//     CreateSubOrdersDto.orderId,
+//   );
+//   let settingWeight: Setting;
+//   for (let i = 0; i < CreateSubOrdersDto.subOrders.length; i++) {
+//     {
+//       if (CreateSubOrdersDto.subOrders[i].weight < 1000) {
+//         settingWeight =
+//           await this.settingepository.findOneByName('defaultWeight');
+//       } else if (
+//         CreateSubOrdersDto.subOrders[i].weight < 2000 &&
+//         CreateSubOrdersDto.subOrders[i].weight >= 1000
+//       )
+//         settingWeight =
+//           await this.settingepository.findOneByName('minWeight');
+//       else if (
+//         CreateSubOrdersDto.subOrders[i].weight < 3000 &&
+//         CreateSubOrdersDto.subOrders[i].weight >= 2000
+//       )
+//         settingWeight =
+//           await this.settingepository.findOneByName('midWeight');
+//       else if (CreateSubOrdersDto.subOrders[i].weight >= 3000)
+//         settingWeight =
+//           await this.settingepository.findOneByName('maxWeight');
+//     }
+//     ///تم القسمة على الف لانه ال المسافة ترجع بالمتر من اجل ان اردها الى الكيلو متر واضربها بسعر الفردي لكل كيلو
+//     const costDistance =
+//       (+(await this.gpsDrivingService.costDistance(
+//         pointes.locationStart,
+//         pointes.locationEnd,
+//       )) /
+//         1000) *
+//       +settingWeight.cost;
+//     sub.push(
+//       await this.subOrderRepository.create(
+//         CreateSubOrdersDto.orderId,
+//         CreateSubOrdersDto.subOrders[i],
+//         Math.round(costDistance),
+//       ),
+//     );
+//     this.orderPhotoRepository.setPhotoSub(
+//       CreateSubOrdersDto.subOrders[i].photos,
+//       sub[sub.length - 1].id,
+//     );
+//   }
+//   return sub;
+// }

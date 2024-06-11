@@ -63,7 +63,7 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async findMineforAccepted(userId: string): Promise<Order[]> {
+  async findMineForAccepted(userId: string): Promise<Order[]> {
     return this.orderRepository.find({
       where: { userId, status: ORDER_STATUS.ACCEPTED },
       select: {

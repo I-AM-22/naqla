@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNumber, IsUUID, ValidateNested } from 'class-validator';
 
-export class sub {
+export class CreateSubOrderDto {
   @ApiProperty()
   @IsNumber()
   weight: number;
@@ -11,12 +11,14 @@ export class sub {
   @IsUUID('all', { each: true })
   photos: string[];
 }
-export class CreateSubOrderDto {
+
+export class CreateSubOrdersDto {
   @ApiProperty()
   @IsUUID()
   orderId: string;
-  @ApiProperty({ isArray: true, type: sub })
+
+  @ApiProperty({ isArray: true, type: CreateSubOrderDto })
   @ValidateNested({ each: true })
-  @Type(() => sub)
-  subOrders: sub[];
+  @Type(() => CreateSubOrderDto)
+  subOrders: CreateSubOrderDto[];
 }

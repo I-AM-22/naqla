@@ -12,28 +12,28 @@ import { User } from '@models/users/entities/user.entity';
 import { IOrdersService } from '../interfaces/services/orders.service.interface';
 import { item_not_found } from '@common/constants';
 import { Entities, ORDER_STATUS, ROLE } from '@common/enums';
-// import { IPhotoRepository } from '@common/interfaces';
-// import { OrderPhoto } from '../entities/order-photo.entity';
 import { ADVANTAGE_TYPES } from '@models/advantages/interfaces/type';
 import { IAdvantagesService } from '@models/advantages/interfaces/services/advantages.service.interface';
 import { OrderPhotoRepository } from '../repositories/order-photo.repository';
 import { IPerson } from '@common/interfaces';
-import { PymentRepository } from '../repositories/pyment.repository';
 import { ISettingRepository } from '@models/settings/interfaces/repositories/setting.repository.interface';
+import { IPaymentRepository } from '@models/payments/interfaces/repositories/payment.repository.interface';
+import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
+import { SETTING_TYPES } from '@models/settings/interfaces/type';
 
 @Injectable()
 export class OrdersService implements IOrdersService {
   constructor(
     @Inject(ORDER_TYPES.repository.order)
     private readonly orderRepository: IOrderRepository,
-    @Inject('ISettingRepository')
-    private readonly settingepository: ISettingRepository,
+    @Inject(SETTING_TYPES.repository)
+    private readonly settingRepository: ISettingRepository,
     @Inject(ORDER_TYPES.repository.photo)
     private readonly orderPhotoRepository: OrderPhotoRepository,
     @Inject(ADVANTAGE_TYPES.service)
     private readonly advantagesService: IAdvantagesService,
-    @Inject('PymentRepository')
-    private readonly pymentRepository: PymentRepository,
+    @Inject(PAYMENT_TYPES.repository)
+    private readonly paymentRepository: IPaymentRepository,
   ) {}
 
   async find(): Promise<Order[]> {
@@ -56,8 +56,8 @@ export class OrdersService implements IOrdersService {
     return await this.orderRepository.findMyOrder(userId);
   }
 
-  async findMineforAccepted(userId: string): Promise<Order[]> {
-    return await this.orderRepository.findMineforAccepted(userId);
+  async findMineForAccepted(userId: string): Promise<Order[]> {
+    return await this.orderRepository.findMineForAccepted(userId);
   }
 
   async findOneForOwner(id: string, userId: string): Promise<Order> {
@@ -82,7 +82,7 @@ export class OrdersService implements IOrdersService {
       advantages,
       dto,
     );
-    await this.pymentRepository.create(order, sum);
+    await this.paymentRepository.create(order, sum);
     return order;
   }
 
@@ -103,6 +103,7 @@ export class OrdersService implements IOrdersService {
     const photo = await this.orderPhotoRepository.uploadPhotoMultiple([]);
     return this.orderRepository.update(order, dto, photo);
   }
+
   async divisionDone(id: string, cost: number): Promise<Order> {
     // const order = await this.orderRepository.findOne(id);
     // if (order.status !== ORDER_STATUS.WAITING) {
@@ -110,7 +111,7 @@ export class OrdersService implements IOrdersService {
     //     'Can not division Done this order becouss him status is not waiting',
     //   );
     // }
-    await this.pymentRepository.setTotal(id, cost);
+    await this.paymentRepository.setTotal(id, cost);
     return this.orderRepository.divisionDone(id);
   }
 
@@ -123,6 +124,7 @@ export class OrdersService implements IOrdersService {
     // }
     return this.orderRepository.acceptance(id);
   }
+
   cancellation(id: string): Promise<Order> {
     // const order = await this.orderRepository.findOne(id);
     // if (order.status !== ORDER_STATUS.WAITING) {

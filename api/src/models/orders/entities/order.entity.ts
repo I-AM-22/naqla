@@ -14,11 +14,10 @@ import {
   OneToOne,
 } from 'typeorm';
 import { OrderPhoto } from './order-photo.entity';
-// import { GROUPS } from '@common/enums';
 import { ORDER_STATUS } from '@common/enums';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 import { Location } from '../interfaces/location.interface';
-import { Payment } from './payment.entity';
+import { Payment } from '../../payments/entities/payment.entity';
 import { MiniUser } from '@models/users/interfaces/mini-user.interface';
 
 @Entity('orders')
@@ -38,12 +37,12 @@ export class Order extends GlobalEntity {
   @ApiProperty()
   @Type(() => Location)
   @Column({ type: 'jsonb', nullable: true })
-  locationStart: Location; // Using custom type for locationStart
+  locationStart: Location;
 
   @ApiProperty()
   @Column({ type: 'jsonb', nullable: true })
   @Type(() => Location)
-  locationEnd: Location; // Using custom type for locationEnd
+  locationEnd: Location;
 
   @ApiProperty({ type: () => MiniUser })
   @ManyToOne(() => User, (user) => user.orders)
