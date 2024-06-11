@@ -54,6 +54,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeState.acceptOrder,
       (event) => acceptOrderUseCase(event.param),
       onSuccess: (data, event, emit) async {
+        final oldItem = state.getState<List<OrderModel>>(HomeState.ordersActive).data ?? [];
+        oldItem.removeWhere(
+          (element) => element.id == event.param.id,
+        );
+        if (oldItem.isEmpty) {
+          emit(state.updateState(HomeState.ordersActive, const EmptyState<List<OrderModel>>()));
+        } else {
+          emit(state.updateData(HomeState.ordersActive, oldItem));
+        }
         event.onSuccess();
       },
     );

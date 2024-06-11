@@ -1,11 +1,11 @@
 class PaymentModel {
-  final String id;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final int cost;
-  final int additionalCost;
-  final dynamic deliveredDate;
-  final int total;
+  final String? id;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final int? cost;
+  final int? additionalCost;
+  final DateTime? deliveredDate;
+  final int? total;
 
   PaymentModel({
     required this.id,
@@ -38,21 +38,21 @@ class PaymentModel {
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) => PaymentModel(
         id: json["id"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
         cost: json["cost"],
         additionalCost: json["additionalCost"],
-        deliveredDate: json["deliveredDate"],
+        deliveredDate: DateTime.tryParse(json["deliveredDate"] ?? ''),
         total: json["total"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
         "cost": cost,
         "additionalCost": additionalCost,
-        "deliveredDate": deliveredDate,
+        "deliveredDate": deliveredDate?.toIso8601String(),
         "total": total,
       };
 }
