@@ -29,6 +29,31 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
+  async findIsDoneForDriver(driverId: string): Promise<SubOrder[]> {
+    return await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.order', 'order')
+      .leftJoinAndSelect('subOrder.car', 'car')
+      .leftJoinAndSelect('subOrder.photos', 'photos')
+      .leftJoinAndSelect('order.advantages', 'advantages')
+      .where('subOrder.status = :status', {
+        status: SUB_ORDER_STATUS.DELIVERED,
+      })
+      .andWhere('car.driverId = :driverId', { driverId })
+      .select([
+        'subOrder.id',
+        'subOrder.cost',
+        'subOrder.weight',
+        'photos',
+        'order.locationStart',
+        'order.locationEnd',
+        'order.desiredDate',
+        'order.porters',
+        'advantages.name',
+      ])
+      .getMany();
+  }
+
   async findForDriver(cars: Car[]): Promise<SubOrder[]> {
     const subOrders = await this.subOrderRepository
       .createQueryBuilder('subOrder')

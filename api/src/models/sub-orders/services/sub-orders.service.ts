@@ -114,6 +114,9 @@ export class SubOrdersService implements ISubOrdersService {
   findForOrder(orderId: string): Promise<SubOrder[]> {
     return this.subOrderRepository.findForOrder(orderId);
   }
+  findIsDoneForDriver(driverId: string): Promise<SubOrder[]> {
+    return this.subOrderRepository.findIsDoneForDriver(driverId);
+  }
 
   findOne(subOrderId: string): Promise<SubOrder> {
     return this.subOrderRepository.findOne(subOrderId);

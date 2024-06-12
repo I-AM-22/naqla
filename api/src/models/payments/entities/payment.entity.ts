@@ -25,9 +25,4 @@ export class Payment extends GlobalEntity {
   @Exclude()
   @Column('uuid')
   orderId: string;
-
-  @Expose()
-  total() {
-    return this.cost + this.additionalCost;
-  }
 }
