@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("About Us"),
         "accept_order": MessageLookupByLibrary.simpleMessage("Accept order"),
+        "active_orders": MessageLookupByLibrary.simpleMessage("Active orders"),
         "add_car": MessageLookupByLibrary.simpleMessage("Add car"),
         "additional_specifications_of_the_car":
             MessageLookupByLibrary.simpleMessage(
@@ -81,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
+        "done_orders": MessageLookupByLibrary.simpleMessage("Orders done"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("Edit Phone Number"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),

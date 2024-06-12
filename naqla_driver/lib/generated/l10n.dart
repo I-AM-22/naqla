@@ -750,6 +750,26 @@ class S {
     );
   }
 
+  /// `Active orders`
+  String get active_orders {
+    return Intl.message(
+      'Active orders',
+      name: 'active_orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders done`
+  String get done_orders {
+    return Intl.message(
+      'Orders done',
+      name: 'done_orders',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(

@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("من نحن"),
         "accept_order": MessageLookupByLibrary.simpleMessage("قبول الطلب"),
+        "active_orders":
+            MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
         "add_car": MessageLookupByLibrary.simpleMessage("اضافة سيارة"),
         "additional_specifications_of_the_car":
             MessageLookupByLibrary.simpleMessage("مواصفات اضافية للسيارة"),
@@ -75,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
+        "done_orders": MessageLookupByLibrary.simpleMessage("الطلبات المنتهية"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("تعديل رقم الهاتف"),
         "edit_profile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),

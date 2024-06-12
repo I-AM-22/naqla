@@ -76,6 +76,8 @@
 
   "__________________________order_______________________________": "",
   "orders": "Orders",
+  "active_orders": "Active orders",
+  "done_orders": "Orders done",
 
   "__________________________profile______________________________":"",
   "profile":"profile",
