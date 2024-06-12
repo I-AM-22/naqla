@@ -81,18 +81,10 @@ export class OrderController {
     const order = await this.ordersService.findOne(id, user);
     return order;
   }
-  // @Roles(ROLE.EMPLOYEE)
-  // @ApiOkResponse({ type: Order })
-  // @Get(':id/divisionDone')
-  // async divisionDone(@Id() id: string): Promise<Order> {
-  //   const cost = await this.subordersService.findTotalCost(id);
-  //   const order = await this.ordersService.divisionDone(id, cost);
-  //   return order;
-  // }
 
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order })
-  @Get(':id/acceptance')
+  @Patch(':id/acceptance')
   async acceptance(@Id() id: string): Promise<Order> {
     await this.subordersService.ready(id);
     const order = await this.ordersService.acceptance(id);
@@ -100,7 +92,7 @@ export class OrderController {
   }
   @Roles(ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order })
-  @Get(':id/cancellation')
+  @Patch(':id/cancellation')
   async cancellation(@Id() id: string): Promise<Order> {
     const order = await this.ordersService.cancellation(id);
     return order;
@@ -108,7 +100,7 @@ export class OrderController {
 
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order })
-  @Get(':id/refusal')
+  @Patch(':id/refusal')
   async refusal(@Id() id: string): Promise<Order> {
     const order = await this.ordersService.refusal(id);
     await this.subordersService.deleteForOrder(id);
