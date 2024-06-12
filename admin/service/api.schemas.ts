@@ -180,21 +180,17 @@ export type UpdateSubOrderDto = {
   rating: number;
 };
 
-export type SubOrderOrder = { [key: string]: any };
-
-export type SubOrderCar = { [key: string]: any };
-
 export type SubOrder = {
   acceptedAt: string;
   arrivedAt: string;
-  car?: SubOrderCar;
+  car: Car;
   carId?: string;
   cost: number;
   createdAt: Date;
   deliveredAt: string;
   driverAssignedAt: string;
   id: string;
-  order: SubOrderOrder;
+  order: Order;
   photos: string[];
   pickedUpAt: string;
   rating: number;
@@ -260,8 +256,6 @@ export type CreateOrderDto = {
   porters: number;
 };
 
-export type OrderUser = { [key: string]: any };
-
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -297,6 +291,16 @@ export type OrderPhoto = {
   width: number;
 };
 
+export type MiniUser = {
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+};
+
 export type Location = {
   latitude: number;
   longitude: number;
@@ -313,9 +317,10 @@ export type Order = {
   locationStart: Location;
   payment: Payment;
   photos: OrderPhoto[];
+  porters: number;
   status: OrderStatus;
   updatedAt: Date;
-  user: OrderUser;
+  user: MiniUser;
 };
 
 export type UpdateAdvantageDto = {

@@ -995,6 +995,15 @@ export const orderControllerFindMine = (
   );
 };
 
+export const orderControllerFindMineforAccepted = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/accepted`, method: "GET" },
+    options,
+  );
+};
+
 export const orderControllerFindAllWaiting = (
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
@@ -1446,6 +1455,9 @@ export type OrderControllerCreateResult = NonNullable<
 >;
 export type OrderControllerFindMineResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerFindMine>>
+>;
+export type OrderControllerFindMineforAcceptedResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindMineforAccepted>>
 >;
 export type OrderControllerFindAllWaitingResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerFindAllWaiting>>

@@ -10,10 +10,10 @@ import {
 import { useTranslation } from "@/i18n/client";
 import { Order } from "@/service/api.schemas";
 import { createColumnHelper } from "@tanstack/react-table";
+import dayjs from "dayjs";
 import { TFunction } from "i18next";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-
 const columnHelper = createColumnHelper<Order>();
 const columns = (t: TFunction<string, string>) => [
   columnHelper.accessor("user", {
@@ -29,7 +29,10 @@ const columns = (t: TFunction<string, string>) => [
     header: t("photos"),
     cell: ({ cell }) => cell.getValue().length,
   }),
-  { accessorKey: "desiredDate", header: t("desiredDate") },
+  columnHelper.accessor("desiredDate", {
+    header: t("desiredDate"),
+    cell: ({ cell }) => dayjs(cell.getValue()).format("YYYY/MM/DD hh:mm A"),
+  }),
   columnHelper.display({
     cell: ({ row }) => (
       <DropdownMenu>

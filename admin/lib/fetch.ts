@@ -86,7 +86,7 @@ export const fetchInstance = async <T>(
       headers,
       signal: config.signal,
       ...init,
-      // cache: "no-cache",
+      cache: "no-cache",
       next: { ...init?.next },
     },
   );

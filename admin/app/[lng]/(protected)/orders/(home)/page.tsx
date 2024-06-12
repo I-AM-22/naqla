@@ -1,10 +1,7 @@
-import { PageProps } from "@/app/type";
-import { getTranslation } from "@/i18n/server";
 import { orderControllerFindAllWaiting } from "@/service/api";
 import { ordersTagKeys } from "@/service/orders";
 import { OrderDataTable } from "./data-table";
-export default async function Page(props: PageProps) {
-  const { t: ct } = await getTranslation(props.params.lng);
+export default async function Page() {
   const res = await orderControllerFindAllWaiting({
     next: { tags: ordersTagKeys.waiting() },
   });
