@@ -14,7 +14,7 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   final GetAllCarsUseCase getAllCarsUseCase;
   AppBloc(this.getAllCarsUseCase) : super(AppState()) {
-    multiStateApiCall(
+    multiStateApiCall<GetAllCarsEvent, List<CarModel>>(
       AppState.getAllCars,
       (event) => getAllCarsUseCase(NoParams()),
     );

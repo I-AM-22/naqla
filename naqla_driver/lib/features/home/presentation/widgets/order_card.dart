@@ -16,9 +16,10 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding20, horizontal: UIConstants.screenPadding16),
+      padding: REdgeInsets.symmetric(vertical: 8, horizontal: UIConstants.screenPadding16),
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
+        height: 150.h,
         decoration: BoxDecoration(border: Border.all(color: context.colorScheme.primary), borderRadius: BorderRadius.circular(8)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,11 +30,16 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText.bodySmMedium('${S.of(context).weight}${subOrderModel.weight.toString()}'),
+                  Flexible(
+                      child: AppText.bodySmMedium(
+                    '${S.of(context).weight}${subOrderModel.weight}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )),
                   10.verticalSpace,
-                  AppText.bodySmMedium('${S.of(context).cost}${subOrderModel.cost.toString()}'),
+                  Flexible(child: AppText.bodySmMedium('${S.of(context).cost}${subOrderModel.cost}')),
                   10.verticalSpace,
-                  AppText.bodySmMedium('${S.of(context).porters}${subOrderModel.order.porters.toString()}'),
+                  Flexible(child: AppText.bodySmMedium('${S.of(context).porters}${subOrderModel.order.porters.toString()}')),
                   10.verticalSpace,
                   AppButton.dark(
                     buttonSize: ButtonSize.medium,

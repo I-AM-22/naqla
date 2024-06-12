@@ -62,6 +62,8 @@
   "order_details": "Order details",
   "accept_order": "Accept order",
   "photos": "Photos",
+  "pick_a_car": "Pick a car",
+  "advantages": "Advantages",
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",

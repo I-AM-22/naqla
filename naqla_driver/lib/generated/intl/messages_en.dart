@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "additional_specifications_of_the_car":
             MessageLookupByLibrary.simpleMessage(
                 "Additional specifications of the car"),
+        "advantages": MessageLookupByLibrary.simpleMessage("Advantages"),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
@@ -117,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Phone verification"),
         "photo": MessageLookupByLibrary.simpleMessage("Photo"),
         "photos": MessageLookupByLibrary.simpleMessage("Photos"),
+        "pick_a_car": MessageLookupByLibrary.simpleMessage("Pick a car"),
         "pick_a_color": MessageLookupByLibrary.simpleMessage("Pick a color"),
         "porters": MessageLookupByLibrary.simpleMessage("Porters: "),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),

@@ -33,6 +33,7 @@ class CarModel {
     List<String>? photos,
     List<CarAdvantage>? advantages,
     PhotoModel? photo,
+    bool? isSelected,
   }) =>
       CarModel(
         id: id ?? this.id,
@@ -63,7 +64,7 @@ class CarModel {
         "model": model,
         "brand": brand,
         "color": color,
-        // "advantages": List<dynamic>.from(advantages.map((x) => x)),
+        "advantages": List<dynamic>.from(advantages.map((x) => x.toJson())),
         "photo": photo.toJson,
       };
 }

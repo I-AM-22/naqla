@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:naqla_driver/core/core.dart';
@@ -34,8 +33,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => bloc,
+    return BlocProvider.value(
+      value: bloc,
       child: AppScaffold(
         appBar: AppAppBar(
           appBarParams: AppBarParams(title: S.of(context).home),
@@ -57,17 +56,21 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
         ),
-        body: AppCommonStateBuilder<HomeBloc, List<SubOrderModel>>(
-          stateName: HomeState.subOrders,
-          onSuccess: (data) {
-            return ListView.separated(
-              separatorBuilder: (context, index) => 16.verticalSpace,
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return OrderCard(subOrderModel: data[index]);
-              },
-            );
+        body: RefreshIndicator(
+          onRefresh: () async {
+            bloc.add(GetSubOrdersEvent());
           },
+          child: AppCommonStateBuilder<HomeBloc, List<SubOrderModel>>(
+            stateName: HomeState.subOrders,
+            onSuccess: (data) {
+              return ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return OrderCard(subOrderModel: data[index]);
+                },
+              );
+            },
+          ),
         ),
       ),
     );

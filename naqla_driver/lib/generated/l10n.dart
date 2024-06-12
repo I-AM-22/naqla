@@ -640,6 +640,26 @@ class S {
     );
   }
 
+  /// `Pick a car`
+  String get pick_a_car {
+    return Intl.message(
+      'Pick a car',
+      name: 'pick_a_car',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advantages`
+  String get advantages {
+    return Intl.message(
+      'Advantages',
+      name: 'advantages',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(

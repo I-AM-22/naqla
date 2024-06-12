@@ -19,3 +19,12 @@ class ChangeSelectAdvantageEvent extends HomeEvent {
 class GetCarAdvantageEvent extends HomeEvent {}
 
 class GetSubOrdersEvent extends HomeEvent {}
+
+class GetAllCarsEvent extends HomeEvent {}
+
+class SetDriverEvent extends HomeEvent {
+  final SetDriverParam param;
+  final VoidCallback onSuccess;
+
+  SetDriverEvent({required this.param, required this.onSuccess});
+}

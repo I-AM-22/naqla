@@ -26,14 +26,10 @@ class DioLogInterceptor extends Interceptor {
       options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${GetIt.I<PrefsRepository>().token}';
     }
     if (kDebugMode) {
-      logger.i(
-        "***|| INFO Request ${options.method} ${options.path} ||***"
-        "\n param : ${options.queryParameters}"
-        "\n data : ${options.data}"
-        "\n Header: ${encoder.convert(options.headers)}"
-        "\n timeout: ${options.connectTimeout ?? 0 ~/ 1000}s"
-        "\n curl command: ${HelperFunctions.getCurlCommandFromRequest(options)}s",
-      );
+      logger.i("***|| INFO Request ${options.method} ${options.path} ||***"
+          "\n param : ${options.queryParameters}"
+          "\n data : ${options.data}"
+          "\n authorization: ${encoder.convert(options.headers["authorization"])}");
     }
 
     handler.next(options);

@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_car": MessageLookupByLibrary.simpleMessage("اضافة سيارة"),
         "additional_specifications_of_the_car":
             MessageLookupByLibrary.simpleMessage("مواصفات اضافية للسيارة"),
+        "advantages": MessageLookupByLibrary.simpleMessage("الميزات"),
         "ago": MessageLookupByLibrary.simpleMessage("منذ"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
@@ -113,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
         "photo": MessageLookupByLibrary.simpleMessage("الصورة"),
         "photos": MessageLookupByLibrary.simpleMessage("الصور"),
+        "pick_a_car": MessageLookupByLibrary.simpleMessage("اختر سيارة"),
         "pick_a_color": MessageLookupByLibrary.simpleMessage("اختر لون"),
         "porters": MessageLookupByLibrary.simpleMessage("الحمالين: "),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),

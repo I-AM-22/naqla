@@ -22,20 +22,20 @@ import '../../features/app/domain/repository/app_repository.dart' as _i12;
 import '../../features/app/domain/repository/prefs_repository.dart' as _i7;
 import '../../features/app/domain/usecases/get_all_cars_use_case.dart' as _i16;
 import '../../features/app/domain/usecases/upload_image_use_case.dart' as _i17;
-import '../../features/app/presentation/state/bloc/app_bloc.dart' as _i25;
-import '../../features/app/presentation/state/upload_image_cubit.dart' as _i24;
+import '../../features/app/presentation/state/bloc/app_bloc.dart' as _i26;
+import '../../features/app/presentation/state/upload_image_cubit.dart' as _i25;
 import '../../features/auth/data/datasources/auth_local_data_source.dart'
     as _i4;
 import '../../features/auth/data/datasources/auth_remote_data_source.dart'
     as _i10;
 import '../../features/auth/data/repositories/auth_repository_implement.dart'
-    as _i22;
-import '../../features/auth/domain/repositories/auth_repository.dart' as _i21;
-import '../../features/auth/domain/usecases/login_use_case.dart' as _i26;
-import '../../features/auth/domain/usecases/signup_use_case.dart' as _i27;
+    as _i23;
+import '../../features/auth/domain/repositories/auth_repository.dart' as _i22;
+import '../../features/auth/domain/usecases/login_use_case.dart' as _i27;
+import '../../features/auth/domain/usecases/signup_use_case.dart' as _i28;
 import '../../features/auth/domain/usecases/verification_phone_number_use_case.dart'
-    as _i28;
-import '../../features/auth/presentation/state/auth_bloc.dart' as _i29;
+    as _i29;
+import '../../features/auth/presentation/state/auth_bloc.dart' as _i30;
 import '../../features/home/data/datasource/home_remote_data_source.dart'
     as _i11;
 import '../../features/home/data/repositories/home_repository_implement.dart'
@@ -45,8 +45,9 @@ import '../../features/home/domain/usecase/add_car_use_case.dart' as _i18;
 import '../../features/home/domain/usecase/car_advantage_use_case.dart' as _i19;
 import '../../features/home/domain/usecase/get_sub_orders_use_case.dart'
     as _i20;
-import '../../features/home/presentation/state/home_bloc.dart' as _i23;
-import 'di_container.dart' as _i30;
+import '../../features/home/domain/usecase/set_driver_use_case.dart' as _i21;
+import '../../features/home/presentation/state/home_bloc.dart' as _i24;
+import 'di_container.dart' as _i31;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
@@ -93,30 +94,34 @@ Future<_i1.GetIt> $initGetIt(
       () => _i19.CarAdvantageUseCase(gh<_i14.HomeRepository>()));
   gh.factory<_i20.GetSubOrdersUseCase>(
       () => _i20.GetSubOrdersUseCase(gh<_i14.HomeRepository>()));
-  gh.factory<_i21.AuthRepository>(() => _i22.AuthRepositoryImplement(
+  gh.factory<_i21.SetDriverUseCase>(
+      () => _i21.SetDriverUseCase(gh<_i14.HomeRepository>()));
+  gh.factory<_i22.AuthRepository>(() => _i23.AuthRepositoryImplement(
         gh<_i10.AuthRemoteDataSource>(),
         gh<_i4.AuthLocaleDataSource>(),
       ));
-  gh.factory<_i23.HomeBloc>(() => _i23.HomeBloc(
+  gh.lazySingleton<_i24.HomeBloc>(() => _i24.HomeBloc(
         gh<_i18.AddCarUseCase>(),
         gh<_i19.CarAdvantageUseCase>(),
         gh<_i20.GetSubOrdersUseCase>(),
+        gh<_i16.GetAllCarsUseCase>(),
+        gh<_i21.SetDriverUseCase>(),
       ));
-  gh.factory<_i24.UploadImageCubit>(
-      () => _i24.UploadImageCubit(gh<_i17.UploadImageUseCase>()));
-  gh.factory<_i25.AppBloc>(() => _i25.AppBloc(gh<_i16.GetAllCarsUseCase>()));
-  gh.factory<_i26.LoginUseCase>(
-      () => _i26.LoginUseCase(gh<_i21.AuthRepository>()));
-  gh.factory<_i27.SignUpUseCase>(
-      () => _i27.SignUpUseCase(gh<_i21.AuthRepository>()));
-  gh.factory<_i28.VerificationPhoneNumberUseCase>(
-      () => _i28.VerificationPhoneNumberUseCase(gh<_i21.AuthRepository>()));
-  gh.factory<_i29.AuthBloc>(() => _i29.AuthBloc(
-        gh<_i26.LoginUseCase>(),
-        gh<_i27.SignUpUseCase>(),
-        gh<_i28.VerificationPhoneNumberUseCase>(),
+  gh.factory<_i25.UploadImageCubit>(
+      () => _i25.UploadImageCubit(gh<_i17.UploadImageUseCase>()));
+  gh.factory<_i26.AppBloc>(() => _i26.AppBloc(gh<_i16.GetAllCarsUseCase>()));
+  gh.factory<_i27.LoginUseCase>(
+      () => _i27.LoginUseCase(gh<_i22.AuthRepository>()));
+  gh.factory<_i28.SignUpUseCase>(
+      () => _i28.SignUpUseCase(gh<_i22.AuthRepository>()));
+  gh.factory<_i29.VerificationPhoneNumberUseCase>(
+      () => _i29.VerificationPhoneNumberUseCase(gh<_i22.AuthRepository>()));
+  gh.factory<_i30.AuthBloc>(() => _i30.AuthBloc(
+        gh<_i27.LoginUseCase>(),
+        gh<_i28.SignUpUseCase>(),
+        gh<_i29.VerificationPhoneNumberUseCase>(),
       ));
   return getIt;
 }
 
-class _$AppModule extends _i30.AppModule {}
+class _$AppModule extends _i31.AppModule {}
