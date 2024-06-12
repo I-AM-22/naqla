@@ -1,11 +1,11 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { GlobalEntity } from '@common/base';
 import { Car } from '@models/drivers/entities/car.entity';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { SUB_ORDER_STATUS } from '@common/enums';
-import { IsOptional } from 'class-validator';
 import { OrderPhoto } from '@models/orders/entities/order-photo.entity';
 import { Order } from '@models/orders/entities/order.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity('sub_orders')
 export class SubOrder extends GlobalEntity {
@@ -50,17 +50,16 @@ export class SubOrder extends GlobalEntity {
   @JoinColumn({ name: 'orderId', referencedColumnName: 'id' })
   order: Order;
 
+  @Exclude()
   @Column('uuid')
   orderId: string;
 
   @ApiProperty({ type: () => Car })
-  @IsOptional()
   @ManyToOne(() => Car, (car) => car.subOrders, { nullable: true })
   @JoinColumn({ name: 'carId', referencedColumnName: 'id' })
   car: Car;
 
-  @ApiPropertyOptional()
-  @IsOptional()
+  @Exclude()
   @Column('uuid', { nullable: true })
   carId: string;
 

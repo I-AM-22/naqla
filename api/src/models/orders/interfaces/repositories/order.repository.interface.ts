@@ -9,7 +9,7 @@ export interface IOrderRepository {
   find(): Promise<Order[]>;
   findWaiting(): Promise<Order[]>;
   findMyOrder(userId: string): Promise<Order[]>;
-  findMineforAccepted(userId: string): Promise<Order[]>;
+  findMineForAccepted(userId: string): Promise<Order[]>;
   findOne(id: string): Promise<Order>;
   findOneForOwner(id: string, userId: string): Promise<Order>;
   create(
@@ -29,6 +29,5 @@ export interface IOrderRepository {
   refusal(id: string): Promise<Order>;
   delete(order: Order): Promise<void>;
   addAdvantageToOrder(Order: Order, advantages: Advantage[]): Promise<void>;
-
   removeAdvantageFromOrder(order: Order, advantage: Advantage): Promise<void>;
 }

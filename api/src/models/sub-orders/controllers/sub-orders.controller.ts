@@ -9,7 +9,7 @@ import {
   Inject,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
+import { CreateSubOrdersDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
 import { SUB_ORDER_TYPES } from '../interfaces/type';
@@ -29,7 +29,6 @@ import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { CarsService } from '@models/drivers/services/cars.service';
 import { OrdersService } from '@models/orders/services/orders.service';
 import { Order } from '@models/orders/entities/order.entity';
-import { constants } from 'zlib';
 
 @ApiTags('SubOrders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -48,13 +47,13 @@ export class SubOrdersController {
   @Roles(ROLE.EMPLOYEE, ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Order })
   @Post()
-  async create(@Body() createSubOrderDto: CreateSubOrderDto) {
-    await this.subOrdersService.create(createSubOrderDto);
+  async create(@Body() CreateSubOrdersDto: CreateSubOrdersDto) {
+    await this.subOrdersService.create(CreateSubOrdersDto);
     const cost = await this.subOrdersService.findTotalCost(
-      createSubOrderDto.orderId,
+      CreateSubOrdersDto.orderId,
     );
     return await this.ordersService.divisionDone(
-      createSubOrderDto.orderId,
+      CreateSubOrdersDto.orderId,
       cost,
     );
   }
@@ -72,6 +71,24 @@ export class SubOrdersController {
   async findAllForDriver(@GetUser('id') driverId: string): Promise<SubOrder[]> {
     const cars = await this.carService.findMyCars(driverId);
     return this.subOrdersService.findForDriver(cars);
+  }
+
+  @Roles(ROLE.DRIVER)
+  @ApiOkResponse({ isArray: true, type: SubOrder })
+  @Get('/done-driver')
+  async findIsDoneForDriver(
+    @GetUser('id') driverId: string,
+  ): Promise<SubOrder[]> {
+    const suborder = await this.subOrdersService.findIsDoneForDriver(driverId);
+    return suborder;
+  }
+
+  @Roles(ROLE.USER, ROLE.EMPLOYEE)
+  @ApiOkResponse({ isArray: true, type: SubOrder })
+  @Get('/order/:id')
+  async findForOrder(@Id() id: string): Promise<SubOrder[]> {
+    const suborder = await this.subOrdersService.findForOrder(id);
+    return suborder;
   }
 
   @Roles(ROLE.USER, ROLE.EMPLOYEE)

@@ -12,6 +12,7 @@ import 'package:naqla/core/util/secure_image_picker.dart';
 import 'package:naqla/features/home/data/model/car_advantage.dart';
 import 'package:naqla/features/home/data/model/location_model.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
+import 'package:naqla/features/home/domain/use_case/accept_order_use_case.dart';
 import 'package:naqla/features/home/domain/use_case/set_order_use_case.dart';
 import 'package:naqla/services/location_map_service.dart';
 
@@ -28,7 +29,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetCarAdvantageUseCase getCarAdvantageUseCase;
   final GetOrdersUseCase getOrdersUseCase;
   final SetOrderUseCase setOrderUseCase;
-  HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase, this.setOrderUseCase) : super(HomeState()) {
+  final AcceptOrderUseCase acceptOrderUseCase;
+  HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase, this.setOrderUseCase, this.acceptOrderUseCase)
+      : super(HomeState()) {
     multiStateApiCall<ChangeLocationEvent, LocationData?>(
       HomeState.changeLocationEvent,
       (event) => LocationService().getLocation(),
@@ -43,6 +46,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeState.setOrder,
       (event) => setOrderUseCase(state.setOrderParam),
       onSuccess: (data, event, emit) async {
+        event.onSuccess();
+      },
+    );
+
+    multiStateApiCall<AcceptOrderEvent, OrderModel>(
+      HomeState.acceptOrder,
+      (event) => acceptOrderUseCase(event.param),
+      onSuccess: (data, event, emit) async {
+        final oldItem = state.getState<List<OrderModel>>(HomeState.ordersActive).data ?? [];
+        oldItem.removeWhere(
+          (element) => element.id == event.param.id,
+        );
+        if (oldItem.isEmpty) {
+          emit(state.updateState(HomeState.ordersActive, const EmptyState<List<OrderModel>>()));
+        } else {
+          emit(state.updateData(HomeState.ordersActive, oldItem));
+        }
         event.onSuccess();
       },
     );

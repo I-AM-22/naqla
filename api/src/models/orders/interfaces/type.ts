@@ -3,5 +3,6 @@ export const ORDER_TYPES = {
   repository: {
     order: 'IOrderRepository',
     photo: 'IOrderPhotoRepository',
+    payment: 'IPaymentRepository',
   },
 };

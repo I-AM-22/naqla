@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
+import { CreateSubOrdersDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { SUB_ORDER_TYPES } from '../interfaces/type';
@@ -12,7 +12,10 @@ import { ISettingRepository } from '@models/settings/interfaces/repositories/set
 import { GpsDrivingService } from '../../../shared/gpsDriving';
 import { Setting } from '@models/settings/entities/setting.entity';
 import { Car } from '@models/drivers/entities/car.entity';
-import { PymentRepository } from '@models/orders/repositories/pyment.repository';
+import { IPaymentRepository } from '@models/payments/interfaces/repositories/payment.repository.interface';
+import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
+import { SETTING_TYPES } from '@models/settings/interfaces/type';
+import { SETTING_PROPERTIES } from '@common/enums';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {
@@ -23,95 +26,44 @@ export class SubOrdersService implements ISubOrdersService {
     private readonly orderPhotoRepository: OrderPhotoRepository,
     @Inject(ORDER_TYPES.repository.order)
     private readonly orderRepository: OrderRepository,
-    private readonly paymentRepository: PymentRepository,
-    @Inject('ISettingRepository')
+    @Inject(PAYMENT_TYPES.repository)
+    private readonly paymentRepository: IPaymentRepository,
+    @Inject(SETTING_TYPES.repository)
     private readonly settingRepository: ISettingRepository,
     private readonly gpsDrivingService: GpsDrivingService,
   ) {}
 
-  // async create(createSubOrderDto: CreateSubOrderDto): Promise<SubOrder[]> {
-  //   const sub: SubOrder[] = [];
-  //   const pointes = await this.orderRepository.findOne(
-  //     createSubOrderDto.orderId,
-  //   );
-  //   let settingWeight: Setting;
-  //   for (let i = 0; i < createSubOrderDto.subOrders.length; i++) {
-  //     {
-  //       if (createSubOrderDto.subOrders[i].weight < 1000) {
-  //         settingWeight =
-  //           await this.settingepository.findOneByName('defaultWeight');
-  //       } else if (
-  //         createSubOrderDto.subOrders[i].weight < 2000 &&
-  //         createSubOrderDto.subOrders[i].weight >= 1000
-  //       )
-  //         settingWeight =
-  //           await this.settingepository.findOneByName('minWeight');
-  //       else if (
-  //         createSubOrderDto.subOrders[i].weight < 3000 &&
-  //         createSubOrderDto.subOrders[i].weight >= 2000
-  //       )
-  //         settingWeight =
-  //           await this.settingepository.findOneByName('midWeight');
-  //       else if (createSubOrderDto.subOrders[i].weight >= 3000)
-  //         settingWeight =
-  //           await this.settingepository.findOneByName('maxWeight');
-  //     }
-  //     ///تم القسمة على الف لانه ال المسافة ترجع بالمتر من اجل ان اردها الى الكيلو متر واضربها بسعر الفردي لكل كيلو
-  //     const costDistance =
-  //       (+(await this.gpsDrivingService.costDistance(
-  //         pointes.locationStart,
-  //         pointes.locationEnd,
-  //       )) /
-  //         1000) *
-  //       +settingWeight.cost;
-  //     sub.push(
-  //       await this.subOrderRepository.create(
-  //         createSubOrderDto.orderId,
-  //         createSubOrderDto.subOrders[i],
-  //         Math.round(costDistance),
-  //       ),
-  //     );
-  //     this.orderPhotoRepository.setPhotoSub(
-  //       createSubOrderDto.subOrders[i].photos,
-  //       sub[sub.length - 1].id,
-  //     );
-  //   }
-  //   return sub;
-  // }
-
-  async create(createSubOrderDto: CreateSubOrderDto): Promise<SubOrder[]> {
-    const sub: SubOrder[] = [];
-    const pointes = await this.orderRepository.findOne(
-      createSubOrderDto.orderId,
+  async create(CreateSubOrdersDto: CreateSubOrdersDto): Promise<SubOrder[]> {
+    const subOrders: SubOrder[] = [];
+    const order = await this.orderRepository.findOne(
+      CreateSubOrdersDto.orderId,
     );
 
-    // Pre-fetch all possible settings
-    const [defaultWeight, minWeight, midWeight, maxWeight, settingPorters] =
+    const [defaultWeight, minWeight, midWeight, maxWeight, portersSetting] =
       await Promise.all([
-        this.settingRepository.findOneByName('defaultWeight'),
-        this.settingRepository.findOneByName('minWeight'),
-        this.settingRepository.findOneByName('midWeight'),
-        this.settingRepository.findOneByName('maxWeight'),
-        this.settingRepository.findOneByName('porters'),
+        this.settingRepository.findOneByName(SETTING_PROPERTIES.DEFAULT_WEIGHT),
+        this.settingRepository.findOneByName(SETTING_PROPERTIES.MIN_WEIGHT),
+        this.settingRepository.findOneByName(SETTING_PROPERTIES.MID_WEIGHT),
+        this.settingRepository.findOneByName(SETTING_PROPERTIES.MAX_WEIGHT),
+        this.settingRepository.findOneByName(SETTING_PROPERTIES.PORTERS),
       ]);
+
+    const distanceInMeters = await this.gpsDrivingService.costDistance(
+      order.locationStart,
+      order.locationEnd,
+    );
 
     const settings = {
       defaultWeight,
       minWeight,
       midWeight,
       maxWeight,
-      settingPorters,
+      portersSetting,
     };
 
-    const distanceInMeters = await this.gpsDrivingService.costDistance(
-      pointes.locationStart,
-      pointes.locationEnd,
-    );
-    let totalCost: number = 0,
-      costDistance: number = 0,
-      portersCost: number = 0;
-    for (const subOrder of createSubOrderDto.subOrders) {
+    for (const subOrder of CreateSubOrdersDto.subOrders) {
       let settingWeight: Setting;
+
       if (subOrder.weight < 1000) {
         settingWeight = settings.defaultWeight;
       } else if (subOrder.weight < 2000) {
@@ -121,16 +73,17 @@ export class SubOrdersService implements ISubOrdersService {
       } else {
         settingWeight = settings.maxWeight;
       }
-      (portersCost = 0), (totalCost = 0), (costDistance = 0);
-      costDistance = (distanceInMeters / 1000) * settingWeight.cost;
 
-      if (pointes.porters > 0) {
-        portersCost =
-          pointes.porters * settings.settingPorters.cost * subOrder.weight;
-      }
-      totalCost = portersCost + pointes.payment.additionalCost + costDistance;
+      const costDistance = (distanceInMeters / 1000) * settingWeight.cost;
+      const portersCost = order.porters
+        ? order.porters * settings.portersSetting.cost * subOrder.weight
+        : 0;
+
+      const totalCost =
+        portersCost + order.payment.additionalCost + costDistance;
+
       const newSubOrder = await this.subOrderRepository.create(
-        createSubOrderDto.orderId,
+        CreateSubOrdersDto.orderId,
         subOrder,
         Math.round(totalCost),
       );
@@ -140,15 +93,16 @@ export class SubOrdersService implements ISubOrdersService {
         newSubOrder.id,
       );
 
-      sub.push(newSubOrder);
+      subOrders.push(newSubOrder);
     }
 
-    return sub;
+    return subOrders;
   }
 
   find(): Promise<SubOrder[]> {
     return this.subOrderRepository.find();
   }
+
   findForDriver(cars: Car[]): Promise<SubOrder[]> {
     return this.subOrderRepository.findForDriver(cars);
   }
@@ -157,45 +111,55 @@ export class SubOrdersService implements ISubOrdersService {
     return this.subOrderRepository.findWaiting();
   }
 
-  findForOrder(idOrder: string): Promise<SubOrder[]> {
-    return this.subOrderRepository.findForOrder(idOrder);
+  findForOrder(orderId: string): Promise<SubOrder[]> {
+    return this.subOrderRepository.findForOrder(orderId);
+  }
+  findIsDoneForDriver(driverId: string): Promise<SubOrder[]> {
+    return this.subOrderRepository.findIsDoneForDriver(driverId);
   }
 
-  findOne(id: string): Promise<SubOrder> {
-    return this.subOrderRepository.findOne(id);
+  findOne(subOrderId: string): Promise<SubOrder> {
+    return this.subOrderRepository.findOne(subOrderId);
   }
 
-  update(id: string, updateSubOrderDto: UpdateSubOrderDto): Promise<SubOrder> {
-    return this.subOrderRepository.update(id, updateSubOrderDto);
-  }
-  setArrivedAt(id: string): Promise<SubOrder> {
-    return this.subOrderRepository.setArrivedAt(id);
-  }
-
-  setPickedUpAt(id: string): Promise<SubOrder> {
-    return this.subOrderRepository.setPickedUpAt(id);
+  update(
+    subOrderId: string,
+    updateSubOrderDto: UpdateSubOrderDto,
+  ): Promise<SubOrder> {
+    return this.subOrderRepository.update(subOrderId, updateSubOrderDto);
   }
 
-  async setDeliveredAt(id: string): Promise<SubOrder> {
-    const sub = await this.subOrderRepository.setDeliveredAt(id);
-    await this.paymentRepository.setDeliveredDate(sub.orderId);
-    return sub;
+  setArrivedAt(subOrderId: string): Promise<SubOrder> {
+    return this.subOrderRepository.setArrivedAt(subOrderId);
   }
 
-  ready(id: string): Promise<SubOrder[]> {
-    return this.subOrderRepository.ready(id);
-  }
-  setDriver(idsup: string, car: Car): Promise<SubOrder> {
-    return this.subOrderRepository.setDriver(idsup, car);
+  setPickedUpAt(subOrderId: string): Promise<SubOrder> {
+    return this.subOrderRepository.setPickedUpAt(subOrderId);
   }
 
-  delete(id: string): Promise<void> {
-    return this.subOrderRepository.delete(id);
+  async setDeliveredAt(subOrderId: string): Promise<SubOrder> {
+    const subOrder = await this.subOrderRepository.setDeliveredAt(subOrderId);
+    await this.paymentRepository.setDeliveredDate(subOrder.orderId);
+    return subOrder;
   }
-  deleteForOrder(id: string): Promise<void> {
-    return this.subOrderRepository.deleteForOrder(id);
+
+  ready(subOrderId: string): Promise<SubOrder[]> {
+    return this.subOrderRepository.ready(subOrderId);
   }
-  findTotalCost(id: string): Promise<number> {
-    return this.subOrderRepository.findTotalCost(id);
+
+  setDriver(subOrderId: string, car: Car): Promise<SubOrder> {
+    return this.subOrderRepository.setDriver(subOrderId, car);
+  }
+
+  delete(subOrderId: string): Promise<void> {
+    return this.subOrderRepository.delete(subOrderId);
+  }
+
+  deleteForOrder(orderId: string): Promise<void> {
+    return this.subOrderRepository.deleteForOrder(orderId);
+  }
+
+  findTotalCost(subOrderId: string): Promise<number> {
+    return this.subOrderRepository.findTotalCost(subOrderId);
   }
 }

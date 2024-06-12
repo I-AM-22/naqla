@@ -7,6 +7,7 @@ import 'package:naqla_driver/features/home/data/model/car_model.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
 import 'package:naqla_driver/features/home/domain/repositories/home_repository.dart';
 import 'package:naqla_driver/features/home/domain/usecase/add_car_use_case.dart';
+import 'package:naqla_driver/features/home/domain/usecase/set_driver_use_case.dart';
 
 @Injectable(as: HomeRepository)
 class HomeRepositoryImplement implements HomeRepository {
@@ -31,6 +32,13 @@ class HomeRepositoryImplement implements HomeRepository {
   FutureResult<List<SubOrderModel>> getSubOrders() {
     return toApiResult(
       () => dataSource.getSubOrders(),
+    );
+  }
+
+  @override
+  FutureResult<void> setDriver(SetDriverParam params) {
+    return toApiResult(
+      () => dataSource.setDriver(params),
     );
   }
 }

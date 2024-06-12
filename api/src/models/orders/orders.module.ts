@@ -7,14 +7,10 @@ import { OrderRepository } from './repositories/order.repository';
 import { OrderController } from './controllers/orders.controller';
 import { OrderPhotoRepository } from './repositories/order-photo.repository';
 import { OrderPhoto } from './entities/order-photo.entity';
-import {
-  AdvantageRepositoryProvider,
-  AdvantagesModule,
-} from '../advantages/advantages.module';
+import { AdvantagesModule } from '../advantages/advantages.module';
 import { SettingsModule } from '../settings/settings.module';
-import { PymentRepository } from './repositories/pyment.repository';
-import { Payment } from './entities/payment.entity';
-import { SubOrdersModule } from '../sub-orders/sub-orders.module';
+import { PaymentsModule } from '@models/payments/payments.module';
+import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
 
 export const OrdersServiceProvider: Provider = {
   provide: ORDER_TYPES.service,
@@ -30,15 +26,13 @@ export const OrderPhotoRepositoryProvider: Provider = {
   provide: ORDER_TYPES.repository.photo,
   useClass: OrderPhotoRepository,
 };
-export const PymentRepositoryProvider: Provider = {
-  provide: 'PymentRepository',
-  useClass: PymentRepository,
-};
+
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Order, OrderPhoto, Payment]),
+    TypeOrmModule.forFeature([Order, OrderPhoto]),
     AdvantagesModule,
     SettingsModule,
+    PaymentsModule,
     forwardRef(() => SubOrdersModule),
   ],
   controllers: [OrderController],
@@ -46,17 +40,13 @@ export const PymentRepositoryProvider: Provider = {
     OrdersServiceProvider,
     OrderRepositoryProvider,
     OrderPhotoRepositoryProvider,
-    PymentRepositoryProvider,
     OrdersService,
-    PymentRepository,
   ],
   exports: [
     OrderRepositoryProvider,
     OrderPhotoRepositoryProvider,
     OrdersServiceProvider,
-    PymentRepositoryProvider,
     OrdersService,
-    PymentRepository,
   ],
 })
 export class OrdersModule {}

@@ -11,18 +11,23 @@ export class OrderPhoto extends BasePhoto {
   @ManyToOne(() => Order, (order) => order.photos)
   @JoinColumn({ name: 'orderId' })
   order: Order;
+
   @Exclude()
   @Column()
   orderId: string;
+
   @ApiProperty({ default: 0 })
   @Column({ default: 0 })
   weight: number;
+
   @ApiProperty({ default: 0 })
   @Column({ default: 0 })
   length: number;
+
   @ApiProperty({ default: 0 })
   @Column({ default: 0 })
   width: number;
+
   @Exclude()
   @ManyToOne(() => SubOrder, (subOrder) => subOrder.photos, { nullable: true })
   @JoinColumn({ name: 'subOrderId' })

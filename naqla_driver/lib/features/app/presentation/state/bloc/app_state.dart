@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
+part of 'app_bloc.dart';
 
-class AppState {
-  final ThemeData lightTheme;
-  final ThemeData darkTheme;
-
-  AppState({required this.lightTheme, required this.darkTheme});
-  AppState copyWith({ThemeData? lightTheme, ThemeData? darkTheme}) {
-    return AppState(
-        lightTheme: lightTheme ?? this.lightTheme,
-        darkTheme: darkTheme ?? this.darkTheme);
-  }
+class AppState extends StateObject<AppState> {
+  static String getAllCars = "getAllCars";
+  AppState({States? states})
+      : super([
+          InitialState<List<CarModel>>(getAllCars),
+        ], (states) => AppState(states: states), states);
 }

@@ -770,6 +770,56 @@ class S {
     );
   }
 
+  /// `Order status: `
+  String get order_status {
+    return Intl.message(
+      'Order status: ',
+      name: 'order_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cost: `
+  String get cost {
+    return Intl.message(
+      'Cost: ',
+      name: 'cost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SYP`
+  String get syp {
+    return Intl.message(
+      'SYP',
+      name: 'syp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm order(s)`
+  String get please_confirm_order {
+    return Intl.message(
+      'Please confirm order(s)',
+      name: 'please_confirm_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm order`
+  String get confirm_order {
+    return Intl.message(
+      'Confirm order',
+      name: 'confirm_order',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(
@@ -855,6 +905,26 @@ class S {
     return Intl.message(
       'Orders',
       name: 'orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active orders`
+  String get active_orders {
+    return Intl.message(
+      'Active orders',
+      name: 'active_orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous orders`
+  String get previous_orders {
+    return Intl.message(
+      'Previous orders',
+      name: 'previous_orders',
       desc: '',
       args: [],
     );

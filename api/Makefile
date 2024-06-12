@@ -30,7 +30,7 @@ debug:
 	nest start --debug --watch
 
 prod: build
-	cross-env ENV=production node dist/main
+	ENV=production node dist/main
 
 format:
 	npx prettier --write "src/**/*.ts" "test/**/*.ts"

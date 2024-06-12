@@ -21,4 +21,6 @@ class ApiRoutes {
   //////////////////?Order////////////////////
   static String orderMine = '/api/v1/orders/mine';
   static String order = '/api/v1/orders';
+  static String orderAccepted = '/api/v1/orders/accepted';
+  static String acceptance(String id) => '/api/v1/orders/$id/acceptance';
 }

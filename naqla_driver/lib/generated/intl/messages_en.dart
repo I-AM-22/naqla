@@ -39,10 +39,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "_______________date__________________________":
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("About Us"),
+        "accept_order": MessageLookupByLibrary.simpleMessage("Accept order"),
+        "active_orders": MessageLookupByLibrary.simpleMessage("Active orders"),
         "add_car": MessageLookupByLibrary.simpleMessage("Add car"),
         "additional_specifications_of_the_car":
             MessageLookupByLibrary.simpleMessage(
                 "Additional specifications of the car"),
+        "advantages": MessageLookupByLibrary.simpleMessage("Advantages"),
         "ago": MessageLookupByLibrary.simpleMessage("ago"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
@@ -60,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cars": MessageLookupByLibrary.simpleMessage("Cars"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
@@ -67,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "color": MessageLookupByLibrary.simpleMessage("Color"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "cost": MessageLookupByLibrary.simpleMessage("Cost: "),
         "create_an_account":
             MessageLookupByLibrary.simpleMessage("Create an account"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -77,9 +82,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
+        "done_orders": MessageLookupByLibrary.simpleMessage("Orders done"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("Edit Phone Number"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "end_point": MessageLookupByLibrary.simpleMessage("End point"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_Your_Password":
             MessageLookupByLibrary.simpleMessage("Enter Your Password"),
@@ -101,8 +108,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "model": MessageLookupByLibrary.simpleMessage("Model"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
+        "more_details": MessageLookupByLibrary.simpleMessage("More details"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "order_details": MessageLookupByLibrary.simpleMessage("Order details"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
@@ -110,7 +119,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),
         "photo": MessageLookupByLibrary.simpleMessage("Photo"),
+        "photos": MessageLookupByLibrary.simpleMessage("Photos"),
+        "pick_a_car": MessageLookupByLibrary.simpleMessage("Pick a car"),
         "pick_a_color": MessageLookupByLibrary.simpleMessage("Pick a color"),
+        "porters": MessageLookupByLibrary.simpleMessage("Porters: "),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
@@ -122,10 +134,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up "),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
+        "start_point": MessageLookupByLibrary.simpleMessage("Start point"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
+        "weight": MessageLookupByLibrary.simpleMessage("Weight: "),
         "write_message":
             MessageLookupByLibrary.simpleMessage("Write a message"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),

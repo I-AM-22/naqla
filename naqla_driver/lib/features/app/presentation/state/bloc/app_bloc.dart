@@ -1,18 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:common_state/common_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:naqla_driver/core/use_case/use_case.dart';
+import 'package:naqla_driver/features/home/data/model/car_model.dart';
 
-import 'app_state.dart';
+import '../../../domain/usecases/get_all_cars_use_case.dart';
 
-@lazySingleton
-class AppCubit extends Cubit<AppState> {
-  AppCubit()
-      : super(AppState(
-            lightTheme: ThemeData.light(), darkTheme: ThemeData.dark()));
+part 'app_event.dart';
+part 'app_state.dart';
 
-  changeAppTheme(BuildContext context) {
-    // emit(state.copyWith(
-    //     lightTheme: AppTheme.init(context),
-    //     darkTheme: AppTheme.dark(context)));
+@injectable
+class AppBloc extends Bloc<AppEvent, AppState> {
+  final GetAllCarsUseCase getAllCarsUseCase;
+  AppBloc(this.getAllCarsUseCase) : super(AppState()) {
+    multiStateApiCall<GetAllCarsEvent, List<CarModel>>(
+      AppState.getAllCars,
+      (event) => getAllCarsUseCase(NoParams()),
+    );
   }
 }

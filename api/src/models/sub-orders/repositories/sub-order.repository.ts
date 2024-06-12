@@ -1,40 +1,65 @@
-import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
+import { SUB_ORDER_STATUS } from '@common/enums';
+import { Car } from '@models/drivers/entities/car.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { sub } from '../dto/create-sub-order.dto';
+import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
-import { SUB_ORDER_STATUS } from '@common/enums';
-import { Car } from '@models/drivers/entities/car.entity';
+import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
   constructor(
     @InjectRepository(SubOrder)
-    private readonly suporderRepository: Repository<SubOrder>,
+    private readonly subOrderRepository: Repository<SubOrder>,
   ) {}
 
   async find(): Promise<SubOrder[]> {
-    return this.suporderRepository.find();
+    return this.subOrderRepository.find();
   }
 
   async findWaiting(): Promise<SubOrder[]> {
-    return this.suporderRepository.find();
+    return this.subOrderRepository.find();
   }
 
   async findForOrder(orderId: string): Promise<SubOrder[]> {
-    return this.suporderRepository.find({
+    return this.subOrderRepository.find({
       where: { orderId },
     });
   }
 
+  async findIsDoneForDriver(driverId: string): Promise<SubOrder[]> {
+    return await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.order', 'order')
+      .leftJoinAndSelect('subOrder.car', 'car')
+      .leftJoinAndSelect('subOrder.photos', 'photos')
+      .leftJoinAndSelect('order.advantages', 'advantages')
+      .where('subOrder.status = :status', {
+        status: SUB_ORDER_STATUS.DELIVERED,
+      })
+      .andWhere('car.driverId = :driverId', { driverId })
+      .select([
+        'subOrder.id',
+        'subOrder.cost',
+        'subOrder.weight',
+        'photos',
+        'order.locationStart',
+        'order.locationEnd',
+        'order.desiredDate',
+        'order.porters',
+        'advantages.name',
+      ])
+      .getMany();
+  }
+
   async findForDriver(cars: Car[]): Promise<SubOrder[]> {
-    const subOrderQuery = this.suporderRepository
+    const subOrders = await this.subOrderRepository
       .createQueryBuilder('subOrder')
       .leftJoinAndSelect('subOrder.order', 'order')
       .leftJoinAndSelect('subOrder.photos', 'photos')
-      .leftJoinAndSelect('order.advantages', 'advantage')
+      .leftJoinAndSelect('order.advantages', 'advantages')
       .where('subOrder.status = :status', { status: SUB_ORDER_STATUS.READY })
       .andWhere('subOrder.carId is null')
       .select([
@@ -46,89 +71,96 @@ export class SubOrderRepository implements ISubOrderRepository {
         'order.locationEnd',
         'order.desiredDate',
         'order.porters',
-        'advantage.name',
-      ]);
+        'advantages.name',
+      ])
+      .getMany();
 
     const carAdvantagesIds = cars.flatMap((car) =>
       car.advantages.map((adv) => adv.id),
     );
 
-    if (carAdvantagesIds.length > 0) {
-      subOrderQuery.andWhere('advantage.id IN (:...carAdvantagesIds)', {
-        carAdvantagesIds,
-      });
-    }
-    return await subOrderQuery.getMany();
+    const carAdvantagesSet = new Set(carAdvantagesIds);
+
+    return subOrders.filter((subOrder) => {
+      const subOrderAdvantagesIds = subOrder.order.advantages.map(
+        (adv) => adv.id,
+      );
+      return subOrderAdvantagesIds.every((id) => carAdvantagesSet.has(id));
+    });
   }
 
   async findOne(id: string): Promise<SubOrder> {
-    return this.suporderRepository.findOne({
+    return this.subOrderRepository.findOne({
       where: { id },
     });
   }
 
-  async create(id: string, dto: sub, cost: number): Promise<SubOrder> {
-    const sub = this.suporderRepository.create({
+  async create(
+    id: string,
+    dto: CreateSubOrderDto,
+    cost: number,
+  ): Promise<SubOrder> {
+    const sub = this.subOrderRepository.create({
       orderId: id,
       weight: dto.weight,
       cost,
     });
-    return await this.suporderRepository.save(sub);
+    return await this.subOrderRepository.save(sub);
   }
 
   async update(id: string, dto: UpdateSubOrderDto): Promise<SubOrder> {
-    const doc = await this.suporderRepository.findOne({ where: { id } });
+    const doc = await this.subOrderRepository.findOne({ where: { id } });
     doc.rating = dto.rating;
-    return await this.suporderRepository.save(doc);
+    return await this.subOrderRepository.save(doc);
   }
   async setArrivedAt(id: string): Promise<SubOrder> {
-    const doc = await this.suporderRepository.findOne({ where: { id } });
+    const doc = await this.subOrderRepository.findOne({ where: { id } });
     doc.arrivedAt = new Date().toISOString();
-    return await this.suporderRepository.save(doc);
+    return await this.subOrderRepository.save(doc);
   }
 
   async setPickedUpAt(id: string): Promise<SubOrder> {
-    const doc = await this.suporderRepository.findOne({ where: { id } });
+    const doc = await this.subOrderRepository.findOne({ where: { id } });
     doc.pickedUpAt = new Date().toISOString();
     doc.status = SUB_ORDER_STATUS.ON_THE_WAY;
-    return await this.suporderRepository.save(doc);
+    return await this.subOrderRepository.save(doc);
   }
   async setDeliveredAt(id: string): Promise<SubOrder> {
-    const doc = await this.suporderRepository.findOne({ where: { id } });
+    const doc = await this.subOrderRepository.findOne({ where: { id } });
     doc.deliveredAt = new Date().toISOString();
     doc.status = SUB_ORDER_STATUS.DELIVERED;
-    return await this.suporderRepository.save(doc);
+    return await this.subOrderRepository.save(doc);
   }
 
   async ready(id: string): Promise<any> {
-    return await this.suporderRepository.update(
+    return await this.subOrderRepository.update(
       { orderId: id },
       { status: SUB_ORDER_STATUS.READY, acceptedAt: new Date().toISOString() },
     );
   }
 
   async delete(id: string): Promise<void> {
-    await this.suporderRepository.delete(id);
+    await this.subOrderRepository.delete(id);
   }
 
   async deleteForOrder(id: string): Promise<void> {
-    await this.suporderRepository.delete({ orderId: id });
+    await this.subOrderRepository.delete({ orderId: id });
   }
 
   async setDriver(id: string, car: Car): Promise<SubOrder> {
-    const doc = await this.suporderRepository.findOne({ where: { id } });
+    const doc = await this.subOrderRepository.findOne({ where: { id } });
     doc.carId = car.id;
     doc.car = car;
     doc.driverAssignedAt = new Date().toISOString();
     doc.status = SUB_ORDER_STATUS.TAKEN;
-    return await this.suporderRepository.save(doc);
+    return await this.subOrderRepository.save(doc);
   }
 
   async findTotalCost(id: string): Promise<number> {
-    const result = await this.suporderRepository
-      .createQueryBuilder('suporder')
-      .select('SUM(suporder.cost)', 'totalCost')
-      .where('suporder.orderId = :id', { id })
+    const result = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .select('SUM(subOrder.cost)', 'totalCost')
+      .where('subOrder.orderId = :id', { id })
       .getRawOne();
     return result.totalCost ?? 0;
   }

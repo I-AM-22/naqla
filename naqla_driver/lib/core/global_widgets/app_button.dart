@@ -332,6 +332,7 @@ class _AppButtonState extends State<AppButton> {
   }
 
   TextStyle getTextStyle(BuildContext context) {
+    if (widget.textStyle != null) return widget.textStyle!;
     if (_isLongerButton) {
       if (_isDark) {
         return context.textTheme.subHeadWebMedium.copyWith(color: Colors.white);

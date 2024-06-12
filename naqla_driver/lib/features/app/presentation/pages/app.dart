@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
+import 'package:naqla_driver/core/di/di_container.dart';
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../../core/config/router/router.dart';
@@ -11,12 +11,24 @@ import '../../../../core/config/themes/colors_scheme.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../services/language_service.dart';
 import '../state/bloc/app_bloc.dart';
-import '../state/bloc/app_state.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
   static ValueNotifier<bool> englishLanguage = ValueNotifier(false);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  final AppBloc bloc = getIt<AppBloc>();
+
+  @override
+  void initState() {
+    bloc.add(GetAllCarsEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +40,13 @@ class App extends StatelessWidget {
       builder: (context, child) => GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: FocusManager.instance.primaryFocus?.unfocus,
-        child: BlocProvider.value(
-            value: GetIt.I<AppCubit>(),
-            child: BlocBuilder<AppCubit, AppState>(
+        child: BlocProvider(
+            create: (context) => bloc,
+            child: BlocBuilder<AppBloc, AppState>(
               builder: (context, state) {
                 final theme = AppTheme.init(darkColorScheme: darkColorScheme, lightColorScheme: lightColorScheme);
                 return ValueListenableBuilder(
-                  valueListenable: englishLanguage,
+                  valueListenable: App.englishLanguage,
                   builder: (context, value, _) => MaterialApp.router(
                     title: 'NaqlaDriver',
                     debugShowCheckedModeBanner: false,

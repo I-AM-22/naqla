@@ -8,7 +8,7 @@ export interface IOrdersService {
   find(): Promise<Order[]>;
   findWaiting(): Promise<Order[]>;
   findMyOrders(userId: string): Promise<Order[]>;
-  findMineforAccepted(userId: string): Promise<Order[]>;
+  findMineForAccepted(userId: string): Promise<Order[]>;
   findOne(id: string, person: IPerson): Promise<Order>;
   findOneForOwner(id: string, userId: string): Promise<Order>;
   create(user: User, dto: CreateOrderDto): Promise<Order>;
@@ -23,7 +23,6 @@ export interface IOrdersService {
     createAdvantageDto: AddAdvansToOrderDto,
     user: User,
   ): Promise<void>;
-
   removeAdvantagesFromOrder(
     id: string,
     advantageId: string,

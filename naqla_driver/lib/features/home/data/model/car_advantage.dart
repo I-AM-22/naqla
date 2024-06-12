@@ -1,5 +1,7 @@
 class CarAdvantage {
   final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
   final String name;
   final String cost;
   final bool isSelect;
@@ -9,6 +11,8 @@ class CarAdvantage {
     required this.name,
     required this.cost,
     required this.isSelect,
+    required this.updatedAt,
+    required this.createdAt,
   });
 
   CarAdvantage copyWith({
@@ -16,18 +20,24 @@ class CarAdvantage {
     String? name,
     String? cost,
     bool? isSelect,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) =>
       CarAdvantage(
         id: id ?? this.id,
         name: name ?? this.name,
         cost: cost ?? this.cost,
         isSelect: isSelect ?? this.isSelect,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
       );
 
   factory CarAdvantage.fromJson(Map<String, dynamic> json) => CarAdvantage(
         id: json["id"],
         name: json["name"],
         cost: json["cost"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
         isSelect: false,
       );
 
@@ -35,5 +45,7 @@ class CarAdvantage {
         "id": id,
         "name": name,
         "cost": cost,
+        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt.toIso8601String(),
       };
 }

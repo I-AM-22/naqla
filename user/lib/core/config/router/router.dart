@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/features/app/presentation/pages/base_page.dart';
 import 'package:naqla/features/chat/presentation/pages/chat_page.dart';
+import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/presentation/pages/create_order.dart';
 import 'package:naqla/features/orders/presentation/pages/order_page.dart';
 
@@ -14,6 +15,7 @@ import '../../../features/auth/presentation/pages/sign_in_page.dart';
 import '../../../features/auth/presentation/pages/welcome_page.dart';
 import '../../../features/chat/presentation/pages/messages_page.dart';
 import '../../../features/home/presentation/pages/home_page.dart';
+import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/home/presentation/pages/order_photos_page.dart';
 import '../../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import '../../../features/profile/presentation/pages/about_us_page.dart';
@@ -100,7 +102,15 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
                 path: OrderPhotosPage.path,
                 name: OrderPhotosPage.name,
                 builder: (context, state) => const OrderPhotosPage(),
-              )
+              ),
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: OrderDetailsPage.path,
+                name: OrderDetailsPage.name,
+                builder: (context, state) => OrderDetailsPage(
+                  orderModel: state.extra as OrderModel,
+                ),
+              ),
             ]),
       ]),
       StatefulShellBranch(initialLocation: OrderPage.path, navigatorKey: _shell2NavigatorKey, routes: [

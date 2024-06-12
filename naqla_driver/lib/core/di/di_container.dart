@@ -23,11 +23,12 @@ Future<GetIt> configureDependencies() async => $initGetIt(getIt);
 abstract class AppModule {
   BaseOptions get dioOption => BaseOptions(
       baseUrl: ApiRoutes.baseUrl,
-      connectTimeout: const Duration(seconds: 20),
-      receiveTimeout: const Duration(seconds: 20),
+      connectTimeout: const Duration(seconds: 60),
+      receiveTimeout: const Duration(seconds: 60),
+      sendTimeout: const Duration(seconds: 60),
       headers: <String, String>{HttpHeaders.acceptHeader: 'application/json'});
 
-  @singleton
+  @lazySingleton
   Logger get logger => Logger();
 
   @lazySingleton
