@@ -35,7 +35,7 @@ import '../../features/auth/domain/usecases/login_use_case.dart' as _i30;
 import '../../features/auth/domain/usecases/signup_use_case.dart' as _i31;
 import '../../features/auth/domain/usecases/verification_phone_number_use_case.dart'
     as _i32;
-import '../../features/auth/presentation/state/auth_bloc.dart' as _i34;
+import '../../features/auth/presentation/state/auth_bloc.dart' as _i36;
 import '../../features/home/data/datasource/home_remote_data_source.dart'
     as _i11;
 import '../../features/home/data/repositories/home_repository_implement.dart'
@@ -55,8 +55,9 @@ import '../../features/orders/domain/repositories/order_repository.dart'
     as _i19;
 import '../../features/orders/domain/usecases/get_orders_done_use_case.dart'
     as _i33;
+import '../../features/orders/domain/usecases/get_orders_use_case.dart' as _i34;
 import '../../features/orders/presentation/state/order_bloc.dart' as _i35;
-import 'di_container.dart' as _i36;
+import 'di_container.dart' as _i37;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
@@ -131,14 +132,18 @@ Future<_i1.GetIt> $initGetIt(
       () => _i32.VerificationPhoneNumberUseCase(gh<_i25.AuthRepository>()));
   gh.factory<_i33.GetOrdersDoneUseCase>(
       () => _i33.GetOrdersDoneUseCase(gh<_i19.OrderRepository>()));
-  gh.factory<_i34.AuthBloc>(() => _i34.AuthBloc(
+  gh.factory<_i34.GetOrdersUseCase>(
+      () => _i34.GetOrdersUseCase(gh<_i19.OrderRepository>()));
+  gh.factory<_i35.OrderBloc>(() => _i35.OrderBloc(
+        gh<_i33.GetOrdersDoneUseCase>(),
+        gh<_i34.GetOrdersUseCase>(),
+      ));
+  gh.factory<_i36.AuthBloc>(() => _i36.AuthBloc(
         gh<_i30.LoginUseCase>(),
         gh<_i31.SignUpUseCase>(),
         gh<_i32.VerificationPhoneNumberUseCase>(),
       ));
-  gh.factory<_i35.OrderBloc>(
-      () => _i35.OrderBloc(gh<_i33.GetOrdersDoneUseCase>()));
   return getIt;
 }
 
-class _$AppModule extends _i36.AppModule {}
+class _$AppModule extends _i37.AppModule {}

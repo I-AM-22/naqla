@@ -4,3 +4,5 @@ part of 'order_bloc.dart';
 sealed class OrderEvent {}
 
 class GetOrdersDoneEvent extends OrderEvent {}
+
+class GetOrdersEvent extends OrderEvent {}

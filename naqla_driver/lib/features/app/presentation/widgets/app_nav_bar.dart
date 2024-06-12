@@ -42,6 +42,14 @@ class AppNavigationBar extends StatelessWidget {
           BottomNavigationBarItem(
             label: "",
             icon: Icon(
+              IconlyBroken.work,
+              color: context.colorScheme.primary,
+            ),
+            activeIcon: CustomActiveIcon(icon: IconlyBold.work, label: S.of(context).orders),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: Icon(
               IconlyBroken.chat,
               color: context.colorScheme.primary,
             ),
