@@ -11,7 +11,7 @@ abstract class HomeRepository {
 
   FutureResult<List<CarAdvantage>> getCarAdvantages();
 
-  FutureResult<List<OrderModel>> getOrders();
+  FutureResult<List<OrderModel>> getAcceptOrders();
 
   FutureResult<OrderModel> setOrder(SetOrderParam param);
 

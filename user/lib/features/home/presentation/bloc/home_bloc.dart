@@ -27,7 +27,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final UploadPhotosUseCase uploadPhotosUseCase;
   final GetCarAdvantageUseCase getCarAdvantageUseCase;
-  final GetOrdersUseCase getOrdersUseCase;
+  final GetAcceptOrdersUseCase getOrdersUseCase;
   final SetOrderUseCase setOrderUseCase;
   final AcceptOrderUseCase acceptOrderUseCase;
   HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase, this.setOrderUseCase, this.acceptOrderUseCase)

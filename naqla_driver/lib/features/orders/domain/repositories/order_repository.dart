@@ -1,6 +1,9 @@
 import 'package:common_state/common_state.dart';
-import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
+
+import '../../data/model/sub_two_order_model.dart';
 
 abstract class OrderRepository {
-  FutureResult<List<SubOrderModel>> getOrdersDone();
+  FutureResult<List<Sub2OrderModel>> getOrdersDone();
+
+  FutureResult<List<Sub2OrderModel>> getOrders();
 }

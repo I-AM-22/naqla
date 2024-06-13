@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
 import 'package:naqla_driver/features/auth/presentation/state/auth_bloc.dart';
+import 'package:naqla_driver/features/chat/presentation/pages/chat_page.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
 import 'package:naqla_driver/features/home/presentation/pages/add_car_page.dart';
 import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
@@ -26,6 +27,8 @@ final GlobalKey<NavigatorState> _shell1NavigatorKey = GlobalKey<NavigatorState>(
 final GlobalKey<NavigatorState> _shell2NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell2');
 
 final GlobalKey<NavigatorState> _shell3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell3');
+
+final GlobalKey<NavigatorState> _shell4NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell4');
 
 class GRouter {
   static GoRouter get router => _router;
@@ -112,7 +115,14 @@ class GRouter {
               builder: (context, state) => const OrdersPage(),
             )
           ]),
-          StatefulShellBranch(initialLocation: ProfilePage.path, navigatorKey: _shell3NavigatorKey, routes: [
+          StatefulShellBranch(initialLocation: ChatPage.path, navigatorKey: _shell3NavigatorKey, routes: [
+            GoRoute(
+              path: ChatPage.path,
+              name: ChatPage.name,
+              builder: (context, state) => const ChatPage(),
+            )
+          ]),
+          StatefulShellBranch(initialLocation: ProfilePage.path, navigatorKey: _shell4NavigatorKey, routes: [
             GoRoute(
               path: ProfilePage.path,
               name: ProfilePage.name,

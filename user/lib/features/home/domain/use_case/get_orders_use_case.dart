@@ -5,12 +5,12 @@ import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/domain/repositories/home_repository.dart';
 
 @injectable
-class GetOrdersUseCase extends UseCase<List<OrderModel>, NoParams> {
+class GetAcceptOrdersUseCase extends UseCase<List<OrderModel>, NoParams> {
   final HomeRepository _repository;
 
-  GetOrdersUseCase(this._repository);
+  GetAcceptOrdersUseCase(this._repository);
   @override
   FutureResult<List<OrderModel>> call(NoParams params) async {
-    return _repository.getOrders();
+    return _repository.getAcceptOrders();
   }
 }

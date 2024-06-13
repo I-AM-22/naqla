@@ -921,10 +921,10 @@ class S {
   }
 
   /// `Previous orders`
-  String get previous_orders {
+  String get done_orders {
     return Intl.message(
       'Previous orders',
-      name: 'previous_orders',
+      name: 'done_orders',
       desc: '',
       args: [],
     );
