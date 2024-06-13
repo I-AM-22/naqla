@@ -73,6 +73,24 @@ export class SubOrdersController {
     return this.subOrdersService.findForDriver(cars);
   }
 
+  @Roles(ROLE.DRIVER)
+  @ApiOkResponse({ isArray: true, type: SubOrder })
+  @Get('/done-driver')
+  async findIsDoneForDriver(
+    @GetUser('id') driverId: string,
+  ): Promise<SubOrder[]> {
+    const suborder = await this.subOrdersService.findIsDoneForDriver(driverId);
+    return suborder;
+  }
+
+  @Roles(ROLE.USER, ROLE.EMPLOYEE)
+  @ApiOkResponse({ isArray: true, type: SubOrder })
+  @Get('/order/:id')
+  async findForOrder(@Id() id: string): Promise<SubOrder[]> {
+    const suborder = await this.subOrdersService.findForOrder(id);
+    return suborder;
+  }
+
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: SubOrder })
   @Get(':id')

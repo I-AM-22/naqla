@@ -2,14 +2,13 @@ import { Car } from '../../../drivers/entities/car.entity';
 import { CreateSubOrdersDto } from '../../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../../dto/update-sub-order.dto';
 import { SubOrder } from '../../entities/sub-order.entity';
-// import { User } from '../../../users/entities/user.entity';
-// import { IPerson } from '../../../../common/interfaces';
 
 export interface ISubOrdersService {
   find(): Promise<SubOrder[]>;
   findForOrder(orderId: string): Promise<SubOrder[]>;
   findForDriver(cars: Car[]): Promise<SubOrder[]>;
   findWaiting(): Promise<SubOrder[]>;
+  findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
   findOne(id: string): Promise<SubOrder>;
   findTotalCost(id: string): Promise<number>;
   create(dto: CreateSubOrdersDto): Promise<SubOrder[]>;
