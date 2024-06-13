@@ -30,8 +30,8 @@ export default function Page() {
   });
   const router = useRouter();
   const add = useMutation(advantagesControllerCreate, form);
-  const onSubmit = (data: Schema) => {
-    add(data, {
+  const onSubmit = async (data: Schema) => {
+    await add(data, {
       onSuccess: () => {
         revalidateTag(carAdvantagesTagKeys.all().at(-1) ?? "");
         router.push(".");

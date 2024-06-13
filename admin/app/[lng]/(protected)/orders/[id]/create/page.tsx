@@ -7,7 +7,9 @@ import { orderControllerFindOne } from "@/service/api";
 import { ordersTagKeys } from "@/service/orders";
 import { SubOrdersForm } from "./sub-orders-form";
 export default async function Page(props: PageProps<{ id: string }>) {
-  const { t } = await getTranslation(props.params.lng);
+  const { t } = await getTranslation(props.params.lng, "orders", {
+    keyPrefix: "subOrderCreate",
+  });
   const { data } = await orderControllerFindOne(
     { id: props.params.id },
     { next: { tags: ordersTagKeys.details() } },
@@ -15,14 +17,14 @@ export default async function Page(props: PageProps<{ id: string }>) {
   return (
     <article className="flex flex-col gap-2">
       <Card className="">
-        <CardHeader className="flex flex-row items-center gap-1 text-xl">
-          <LabelValue label={t("الزبون")}>
+        <CardHeader className="flex flex-row items-center gap-1 text-2xl">
+          <LabelValue label={t("customer")}>
             {`${data.user.firstName} ${data.user.lastName}`}
           </LabelValue>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
           <div className="flex flex-row gap-2">
-            <span>{t("الميزات المطلوبة")}: </span>
+            <span>{t("requestedAdvantages")}: </span>
             <div className="text-foreground/70">
               {data.advantages.map((ad) => (
                 //  @ts-ignore
