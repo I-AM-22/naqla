@@ -95,7 +95,7 @@
   "__________________________order_______________________________": "",
   "orders": "Orders",
   "active_orders": "Active orders",
-  "previous_orders": "Previous orders",
+  "done_orders": "Previous orders",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

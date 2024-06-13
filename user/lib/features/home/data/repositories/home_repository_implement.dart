@@ -25,8 +25,8 @@ class HomeRepositoryImplement extends HomeRepository {
   }
 
   @override
-  FutureResult<List<OrderModel>> getOrders() {
-    return toApiResult(() => dataSource.getOrders());
+  FutureResult<List<OrderModel>> getAcceptOrders() {
+    return toApiResult(() => dataSource.getAcceptOrders());
   }
 
   @override

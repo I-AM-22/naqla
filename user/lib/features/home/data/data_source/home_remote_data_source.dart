@@ -40,7 +40,7 @@ class HomeRemoteDataSource {
     });
   }
 
-  Future<List<OrderModel>> getOrders() {
+  Future<List<OrderModel>> getAcceptOrders() {
     return throwAppException(() async {
       final result = await dio.get(ApiRoutes.orderAccepted);
       return (result.data as List<dynamic>).map((e) => OrderModel.fromJson(e)).toList();
