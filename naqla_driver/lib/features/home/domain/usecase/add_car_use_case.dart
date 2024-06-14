@@ -16,13 +16,14 @@ class AddCarUseCase extends UseCase<CarModel, AddCarParam> {
 }
 
 class AddCarParam {
+  final String? id;
   final String model;
   final String brand;
   final String color;
   final String photo;
   final List<String> advantages;
 
-  AddCarParam({required this.model, required this.brand, required this.color, required this.photo, required this.advantages});
+  AddCarParam({required this.model, required this.brand, required this.color, required this.photo, required this.advantages, this.id});
 
   Map<String, dynamic> get toMap => {
         "model": model,

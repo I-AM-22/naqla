@@ -10,22 +10,28 @@ import 'package:naqla_driver/core/api/api_utils.dart';
 import 'package:naqla_driver/core/common/constants/constants.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/core/di/di_container.dart';
+import 'package:naqla_driver/core/util/core_helper_functions.dart';
 import 'package:naqla_driver/core/util/media_form_field.dart';
+import 'package:naqla_driver/features/app/presentation/state/bloc/app_bloc.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla_driver/features/home/data/model/car_model.dart';
 import 'package:naqla_driver/features/home/domain/usecase/add_car_use_case.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/states/app_common_state_builder.dart';
 import '../../data/model/car_advantage.dart';
-import '../state/home_bloc.dart';
 
 class AddCarPage extends StatefulWidget {
-  const AddCarPage({super.key});
+  const AddCarPage({super.key, this.carModel});
+  final CarModel? carModel;
 
   static String path = "AddCarPage";
   static String name = "AddCarPage";
+
+  static String profilePath = "AddCarPageProfile";
+  static String profileName = "AddCarPageProfile";
 
   @override
   State<AddCarPage> createState() => _AddCarPageState();
@@ -41,59 +47,65 @@ class _AddCarPageState extends State<AddCarPage> {
     setState(() => pickerColor = color);
   }
 
-  final HomeBloc bloc = getIt<HomeBloc>();
+  final bloc = getIt<AppBloc>();
   final GlobalKey<FormBuilderState> _key = GlobalKey();
   TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
     bloc.add(GetCarAdvantageEvent());
+    if (widget.carModel != null) {
+      controller.text = widget.carModel!.color;
+      currentColor = CoreHelperFunctions.hexToColor(widget.carModel!.color);
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => bloc,
+    return BlocProvider.value(
+      value: bloc,
       child: AppScaffold(
           appBar: AppAppBar(
             appBarParams: AppBarParams(title: S.of(context).add_car),
           ),
           bottomNavigationBar: Padding(
             padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: 10),
-            child: BlocSelector<HomeBloc, HomeState, CommonState>(
-              selector: (state) => state.getState(HomeState.addCar),
+            child: BlocSelector<AppBloc, AppState, CommonState>(
+              selector: (state) => state.getState(AppState.addCar),
               builder: (context, state) {
                 return AppButton.dark(
                   isLoading: state.isLoading,
-                  title: S.of(context).add_car,
+                  title: widget.carModel != null ? S.of(context).edit : S.of(context).add_car,
                   onPressed: () {
                     _key.currentState?.save();
                     _key.currentState?.validate();
                     if ((_key.currentState?.isValid ?? false) && currentColor != null) {
-                      bloc.add(
-                        AddCarEvent(
-                          param: AddCarParam(
-                              color: _key.currentState?.value[color],
-                              brand: _key.currentState?.value[brand],
-                              model: _key.currentState?.value[model],
-                              photo: _key.currentState?.value[photo],
-                              advantages: bloc.state
-                                      .getState<List<CarAdvantage>>(HomeState.carAdvantage)
-                                      .data
-                                      ?.where(
-                                        (element) => element.isSelect,
-                                      )
-                                      .map(
-                                        (e) => e.id,
-                                      )
-                                      .toList() ??
-                                  []),
-                          onSuccess: () {
-                            context.pop();
-                          },
-                        ),
-                      );
+                      if (widget.carModel == null) {
+                        bloc.add(
+                          AddCarEvent(
+                            param: AddCarParam(
+                                color: _key.currentState?.value[color],
+                                brand: _key.currentState?.value[brand],
+                                model: _key.currentState?.value[model],
+                                photo: _key.currentState?.value[photo],
+                                advantages: bloc.state
+                                        .getState<List<CarAdvantage>>(AppState.carAdvantage)
+                                        .data
+                                        ?.where(
+                                          (element) => element.isSelect,
+                                        )
+                                        .map(
+                                          (e) => e.id,
+                                        )
+                                        .toList() ??
+                                    []),
+                            onSuccess: () {
+                              context.pop();
+                            },
+                          ),
+                        );
+                      }
                     } else if (currentColor == null) {
                       showMessage(S.of(context).pick_a_color);
                     }
@@ -115,6 +127,7 @@ class _AddCarPageState extends State<AddCarPage> {
                         Expanded(
                           child: AppTextFormField(
                             title: S.of(context).model,
+                            initialValue: widget.carModel?.model,
                             name: model,
                             validator: FormBuilderValidators.required(),
                           ),
@@ -122,6 +135,7 @@ class _AddCarPageState extends State<AddCarPage> {
                         8.horizontalSpace,
                         Expanded(
                           child: AppTextFormField(
+                            initialValue: widget.carModel?.brand,
                             title: S.of(context).brand,
                             name: brand,
                             validator: FormBuilderValidators.required(),
@@ -135,10 +149,11 @@ class _AddCarPageState extends State<AddCarPage> {
                       child: AppTextFormField(
                         key: const ObjectKey('colors'),
                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: currentColor ?? context.colorScheme.primary)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: currentColor ?? context.colorScheme.primary), borderRadius: BorderRadius.circular(8)),
                         title: S.of(context).color,
                         style: TextStyle(color: currentColor),
                         name: color,
-                        // initialValue: currentColor?.value.toString(),
                         controller: controller,
                         readOnly: true,
                         validator: FormBuilderValidators.required(),
@@ -174,6 +189,7 @@ class _AddCarPageState extends State<AddCarPage> {
                     16.verticalSpace,
                     MediaFormField(
                       name: photo,
+                      initialValue: widget.carModel?.photo.mobileUrl,
                       width: context.fullWidth - 40.w,
                       title: S.of(context).photo,
                       height: 200.h,
@@ -184,8 +200,8 @@ class _AddCarPageState extends State<AddCarPage> {
                     16.verticalSpace,
                     AppText.bodySmMedium(S.of(context).additional_specifications_of_the_car),
                     8.verticalSpace,
-                    AppCommonStateBuilder<HomeBloc, List<CarAdvantage>>(
-                      stateName: HomeState.carAdvantage,
+                    AppCommonStateBuilder<AppBloc, List<CarAdvantage>>(
+                      stateName: AppState.carAdvantage,
                       onSuccess: (data) => Padding(
                         padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
                         child: ListView.separated(
@@ -196,9 +212,9 @@ class _AddCarPageState extends State<AddCarPage> {
                           itemBuilder: (context, index) => Row(
                             children: [
                               AppCheckbox(
-                                isSelected: data[index].isSelect,
+                                isSelected: data[index].isSelect || (widget.carModel?.advantages.contains(data[index]) ?? false),
                                 onChanged: (value) {
-                                  context.read<HomeBloc>().add(ChangeSelectAdvantageEvent(carAdvantage: data[index]));
+                                  bloc.add(ChangeSelectAdvantageEvent(carAdvantage: data[index]));
                                 },
                               ),
                               8.horizontalSpace,

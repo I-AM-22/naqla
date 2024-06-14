@@ -12,6 +12,9 @@ class ApiRoutes {
   static String single = '/api/v1/photos/single';
   static String multiple = '/api/v1/photos/multiple';
 
+  //////////////////?Driver////////////////////
+  static String myProfile = '/api/v1/drivers/me';
+
   //////////////////?Account////////////////////
   static String personalInfo = '/api/v1/users/me';
 
@@ -25,10 +28,13 @@ class ApiRoutes {
   //////////////////?Car////////////////////
   static String cars = '/api/v1/drivers/cars';
   static String carsMine = '/api/v1/drivers/cars/mine';
+  static String deleteCar(String id) => '/api/v1/drivers/cars/$id';
+  static String editCar(String id) => '/api/v1/drivers/cars/$id';
 
   //////////////////?Sub-Order////////////////////
   static String subOrders = '/api/v1/sub-orders';
   static String subOrdersForDriver = '/api/v1/sub-orders/for-driver';
   static String setDriver(String id) => '/api/v1/sub-orders/$id/setDriver';
+  static String setDelivered(String id) => '/api/v1/sub-orders/$id/setDeliveredAt';
   static String ordersDone = '/api/v1/sub-orders/done-driver';
 }

@@ -50,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟ "),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+        "are_you_sure_delete_this_car": MessageLookupByLibrary.simpleMessage(
+            "هل أنت متأكد انك تريد حذف هذه السيارة؟"),
         "are_you_sure_you_want_to_delete_account":
             MessageLookupByLibrary.simpleMessage(
                 "هل انت متأكد انك تريد حذف حسابك؟ يرجى قراءة كيف سيؤثر حذف الحساب.\nيؤدي حذف حسابك إلى إزالة المعلومات الشخصية من قاعدة بياناتنا."),
@@ -72,12 +74,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "cost": MessageLookupByLibrary.simpleMessage("الكلفة: "),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
+        "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
+        "delete_car": MessageLookupByLibrary.simpleMessage("حذف السيارة"),
         "did_not_receive_code":
             MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
         "done_orders": MessageLookupByLibrary.simpleMessage("الطلبات المنتهية"),
+        "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("تعديل رقم الهاتف"),
         "edit_profile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
@@ -108,7 +113,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("المزيد من التفاصيل"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
+        "order_accepted_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ قبول الطلب"),
+        "order_arrived_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ وصول السائق"),
+        "order_delivered_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ توصيل الطلب"),
         "order_details": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
+        "order_driverAssigned_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ تعيين السائق"),
+        "order_pickedUp_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ تحميل الطلب"),
+        "order_status": MessageLookupByLibrary.simpleMessage("حالة الطلب"),
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
@@ -125,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "resend_again":
             MessageLookupByLibrary.simpleMessage("إعادة الإرسال مرة أخرى"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),
+        "set_order_delivered":
+            MessageLookupByLibrary.simpleMessage("توصيل الطلب"),
         "set_password":
             MessageLookupByLibrary.simpleMessage("تعيين كلمة المرور"),
         "set_your_password":
@@ -134,6 +152,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
         "start_point": MessageLookupByLibrary.simpleMessage("نقطة البداية"),
+        "sub_orders": MessageLookupByLibrary.simpleMessage("الطلبات الفرعية"),
+        "there_is_nothing_to_show":
+            MessageLookupByLibrary.simpleMessage("لايوجد هناك بيانات لعرضها"),
         "total_money":
             MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),

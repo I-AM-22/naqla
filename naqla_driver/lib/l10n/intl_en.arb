@@ -64,6 +64,7 @@
   "photos": "Photos",
   "pick_a_car": "Pick a car",
   "advantages": "Advantages",
+  "there_is_nothing_to_show": "There is nothing to show",
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",
@@ -78,6 +79,16 @@
   "orders": "Orders",
   "active_orders": "Active orders",
   "done_orders": "Orders done",
+  "sub_orders": "Sub orders",
+  "order_accepted_date": "Order accepted date",
+  "order_arrived_date": "Order arrived date",
+  "order_delivered_date": "Order delivered date",
+  "order_pickedUp_date": "Order pickedUp date",
+  "order_driverAssigned_date": "Order driver Assigned date",
+  "driver_arrived": "Order arrives",
+  "set_order_picked_up": "Set order pickedUp",
+  "set_order_delivered": "Set order delivered",
+  "order_status": "Order status",
 
   "__________________________profile______________________________":"",
   "profile":"profile",
@@ -100,5 +111,9 @@
   "arabic": "Arabic",
   "change_language": "Change Language",
   "camera": "Camera",
-  "gallery": "Gallery"
+  "gallery": "Gallery",
+  "edit": "Edit",
+  "delete": "Delete",
+  "delete_car": "Delete car",
+  "are_you_sure_delete_this_car": "Are ypu sure delete this car?"
 }

@@ -4,12 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:naqla_driver/features/app/presentation/state/bloc/app_bloc.dart';
 import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
 import 'package:naqla_driver/features/auth/presentation/state/auth_bloc.dart';
 import 'package:naqla_driver/features/chat/presentation/pages/chat_page.dart';
+import 'package:naqla_driver/features/home/data/model/car_model.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
 import 'package:naqla_driver/features/home/presentation/pages/add_car_page.dart';
 import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
+import 'package:naqla_driver/features/home/presentation/state/home_bloc.dart';
 import 'package:naqla_driver/features/orders/presentation/pages/orders_page.dart';
 import 'package:naqla_driver/features/profile/presentation/pages/profile_page.dart';
 
@@ -17,6 +20,7 @@ import '../../../features/app/presentation/pages/base_page.dart';
 import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/sign_up_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
+import '../../../features/profile/presentation/pages/cars_page.dart';
 import '../../../features/welcome/splash.dart';
 import '../../di/di_container.dart';
 
@@ -97,7 +101,9 @@ class GRouter {
               GoRoute(
                 path: AddCarPage.path,
                 name: AddCarPage.name,
-                builder: (context, state) => const AddCarPage(),
+                builder: (context, state) => AddCarPage(
+                  carModel: state.extra as CarModel?,
+                ),
               ),
               GoRoute(
                 path: OrderDetailsPage.path,
@@ -123,11 +129,30 @@ class GRouter {
             )
           ]),
           StatefulShellBranch(initialLocation: ProfilePage.path, navigatorKey: _shell4NavigatorKey, routes: [
-            GoRoute(
-              path: ProfilePage.path,
-              name: ProfilePage.name,
-              builder: (context, state) => const ProfilePage(),
-            )
+            GoRoute(path: ProfilePage.path, name: ProfilePage.name, builder: (context, state) => const ProfilePage(), routes: [
+              GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: CarsPage.path,
+                  name: CarsPage.name,
+                  builder: (context, state) => const CarsPage(),
+                  pageBuilder: (context, state) => CustomTransitionPage(
+                        child: const CarsPage(),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                          position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+                          child: child,
+                        ),
+                      ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: AddCarPage.profilePath,
+                      name: AddCarPage.profileName,
+                      builder: (context, state) => AddCarPage(
+                        carModel: state.extra as CarModel?,
+                      ),
+                    ),
+                  ])
+            ])
           ]),
         ])
   ]);

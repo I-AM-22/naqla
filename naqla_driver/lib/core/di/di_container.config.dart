@@ -20,44 +20,48 @@ import '../../features/app/data/repositories/app_repository_implement.dart'
 import '../../features/app/data/repositories/prefs_repository_imp.dart' as _i8;
 import '../../features/app/domain/repository/app_repository.dart' as _i13;
 import '../../features/app/domain/repository/prefs_repository.dart' as _i7;
+import '../../features/app/domain/usecases/delete_car_use_case.dart' as _i19;
+import '../../features/app/domain/usecases/edit_car_use_case.dart' as _i20;
 import '../../features/app/domain/usecases/get_all_cars_use_case.dart' as _i17;
 import '../../features/app/domain/usecases/upload_image_use_case.dart' as _i18;
-import '../../features/app/presentation/state/bloc/app_bloc.dart' as _i29;
-import '../../features/app/presentation/state/upload_image_cubit.dart' as _i28;
+import '../../features/app/presentation/state/bloc/app_bloc.dart' as _i38;
+import '../../features/app/presentation/state/upload_image_cubit.dart' as _i29;
 import '../../features/auth/data/datasources/auth_local_data_source.dart'
     as _i4;
 import '../../features/auth/data/datasources/auth_remote_data_source.dart'
     as _i10;
 import '../../features/auth/data/repositories/auth_repository_implement.dart'
-    as _i26;
-import '../../features/auth/domain/repositories/auth_repository.dart' as _i25;
+    as _i28;
+import '../../features/auth/domain/repositories/auth_repository.dart' as _i27;
 import '../../features/auth/domain/usecases/login_use_case.dart' as _i30;
 import '../../features/auth/domain/usecases/signup_use_case.dart' as _i31;
 import '../../features/auth/domain/usecases/verification_phone_number_use_case.dart'
     as _i32;
-import '../../features/auth/presentation/state/auth_bloc.dart' as _i36;
+import '../../features/auth/presentation/state/auth_bloc.dart' as _i37;
 import '../../features/home/data/datasource/home_remote_data_source.dart'
     as _i11;
 import '../../features/home/data/repositories/home_repository_implement.dart'
     as _i16;
 import '../../features/home/domain/repositories/home_repository.dart' as _i15;
-import '../../features/home/domain/usecase/add_car_use_case.dart' as _i21;
-import '../../features/home/domain/usecase/car_advantage_use_case.dart' as _i22;
+import '../../features/home/domain/usecase/add_car_use_case.dart' as _i23;
+import '../../features/home/domain/usecase/car_advantage_use_case.dart' as _i24;
 import '../../features/home/domain/usecase/get_sub_orders_use_case.dart'
-    as _i23;
-import '../../features/home/domain/usecase/set_driver_use_case.dart' as _i24;
-import '../../features/home/presentation/state/home_bloc.dart' as _i27;
+    as _i25;
+import '../../features/home/domain/usecase/set_driver_use_case.dart' as _i26;
+import '../../features/home/presentation/state/home_bloc.dart' as _i36;
 import '../../features/orders/data/datasources/order_remote_data_source.dart'
     as _i12;
 import '../../features/orders/data/repositories/order_repository_implement.dart'
-    as _i20;
+    as _i22;
 import '../../features/orders/domain/repositories/order_repository.dart'
-    as _i19;
+    as _i21;
 import '../../features/orders/domain/usecases/get_orders_done_use_case.dart'
     as _i33;
 import '../../features/orders/domain/usecases/get_orders_use_case.dart' as _i34;
-import '../../features/orders/presentation/state/order_bloc.dart' as _i35;
-import 'di_container.dart' as _i37;
+import '../../features/orders/domain/usecases/set_delivered_use_case.dart'
+    as _i35;
+import '../../features/orders/presentation/state/order_bloc.dart' as _i39;
+import 'di_container.dart' as _i40;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
@@ -100,50 +104,61 @@ Future<_i1.GetIt> $initGetIt(
       () => _i17.GetAllCarsUseCase(gh<_i13.AppRepository>()));
   gh.factory<_i18.UploadImageUseCase>(
       () => _i18.UploadImageUseCase(gh<_i13.AppRepository>()));
-  gh.factory<_i19.OrderRepository>(
-      () => _i20.OrderRepositoryImplement(gh<_i12.OrderRemoteDataSource>()));
-  gh.factory<_i21.AddCarUseCase>(
-      () => _i21.AddCarUseCase(gh<_i15.HomeRepository>()));
-  gh.factory<_i22.CarAdvantageUseCase>(
-      () => _i22.CarAdvantageUseCase(gh<_i15.HomeRepository>()));
-  gh.factory<_i23.GetSubOrdersUseCase>(
-      () => _i23.GetSubOrdersUseCase(gh<_i15.HomeRepository>()));
-  gh.factory<_i24.SetDriverUseCase>(
-      () => _i24.SetDriverUseCase(gh<_i15.HomeRepository>()));
-  gh.factory<_i25.AuthRepository>(() => _i26.AuthRepositoryImplement(
+  gh.factory<_i19.DeleteCarUseCase>(
+      () => _i19.DeleteCarUseCase(gh<_i13.AppRepository>()));
+  gh.factory<_i20.EditCarUseCase>(
+      () => _i20.EditCarUseCase(gh<_i13.AppRepository>()));
+  gh.factory<_i21.OrderRepository>(
+      () => _i22.OrderRepositoryImplement(gh<_i12.OrderRemoteDataSource>()));
+  gh.factory<_i23.AddCarUseCase>(
+      () => _i23.AddCarUseCase(gh<_i15.HomeRepository>()));
+  gh.factory<_i24.CarAdvantageUseCase>(
+      () => _i24.CarAdvantageUseCase(gh<_i15.HomeRepository>()));
+  gh.factory<_i25.GetSubOrdersUseCase>(
+      () => _i25.GetSubOrdersUseCase(gh<_i15.HomeRepository>()));
+  gh.factory<_i26.SetDriverUseCase>(
+      () => _i26.SetDriverUseCase(gh<_i15.HomeRepository>()));
+  gh.factory<_i27.AuthRepository>(() => _i28.AuthRepositoryImplement(
         gh<_i10.AuthRemoteDataSource>(),
         gh<_i4.AuthLocaleDataSource>(),
       ));
-  gh.lazySingleton<_i27.HomeBloc>(() => _i27.HomeBloc(
-        gh<_i21.AddCarUseCase>(),
-        gh<_i22.CarAdvantageUseCase>(),
-        gh<_i23.GetSubOrdersUseCase>(),
-        gh<_i17.GetAllCarsUseCase>(),
-        gh<_i24.SetDriverUseCase>(),
-      ));
-  gh.factory<_i28.UploadImageCubit>(
-      () => _i28.UploadImageCubit(gh<_i18.UploadImageUseCase>()));
-  gh.factory<_i29.AppBloc>(() => _i29.AppBloc(gh<_i17.GetAllCarsUseCase>()));
+  gh.factory<_i29.UploadImageCubit>(
+      () => _i29.UploadImageCubit(gh<_i18.UploadImageUseCase>()));
   gh.factory<_i30.LoginUseCase>(
-      () => _i30.LoginUseCase(gh<_i25.AuthRepository>()));
+      () => _i30.LoginUseCase(gh<_i27.AuthRepository>()));
   gh.factory<_i31.SignUpUseCase>(
-      () => _i31.SignUpUseCase(gh<_i25.AuthRepository>()));
+      () => _i31.SignUpUseCase(gh<_i27.AuthRepository>()));
   gh.factory<_i32.VerificationPhoneNumberUseCase>(
-      () => _i32.VerificationPhoneNumberUseCase(gh<_i25.AuthRepository>()));
+      () => _i32.VerificationPhoneNumberUseCase(gh<_i27.AuthRepository>()));
   gh.factory<_i33.GetOrdersDoneUseCase>(
-      () => _i33.GetOrdersDoneUseCase(gh<_i19.OrderRepository>()));
+      () => _i33.GetOrdersDoneUseCase(gh<_i21.OrderRepository>()));
   gh.factory<_i34.GetOrdersUseCase>(
-      () => _i34.GetOrdersUseCase(gh<_i19.OrderRepository>()));
-  gh.factory<_i35.OrderBloc>(() => _i35.OrderBloc(
-        gh<_i33.GetOrdersDoneUseCase>(),
-        gh<_i34.GetOrdersUseCase>(),
+      () => _i34.GetOrdersUseCase(gh<_i21.OrderRepository>()));
+  gh.factory<_i35.SetDeliveredUseCase>(
+      () => _i35.SetDeliveredUseCase(gh<_i21.OrderRepository>()));
+  gh.lazySingleton<_i36.HomeBloc>(() => _i36.HomeBloc(
+        gh<_i25.GetSubOrdersUseCase>(),
+        gh<_i17.GetAllCarsUseCase>(),
+        gh<_i26.SetDriverUseCase>(),
       ));
-  gh.factory<_i36.AuthBloc>(() => _i36.AuthBloc(
+  gh.factory<_i37.AuthBloc>(() => _i37.AuthBloc(
         gh<_i30.LoginUseCase>(),
         gh<_i31.SignUpUseCase>(),
         gh<_i32.VerificationPhoneNumberUseCase>(),
       ));
+  gh.factory<_i38.AppBloc>(() => _i38.AppBloc(
+        gh<_i17.GetAllCarsUseCase>(),
+        gh<_i19.DeleteCarUseCase>(),
+        gh<_i20.EditCarUseCase>(),
+        gh<_i23.AddCarUseCase>(),
+        gh<_i24.CarAdvantageUseCase>(),
+      ));
+  gh.factory<_i39.OrderBloc>(() => _i39.OrderBloc(
+        gh<_i33.GetOrdersDoneUseCase>(),
+        gh<_i34.GetOrdersUseCase>(),
+        gh<_i35.SetDeliveredUseCase>(),
+      ));
   return getIt;
 }
 
-class _$AppModule extends _i37.AppModule {}
+class _$AppModule extends _i40.AppModule {}

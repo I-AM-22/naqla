@@ -50,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account? "),
         "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
+        "are_you_sure_delete_this_car": MessageLookupByLibrary.simpleMessage(
+            "Are ypu sure delete this car?"),
         "are_you_sure_you_want_to_delete_account":
             MessageLookupByLibrary.simpleMessage(
                 "Are you sure you want to delete your account? Please read how account deletion will affect.\nDeleting your account removes personal information our database."),
@@ -76,13 +78,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Create an account"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "day": MessageLookupByLibrary.simpleMessage("day"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_account":
             MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "delete_car": MessageLookupByLibrary.simpleMessage("Delete car"),
         "did_not_receive_code":
             MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
         "done_orders": MessageLookupByLibrary.simpleMessage("Orders done"),
+        "driver_arrived": MessageLookupByLibrary.simpleMessage("Order arrives"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("Edit Phone Number"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -111,7 +117,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "more_details": MessageLookupByLibrary.simpleMessage("More details"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "order_accepted_date":
+            MessageLookupByLibrary.simpleMessage("Order accepted date"),
+        "order_arrived_date":
+            MessageLookupByLibrary.simpleMessage("Order arrived date"),
+        "order_delivered_date":
+            MessageLookupByLibrary.simpleMessage("Order delivered date"),
         "order_details": MessageLookupByLibrary.simpleMessage("Order details"),
+        "order_driverAssigned_date":
+            MessageLookupByLibrary.simpleMessage("Order driver Assigned date"),
+        "order_pickedUp_date":
+            MessageLookupByLibrary.simpleMessage("Order pickedUp date"),
+        "order_status": MessageLookupByLibrary.simpleMessage("Order status"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
@@ -127,6 +144,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
+        "set_order_delivered":
+            MessageLookupByLibrary.simpleMessage("Set order delivered"),
+        "set_order_picked_up":
+            MessageLookupByLibrary.simpleMessage("Set order pickedUp"),
         "set_password": MessageLookupByLibrary.simpleMessage("Set password"),
         "set_your_password":
             MessageLookupByLibrary.simpleMessage("Set your password"),
@@ -135,6 +156,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "start_point": MessageLookupByLibrary.simpleMessage("Start point"),
+        "sub_orders": MessageLookupByLibrary.simpleMessage("Sub orders"),
+        "there_is_nothing_to_show":
+            MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),

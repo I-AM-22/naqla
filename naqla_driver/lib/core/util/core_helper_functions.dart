@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:naqla_driver/core/core.dart';
+import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../../features/app/presentation/widgets/animated_dialog.dart';
 import '../../generated/l10n.dart';
+import '../common/enums/order_status.dart';
 import '../di/di_container.dart';
 
 class CoreHelperFunctions {
@@ -26,7 +28,7 @@ class CoreHelperFunctions {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 AppButton.ghost(
-                    style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => context.colorScheme.error)),
+                    style: ButtonStyle(backgroundColor: WidgetStateColor.resolveWith((states) => context.colorScheme.error)),
                     buttonSize: ButtonSize.medium,
                     child: AppText.bodySmall(
                       S.of(context).logOut,
@@ -35,7 +37,7 @@ class CoreHelperFunctions {
                     onPressed: () async {
                       await getIt<PrefsRepository>().clearUser();
                       if (!context.mounted) return;
-                      // context.goNamed(OnBoardingScreen.name);
+                      context.goNamed(SignInPage.name);
                     }),
                 AppButton.ghost(
                   buttonSize: ButtonSize.medium,
@@ -50,9 +52,28 @@ class CoreHelperFunctions {
         ),
       ));
 
+  static String formatOrderTime(BuildContext context, SubOrderStatus status,
+      {DateTime? acceptedAt, DateTime? arrivedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
+    if (status == SubOrderStatus.ready) return '${S.of(context).order_accepted_date}:\n ${fromOrderDateTimeToString(acceptedAt!)}';
+    if (status == SubOrderStatus.delivered) return '${S.of(context).order_delivered_date}:\n ${fromOrderDateTimeToString(deliveredAt!)}';
+    if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n ${fromOrderDateTimeToString(driverAssignedAt!)}';
+    if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n ${fromOrderDateTimeToString(pickedUpAt!)}';
+    return '';
+  }
+
+  static Color hexToColor(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
+
   //?============================================ Date & Time helpers ============================================
 
   static String fromDateTimeToString(DateTime dateTime) => DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR}").format(dateTime);
+
+  static String fromOrderDateTimeToString(DateTime dateTime) =>
+      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_Hm().format(dateTime);
 
   static String fromTimeToString(DateTime dateTime) => DateFormat.Hm().format(dateTime);
 

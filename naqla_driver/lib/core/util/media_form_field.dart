@@ -21,6 +21,7 @@ enum MediaType { image, video }
 
 class MediaFormField extends StatefulWidget {
   final String name;
+  final String? initialValue;
   final Widget? imagePlaceHolder;
   final Widget? loadingIndicator;
   final Widget Function(File? file)? displayImageBuilder;
@@ -47,6 +48,7 @@ class MediaFormField extends StatefulWidget {
     this.onImagePicked,
     this.mediaType = MediaType.image,
     this.validator,
+    this.initialValue,
   });
 
   @override
@@ -61,6 +63,7 @@ class _MediaFormField2State extends State<MediaFormField> {
     return BlocProvider(
       create: (context) => uploadImageCubit,
       child: FormBuilderField(
+        initialValue: widget.initialValue,
         builder: (field) => BlocConsumer<UploadImageCubit, CommonState<String?>>(
           listener: (context, state) {
             if (state.isSuccess) field.didChange(state.data);
@@ -68,6 +71,7 @@ class _MediaFormField2State extends State<MediaFormField> {
           builder: (context, state) {
             return _MediaFormFieldPlaceHolder(
               height: widget.height,
+              initialValue: widget.initialValue,
               width: widget.width,
               title: widget.title,
               placeHolderDecoration: widget.placeHolderDecoration,
@@ -95,6 +99,7 @@ class _MediaFormField2State extends State<MediaFormField> {
 class _MediaFormFieldPlaceHolder extends StatefulWidget {
   final BoxDecoration? placeHolderDecoration;
   final String? title;
+  final String? initialValue;
   final double? height;
   final double? width;
   final Widget? child;
@@ -119,6 +124,7 @@ class _MediaFormFieldPlaceHolder extends StatefulWidget {
     this.loadingIndicator,
     this.error,
     this.mediaType = MediaType.image,
+    this.initialValue,
   });
 
   @override
@@ -181,17 +187,19 @@ class __MediaFormFieldPlaceHolderState extends State<_MediaFormFieldPlaceHolder>
                           width: widget.width,
                           height: widget.height,
                         )
-                      : widget.child ??
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                IconlyBroken.image,
-                                size: 24.r,
+                      : widget.initialValue != null
+                          ? AppImage.network(widget.initialValue!)
+                          : widget.child ??
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    IconlyBroken.image,
+                                    size: 24.r,
+                                  ),
+                                  if (widget.title != null) AppText.titleSmall(widget.title!)
+                                ],
                               ),
-                              if (widget.title != null) AppText.titleSmall(widget.title!)
-                            ],
-                          ),
                 ),
                 if (widget.isLoading)
                   Container(

@@ -148,7 +148,10 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
   Widget _buildPaginationWidget(PagedWidgetType type) {
     final commonStateBuilderDelegate = PagedBuilderDelegate<T>(
       itemBuilder: itemBuilder,
-      firstPageErrorIndicatorBuilder: firstPageErrorIndicatorBuilder ?? (error, voidCallback) => const ErrorPage(),
+      firstPageErrorIndicatorBuilder: firstPageErrorIndicatorBuilder ??
+          (error, voidCallback) => ErrorPage(
+                errorMessage: error.toString(),
+              ),
       firstPageProgressIndicatorBuilder: firstPageProgressIndicatorBuilder ?? const AppLoadingIndicator(),
       newPageErrorIndicatorBuilder: newPageErrorIndicatorBuilder ?? (error, voidCallBack) => Text(error),
       newPageProgressIndicatorBuilder: newPageProgressIndicatorBuilder ?? const AppLoadingIndicator(),

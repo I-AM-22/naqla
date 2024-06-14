@@ -61,10 +61,14 @@ class AppCommonStateBuilder<B extends StateStreamable<BaseState>, T> extends Sta
               : const EmptyPage()),
       failure: onError ??
           (errorMessage) => isSliver
-              ? const SliverToBoxAdapter(
-                  child: ErrorPage(),
+              ? SliverToBoxAdapter(
+                  child: ErrorPage(
+                    errorMessage: errorMessage.toString(),
+                  ),
                 )
-              : const ErrorPage(),
+              : ErrorPage(
+                  errorMessage: errorMessage.toString(),
+                ),
     );
   }
 }

@@ -64,6 +64,7 @@
   "photos":"الصور" ,
   "pick_a_car": "اختر سيارة",
   "advantages": "الميزات",
+  "there_is_nothing_to_show": "لايوجد هناك بيانات لعرضها",
 
   "__________________________wallet______________________________":"",
   "wallet":"المحفظة",
@@ -78,6 +79,14 @@
   "orders": "الطلبات",
   "active_orders": "الطلبات الحالية",
   "done_orders": "الطلبات المنتهية",
+  "sub_orders": "الطلبات الفرعية",
+  "order_accepted_date": "تاريخ قبول الطلب",
+  "order_arrived_date": "تاريخ وصول السائق",
+  "order_delivered_date": "تاريخ توصيل الطلب",
+  "order_pickedUp_date": "تاريخ تحميل الطلب",
+  "order_driverAssigned_date": "تاريخ تعيين السائق",
+  "set_order_delivered": "توصيل الطلب",
+  "order_status": "حالة الطلب",
 
   "__________________________profile______________________________":"",
   "profile":"الملف الشخصي",
@@ -100,5 +109,9 @@
   "arabic": "العربية",
   "change_language": "تغيير اللغة",
   "camera": "الكاميرا",
-  "gallery": "المعرض"
+  "gallery": "المعرض",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "delete_car": "حذف السيارة",
+  "are_you_sure_delete_this_car": "هل أنت متأكد انك تريد حذف هذه السيارة؟"
 }

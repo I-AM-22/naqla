@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:http_parser/http_parser.dart' as mime;
 import 'package:naqla_driver/features/home/data/model/car_model.dart';
+import 'package:naqla_driver/features/home/domain/usecase/add_car_use_case.dart';
 
 import '../../../../core/api/api_utils.dart';
 import '../../../../core/common/constants/configuration/api_routes.dart';
@@ -36,6 +37,23 @@ class AppRemoteDataSource {
               (e) => CarModel.fromJson(e),
             )
             .toList();
+      },
+    );
+  }
+
+  Future<void> deleteCar(String id) {
+    return throwAppException(
+      () async {
+        await dio.delete(ApiRoutes.deleteCar(id));
+      },
+    );
+  }
+
+  Future<CarModel> editCar(AddCarParam params) {
+    return throwAppException(
+      () async {
+        final result = await dio.patch(ApiRoutes.editCar(params.id!), data: params.toMap);
+        return CarModel.fromJson(result.data);
       },
     );
   }

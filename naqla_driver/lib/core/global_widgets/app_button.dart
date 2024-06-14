@@ -378,10 +378,10 @@ class _AppButtonState extends State<AppButton> {
     }
   }
 
-  BorderSide? getSide(Set<MaterialState> states) {
+  BorderSide? getSide(Set<WidgetState> states) {
     if (widget._typeButton == AppButtonType.field &&
         // widget.focusedFilledType == FocusedFilledButtonType.border &&
-        states.contains(MaterialState.pressed)) {
+        states.contains(WidgetState.pressed)) {
       return BorderSide(
         color: context.colorScheme.onSurface,
         width: 2.r,
@@ -406,8 +406,8 @@ class _AppButtonState extends State<AppButton> {
   ButtonStyle getButtonStyle(BuildContext context) {
     ButtonStyle buttonStyle = widget.style ??
         ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith((states) {
-              var pressed = states.contains(MaterialState.pressed);
+            backgroundColor: WidgetStateProperty.resolveWith((states) {
+              var pressed = states.contains(WidgetState.pressed);
               if (widget.isLoading) {
                 return context.colorScheme.systemGray.shade300;
               }
