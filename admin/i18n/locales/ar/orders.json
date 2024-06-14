@@ -6,5 +6,19 @@
   "desiredDate": "موعد الطلب",
   "photos": "الملفات المرفقة",
   "createSubOrders": "تقسيم الطلب",
-  "splitOrder": "تقسيم الطلب"
+  "splitOrder": "تقسيم الطلب",
+  "subOrderCreate": {
+    "customer": "الزبون",
+    "requestedAdvantages": "الميزات المطلوبة",
+    "photos": "الملفات المرفقة",
+    "allFilesSelected": "تم تحديد جميع الصور :)",
+    "weight": "الوزن",
+    "length": "الطول",
+    "width": "العرض",
+    "subOrder": "التوصيلة",
+    "submit": "تقسيم الطلب",
+    "addSubOrder": "إضافة توصيلة",
+    "estimatedWeight": "الوزن التقديري",
+    "notAllFilesSelected": "لم يتم تحديد كل الملفات!"
+  }
 }
