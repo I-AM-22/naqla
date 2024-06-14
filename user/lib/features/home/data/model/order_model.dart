@@ -12,7 +12,7 @@ class OrderModel {
   final LocationModel locationEnd;
   final List<String> advantages;
   final List<OrderPhotosModel> photos;
-  final PaymentModel paymentModel;
+  final PaymentModel? paymentModel;
 
   OrderModel({
     required this.id,
@@ -58,7 +58,7 @@ class OrderModel {
         locationEnd: LocationModel.fromJson(json["locationEnd"]),
         advantages: List<String>.from(json["advantages"].map((x) => x['name'])),
         photos: List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
-        paymentModel: PaymentModel.fromJson(json["payment"]),
+        paymentModel: json["payment"] == null ? null : PaymentModel.fromJson(json["payment"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -70,6 +70,6 @@ class OrderModel {
         "photos": List<dynamic>.from(photos.map((x) => x.toJson())),
         "createdAt": createdAt.toIso8601String(),
         "desiredDate": desiredDate.toIso8601String(),
-        "payment": paymentModel.toJson(),
+        "payment": paymentModel?.toJson(),
       };
 }

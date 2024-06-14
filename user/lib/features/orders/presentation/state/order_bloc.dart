@@ -5,7 +5,10 @@ import 'package:injectable/injectable.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
+import 'package:naqla/features/orders/domain/usecases/set_arrived_use_case.dart';
+import 'package:naqla/features/orders/domain/usecases/set_picked_up_use_case.dart';
 
+import '../../../../core/common/enums/change_order_status.dart';
 import '../../domain/usecases/get_orders_use_case.dart';
 import '../../domain/usecases/get_sub_orders_use_case.dart';
 
@@ -16,9 +19,30 @@ part 'order_state.dart';
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
   final GetOrdersUseCase getOrdersUseCase;
   final GetSubOrdersUseCase getSubOrdersUseCase;
-  OrderBloc(this.getOrdersUseCase, this.getSubOrdersUseCase) : super(OrderState()) {
+  final SetArrivedUseCase setArrivedUseCase;
+  final SetPickedUpUseCase setPickedUpUseCase;
+  OrderBloc(this.getOrdersUseCase, this.getSubOrdersUseCase, this.setArrivedUseCase, this.setPickedUpUseCase) : super(OrderState()) {
     multiStateApiCall<GetOrdersEvent, List<OrderModel>>(OrderState.getOrders, (event) => getOrdersUseCase(NoParams()));
 
     multiStateApiCall<GetSubOrdersEvent, List<SubOrderModel>>(OrderState.getSubOrders, (event) => getSubOrdersUseCase(event.param));
+
+    multiStateApiCall<ChangeOrderStatusEvent, SubOrderModel>(
+      OrderState.setArrived,
+      (event) {
+        if (event.status == ChangeOrderStatus.arrived) {
+          return setArrivedUseCase(event.param);
+        } else {
+          return setPickedUpUseCase(event.param);
+        }
+      },
+      onSuccess: (data, event, emit) async {
+        final oldData = state.getState<List<SubOrderModel>>(OrderState.getSubOrders).data ?? [];
+        oldData.removeWhere(
+          (element) => event.param.id == element.id,
+        );
+        oldData.add(data);
+        emit(state.updateData(OrderState.getSubOrders, oldData));
+      },
+    );
   }
 }

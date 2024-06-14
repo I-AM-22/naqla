@@ -62,9 +62,7 @@ class AppText extends StatelessWidget {
             text,
             style: style?.copyWith(
                 color: color,
-                height: (figmaLineHeight != null && style?.fontSize != null)
-                    ? figmaLineHeight?.fromFigmaHeight(style!.fontSize!)
-                    : null),
+                height: (figmaLineHeight != null && style?.fontSize != null) ? figmaLineHeight?.fromFigmaHeight(style!.fontSize!) : null),
             key: key,
             locale: locale,
             maxLines: maxLines,
@@ -98,9 +96,7 @@ class AppText extends StatelessWidget {
     TextStyle? style,
     FontWeight? fontWeight,
     super.key,
-  }) : style = textTheme.displayLarge
-            ?.merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.displayLarge?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.displayMedium(
     this.text, {
@@ -122,9 +118,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.displayMedium
-            ?.merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.displayMedium?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.displaySmall(
     this.text, {
@@ -146,9 +140,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.displaySmall
-            ?.merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.displaySmall?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.headlineLarge(
     this.text, {
@@ -170,9 +162,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.headlineLarge
-            ?.merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.headlineLarge?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.headlineSmall(
     this.text, {
@@ -194,9 +184,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.headlineSmall
-            ?.merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.headlineSmall?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.headlineMedium(
     this.text, {
@@ -218,9 +206,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.headlineMedium
-            ?.merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.headlineMedium?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.titleLarge(
     this.text, {
@@ -242,8 +228,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style =
-            textTheme.titleLarge?.merge(style).copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.titleLarge?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.titleMedium(
     this.text, {
@@ -265,9 +250,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.titleMedium
-            ?.merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.titleMedium?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.titleSmall(
     this.text, {
@@ -289,8 +272,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style =
-            textTheme.titleSmall?.merge(style).copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.titleSmall?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.labelLarge(
     this.text, {
@@ -312,8 +294,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style =
-            textTheme.labelLarge?.merge(style).copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.labelLarge?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.labelMedium(
     this.text, {
@@ -335,9 +316,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.labelMedium
-            ?.merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.labelMedium?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.labelSmall(
     this.text, {
@@ -359,8 +338,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style =
-            textTheme.labelSmall?.merge(style).copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.labelSmall?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.bodyLarge(
     this.text, {
@@ -382,8 +360,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style =
-            textTheme.bodyLarge?.merge(style).copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.bodyLarge?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.bodyMedium(
     this.text, {
@@ -405,8 +382,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style =
-            textTheme.bodyMedium?.merge(style).copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.bodyMedium?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.bodySmMedium(
     this.text, {
@@ -428,9 +404,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.bodySmMedium
-            .merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.bodySmMedium.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.bodySmall(
     this.text, {
@@ -452,8 +426,7 @@ class AppText extends StatelessWidget {
     TextStyle? style,
     FontWeight? fontWeight,
     super.key,
-  }) : style =
-            textTheme.bodySmall?.merge(style).copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.bodySmall?.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.buttonText(
     this.text, {
@@ -475,9 +448,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.subHeadWebMedium
-            .merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.subHeadWebMedium.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.bodyRegular(
     this.text, {
@@ -485,7 +456,7 @@ class AppText extends StatelessWidget {
     this.strutStyle,
     this.figmaLineHeight,
     this.textAlign,
-    this.textDirection = TextDirection.ltr,
+    this.textDirection,
     this.locale,
     this.softWrap,
     this.overflow,
@@ -499,8 +470,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style =
-            textTheme.bodyRegular.merge(style).copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.bodyRegular.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.subHeadMedium(
     this.text, {
@@ -508,7 +478,7 @@ class AppText extends StatelessWidget {
     this.strutStyle,
     this.figmaLineHeight,
     this.textAlign,
-    this.textDirection = TextDirection.ltr,
+    this.textDirection,
     this.locale,
     this.softWrap,
     this.overflow,
@@ -522,9 +492,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.subHeadMedium
-            .merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.subHeadMedium.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.subHeadRegular(
     this.text, {
@@ -532,7 +500,7 @@ class AppText extends StatelessWidget {
     this.strutStyle,
     this.figmaLineHeight,
     this.textAlign,
-    this.textDirection = TextDirection.ltr,
+    this.textDirection,
     this.locale,
     this.softWrap,
     this.overflow,
@@ -546,9 +514,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.subHeadRegular
-            .merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.subHeadRegular.merge(style).copyWith(fontWeight: fontWeight);
 
   AppText.subHeadWebMedium(
     this.text, {
@@ -556,7 +522,7 @@ class AppText extends StatelessWidget {
     this.strutStyle,
     this.figmaLineHeight,
     this.textAlign,
-    this.textDirection = TextDirection.ltr,
+    this.textDirection,
     this.locale,
     this.softWrap,
     this.overflow,
@@ -570,9 +536,7 @@ class AppText extends StatelessWidget {
     super.key,
     TextStyle? style,
     FontWeight? fontWeight,
-  }) : style = textTheme.subHeadWebMedium
-            .merge(style)
-            .copyWith(fontWeight: fontWeight);
+  }) : style = textTheme.subHeadWebMedium.merge(style).copyWith(fontWeight: fontWeight);
 
   copyWith({Color? color}) => AppText(
         text,

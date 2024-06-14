@@ -29,8 +29,9 @@ class _OrderPageState extends State<OrderPage> with SingleTickerProviderStateMix
 
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
     bloc.add(GetOrdersEvent());
+    tabController = TabController(length: 2, vsync: this);
+
     super.initState();
   }
 
@@ -58,7 +59,7 @@ class _OrderPageState extends State<OrderPage> with SingleTickerProviderStateMix
                   Tab(text: S.of(context).done_orders),
                 ],
               ),
-              Expanded(child: TabBarView(controller: tabController, children: [ActiveOrdersPage(), DoneOrdersPage()]))
+              Expanded(child: TabBarView(controller: tabController, children: const [ActiveOrdersPage(), DoneOrdersPage()]))
             ],
           )),
     );

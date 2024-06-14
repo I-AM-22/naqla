@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/core.dart';
-import 'package:naqla/features/home/data/model/order_model.dart';
 
 import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
+import '../../data/model/order_model.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({super.key, required this.orderModel});
@@ -31,7 +31,7 @@ class OrderCard extends StatelessWidget {
                 10.verticalSpace,
                 AppText.bodySmMedium('${S.of(context).order_status} ${orderModel.status.name}'),
                 10.verticalSpace,
-                AppText.bodySmMedium('${S.of(context).cost} ${orderModel.paymentModel.cost} ${S.of(context).syp}'),
+                AppText.bodySmMedium('${S.of(context).cost} ${orderModel.paymentModel?.cost} ${S.of(context).syp}'),
               ],
             ),
           ),

@@ -18,6 +18,7 @@ import '../../../features/home/presentation/pages/home_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/home/presentation/pages/order_photos_page.dart';
 import '../../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import '../../../features/orders/presentation/pages/sub_orders_page.dart';
 import '../../../features/profile/presentation/pages/about_us_page.dart';
 import '../../../features/profile/presentation/pages/delete_account_page.dart';
 import '../../../features/profile/presentation/pages/edit_phone_number_page.dart';
@@ -114,7 +115,20 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
             ]),
       ]),
       StatefulShellBranch(initialLocation: OrderPage.path, navigatorKey: _shell2NavigatorKey, routes: [
-        GoRoute(path: OrderPage.path, name: OrderPage.name, parentNavigatorKey: _shell2NavigatorKey, builder: (context, state) => const OrderPage())
+        GoRoute(
+            path: OrderPage.path,
+            name: OrderPage.name,
+            parentNavigatorKey: _shell2NavigatorKey,
+            builder: (context, state) => const OrderPage(),
+            routes: [
+              GoRoute(
+                path: SubOrdersPage.path,
+                name: SubOrdersPage.name,
+                builder: (context, state) => SubOrdersPage(
+                  orderId: state.extra as String,
+                ),
+              )
+            ])
       ]),
       StatefulShellBranch(initialLocation: ChatPage.path, navigatorKey: _shell3NavigatorKey, routes: [
         GoRoute(

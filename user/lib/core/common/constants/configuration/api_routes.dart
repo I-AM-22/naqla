@@ -1,6 +1,6 @@
 class ApiRoutes {
   //////////////////?Base////////////////////
-  static const String baseUrl = 'http://192.168.1.44:5500';
+  static const String baseUrl = 'http://192.168.1.110:5500';
 
   //////////////////?Auth////////////////////
   static String login = '/api/v1/auth/user/login';
@@ -24,4 +24,6 @@ class ApiRoutes {
   static String orderAccepted = '/api/v1/orders/accepted';
   static String acceptance(String id) => '/api/v1/orders/$id/acceptance';
   static String subOrders(String id) => '/api/v1/sub-orders/order/$id';
+  static String setArrived(String id) => '/api/v1/sub-orders/$id/setArrivedAt';
+  static String setPickedUp(String id) => '/api/v1/sub-orders/$id/setPickedUpAt';
 }

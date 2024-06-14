@@ -190,6 +190,16 @@ class S {
     );
   }
 
+  /// `There is nothing to show`
+  String get there_is_nothing_to_show {
+    return Intl.message(
+      'There is nothing to show',
+      name: 'there_is_nothing_to_show',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get _________________authentication________________ {
     return Intl.message(
@@ -925,6 +935,96 @@ class S {
     return Intl.message(
       'Previous orders',
       name: 'done_orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sub orders`
+  String get sub_orders {
+    return Intl.message(
+      'Sub orders',
+      name: 'sub_orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order accepted date`
+  String get order_accepted_date {
+    return Intl.message(
+      'Order accepted date',
+      name: 'order_accepted_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order arrived date`
+  String get order_arrived_date {
+    return Intl.message(
+      'Order arrived date',
+      name: 'order_arrived_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order delivered date`
+  String get order_delivered_date {
+    return Intl.message(
+      'Order delivered date',
+      name: 'order_delivered_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order pickedUp date`
+  String get order_pickedUp_date {
+    return Intl.message(
+      'Order pickedUp date',
+      name: 'order_pickedUp_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order driver Assigned date`
+  String get order_driverAssigned_date {
+    return Intl.message(
+      'Order driver Assigned date',
+      name: 'order_driverAssigned_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order arrives`
+  String get driver_arrived {
+    return Intl.message(
+      'Order arrives',
+      name: 'driver_arrived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set order pickedUp`
+  String get set_order_picked_up {
+    return Intl.message(
+      'Set order pickedUp',
+      name: 'set_order_picked_up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set order delivered`
+  String get set_order_delivered {
+    return Intl.message(
+      'Set order delivered',
+      name: 'set_order_delivered',
       desc: '',
       args: [],
     );

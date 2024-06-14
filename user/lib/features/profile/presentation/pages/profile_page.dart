@@ -86,12 +86,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ProfileItem(
                         onTap: () => context.pushNamed(EditProfilePage.name, extra: EditProfileParam(bloc: bloc, user: data)),
                         title: S.of(context).edit_profile,
-                        prefixIcon: Icon(IconlyBroken.edit)),
+                        prefixIcon: const Icon(IconlyBroken.edit)),
                     16.verticalSpace,
                     ProfileItem(
                         onTap: () => context.pushNamed(EditPhoneNumberPage.name, extra: EditPhoneParam(bloc: bloc, phone: data.phone)),
                         title: S.of(context).edit_phone,
-                        prefixIcon: Icon(IconlyBroken.call)),
+                        prefixIcon: const Icon(IconlyBroken.call)),
                     16.verticalSpace,
                     ProfileItem(
                       onTap: () => context.pushNamed(
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     16.verticalSpace,
                     ProfileItem(
                       title: S.of(context).help_and_support,
-                      prefixIcon: Icon(IconlyBroken.info_circle),
+                      prefixIcon: const Icon(IconlyBroken.info_circle),
                       onTap: () => context.pushNamed(HelpAndSupportPage.name),
                     ),
                     16.verticalSpace,
@@ -126,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ProfileItem(
                         onTap: () => context.pushNamed(DeleteAccountPage.name),
                         title: S.of(context).delete_account,
-                        prefixIcon: Icon(IconlyBroken.delete)),
+                        prefixIcon: const Icon(IconlyBroken.delete)),
                     32.verticalSpace,
                     AppText.subHeadRegular(
                       'Naqla V1.0.0',

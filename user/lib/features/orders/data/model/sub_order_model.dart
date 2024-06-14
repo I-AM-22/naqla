@@ -1,3 +1,4 @@
+import 'package:naqla/core/common/enums/sub_order_status.dart';
 import 'package:naqla/features/home/data/model/order_photos_model.dart';
 
 class SubOrderModel {
@@ -7,11 +8,11 @@ class SubOrderModel {
   final int rating;
   final int weight;
   final int cost;
-  final String status;
+  final SubOrderStatus status;
   final DateTime acceptedAt;
   final DateTime? arrivedAt;
   final DateTime? deliveredAt;
-  final DateTime driverAssignedAt;
+  final DateTime? driverAssignedAt;
   final DateTime? pickedUpAt;
   final List<OrderPhotosModel> photos;
 
@@ -38,7 +39,7 @@ class SubOrderModel {
     int? rating,
     int? weight,
     int? cost,
-    String? status,
+    SubOrderStatus? status,
     DateTime? acceptedAt,
     DateTime? arrivedAt,
     DateTime? deliveredAt,
@@ -69,11 +70,11 @@ class SubOrderModel {
         rating: json["rating"],
         weight: json["weight"],
         cost: json["cost"],
-        status: json["status"],
+        status: SubOrderStatus.values.byName(json["status"] ?? SubOrderStatus.waiting.name),
         acceptedAt: DateTime.parse(json["acceptedAt"]),
         arrivedAt: DateTime.tryParse(json["arrivedAt"] ?? ''),
         deliveredAt: DateTime.tryParse(json["deliveredAt"] ?? ''),
-        driverAssignedAt: DateTime.parse(json["driverAssignedAt"]),
+        driverAssignedAt: DateTime.tryParse(json["driverAssignedAt"] ?? ''),
         pickedUpAt: DateTime.tryParse(json["pickedUpAt"] ?? ''),
         photos: List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
       );
@@ -89,7 +90,7 @@ class SubOrderModel {
         "acceptedAt": acceptedAt.toIso8601String(),
         "arrivedAt": arrivedAt?.toIso8601String(),
         "deliveredAt": deliveredAt?.toIso8601String(),
-        "driverAssignedAt": driverAssignedAt.toIso8601String(),
+        "driverAssignedAt": driverAssignedAt?.toIso8601String(),
         "pickedUpAt": pickedUpAt?.toIso8601String(),
         "photos": List<dynamic>.from(photos.map((x) => x.toJson())),
       };

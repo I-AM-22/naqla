@@ -91,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
         "done_orders": MessageLookupByLibrary.simpleMessage("Previous orders"),
+        "driver_arrived": MessageLookupByLibrary.simpleMessage("Order arrives"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("Edit Phone Number"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -126,8 +127,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_naqla": MessageLookupByLibrary.simpleMessage("New naqla"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "order_accepted_date":
+            MessageLookupByLibrary.simpleMessage("Order accepted date"),
+        "order_arrived_date":
+            MessageLookupByLibrary.simpleMessage("Order arrived date"),
         "order_date": MessageLookupByLibrary.simpleMessage("Order date: "),
+        "order_delivered_date":
+            MessageLookupByLibrary.simpleMessage("Order delivered date"),
         "order_details": MessageLookupByLibrary.simpleMessage("Order details"),
+        "order_driverAssigned_date":
+            MessageLookupByLibrary.simpleMessage("Order driver Assigned date"),
+        "order_pickedUp_date":
+            MessageLookupByLibrary.simpleMessage("Order pickedUp date"),
         "order_status": MessageLookupByLibrary.simpleMessage("Order status: "),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
@@ -149,6 +160,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "sell_houses_easily_with_the_help_of_Listenoryx":
             MessageLookupByLibrary.simpleMessage(
                 "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more"),
+        "set_order_delivered":
+            MessageLookupByLibrary.simpleMessage("Set order delivered"),
+        "set_order_picked_up":
+            MessageLookupByLibrary.simpleMessage("Set order pickedUp"),
         "set_password": MessageLookupByLibrary.simpleMessage("Set password"),
         "set_your_password":
             MessageLookupByLibrary.simpleMessage("Set your password"),
@@ -157,10 +172,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "start_point": MessageLookupByLibrary.simpleMessage("Start Point"),
+        "sub_orders": MessageLookupByLibrary.simpleMessage("Sub orders"),
         "syp": MessageLookupByLibrary.simpleMessage("SYP"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties."),
+        "there_is_nothing_to_show":
+            MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "this_field_is_required":
             MessageLookupByLibrary.simpleMessage("This field is required"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),

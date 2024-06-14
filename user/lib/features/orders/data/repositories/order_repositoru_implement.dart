@@ -6,6 +6,7 @@ import 'package:naqla/features/orders/data/datasources/order_remote_data_source.
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 import 'package:naqla/features/orders/domain/repositories/order_repository.dart';
 import 'package:naqla/features/orders/domain/usecases/get_sub_orders_use_case.dart';
+import 'package:naqla/features/orders/domain/usecases/set_arrived_use_case.dart';
 
 @Injectable(as: OrderRepository)
 class OrderRepositoryImplement implements OrderRepository {
@@ -23,6 +24,20 @@ class OrderRepositoryImplement implements OrderRepository {
   FutureResult<List<SubOrderModel>> getSubOrders(GetSubOrdersParam params) {
     return toApiResult(
       () => dataSource.getSubOrders(params),
+    );
+  }
+
+  @override
+  FutureResult<SubOrderModel> setArrived(SetArrivedParam params) {
+    return toApiResult(
+      () => dataSource.setArrived(params),
+    );
+  }
+
+  @override
+  FutureResult<SubOrderModel> setPickedUp(SetArrivedParam params) {
+    return toApiResult(
+      () => dataSource.setPickedUp(params),
     );
   }
 }

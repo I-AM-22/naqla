@@ -1,0 +1,4 @@
+enum ChangeOrderStatus {
+  arrived,
+  pickedUp,
+}

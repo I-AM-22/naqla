@@ -75,7 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
         "confirm_order": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
         "congratulations": MessageLookupByLibrary.simpleMessage("مبروك "),
-        "cost": MessageLookupByLibrary.simpleMessage("الكلفة: "),
+        "cost": MessageLookupByLibrary.simpleMessage("الكلفة:"),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
         "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
@@ -84,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
         "done_orders": MessageLookupByLibrary.simpleMessage("الطلبات المنتهية"),
+        "driver_arrived": MessageLookupByLibrary.simpleMessage("السائق وصل"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("تعديل رقم الهاتف"),
         "edit_profile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
@@ -119,8 +120,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_naqla": MessageLookupByLibrary.simpleMessage("نقلة جديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
+        "order_accepted_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ قبول الطلب"),
+        "order_arrived_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ وصول السائق"),
         "order_date": MessageLookupByLibrary.simpleMessage("تاريخ الطلب: "),
+        "order_delivered_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ توصيل الطلب"),
         "order_details": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
+        "order_driverAssigned_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ تعيين السائق"),
+        "order_pickedUp_date":
+            MessageLookupByLibrary.simpleMessage("تاريخ تحميل الطلب"),
         "order_status": MessageLookupByLibrary.simpleMessage("حالة الطلب: "),
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
@@ -143,6 +154,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "sell_houses_easily_with_the_help_of_Listenoryx":
             MessageLookupByLibrary.simpleMessage(
                 "Sell houses easily with the help of Listenoryx and to make this line big\nI am writing more"),
+        "set_order_delivered":
+            MessageLookupByLibrary.simpleMessage("تم توصيل الطلب"),
+        "set_order_picked_up":
+            MessageLookupByLibrary.simpleMessage("تحميل الطلب"),
         "set_password":
             MessageLookupByLibrary.simpleMessage("تعيين كلمة المرور"),
         "set_your_password":
@@ -152,10 +167,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
         "start_point": MessageLookupByLibrary.simpleMessage("نقطة الانطلاق"),
+        "sub_orders": MessageLookupByLibrary.simpleMessage("الطلبات الفرعية"),
         "syp": MessageLookupByLibrary.simpleMessage("ل.س"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
+        "there_is_nothing_to_show":
+            MessageLookupByLibrary.simpleMessage("لا يوجد بيانات لعرضها"),
         "this_field_is_required":
             MessageLookupByLibrary.simpleMessage("هذا الحقل مطلوب"),
         "total_money":

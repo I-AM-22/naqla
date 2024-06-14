@@ -162,12 +162,3 @@ class AppImage extends StatelessWidget {
     );
   }
 }
-
-class _LoadingImageIndicator extends StatelessWidget {
-  const _LoadingImageIndicator();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator(strokeWidth: 2));
-  }
-}

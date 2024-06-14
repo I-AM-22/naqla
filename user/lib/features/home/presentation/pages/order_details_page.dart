@@ -61,7 +61,7 @@ class OrderDetailsPage extends StatelessWidget {
                 10.verticalSpace,
                 AppText.bodySmMedium('${S.of(context).order_status} ${orderModel.status.name}'),
                 10.verticalSpace,
-                AppText.bodySmMedium('${S.of(context).cost} ${orderModel.paymentModel.cost} ${S.of(context).syp}'),
+                AppText.bodySmMedium('${S.of(context).cost} ${orderModel.paymentModel?.cost} ${S.of(context).syp}'),
                 16.verticalSpace,
                 Expanded(
                   child: ListView.separated(

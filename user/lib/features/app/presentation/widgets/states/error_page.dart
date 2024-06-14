@@ -5,6 +5,18 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Something went wrong'));
+    return const Center(
+      child: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Something went wrong'),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

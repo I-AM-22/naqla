@@ -17,6 +17,7 @@
 
   "________________validation___________________": "",
   "this_field_is_required": "This field is required",
+  "there_is_nothing_to_show": "There is nothing to show",
 
   "_________________authentication________________": "",
   "enable_your_location": "Enable your location",
@@ -83,6 +84,7 @@
   "please_confirm_order": "Please confirm order(s)",
   "confirm_order": "Confirm order",
 
+
   "__________________________wallet______________________________":"",
   "wallet":"wallet",
   "total_money": "Total Money : ",
@@ -96,6 +98,15 @@
   "orders": "Orders",
   "active_orders": "Active orders",
   "done_orders": "Previous orders",
+  "sub_orders": "Sub orders",
+  "order_accepted_date": "Order accepted date",
+  "order_arrived_date": "Order arrived date",
+  "order_delivered_date": "Order delivered date",
+  "order_pickedUp_date": "Order pickedUp date",
+  "order_driverAssigned_date": "Order driver Assigned date",
+  "driver_arrived": "Order arrives",
+  "set_order_picked_up": "Set order pickedUp",
+  "set_order_delivered": "Set order delivered",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

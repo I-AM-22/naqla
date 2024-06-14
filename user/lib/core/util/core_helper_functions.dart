@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:naqla/core/common/enums/sub_order_status.dart';
 import 'package:naqla/core/core.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../../features/app/presentation/widgets/animated_dialog.dart';
@@ -27,7 +28,7 @@ class CoreHelperFunctions {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 AppButton.ghost(
-                    style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => context.colorScheme.error)),
+                    style: ButtonStyle(backgroundColor: WidgetStateColor.resolveWith((states) => context.colorScheme.error)),
                     buttonSize: ButtonSize.medium,
                     child: AppText.bodySmall(
                       S.of(context).logOut,
@@ -51,9 +52,27 @@ class CoreHelperFunctions {
         ),
       ));
 
+  static String formatOrderTime(BuildContext context, SubOrderStatus status,
+      {DateTime? acceptedAt, DateTime? arrivedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
+    if (status == SubOrderStatus.ready) return '${S.of(context).order_accepted_date}:\n ${fromOrderDateTimeToString(acceptedAt!)}';
+    if (status == SubOrderStatus.delivered) return '${S.of(context).order_delivered_date}:\n ${fromOrderDateTimeToString(deliveredAt!)}';
+    if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n ${fromOrderDateTimeToString(driverAssignedAt!)}';
+    if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n ${fromOrderDateTimeToString(pickedUpAt!)}';
+    return '';
+  }
+
+  static String getTitleButton(BuildContext context, {DateTime? arrivedAt, DateTime? driverAssignedAt}) {
+    if (arrivedAt != null) return S.of(context).set_order_picked_up;
+    if (driverAssignedAt != null) return S.of(context).driver_arrived;
+    return '';
+  }
+
   //?============================================ Date & Time helpers ============================================
 
   static String fromDateTimeToString(DateTime dateTime) => DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR}").format(dateTime);
+
+  static String fromOrderDateTimeToString(DateTime dateTime) =>
+      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_Hm().format(dateTime);
 
   static String fromTimeToString(DateTime dateTime) => DateFormat.Hm().format(dateTime);
 

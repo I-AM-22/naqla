@@ -10,3 +10,10 @@ class GetSubOrdersEvent extends OrderEvent {
 
   GetSubOrdersEvent({required this.param});
 }
+
+class ChangeOrderStatusEvent extends OrderEvent {
+  final SetArrivedParam param;
+  final ChangeOrderStatus status;
+
+  ChangeOrderStatusEvent({required this.param, required this.status});
+}

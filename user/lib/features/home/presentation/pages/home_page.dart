@@ -67,23 +67,25 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => _bloc,
-      child: RefreshIndicator(
-        onRefresh: () async => _bloc.add(GetOrdersActiveEvent()),
-        child: AppScaffold(
-            floatingActionButton: FloatingActionButton.extended(
-              backgroundColor: context.colorScheme.primary,
-              onPressed: () => context.pushNamed(CreateOrderPage.name),
-              label: AppText(
-                S.of(context).new_naqla,
-                color: Colors.white,
-              ),
-              icon: const Icon(
-                IconlyBroken.plus,
-                color: Colors.white,
-              ),
+      child: AppScaffold(
+          floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: context.colorScheme.primary,
+            onPressed: () => context.pushNamed(CreateOrderPage.name),
+            label: AppText(
+              S.of(context).new_naqla,
+              color: Colors.white,
             ),
-            appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
-            body: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
+            icon: const Icon(
+              IconlyBroken.plus,
+              color: Colors.white,
+            ),
+          ),
+          appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
+          body: RefreshIndicator(
+            onRefresh: () async {
+              _bloc.add(GetOrdersActiveEvent());
+            },
+            child: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
               stateName: HomeState.ordersActive,
               onSuccess: (data) => Padding(
                 padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding20, horizontal: UIConstants.screenPadding16),
@@ -107,8 +109,8 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-            )),
-      ),
+            ),
+          )),
     );
   }
 }

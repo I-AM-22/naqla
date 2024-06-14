@@ -17,6 +17,7 @@
 
   "________________validation___________________": "",
   "this_field_is_required": "هذا الحقل مطلوب",
+  "there_is_nothing_to_show": "لا يوجد بيانات لعرضها",
 
   "_________________authentication________________": "",
   "enable_your_location": "تمكين موقعك",
@@ -77,7 +78,7 @@
   "order_date": "تاريخ الطلب: ",
   "the_remuneration_will_depend_on_the_number_of_porters_required": "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين.",
   "order_status": "حالة الطلب: ",
-  "cost": "الكلفة: ",
+  "cost": "الكلفة:",
   "syp": "ل.س",
   "please_confirm_order": "الرجاء تأكيد الطلب(ات)",
   "confirm_order": "تأكيد الطلب",
@@ -95,6 +96,15 @@
   "orders": "الطلبات",
   "active_orders": "الطلبات الحالية",
   "done_orders": "الطلبات المنتهية",
+  "sub_orders": "الطلبات الفرعية",
+  "order_accepted_date": "تاريخ قبول الطلب",
+  "order_arrived_date": "تاريخ وصول السائق",
+  "order_delivered_date": "تاريخ توصيل الطلب",
+  "order_pickedUp_date": "تاريخ تحميل الطلب",
+  "order_driverAssigned_date": "تاريخ تعيين السائق",
+  "driver_arrived": "السائق وصل",
+  "set_order_picked_up": "تحميل الطلب",
+  "set_order_delivered": "تم توصيل الطلب",
 
   "__________________________profile______________________________":"",
   "profile":"الملف الشخصي",

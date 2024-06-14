@@ -9,12 +9,12 @@ import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:naqla/core/core.dart';
+import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla/features/profile/domain/use_cases/edit_personal_info_use_case.dart';
 
 import '../../../../core/api/api_utils.dart';
 import '../../../../core/common/constants/constants.dart';
-import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/app_scaffold.dart';
 import '../../../app/presentation/widgets/customer_appbar.dart';
@@ -41,12 +41,12 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  late final ProfileBloc bloc;
+  final ProfileBloc bloc = getIt<ProfileBloc>();
   final GlobalKey<FormBuilderState> _key = GlobalKey();
   String photo = '';
   @override
   void initState() {
-    bloc = widget.param.bloc;
+    bloc.add(GetPersonalInfoEvent());
     super.initState();
   }
 

@@ -465,6 +465,7 @@ class _AppButtonState extends State<AppButton> {
   }
 
   TextStyle getTextStyle(BuildContext context) {
+    if (widget.textStyle != null) return widget.textStyle!;
     if (_isLongerButton) {
       if (_isDark) {
         return context.textTheme.subHeadWebMedium.copyWith(color: Colors.white);
@@ -523,10 +524,10 @@ class _AppButtonState extends State<AppButton> {
     }
   }
 
-  BorderSide? getSide(Set<MaterialState> states) {
-    if (_isTertiary && states.contains(MaterialState.pressed) && widget.focusedFilledType == FocusedFilledButtonType.hover) {
+  BorderSide? getSide(Set<WidgetState> states) {
+    if (_isTertiary && states.contains(WidgetState.pressed) && widget.focusedFilledType == FocusedFilledButtonType.hover) {
       return BorderSide.none;
-    } else if (_isTertiary && states.contains(MaterialState.pressed)) {
+    } else if (_isTertiary && states.contains(WidgetState.pressed)) {
       return BorderSide(
         color: context.colorScheme.onSurface,
         width: 2.r,
@@ -539,7 +540,7 @@ class _AppButtonState extends State<AppButton> {
 
     if (widget._typeButton == AppButtonType.field &&
         // widget.focusedFilledType == FocusedFilledButtonType.border &&
-        states.contains(MaterialState.pressed)) {
+        states.contains(WidgetState.pressed)) {
       return BorderSide(
         color: context.colorScheme.onSurface,
         width: 2.r,
@@ -564,8 +565,8 @@ class _AppButtonState extends State<AppButton> {
   ButtonStyle getButtonStyle(BuildContext context) {
     ButtonStyle buttonStyle = widget.style ??
         ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith((states) {
-              var pressed = states.contains(MaterialState.pressed);
+            backgroundColor: WidgetStateProperty.resolveWith((states) {
+              var pressed = states.contains(WidgetState.pressed);
               if (widget.isLoading) {
                 return context.colorScheme.systemGray.shade300;
               }
@@ -594,11 +595,11 @@ class _AppButtonState extends State<AppButton> {
             }),
             shape: _isLongerButton
                 ? null
-                : MaterialStateProperty.resolveWith((states) {
+                : WidgetStateProperty.resolveWith((states) {
                     return getShape(states);
                   }),
-            overlayColor: MaterialStateProperty.resolveWith((states) {
-              var selected = states.contains(MaterialState.pressed);
+            overlayColor: WidgetStateProperty.resolveWith((states) {
+              var selected = states.contains(WidgetState.pressed);
               if (selected && _isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
                 return context.colorScheme.primary;
               }
@@ -615,11 +616,11 @@ class _AppButtonState extends State<AppButton> {
               }
               return null;
             }),
-            shadowColor: MaterialStateProperty.all(Colors.transparent),
-            side: _isLongerButton ? null : MaterialStateProperty.resolveWith((states) => getSide(states)),
-            foregroundColor: MaterialStateProperty.resolveWith((states) {
+            shadowColor: WidgetStateProperty.all(Colors.transparent),
+            side: _isLongerButton ? null : WidgetStateProperty.resolveWith((states) => getSide(states)),
+            foregroundColor: WidgetStateProperty.resolveWith((states) {
               ///to text
-              var pressed = states.contains(MaterialState.pressed);
+              var pressed = states.contains(WidgetState.pressed);
               if (pressed && _isField && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
                 return context.colorScheme.onSurface;
               }
@@ -660,8 +661,8 @@ class _AppButtonState extends State<AppButton> {
 
               return getEnabledColor(context);
             }),
-            surfaceTintColor: MaterialStateProperty.resolveWith((states) {
-              var pressed = states.contains(MaterialState.pressed);
+            surfaceTintColor: WidgetStateProperty.resolveWith((states) {
+              var pressed = states.contains(WidgetState.pressed);
               if (_isLongerButton && pressed) {
                 return Colors.transparent;
               }
@@ -737,7 +738,7 @@ class _AppButtonState extends State<AppButton> {
     }
   }
 
-  RoundedRectangleBorder? getShape(Set<MaterialState> states) {
+  RoundedRectangleBorder? getShape(Set<WidgetState> states) {
     return getBorderRadius != null ? RoundedRectangleBorder(borderRadius: getBorderRadius!, side: getSide(states) ?? BorderSide.none) : null;
   }
 
