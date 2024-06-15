@@ -15,11 +15,16 @@ import { Car } from '@models/drivers/entities/car.entity';
 import { IPaymentRepository } from '@models/payments/interfaces/repositories/payment.repository.interface';
 import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
 import { SETTING_TYPES } from '@models/settings/interfaces/type';
-import { SETTING_PROPERTIES } from '@common/enums';
+import { ORDER_STATUS, SETTING_PROPERTIES } from '@common/enums';
+import { UserWalletRepository } from '@models/users/repositories/user-wallet.repository';
+import { DriverWalletRepository } from '@models/drivers/repositories/driver/driver-wallet.repository';
+import { DataSource } from 'typeorm';
+import { InjectDataSource } from '@nestjs/typeorm';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {
   constructor(
+    @InjectDataSource() private dataSource: DataSource,
     @Inject(SUB_ORDER_TYPES.repository.subOrder)
     private readonly subOrderRepository: ISubOrderRepository,
     @Inject(ORDER_TYPES.repository.photo)
@@ -30,6 +35,9 @@ export class SubOrdersService implements ISubOrdersService {
     private readonly paymentRepository: IPaymentRepository,
     @Inject(SETTING_TYPES.repository)
     private readonly settingRepository: ISettingRepository,
+    private readonly userwalletRepository: UserWalletRepository,
+    private readonly driverwalletRepository: DriverWalletRepository,
+
     private readonly gpsDrivingService: GpsDrivingService,
   ) {}
 
@@ -133,14 +141,62 @@ export class SubOrdersService implements ISubOrdersService {
     return this.subOrderRepository.setArrivedAt(subOrderId);
   }
 
-  setPickedUpAt(subOrderId: string): Promise<SubOrder> {
+  async setPickedUpAt(subOrderId: string): Promise<SubOrder> {
+    const thisSub = await this.subOrderRepository.findOne(subOrderId);
+    await this.orderRepository.updateStatus(
+      thisSub.orderId,
+      ORDER_STATUS.ON_THE_WAY,
+    );
     return this.subOrderRepository.setPickedUpAt(subOrderId);
   }
 
   async setDeliveredAt(subOrderId: string): Promise<SubOrder> {
-    const subOrder = await this.subOrderRepository.setDeliveredAt(subOrderId);
-    await this.paymentRepository.setDeliveredDate(subOrder.orderId);
-    return subOrder;
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const subOrder = await this.subOrderRepository.findOne(subOrderId);
+
+      // تحديث حالة التسليم للطلب الفرعي
+      await this.subOrderRepository.setDeliveredAt(subOrderId);
+
+      // سحب المبلغ من محفظة المستخدم
+      await this.userwalletRepository.withdrawForDriver(
+        subOrder.order.userId,
+        subOrder.cost,
+      );
+
+      // إيداع المبلغ في محفظة السائق
+      await this.driverwalletRepository.deposit(
+        subOrder.car.driverId,
+        subOrder.cost,
+      );
+
+      // التحقق من حالة الطلبات الفرعية وتحديث حالة الطلب الأساسي إذا كانت جميع الطلبات الفرعية مكتملة
+      const allSubOrdersCompleted =
+        await this.subOrderRepository.areAllSubOrdersCompleted(
+          subOrder.orderId,
+        );
+      if (allSubOrdersCompleted) {
+        // تحديث تاريخ التسليم في مستودع الدفع
+        await this.paymentRepository.setDeliveredDate(subOrder.orderId);
+        // تحديث حالة الطلب الى موصل
+        await this.orderRepository.updateStatus(
+          subOrder.orderId,
+          ORDER_STATUS.DELIVERED,
+        );
+      }
+
+      await queryRunner.commitTransaction();
+      return subOrder;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw new Error(`Failed to set delivered at: ${error.message}`);
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   ready(subOrderId: string): Promise<SubOrder[]> {

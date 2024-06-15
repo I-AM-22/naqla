@@ -42,12 +42,14 @@ export const UserWalletRepositoryProvider: Provider = {
     UserRepositoryProvider,
     UserWalletRepositoryProvider,
     UsersServiceProvider,
+    UserWalletRepository,
   ],
   exports: [
     UserPhotoRepositoryProvider,
     UserRepositoryProvider,
     UserWalletRepositoryProvider,
     UsersServiceProvider,
+    UserWalletRepository,
   ],
 })
 export class UsersModule {}

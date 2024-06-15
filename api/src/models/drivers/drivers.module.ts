@@ -75,6 +75,7 @@ export const CarPhotoRepositoryProvider: Provider = {
     CarRepositoryProvider,
     CarPhotoRepositoryProvider,
     CarsService,
+    DriverWalletRepository,
   ],
   exports: [
     DriverPhotoRepositoryProvider,
@@ -82,6 +83,7 @@ export const CarPhotoRepositoryProvider: Provider = {
     DriverWalletRepositoryProvider,
     DriversServiceProvider,
     CarsService,
+    DriverWalletRepository,
   ],
 })
 export class DriversModule {}
