@@ -293,7 +293,7 @@ class _AppButtonState extends State<AppButton> {
           children: [
             const AppLoadingIndicator(),
             8.horizontalSpace,
-            AppText('loading'),
+            AppText.subHeadRegular('loading'),
             4.horizontalSpace,
           ],
         ),
@@ -318,7 +318,7 @@ class _AppButtonState extends State<AppButton> {
                   if (widget.spaceBetweenItem != 0) widget.spaceBetweenItem.horizontalSpace,
                   if ((_isField) && widget.prefixIcon is AppImage) (widget.prefixIcon! as AppImage).copyWith(val) else widget.prefixIcon!
                 ],
-                if (_isDark || _isField || _isGray || _isLight) ...{buttonChild},
+                if (_isDark || _isField || _isGray || _isLight || _isGhost) ...{buttonChild},
                 if (widget.postfixIcon != null) ...[
                   if (widget.spaceBetweenItem != 0) widget.spaceBetweenItem.horizontalSpace,
                   if ((_isField) && widget.postfixIcon is AppImage) (widget.postfixIcon! as AppImage).copyWith(val) else widget.postfixIcon!
@@ -349,6 +349,8 @@ class _AppButtonState extends State<AppButton> {
   bool get _isDark => widget._typeButton == AppButtonType.dark;
 
   bool get _isGray => widget._typeButton == AppButtonType.gray;
+
+  bool get _isGhost => widget._typeButton == AppButtonType.ghost;
 
   bool get _isLongerButton =>
       widget._typeButton == AppButtonType.light || widget._typeButton == AppButtonType.dark || widget._typeButton == AppButtonType.gray;

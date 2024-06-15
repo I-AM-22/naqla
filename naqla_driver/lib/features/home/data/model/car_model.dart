@@ -53,7 +53,7 @@ class CarModel {
         model: json["model"],
         brand: json["brand"],
         color: json["color"],
-        advantages: List<CarAdvantage>.from(json["advantages"].map((x) => CarAdvantage.fromJson(x))),
+        advantages: List<CarAdvantage>.from(json["advantages"].map((x) => CarAdvantage.fromJson(x, true))),
         photo: PhotoModel.fromJson(json["photo"]),
       );
 

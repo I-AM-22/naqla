@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naqla_driver/features/app/presentation/state/bloc/app_bloc.dart';
+import 'package:naqla_driver/features/auth/data/model/driver_model.dart';
 import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
 import 'package:naqla_driver/features/auth/presentation/state/auth_bloc.dart';
 import 'package:naqla_driver/features/chat/presentation/pages/chat_page.dart';
@@ -12,15 +12,19 @@ import 'package:naqla_driver/features/home/data/model/car_model.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
 import 'package:naqla_driver/features/home/presentation/pages/add_car_page.dart';
 import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
-import 'package:naqla_driver/features/home/presentation/state/home_bloc.dart';
 import 'package:naqla_driver/features/orders/presentation/pages/orders_page.dart';
 import 'package:naqla_driver/features/profile/presentation/pages/profile_page.dart';
+import 'package:naqla_driver/features/profile/presentation/pages/verification_phone_number.dart';
 
 import '../../../features/app/presentation/pages/base_page.dart';
 import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/sign_up_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/profile/presentation/pages/cars_page.dart';
+import '../../../features/profile/presentation/pages/delete_account_page.dart';
+import '../../../features/profile/presentation/pages/edit_phone_number_page.dart';
+import '../../../features/profile/presentation/pages/edit_profile_page.dart';
+import '../../../features/profile/presentation/pages/language_page.dart';
 import '../../../features/welcome/splash.dart';
 import '../../di/di_container.dart';
 
@@ -60,13 +64,9 @@ class GRouter {
                 GoRoute(
                   path: PhoneVerificationPage.path,
                   name: PhoneVerificationPage.name,
-                  builder: (context, state) => const PhoneVerificationPage(
-                    comeFromProfile: false,
-                  ),
+                  builder: (context, state) => const PhoneVerificationPage(),
                   pageBuilder: (context, state) => CustomTransitionPage(
-                    child: const PhoneVerificationPage(
-                      comeFromProfile: false,
-                    ),
+                    child: const PhoneVerificationPage(),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
                       position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(animation),
                       child: child,
@@ -99,6 +99,7 @@ class GRouter {
           StatefulShellBranch(initialLocation: HomePage.path, navigatorKey: _shell1NavigatorKey, routes: [
             GoRoute(path: HomePage.path, name: HomePage.name, builder: (context, state) => const HomePage(), routes: [
               GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
                 path: AddCarPage.path,
                 name: AddCarPage.name,
                 builder: (context, state) => AddCarPage(
@@ -151,7 +152,66 @@ class GRouter {
                         carModel: state.extra as CarModel?,
                       ),
                     ),
-                  ])
+                  ]),
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: EditProfilePage.path,
+                name: EditProfilePage.name,
+                builder: (context, state) => EditProfilePage(driverModel: state.extra as DriverModel),
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: EditProfilePage(driverModel: state.extra as DriverModel),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                    position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+                    child: child,
+                  ),
+                ),
+              ),
+              GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: EditPhoneNumberPage.path,
+                  name: EditPhoneNumberPage.name,
+                  builder: (context, state) => EditPhoneNumberPage(phone: state.extra as String),
+                  pageBuilder: (context, state) => CustomTransitionPage(
+                        child: EditPhoneNumberPage(phone: state.extra as String),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                          position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+                          child: child,
+                        ),
+                      ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: VerificationUpdatePhoneNumber.path,
+                      name: VerificationUpdatePhoneNumber.name,
+                      builder: (context, state) => const VerificationUpdatePhoneNumber(),
+                    ),
+                  ]),
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: DeleteAccountPage.path,
+                name: DeleteAccountPage.name,
+                builder: (context, state) => const DeleteAccountPage(),
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const DeleteAccountPage(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                    position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+                    child: child,
+                  ),
+                ),
+              ),
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: LanguagePage.path,
+                name: LanguagePage.name,
+                builder: (context, state) => const LanguagePage(),
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const LanguagePage(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                    position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+                    child: child,
+                  ),
+                ),
+              ),
             ])
           ]),
         ])

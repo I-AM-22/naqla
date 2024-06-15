@@ -39,4 +39,8 @@ class ChangeSelectAdvantageEvent extends AppEvent {
   ChangeSelectAdvantageEvent({required this.carAdvantage});
 }
 
-class GetCarAdvantageEvent extends AppEvent {}
+class GetCarAdvantageEvent extends AppEvent {
+  final List<CarAdvantage>? advantages;
+
+  GetCarAdvantageEvent({this.advantages});
+}

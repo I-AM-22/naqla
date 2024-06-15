@@ -18,8 +18,9 @@ class VerificationPhoneNumberUseCase extends UseCase<LoginModel, VerificationPho
 class VerificationPhoneNumberParam {
   final String otp;
   final String phone;
+  final bool phoneConfirm;
 
-  VerificationPhoneNumberParam({required this.otp, required this.phone});
+  VerificationPhoneNumberParam({required this.otp, required this.phone, this.phoneConfirm = false});
 
   Map<String, dynamic> get toMap => {
         "otp": otp,

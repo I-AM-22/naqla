@@ -13,14 +13,11 @@ import '../../../app/presentation/widgets/app_scaffold.dart';
 import '../widget/verification_number.dart';
 
 class PhoneVerificationPage extends StatefulWidget {
-  const PhoneVerificationPage({super.key, required this.comeFromProfile});
-  final bool comeFromProfile;
+  const PhoneVerificationPage({super.key});
 
   static String get name => 'PhoneVerificationPage';
-  static String get nameFromProfile => 'PhoneVerificationFromProfilePage';
 
   static String get path => 'PhoneVerificationPage';
-  static String get pathFromProfile => 'PhoneVerificationFromProfilePage';
 
   @override
   State<PhoneVerificationPage> createState() => _PhoneVerificationPageState();

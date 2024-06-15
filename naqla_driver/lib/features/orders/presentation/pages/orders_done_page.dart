@@ -5,6 +5,7 @@ import 'package:naqla_driver/features/app/presentation/widgets/states/app_common
 import 'package:naqla_driver/features/orders/presentation/state/order_bloc.dart';
 
 import '../../data/model/sub_two_order_model.dart';
+import '../widgets/sub_order_card.dart';
 
 class OrdersDonePage extends StatefulWidget {
   const OrdersDonePage({super.key});
@@ -24,7 +25,7 @@ class _OrdersDonePageState extends State<OrdersDonePage> {
   Widget build(BuildContext context) {
     return AppCommonStateBuilder<OrderBloc, List<Sub2OrderModel>>(
       stateName: OrderState.ordersDone,
-      onSuccess: (data) => ListView.builder(itemBuilder: (context, index) => AppText(data[index].status.name), itemCount: data.length),
+      onSuccess: (data) => ListView.builder(itemBuilder: (context, index) => SubOrderCard(subOrderModel: data[index]), itemCount: data.length),
     );
   }
 }

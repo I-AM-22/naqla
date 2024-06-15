@@ -29,7 +29,7 @@ class AuthRemoteDataSource {
 
   Future<LoginModel> verificationPhoneNumber(VerificationPhoneNumberParam param) {
     return throwAppException(() async {
-      final result = await dio.post(ApiRoutes.confirm, data: param.toMap);
+      final result = await dio.post(ApiRoutes.confirm, data: param.toMap, queryParameters: {"phoneConfirm": param.phoneConfirm});
       return LoginModel.fromJson(result.data);
     });
   }

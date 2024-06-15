@@ -184,6 +184,24 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
                     child: child,
                   ),
                 ),
+routes: [
+                  GoRoute(
+                    path: PhoneVerificationPage.pathFromProfile,
+                    name: PhoneVerificationPage.nameFromProfile,
+                    builder: (context, state) => const PhoneVerificationPage(
+                      comeFromProfile: true,
+                    ),
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                      child: const PhoneVerificationPage(
+                        comeFromProfile: true,
+                      ),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                        position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(animation),
+                        child: child,
+                      ),
+                    ),
+                  ),
+                ]
               ),
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,

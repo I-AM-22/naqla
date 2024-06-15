@@ -7,7 +7,7 @@ class DriverModel {
   final DateTime updatedAt;
   final String firstName;
   final String lastName;
-  // final String phone;
+  final String? phone;
   final WalletModel wallet;
   final PhotoModel photo;
 
@@ -17,7 +17,7 @@ class DriverModel {
     required this.updatedAt,
     required this.firstName,
     required this.lastName,
-    // required this.phone,
+    required this.phone,
     required this.wallet,
     required this.photo,
   });
@@ -28,7 +28,7 @@ class DriverModel {
     DateTime? updatedAt,
     String? firstName,
     String? lastName,
-    // String? phone,
+    String? phone,
     WalletModel? wallet,
     PhotoModel? photo,
   }) =>
@@ -38,7 +38,7 @@ class DriverModel {
         updatedAt: updatedAt ?? this.updatedAt,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
-        // phone: phone ?? this.phone,
+        phone: phone ?? this.phone,
         wallet: wallet ?? this.wallet,
         photo: photo ?? this.photo,
       );
@@ -49,7 +49,7 @@ class DriverModel {
         updatedAt: DateTime.parse(json["updatedAt"]),
         firstName: json["firstName"],
         lastName: json["lastName"],
-        // phone: json["phone"],
+        phone: json["phone"],
         wallet: WalletModel.fromJson(json["wallet"]),
         photo: PhotoModel.fromJson(json["photo"]),
       );
@@ -60,7 +60,7 @@ class DriverModel {
         "updatedAt": updatedAt.toIso8601String(),
         "firstName": firstName,
         "lastName": lastName,
-        // "phone": phone,
+        "phone": phone,
         "wallet": wallet.toJson(),
         "photo": photo.toJson,
       };

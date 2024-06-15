@@ -15,9 +15,6 @@ class ApiRoutes {
   //////////////////?Driver////////////////////
   static String myProfile = '/api/v1/drivers/me';
 
-  //////////////////?Account////////////////////
-  static String personalInfo = '/api/v1/users/me';
-
   //////////////////?Advantages////////////////////
   static String advantages = '/api/v1/advantages';
 

@@ -22,6 +22,7 @@ import 'package:naqla_driver/features/home/domain/usecase/add_car_use_case.dart'
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/states/app_common_state_builder.dart';
 import '../../data/model/car_advantage.dart';
+import 'package:collection/collection.dart';
 
 class AddCarPage extends StatefulWidget {
   const AddCarPage({super.key, this.carModel});
@@ -72,7 +73,7 @@ class _AddCarPageState extends State<AddCarPage> {
           bottomNavigationBar: Padding(
             padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: 10),
             child: BlocSelector<AppBloc, AppState, CommonState>(
-              selector: (state) => state.getState(AppState.addCar),
+              selector: (state) => state.getState(widget.carModel == null ? AppState.addCar : AppState.editCar),
               builder: (context, state) {
                 return AppButton.dark(
                   isLoading: state.isLoading,
@@ -212,7 +213,13 @@ class _AddCarPageState extends State<AddCarPage> {
                           itemBuilder: (context, index) => Row(
                             children: [
                               AppCheckbox(
-                                isSelected: data[index].isSelect || (widget.carModel?.advantages.contains(data[index]) ?? false),
+                                isSelected: data[index].isSelect ||
+                                    (widget.carModel?.advantages
+                                            .firstWhereOrNull(
+                                              (element) => element.id == data[index].id,
+                                            )
+                                            ?.isSelect ??
+                                        false),
                                 onChanged: (value) {
                                   bloc.add(ChangeSelectAdvantageEvent(carAdvantage: data[index]));
                                 },

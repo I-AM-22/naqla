@@ -32,13 +32,13 @@ class CarAdvantage {
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  factory CarAdvantage.fromJson(Map<String, dynamic> json) => CarAdvantage(
+  factory CarAdvantage.fromJson(Map<String, dynamic> json, bool isSelect) => CarAdvantage(
         id: json["id"],
         name: json["name"],
         cost: json["cost"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
-        isSelect: false,
+        isSelect: isSelect,
       );
 
   Map<String, dynamic> toJson() => {

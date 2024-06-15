@@ -30,7 +30,7 @@ class HomeRemoteDataSource {
         final result = await dio.get(ApiRoutes.advantages);
         return (result.data as List)
             .map(
-              (e) => CarAdvantage.fromJson(e),
+              (e) => CarAdvantage.fromJson(e, false),
             )
             .toList();
       },
