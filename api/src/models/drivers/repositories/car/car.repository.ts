@@ -7,6 +7,7 @@ import { CarPhoto } from '../../entities/car-photo.entity';
 import { Car } from '../../entities/car.entity';
 import { Driver } from '../../entities/driver.entity';
 import { ICarRepository } from '../../interfaces/repositories/car.repository.interface';
+import { Order } from '../../../orders/entities/order.entity';
 
 @Injectable()
 export class CarRepository implements ICarRepository {
@@ -34,6 +35,26 @@ export class CarRepository implements ICarRepository {
     return this.carRepository.find({
       where: { driverId },
       relations: { advantages: true, photos: true },
+    });
+  }
+
+  async findMyCarsForOrder(driverId: string, order: Order): Promise<Car[]> {
+    const cars = await this.carRepository
+      .createQueryBuilder('car')
+      .leftJoinAndSelect('car.photos', 'photos')
+      .leftJoinAndSelect('car.advantages', 'advantages')
+      .where('car.driverId = :driverId', { driverId })
+      .select(['car', 'photos', 'advantages.name', 'advantages.id'])
+      .getMany();
+
+    let carAdvantagesIds;
+    const orderAdvantagesIds = order.advantages.map((adv) => adv.id);
+
+    let carAdvantagesSet;
+    return cars.filter((car) => {
+      carAdvantagesIds = car.advantages.map((adv) => adv.id);
+      carAdvantagesSet = new Set(carAdvantagesIds);
+      return orderAdvantagesIds.every((id) => carAdvantagesSet.has(id));
     });
   }
 

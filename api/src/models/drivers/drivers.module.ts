@@ -1,4 +1,4 @@
-import { Module, Provider } from '@nestjs/common';
+import { forwardRef, Module, Provider } from '@nestjs/common';
 import { DriverRepository } from './repositories/driver/driver.repository';
 import { DriverPhotoRepository } from './repositories/driver/driver-photo.repository';
 import { DriverWalletRepository } from './repositories/driver/driver-wallet.repository';
@@ -18,6 +18,7 @@ import { CarPhotoRepository } from './repositories/car/car-photo.repository';
 import { Car } from './entities/car.entity';
 import { CarPhoto } from './entities/car-photo.entity';
 import { AdvantagesModule } from '../advantages/advantages.module';
+import { OrdersModule } from '@models/orders/orders.module';
 
 export const DriversServiceProvider: Provider = {
   provide: DRIVER_TYPES.service,
@@ -61,6 +62,7 @@ export const CarPhotoRepositoryProvider: Provider = {
       Car,
       CarPhoto,
     ]),
+    forwardRef(() => OrdersModule),
     RolesModule,
     CitiesModule,
     AdvantagesModule,

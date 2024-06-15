@@ -49,6 +49,17 @@ export class CarController {
     return this.carsService.findMyCars(driverId);
   }
 
+  @SerializeOptions({ groups: [GROUPS.ALL_CARS] })
+  @Roles(ROLE.DRIVER)
+  @ApiOkResponse({ type: Car, isArray: true })
+  @Get('mine/order/:id')
+  async findMineForOrder(
+    @GetUser('id') driverId: string,
+    @Id() orderid: string,
+  ): Promise<Car[]> {
+    return this.carsService.findMyCarsForOrder(driverId, orderid);
+  }
+
   @SerializeOptions({ groups: [GROUPS.CAR] })
   @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Car, isArray: true })

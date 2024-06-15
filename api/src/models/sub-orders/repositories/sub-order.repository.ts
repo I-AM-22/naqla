@@ -19,13 +19,10 @@ export class SubOrderRepository implements ISubOrderRepository {
     return this.subOrderRepository.find();
   }
 
-  async findWaiting(): Promise<SubOrder[]> {
-    return this.subOrderRepository.find();
-  }
-
   async findForOrder(orderId: string): Promise<SubOrder[]> {
     return this.subOrderRepository.find({
       where: { orderId },
+      relations: { car: true },
     });
   }
 
@@ -68,6 +65,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         'subOrder.cost',
         'subOrder.weight',
         'photos',
+        'order.id',
         'order.locationStart',
         'order.locationEnd',
         'order.desiredDate',
@@ -153,12 +151,32 @@ export class SubOrderRepository implements ISubOrderRepository {
   }
 
   async setDriver(id: string, car: Car): Promise<SubOrder> {
-    const doc = await this.subOrderRepository.findOne({ where: { id } });
-    doc.carId = car.id;
-    doc.car = car;
-    doc.driverAssignedAt = new Date().toISOString();
-    doc.status = SUB_ORDER_STATUS.TAKEN;
-    return await this.subOrderRepository.save(doc);
+    const subOrder = await this.subOrderRepository.findOne({
+      where: { id },
+      relations: ['order', 'order.advantages'],
+    });
+
+    if (!subOrder) {
+      throw new Error(`SubOrder with id ${id} not found`);
+    }
+
+    const requestedFeatures = subOrder.order.advantages.map(
+      (feature) => feature.id,
+    );
+
+    const carFeatures = car.advantages.map((advantage) => advantage.id);
+    const hasAllFeatures = requestedFeatures.every((feature) =>
+      carFeatures.includes(feature),
+    );
+
+    if (!hasAllFeatures) {
+      throw new Error(`Car does not have all the requested features`);
+    }
+    subOrder.carId = car.id;
+    subOrder.car = car;
+    subOrder.driverAssignedAt = new Date().toISOString();
+    subOrder.status = SUB_ORDER_STATUS.TAKEN;
+    return await this.subOrderRepository.save(subOrder);
   }
 
   async areAllSubOrdersCompleted(orderId: string): Promise<boolean> {

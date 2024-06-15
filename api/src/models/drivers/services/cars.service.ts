@@ -11,6 +11,7 @@ import { ICarRepository } from '../interfaces/repositories/car.repository.interf
 import { ICarsService } from '../interfaces/services/cars.service.interface';
 import { CAR_TYPES } from '../interfaces/type';
 import { ADVANTAGE_TYPES } from '@models/advantages/interfaces/type';
+import { OrderRepository } from '@models/orders/repositories/order.repository';
 
 @Injectable()
 export class CarsService implements ICarsService {
@@ -21,6 +22,7 @@ export class CarsService implements ICarsService {
     private readonly carPhotoRepository: IPhotoRepository<CarPhoto>,
     @Inject(ADVANTAGE_TYPES.service)
     private readonly advantagesService: IAdvantagesService,
+    private readonly orderRepository: OrderRepository,
   ) {}
 
   async find(): Promise<Car[]> {
@@ -35,6 +37,11 @@ export class CarsService implements ICarsService {
 
   async findMyCars(driverId: string): Promise<Car[]> {
     return this.carRepository.findMyCar(driverId);
+  }
+
+  async findMyCarsForOrder(driverId: string, orderid: string): Promise<Car[]> {
+    const order = await this.orderRepository.findAdvantages(orderid);
+    return this.carRepository.findMyCarsForOrder(driverId, order);
   }
 
   async findOneForOwner(id: string, driverId: string): Promise<Car> {

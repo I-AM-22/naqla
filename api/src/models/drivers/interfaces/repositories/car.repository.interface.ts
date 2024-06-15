@@ -1,3 +1,4 @@
+import { Order } from '@models/orders/entities/order.entity';
 import { Advantage } from '../../../advantages/entities/advantage.entity';
 import { UpdateCarDto } from '../../dtos';
 import { CreateCarDto } from '../../dtos/create-car.dto';
@@ -10,6 +11,7 @@ export interface ICarRepository {
   findMyCar(driverId: string): Promise<Car[]>;
   findOne(id: string): Promise<Car>;
   findOneForOwner(id: string, driverId: string): Promise<Car>;
+  findMyCarsForOrder(driverId: string, order: Order): Promise<Car[]>;
   create(
     driver: Driver,
     photo: CarPhoto,
