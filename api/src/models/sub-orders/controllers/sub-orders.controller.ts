@@ -91,7 +91,7 @@ export class SubOrdersController {
     return suborder;
   }
 
-  @Roles(ROLE.USER, ROLE.EMPLOYEE)
+  @Roles(ROLE.USER, ROLE.EMPLOYEE,ROLE.DRIVER)
   @ApiOkResponse({ type: SubOrder })
   @Get(':id')
   async findOne(@Id() id: string): Promise<SubOrder> {
