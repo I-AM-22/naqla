@@ -7,6 +7,7 @@ export interface ICarsService {
   find(): Promise<Car[]>;
   findMyCars(driverId: string): Promise<Car[]>;
   findOne(id: string): Promise<Car>;
+  findMyCarsForOrder(driverId: string, orderid: string): Promise<Car[]>;
   findOneForOwner(id: string, driverId: string): Promise<Car>;
   create(driver: Driver, dto: CreateCarDto): Promise<Car>;
   update(id: string, driverId: string, dto: UpdateCarDto): Promise<Car>;

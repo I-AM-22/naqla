@@ -43,12 +43,14 @@ export const OrderPhotoRepositoryProvider: Provider = {
     OrderRepositoryProvider,
     OrderPhotoRepositoryProvider,
     OrdersService,
+    OrderRepository,
   ],
   exports: [
     OrderRepositoryProvider,
     OrderPhotoRepositoryProvider,
     OrdersServiceProvider,
     OrdersService,
+    OrderRepository,
   ],
 })
 export class OrdersModule {}

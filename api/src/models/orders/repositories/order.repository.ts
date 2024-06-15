@@ -73,6 +73,16 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
+  async findAdvantages(orderId: string): Promise<Order> {
+    return this.orderRepository.findOne({
+      where: { id: orderId },
+      select: {
+        advantages: { id: true, cost: false, name: true },
+      },
+      relations: { advantages: true },
+    });
+  }
+
   async findOneForOwner(id: string, userId: string): Promise<Order> {
     return this.orderRepository.findOne({
       where: { id, userId },
