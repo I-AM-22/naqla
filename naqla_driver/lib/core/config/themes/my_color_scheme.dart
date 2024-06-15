@@ -66,6 +66,9 @@ extension MyColorScheme on ColorScheme {
 
   Color get primary50 => const Color(0xFFFAFAFA);
 
-  Color getColor({required Color light, required Color dark}) =>
-      brightness == Brightness.light ? light : dark;
+  Color get waiting => const Color(0xFFFAE635);
+
+  Color get ready => const Color(0xFFB3FC55);
+
+  Color getColor({required Color light, required Color dark}) => brightness == Brightness.light ? light : dark;
 }

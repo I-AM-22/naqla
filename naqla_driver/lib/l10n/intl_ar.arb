@@ -88,6 +88,10 @@
   "set_order_delivered": "توصيل الطلب",
   "order_status": "حالة الطلب",
   "order_date": "تاريخ الطلب",
+  "waiting_for_customer_confirmation": "بإنتظار تأكيد الزبون",
+  "the_customer_has_confirmed_the_order": "الزبون قام بتأكيد الطلب",
+  "order_on_the_way": "الطلب على الطريق",
+  "delivered": "تم توصيله",
 
   "__________________________profile______________________________":"",
   "profile":"الملف الشخصي",

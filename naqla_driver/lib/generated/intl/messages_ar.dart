@@ -77,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
         "delete_car": MessageLookupByLibrary.simpleMessage("حذف السيارة"),
+        "delivered": MessageLookupByLibrary.simpleMessage("تم توصيله"),
         "did_not_receive_code":
             MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":
@@ -123,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "order_details": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
         "order_driverAssigned_date":
             MessageLookupByLibrary.simpleMessage("تاريخ تعيين السائق"),
+        "order_on_the_way":
+            MessageLookupByLibrary.simpleMessage("الطلب على الطريق"),
         "order_pickedUp_date":
             MessageLookupByLibrary.simpleMessage("تاريخ تحميل الطلب"),
         "order_status": MessageLookupByLibrary.simpleMessage("حالة الطلب"),
@@ -154,12 +157,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
         "start_point": MessageLookupByLibrary.simpleMessage("نقطة البداية"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("الطلبات الفرعية"),
+        "the_customer_has_confirmed_the_order":
+            MessageLookupByLibrary.simpleMessage("الزبون قام بتأكيد الطلب"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لايوجد هناك بيانات لعرضها"),
         "total_money":
             MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
+        "waiting_for_customer_confirmation":
+            MessageLookupByLibrary.simpleMessage("بإنتظار تأكيد الزبون"),
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
         "weight": MessageLookupByLibrary.simpleMessage("الوزن: "),
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),

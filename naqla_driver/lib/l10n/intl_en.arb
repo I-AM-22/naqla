@@ -90,6 +90,10 @@
   "set_order_delivered": "Set order delivered",
   "order_status": "Order status",
   "order_date": "Order date",
+  "waiting_for_customer_confirmation": "Waiting for customer confirmation",
+  "the_customer_has_confirmed_the_order": "The customer has confirmed the order",
+  "order_on_the_way": "Order on the way",
+  "delivered": "Delivered",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

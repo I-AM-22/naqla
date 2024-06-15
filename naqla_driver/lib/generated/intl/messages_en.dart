@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_account":
             MessageLookupByLibrary.simpleMessage("Delete Account"),
         "delete_car": MessageLookupByLibrary.simpleMessage("Delete car"),
+        "delivered": MessageLookupByLibrary.simpleMessage("Delivered"),
         "did_not_receive_code":
             MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
         "do_not_have_an_account":
@@ -127,6 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "order_details": MessageLookupByLibrary.simpleMessage("Order details"),
         "order_driverAssigned_date":
             MessageLookupByLibrary.simpleMessage("Order driver Assigned date"),
+        "order_on_the_way":
+            MessageLookupByLibrary.simpleMessage("Order on the way"),
         "order_pickedUp_date":
             MessageLookupByLibrary.simpleMessage("Order pickedUp date"),
         "order_status": MessageLookupByLibrary.simpleMessage("Order status"),
@@ -158,11 +161,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "start_point": MessageLookupByLibrary.simpleMessage("Start point"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("Sub orders"),
+        "the_customer_has_confirmed_the_order":
+            MessageLookupByLibrary.simpleMessage(
+                "The customer has confirmed the order"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "waiting_for_customer_confirmation":
+            MessageLookupByLibrary.simpleMessage(
+                "Waiting for customer confirmation"),
         "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
         "weight": MessageLookupByLibrary.simpleMessage("Weight: "),
         "write_message":
