@@ -73,7 +73,7 @@ class OrderDetailsPage extends StatelessWidget {
                 16.verticalSpace,
                 AppText.subHeadWebMedium('${S.of(context).cost}${subOrderModel.cost}'),
                 10.verticalSpace,
-                AppText.bodySmMedium('${S.of(context).porters}${subOrderModel.order.porters.toString()}'),
+                AppText.bodySmMedium('${S.of(context).porters}${subOrderModel.order?.porters.toString()}'),
                 16.verticalSpace,
                 if (subOrderModel.photos.isNotEmpty) AppText.subHeadWebMedium(S.of(context).photos),
                 8.verticalSpace,

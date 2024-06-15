@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:naqla_driver/core/core.dart';
-import 'package:naqla_driver/core/global_widgets/app_text.dart';
 
 import '../../../../../generated/flutter_gen/assets.gen.dart';
-import '../../../../../generated/l10n.dart';
 
 class EmptyPage extends StatelessWidget {
   const EmptyPage({super.key});

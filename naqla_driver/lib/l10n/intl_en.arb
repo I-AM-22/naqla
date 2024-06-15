@@ -89,6 +89,7 @@
   "set_order_picked_up": "Set order pickedUp",
   "set_order_delivered": "Set order delivered",
   "order_status": "Order status",
+  "order_date": "Order date",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

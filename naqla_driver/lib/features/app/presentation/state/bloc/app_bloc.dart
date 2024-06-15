@@ -77,14 +77,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       AppState.addCar,
       (event) => addCarUseCase(event.param),
       onSuccess: (data, event, emit) async {
-        final oldData = state.getState<List<CarModel>>(AppState.getAllCars);
-        if (oldData.isSuccess) {
-          oldData.data?.add(data);
-          emit(state.updateData(AppState.getAllCars, oldData));
-        } else {
-          emit(state.updateState(AppState.getAllCars, SuccessState<List<CarModel>>([data])));
-        }
-
+        add(GetAllCarsEvent());
         event.onSuccess();
       },
     );

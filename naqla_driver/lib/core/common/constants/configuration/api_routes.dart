@@ -30,6 +30,7 @@ class ApiRoutes {
 
   //////////////////?Sub-Order////////////////////
   static String subOrders = '/api/v1/sub-orders';
+  static String subOrderDetails(String id) => '/api/v1/sub-orders/$id';
   static String subOrdersForDriver = '/api/v1/sub-orders/for-driver';
   static String setDriver(String id) => '/api/v1/sub-orders/$id/setDriver';
   static String setDelivered(String id) => '/api/v1/sub-orders/$id/setDeliveredAt';

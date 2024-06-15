@@ -5,7 +5,7 @@ class OrderModel {
   final int porters;
   final LocationModel locationStart;
   final LocationModel locationEnd;
-  final List<String> advantages;
+  final List<String>? advantages;
 
   OrderModel({
     required this.desiredDate,
@@ -35,7 +35,7 @@ class OrderModel {
         porters: json["porters"],
         locationStart: LocationModel.fromJson(json["locationStart"]),
         locationEnd: LocationModel.fromJson(json["locationEnd"]),
-        advantages: List<String>.from(json["advantages"].map((x) => x['name'])),
+        advantages: json["advantages"] == null ? null : List<String>.from(json["advantages"].map((x) => x['name'])),
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +43,6 @@ class OrderModel {
         "porters": porters,
         "locationStart": locationStart.toJson(),
         "locationEnd": locationEnd.toJson(),
-        "advantages": List<dynamic>.from(advantages.map((x) => x)),
+        "advantages": List<dynamic>.from(advantages?.map((x) => x) ?? []),
       };
 }

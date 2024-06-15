@@ -39,7 +39,7 @@ class OrderCard extends StatelessWidget {
                   10.verticalSpace,
                   Flexible(child: AppText.bodySmMedium('${S.of(context).cost}${subOrderModel.cost}')),
                   10.verticalSpace,
-                  Flexible(child: AppText.bodySmMedium('${S.of(context).porters}${subOrderModel.order.porters.toString()}')),
+                  Flexible(child: AppText.bodySmMedium('${S.of(context).porters}${subOrderModel.order?.porters.toString()}')),
                   10.verticalSpace,
                   AppButton.dark(
                     buttonSize: ButtonSize.medium,

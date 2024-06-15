@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla_driver/features/orders/presentation/state/order_bloc.dart';
 
-import '../../data/model/sub_two_order_model.dart';
+import '../../../home/data/model/sub_order_model.dart';
 import '../widgets/sub_order_card.dart';
 
 class OrdersDonePage extends StatefulWidget {
@@ -23,7 +22,7 @@ class _OrdersDonePageState extends State<OrdersDonePage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppCommonStateBuilder<OrderBloc, List<Sub2OrderModel>>(
+    return AppCommonStateBuilder<OrderBloc, List<SubOrderModel>>(
       stateName: OrderState.ordersDone,
       onSuccess: (data) => ListView.builder(itemBuilder: (context, index) => SubOrderCard(subOrderModel: data[index]), itemCount: data.length),
     );

@@ -1,12 +1,14 @@
 import 'package:common_state/common_state.dart';
 
-import '../../data/model/sub_two_order_model.dart';
+import '../../../home/data/model/sub_order_model.dart';
 import '../usecases/set_delivered_use_case.dart';
 
 abstract class OrderRepository {
-  FutureResult<List<Sub2OrderModel>> getOrdersDone();
+  FutureResult<List<SubOrderModel>> getOrdersDone();
 
-  FutureResult<List<Sub2OrderModel>> getOrders();
+  FutureResult<List<SubOrderModel>> getOrders();
 
-  FutureResult<Sub2OrderModel> setDelivered(SetDeliveredParam params);
+  FutureResult<SubOrderModel> setDelivered(SetDeliveredParam params);
+
+  FutureResult<SubOrderModel> getSubOrderDetails(String id);
 }

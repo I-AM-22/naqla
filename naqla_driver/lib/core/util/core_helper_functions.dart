@@ -1,4 +1,7 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -54,10 +57,10 @@ class CoreHelperFunctions {
 
   static String formatOrderTime(BuildContext context, SubOrderStatus status,
       {DateTime? acceptedAt, DateTime? arrivedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
-    if (status == SubOrderStatus.ready) return '${S.of(context).order_accepted_date}:\n ${fromOrderDateTimeToString(acceptedAt!)}';
-    if (status == SubOrderStatus.delivered) return '${S.of(context).order_delivered_date}:\n ${fromOrderDateTimeToString(deliveredAt!)}';
-    if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n ${fromOrderDateTimeToString(driverAssignedAt!)}';
-    if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n ${fromOrderDateTimeToString(pickedUpAt!)}';
+    if (status == SubOrderStatus.ready) return '${S.of(context).order_accepted_date}:\n${fromOrderDateTimeToString(acceptedAt!)}';
+    if (status == SubOrderStatus.delivered) return '${S.of(context).order_delivered_date}:\n${fromOrderDateTimeToString(deliveredAt!)}';
+    if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n${fromOrderDateTimeToString(driverAssignedAt!)}';
+    if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n${fromOrderDateTimeToString(pickedUpAt!)}';
     return '';
   }
 
@@ -66,6 +69,15 @@ class CoreHelperFunctions {
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
     buffer.write(hexString.replaceFirst('#', ''));
     return Color(int.parse(buffer.toString(), radix: 16));
+  }
+
+  static Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    var ic = (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer;
+
+    return ic.asUint8List();
   }
 
   //?============================================ Date & Time helpers ============================================

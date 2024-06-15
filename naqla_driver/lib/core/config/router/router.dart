@@ -13,6 +13,7 @@ import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
 import 'package:naqla_driver/features/home/presentation/pages/add_car_page.dart';
 import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
 import 'package:naqla_driver/features/orders/presentation/pages/orders_page.dart';
+import 'package:naqla_driver/features/orders/presentation/pages/sub_order_details_page.dart';
 import 'package:naqla_driver/features/profile/presentation/pages/profile_page.dart';
 import 'package:naqla_driver/features/profile/presentation/pages/verification_phone_number.dart';
 
@@ -116,11 +117,16 @@ class GRouter {
             ])
           ]),
           StatefulShellBranch(initialLocation: OrdersPage.path, navigatorKey: _shell2NavigatorKey, routes: [
-            GoRoute(
-              path: OrdersPage.path,
-              name: OrdersPage.name,
-              builder: (context, state) => const OrdersPage(),
-            )
+            GoRoute(path: OrdersPage.path, name: OrdersPage.name, builder: (context, state) => const OrdersPage(), routes: [
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: SubOrderDetailsPage.path,
+                name: SubOrderDetailsPage.name,
+                builder: (context, state) => SubOrderDetailsPage(
+                  id: state.extra as String,
+                ),
+              )
+            ])
           ]),
           StatefulShellBranch(initialLocation: ChatPage.path, navigatorKey: _shell3NavigatorKey, routes: [
             GoRoute(

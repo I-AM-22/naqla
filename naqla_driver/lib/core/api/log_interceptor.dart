@@ -8,7 +8,6 @@ import 'package:logger/logger.dart';
 import 'package:naqla_driver/core/di/di_container.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../common/enums/status_code_type.dart';
-import '../util/helper_functions.dart';
 import 'api_utils.dart';
 
 enum _StatusType {

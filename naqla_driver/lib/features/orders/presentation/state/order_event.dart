@@ -13,3 +13,9 @@ class SetDeliveredEvent extends OrderEvent {
 
   SetDeliveredEvent({required this.param, required this.onSuccess});
 }
+
+class GetSubOrderDetailsEvent extends OrderEvent {
+  final String id;
+
+  GetSubOrderDetailsEvent({required this.id});
+}

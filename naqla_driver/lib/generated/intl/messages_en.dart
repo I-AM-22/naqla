@@ -121,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Order accepted date"),
         "order_arrived_date":
             MessageLookupByLibrary.simpleMessage("Order arrived date"),
+        "order_date": MessageLookupByLibrary.simpleMessage("Order date"),
         "order_delivered_date":
             MessageLookupByLibrary.simpleMessage("Order delivered date"),
         "order_details": MessageLookupByLibrary.simpleMessage("Order details"),

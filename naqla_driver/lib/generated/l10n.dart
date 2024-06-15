@@ -880,6 +880,16 @@ class S {
     );
   }
 
+  /// `Order date`
+  String get order_date {
+    return Intl.message(
+      'Order date',
+      name: 'order_date',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(

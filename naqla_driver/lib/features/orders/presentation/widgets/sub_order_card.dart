@@ -11,11 +11,11 @@ import 'package:naqla_driver/features/orders/presentation/state/order_bloc.dart'
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../../data/model/sub_two_order_model.dart';
+import '../../../home/data/model/sub_order_model.dart';
 
 class SubOrderCard extends StatelessWidget {
   const SubOrderCard({super.key, required this.subOrderModel});
-  final Sub2OrderModel subOrderModel;
+  final SubOrderModel subOrderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +47,12 @@ class SubOrderCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       )),
                       10.verticalSpace,
-                      Flexible(child: AppText.bodySmMedium('${S.of(context).cost}${subOrderModel.cost}')),
+                      Flexible(child: AppText.bodySmMedium('${S.of(context).cost}${formatter.format(subOrderModel.cost)}')),
                       10.verticalSpace,
-                      Flexible(child: AppText.bodySmMedium('${S.of(context).order_status}: ${subOrderModel.status.name}')),
+                      Flexible(child: AppText.bodySmMedium('${S.of(context).order_status}: ${subOrderModel.status?.name}')),
                       10.verticalSpace,
                       Flexible(
-                          child: AppText.bodySmMedium(CoreHelperFunctions.formatOrderTime(context, subOrderModel.status,
+                          child: AppText.bodySmMedium(CoreHelperFunctions.formatOrderTime(context, subOrderModel.status!,
                               pickedUpAt: subOrderModel.pickedUpAt,
                               driverAssignedAt: subOrderModel.driverAssignedAt,
                               arrivedAt: subOrderModel.arrivedAt,

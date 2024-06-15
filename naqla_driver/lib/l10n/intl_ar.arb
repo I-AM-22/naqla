@@ -87,6 +87,7 @@
   "order_driverAssigned_date": "تاريخ تعيين السائق",
   "set_order_delivered": "توصيل الطلب",
   "order_status": "حالة الطلب",
+  "order_date": "تاريخ الطلب",
 
   "__________________________profile______________________________":"",
   "profile":"الملف الشخصي",
