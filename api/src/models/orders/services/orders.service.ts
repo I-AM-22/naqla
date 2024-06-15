@@ -20,6 +20,7 @@ import { ISettingRepository } from '@models/settings/interfaces/repositories/set
 import { IPaymentRepository } from '@models/payments/interfaces/repositories/payment.repository.interface';
 import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
 import { SETTING_TYPES } from '@models/settings/interfaces/type';
+import { UserWalletRepository } from '@models/users/repositories/user-wallet.repository';
 
 @Injectable()
 export class OrdersService implements IOrdersService {
@@ -30,6 +31,7 @@ export class OrdersService implements IOrdersService {
     private readonly settingRepository: ISettingRepository,
     @Inject(ORDER_TYPES.repository.photo)
     private readonly orderPhotoRepository: OrderPhotoRepository,
+    private readonly walletRepository: UserWalletRepository,
     @Inject(ADVANTAGE_TYPES.service)
     private readonly advantagesService: IAdvantagesService,
     @Inject(PAYMENT_TYPES.repository)
@@ -105,24 +107,23 @@ export class OrdersService implements IOrdersService {
   }
 
   async divisionDone(id: string, cost: number): Promise<Order> {
-    // const order = await this.orderRepository.findOne(id);
-    // if (order.status !== ORDER_STATUS.WAITING) {
-    //   throw new ForbiddenException(
-    //     'Can not division Done this order becouss him status is not waiting',
-    //   );
-    // }
     await this.paymentRepository.setTotal(id, cost);
     return this.orderRepository.divisionDone(id);
   }
 
-  acceptance(id: string): Promise<Order> {
-    // const order = await this.orderRepository.findOne(id);
-    // if (order.status !== ORDER_STATUS.WAITING) {
-    //   throw new ForbiddenException(
-    //     'Can not division Done this order becouss him status is not waiting',
-    //   );
-    // }
-    return this.orderRepository.acceptance(id);
+  async acceptance(id: string): Promise<Order> {
+    const order = await this.orderRepository.findOne(id);
+    if (order.status !== ORDER_STATUS.ACCEPTED) {
+      throw new ForbiddenException(
+        'Can not acceptance Done this order becouss him status is not accepted',
+      );
+    }
+    if (!(await this.walletRepository.check(order.userId, order.payment.cost)))
+      throw new ForbiddenException(
+        `Can not acceptance Done this order becouss you do not have order's cost`,
+      );
+    await this.walletRepository.updatePending(order.userId, order.payment.cost);
+    return this.orderRepository.updateStatus(id, ORDER_STATUS.READY);
   }
 
   cancellation(id: string): Promise<Order> {
@@ -132,7 +133,7 @@ export class OrdersService implements IOrdersService {
     //     'Can not division Done this order becouss him status is not waiting',
     //   );
     // }
-    return this.orderRepository.cancellation(id);
+    return this.orderRepository.updateStatus(id, ORDER_STATUS.CANCELED);
   }
 
   refusal(id: string): Promise<Order> {
@@ -142,7 +143,7 @@ export class OrdersService implements IOrdersService {
     //     'Can not division Done this order becouss him status is not waiting',
     //   );
     // }
-    return this.orderRepository.refusal(id);
+    return this.orderRepository.updateStatus(id, ORDER_STATUS.REFUSED);
   }
 
   async delete(id: string, person: IPerson): Promise<void> {

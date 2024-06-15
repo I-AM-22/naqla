@@ -16,6 +16,7 @@ export interface ISubOrderRepository {
   setArrivedAt(id: string): Promise<SubOrder>;
   setPickedUpAt(id: string): Promise<SubOrder>;
   setDeliveredAt(id: string): Promise<SubOrder>;
+  areAllSubOrdersCompleted(orderId: string): Promise<boolean>;
   ready(id: string): Promise<SubOrder[]>;
   setDriver(subId: string, car: Car): Promise<SubOrder>;
   delete(id: string): Promise<void>;

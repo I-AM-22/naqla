@@ -43,6 +43,7 @@ export class SubOrderRepository implements ISubOrderRepository {
       .select([
         'subOrder.id',
         'subOrder.cost',
+        'subOrder.rating',
         'subOrder.weight',
         'photos',
         'order.locationStart',
@@ -72,6 +73,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         'order.desiredDate',
         'order.porters',
         'advantages.name',
+        'advantages.id',
       ])
       .getMany();
 
@@ -80,7 +82,6 @@ export class SubOrderRepository implements ISubOrderRepository {
     );
 
     const carAdvantagesSet = new Set(carAdvantagesIds);
-
     return subOrders.filter((subOrder) => {
       const subOrderAdvantagesIds = subOrder.order.advantages.map(
         (adv) => adv.id,
@@ -92,6 +93,7 @@ export class SubOrderRepository implements ISubOrderRepository {
   async findOne(id: string): Promise<SubOrder> {
     return this.subOrderRepository.findOne({
       where: { id },
+      relations: { order: true, car: true },
     });
   }
 
@@ -126,7 +128,10 @@ export class SubOrderRepository implements ISubOrderRepository {
     return await this.subOrderRepository.save(doc);
   }
   async setDeliveredAt(id: string): Promise<SubOrder> {
-    const doc = await this.subOrderRepository.findOne({ where: { id } });
+    const doc = await this.subOrderRepository.findOne({
+      where: { id },
+      relations: { car: true, order: true },
+    });
     doc.deliveredAt = new Date().toISOString();
     doc.status = SUB_ORDER_STATUS.DELIVERED;
     return await this.subOrderRepository.save(doc);
@@ -154,6 +159,18 @@ export class SubOrderRepository implements ISubOrderRepository {
     doc.driverAssignedAt = new Date().toISOString();
     doc.status = SUB_ORDER_STATUS.TAKEN;
     return await this.subOrderRepository.save(doc);
+  }
+
+  async areAllSubOrdersCompleted(orderId: string): Promise<boolean> {
+    const incompleteSubOrderCount = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .where('subOrder.orderId = :orderId', { orderId })
+      .andWhere('subOrder.status != :status', {
+        status: SUB_ORDER_STATUS.DELIVERED,
+      })
+      .getCount();
+
+    return incompleteSubOrderCount === 0;
   }
 
   async findTotalCost(id: string): Promise<number> {

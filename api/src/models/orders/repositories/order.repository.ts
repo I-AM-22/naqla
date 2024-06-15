@@ -105,6 +105,7 @@ export class OrderRepository implements IOrderRepository {
       where: { id },
       select: {
         id: true,
+        status: true,
         desiredDate: true,
         locationStart: {
           longitude: true,
@@ -118,12 +119,13 @@ export class OrderRepository implements IOrderRepository {
           region: true,
           street: true,
         },
+        userId: true,
         user: { firstName: true, lastName: true },
         photos: true,
         createdAt: true,
         updatedAt: true,
         advantages: { name: true },
-        payment: { additionalCost: true },
+        payment: { additionalCost: true, cost: true },
       },
       relations: { user: true, photos: true, advantages: true, payment: true },
     });
@@ -171,32 +173,12 @@ export class OrderRepository implements IOrderRepository {
     }
     return updatedOrder;
   }
-  async acceptance(id: string): Promise<Order> {
+
+  async updateStatus(id: string, status: ORDER_STATUS): Promise<Order> {
     await this.orderRepository
       .createQueryBuilder()
       .update(Order)
-      .set({ status: ORDER_STATUS.READY })
-      .where('id = :id', { id })
-      .execute();
-    const updatedOrder = await this.findOne(id);
-    if (!updatedOrder) {
-      throw new Error('Order not found');
-    }
-    return updatedOrder;
-  }
-
-  async cancellation(id: string): Promise<Order> {
-    const order = await this.findOne(id);
-    order.status = ORDER_STATUS.CANCELED;
-    await this.orderRepository.save(order);
-    return order;
-  }
-
-  async refusal(id: string): Promise<Order> {
-    await this.orderRepository
-      .createQueryBuilder()
-      .update(Order)
-      .set({ status: ORDER_STATUS.REFUSED })
+      .set({ status })
       .where('id = :id', { id })
       .execute();
     const updatedOrder = await this.findOne(id);

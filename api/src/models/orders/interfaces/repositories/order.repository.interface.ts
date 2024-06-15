@@ -4,6 +4,7 @@ import { CreateOrderDto } from '../../dtos/create-order.dto';
 import { OrderPhoto } from '../../entities/order-photo.entity';
 import { Order } from '../../entities/order.entity';
 import { User } from '../../../users/entities/user.entity';
+import { ORDER_STATUS } from '@common/enums';
 
 export interface IOrderRepository {
   find(): Promise<Order[]>;
@@ -24,9 +25,7 @@ export interface IOrderRepository {
     photo: OrderPhoto[],
   ): Promise<Order>;
   divisionDone(id: string): Promise<Order>;
-  acceptance(id: string): Promise<Order>;
-  cancellation(id: string): Promise<Order>;
-  refusal(id: string): Promise<Order>;
+  updateStatus(id: string, status: ORDER_STATUS): Promise<Order>;
   delete(order: Order): Promise<void>;
   addAdvantageToOrder(Order: Order, advantages: Advantage[]): Promise<void>;
   removeAdvantageFromOrder(order: Order, advantage: Advantage): Promise<void>;

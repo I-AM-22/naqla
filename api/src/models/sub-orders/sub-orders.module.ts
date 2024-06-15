@@ -9,6 +9,7 @@ import { OrdersModule } from '../orders/orders.module';
 import { DriversModule } from '../drivers/drivers.module';
 import { SettingsModule } from '@models/settings/settings.module';
 import { PaymentsModule } from '@models/payments/payments.module';
+import { UsersModule } from '@models/users/users.module';
 
 export const SubOrdersServiceProvider: Provider = {
   provide: SUB_ORDER_TYPES.service,
@@ -27,6 +28,7 @@ export const SubOrderRepositoryProvider: Provider = {
     SettingsModule,
     PaymentsModule,
     forwardRef(() => OrdersModule),
+    forwardRef(() => UsersModule),
   ],
   controllers: [SubOrdersController],
   providers: [

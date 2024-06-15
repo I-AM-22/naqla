@@ -13,4 +13,33 @@ export class DriverWalletRepository implements IWalletRepository<DriverWallet> {
   create(): DriverWallet {
     return this.walletRepo.create();
   }
+  async deposit(id: string, cost: number): Promise<DriverWallet> {
+    const result = await this.walletRepo
+      .createQueryBuilder()
+      .update(DriverWallet)
+      .set({ total: () => 'total + :cost' })
+      .where('driverId = :id', { id, cost })
+      .returning('*')
+      .execute();
+    const updatedWallet = result.raw[0];
+    if (!updatedWallet) {
+      throw new Error('Wallet not found');
+    }
+    return updatedWallet;
+  }
+
+  async withdraw(id: string, cost: number): Promise<DriverWallet> {
+    const result = await this.walletRepo
+      .createQueryBuilder()
+      .update(DriverWallet)
+      .set({ total: () => 'total - :cost' })
+      .where('driverId = :id', { id, cost })
+      .returning('*')
+      .execute();
+    const updatedWallet = result.raw[0];
+    if (!updatedWallet) {
+      throw new Error('Wallet not found');
+    }
+    return updatedWallet;
+  }
 }

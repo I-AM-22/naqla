@@ -11,6 +11,7 @@ import { AdvantagesModule } from '../advantages/advantages.module';
 import { SettingsModule } from '../settings/settings.module';
 import { PaymentsModule } from '@models/payments/payments.module';
 import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
+import { UsersModule } from '@models/users/users.module';
 
 export const OrdersServiceProvider: Provider = {
   provide: ORDER_TYPES.service,
@@ -34,6 +35,7 @@ export const OrderPhotoRepositoryProvider: Provider = {
     SettingsModule,
     PaymentsModule,
     forwardRef(() => SubOrdersModule),
+    forwardRef(() => UsersModule),
   ],
   controllers: [OrderController],
   providers: [
