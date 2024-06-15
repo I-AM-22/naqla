@@ -40,4 +40,11 @@ class OrderRepositoryImplement implements OrderRepository {
       () => dataSource.setPickedUp(params),
     );
   }
+
+  @override
+  FutureResult<SubOrderModel> getSubOrderDetails(String id) {
+    return toApiResult(
+      () => dataSource.getSubOrderDetails(id),
+    );
+  }
 }

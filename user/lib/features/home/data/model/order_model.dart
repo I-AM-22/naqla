@@ -8,9 +8,10 @@ class OrderModel {
   final DateTime createdAt;
   final DateTime desiredDate;
   final OrderStatus status;
+  final int? porters;
   final LocationModel locationStart;
   final LocationModel locationEnd;
-  final List<String> advantages;
+  final List<String>? advantages;
   final List<OrderPhotosModel> photos;
   final PaymentModel? paymentModel;
 
@@ -23,6 +24,7 @@ class OrderModel {
     required this.locationEnd,
     required this.advantages,
     required this.photos,
+    required this.porters,
     required this.paymentModel,
   });
 
@@ -35,6 +37,7 @@ class OrderModel {
     LocationModel? locationEnd,
     List<String>? advantages,
     List<OrderPhotosModel>? photos,
+    int? porters,
     PaymentModel? paymentModel,
   }) =>
       OrderModel(
@@ -47,6 +50,7 @@ class OrderModel {
         advantages: advantages ?? this.advantages,
         photos: photos ?? this.photos,
         paymentModel: paymentModel ?? this.paymentModel,
+        porters: porters ?? this.porters,
       );
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
@@ -56,7 +60,8 @@ class OrderModel {
         status: OrderStatus.values.byName(json["status"] ?? OrderStatus.waiting.name),
         locationStart: LocationModel.fromJson(json["locationStart"]),
         locationEnd: LocationModel.fromJson(json["locationEnd"]),
-        advantages: List<String>.from(json["advantages"].map((x) => x['name'])),
+        porters: json['porters'],
+        advantages: json["advantages"] == null ? null : List<String>.from(json["advantages"].map((x) => x['name'])),
         photos: List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
         paymentModel: json["payment"] == null ? null : PaymentModel.fromJson(json["payment"]),
       );
@@ -66,7 +71,7 @@ class OrderModel {
         "status": status,
         "locationStart": locationStart.toJson(),
         "locationEnd": locationEnd.toJson(),
-        "advantages": List<dynamic>.from(advantages.map((x) => x)),
+        "advantages": List<dynamic>.from(advantages?.map((x) => x) ?? []),
         "photos": List<dynamic>.from(photos.map((x) => x.toJson())),
         "createdAt": createdAt.toIso8601String(),
         "desiredDate": desiredDate.toIso8601String(),

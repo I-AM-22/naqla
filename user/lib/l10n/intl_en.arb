@@ -107,6 +107,13 @@
   "driver_arrived": "Order arrives",
   "set_order_picked_up": "Set order pickedUp",
   "set_order_delivered": "Set order delivered",
+  "waiting_for_customer_confirmation": "Waiting for customer confirmation",
+  "the_customer_has_confirmed_the_order": "The customer has confirmed the order",
+  "order_on_the_way": "Order on the way",
+  "delivered": "Delivered",
+  "waiting_for_the_driver_to_arrive": "Waiting for the driver to arrive",
+  "waiting_for_the_supervisor_to_review": "Waiting for the supervisor to review",
+  "waiting_for_drivers_to_be_hired": "Waiting for drivers to be hired",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

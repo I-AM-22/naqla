@@ -10,6 +10,7 @@ import 'package:naqla/features/orders/domain/usecases/set_picked_up_use_case.dar
 
 import '../../../../core/common/enums/change_order_status.dart';
 import '../../domain/usecases/get_orders_use_case.dart';
+import '../../domain/usecases/get_sub_order_details_use_case.dart';
 import '../../domain/usecases/get_sub_orders_use_case.dart';
 
 part 'order_event.dart';
@@ -21,7 +22,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   final GetSubOrdersUseCase getSubOrdersUseCase;
   final SetArrivedUseCase setArrivedUseCase;
   final SetPickedUpUseCase setPickedUpUseCase;
-  OrderBloc(this.getOrdersUseCase, this.getSubOrdersUseCase, this.setArrivedUseCase, this.setPickedUpUseCase) : super(OrderState()) {
+  final GetSubOrderDetailsUseCase getSubOrderDetailsUseCase;
+  OrderBloc(this.getOrdersUseCase, this.getSubOrdersUseCase, this.setArrivedUseCase, this.setPickedUpUseCase, this.getSubOrderDetailsUseCase)
+      : super(OrderState()) {
     multiStateApiCall<GetOrdersEvent, List<OrderModel>>(OrderState.getOrders, (event) => getOrdersUseCase(NoParams()));
 
     multiStateApiCall<GetSubOrdersEvent, List<SubOrderModel>>(OrderState.getSubOrders, (event) => getSubOrdersUseCase(event.param));
@@ -35,6 +38,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
           return setPickedUpUseCase(event.param);
         }
       },
+      preCall: (event, emit) async {
+        emit(state.copyWith(subOrderId: event.param.id));
+      },
       onSuccess: (data, event, emit) async {
         final oldData = state.getState<List<SubOrderModel>>(OrderState.getSubOrders).data ?? [];
         oldData.removeWhere(
@@ -43,6 +49,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         oldData.add(data);
         emit(state.updateData(OrderState.getSubOrders, oldData));
       },
+    );
+
+    multiStateApiCall<GetSubOrderDetailsEvent, SubOrderModel>(
+      OrderState.getSuOrderDetails,
+      (event) => getSubOrderDetailsUseCase(event.id),
     );
   }
 }

@@ -7,6 +7,7 @@ class ProfileState extends StateObject<ProfileState> {
   static String editPersonalInfo = "editPersonalInfo";
   static String editPhoneNumber = "editPhoneNumber";
   static String deleteAccount = "deleteAccount";
+  static String confirm = "confirm";
 
   ProfileState([States? states])
       : super([
@@ -16,5 +17,6 @@ class ProfileState extends StateObject<ProfileState> {
           InitialState<User>(editPhoneNumber),
           InitialState<String>(editPersonalInfo),
           InitialState(deleteAccount),
+          InitialState<AuthModel>(confirm),
         ], (states) => ProfileState(states), states);
 }

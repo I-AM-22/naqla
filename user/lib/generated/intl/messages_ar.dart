@@ -79,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
         "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
+        "delivered": MessageLookupByLibrary.simpleMessage("تم توصيله"),
         "did_not_receive_code":
             MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":
@@ -130,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "order_details": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
         "order_driverAssigned_date":
             MessageLookupByLibrary.simpleMessage("تاريخ تعيين السائق"),
+        "order_on_the_way":
+            MessageLookupByLibrary.simpleMessage("الطلب على الطريق"),
         "order_pickedUp_date":
             MessageLookupByLibrary.simpleMessage("تاريخ تحميل الطلب"),
         "order_status": MessageLookupByLibrary.simpleMessage("حالة الطلب: "),
@@ -169,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "start_point": MessageLookupByLibrary.simpleMessage("نقطة الانطلاق"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("الطلبات الفرعية"),
         "syp": MessageLookupByLibrary.simpleMessage("ل.س"),
+        "the_customer_has_confirmed_the_order":
+            MessageLookupByLibrary.simpleMessage("الزبون قام بتأكيد الطلب"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
@@ -186,6 +191,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("استخدام موقعي"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
+        "waiting_for_customer_confirmation":
+            MessageLookupByLibrary.simpleMessage("بإنتظار تأكيد الزبون"),
+        "waiting_for_drivers_to_be_hired":
+            MessageLookupByLibrary.simpleMessage(" بإنتظار تعيين سائقين"),
+        "waiting_for_the_driver_to_arrive":
+            MessageLookupByLibrary.simpleMessage("بإنتظار وصول السائق"),
+        "waiting_for_the_supervisor_to_review":
+            MessageLookupByLibrary.simpleMessage("بإنتظار مراجعة المشرف"),
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),

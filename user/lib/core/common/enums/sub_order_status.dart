@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naqla/core/core.dart';
 
 import '../../../generated/l10n.dart';
 
@@ -17,6 +19,56 @@ enum SubOrderStatus {
         return S.of(context).set_order_delivered;
       default:
         return S.of(context).set_order_picked_up;
+    }
+  }
+
+  Widget displayStatus(BuildContext context) {
+    switch (this) {
+      case SubOrderStatus.taken:
+        return Container(
+          padding: REdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: context.colorScheme.waiting,
+          ),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).waiting_for_the_driver_to_arrive}')),
+        );
+      case SubOrderStatus.ready:
+        return Container(
+          padding: REdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: context.colorScheme.ready,
+          ),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).waiting_for_drivers_to_be_hired}')),
+        );
+      case SubOrderStatus.onTheWay:
+        return Container(
+          padding: REdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: context.colorScheme.success.shade600,
+          ),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).order_on_the_way}')),
+        );
+      case SubOrderStatus.delivered:
+        return Container(
+          padding: REdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: context.colorScheme.success.shade600,
+          ),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).delivered}')),
+        );
+      case SubOrderStatus.waiting:
+        return Container(
+          padding: REdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: context.colorScheme.waiting,
+          ),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).waiting_for_the_supervisor_to_review}')),
+        );
     }
   }
 }

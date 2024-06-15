@@ -8,6 +8,7 @@ import 'package:naqla/features/chat/presentation/pages/chat_page.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/presentation/pages/create_order.dart';
 import 'package:naqla/features/orders/presentation/pages/order_page.dart';
+import 'package:naqla/features/profile/presentation/pages/verification_update_phone_number_page.dart';
 
 import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/register_page.dart';
@@ -18,6 +19,7 @@ import '../../../features/home/presentation/pages/home_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/home/presentation/pages/order_photos_page.dart';
 import '../../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
+import '../../../features/orders/presentation/pages/sub_order_details_page.dart';
 import '../../../features/orders/presentation/pages/sub_orders_page.dart';
 import '../../../features/profile/presentation/pages/about_us_page.dart';
 import '../../../features/profile/presentation/pages/delete_account_page.dart';
@@ -67,7 +69,7 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
   GoRoute(
     path: PhoneVerificationPage.path,
     name: PhoneVerificationPage.name,
-    builder: (context, state) => PhoneVerificationPage(param: state.extra as PhoneVerificationParam),
+    builder: (context, state) => PhoneVerificationPage(phone: state.extra as String),
   ),
   GoRoute(
     path: SignInPage.path,
@@ -122,12 +124,21 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
             builder: (context, state) => const OrderPage(),
             routes: [
               GoRoute(
-                path: SubOrdersPage.path,
-                name: SubOrdersPage.name,
-                builder: (context, state) => SubOrdersPage(
-                  orderId: state.extra as String,
-                ),
-              )
+                  path: SubOrdersPage.path,
+                  name: SubOrdersPage.name,
+                  builder: (context, state) => SubOrdersPage(
+                        orderId: state.extra as String,
+                      ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: SubOrderDetailsPage.path,
+                      name: SubOrderDetailsPage.name,
+                      builder: (context, state) => SubOrderDetailsPage(
+                        id: state.extra as String,
+                      ),
+                    ),
+                  ])
             ])
       ]),
       StatefulShellBranch(initialLocation: ChatPage.path, navigatorKey: _shell3NavigatorKey, routes: [
@@ -173,36 +184,25 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
                 ),
               ),
               GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: EditPhoneNumberPage.path,
-                name: EditPhoneNumberPage.name,
-                builder: (context, state) => EditPhoneNumberPage(param: state.extra as EditPhoneParam),
-                pageBuilder: (context, state) => CustomTransitionPage(
-                  child: EditPhoneNumberPage(param: state.extra as EditPhoneParam),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
-                    position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
-                    child: child,
-                  ),
-                ),
-routes: [
-                  GoRoute(
-                    path: PhoneVerificationPage.pathFromProfile,
-                    name: PhoneVerificationPage.nameFromProfile,
-                    builder: (context, state) => const PhoneVerificationPage(
-                      comeFromProfile: true,
-                    ),
-                    pageBuilder: (context, state) => CustomTransitionPage(
-                      child: const PhoneVerificationPage(
-                        comeFromProfile: true,
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: EditPhoneNumberPage.path,
+                  name: EditPhoneNumberPage.name,
+                  builder: (context, state) => EditPhoneNumberPage(phone: state.extra as String),
+                  pageBuilder: (context, state) => CustomTransitionPage(
+                        child: EditPhoneNumberPage(phone: state.extra as String),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                          position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+                          child: child,
+                        ),
                       ),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
-                        position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(animation),
-                        child: child,
-                      ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: VerificationUpdatePhonePage.path,
+                      name: VerificationUpdatePhonePage.name,
+                      builder: (context, state) => VerificationUpdatePhonePage(phone: state.extra as String),
                     ),
-                  ),
-                ]
-              ),
+                  ]),
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
                 path: DeleteAccountPage.path,

@@ -10,36 +10,36 @@ import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/auth/domain/use_cases/confirm_use_case.dart';
-import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
 import 'package:naqla/features/auth/presentation/widgets/verification_number.dart';
+import 'package:naqla/features/profile/presentation/pages/profile_page.dart';
+import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../home/presentation/pages/home_page.dart';
 
-class PhoneVerificationPage extends StatefulWidget {
-  const PhoneVerificationPage({super.key, required this.phone});
+class VerificationUpdatePhonePage extends StatefulWidget {
+  const VerificationUpdatePhonePage({super.key, required this.phone});
   final String phone;
 
-  static String get name => '/PhoneVerificationPage';
+  static String get name => 'VerificationUpdatePhonePage';
 
-  static String get path => '/PhoneVerificationPage';
+  static String get path => 'VerificationUpdatePhonePage';
 
   @override
-  State<PhoneVerificationPage> createState() => _PhoneVerificationPageState();
+  State<VerificationUpdatePhonePage> createState() => _VerificationUpdatePhonePageState();
 }
 
-class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
+class _VerificationUpdatePhonePageState extends State<VerificationUpdatePhonePage> {
   final GlobalKey<FormBuilderState> _key = GlobalKey();
   String code = '';
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: getIt<AuthBloc>(),
+      value: getIt<ProfileBloc>(),
       child: AppScaffold(
           bottomNavigationBar: Padding(
             padding: REdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            child: BlocSelector<AuthBloc, AuthState, CommonState>(
-              selector: (state) => state.getState(AuthState.confirm),
+            child: BlocSelector<ProfileBloc, ProfileState, CommonState>(
+              selector: (state) => state.getState(ProfileState.confirm),
               builder: (context, state) {
                 return AppButton.dark(
                   isLoading: state.isLoading,
@@ -47,8 +47,10 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                     _key.currentState?.save();
                     _key.currentState?.validate();
                     if (code.isNotEmpty && code.length > 5) {
-                      context.read<AuthBloc>().add(ConfirmEvent(ConfirmParam(otp: code, phone: widget.phone, false), (p0) {
-                            context.goNamed(HomePage.name, extra: true);
+                      context.read<ProfileBloc>().add(ConfirmEvent(
+                          param: ConfirmParam(otp: code, phone: widget.phone, true),
+                          onSuccess: (p0) {
+                            context.goNamed(ProfilePage.name);
                           }));
                     }
                   },
@@ -85,15 +87,17 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                     40.verticalSpace,
                     FormBuilder(
                       key: _key,
-                      child: BlocBuilder<AuthBloc, AuthState>(
+                      child: BlocBuilder<ProfileBloc, ProfileState>(
                         builder: (context, state) {
                           return VerificationNumber(
                             onChanged: (code) {
                               this.code = code;
                             },
                             onCompleted: (val) {
-                              context.read<AuthBloc>().add(ConfirmEvent(ConfirmParam(otp: val, phone: widget.phone, false), (p0) {
-                                    context.goNamed(HomePage.name, extra: true);
+                              context.read<ProfileBloc>().add(ConfirmEvent(
+                                  param: ConfirmParam(otp: val, phone: widget.phone, true),
+                                  onSuccess: (p0) {
+                                    context.goNamed(ProfilePage.name);
                                   }));
                             },
                           );

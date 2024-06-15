@@ -105,6 +105,13 @@
   "driver_arrived": "السائق وصل",
   "set_order_picked_up": "تحميل الطلب",
   "set_order_delivered": "تم توصيل الطلب",
+  "waiting_for_customer_confirmation": "بإنتظار تأكيد الزبون",
+  "the_customer_has_confirmed_the_order": "الزبون قام بتأكيد الطلب",
+  "order_on_the_way": "الطلب على الطريق",
+  "delivered": "تم توصيله",
+  "waiting_for_the_driver_to_arrive": "بإنتظار وصول السائق",
+  "waiting_for_the_supervisor_to_review": "بإنتظار مراجعة المشرف",
+  "waiting_for_drivers_to_be_hired": " بإنتظار تعيين سائقين",
 
   "__________________________profile______________________________":"",
   "profile":"الملف الشخصي",

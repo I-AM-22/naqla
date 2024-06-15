@@ -14,6 +14,7 @@ import 'package:naqla/core/util/extensions.dart';
 import '../../../../core/global_widgets/app_button.dart';
 import '../../../../core/global_widgets/app_image.dart';
 import '../../../../core/global_widgets/custom_text_field.dart';
+import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 import '../bloc/home_bloc.dart';
@@ -94,12 +95,15 @@ class _SetLocationOrderState extends State<SetLocationOrder> {
                             Marker(
                               markerId: MarkerId('${p0.value?[index]}'),
                               position: p0.value?[index] ?? const LatLng(36.203977, 37.132782),
+                              icon: BitmapDescriptor.fromBytes(
+                                await CoreHelperFunctions.getBytesFromAsset('assets/icons/png/map.png', 100),
+                              ),
                               infoWindow: InfoWindow(
                                 title: startEndPoint[index],
                               ),
-                              icon: BitmapDescriptor.defaultMarker,
                             ),
                           );
+                          setState(() {});
                           points.add(argument);
                           _polygon.add(Polygon(
                             polygonId: const PolygonId('1'),

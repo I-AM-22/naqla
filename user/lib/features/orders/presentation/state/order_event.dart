@@ -17,3 +17,9 @@ class ChangeOrderStatusEvent extends OrderEvent {
 
   ChangeOrderStatusEvent({required this.param, required this.status});
 }
+
+class GetSubOrderDetailsEvent extends OrderEvent {
+  final String id;
+
+  GetSubOrderDetailsEvent({required this.id});
+}

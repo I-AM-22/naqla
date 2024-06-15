@@ -12,4 +12,6 @@ abstract class OrderRepository {
   FutureResult<SubOrderModel> setArrived(SetArrivedParam params);
 
   FutureResult<SubOrderModel> setPickedUp(SetArrivedParam params);
+
+  FutureResult<SubOrderModel> getSubOrderDetails(String id);
 }

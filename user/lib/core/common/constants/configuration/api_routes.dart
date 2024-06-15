@@ -26,4 +26,5 @@ class ApiRoutes {
   static String subOrders(String id) => '/api/v1/sub-orders/order/$id';
   static String setArrived(String id) => '/api/v1/sub-orders/$id/setArrivedAt';
   static String setPickedUp(String id) => '/api/v1/sub-orders/$id/setPickedUpAt';
+  static String subOrderDetails(String id) => '/api/v1/sub-orders/$id';
 }

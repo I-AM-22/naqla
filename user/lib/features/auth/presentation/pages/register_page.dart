@@ -105,8 +105,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                         lastName: _formKey.currentState?.value['lastName'],
                                       ), (p0) {
                                     showMessage(p0, isSuccess: true);
-                                    context.pushNamed(PhoneVerificationPage.name,
-                                        extra: PhoneVerificationParam(phone: _formKey.currentState?.value['phoneNumber'], comeFromProfile: false));
+                                    context.pushNamed(
+                                      PhoneVerificationPage.name,
+                                      extra: _formKey.currentState?.value['phoneNumber'],
+                                    );
                                   }));
                             }
                           },

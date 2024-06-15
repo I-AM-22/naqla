@@ -4,10 +4,20 @@ class OrderState extends StateObject<OrderState> {
   static String getOrders = "getOrders";
   static String getSubOrders = "getSubOrders";
   static String setArrived = "setArrived";
-  OrderState({States? states})
-      : super([
+  static String getSuOrderDetails = "getSuOrderDetails";
+
+  final String subOrderId;
+  OrderState({States? states, String? subOrderId})
+      : subOrderId = subOrderId ?? '',
+        super([
           InitialState<List<OrderModel>>(getOrders),
           InitialState<List<SubOrderModel>>(getSubOrders),
           InitialState<SubOrderModel>(setArrived),
-        ], (states) => OrderState(states: states), states);
+          InitialState<SubOrderModel>(getSuOrderDetails),
+        ], (states) => OrderState(states: states, subOrderId: subOrderId), states);
+
+  OrderState copyWith({String? subOrderId}) => OrderState(subOrderId: subOrderId ?? this.subOrderId, states: states);
+
+  @override
+  List<Object?> get props => super.props..addAll([subOrderId]);
 }

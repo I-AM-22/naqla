@@ -44,11 +44,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final ProfileBloc bloc = getIt<ProfileBloc>();
   final GlobalKey<FormBuilderState> _key = GlobalKey();
   String photo = '';
-  @override
-  void initState() {
-    bloc.add(GetPersonalInfoEvent());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -11,6 +12,7 @@ import 'package:naqla/features/app/presentation/widgets/states/app_common_state_
 import 'package:naqla/features/home/presentation/widget/order_card.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 import 'package:naqla/features/orders/domain/usecases/get_sub_orders_use_case.dart';
+import 'package:naqla/features/orders/presentation/pages/sub_order_details_page.dart';
 import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 
 import '../../../../generated/l10n.dart';
@@ -52,9 +54,12 @@ class _SubOrdersPageState extends State<SubOrdersPage> {
               child: ListView(
                 children: data
                     .map(
-                      (e) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: SubOrderCard(orderModel: e),
+                      (e) => InkWell(
+                        onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: e.id),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: SubOrderCard(orderModel: e),
+                        ),
                       ),
                     )
                     .toList(),

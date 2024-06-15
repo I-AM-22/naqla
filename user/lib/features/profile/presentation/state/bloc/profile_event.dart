@@ -5,6 +5,13 @@ abstract class ProfileEvent {}
 
 class GetPersonalInfoEvent extends ProfileEvent {}
 
+class ConfirmEvent extends ProfileEvent {
+  final ConfirmParam param;
+  final Function(AuthModel) onSuccess;
+
+  ConfirmEvent({required this.param, required this.onSuccess});
+}
+
 class EditPersonalInfoEvent extends ProfileEvent {
   final EditPersonalInfoParam param;
   final Function(dynamic) onSuccess;

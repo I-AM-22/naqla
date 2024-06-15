@@ -8,7 +8,9 @@ import 'package:injectable/injectable.dart';
 import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/core/util/secure_image_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../auth/data/model/auth_model.dart';
 import '../../../../auth/data/model/user_model.dart';
+import '../../../../auth/domain/use_cases/confirm_use_case.dart';
 import '../../../domain/use_cases/delete_account_use_case.dart';
 import '../../../domain/use_cases/edit_personal_info_use_case.dart';
 import '../../../domain/use_cases/get_personal_info_use_case.dart';
@@ -18,17 +20,27 @@ import '../../../domain/use_cases/upload_single_photo_use_case.dart';
 part 'profile_event.dart';
 part 'profile_state.dart';
 
-@injectable
+@lazySingleton
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetPersonalInfoUseCase _personalInfoUseCase;
   final EditPersonalInfoUseCase _editPersonalInfoUseCase;
   final UploadSinglePhotoUseCase _uploadSinglePhotoUseCase;
   final UpdatePhoneNumberUseCase _updatePhoneNumberUseCase;
   final DeleteAccountUseCase _deleteAccountUseCase;
+  final ConfirmUseCase _confirmUseCase;
   ProfileBloc(this._personalInfoUseCase, this._editPersonalInfoUseCase, this._uploadSinglePhotoUseCase, this._updatePhoneNumberUseCase,
-      this._deleteAccountUseCase)
+      this._deleteAccountUseCase, this._confirmUseCase)
       : super(ProfileState()) {
     multiStateApiCall<GetPersonalInfoEvent, User>(ProfileState.getPersonalInfo, (event) => _personalInfoUseCase(NoParams()));
+
+    multiStateApiCall<ConfirmEvent, AuthModel>(
+      ProfileState.confirm,
+      (event) => _confirmUseCase(event.param),
+      onSuccess: (data, event, emit) async {
+        emit(state.updateData(ProfileState.getPersonalInfo, data.user));
+        event.onSuccess(data);
+      },
+    );
 
     multiStateApiCall<EditPersonalInfoEvent, User>(
       ProfileState.editPersonalInfo,

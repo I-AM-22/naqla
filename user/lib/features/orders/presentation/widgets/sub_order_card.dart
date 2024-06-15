@@ -56,7 +56,7 @@ class SubOrderCard extends StatelessWidget {
                       selector: (state) => state.getState(OrderState.setArrived),
                       builder: (context, state) {
                         return AppButton.light(
-                          isLoading: state.isLoading,
+                          isLoading: state.isLoading && context.read<OrderBloc>().state.subOrderId == orderModel.id,
                           buttonSize: ButtonSize.medium,
                           title: CoreHelperFunctions.getTitleButton(context,
                               arrivedAt: orderModel.arrivedAt, driverAssignedAt: orderModel.driverAssignedAt),

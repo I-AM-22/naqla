@@ -48,6 +48,15 @@ class OrderRemoteDataSource {
     );
   }
 
+  Future<SubOrderModel> getSubOrderDetails(String params) {
+    return throwAppException(
+      () async {
+        final result = await dio.get(ApiRoutes.subOrderDetails(params));
+        return SubOrderModel.fromJson(result.data);
+      },
+    );
+  }
+
   Future<SubOrderModel> setPickedUp(SetArrivedParam params) {
     return throwAppException(
       () async {

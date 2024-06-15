@@ -1,4 +1,6 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -59,6 +61,15 @@ class CoreHelperFunctions {
     if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n ${fromOrderDateTimeToString(driverAssignedAt!)}';
     if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n ${fromOrderDateTimeToString(pickedUpAt!)}';
     return '';
+  }
+
+  static Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    var ic = (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer;
+
+    return ic.asUint8List();
   }
 
   static String getTitleButton(BuildContext context, {DateTime? arrivedAt, DateTime? driverAssignedAt}) {

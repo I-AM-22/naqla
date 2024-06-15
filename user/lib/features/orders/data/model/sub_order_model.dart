@@ -1,6 +1,8 @@
 import 'package:naqla/core/common/enums/sub_order_status.dart';
 import 'package:naqla/features/home/data/model/order_photos_model.dart';
 
+import '../../../home/data/model/order_model.dart';
+
 class SubOrderModel {
   final String id;
   final DateTime createdAt;
@@ -8,6 +10,7 @@ class SubOrderModel {
   final int rating;
   final int weight;
   final int cost;
+  final OrderModel? order;
   final SubOrderStatus status;
   final DateTime acceptedAt;
   final DateTime? arrivedAt;
@@ -30,6 +33,7 @@ class SubOrderModel {
     required this.driverAssignedAt,
     required this.pickedUpAt,
     required this.photos,
+    required this.order,
   });
 
   SubOrderModel copyWith({
@@ -46,6 +50,7 @@ class SubOrderModel {
     DateTime? driverAssignedAt,
     DateTime? pickedUpAt,
     List<OrderPhotosModel>? photos,
+    OrderModel? order,
   }) =>
       SubOrderModel(
         id: id ?? this.id,
@@ -55,6 +60,7 @@ class SubOrderModel {
         weight: weight ?? this.weight,
         cost: cost ?? this.cost,
         status: status ?? this.status,
+        order: order ?? this.order,
         acceptedAt: acceptedAt ?? this.acceptedAt,
         arrivedAt: arrivedAt ?? this.arrivedAt,
         deliveredAt: deliveredAt ?? this.deliveredAt,
@@ -70,6 +76,7 @@ class SubOrderModel {
         rating: json["rating"],
         weight: json["weight"],
         cost: json["cost"],
+        order: json['order'] == null ? null : OrderModel.fromJson(json['order']),
         status: SubOrderStatus.values.byName(json["status"] ?? SubOrderStatus.waiting.name),
         acceptedAt: DateTime.parse(json["acceptedAt"]),
         arrivedAt: DateTime.tryParse(json["arrivedAt"] ?? ''),

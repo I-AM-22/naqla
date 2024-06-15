@@ -56,83 +56,89 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             back: false,
           ),
-          body: AppCommonStateBuilder<ProfileBloc, User>(
-            stateName: ProfileState.getPersonalInfo,
-            onSuccess: (data) => Padding(
-              padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Center(
-                      child: Container(
-                        clipBehavior: Clip.hardEdge,
-                        width: 138.w,
-                        height: 138.w,
-                        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                        child: BlurHash(imageFit: BoxFit.cover, hash: data.photo.blurHash, image: data.photo.profileUrl),
+          body: RefreshIndicator(
+            onRefresh: () async {
+              bloc.add(GetPersonalInfoEvent());
+            },
+            child: AppCommonStateBuilder<ProfileBloc, User>(
+              stateName: ProfileState.getPersonalInfo,
+              onSuccess: (data) => Padding(
+                padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Center(
+                        child: Container(
+                          clipBehavior: Clip.hardEdge,
+                          width: 138.w,
+                          height: 138.w,
+                          decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
+                          child: BlurHash(imageFit: BoxFit.cover, hash: data.photo.blurHash, image: data.photo.profileUrl),
+                        ),
                       ),
-                    ),
-                    24.verticalSpace,
-                    Center(
-                      child: AppText.subHeadMedium(
-                        '${data.firstName} ${data.lastName}, ${data.phone}',
-                        color: context.colorScheme.systemGray.shade700,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      24.verticalSpace,
+                      Center(
+                        child: AppText.subHeadMedium(
+                          '${data.firstName} ${data.lastName}, ${data.phone}',
+                          color: context.colorScheme.systemGray.shade700,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    24.verticalSpace,
-                    ProfileItem(
-                        onTap: () => context.pushNamed(EditProfilePage.name, extra: EditProfileParam(bloc: bloc, user: data)),
-                        title: S.of(context).edit_profile,
-                        prefixIcon: const Icon(IconlyBroken.edit)),
-                    16.verticalSpace,
-                    ProfileItem(
-                        onTap: () => context.pushNamed(EditPhoneNumberPage.name, extra: EditPhoneParam(bloc: bloc, phone: data.phone)),
-                        title: S.of(context).edit_phone,
-                        prefixIcon: const Icon(IconlyBroken.call)),
-                    16.verticalSpace,
-                    ProfileItem(
-                      onTap: () => context.pushNamed(
-                        LanguagePage.name,
+                      24.verticalSpace,
+                      ProfileItem(
+                          onTap: () => context.pushNamed(EditProfilePage.name, extra: EditProfileParam(bloc: bloc, user: data)),
+                          title: S.of(context).edit_profile,
+                          prefixIcon: const Icon(IconlyBroken.edit)),
+                      16.verticalSpace,
+                      ProfileItem(
+                          onTap: () => context.pushNamed(EditPhoneNumberPage.name, extra: data.phone),
+                          title: S.of(context).edit_phone,
+                          prefixIcon: const Icon(IconlyBroken.call)),
+                      16.verticalSpace,
+                      ProfileItem(
+                        onTap: () => context.pushNamed(
+                          LanguagePage.name,
+                        ),
+                        title: S.of(context).language,
+                        prefixIcon: AppImage.asset(
+                          Assets.icons.essential.website.path,
+                          size: 20,
+                          color: context.colorScheme.primary,
+                        ),
                       ),
-                      title: S.of(context).language,
-                      prefixIcon: AppImage.asset(
-                        Assets.icons.essential.website.path,
-                        size: 20,
-                        color: context.colorScheme.primary,
+                      16.verticalSpace,
+                      ProfileItem(
+                        title: S.of(context).about_us,
+                        onTap: () => context.pushNamed(AboutUsPage.name),
+                        prefixIcon: AppImage.asset(
+                          Assets.icons.essential.circleQuistion.path,
+                          size: 20,
+                          color: context.colorScheme.primary,
+                        ),
                       ),
-                    ),
-                    16.verticalSpace,
-                    ProfileItem(
-                      title: S.of(context).about_us,
-                      onTap: () => context.pushNamed(AboutUsPage.name),
-                      prefixIcon: AppImage.asset(
-                        Assets.icons.essential.circleQuistion.path,
-                        size: 20,
-                        color: context.colorScheme.primary,
+                      16.verticalSpace,
+                      ProfileItem(
+                        title: S.of(context).help_and_support,
+                        prefixIcon: const Icon(IconlyBroken.info_circle),
+                        onTap: () => context.pushNamed(HelpAndSupportPage.name),
                       ),
-                    ),
-                    16.verticalSpace,
-                    ProfileItem(
-                      title: S.of(context).help_and_support,
-                      prefixIcon: const Icon(IconlyBroken.info_circle),
-                      onTap: () => context.pushNamed(HelpAndSupportPage.name),
-                    ),
-                    16.verticalSpace,
-                    ProfileItem(onTap: () => CoreHelperFunctions.logOut(context), title: S.of(context).logOut, prefixIcon: Icon(IconlyBroken.logout)),
-                    16.verticalSpace,
-                    ProfileItem(
-                        onTap: () => context.pushNamed(DeleteAccountPage.name),
-                        title: S.of(context).delete_account,
-                        prefixIcon: const Icon(IconlyBroken.delete)),
-                    32.verticalSpace,
-                    AppText.subHeadRegular(
-                      'Naqla V1.0.0',
-                      textAlign: TextAlign.center,
-                    )
-                  ],
+                      16.verticalSpace,
+                      ProfileItem(
+                          onTap: () => CoreHelperFunctions.logOut(context), title: S.of(context).logOut, prefixIcon: Icon(IconlyBroken.logout)),
+                      16.verticalSpace,
+                      ProfileItem(
+                          onTap: () => context.pushNamed(DeleteAccountPage.name),
+                          title: S.of(context).delete_account,
+                          prefixIcon: const Icon(IconlyBroken.delete)),
+                      32.verticalSpace,
+                      AppText.subHeadRegular(
+                        'Naqla V1.0.0',
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

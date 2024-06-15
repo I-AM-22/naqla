@@ -86,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "day": MessageLookupByLibrary.simpleMessage("day"),
         "delete_account":
             MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "delivered": MessageLookupByLibrary.simpleMessage("Delivered"),
         "did_not_receive_code":
             MessageLookupByLibrary.simpleMessage("Didn’t receive code? "),
         "do_not_have_an_account":
@@ -137,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "order_details": MessageLookupByLibrary.simpleMessage("Order details"),
         "order_driverAssigned_date":
             MessageLookupByLibrary.simpleMessage("Order driver Assigned date"),
+        "order_on_the_way":
+            MessageLookupByLibrary.simpleMessage("Order on the way"),
         "order_pickedUp_date":
             MessageLookupByLibrary.simpleMessage("Order pickedUp date"),
         "order_status": MessageLookupByLibrary.simpleMessage("Order status: "),
@@ -174,6 +177,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "start_point": MessageLookupByLibrary.simpleMessage("Start Point"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("Sub orders"),
         "syp": MessageLookupByLibrary.simpleMessage("SYP"),
+        "the_customer_has_confirmed_the_order":
+            MessageLookupByLibrary.simpleMessage(
+                "The customer has confirmed the order"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties."),
@@ -190,6 +196,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("Use my location"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "waiting_for_customer_confirmation":
+            MessageLookupByLibrary.simpleMessage(
+                "Waiting for customer confirmation"),
+        "waiting_for_drivers_to_be_hired": MessageLookupByLibrary.simpleMessage(
+            "Waiting for drivers to be hired"),
+        "waiting_for_the_driver_to_arrive":
+            MessageLookupByLibrary.simpleMessage(
+                "Waiting for the driver to arrive"),
+        "waiting_for_the_supervisor_to_review":
+            MessageLookupByLibrary.simpleMessage(
+                "Waiting for the supervisor to review"),
         "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
         "write_message":
             MessageLookupByLibrary.simpleMessage("Write a message"),

@@ -87,8 +87,10 @@ class _SignInPageState extends State<SignInPage> {
                                           _formKey.currentState?.value['phoneNumber'],
                                         ), (p0) {
                                       showMessage(p0, isSuccess: true);
-                                      context.pushNamed(PhoneVerificationPage.name,
-                                          extra: PhoneVerificationParam(phone: _formKey.currentState?.value['phoneNumber'], comeFromProfile: false));
+                                      context.pushNamed(
+                                        PhoneVerificationPage.name,
+                                        extra: _formKey.currentState?.value['phoneNumber'],
+                                      );
                                     }),
                                   );
                             }

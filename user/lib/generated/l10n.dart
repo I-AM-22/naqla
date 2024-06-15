@@ -1030,6 +1030,76 @@ class S {
     );
   }
 
+  /// `Waiting for customer confirmation`
+  String get waiting_for_customer_confirmation {
+    return Intl.message(
+      'Waiting for customer confirmation',
+      name: 'waiting_for_customer_confirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The customer has confirmed the order`
+  String get the_customer_has_confirmed_the_order {
+    return Intl.message(
+      'The customer has confirmed the order',
+      name: 'the_customer_has_confirmed_the_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order on the way`
+  String get order_on_the_way {
+    return Intl.message(
+      'Order on the way',
+      name: 'order_on_the_way',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivered`
+  String get delivered {
+    return Intl.message(
+      'Delivered',
+      name: 'delivered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for the driver to arrive`
+  String get waiting_for_the_driver_to_arrive {
+    return Intl.message(
+      'Waiting for the driver to arrive',
+      name: 'waiting_for_the_driver_to_arrive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for the supervisor to review`
+  String get waiting_for_the_supervisor_to_review {
+    return Intl.message(
+      'Waiting for the supervisor to review',
+      name: 'waiting_for_the_supervisor_to_review',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for drivers to be hired`
+  String get waiting_for_drivers_to_be_hired {
+    return Intl.message(
+      'Waiting for drivers to be hired',
+      name: 'waiting_for_drivers_to_be_hired',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(

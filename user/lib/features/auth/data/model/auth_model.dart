@@ -2,11 +2,11 @@ import 'package:naqla/features/auth/data/model/user_model.dart';
 
 class AuthModel {
   final String? token;
-  final User? user;
+  final User user;
 
   AuthModel({
     this.token,
-    this.user,
+    required this.user,
   });
 
   AuthModel copyWith({
@@ -25,6 +25,6 @@ class AuthModel {
 
   Map<String, dynamic> toJson() => {
         "token": token,
-        "user": user?.toJson(),
+        "user": user.toJson(),
       };
 }
