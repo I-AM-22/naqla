@@ -1100,6 +1100,26 @@ class S {
     );
   }
 
+  /// `Waiting for the order to be pick up`
+  String get waiting_for_the_order_to_be_pickUp {
+    return Intl.message(
+      'Waiting for the order to be pick up',
+      name: 'waiting_for_the_order_to_be_pickUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The number of floors`
+  String get the_number_of_floors {
+    return Intl.message(
+      'The number of floors',
+      name: 'the_number_of_floors',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(

@@ -52,12 +52,12 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                   16.verticalSpace,
                   Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                    child: data.status.displayStatus(context),
+                    child: data.status.displayStatus(context, arrivedAt: data.arrivedAt),
                   ),
                   16.verticalSpace,
                   Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                    child: AppText.subHeadMedium('${S.of(context).cost}: ${data.cost}'),
+                    child: AppText.subHeadMedium('${S.of(context).cost}: ${data.cost} ${S.of(context).syp}'),
                   ),
                   16.verticalSpace,
                   Padding(

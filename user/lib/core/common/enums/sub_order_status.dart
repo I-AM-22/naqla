@@ -22,7 +22,7 @@ enum SubOrderStatus {
     }
   }
 
-  Widget displayStatus(BuildContext context) {
+  Widget displayStatus(BuildContext context, {DateTime? arrivedAt}) {
     switch (this) {
       case SubOrderStatus.taken:
         return Container(
@@ -31,7 +31,9 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.waiting,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).waiting_for_the_driver_to_arrive}')),
+          child: Center(
+              child: AppText.subHeadMedium(
+                  '${S.of(context).order_status} ${arrivedAt == null ? S.of(context).waiting_for_the_driver_to_arrive : S.of(context).waiting_for_the_order_to_be_pickUp}')),
         );
       case SubOrderStatus.ready:
         return Container(

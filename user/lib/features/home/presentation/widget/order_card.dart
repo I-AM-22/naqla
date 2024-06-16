@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/home/presentation/widget/order_status_indicator.dart';
 
@@ -9,8 +10,9 @@ import '../../../../generated/l10n.dart';
 import '../../data/model/order_model.dart';
 
 class OrderCard extends StatefulWidget {
-  const OrderCard({super.key, required this.orderModel});
+  const OrderCard({super.key, required this.orderModel, required this.showIndicator});
   final OrderModel orderModel;
+  final bool showIndicator;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -31,19 +33,18 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    10.verticalSpace,
-                    AppText.bodySmMedium('${S.of(context).order_date} ${CoreHelperFunctions.fromDateTimeToString(widget.orderModel.desiredDate)}'),
-                    10.verticalSpace,
-                    AppText.bodySmMedium('${S.of(context).order_status} ${widget.orderModel.status.name}'),
-                    10.verticalSpace,
-                    AppText.bodySmMedium('${S.of(context).cost} ${widget.orderModel.paymentModel?.cost} ${S.of(context).syp}'),
-                  ],
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(
+                    text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary), children: [
+                      TextSpan(text: '${S.of(context).order_date}${CoreHelperFunctions.fromOrderDateTimeToString(widget.orderModel.desiredDate)}\n'),
+                      TextSpan(text: '${S.of(context).cost}${formatter.format(widget.orderModel.paymentModel?.cost)} ${S.of(context).syp}\n'),
+                      if ((widget.orderModel.porters ?? 0) > 0) ...{
+                        TextSpan(text: '${S.of(context).the_number_of_floors}: ${(widget.orderModel.porters ?? 1) - 1}'),
+                      }
+                    ]),
+                  ),
                 ),
               ),
               // const Spacer(),
@@ -71,7 +72,7 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
               )
             ],
           ),
-          OrderStatusIndicator()
+          if (widget.showIndicator) OrderStatusIndicator()
         ],
       ),
     );

@@ -30,7 +30,10 @@ class ActiveOrdersPage extends StatelessWidget {
                   onTap: () {
                     context.pushNamed(SubOrdersPage.name, extra: data[index].id);
                   },
-                  child: OrderCard(orderModel: data[index])),
+                  child: OrderCard(
+                    orderModel: data[index],
+                    showIndicator: false,
+                  )),
             ),
             itemCount: data
                 .where(

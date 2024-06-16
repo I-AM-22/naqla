@@ -114,6 +114,8 @@
   "waiting_for_the_driver_to_arrive": "Waiting for the driver to arrive",
   "waiting_for_the_supervisor_to_review": "Waiting for the supervisor to review",
   "waiting_for_drivers_to_be_hired": "Waiting for drivers to be hired",
+  "waiting_for_the_order_to_be_pickUp": "Waiting for the order to be pick up",
+  "the_number_of_floors": "The number of floors",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

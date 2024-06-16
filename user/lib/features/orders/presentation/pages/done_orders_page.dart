@@ -19,13 +19,14 @@ class DoneOrdersPage extends StatelessWidget {
           itemBuilder: (context, index) => Padding(
             padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: 10),
             child: OrderCard(
-                orderModel: data
-                    .where(
-                      (element) => (element.status == OrderStatus.delivered ||
-                          element.status == OrderStatus.refused ||
-                          element.status == OrderStatus.canceled),
-                    )
-                    .elementAt(index)),
+              orderModel: data
+                  .where(
+                    (element) =>
+                        (element.status == OrderStatus.delivered || element.status == OrderStatus.refused || element.status == OrderStatus.canceled),
+                  )
+                  .elementAt(index),
+              showIndicator: false,
+            ),
           ),
           itemCount: data
               .where(

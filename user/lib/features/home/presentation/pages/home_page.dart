@@ -101,6 +101,7 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) => InkWell(
                           onTap: () => context.pushNamed(OrderDetailsPage.name, extra: data[index]),
                           child: OrderCard(
+                            showIndicator: true,
                             orderModel: data[index],
                           ),
                         ),

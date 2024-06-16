@@ -180,6 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage(
                 "The customer has confirmed the order"),
+        "the_number_of_floors":
+            MessageLookupByLibrary.simpleMessage("The number of floors"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties."),
@@ -204,6 +206,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "waiting_for_the_driver_to_arrive":
             MessageLookupByLibrary.simpleMessage(
                 "Waiting for the driver to arrive"),
+        "waiting_for_the_order_to_be_pickUp":
+            MessageLookupByLibrary.simpleMessage(
+                "Waiting for the order to be pick up"),
         "waiting_for_the_supervisor_to_review":
             MessageLookupByLibrary.simpleMessage(
                 "Waiting for the supervisor to review"),
