@@ -67,7 +67,7 @@ class SubOrderModel {
         cost: json["cost"],
         order: json["order"] == null ? null : OrderModel.fromJson(json["order"]),
         rating: json["rating"],
-        status: SubOrderStatus.values.byName(json["status"]),
+        status: SubOrderStatus.values.byName(json["status"] ?? SubOrderStatus.delivered.name),
         acceptedAt: DateTime.tryParse(json["acceptedAt"] ?? ''),
         arrivedAt: DateTime.tryParse(json["arrivedAt"] ?? ''),
         deliveredAt: DateTime.tryParse(json["deliveredAt"] ?? ''),

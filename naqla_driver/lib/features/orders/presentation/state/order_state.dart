@@ -5,6 +5,7 @@ class OrderState extends StateObject<OrderState> {
   static String getOrders = "getOrders";
   static String setDelivered = "setDelivered";
   static String getSuOrderDetails = "getSuOrderDetails";
+
   OrderState({States? states})
       : super([
           InitialState<List<SubOrderModel>>(ordersDone),

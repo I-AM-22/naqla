@@ -670,6 +670,16 @@ class S {
     );
   }
 
+  /// `SYP`
+  String get syp {
+    return Intl.message(
+      'SYP',
+      name: 'syp',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(
@@ -925,6 +935,16 @@ class S {
     return Intl.message(
       'Delivered',
       name: 'delivered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the number of floors`
+  String get the_number_of_floors {
+    return Intl.message(
+      'the number of floors',
+      name: 'the_number_of_floors',
       desc: '',
       args: [],
     );

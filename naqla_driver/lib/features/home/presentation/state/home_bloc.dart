@@ -9,6 +9,7 @@ import 'package:naqla_driver/features/home/domain/usecase/set_driver_use_case.da
 
 import '../../../../core/use_case/use_case.dart';
 import '../../../app/domain/usecases/get_all_cars_use_case.dart';
+import '../../domain/usecase/get_order_car_use_case.dart';
 import '../../domain/usecase/get_sub_orders_use_case.dart';
 
 part 'home_event.dart';
@@ -19,7 +20,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetSubOrdersUseCase getSubOrdersUseCase;
   final GetAllCarsUseCase getAllCarsUseCase;
   final SetDriverUseCase setDriverUseCase;
-  HomeBloc(this.getSubOrdersUseCase, this.getAllCarsUseCase, this.setDriverUseCase) : super(HomeState()) {
+  final GetOrderCarUseCase getOrderCarUseCase;
+  HomeBloc(this.getSubOrdersUseCase, this.getAllCarsUseCase, this.setDriverUseCase, this.getOrderCarUseCase) : super(HomeState()) {
     multiStateApiCall<GetAllCarsEvent, List<CarModel>>(
       AppState.getAllCars,
       (event) => getAllCarsUseCase(NoParams()),
@@ -44,5 +46,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
 
     multiStateApiCall<GetSubOrdersEvent, List<SubOrderModel>>(HomeState.subOrders, (event) => getSubOrdersUseCase(NoParams()));
+
+    multiStateApiCall<GetOrderCarEvent, List<CarModel>>(HomeState.orderCars, (event) => getOrderCarUseCase(event.id));
   }
 }

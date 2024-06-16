@@ -108,6 +108,7 @@ class GRouter {
                 ),
               ),
               GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
                 path: OrderDetailsPage.path,
                 name: OrderDetailsPage.name,
                 builder: (context, state) => OrderDetailsPage(

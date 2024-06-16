@@ -13,6 +13,15 @@ enum SubOrderStatus {
 
   Widget displayStatus(BuildContext context) {
     switch (this) {
+      case SubOrderStatus.waiting:
+        return Container(
+          padding: REdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: context.colorScheme.waiting,
+          ),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).waiting_for_customer_confirmation}')),
+        );
       case SubOrderStatus.taken:
         return Container(
           padding: REdgeInsets.symmetric(vertical: 15),
@@ -20,7 +29,7 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.waiting,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).waiting_for_customer_confirmation}')),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).waiting_for_customer_confirmation}')),
         );
       case SubOrderStatus.ready:
         return Container(
@@ -29,7 +38,7 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.ready,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).the_customer_has_confirmed_the_order}')),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).the_customer_has_confirmed_the_order}')),
         );
       case SubOrderStatus.onTheWay:
         return Container(
@@ -38,16 +47,16 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.success.shade600,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).delivered}')),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).order_on_the_way}')),
         );
-      default:
+      case SubOrderStatus.delivered:
         return Container(
           padding: REdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40),
-            color: context.colorScheme.waiting,
+            color: context.colorScheme.success.shade600,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).waiting_for_customer_confirmation}')),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).delivered}')),
         );
     }
   }

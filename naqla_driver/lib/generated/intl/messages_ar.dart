@@ -157,8 +157,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
         "start_point": MessageLookupByLibrary.simpleMessage("نقطة البداية"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("الطلبات الفرعية"),
+        "syp": MessageLookupByLibrary.simpleMessage("ل.س"),
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage("الزبون قام بتأكيد الطلب"),
+        "the_number_of_floors":
+            MessageLookupByLibrary.simpleMessage("عدد الطوابق"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لايوجد هناك بيانات لعرضها"),
         "total_money":

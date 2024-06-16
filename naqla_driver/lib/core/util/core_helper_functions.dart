@@ -58,7 +58,9 @@ class CoreHelperFunctions {
   static String formatOrderTime(BuildContext context, SubOrderStatus status,
       {DateTime? acceptedAt, DateTime? arrivedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
     if (status == SubOrderStatus.ready) return '${S.of(context).order_accepted_date}:\n${fromOrderDateTimeToString(acceptedAt!)}';
-    if (status == SubOrderStatus.delivered) return '${S.of(context).order_delivered_date}:\n${fromOrderDateTimeToString(deliveredAt!)}';
+    if (status == SubOrderStatus.delivered) {
+      return '${S.of(context).order_delivered_date}:\n${fromOrderDateTimeToString(deliveredAt ?? DateTime.now())}';
+    }
     if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n${fromOrderDateTimeToString(driverAssignedAt!)}';
     if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n${fromOrderDateTimeToString(pickedUpAt!)}';
     return '';

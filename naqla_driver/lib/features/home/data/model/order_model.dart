@@ -1,6 +1,7 @@
 import 'location_model.dart';
 
 class OrderModel {
+  final String id;
   final DateTime desiredDate;
   final int porters;
   final LocationModel locationStart;
@@ -8,6 +9,7 @@ class OrderModel {
   final List<String>? advantages;
 
   OrderModel({
+    required this.id,
     required this.desiredDate,
     required this.porters,
     required this.locationStart,
@@ -16,6 +18,7 @@ class OrderModel {
   });
 
   OrderModel copyWith({
+    String? id,
     DateTime? desiredDate,
     int? porters,
     LocationModel? locationStart,
@@ -23,6 +26,7 @@ class OrderModel {
     List<String>? advantages,
   }) =>
       OrderModel(
+        id: id ?? this.id,
         desiredDate: desiredDate ?? this.desiredDate,
         porters: porters ?? this.porters,
         locationStart: locationStart ?? this.locationStart,
@@ -31,6 +35,7 @@ class OrderModel {
       );
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+        id: json["id"] ?? '',
         desiredDate: DateTime.parse(json["desiredDate"]),
         porters: json["porters"],
         locationStart: LocationModel.fromJson(json["locationStart"]),
@@ -39,6 +44,7 @@ class OrderModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "desiredDate": desiredDate.toIso8601String(),
         "porters": porters,
         "locationStart": locationStart.toJson(),

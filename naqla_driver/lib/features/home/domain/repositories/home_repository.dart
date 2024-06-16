@@ -14,4 +14,6 @@ abstract class HomeRepository {
   FutureResult<List<SubOrderModel>> getSubOrders();
 
   FutureResult<void> setDriver(SetDriverParam params);
+
+  FutureResult<List<CarModel>> getOrderCar(String params);
 }

@@ -15,68 +15,55 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: REdgeInsets.symmetric(vertical: 8, horizontal: UIConstants.screenPadding16),
-      child: Container(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        height: 150.h,
-        decoration: BoxDecoration(border: Border.all(color: context.colorScheme.primary), borderRadius: BorderRadius.circular(8)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                      child: AppText.bodySmMedium(
-                    '${S.of(context).weight}${subOrderModel.weight}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  )),
-                  10.verticalSpace,
-                  Flexible(child: AppText.bodySmMedium('${S.of(context).cost}${subOrderModel.cost}')),
-                  10.verticalSpace,
-                  Flexible(child: AppText.bodySmMedium('${S.of(context).porters}${subOrderModel.order?.porters.toString()}')),
-                  10.verticalSpace,
-                  AppButton.dark(
-                    buttonSize: ButtonSize.medium,
-                    title: S.of(context).more_details,
-                    textStyle: context.textTheme.bodySmall?.copyWith(color: Colors.white),
-                    onPressed: () {
-                      context.pushNamed(OrderDetailsPage.name, extra: subOrderModel);
-                    },
-                  ),
-                ],
+    return InkWell(
+      onTap: () {
+        context.pushNamed(OrderDetailsPage.name, extra: subOrderModel);
+      },
+      child: Padding(
+        padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
+        child: Container(
+          padding: REdgeInsets.all(10),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          decoration: BoxDecoration(border: Border.all(color: context.colorScheme.primary), borderRadius: BorderRadius.circular(8)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText.bodySmMedium(
+                '${S.of(context).weight}${subOrderModel.weight}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-            if (subOrderModel.photos.isNotEmpty) ...{
-              const Spacer(),
-              Stack(
-                children: [
-                  SizedBox(
-                      height: 150.h,
-                      width: 150.w,
-                      child: BlurHash(imageFit: BoxFit.cover, hash: subOrderModel.photos[0].blurHash, image: subOrderModel.photos[0].mobileUrl)),
-                  if (subOrderModel.photos.length > 1)
+              8.verticalSpace,
+              AppText.bodySmMedium('${S.of(context).cost}${formatter.format(subOrderModel.cost)} ${S.of(context).syp}'),
+              8.verticalSpace,
+              if ((subOrderModel.order?.porters ?? 0) > 0)
+                AppText.bodySmMedium('${S.of(context).the_number_of_floors}: ${(subOrderModel.order?.porters ?? 1) - 1}'),
+              if (subOrderModel.photos.isNotEmpty) ...{
+                10.verticalSpace,
+                Stack(
+                  children: [
                     Container(
-                      color: context.colorScheme.primary.withOpacity(.5),
-                      child: SizedBox(
-                        width: 150.w,
-                        height: 150.w,
-                        child: Center(
-                            child: AppText.titleMedium(
-                          '+${subOrderModel.photos.length - 1}',
-                          color: Colors.white,
-                        )),
-                      ),
-                    )
-                ],
-              )
-            }
-          ],
+                        height: 150.h,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: context.colorScheme.outline)),
+                        child: BlurHash(imageFit: BoxFit.contain, hash: subOrderModel.photos[0].blurHash, image: subOrderModel.photos[0].mobileUrl)),
+                    if (subOrderModel.photos.length > 1)
+                      Container(
+                        color: context.colorScheme.primary.withOpacity(.5),
+                        child: SizedBox(
+                          height: 150.w,
+                          child: Center(
+                              child: AppText.titleMedium(
+                            '+${subOrderModel.photos.length - 1}',
+                            color: Colors.white,
+                          )),
+                        ),
+                      )
+                  ],
+                )
+              },
+            ],
+          ),
         ),
       ),
     );

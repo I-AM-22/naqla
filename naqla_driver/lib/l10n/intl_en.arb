@@ -65,6 +65,7 @@
   "pick_a_car": "Pick a car",
   "advantages": "Advantages",
   "there_is_nothing_to_show": "There is nothing to show",
+  "syp": "SYP",
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",
@@ -94,6 +95,7 @@
   "the_customer_has_confirmed_the_order": "The customer has confirmed the order",
   "order_on_the_way": "Order on the way",
   "delivered": "Delivered",
+  "the_number_of_floors": "the number of floors",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

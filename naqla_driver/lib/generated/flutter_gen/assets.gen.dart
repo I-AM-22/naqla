@@ -23,6 +23,9 @@ class $AssetsIconsGen {
 
   /// Directory path: assets/icons/flags
   $AssetsIconsFlagsGen get flags => const $AssetsIconsFlagsGen();
+
+  /// Directory path: assets/icons/png
+  $AssetsIconsPngGen get png => const $AssetsIconsPngGen();
 }
 
 class $AssetsImagesGen {
@@ -169,6 +172,16 @@ class $AssetsIconsFlagsGen {
 
   /// List of all assets
   List<dynamic> get values => [english, syria];
+}
+
+class $AssetsIconsPngGen {
+  const $AssetsIconsPngGen();
+
+  /// File path: assets/icons/png/map.png
+  AssetGenImage get map => const AssetGenImage('assets/icons/png/map.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [map];
 }
 
 class $AssetsImagesJpgGen {

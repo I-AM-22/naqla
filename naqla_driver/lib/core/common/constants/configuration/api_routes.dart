@@ -27,6 +27,7 @@ class ApiRoutes {
   static String carsMine = '/api/v1/drivers/cars/mine';
   static String deleteCar(String id) => '/api/v1/drivers/cars/$id';
   static String editCar(String id) => '/api/v1/drivers/cars/$id';
+  static String getOrderCars(String id) => '/api/v1/drivers/cars/mine/order/$id';
 
   //////////////////?Sub-Order////////////////////
   static String subOrders = '/api/v1/sub-orders';

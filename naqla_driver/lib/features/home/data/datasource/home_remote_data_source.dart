@@ -50,6 +50,19 @@ class HomeRemoteDataSource {
     );
   }
 
+  Future<List<CarModel>> getOrderCars(String params) {
+    return throwAppException(
+      () async {
+        final result = await dio.get(ApiRoutes.getOrderCars(params));
+        return (result.data as List)
+            .map(
+              (e) => CarModel.fromJson(e),
+            )
+            .toList();
+      },
+    );
+  }
+
   Future<void> setDriver(SetDriverParam params) {
     return throwAppException(
       () async {

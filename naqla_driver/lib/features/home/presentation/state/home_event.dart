@@ -13,3 +13,9 @@ class SetDriverEvent extends HomeEvent {
 
   SetDriverEvent({required this.param, required this.onSuccess});
 }
+
+class GetOrderCarEvent extends HomeEvent {
+  final String id;
+
+  GetOrderCarEvent({required this.id});
+}

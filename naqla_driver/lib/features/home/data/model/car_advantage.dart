@@ -35,9 +35,9 @@ class CarAdvantage {
   factory CarAdvantage.fromJson(Map<String, dynamic> json, bool isSelect) => CarAdvantage(
         id: json["id"],
         name: json["name"],
-        cost: json["cost"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        cost: json["cost"] ?? '0',
+        createdAt: json["createdAt"] == null ? DateTime.now() : DateTime.parse(json["createdAt"]),
+        updatedAt: json["updatedAt"] == null ? DateTime.now() : DateTime.parse(json["updatedAt"]),
         isSelect: isSelect,
       );
 

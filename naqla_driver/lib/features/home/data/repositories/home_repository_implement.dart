@@ -41,4 +41,11 @@ class HomeRepositoryImplement implements HomeRepository {
       () => dataSource.setDriver(params),
     );
   }
+
+  @override
+  FutureResult<List<CarModel>> getOrderCar(String params) {
+    return toApiResult(
+      () => dataSource.getOrderCars(params),
+    );
+  }
 }

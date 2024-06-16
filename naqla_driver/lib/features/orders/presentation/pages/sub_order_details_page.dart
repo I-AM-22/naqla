@@ -56,8 +56,18 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                   ),
                   16.verticalSpace,
                   Padding(
-                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                    child: AppText.subHeadMedium('${S.of(context).cost}: ${data.cost}'),
+                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
+                    child: RichText(
+                      text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary), children: [
+                        TextSpan(text: '${S.of(context).weight}${data.weight},'),
+                        WidgetSpan(child: 5.horizontalSpace),
+                        TextSpan(text: '${S.of(context).cost}${formatter.format(data.cost)} ${S.of(context).syp},'),
+                        if ((data.order?.porters ?? 0) > 0) ...{
+                          WidgetSpan(child: 5.horizontalSpace),
+                          TextSpan(text: '${S.of(context).the_number_of_floors}: ${(data.order?.porters ?? 1) - 1}'),
+                        }
+                      ]),
+                    ),
                   ),
                   16.verticalSpace,
                   Padding(
@@ -91,13 +101,13 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                               border: Border.all(color: context.colorScheme.outline),
                             ),
                             child: BlurHash(
-                              hash: data.photos[0].blurHash,
-                              image: data.photos[0].mobileUrl,
+                              hash: data.photos[index].blurHash,
+                              image: data.photos[index].mobileUrl,
                             ),
                           );
                         },
                         separatorBuilder: (context, index) => 8.horizontalSpace,
-                        itemCount: data.photos.length * 10),
+                        itemCount: data.photos.length),
                   )
                 ],
               ),

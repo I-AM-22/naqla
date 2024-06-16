@@ -161,9 +161,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "start_point": MessageLookupByLibrary.simpleMessage("Start point"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("Sub orders"),
+        "syp": MessageLookupByLibrary.simpleMessage("SYP"),
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage(
                 "The customer has confirmed the order"),
+        "the_number_of_floors":
+            MessageLookupByLibrary.simpleMessage("the number of floors"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),

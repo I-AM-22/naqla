@@ -10,9 +10,11 @@ import 'package:naqla_driver/core/util/core_helper_functions.dart';
 import 'package:naqla_driver/features/home/data/model/location_model.dart';
 
 class LocationMap extends StatefulWidget {
-  const LocationMap({super.key, required this.locationStart, required this.locationEnd});
+  const LocationMap({super.key, required this.locationStart, required this.locationEnd, this.width, this.height});
   final LocationModel locationStart;
   final LocationModel locationEnd;
+  final double? width;
+  final double? height;
 
   @override
   State<LocationMap> createState() => _LocationMapState();
@@ -64,7 +66,7 @@ class _LocationMapState extends State<LocationMap> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 500.h,
+      height: widget.height ?? 500.h,
       child: GoogleMap(
         key: const Key("MAP"),
         mapType: MapType.normal,
