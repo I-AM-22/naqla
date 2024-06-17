@@ -86,8 +86,8 @@ export class OrderController {
   @ApiOkResponse({ type: Order })
   @Patch(':id/acceptance')
   async acceptance(@Id() id: string): Promise<Order> {
-    await this.subordersService.ready(id);
     const order = await this.ordersService.acceptance(id);
+    await this.subordersService.ready(id);
     return order;
   }
   @Roles(ROLE.EMPLOYEE)
