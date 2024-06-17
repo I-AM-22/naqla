@@ -74,6 +74,15 @@ export class SubOrdersController {
   }
 
   @Roles(ROLE.DRIVER)
+  @ApiOkResponse({ type: SubOrder, isArray: true })
+  @Get('active-driver')
+  async findAllActiveForDriver(
+    @GetUser('id') driverId: string,
+  ): Promise<SubOrder[]> {
+    return this.subOrdersService.findAllActiveForDriver(driverId);
+  }
+
+  @Roles(ROLE.DRIVER)
   @ApiOkResponse({ isArray: true, type: SubOrder })
   @Get('/done-driver')
   async findIsDoneForDriver(
