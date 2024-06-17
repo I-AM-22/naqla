@@ -36,4 +36,5 @@ class ApiRoutes {
   static String setDriver(String id) => '/api/v1/sub-orders/$id/setDriver';
   static String setDelivered(String id) => '/api/v1/sub-orders/$id/setDeliveredAt';
   static String ordersDone = '/api/v1/sub-orders/done-driver';
+  static String activeOrders = '/api/v1/sub-orders/active-driver';
 }

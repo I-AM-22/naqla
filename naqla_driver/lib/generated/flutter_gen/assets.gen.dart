@@ -68,12 +68,6 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get aboutUs =>
       const SvgGenImage('assets/icons/essential/About Us.svg');
 
-  /// File path: assets/icons/essential/More.svg
-  SvgGenImage get more => const SvgGenImage('assets/icons/essential/More.svg');
-
-  /// File path: assets/icons/essential/chat.svg
-  SvgGenImage get chat => const SvgGenImage('assets/icons/essential/chat.svg');
-
   /// File path: assets/icons/essential/check circle.svg
   SvgGenImage get checkCircle =>
       const SvgGenImage('assets/icons/essential/check circle.svg');
@@ -104,14 +98,6 @@ class $AssetsIconsEssentialGen {
   /// File path: assets/icons/essential/map.svg
   SvgGenImage get map => const SvgGenImage('assets/icons/essential/map.svg');
 
-  /// File path: assets/icons/essential/message-svgrepo-com.svg
-  SvgGenImage get messageSvgrepoCom =>
-      const SvgGenImage('assets/icons/essential/message-svgrepo-com.svg');
-
-  /// File path: assets/icons/essential/more_icon.svg
-  SvgGenImage get moreIcon =>
-      const SvgGenImage('assets/icons/essential/more_icon.svg');
-
   /// File path: assets/icons/essential/plus.svg
   SvgGenImage get plus => const SvgGenImage('assets/icons/essential/plus.svg');
 
@@ -123,14 +109,6 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get success =>
       const SvgGenImage('assets/icons/essential/success.svg');
 
-  /// File path: assets/icons/essential/wallet.svg
-  SvgGenImage get wallet =>
-      const SvgGenImage('assets/icons/essential/wallet.svg');
-
-  /// File path: assets/icons/essential/wallet2.svg
-  SvgGenImage get wallet2 =>
-      const SvgGenImage('assets/icons/essential/wallet2.svg');
-
   /// File path: assets/icons/essential/website.svg
   SvgGenImage get website =>
       const SvgGenImage('assets/icons/essential/website.svg');
@@ -138,8 +116,6 @@ class $AssetsIconsEssentialGen {
   /// List of all assets
   List<SvgGenImage> get values => [
         aboutUs,
-        more,
-        chat,
         checkCircle,
         checkCircle2,
         circleQuistion,
@@ -148,13 +124,9 @@ class $AssetsIconsEssentialGen {
         emoje,
         info,
         map,
-        messageSvgrepoCom,
-        moreIcon,
         plus,
         sendIcon,
         success,
-        wallet,
-        wallet2,
         website
       ];
 }

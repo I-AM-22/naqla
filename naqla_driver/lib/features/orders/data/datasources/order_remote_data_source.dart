@@ -28,7 +28,7 @@ class OrderRemoteDataSource {
   Future<List<SubOrderModel>> getOrders() {
     return throwAppException(
       () async {
-        final result = await dio.get(ApiRoutes.subOrders);
+        final result = await dio.get(ApiRoutes.activeOrders);
         return (result.data as List)
             .map(
               (e) => SubOrderModel.fromJson(e),

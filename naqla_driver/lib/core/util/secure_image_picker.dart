@@ -93,10 +93,12 @@ class SecureFilePicker {
   }
 
   static Future<File?> _cropImage(final File file,
-      {CropAspectRatioPreset aspectRatioPreset = CropAspectRatioPreset.ratio16x9, required BuildContext context}) async {
+      {CropAspectRatioPreset aspectRatioPreset = CropAspectRatioPreset.ratio16x9,
+      CropAspectRatio? aspectRatio,
+      required BuildContext context}) async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: file.path,
-      aspectRatioPresets: [aspectRatioPreset],
+      aspectRatio: aspectRatio,
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Cropper',
