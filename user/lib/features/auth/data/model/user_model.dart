@@ -8,6 +8,7 @@ class User {
   final String firstName;
   final String lastName;
   final String phone;
+  final Wallet? wallet;
   final Photo photo;
 
   User({
@@ -18,6 +19,7 @@ class User {
     required this.lastName,
     required this.phone,
     required this.photo,
+    required this.wallet,
   });
 
   User copyWith({
@@ -38,6 +40,7 @@ class User {
         lastName: lastName ?? this.lastName,
         phone: phone ?? this.phone,
         photo: photo ?? this.photo,
+        wallet: wallet ?? this.wallet,
       );
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -48,6 +51,7 @@ class User {
         lastName: json["lastName"],
         phone: json["phone"],
         photo: Photo.fromJson(json["photo"]),
+        wallet: json['wallet'] == null ? null : Wallet.fromJson(json['wallet']),
       );
 
   Map<String, dynamic> toJson() => {

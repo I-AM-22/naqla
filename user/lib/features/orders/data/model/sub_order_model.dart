@@ -12,7 +12,7 @@ class SubOrderModel {
   final int cost;
   final OrderModel? order;
   final SubOrderStatus status;
-  final DateTime acceptedAt;
+  final DateTime? acceptedAt;
   final DateTime? arrivedAt;
   final DateTime? deliveredAt;
   final DateTime? driverAssignedAt;
@@ -78,7 +78,7 @@ class SubOrderModel {
         cost: json["cost"],
         order: json['order'] == null ? null : OrderModel.fromJson(json['order']),
         status: SubOrderStatus.values.byName(json["status"] ?? SubOrderStatus.waiting.name),
-        acceptedAt: DateTime.parse(json["acceptedAt"]),
+        acceptedAt: DateTime.tryParse(json["acceptedAt"] ?? ''),
         arrivedAt: DateTime.tryParse(json["arrivedAt"] ?? ''),
         deliveredAt: DateTime.tryParse(json["deliveredAt"] ?? ''),
         driverAssignedAt: DateTime.tryParse(json["driverAssignedAt"] ?? ''),
@@ -94,7 +94,7 @@ class SubOrderModel {
         "weight": weight,
         "cost": cost,
         "status": status,
-        "acceptedAt": acceptedAt.toIso8601String(),
+        "acceptedAt": acceptedAt?.toIso8601String(),
         "arrivedAt": arrivedAt?.toIso8601String(),
         "deliveredAt": deliveredAt?.toIso8601String(),
         "driverAssignedAt": driverAssignedAt?.toIso8601String(),

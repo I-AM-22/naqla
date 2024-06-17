@@ -40,7 +40,10 @@ class _OrderPageState extends State<OrderPage> with SingleTickerProviderStateMix
     return BlocProvider.value(
       value: bloc,
       child: AppScaffold(
-          appBar: AppAppBar(appBarParams: AppBarParams(title: S.of(context).orders)),
+          appBar: AppAppBar(
+            appBarParams: AppBarParams(title: S.of(context).orders),
+            back: false,
+          ),
           body: Column(
             children: [
               TabBar(

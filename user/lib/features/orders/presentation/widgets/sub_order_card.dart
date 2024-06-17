@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/core/global_widgets/image_place_holder.dart';
@@ -35,27 +36,21 @@ class SubOrderCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText.bodySmMedium(CoreHelperFunctions.formatOrderTime(context, orderModel.status,
-                          acceptedAt: orderModel.acceptedAt,
-                          arrivedAt: orderModel.arrivedAt,
-                          deliveredAt: orderModel.deliveredAt,
-                          driverAssignedAt: orderModel.driverAssignedAt,
-                          pickedUpAt: orderModel.pickedUpAt)),
-                      10.verticalSpace,
-                      AppText.bodySmMedium(S.of(context).order_status),
-                      2.verticalSpace,
-                      AppText.bodySmMedium(orderModel.status.name),
-                      10.verticalSpace,
-                      AppText.bodySmMedium(S.of(context).cost),
-                      2.verticalSpace,
-                      AppText.bodySmMedium('${orderModel.cost} ${S.of(context).syp}'),
-                    ],
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RichText(
+                      text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
+                        TextSpan(
+                            text:
+                                '${CoreHelperFunctions.formatOrderTime(context, orderModel.status, acceptedAt: orderModel.acceptedAt, arrivedAt: orderModel.arrivedAt, deliveredAt: orderModel.deliveredAt, driverAssignedAt: orderModel.driverAssignedAt, pickedUpAt: orderModel.pickedUpAt)} \n'),
+                        TextSpan(text: '${S.of(context).order_status}${orderModel.status.name}\n'),
+                        TextSpan(text: '${S.of(context).cost}${formatter.format(orderModel.cost)} ${S.of(context).syp}\n'),
+                        if ((orderModel.order?.porters ?? 0) > 0) ...{
+                          TextSpan(text: '${S.of(context).the_number_of_floors}: ${(orderModel.order?.porters ?? 1) - 1}'),
+                        }
+                      ]),
+                    ),
                   ),
                 ),
                 // const Spacer(),
@@ -63,7 +58,7 @@ class SubOrderCard extends StatelessWidget {
                   Stack(
                     children: [
                       SizedBox(
-                          height: 200.h,
+                          height: 150.h,
                           width: 150.w,
                           child: BlurHash(
                             imageFit: BoxFit.cover,

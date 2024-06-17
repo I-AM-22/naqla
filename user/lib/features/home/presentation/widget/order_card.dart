@@ -37,9 +37,10 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: RichText(
-                    text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary), children: [
+                    text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
                       TextSpan(text: '${S.of(context).order_date}${CoreHelperFunctions.fromOrderDateTimeToString(widget.orderModel.desiredDate)}\n'),
-                      TextSpan(text: '${S.of(context).cost}${formatter.format(widget.orderModel.paymentModel?.cost)} ${S.of(context).syp}\n'),
+                      TextSpan(text: '${S.of(context).cost}: ${formatter.format(widget.orderModel.paymentModel?.cost)} ${S.of(context).syp}\n'),
+                      TextSpan(text: '${S.of(context).order_status} ${widget.orderModel.status.name}\n'),
                       if ((widget.orderModel.porters ?? 0) > 0) ...{
                         TextSpan(text: '${S.of(context).the_number_of_floors}: ${(widget.orderModel.porters ?? 1) - 1}'),
                       }

@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "at_anytime": MessageLookupByLibrary.simpleMessage("في أي وقت"),
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage("رقم 1 على الأقل أو حرف خاص"),
+        "available_money":
+            MessageLookupByLibrary.simpleMessage("الاموال المتوفرة: "),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
@@ -139,7 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
-            MessageLookupByLibrary.simpleMessage("الاموال المعلقة : "),
+            MessageLookupByLibrary.simpleMessage("الاموال المعلقة: "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
         "please_confirm_order":
@@ -183,8 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد بيانات لعرضها"),
         "this_field_is_required":
             MessageLookupByLibrary.simpleMessage("هذا الحقل مطلوب"),
-        "total_money":
-            MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
+        "total_money": MessageLookupByLibrary.simpleMessage("الاموال الكلية: "),
         "total_number_of_floors":
             MessageLookupByLibrary.simpleMessage("عدد الطوابق الكلي:"),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),

@@ -21,12 +21,12 @@ import 'create_order.dart';
 import 'order_details_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.comeFromSplash});
+  const HomePage({super.key, this.comeFromSplash = false});
 
   static String get path => '/HomePage';
   static String get name => '/HomePage';
 
-  final bool comeFromSplash;
+  final bool? comeFromSplash;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _bloc.add(GetOrdersActiveEvent());
-    if (widget.comeFromSplash) {
+    if (widget.comeFromSplash ?? false) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         AwesomeDialog(
           context: context,

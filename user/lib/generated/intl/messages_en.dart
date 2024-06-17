@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage(
                 "At least 1 number or a special character"),
+        "available_money":
+            MessageLookupByLibrary.simpleMessage("Available money: "),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "book_your_car": MessageLookupByLibrary.simpleMessage("Book your car"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
@@ -146,7 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
-            MessageLookupByLibrary.simpleMessage("Pending Money : "),
+            MessageLookupByLibrary.simpleMessage("Pending Money: "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),
         "please_confirm_order":
@@ -189,7 +191,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "this_field_is_required":
             MessageLookupByLibrary.simpleMessage("This field is required"),
-        "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
+        "total_money": MessageLookupByLibrary.simpleMessage("Total Money: "),
         "total_number_of_floors":
             MessageLookupByLibrary.simpleMessage("Total number of floors:"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),

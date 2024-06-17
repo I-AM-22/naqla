@@ -8,13 +8,7 @@ import 'package:naqla/core/core.dart';
 import '../../../../generated/l10n.dart';
 
 class OnBoardingSlide extends StatelessWidget {
-  const OnBoardingSlide(
-      {super.key,
-      required this.title,
-      required this.content,
-      required this.path,
-      required this.num,
-      required this.onPressed});
+  const OnBoardingSlide({super.key, required this.title, required this.content, required this.path, required this.num, required this.onPressed});
   final String title;
   final String content;
   final String path;
@@ -51,8 +45,7 @@ class OnBoardingSlide extends StatelessWidget {
         const Spacer(),
         CustomPaint(
           size: Size(88.r, 88.r),
-          painter: ArcIndicator(
-              context: context, percent: 0.4, width: 2.w, num: num),
+          painter: ArcIndicator(context: context, percent: 0.4, width: 2.w, num: num),
           child: Container(
             height: 70.r,
             width: 70.r,
@@ -68,9 +61,7 @@ class OnBoardingSlide extends StatelessWidget {
                         onPressed: onPressed,
                         child: AppText(
                           S.of(context).go,
-                          style: context.textTheme.labelMedium!.copyWith(
-                              color: context.colorScheme.textAndIcon,
-                              fontSize: 15.sp),
+                          style: context.textTheme.labelMedium!.copyWith(color: context.colorScheme.textAndIcon, fontSize: 15.sp),
                         ),
                       )
                     : IconButton(
@@ -96,11 +87,7 @@ class ArcIndicator extends CustomPainter {
   final BuildContext context;
   final double num;
 
-  ArcIndicator(
-      {required this.context,
-      required this.percent,
-      required this.width,
-      required this.num});
+  ArcIndicator({required this.context, required this.percent, required this.width, required this.num});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -118,8 +105,7 @@ class ArcIndicator extends CustomPainter {
       ..strokeWidth = width
       ..style = PaintingStyle.stroke;
 
-    canvas.drawArc(Rect.fromCircle(center: offset, radius: radius), 0.4,
-        -num * pi * 0.8, false, paint);
+    canvas.drawArc(Rect.fromCircle(center: offset, radius: radius), 0.4, -num * pi * 0.8, false, paint);
   }
 
   @override

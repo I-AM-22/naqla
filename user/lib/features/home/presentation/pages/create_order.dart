@@ -170,6 +170,10 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 ),
                 AppCommonStateBuilder<HomeBloc, List<CarAdvantage>>(
                   stateName: HomeState.carAdvantage,
+                  onEmpty: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(child: AppText.subHeadMedium(S.of(context).there_is_nothing_to_show)),
+                  ),
                   onSuccess: (data) => Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
                     child: ListView.separated(

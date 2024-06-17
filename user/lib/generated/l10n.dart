@@ -850,21 +850,31 @@ class S {
     );
   }
 
-  /// `Total Money : `
+  /// `Total Money: `
   String get total_money {
     return Intl.message(
-      'Total Money : ',
+      'Total Money: ',
       name: 'total_money',
       desc: '',
       args: [],
     );
   }
 
-  /// `Pending Money : `
+  /// `Pending Money: `
   String get pending_money {
     return Intl.message(
-      'Pending Money : ',
+      'Pending Money: ',
       name: 'pending_money',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available money: `
+  String get available_money {
+    return Intl.message(
+      'Available money: ',
+      name: 'available_money',
       desc: '',
       args: [],
     );

@@ -13,6 +13,7 @@ import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla/features/profile/presentation/pages/edit_phone_number_page.dart';
+import 'package:naqla/features/profile/presentation/pages/wallet_page.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
 import 'package:naqla/features/profile/presentation/widget/profile_item.dart';
 
@@ -96,6 +97,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: () => context.pushNamed(EditPhoneNumberPage.name, extra: data.phone),
                           title: S.of(context).edit_phone,
                           prefixIcon: const Icon(IconlyBroken.call)),
+                      16.verticalSpace,
+                      ProfileItem(
+                          onTap: () => context.pushNamed(WalletPage.name, extra: data.wallet),
+                          title: S.of(context).wallet,
+                          prefixIcon: const Icon(IconlyBroken.wallet)),
                       16.verticalSpace,
                       ProfileItem(
                         onTap: () => context.pushNamed(

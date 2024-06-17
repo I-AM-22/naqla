@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/features/app/presentation/pages/base_page.dart';
+import 'package:naqla/features/auth/data/model/wallet_model.dart';
 import 'package:naqla/features/chat/presentation/pages/chat_page.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/presentation/pages/create_order.dart';
 import 'package:naqla/features/orders/presentation/pages/order_page.dart';
 import 'package:naqla/features/profile/presentation/pages/verification_update_phone_number_page.dart';
+import 'package:naqla/features/profile/presentation/pages/wallet_page.dart';
 
 import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/register_page.dart';
@@ -91,7 +93,7 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
             path: HomePage.path,
             name: HomePage.name,
             builder: (context, state) => HomePage(
-                  comeFromSplash: state.extra as bool,
+                  comeFromSplash: state.extra as bool?,
                 ),
             routes: [
               GoRoute(
@@ -124,6 +126,7 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
             builder: (context, state) => const OrderPage(),
             routes: [
               GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
                   path: SubOrdersPage.path,
                   name: SubOrdersPage.name,
                   builder: (context, state) => SubOrdersPage(
@@ -177,6 +180,19 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
                 builder: (context, state) => EditProfilePage(param: state.extra as EditProfileParam),
                 pageBuilder: (context, state) => CustomTransitionPage(
                   child: EditProfilePage(param: state.extra as EditProfileParam),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                    position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
+                    child: child,
+                  ),
+                ),
+              ),
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: WalletPage.path,
+                name: WalletPage.name,
+                builder: (context, state) => WalletPage(wallet: state.extra as Wallet),
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: WalletPage(wallet: state.extra as Wallet),
                   transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
                     position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
                     child: child,
