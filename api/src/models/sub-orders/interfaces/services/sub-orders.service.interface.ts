@@ -8,6 +8,7 @@ export interface ISubOrdersService {
   findForOrder(orderId: string): Promise<SubOrder[]>;
   findForDriver(cars: Car[]): Promise<SubOrder[]>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
+  findAllActiveForDriver(driverId: string): Promise<SubOrder[]>;
   findOne(id: string): Promise<SubOrder>;
   findTotalCost(id: string): Promise<number>;
   create(dto: CreateSubOrdersDto): Promise<SubOrder[]>;
