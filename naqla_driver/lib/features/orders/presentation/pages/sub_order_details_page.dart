@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/core/common/constants/constants.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/core/di/di_container.dart';
@@ -13,6 +14,7 @@ import 'package:naqla_driver/features/orders/presentation/state/order_bloc.dart'
 import 'package:naqla_driver/features/orders/presentation/widgets/location_map.dart';
 
 import '../../../../generated/l10n.dart';
+import 'image_page.dart';
 
 class SubOrderDetailsPage extends StatefulWidget {
   const SubOrderDetailsPage({super.key, required this.id});
@@ -93,16 +95,19 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                         scrollDirection: Axis.horizontal,
                         // physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return Container(
-                            height: 250.h,
-                            width: 250.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: context.colorScheme.outline),
-                            ),
-                            child: BlurHash(
-                              hash: data.photos[index].blurHash,
-                              image: data.photos[index].mobileUrl,
+                          return InkWell(
+                            onTap: () => context.pushNamed(ImagePage.name, extra: data.photos[index].mobileUrl),
+                            child: Container(
+                              height: 250.h,
+                              width: 250.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: context.colorScheme.outline),
+                              ),
+                              child: BlurHash(
+                                hash: data.photos[index].blurHash,
+                                image: data.photos[index].mobileUrl,
+                              ),
                             ),
                           );
                         },

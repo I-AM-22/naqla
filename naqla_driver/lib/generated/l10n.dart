@@ -700,21 +700,31 @@ class S {
     );
   }
 
-  /// `Total Money : `
+  /// `Total money: `
   String get total_money {
     return Intl.message(
-      'Total Money : ',
+      'Total money: ',
       name: 'total_money',
       desc: '',
       args: [],
     );
   }
 
-  /// `Pending Money : `
+  /// `Pending money: `
   String get pending_money {
     return Intl.message(
-      'Pending Money : ',
+      'Pending money: ',
       name: 'pending_money',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available money`
+  String get available_money {
+    return Intl.message(
+      'Available money',
+      name: 'available_money',
       desc: '',
       args: [],
     );
@@ -945,6 +955,16 @@ class S {
     return Intl.message(
       'the number of floors',
       name: 'the_number_of_floors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The driver agreed to the order`
+  String get the_driver_agreed_to_the_request {
+    return Intl.message(
+      'The driver agreed to the order',
+      name: 'the_driver_agreed_to_the_request',
       desc: '',
       args: [],
     );

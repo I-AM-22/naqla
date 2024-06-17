@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage(
                 "At least 1 number or a special character"),
+        "available_money":
+            MessageLookupByLibrary.simpleMessage("Available money"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
@@ -136,7 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
-            MessageLookupByLibrary.simpleMessage("Pending Money : "),
+            MessageLookupByLibrary.simpleMessage("Pending money: "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("Phone verification"),
         "photo": MessageLookupByLibrary.simpleMessage("Photo"),
@@ -165,11 +167,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage(
                 "The customer has confirmed the order"),
+        "the_driver_agreed_to_the_request":
+            MessageLookupByLibrary.simpleMessage(
+                "The driver agreed to the order"),
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("the number of floors"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
-        "total_money": MessageLookupByLibrary.simpleMessage("Total Money : "),
+        "total_money": MessageLookupByLibrary.simpleMessage("Total money: "),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "waiting_for_customer_confirmation":

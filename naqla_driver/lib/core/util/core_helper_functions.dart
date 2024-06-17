@@ -7,6 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
+import 'package:naqla_driver/features/home/presentation/state/home_bloc.dart';
+import 'package:naqla_driver/features/orders/presentation/state/order_bloc.dart';
+import 'package:naqla_driver/features/profile/presentation/state/profile_bloc.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../../features/app/presentation/widgets/animated_dialog.dart';
 import '../../generated/l10n.dart';
@@ -39,6 +42,9 @@ class CoreHelperFunctions {
                     ),
                     onPressed: () async {
                       await getIt<PrefsRepository>().clearUser();
+                      await getIt.resetLazySingleton<HomeBloc>();
+                      await getIt.resetLazySingleton<OrderBloc>();
+                      await getIt.resetLazySingleton<ProfileBloc>();
                       if (!context.mounted) return;
                       context.goNamed(SignInPage.name);
                     }),

@@ -29,7 +29,7 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.waiting,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).waiting_for_customer_confirmation}')),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).the_driver_agreed_to_the_request}')),
         );
       case SubOrderStatus.ready:
         return Container(

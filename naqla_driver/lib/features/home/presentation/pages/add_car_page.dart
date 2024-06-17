@@ -107,8 +107,6 @@ class _AddCarPageState extends State<AddCarPage> {
                           ),
                         );
                       }
-                    } else if (currentColor == null) {
-                      showMessage(S.of(context).pick_a_color);
                     }
                   },
                 );
@@ -203,6 +201,7 @@ class _AddCarPageState extends State<AddCarPage> {
                     8.verticalSpace,
                     AppCommonStateBuilder<AppBloc, List<CarAdvantage>>(
                       stateName: AppState.carAdvantage,
+                      onEmpty: Center(child: AppText.subHeadMedium(S.of(context).there_is_nothing_to_show)),
                       onSuccess: (data) => Padding(
                         padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
                         child: ListView.separated(

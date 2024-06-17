@@ -69,8 +69,9 @@
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",
-  "total_money": "Total Money : ",
-  "pending_money": "Pending Money : ",
+  "total_money": "Total money: ",
+  "pending_money": "Pending money: ",
+  "available_money": "Available money",
 
   "__________________________chat________________________________": "",
   "chat": "Chat",
@@ -96,6 +97,7 @@
   "order_on_the_way": "Order on the way",
   "delivered": "Delivered",
   "the_number_of_floors": "the number of floors",
+  "the_driver_agreed_to_the_request": "The driver agreed to the order",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

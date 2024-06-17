@@ -60,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "هل انت متأكد أنك تريد تسجيل الخروج من هذا الحساب؟"),
         "at_least_number_or_a_special_character":
             MessageLookupByLibrary.simpleMessage("رقم 1 على الأقل أو حرف خاص"),
+        "available_money":
+            MessageLookupByLibrary.simpleMessage("الاموال المتوفرة: "),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
         "brand": MessageLookupByLibrary.simpleMessage("العلامة التجارية"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
@@ -132,7 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
-            MessageLookupByLibrary.simpleMessage("الاموال المعلقة : "),
+            MessageLookupByLibrary.simpleMessage("الاموال المعلقة: "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
         "photo": MessageLookupByLibrary.simpleMessage("الصورة"),
@@ -160,12 +162,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "syp": MessageLookupByLibrary.simpleMessage("ل.س"),
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage("الزبون قام بتأكيد الطلب"),
+        "the_driver_agreed_to_the_request":
+            MessageLookupByLibrary.simpleMessage("السائق وافق على النقلة"),
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("عدد الطوابق"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لايوجد هناك بيانات لعرضها"),
-        "total_money":
-            MessageLookupByLibrary.simpleMessage("الاموال المتوفرة : "),
+        "total_money": MessageLookupByLibrary.simpleMessage("الاموال الكلية: "),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
         "waiting_for_customer_confirmation":

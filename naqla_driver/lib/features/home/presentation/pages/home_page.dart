@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:naqla_driver/core/core.dart';
@@ -66,7 +67,10 @@ class _HomePageState extends State<HomePage> {
               return ListView.builder(
                 itemCount: data.length,
                 itemBuilder: (context, index) {
-                  return OrderCard(subOrderModel: data[index]);
+                  return Padding(
+                    padding: REdgeInsets.symmetric(vertical: 10),
+                    child: OrderCard(subOrderModel: data[index]),
+                  );
                 },
               );
             },

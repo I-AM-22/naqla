@@ -6,6 +6,7 @@ import 'package:naqla_driver/core/core.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:naqla_driver/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla_driver/features/home/presentation/state/home_bloc.dart';
+import '../../../../generated/l10n.dart';
 import '../../data/model/car_model.dart';
 
 class CarsCard extends StatefulWidget {
@@ -29,6 +30,7 @@ class _CarsCardState extends State<CarsCard> {
   Widget build(BuildContext context) {
     return AppCommonStateBuilder<HomeBloc, List<CarModel>>(
       stateName: HomeState.orderCars,
+      onEmpty: Center(child: AppText.subHeadMedium(S.of(context).there_is_nothing_to_show)),
       onSuccess: (data) {
         return ListView.separated(
             scrollDirection: Axis.horizontal,
