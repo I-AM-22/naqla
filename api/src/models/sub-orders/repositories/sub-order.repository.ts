@@ -42,6 +42,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         'subOrder.cost',
         'subOrder.rating',
         'subOrder.weight',
+        'subOrder.deliveredAt',
         'photos',
         'order.locationStart',
         'order.locationEnd',
