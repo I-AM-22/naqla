@@ -29,6 +29,8 @@ export class DriverWalletRepository implements IWalletRepository<DriverWallet> {
   }
 
   async withdraw(id: string, cost: number): Promise<DriverWallet> {
+    const valid = await this.walletRepo.findOne({ where: { driverId: id } });
+    if (valid.total < cost) throw new Error('driver dose not have this cost');
     const result = await this.walletRepo
       .createQueryBuilder()
       .update(DriverWallet)

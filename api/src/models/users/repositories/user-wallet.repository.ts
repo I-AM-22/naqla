@@ -79,6 +79,8 @@ export class UserWalletRepository implements IWalletRepository<UserWallet> {
   }
 
   async withdraw(id: string, cost: number): Promise<UserWallet> {
+    const valid = await this.walletRepo.findOne({ where: { userId: id } });
+    if (valid.total < cost) throw new Error('user dose not have this cost');
     const result = await this.walletRepo
       .createQueryBuilder()
       .update(UserWallet)

@@ -38,6 +38,8 @@ import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { Request } from 'express';
 import { IUsersService } from '../interfaces/services/users.service.interface';
 import { USER_TYPES } from '../interfaces/type';
+import { UpdateWalletDto } from '@models/drivers/dtos/update-wallet.dto ';
+import { UserWalletRepository } from '../repositories/user-wallet.repository';
 
 @ApiTags('Users')
 @ApiBearerAuth('token')
@@ -50,6 +52,7 @@ import { USER_TYPES } from '../interfaces/type';
 export class UsersController {
   constructor(
     @Inject(USER_TYPES.service) private usersService: IUsersService,
+    private walletRepository: UserWalletRepository,
   ) {}
 
   @UseInterceptors(WithDeletedInterceptor)
@@ -107,6 +110,17 @@ export class UsersController {
   @Delete('me')
   async deleteMe(@GetUser() user: User) {
     return this.usersService.deleteMe(user);
+  }
+
+  @ApiOkResponse({ type: User })
+  @Patch(':id/wallet/withdraw')
+  async withdraw(@Id() id: string, @Body() dto: UpdateWalletDto) {
+    return this.walletRepository.withdraw(id, dto.cost);
+  }
+  @ApiOkResponse({ type: User })
+  @Patch(':id/wallet/deposit')
+  async deposit(@Id() id: string, @Body() dto: UpdateWalletDto) {
+    return this.walletRepository.deposit(id, dto.cost);
   }
 
   @ApiOkResponse({ type: User })

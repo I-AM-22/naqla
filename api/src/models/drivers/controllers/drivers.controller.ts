@@ -24,7 +24,7 @@ import {
 
 import { UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
-import { GetUser, Roles, CheckAbilities, Id } from '@common/decorators';
+import { GetUser, Roles, CheckAbilities, Id, Auth } from '@common/decorators';
 import { GROUPS, ROLE, Entities, Action } from '@common/enums';
 import {
   LoggingInterceptor,
@@ -36,16 +36,21 @@ import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { Request } from 'express';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { DRIVER_TYPES } from '../interfaces/type';
+import { DriverWalletRepository } from '../repositories/driver/driver-wallet.repository';
+import { DriverWallet } from '../entities/driver-wallet.entity';
+import { UpdateWalletDto } from '../dtos/update-wallet.dto ';
 
 @ApiTags('Drivers')
 @ApiBadRequestResponse({ description: bad_req })
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })
 @UseInterceptors(new LoggingInterceptor())
+@Auth()
 @Controller({ path: 'drivers', version: '1' })
 export class DriversController implements ICrud<Driver> {
   constructor(
     @Inject(DRIVER_TYPES.service) private driversService: IDriversService,
+    private walletRepository: DriverWalletRepository,
   ) {}
 
   @UseInterceptors(WithDeletedInterceptor)
@@ -80,6 +85,7 @@ export class DriversController implements ICrud<Driver> {
   async getMyPhotos(@GetUser() driver: Driver) {
     return this.driversService.getMyPhotos(driver);
   }
+
   create(...n: any[]): Promise<Driver> {
     return;
   }
@@ -106,6 +112,13 @@ export class DriversController implements ICrud<Driver> {
   @Delete('me')
   async deleteMe(@GetUser() driver: Driver) {
     return this.driversService.deleteMe(driver);
+  }
+
+  @ApiOkResponse({ type: DriverWallet })
+  @Roles(ROLE.EMPLOYEE)
+  @Patch(':id/wallet/withdraw')
+  async withdraw(@Id() id: string, @Body() dto: UpdateWalletDto) {
+    return this.walletRepository.withdraw(id, dto.cost);
   }
 
   @ApiOkResponse({ type: Driver })
