@@ -40,4 +40,11 @@ class HomeRepositoryImplement extends HomeRepository {
       () => dataSource.acceptOrder(param),
     );
   }
+
+  @override
+  FutureResult<OrderModel> cancelOrder(AcceptOrderParam param) {
+    return toApiResult(
+      () => dataSource.cancelOrder(param),
+    );
+  }
 }

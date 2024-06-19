@@ -13,6 +13,7 @@ import 'package:naqla/features/home/data/model/car_advantage.dart';
 import 'package:naqla/features/home/data/model/location_model.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/domain/use_case/accept_order_use_case.dart';
+import 'package:naqla/features/home/domain/use_case/cancel_order_use_case.dart';
 import 'package:naqla/features/home/domain/use_case/set_order_use_case.dart';
 import 'package:naqla/services/location_map_service.dart';
 
@@ -30,7 +31,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetAcceptOrdersUseCase getOrdersUseCase;
   final SetOrderUseCase setOrderUseCase;
   final AcceptOrderUseCase acceptOrderUseCase;
-  HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase, this.setOrderUseCase, this.acceptOrderUseCase)
+  final CancelOrderUseCase cancelOrderUseCase;
+  HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase, this.setOrderUseCase, this.acceptOrderUseCase,
+      this.cancelOrderUseCase)
       : super(HomeState()) {
     multiStateApiCall<ChangeLocationEvent, LocationData?>(
       HomeState.changeLocationEvent,
@@ -53,6 +56,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     multiStateApiCall<AcceptOrderEvent, OrderModel>(
       HomeState.acceptOrder,
       (event) => acceptOrderUseCase(event.param),
+      onSuccess: (data, event, emit) async {
+        final oldItem = state.getState<List<OrderModel>>(HomeState.ordersActive).data ?? [];
+        oldItem.removeWhere(
+          (element) => element.id == event.param.id,
+        );
+        if (oldItem.isEmpty) {
+          emit(state.updateState(HomeState.ordersActive, const EmptyState<List<OrderModel>>()));
+        } else {
+          emit(state.updateData(HomeState.ordersActive, oldItem));
+        }
+        event.onSuccess();
+      },
+    );
+
+    multiStateApiCall<CancelOrderEvent, OrderModel>(
+      HomeState.cancelOrder,
+      (event) => cancelOrderUseCase(event.param),
       onSuccess: (data, event, emit) async {
         final oldItem = state.getState<List<OrderModel>>(HomeState.ordersActive).data ?? [];
         oldItem.removeWhere(

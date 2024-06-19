@@ -35,19 +35,44 @@ class OrderDetailsPage extends StatelessWidget {
           ),
           bottomNavigationBar: Padding(
             padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: 10),
-            child: BlocSelector<HomeBloc, HomeState, CommonState>(
-              selector: (state) => state.getState(HomeState.acceptOrder),
+            child: BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
-                return AppButton.dark(
-                  isLoading: state.isLoading,
-                  title: S.of(context).confirm_order,
-                  onPressed: () {
-                    context.read<HomeBloc>().add(AcceptOrderEvent(
-                        param: AcceptOrderParam(id: orderModel.id),
-                        onSuccess: () {
-                          context.pop();
-                        }));
-                  },
+                return Row(
+                  children: [
+                    if (!state.getState(HomeState.cancelOrder).isLoading)
+                      Expanded(
+                        child: AppButton.dark(
+                          isLoading: state.getState(HomeState.acceptOrder).isLoading,
+                          title: S.of(context).confirm_order,
+                          onPressed: () {
+                            context.read<HomeBloc>().add(AcceptOrderEvent(
+                                param: AcceptOrderParam(id: orderModel.id),
+                                onSuccess: () {
+                                  context.pop();
+                                }));
+                          },
+                        ),
+                      ),
+                    5.horizontalSpace,
+                    if (!state.getState(HomeState.acceptOrder).isLoading)
+                      Expanded(
+                        child: AppButton.dark(
+                          isLoading: state.getState(HomeState.cancelOrder).isLoading,
+                          style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.resolveWith(
+                            (states) => context.colorScheme.error,
+                          )),
+                          title: S.of(context).cancel_order,
+                          onPressed: () {
+                            context.read<HomeBloc>().add(CancelOrderEvent(
+                                param: AcceptOrderParam(id: orderModel.id),
+                                onSuccess: () {
+                                  context.pop();
+                                }));
+                          },
+                        ),
+                      ),
+                  ],
                 );
               },
             ),

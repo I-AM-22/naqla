@@ -52,9 +52,16 @@ class _ProfilePageState extends State<ProfilePage> {
       value: bloc,
       child: AppScaffold(
           appBar: AppAppBar(
-            appBarParams: AppBarParams(
-              title: S.of(context).profile,
-            ),
+            appBarParams: AppBarParams(title: S.of(context).profile, action: [
+              IconButton(
+                  onPressed: () {
+                    CoreHelperFunctions.logOut(context);
+                  },
+                  icon: Icon(
+                    IconlyBroken.logout,
+                    color: context.colorScheme.primary,
+                  ))
+            ]),
             back: false,
           ),
           body: RefreshIndicator(

@@ -70,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "book_your_car": MessageLookupByLibrary.simpleMessage("Book your car"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cancel_order": MessageLookupByLibrary.simpleMessage("Cancel order"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
@@ -123,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "item_width": MessageLookupByLibrary.simpleMessage("Item width (M)"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
+        "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "logOut": MessageLookupByLibrary.simpleMessage("LogOut"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),

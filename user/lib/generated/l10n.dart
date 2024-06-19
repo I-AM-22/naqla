@@ -830,6 +830,26 @@ class S {
     );
   }
 
+  /// `Cancel order`
+  String get cancel_order {
+    return Intl.message(
+      'Cancel order',
+      name: 'cancel_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading...`
+  String get loading {
+    return Intl.message(
+      'Loading...',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(

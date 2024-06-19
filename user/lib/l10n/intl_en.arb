@@ -83,6 +83,8 @@
   "syp": "SYP",
   "please_confirm_order": "Please confirm order(s)",
   "confirm_order": "Confirm order",
+  "cancel_order": "Cancel order",
+  "loading": "Loading...",
 
 
   "__________________________wallet______________________________":"",

@@ -16,4 +16,6 @@ abstract class HomeRepository {
   FutureResult<OrderModel> setOrder(SetOrderParam param);
 
   FutureResult<OrderModel> acceptOrder(AcceptOrderParam param);
+
+  FutureResult<OrderModel> cancelOrder(AcceptOrderParam param);
 }

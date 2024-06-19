@@ -22,6 +22,13 @@ class AcceptOrderEvent extends HomeEvent {
   AcceptOrderEvent({required this.param, required this.onSuccess});
 }
 
+class CancelOrderEvent extends HomeEvent {
+  final AcceptOrderParam param;
+  final VoidCallback onSuccess;
+
+  CancelOrderEvent({required this.param, required this.onSuccess});
+}
+
 class UploadPhotosEvent extends HomeEvent {
   final List<File?> photos;
 

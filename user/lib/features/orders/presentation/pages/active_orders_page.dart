@@ -6,6 +6,8 @@ import 'package:naqla/features/orders/presentation/pages/sub_orders_page.dart';
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../../core/common/enums/order_status.dart';
+import '../../../../core/global_widgets/app_image.dart';
+import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../app/presentation/widgets/states/app_common_state_builder.dart';
 import '../../../home/data/model/order_model.dart';
 import '../../../home/presentation/widget/order_card.dart';
@@ -23,25 +25,38 @@ class ActiveOrdersPage extends StatelessWidget {
       child: AppCommonStateBuilder<OrderBloc, List<OrderModel>>(
         stateName: OrderState.getOrders,
         onSuccess: (data) {
-          return ListView.builder(
-            itemBuilder: (context, index) => Padding(
-              padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: 10),
-              child: InkWell(
-                  onTap: () {
-                    context.pushNamed(SubOrdersPage.name, extra: data[index].id);
-                  },
-                  child: OrderCard(
-                    orderModel: data[index],
-                    showIndicator: false,
-                  )),
-            ),
-            itemCount: data
-                .where(
-                  (element) =>
-                      (element.status != OrderStatus.delivered || element.status != OrderStatus.refused || element.status != OrderStatus.canceled),
+          return data
+                  .where(
+                    (element) =>
+                        (element.status != OrderStatus.delivered && element.status != OrderStatus.refused && element.status != OrderStatus.canceled),
+                  )
+                  .isEmpty
+              ? ListView(
+                  padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30),
+                  children: [
+                    AppImage.asset(Assets.images.svg.noDataRafiki1.path),
+                  ],
                 )
-                .length,
-          );
+              : ListView.builder(
+                  itemBuilder: (context, index) => Padding(
+                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: 10),
+                    child: InkWell(
+                        onTap: () {
+                          context.pushNamed(SubOrdersPage.name, extra: data[index].id);
+                        },
+                        child: OrderCard(
+                          orderModel: data[index],
+                          showIndicator: false,
+                        )),
+                  ),
+                  itemCount: data
+                      .where(
+                        (element) => (element.status != OrderStatus.delivered &&
+                            element.status != OrderStatus.refused &&
+                            element.status != OrderStatus.canceled),
+                      )
+                      .length,
+                );
         },
       ),
     );

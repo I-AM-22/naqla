@@ -57,7 +57,7 @@ class OrderModel {
         id: json["id"],
         desiredDate: json['desiredDate'] == null ? DateTime.now() : DateTime.parse(json['desiredDate']),
         createdAt: json['createdAt'] == null ? DateTime.now() : DateTime.parse(json['createdAt']),
-        status: json["status"] == 'on the way' ? OrderStatus.onTheWay : OrderStatus.values.byName(json["status"] ?? OrderStatus.waiting.name),
+        status: OrderStatus.values.byName(json["status"] ?? OrderStatus.waiting.name),
         locationStart: LocationModel.fromJson(json["locationStart"]),
         locationEnd: LocationModel.fromJson(json["locationEnd"]),
         porters: json['porters'],

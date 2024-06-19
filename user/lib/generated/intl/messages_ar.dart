@@ -44,7 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(""),
         "about_us": MessageLookupByLibrary.simpleMessage("من نحن"),
         "active_orders":
-            MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
+            MessageLookupByLibrary.simpleMessage("النقلات الحالية"),
         "add_photo": MessageLookupByLibrary.simpleMessage("ٳضافة صورة"),
         "additional_specifications_of_the_car":
             MessageLookupByLibrary.simpleMessage("مواصفات إضافية للسيارة:"),
@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
+        "cancel_order": MessageLookupByLibrary.simpleMessage("ٳلغاء النقلة"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
@@ -75,7 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
-        "confirm_order": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
+        "confirm_order": MessageLookupByLibrary.simpleMessage("تأكيد النقلة"),
         "congratulations": MessageLookupByLibrary.simpleMessage("مبروك "),
         "cost": MessageLookupByLibrary.simpleMessage("الكلفة:"),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
@@ -86,7 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
-        "done_orders": MessageLookupByLibrary.simpleMessage("الطلبات المنتهية"),
+        "done_orders": MessageLookupByLibrary.simpleMessage("النقلات المنتهية"),
         "driver_arrived": MessageLookupByLibrary.simpleMessage("السائق وصل"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("تعديل رقم الهاتف"),
         "edit_profile":
@@ -116,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "item_width": MessageLookupByLibrary.simpleMessage("عرض الغرض (M)"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "last_name": MessageLookupByLibrary.simpleMessage("الاسم الاخير"),
+        "loading": MessageLookupByLibrary.simpleMessage("الرجاء الانتظار..."),
         "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
@@ -127,25 +129,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تاريخ قبول النقلة"),
         "order_arrived_date":
             MessageLookupByLibrary.simpleMessage("تاريخ وصول السائق"),
-        "order_date": MessageLookupByLibrary.simpleMessage("تاريخ الطلب: "),
+        "order_date": MessageLookupByLibrary.simpleMessage("تاريخ النقلة: "),
         "order_delivered_date":
             MessageLookupByLibrary.simpleMessage("تاريخ توصيل النقلة"),
-        "order_details": MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
+        "order_details": MessageLookupByLibrary.simpleMessage("تفاصيل النقلة"),
         "order_driverAssigned_date":
             MessageLookupByLibrary.simpleMessage("تاريخ تعيين السائق"),
         "order_on_the_way":
             MessageLookupByLibrary.simpleMessage("النقلة على الطريق"),
         "order_pickedUp_date":
             MessageLookupByLibrary.simpleMessage("تاريخ تحميل النقلة"),
-        "order_status": MessageLookupByLibrary.simpleMessage("حالة الطلب: "),
-        "orders": MessageLookupByLibrary.simpleMessage("الطلبات"),
+        "order_status": MessageLookupByLibrary.simpleMessage("حالة النقلة: "),
+        "orders": MessageLookupByLibrary.simpleMessage("النقلات"),
         "otp": MessageLookupByLibrary.simpleMessage("OTP"),
         "pending_money":
             MessageLookupByLibrary.simpleMessage("الاموال المعلقة: "),
         "phone_verification":
             MessageLookupByLibrary.simpleMessage("التحقق من الهاتف"),
         "please_confirm_order":
-            MessageLookupByLibrary.simpleMessage("الرجاء تأكيد الطلب(ات)"),
+            MessageLookupByLibrary.simpleMessage("الرجاء تأكيد النقلة(ات)"),
         "please_take_photos_of_the_items_to_be_transported":
             MessageLookupByLibrary.simpleMessage(
                 "يرجى إلتقاط صور للإغراض التي سيتم نقلها للمساعدة بالعثور على سيارة (او عدة سيارات) مناسبة."),
@@ -172,7 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
         "start_point": MessageLookupByLibrary.simpleMessage("نقطة الانطلاق"),
-        "sub_orders": MessageLookupByLibrary.simpleMessage("الطلبات الفرعية"),
+        "sub_orders": MessageLookupByLibrary.simpleMessage("النقلات الفرعية"),
         "syp": MessageLookupByLibrary.simpleMessage("ل.س"),
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage("الزبون قام بتأكيد النقلة"),

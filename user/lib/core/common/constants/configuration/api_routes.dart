@@ -23,6 +23,7 @@ class ApiRoutes {
   static String order = '/api/v1/orders';
   static String orderAccepted = '/api/v1/orders/accepted';
   static String acceptance(String id) => '/api/v1/orders/$id/acceptance';
+  static String cancelOrder(String id) => '/api/v1/orders/$id/refusal';
   static String subOrders(String id) => '/api/v1/sub-orders/order/$id';
   static String setArrived(String id) => '/api/v1/sub-orders/$id/setArrivedAt';
   static String setPickedUp(String id) => '/api/v1/sub-orders/$id/setPickedUpAt';

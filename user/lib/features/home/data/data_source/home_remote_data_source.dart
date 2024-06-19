@@ -60,4 +60,11 @@ class HomeRemoteDataSource {
       return OrderModel.fromJson(result.data);
     });
   }
+
+  Future<OrderModel> cancelOrder(AcceptOrderParam param) {
+    return throwAppException(() async {
+      final result = await dio.patch(ApiRoutes.cancelOrder(param.id));
+      return OrderModel.fromJson(result.data);
+    });
+  }
 }

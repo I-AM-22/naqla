@@ -4,6 +4,8 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/core/util/extensions.dart';
 import 'package:naqla/features/app/presentation/widgets/app_loading_indicator.dart';
 
+import '../../generated/l10n.dart';
+
 ///enum
 enum ButtonSize {
   ///56
@@ -402,7 +404,7 @@ class _AppButtonState extends State<AppButton> {
           children: [
             const AppLoadingIndicator(),
             8.horizontalSpace,
-            AppText('loading'),
+            AppText.titleMedium(S.of(context).loading),
             4.horizontalSpace,
           ],
         ),
@@ -563,111 +565,123 @@ class _AppButtonState extends State<AppButton> {
   }
 
   ButtonStyle getButtonStyle(BuildContext context) {
-    ButtonStyle buttonStyle = widget.style ??
-        ButtonStyle(
-            backgroundColor: WidgetStateProperty.resolveWith((states) {
-              var pressed = states.contains(WidgetState.pressed);
-              if (widget.isLoading) {
-                return context.colorScheme.systemGray.shade300;
-              }
-
-              if (_isField && pressed && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
-                return context.colorScheme.surface;
-              }
-              if (_isField) {
-                return context.colorScheme.primary;
-              }
-              if (_isTertiary && pressed && widget.focusedFilledType == FocusedFilledButtonType.hover) {
-                return context.colorScheme.primary;
-              }
-
-              if (_isTertiary && pressed) {
-                return context.colorScheme.surface;
-              }
-              if (_isLight || _isPayment) {
-                return Colors.transparent;
-              }
-              if (_isGray) {
-                return const Color(0xffF9FAFB);
-              }
-
-              return null;
-            }),
-            shape: _isLongerButton
-                ? null
-                : WidgetStateProperty.resolveWith((states) {
-                    return getShape(states);
-                  }),
-            overlayColor: WidgetStateProperty.resolveWith((states) {
-              var selected = states.contains(WidgetState.pressed);
-              if (selected && _isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
-                return context.colorScheme.primary;
-              }
-
-              if (selected && _isTertiary) {
-                return context.colorScheme.surface;
-              }
-              if (_isField && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
-                return context.colorScheme.surface;
-              }
-
-              if (_isLight || _isDark || _isGray || _isPayment) {
-                return Colors.transparent;
-              }
-              return null;
-            }),
+    ButtonStyle buttonStyle = widget.isLoading
+        ? ButtonStyle(
+            backgroundColor: WidgetStateProperty.resolveWith(
+              (states) => context.colorScheme.systemGray.shade300,
+            ),
+            overlayColor: WidgetStateProperty.resolveWith(
+              (states) => Colors.transparent,
+            ),
             shadowColor: WidgetStateProperty.all(Colors.transparent),
-            side: _isLongerButton ? null : WidgetStateProperty.resolveWith((states) => getSide(states)),
-            foregroundColor: WidgetStateProperty.resolveWith((states) {
-              ///to text
-              var pressed = states.contains(WidgetState.pressed);
-              if (pressed && _isField && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
-                return context.colorScheme.onSurface;
-              }
-              if (pressed && _isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
-                return context.colorScheme.onPrimary;
-              }
+            surfaceTintColor: WidgetStateProperty.resolveWith(
+              (states) => Colors.transparent,
+            ))
+        : widget.style ??
+            ButtonStyle(
+                backgroundColor: WidgetStateProperty.resolveWith((states) {
+                  var pressed = states.contains(WidgetState.pressed);
+                  if (widget.isLoading) {
+                    return context.colorScheme.systemGray.shade300;
+                  }
 
-              if (pressed && _isTertiary) {
-                return context.colorScheme.onSurface;
-              }
+                  if (_isField && pressed && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
+                    return context.colorScheme.surface;
+                  }
+                  if (_isField) {
+                    return context.colorScheme.primary;
+                  }
+                  if (_isTertiary && pressed && widget.focusedFilledType == FocusedFilledButtonType.hover) {
+                    return context.colorScheme.primary;
+                  }
 
-              if (_isLight && pressed) {
-                return context.colorScheme.primary;
-              }
-              if (_isLight) {
-                return context.colorScheme.primary;
-              }
-              if (pressed && _isDark) {
-                return context.colorScheme.primary;
-              }
+                  if (_isTertiary && pressed) {
+                    return context.colorScheme.surface;
+                  }
+                  if (_isLight || _isPayment) {
+                    return Colors.transparent;
+                  }
+                  if (_isGray) {
+                    return const Color(0xffF9FAFB);
+                  }
 
-              if (_isDark) {
-                return context.colorScheme.surface;
-              }
-              if (pressed && _isGray) {
-                return context.colorScheme.systemGray.shade400;
-              }
-              if (_isGray) {
-                return context.colorScheme.primary;
-              }
+                  return null;
+                }),
+                shape: _isLongerButton
+                    ? null
+                    : WidgetStateProperty.resolveWith((states) {
+                        return getShape(states);
+                      }),
+                overlayColor: WidgetStateProperty.resolveWith((states) {
+                  var selected = states.contains(WidgetState.pressed);
+                  if (selected && _isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
+                    return context.colorScheme.primary;
+                  }
 
-              if (pressed && _isPayment) {
-                return context.colorScheme.primary;
-              }
-              if (_isPayment) {
-                return context.colorScheme.surface;
-              }
+                  if (selected && _isTertiary) {
+                    return context.colorScheme.surface;
+                  }
+                  if (_isField && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
+                    return context.colorScheme.surface;
+                  }
 
-              return getEnabledColor(context);
-            }),
-            surfaceTintColor: WidgetStateProperty.resolveWith((states) {
-              var pressed = states.contains(WidgetState.pressed);
-              if (_isLongerButton && pressed) {
-                return Colors.transparent;
-              }
-              return null;
-            }));
+                  if (_isLight || _isDark || _isGray || _isPayment) {
+                    return Colors.transparent;
+                  }
+                  return null;
+                }),
+                shadowColor: WidgetStateProperty.all(Colors.transparent),
+                side: _isLongerButton ? null : WidgetStateProperty.resolveWith((states) => getSide(states)),
+                foregroundColor: WidgetStateProperty.resolveWith((states) {
+                  ///to text
+                  var pressed = states.contains(WidgetState.pressed);
+                  if (pressed && _isField && widget.focusedFilledType == FocusedFilledButtonType.hideBackgroundColor) {
+                    return context.colorScheme.onSurface;
+                  }
+                  if (pressed && _isTertiary && widget.focusedFilledType == FocusedFilledButtonType.hover) {
+                    return context.colorScheme.onPrimary;
+                  }
+
+                  if (pressed && _isTertiary) {
+                    return context.colorScheme.onSurface;
+                  }
+
+                  if (_isLight && pressed) {
+                    return context.colorScheme.primary;
+                  }
+                  if (_isLight) {
+                    return context.colorScheme.primary;
+                  }
+                  if (pressed && _isDark) {
+                    return context.colorScheme.primary;
+                  }
+
+                  if (_isDark) {
+                    return context.colorScheme.surface;
+                  }
+                  if (pressed && _isGray) {
+                    return context.colorScheme.systemGray.shade400;
+                  }
+                  if (_isGray) {
+                    return context.colorScheme.primary;
+                  }
+
+                  if (pressed && _isPayment) {
+                    return context.colorScheme.primary;
+                  }
+                  if (_isPayment) {
+                    return context.colorScheme.surface;
+                  }
+
+                  return getEnabledColor(context);
+                }),
+                surfaceTintColor: WidgetStateProperty.resolveWith((states) {
+                  var pressed = states.contains(WidgetState.pressed);
+                  if (_isLongerButton && pressed) {
+                    return Colors.transparent;
+                  }
+                  return null;
+                }));
 
     switch (widget._typeButton) {
       case AppButtonType.field:
