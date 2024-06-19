@@ -25,12 +25,6 @@ class _AppState extends State<App> {
   final AppBloc bloc = getIt<AppBloc>();
 
   @override
-  void initState() {
-    bloc.add(GetAllCarsEvent());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       useInheritedMediaQuery: true,

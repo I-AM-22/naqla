@@ -30,7 +30,7 @@ class _LoginContainerState extends State<LoginContainer> {
       key: _formKey,
       child: SingleChildScrollView(
         child: Container(
-          padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding30, vertical: 47),
+          padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding30),
           width: 1.sw,
           height: 513.h,
           decoration: BoxDecoration(

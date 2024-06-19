@@ -10,7 +10,7 @@ import 'package:naqla_driver/features/app/presentation/widgets/customer_appbar.d
 import 'package:naqla_driver/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
-import 'package:naqla_driver/features/home/presentation/pages/add_car_page.dart';
+import 'package:naqla_driver/features/cars/presentation/pages/add_car_page.dart';
 import 'package:naqla_driver/features/home/presentation/state/home_bloc.dart';
 import 'package:naqla_driver/features/home/presentation/widgets/order_card.dart';
 import 'package:naqla_driver/generated/l10n.dart';
@@ -40,22 +40,6 @@ class _HomePageState extends State<HomePage> {
         appBar: AppAppBar(
           appBarParams: AppBarParams(title: S.of(context).home),
           back: false,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            context.pushNamed(AddCarPage.name);
-          },
-          icon: const Icon(
-            IconlyBroken.plus,
-            color: Colors.white,
-          ),
-          backgroundColor: context.colorScheme.primary,
-          label: AppText.labelMedium(
-            S.of(context).add_car,
-            fontWeight: FontWeight.w800,
-            color: Colors.white,
-          ),
         ),
         body: RefreshIndicator(
           onRefresh: () async {

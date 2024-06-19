@@ -47,7 +47,6 @@ dependencies:
   badges: ^3.1.2
 
   #?image
-  flutter_blurhash: ^0.8.2
   image_picker: ^1.1.2
   flutter_svg: ^2.0.10+1
   image_cropper: ^7.0.5
@@ -93,7 +92,7 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
-#  generate: true
+  generate: true
 
   assets:
     - assets/images/svg/

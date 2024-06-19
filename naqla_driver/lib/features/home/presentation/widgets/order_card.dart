@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/core/core.dart';
@@ -46,7 +45,7 @@ class OrderCard extends StatelessWidget {
                     Container(
                         height: 150.h,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: context.colorScheme.outline)),
-                        child: BlurHash(imageFit: BoxFit.contain, hash: subOrderModel.photos[0].blurHash, image: subOrderModel.photos[0].mobileUrl)),
+                        child: AppImage.network(subOrderModel.photos[0].mobileUrl)),
                     if (subOrderModel.photos.length > 1)
                       Container(
                         color: context.colorScheme.primary.withOpacity(.5),

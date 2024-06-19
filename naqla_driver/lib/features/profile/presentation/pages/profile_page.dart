@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
@@ -13,7 +12,6 @@ import 'package:naqla_driver/features/app/presentation/widgets/customer_appbar.d
 import 'package:naqla_driver/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla_driver/features/auth/data/model/driver_model.dart';
-import 'package:naqla_driver/features/profile/presentation/pages/cars_page.dart';
 import 'package:naqla_driver/features/profile/presentation/pages/wallet_page.dart';
 import 'package:naqla_driver/features/profile/presentation/state/profile_bloc.dart';
 import 'package:naqla_driver/features/profile/presentation/widgets/profile_item.dart';
@@ -72,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 138.w,
                           height: 138.w,
                           decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                          child: BlurHash(imageFit: BoxFit.cover, hash: data.photo.blurHash, image: data.photo.profileUrl),
+                          child: AppImage.network(data.photo.mobileUrl),
                         ),
                       ),
                       24.verticalSpace,
@@ -110,14 +108,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           size: 20,
                           color: context.colorScheme.primary,
                         ),
-                      ),
-                      16.verticalSpace,
-                      ProfileItem(
-                        title: S.of(context).cars,
-                        prefixIcon: const Icon(Icons.car_crash_outlined),
-                        onTap: () {
-                          context.pushNamed(CarsPage.name);
-                        },
                       ),
                       16.verticalSpace,
                       ProfileItem(

@@ -1,6 +1,6 @@
 import 'package:naqla_driver/features/auth/data/model/photo_model.dart';
 
-import 'car_advantage.dart';
+import '../../../cars/data/model/car_advantage.dart';
 
 class CarModel {
   final String id;

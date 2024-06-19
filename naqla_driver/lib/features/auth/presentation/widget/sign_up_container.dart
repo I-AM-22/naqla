@@ -30,9 +30,11 @@ class _SignUpContainerState extends State<SignUpContainer> {
     return FormBuilder(
       key: _formKey,
       child: Container(
-        padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding30, vertical: 47),
+        padding: REdgeInsets.symmetric(
+          horizontal: UIConstants.screenPadding30,
+        ),
         width: 1.sw,
-        height: 513.h,
+        height: .9.sh,
         decoration: BoxDecoration(
           color: context.colorScheme.surface,
           borderRadius: BorderRadius.only(
@@ -54,12 +56,15 @@ class _SignUpContainerState extends State<SignUpContainer> {
                   Expanded(
                     child: AppTextFormField(
                       name: 'firstName',
+                      validator: FormBuilderValidators.required(),
                       hintText: S.of(context).first_name,
                     ),
                   ),
                   5.horizontalSpace,
                   Expanded(
                     child: AppTextFormField(
+                      keyboardType: TextInputType.name,
+                      validator: FormBuilderValidators.required(),
                       name: 'lastName',
                       hintText: S.of(context).last_name,
                     ),

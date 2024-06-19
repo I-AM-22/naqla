@@ -1,7 +1,6 @@
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -62,13 +61,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         AppCommonStateBuilder<ProfileBloc, String>(
                           stateName: ProfileState.uploadSinglePhoto,
                           onInit: Container(
-                            clipBehavior: Clip.hardEdge,
-                            width: 130.w,
-                            height: 130.w,
-                            decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                            child:
-                                BlurHash(imageFit: BoxFit.cover, hash: widget.driverModel.photo.blurHash, image: widget.driverModel.photo.profileUrl),
-                          ),
+                              clipBehavior: Clip.hardEdge,
+                              width: 130.w,
+                              height: 130.w,
+                              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
+                              child: AppImage.network(widget.driverModel.photo.profileUrl)),
                           onSuccess: (data) {
                             photo = data;
                             return Container(

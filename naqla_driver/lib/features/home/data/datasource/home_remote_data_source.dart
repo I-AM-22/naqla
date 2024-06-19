@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:naqla_driver/core/api/api_utils.dart';
 import 'package:naqla_driver/core/common/constants/configuration/api_routes.dart';
-import 'package:naqla_driver/features/home/data/model/car_advantage.dart';
+import 'package:naqla_driver/features/cars/data/model/car_advantage.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
 import 'package:naqla_driver/features/home/domain/usecase/add_car_use_case.dart';
 import 'package:naqla_driver/features/home/domain/usecase/set_driver_use_case.dart';
 
-import '../model/car_model.dart';
+import '../../../cars/data/model/car_model.dart';
 
 @injectable
 class HomeRemoteDataSource {

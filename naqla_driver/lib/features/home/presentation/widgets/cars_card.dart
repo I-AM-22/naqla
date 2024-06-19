@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:naqla_driver/features/app/presentation/widgets/states/app_common_state_builder.dart';
 import 'package:naqla_driver/features/home/presentation/state/home_bloc.dart';
 import '../../../../generated/l10n.dart';
-import '../../data/model/car_model.dart';
+import '../../../cars/data/model/car_model.dart';
 
 class CarsCard extends StatefulWidget {
   const CarsCard({super.key, required this.onSelected, required this.id});
@@ -67,9 +66,10 @@ class _CarsCardState extends State<CarsCard> {
                       child: Container(
                         height: 150.h,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: context.colorScheme.outline)),
-                        child: BlurHash(
-                          hash: data[index].photo.blurHash,
-                          image: data[index].photo.mobileUrl,
+                        child: Center(
+                          child: AppImage.network(
+                            data[index].photo.mobileUrl,
+                          ),
                         ),
                       ),
                     ),

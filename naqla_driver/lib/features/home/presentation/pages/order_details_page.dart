@@ -1,7 +1,6 @@
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/core/api/api_utils.dart';
@@ -12,7 +11,7 @@ import 'package:naqla_driver/core/util/core_helper_functions.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/params_appbar.dart';
-import 'package:naqla_driver/features/home/data/model/car_model.dart';
+import 'package:naqla_driver/features/cars/data/model/car_model.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
 import 'package:naqla_driver/features/home/domain/usecase/set_driver_use_case.dart';
 
@@ -99,15 +98,14 @@ class OrderDetailsPage extends StatelessWidget {
                   if (subOrderModel.photos.isNotEmpty) AppText.subHeadWebMedium(S.of(context).photos),
                   8.verticalSpace,
                   ListView.separated(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Container(
                           height: 200.h,
                           // width: ,
                           decoration: BoxDecoration(border: Border.all(color: context.colorScheme.outline), borderRadius: BorderRadius.circular(8)),
-                          child: BlurHash(
-                              imageFit: BoxFit.contain, hash: subOrderModel.photos[index].blurHash, image: subOrderModel.photos[index].profileUrl),
+                          child: Center(child: AppImage.network(subOrderModel.photos[0].mobileUrl)),
                         );
                       },
                       separatorBuilder: (context, index) => 10.verticalSpace,

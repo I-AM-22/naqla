@@ -45,7 +45,10 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 100.w,
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(shape: BoxShape.circle, color: context.colorScheme.primary),
-              child: AppImage.asset(Assets.images.jpg.logo.path),
+              child: AppImage.asset(
+                Assets.images.jpg.logo.path,
+                fit: BoxFit.cover,
+              ),
             ),
             const Spacer(),
             AppText.subHeadMedium(

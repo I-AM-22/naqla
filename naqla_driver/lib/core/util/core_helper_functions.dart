@@ -1,7 +1,9 @@
 import 'dart:ui' as ui;
 
+import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +14,9 @@ import 'package:naqla_driver/features/orders/presentation/state/order_bloc.dart'
 import 'package:naqla_driver/features/profile/presentation/state/profile_bloc.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../../features/app/presentation/widgets/animated_dialog.dart';
+import '../../features/cars/presentation/state/cars_bloc.dart';
 import '../../generated/l10n.dart';
+import '../common/constants/constants.dart';
 import '../common/enums/order_status.dart';
 import '../di/di_container.dart';
 
@@ -58,6 +62,52 @@ class CoreHelperFunctions {
               ],
             )
           ],
+        ),
+      ));
+
+  static void deleteCar(BuildContext context, String id, CarsBloc bloc) => AnimatedDialog.show(context,
+      child: Padding(
+        padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding20),
+        child: BlocProvider.value(
+          value: bloc,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AppText.subHeadRegular(S.of(context).delete_car),
+              16.verticalSpace,
+              AppText.subHeadMedium(S.of(context).are_you_sure_delete_this_car),
+              16.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                      child: AppButton.dark(
+                    title: S.of(context).no,
+                    onPressed: () {
+                      context.pop();
+                    },
+                  )),
+                  5.horizontalSpace,
+                  Expanded(
+                      child: BlocSelector<CarsBloc, CarsState, CommonState>(
+                    selector: (state) => state.getState(CarsState.deleteCar),
+                    builder: (context, state) {
+                      return AppButton.gray(
+                        isLoading: state.isLoading,
+                        title: S.of(context).yes,
+                        textStyle: TextStyle(color: context.colorScheme.error),
+                        onPressed: () {
+                          context.read<CarsBloc>().add(DeleteCarEvent(
+                                id: id,
+                                onSuccess: () => context.pop(),
+                              ));
+                        },
+                      );
+                    },
+                  )),
+                ],
+              )
+            ],
+          ),
         ),
       ));
 

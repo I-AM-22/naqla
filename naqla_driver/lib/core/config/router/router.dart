@@ -8,10 +8,11 @@ import 'package:naqla_driver/features/auth/data/model/driver_model.dart';
 import 'package:naqla_driver/features/auth/data/model/wallet_model.dart';
 import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
 import 'package:naqla_driver/features/auth/presentation/state/auth_bloc.dart';
+import 'package:naqla_driver/features/cars/presentation/pages/cars_page.dart';
 import 'package:naqla_driver/features/chat/presentation/pages/chat_page.dart';
-import 'package:naqla_driver/features/home/data/model/car_model.dart';
+import 'package:naqla_driver/features/cars/data/model/car_model.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
-import 'package:naqla_driver/features/home/presentation/pages/add_car_page.dart';
+import 'package:naqla_driver/features/cars/presentation/pages/add_car_page.dart';
 import 'package:naqla_driver/features/home/presentation/pages/home_page.dart';
 import 'package:naqla_driver/features/orders/presentation/pages/orders_page.dart';
 import 'package:naqla_driver/features/orders/presentation/pages/sub_order_details_page.dart';
@@ -24,7 +25,6 @@ import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/sign_up_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/orders/presentation/pages/image_page.dart';
-import '../../../features/profile/presentation/pages/cars_page.dart';
 import '../../../features/profile/presentation/pages/delete_account_page.dart';
 import '../../../features/profile/presentation/pages/edit_phone_number_page.dart';
 import '../../../features/profile/presentation/pages/edit_profile_page.dart';
@@ -41,6 +41,8 @@ final GlobalKey<NavigatorState> _shell2NavigatorKey = GlobalKey<NavigatorState>(
 final GlobalKey<NavigatorState> _shell3NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell3');
 
 final GlobalKey<NavigatorState> _shell4NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell4');
+
+final GlobalKey<NavigatorState> _shell5NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell5');
 
 class GRouter {
   static GoRouter get router => _router;
@@ -104,14 +106,6 @@ class GRouter {
             GoRoute(path: HomePage.path, name: HomePage.name, builder: (context, state) => const HomePage(), routes: [
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
-                path: AddCarPage.path,
-                name: AddCarPage.name,
-                builder: (context, state) => AddCarPage(
-                  carModel: state.extra as CarModel?,
-                ),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
                 path: OrderDetailsPage.path,
                 name: OrderDetailsPage.name,
                 builder: (context, state) => OrderDetailsPage(
@@ -141,37 +135,27 @@ class GRouter {
                   ])
             ])
           ]),
-          StatefulShellBranch(initialLocation: ChatPage.path, navigatorKey: _shell3NavigatorKey, routes: [
+          StatefulShellBranch(initialLocation: CarsPage.path, navigatorKey: _shell3NavigatorKey, routes: [
+            GoRoute(path: CarsPage.path, name: CarsPage.name, builder: (context, state) => const CarsPage(), routes: [
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: AddCarPage.path,
+                name: AddCarPage.name,
+                builder: (context, state) => AddCarPage(
+                  param: state.extra as AddCaraParam,
+                ),
+              ),
+            ])
+          ]),
+          StatefulShellBranch(initialLocation: ChatPage.path, navigatorKey: _shell4NavigatorKey, routes: [
             GoRoute(
               path: ChatPage.path,
               name: ChatPage.name,
               builder: (context, state) => const ChatPage(),
             )
           ]),
-          StatefulShellBranch(initialLocation: ProfilePage.path, navigatorKey: _shell4NavigatorKey, routes: [
+          StatefulShellBranch(initialLocation: ProfilePage.path, navigatorKey: _shell5NavigatorKey, routes: [
             GoRoute(path: ProfilePage.path, name: ProfilePage.name, builder: (context, state) => const ProfilePage(), routes: [
-              GoRoute(
-                  parentNavigatorKey: _rootNavigatorKey,
-                  path: CarsPage.path,
-                  name: CarsPage.name,
-                  builder: (context, state) => const CarsPage(),
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                        child: const CarsPage(),
-                        transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
-                          position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
-                          child: child,
-                        ),
-                      ),
-                  routes: [
-                    GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
-                      path: AddCarPage.profilePath,
-                      name: AddCarPage.profileName,
-                      builder: (context, state) => AddCarPage(
-                        carModel: state.extra as CarModel?,
-                      ),
-                    ),
-                  ]),
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
                 path: EditProfilePage.path,

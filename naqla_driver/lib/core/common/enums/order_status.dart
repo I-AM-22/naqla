@@ -5,6 +5,7 @@ import 'package:naqla_driver/core/core.dart';
 import '../../../generated/l10n.dart';
 
 enum SubOrderStatus {
+  refused,
   waiting,
   ready,
   taken,
@@ -50,6 +51,15 @@ enum SubOrderStatus {
           child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).order_on_the_way}')),
         );
       case SubOrderStatus.delivered:
+        return Container(
+          padding: REdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: context.colorScheme.success.shade600,
+          ),
+          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status}: ${S.of(context).delivered}')),
+        );
+      case SubOrderStatus.refused:
         return Container(
           padding: REdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
