@@ -214,6 +214,9 @@ export class SubOrdersService implements ISubOrdersService {
   deleteForOrder(orderId: string): Promise<void> {
     return this.subOrderRepository.deleteForOrder(orderId);
   }
+  refusedForOrder(orderId: string): Promise<boolean> {
+    return this.subOrderRepository.refusedForOrder(orderId);
+  }
 
   findTotalCost(subOrderId: string): Promise<number> {
     return this.subOrderRepository.findTotalCost(subOrderId);

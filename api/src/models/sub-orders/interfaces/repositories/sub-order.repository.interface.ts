@@ -8,6 +8,7 @@ export interface ISubOrderRepository {
   findForOrder(orderId: string): Promise<SubOrder[]>;
   findForDriver(cars: Car[]): Promise<SubOrder[]>;
   findAllActiveForDriver(driverId: string): Promise<SubOrder[]>;
+  refusedForOrder(orderId: string): Promise<boolean>;
   findOne(id: string): Promise<SubOrder>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
   findTotalCost(id: string): Promise<number>;

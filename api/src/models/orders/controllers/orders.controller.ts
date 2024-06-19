@@ -103,7 +103,7 @@ export class OrderController {
   @Patch(':id/refusal')
   async refusal(@Id() id: string): Promise<Order> {
     const order = await this.ordersService.refusal(id);
-    await this.subordersService.deleteForOrder(id);
+    await this.subordersService.refusedForOrder(id);
     return order;
   }
 

@@ -177,6 +177,20 @@ export class SubOrderRepository implements ISubOrderRepository {
     await this.subOrderRepository.delete({ orderId: id });
   }
 
+  async refusedForOrder(id: string): Promise<boolean> {
+    const result = await this.subOrderRepository
+      .createQueryBuilder()
+      .update(SubOrder)
+      .set({ status: SUB_ORDER_STATUS.REFUSED })
+      .where('orderId = :id', { id })
+      .returning('*')
+      .execute();
+    if (!result) {
+      throw new Error('order not found');
+    }
+    return true;
+  }
+
   async setDriver(id: string, car: Car): Promise<SubOrder> {
     const subOrder = await this.subOrderRepository.findOne({
       where: { id },
