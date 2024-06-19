@@ -1,16 +1,16 @@
-import { Role } from '@models/roles/entities/role.entity';
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
 import { BaseAuthRepo } from '@common/base';
 import { pagination } from '@common/helpers';
 import { PaginatedResponse } from '@common/types';
+import { Role } from '@models/roles/entities/role.entity';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { UpdateUserPhoneDto } from '../../../auth-user';
-import { UserWallet } from '../entities/user-wallet.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { UserPhoto } from '../entities/user-photo.entity';
+import { UserWallet } from '../entities/user-wallet.entity';
 import { User } from '../entities/user.entity';
+import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
 
 @Injectable()
 export class UserRepository
@@ -29,7 +29,7 @@ export class UserRepository
     withDeleted: boolean,
   ): Promise<PaginatedResponse<User>> {
     const skip = (page - 1) * limit || 0;
-    const take = limit || 100;
+    const take = limit || undefined;
     const data = await this.userRepo.find({
       where: { active: true },
       relations: { photos: true, role: true },

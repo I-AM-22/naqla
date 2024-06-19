@@ -19,6 +19,7 @@
     "submit": "تقسيم الطلب",
     "addSubOrder": "إضافة توصيلة",
     "estimatedWeight": "الوزن التقديري",
-    "notAllFilesSelected": "لم يتم تحديد كل الملفات!"
+    "notAllFilesSelected": "لم يتم تحديد كل الملفات!",
+    "atLeastOneFile": "يجب ان تحتوي التوصيلة ملف واحد على الأقل"
   }
 }

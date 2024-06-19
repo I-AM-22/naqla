@@ -15,7 +15,7 @@ import { TFunction } from "i18next";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 const columnHelper = createColumnHelper<Order>();
-const columns = (t: TFunction<string, string>) => [
+export const columns = (t: TFunction<string, string>) => [
   columnHelper.accessor("user", {
     cell: ({ cell }) =>
       `${(cell.getValue() as any).firstName} ${

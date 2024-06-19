@@ -1,6 +1,6 @@
 "use client";
 
-import { revalidateTag } from "@/actions/cache";
+import { revalidatePath } from "@/actions/cache";
 import { Card } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { FormInput } from "@/components/ui/form-input";
@@ -8,7 +8,6 @@ import Submit from "@/components/ui/submit";
 import { useMutation } from "@/hooks/use-mutation";
 import { z } from "@/lib/zod";
 import { advantagesControllerCreate } from "@/service/api";
-import { carAdvantagesTagKeys } from "@/service/car-advantages";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -33,8 +32,8 @@ export default function Page() {
   const onSubmit = async (data: Schema) => {
     await add(data, {
       onSuccess: () => {
-        revalidateTag(carAdvantagesTagKeys.all().at(-1) ?? "");
-        router.push(".");
+        revalidatePath("/car-advantages");
+        router.push("/car-advantages");
       },
     });
   };

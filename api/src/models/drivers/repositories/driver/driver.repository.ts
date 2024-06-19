@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IDriverRepository } from '../../interfaces/repositories/driver.repository.interface';
+import { Repository } from 'typeorm';
 import { BaseAuthRepo } from '../../../../common/base';
+import { IDriverRepository } from '../../interfaces/repositories/driver.repository.interface';
 // import { UpdatePhoneDto } from '../../../auth-driver';
+import { UpdateDriverPhoneDto } from '../../../../auth-driver';
 import { pagination } from '../../../../common/helpers';
 import { PaginatedResponse } from '../../../../common/types';
-import { UpdateDriverPhoneDto } from '../../../../auth-driver';
-import { DriverWallet } from '../../entities/driver-wallet.entity';
 import { Role } from '../../../roles/entities/role.entity';
 import { CreateDriverDto, UpdateDriverDto } from '../../dtos';
 import { DriverPhoto } from '../../entities/driver-photo.entity';
+import { DriverWallet } from '../../entities/driver-wallet.entity';
 import { Driver } from '../../entities/driver.entity';
 
 @Injectable()
@@ -30,7 +30,7 @@ export class DriverRepository
     withDeleted: boolean,
   ): Promise<PaginatedResponse<Driver>> {
     const skip = (page - 1) * limit || 0;
-    const take = limit || 100;
+    const take = limit || undefined;
     const data = await this.driverRepo.find({
       where: { active: true },
       relations: { photos: true, role: true },

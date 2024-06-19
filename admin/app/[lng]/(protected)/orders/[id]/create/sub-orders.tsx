@@ -107,7 +107,7 @@ export const SubOrder: FC<SubOrderProps> = ({ index, onRemove, photos }) => {
           onClick={() => {
             form.setValue(
               "subOrders",
-              form.getValues().subOrders.map((sub, i) =>
+              form.getValues().subOrders.map((_, i) =>
                 i === index
                   ? {
                       photos: [...photos],
@@ -124,6 +124,10 @@ export const SubOrder: FC<SubOrderProps> = ({ index, onRemove, photos }) => {
           <Trash className="text-destructive" />
         </Button>
       </div>
+
+      <p className="text-destructive">
+        {form.formState.errors.subOrders?.[index]?.photos?.message}
+      </p>
 
       <div className="flex flex-row flex-wrap justify-center gap-2">
         {fields.map((photo) => (
