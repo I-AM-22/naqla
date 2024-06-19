@@ -4,8 +4,12 @@ import { DataTable } from "@/components/ui/data-table";
 import { getTranslation } from "@/i18n/server";
 import { advantagesControllerFindAll } from "@/service/api";
 import { carAdvantagesTagKeys } from "@/service/car-advantages";
+import { TFunction } from "i18next";
 import Link from "next/link";
-
+export const columns = (t: TFunction) => [
+  { accessorKey: "name", header: t("name") },
+  { accessorKey: "cost", header: t("cost") },
+];
 export default async function Page(props: PageProps) {
   const { t } = await getTranslation(props.params.lng, "car-advantages");
   const { t: ct } = await getTranslation(props.params.lng);

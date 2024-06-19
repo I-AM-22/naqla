@@ -1,6 +1,6 @@
 "use client";
 
-import { revalidateTag } from "@/actions/cache";
+import { revalidatePath } from "@/actions/cache";
 import { Form } from "@/components/ui/form";
 import Submit from "@/components/ui/submit";
 import { useMutation } from "@/hooks/use-mutation";
@@ -8,7 +8,6 @@ import { useTranslation } from "@/i18n/client";
 import { z } from "@/lib/zod";
 import { subOrdersControllerCreate } from "@/service/api";
 import { Order, OrderPhoto } from "@/service/api.schemas";
-import { ordersTagKeys } from "@/service/orders";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TFunction } from "i18next";
 import { useRouter } from "next/navigation";
@@ -24,15 +23,17 @@ const schema = (photos: OrderPhoto[], t: TFunction) =>
       orderId: z.string(),
       subOrders: z.array(
         z.object({
-          photos: z.array(
-            z.object({
-              id: z.string(),
-              webUrl: z.string(),
-              length: z.number(),
-              width: z.number(),
-              weight: z.number(),
-            }),
-          ),
+          photos: z
+            .array(
+              z.object({
+                id: z.string(),
+                webUrl: z.string(),
+                length: z.number(),
+                width: z.number(),
+                weight: z.number(),
+              }),
+            )
+            .min(1, t("atLeastOneFile")),
           weight: z.coerce.number(),
         }),
       ),
@@ -77,7 +78,7 @@ export function SubOrdersForm({ order }: SubOrdersFormProps) {
       },
       {
         onSuccess: () => {
-          revalidateTag(ordersTagKeys.waiting().at(-1) ?? "");
+          revalidatePath("/orders");
           router.push("/orders");
         },
       },

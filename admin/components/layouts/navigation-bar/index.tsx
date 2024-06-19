@@ -18,7 +18,7 @@ import { useUser } from "@/hooks/use-user";
 import { useTranslation } from "@/i18n/client";
 import { locales } from "@/i18n/settings";
 import { cn } from "@/lib/utils";
-import { CarFront, Home, Inbox, Menu, User } from "lucide-react";
+import { Bus, CarFront, Home, Inbox, Menu, User, Users } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -35,6 +35,7 @@ const routes: Route[][] = [
       key: "",
     },
   ],
+
   [
     {
       href: "/orders",
@@ -47,6 +48,20 @@ const routes: Route[][] = [
       icon: <CarFront />,
       label: "car-advantages",
       key: "car-advantages",
+    },
+  ],
+  [
+    {
+      href: "/customers",
+      icon: <Users />,
+      label: "customers",
+      key: "customers",
+    },
+    {
+      href: "/drivers",
+      icon: <Bus />,
+      label: "drivers",
+      key: "drivers",
     },
   ],
 ];
