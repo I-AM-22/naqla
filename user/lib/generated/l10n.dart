@@ -1190,6 +1190,86 @@ class S {
     );
   }
 
+  /// `the order has been canceled`
+  String get the_order_has_been_canceled {
+    return Intl.message(
+      'the order has been canceled',
+      name: 'the_order_has_been_canceled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the weight`
+  String get the_weight {
+    return Intl.message(
+      'the weight',
+      name: 'the_weight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vehicle advantages`
+  String get vehicle_advantages {
+    return Intl.message(
+      'Vehicle advantages',
+      name: 'vehicle_advantages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `driver name`
+  String get driver_name {
+    return Intl.message(
+      'driver name',
+      name: 'driver_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `car model`
+  String get car_model {
+    return Intl.message(
+      'car model',
+      name: 'car_model',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `car color`
+  String get car_color {
+    return Intl.message(
+      'car color',
+      name: 'car_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `car brand`
+  String get car_brand {
+    return Intl.message(
+      'car brand',
+      name: 'car_brand',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `order photos`
+  String get order_photos {
+    return Intl.message(
+      'order photos',
+      name: 'order_photos',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(

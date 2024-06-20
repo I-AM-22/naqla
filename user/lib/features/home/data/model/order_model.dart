@@ -55,15 +55,27 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         id: json["id"],
-        desiredDate: json['desiredDate'] == null ? DateTime.now() : DateTime.parse(json['desiredDate']),
-        createdAt: json['createdAt'] == null ? DateTime.now() : DateTime.parse(json['createdAt']),
-        status: OrderStatus.values.byName(json["status"] ?? OrderStatus.waiting.name),
+        desiredDate: json['desiredDate'] == null
+            ? DateTime.now()
+            : DateTime.parse(json['desiredDate']),
+        createdAt: json['createdAt'] == null
+            ? DateTime.now()
+            : DateTime.parse(json['createdAt']),
+        status: OrderStatus.values
+            .byName(json["status"] ?? OrderStatus.waiting.name),
         locationStart: LocationModel.fromJson(json["locationStart"]),
         locationEnd: LocationModel.fromJson(json["locationEnd"]),
         porters: json['porters'],
-        advantages: json["advantages"] == null ? null : List<String>.from(json["advantages"].map((x) => x['name'])),
-        photos: List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
-        paymentModel: json["payment"] == null ? null : PaymentModel.fromJson(json["payment"]),
+        advantages: json["advantages"] == null
+            ? null
+            : List<String>.from(json["advantages"].map((x) => x['name'])),
+        photos: json["photos"] == null
+            ? []
+            : List<OrderPhotosModel>.from(
+                json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
+        paymentModel: json["payment"] == null
+            ? null
+            : PaymentModel.fromJson(json["payment"]),
       );
 
   Map<String, dynamic> toJson() => {

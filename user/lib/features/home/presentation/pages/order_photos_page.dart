@@ -45,7 +45,8 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
           bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               return Padding(
-                padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
+                padding: REdgeInsets.symmetric(
+                    horizontal: UIConstants.screenPadding16, vertical: 10),
                 child: AppButton.dark(
                   isLoading: state.getState(HomeState.setOrder).isLoading,
                   title: S.of(context).next,
@@ -59,8 +60,10 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
                             (index) => OrderItemsParam(
                                 photo: _key.currentState?.value['$photo$index'],
                                 width: _key.currentState?.value['$width$index'],
-                                length: _key.currentState?.value['$length$index'],
-                                weight: _key.currentState?.value['$weight$index']),
+                                length:
+                                    _key.currentState?.value['$length$index'],
+                                weight:
+                                    _key.currentState?.value['$weight$index']),
                           )));
                       context.read<HomeBloc>().add(SetOrderEvent(
                         onSuccess: () {
@@ -74,12 +77,15 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
             },
           ),
           body: Padding(
-            padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
+            padding:
+                REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 13.verticalSpace,
-                AppText.bodyLarge(S.of(context).please_take_photos_of_the_items_to_be_transported),
+                AppText.bodyLarge(S
+                    .of(context)
+                    .please_take_photos_of_the_items_to_be_transported),
                 16.verticalSpace,
                 BlocSelector<HomeBloc, HomeState, int>(
                   selector: (state) => state.formCount,
@@ -89,10 +95,14 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
                         key: _key,
                         child: ListView.separated(
                           itemCount: state,
-                          separatorBuilder: (context, index) => 10.verticalSpace,
+                          separatorBuilder: (context, index) =>
+                              10.verticalSpace,
                           itemBuilder: (context, index) => Container(
                             padding: REdgeInsets.all(8),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: context.colorScheme.outline)),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                    color: context.colorScheme.outline)),
                             child: Column(
                               children: [
                                 if (state != 1)
@@ -102,7 +112,7 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
                                       onPressed: () {
                                         bloc.add(UpdateFormPhoto(add: false));
                                       },
-                                      icon: Icon(IconlyLight.delete),
+                                      icon: const Icon(IconlyLight.delete),
                                       color: context.colorScheme.error,
                                     ),
                                   ),
@@ -110,41 +120,60 @@ class _OrderPhotosPageState extends State<OrderPhotosPage> {
                                 MediaFormField(
                                   height: 200.h,
                                   title: S.of(context).select_photo,
-                                  placeHolderDecoration:
-                                      BoxDecoration(border: Border.all(color: context.colorScheme.primary), borderRadius: BorderRadius.circular(8)),
+                                  placeHolderDecoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: context.colorScheme.primary),
+                                      borderRadius: BorderRadius.circular(8)),
                                   name: '$photo$index',
-                                  validator: FormBuilderValidators.required(),
+                                  validator: FormBuilderValidators.required(
+                                      errorText:
+                                          S.of(context).this_field_is_required),
                                 ),
                                 10.verticalSpace,
                                 Row(
                                   children: [
                                     Expanded(
                                       child: AppTextFormField(
-                                        validator: FormBuilderValidators.required(),
+                                        validator:
+                                            FormBuilderValidators.required(
+                                                errorText: S
+                                                    .of(context)
+                                                    .this_field_is_required),
                                         name: '$width$index',
                                         title: S.of(context).item_width,
                                         keyboardType: TextInputType.number,
-                                        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                        inputFormatters: <TextInputFormatter>[
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
                                       ),
                                     ),
                                     5.horizontalSpace,
                                     Expanded(
                                       child: AppTextFormField(
-                                        validator: FormBuilderValidators.required(),
+                                        validator:
+                                            FormBuilderValidators.required(
+                                                errorText: S
+                                                    .of(context)
+                                                    .this_field_is_required),
                                         name: '$weight$index',
                                         title: S.of(context).item_weight,
                                         keyboardType: TextInputType.number,
-                                        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                        inputFormatters: <TextInputFormatter>[
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
                                       ),
                                     ),
                                     5.horizontalSpace,
                                     Expanded(
                                       child: AppTextFormField(
-                                        validator: FormBuilderValidators.required(),
+                                        validator:
+                                            FormBuilderValidators.required(),
                                         name: '$length$index',
                                         title: S.of(context).item_length,
                                         keyboardType: TextInputType.number,
-                                        inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                        inputFormatters: <TextInputFormatter>[
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
                                       ),
                                     ),
                                   ],

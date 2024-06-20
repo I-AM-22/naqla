@@ -1,6 +1,5 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -34,32 +33,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeBloc _bloc = getIt<HomeBloc>();
+  final ScrollController _hideButtonController = ScrollController();
+  bool _isVisible = true;
+
   @override
   void initState() {
     _bloc.add(GetOrdersActiveEvent());
-    if (widget.comeFromSplash ?? false) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        AwesomeDialog(
-          context: context,
-          animType: AnimType.scale,
-          dialogType: DialogType.success,
-          body: RSizedBox(
-            width: context.fullWidth - 16,
-            child: Column(
-              children: [
-                AppText.titleMedium(S.of(context).congratulations),
-                7.verticalSpace,
-                AppText.bodySmMedium(
-                  S.of(context).your_account_is_ready_to_use,
-                ),
-              ],
-            ),
-          ),
-          btnOkColor: context.colorScheme.primary,
-          btnOkOnPress: () {},
-        ).show();
-      });
-    }
+    _hideButtonController.addListener(() {
+      if (_hideButtonController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (_isVisible) {
+          setState(() {
+            _isVisible = false;
+          });
+        }
+      } else {
+        if (_hideButtonController.position.userScrollDirection ==
+            ScrollDirection.forward) {
+          if (!_isVisible) {
+            setState(() {
+              _isVisible = true;
+            });
+          }
+        }
+      }
+    });
     super.initState();
   }
 
@@ -68,19 +66,25 @@ class _HomePageState extends State<HomePage> {
     return BlocProvider(
       create: (context) => _bloc,
       child: AppScaffold(
-          floatingActionButton: FloatingActionButton.extended(
-            backgroundColor: context.colorScheme.primary,
-            onPressed: () => context.pushNamed(CreateOrderPage.name),
-            label: AppText(
-              S.of(context).new_naqla,
-              color: Colors.white,
-            ),
-            icon: const Icon(
-              IconlyBroken.plus,
-              color: Colors.white,
+          floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+          floatingActionButton: Visibility(
+            visible: _isVisible,
+            child: FloatingActionButton.extended(
+              backgroundColor: context.colorScheme.primary,
+              onPressed: () => context.pushNamed(CreateOrderPage.name),
+              label: AppText(
+                S.of(context).new_naqla,
+                color: Colors.white,
+              ),
+              icon: const Icon(
+                IconlyBroken.plus,
+                color: Colors.white,
+              ),
             ),
           ),
-          appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
+          appBar: AppAppBar(
+              back: false,
+              appBarParams: AppBarParams(title: S.of(context).home)),
           body: RefreshIndicator(
             onRefresh: () async {
               _bloc.add(GetOrdersActiveEvent());
@@ -88,7 +92,9 @@ class _HomePageState extends State<HomePage> {
             child: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
               stateName: HomeState.ordersActive,
               onSuccess: (data) => Padding(
-                padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding20, horizontal: UIConstants.screenPadding16),
+                padding: REdgeInsets.symmetric(
+                    vertical: UIConstants.screenPadding20,
+                    horizontal: UIConstants.screenPadding16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -96,10 +102,12 @@ class _HomePageState extends State<HomePage> {
                     16.verticalSpace,
                     Expanded(
                       child: ListView.separated(
+                        controller: _hideButtonController,
                         itemCount: data.length,
                         separatorBuilder: (context, index) => 16.verticalSpace,
                         itemBuilder: (context, index) => InkWell(
-                          onTap: () => context.pushNamed(OrderDetailsPage.name, extra: data[index]),
+                          onTap: () => context.pushNamed(OrderDetailsPage.name,
+                              extra: data[index]),
                           child: OrderCard(
                             showIndicator: true,
                             orderModel: data[index],

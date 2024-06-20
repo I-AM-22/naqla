@@ -71,6 +71,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancel_order": MessageLookupByLibrary.simpleMessage("Cancel order"),
+        "car_brand": MessageLookupByLibrary.simpleMessage("car brand"),
+        "car_color": MessageLookupByLibrary.simpleMessage("car color"),
+        "car_model": MessageLookupByLibrary.simpleMessage("car model"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
@@ -96,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
         "done_orders": MessageLookupByLibrary.simpleMessage("Previous orders"),
         "driver_arrived": MessageLookupByLibrary.simpleMessage("Order arrives"),
+        "driver_name": MessageLookupByLibrary.simpleMessage("driver name"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("Edit Phone Number"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -144,6 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Order driver Assigned date"),
         "order_on_the_way":
             MessageLookupByLibrary.simpleMessage("Order on the way"),
+        "order_photos": MessageLookupByLibrary.simpleMessage("order photos"),
         "order_pickedUp_date":
             MessageLookupByLibrary.simpleMessage("Order pickedUp date"),
         "order_status": MessageLookupByLibrary.simpleMessage("Order status: "),
@@ -191,12 +196,15 @@ class MessageLookup extends MessageLookupByLibrary {
                 "The end point must be determined"),
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("The number of floors"),
+        "the_order_has_been_canceled":
+            MessageLookupByLibrary.simpleMessage("the order has been canceled"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties."),
         "the_starting_point_must_be_determined":
             MessageLookupByLibrary.simpleMessage(
                 "The starting point must be determined"),
+        "the_weight": MessageLookupByLibrary.simpleMessage("the weight"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "this_field_is_required":
@@ -209,6 +217,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("use current location"),
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("Use my location"),
+        "vehicle_advantages":
+            MessageLookupByLibrary.simpleMessage("Vehicle advantages"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "waiting_for_customer_confirmation":
             MessageLookupByLibrary.simpleMessage(

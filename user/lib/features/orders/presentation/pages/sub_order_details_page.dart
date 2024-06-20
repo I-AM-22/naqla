@@ -57,14 +57,58 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                   16.verticalSpace,
                   Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                    child: AppText.subHeadMedium('${S.of(context).cost}: ${data.cost} ${S.of(context).syp}'),
+                    child: Container(
+                      padding: REdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: context.colorScheme.outline),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: RichText(
+                        text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
+                          TextSpan(text: '${S.of(context).cost}: ${data.cost} ${S.of(context).syp}\n'),
+                          TextSpan(text: '${S.of(context).the_weight}: ${data.weight}\n'),
+                          if ((data.order?.porters ?? 0) > 0)
+                            TextSpan(text: '${S.of(context).the_number_of_floors}: ${(data.order?.porters ?? 1) - 1}\n'),
+                          TextSpan(text: '${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate)}\n'),
+                        ]),
+                      ),
+                    ),
                   ),
-                  16.verticalSpace,
-                  Padding(
-                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                    child: AppText.subHeadMedium(
-                        '${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate)}'),
-                  ),
+                  if (data.carModel != null) ...{
+                    16.verticalSpace,
+                    Padding(
+                      padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
+                      child: Container(
+                        padding: REdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: context.colorScheme.outline),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: RichText(
+                          text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
+                            TextSpan(
+                                text: '${S.of(context).vehicle_advantages}: ${data.order?.advantages?.map(
+                              (e) => e,
+                            )}\n'),
+                            TextSpan(text: '${S.of(context).driver_name}: ${data.carModel?.driver.firstName} ${data.carModel?.driver.lastName}\n'),
+                            TextSpan(text: '${S.of(context).car_model}: ${data.carModel?.model}\n'),
+                            TextSpan(text: '${S.of(context).car_brand}: ${data.carModel?.brand}\n'),
+                            WidgetSpan(
+                                child: Padding(
+                              padding: REdgeInsets.symmetric(vertical: 10),
+                            )),
+                            TextSpan(text: '${S.of(context).car_color}:\n'),
+                            WidgetSpan(
+                                child: Container(
+                              width: 70.w,
+                              height: 20.h,
+                              color: CoreHelperFunctions.hexToColor(data.carModel?.color ?? ''),
+                            ))
+                          ]),
+                        ),
+                      ),
+                    )
+                  },
                   16.verticalSpace,
                   Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
@@ -74,6 +118,11 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                         arrivedAt: data.arrivedAt,
                         driverAssignedAt: data.driverAssignedAt,
                         pickedUpAt: data.pickedUpAt)),
+                  ),
+                  16.verticalSpace,
+                  Padding(
+                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
+                    child: AppText.subHeadMedium(S.of(context).order_photos),
                   ),
                   SizedBox(
                     width: 200.w,

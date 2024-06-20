@@ -69,6 +69,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "cancel_order": MessageLookupByLibrary.simpleMessage("ٳلغاء النقلة"),
+        "car_brand":
+            MessageLookupByLibrary.simpleMessage("العلامة التجارية للسيارة"),
+        "car_color": MessageLookupByLibrary.simpleMessage("لون السيارة"),
+        "car_model": MessageLookupByLibrary.simpleMessage("موديل السيارة"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
@@ -89,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
         "done_orders": MessageLookupByLibrary.simpleMessage("النقلات المنتهية"),
         "driver_arrived": MessageLookupByLibrary.simpleMessage("السائق وصل"),
+        "driver_name": MessageLookupByLibrary.simpleMessage("اسم السائق"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("تعديل رقم الهاتف"),
         "edit_profile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
@@ -137,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تاريخ تعيين السائق"),
         "order_on_the_way":
             MessageLookupByLibrary.simpleMessage("النقلة على الطريق"),
+        "order_photos": MessageLookupByLibrary.simpleMessage("صور النقلة"),
         "order_pickedUp_date":
             MessageLookupByLibrary.simpleMessage("تاريخ تحميل النقلة"),
         "order_status": MessageLookupByLibrary.simpleMessage("حالة النقلة: "),
@@ -184,11 +190,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب تحديد نقطة الوصول"),
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("عدد الطوابق"),
+        "the_order_has_been_canceled":
+            MessageLookupByLibrary.simpleMessage("تم ٳلغاء النقلة"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
         "the_starting_point_must_be_determined":
             MessageLookupByLibrary.simpleMessage("يجب تحديد نقطة الانطلاق"),
+        "the_weight": MessageLookupByLibrary.simpleMessage("الوزن"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لا يوجد بيانات لعرضها"),
         "this_field_is_required":
@@ -201,6 +210,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("استخدام موقعك الحالي"),
         "use_my_location":
             MessageLookupByLibrary.simpleMessage("استخدام موقعي"),
+        "vehicle_advantages":
+            MessageLookupByLibrary.simpleMessage("ميزات السيارة"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
         "waiting_for_customer_confirmation":
             MessageLookupByLibrary.simpleMessage("بإنتظار تأكيد الزبون"),

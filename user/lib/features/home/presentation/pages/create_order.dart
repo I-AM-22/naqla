@@ -114,6 +114,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 const EndLocationCard(),
                 16.verticalSpace,
                 AppDatePicker(
+                  title: S.of(context).order_delivered_date,
                   validator: FormBuilderValidators.required(
                       errorText: S.of(context).this_field_is_required),
                   name: 'date',

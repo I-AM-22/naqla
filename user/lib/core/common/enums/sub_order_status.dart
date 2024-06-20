@@ -9,6 +9,7 @@ enum SubOrderStatus {
   ready,
   taken,
   onTheWay,
+  refused,
   delivered;
 
   String buttonTitle(BuildContext context) {
@@ -78,6 +79,17 @@ enum SubOrderStatus {
           child: Center(
               child: AppText.subHeadMedium(
                   '${S.of(context).order_status} ${S.of(context).waiting_for_customer_confirmation}')),
+        );
+      case SubOrderStatus.refused:
+        return Container(
+          padding: REdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: context.colorScheme.warning,
+          ),
+          child: Center(
+              child: AppText.subHeadMedium(
+                  '${S.of(context).order_status} ${S.of(context).the_order_has_been_canceled}')),
         );
     }
   }
