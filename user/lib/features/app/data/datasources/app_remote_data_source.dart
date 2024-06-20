@@ -16,7 +16,7 @@ class AppRemoteDataSource {
     return throwAppException(
       () async {
         Map<String, dynamic> data = {};
-        data["photo"] = await MultipartFile.fromFile(file!.path, contentType: mime.MediaType('image', 'jpeg'));
+        data["photo"] = await MultipartFile.fromFile(file.path, contentType: mime.MediaType('image', 'jpeg'));
 
         FormData formData = FormData.fromMap(data);
         final result = await dio.post(ApiRoutes.single, data: formData);

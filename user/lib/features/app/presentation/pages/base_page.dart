@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:naqla/core/core.dart';
 import 'package:naqla/features/app/presentation/widgets/app_nav_bar.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
-import 'package:naqla/features/home/presentation/pages/create_order.dart';
 
 class BasePage extends StatelessWidget {
   const BasePage({super.key, required this.child, required this.fullPath});

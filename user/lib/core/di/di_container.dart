@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:naqla/features/app/domain/repository/prefs_repository.dart';
-import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:naqla/features/auth/presentation/pages/welcome_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,7 +51,6 @@ abstract class AppModule {
     return dio;
   }
 
-  @preResolve
   @singleton
   Future<SharedPreferences> get sharedPreferences => SharedPreferences.getInstance();
 }

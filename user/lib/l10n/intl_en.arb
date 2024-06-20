@@ -18,6 +18,8 @@
   "________________validation___________________": "",
   "this_field_is_required": "This field is required",
   "there_is_nothing_to_show": "There is nothing to show",
+  "the_starting_point_must_be_determined":"The starting point must be determined",
+  "the_end_point_must_be_determined":"The end point must be determined",
 
   "_________________authentication________________": "",
   "enable_your_location": "Enable your location",
@@ -85,6 +87,8 @@
   "confirm_order": "Confirm order",
   "cancel_order": "Cancel order",
   "loading": "Loading...",
+  "street":"Street",
+  "region":"Region",
 
 
   "__________________________wallet______________________________":"",

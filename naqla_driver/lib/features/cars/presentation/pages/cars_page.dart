@@ -92,7 +92,7 @@ class _CarsPageState extends State<CarsPage> {
               stateName: CarsState.getAllCars,
               onSuccess: (data) => ListView.separated(
                   controller: _hideButtonController,
-                  physics: AlwaysScrollableScrollPhysics(),
+                  physics: const AlwaysScrollableScrollPhysics(),
                   padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding30),
                   itemBuilder: (context, index) {
                     return CarsSection(

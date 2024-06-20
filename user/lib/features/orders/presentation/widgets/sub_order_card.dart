@@ -16,6 +16,7 @@ import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/usecases/set_arrived_use_case.dart';
 
+// ignore: must_be_immutable
 class SubOrderCard extends StatelessWidget {
   SubOrderCard({super.key, required this.orderModel});
   final SubOrderModel orderModel;

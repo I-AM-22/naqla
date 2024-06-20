@@ -18,6 +18,8 @@
   "________________validation___________________": "",
   "this_field_is_required": "هذا الحقل مطلوب",
   "there_is_nothing_to_show": "لا يوجد بيانات لعرضها",
+  "the_starting_point_must_be_determined":"يجب تحديد نقطة الانطلاق",
+  "the_end_point_must_be_determined":"يجب تحديد نقطة الوصول",
 
   "_________________authentication________________": "",
   "enable_your_location": "تمكين موقعك",
@@ -84,6 +86,8 @@
   "confirm_order": "تأكيد النقلة",
   "cancel_order": "ٳلغاء النقلة",
   "loading": "الرجاء الانتظار...",
+  "street":"الشارع",
+  "region":"المنطقة",
 
   "__________________________wallet______________________________":"",
   "wallet":"المحفظة",

@@ -160,6 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Please take photos of the items to be transported to help find a suitable vehicle (or vehicles)."),
         "porters": MessageLookupByLibrary.simpleMessage("Porters"),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
+        "region": MessageLookupByLibrary.simpleMessage("Region"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
@@ -179,16 +180,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("Skip for now"),
         "start_point": MessageLookupByLibrary.simpleMessage("Start Point"),
+        "street": MessageLookupByLibrary.simpleMessage("Street"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("Sub orders"),
         "syp": MessageLookupByLibrary.simpleMessage("SYP"),
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage(
                 "The customer has confirmed the order"),
+        "the_end_point_must_be_determined":
+            MessageLookupByLibrary.simpleMessage(
+                "The end point must be determined"),
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("The number of floors"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties."),
+        "the_starting_point_must_be_determined":
+            MessageLookupByLibrary.simpleMessage(
+                "The starting point must be determined"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "this_field_is_required":

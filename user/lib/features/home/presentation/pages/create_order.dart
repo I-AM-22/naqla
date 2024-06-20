@@ -5,7 +5,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -18,7 +17,8 @@ import 'package:naqla/features/home/data/model/car_advantage.dart';
 import 'package:naqla/features/home/data/model/location_model.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 import 'package:naqla/features/home/presentation/pages/order_photos_page.dart';
-import 'package:naqla/features/home/presentation/widget/set_location_order.dart';
+import 'package:naqla/features/home/presentation/widget/end_location_card.dart';
+import 'package:naqla/features/home/presentation/widget/start_location_card.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 import '../../../../generated/l10n.dart';
@@ -36,8 +36,6 @@ class CreateOrderPage extends StatefulWidget {
 class _CreateOrderPageState extends State<CreateOrderPage> {
   final ValueNotifier<bool> porters = ValueNotifier(false);
   final GlobalKey<FormBuilderState> _key = GlobalKey();
-  List<LatLng> latLng = [];
-  int length = 0;
   final HomeBloc _bloc = getIt<HomeBloc>();
   DateTime dateTime = DateTime.now();
   @override
@@ -56,20 +54,40 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
         bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             return Padding(
-              padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
+              padding: REdgeInsets.symmetric(
+                  horizontal: UIConstants.screenPadding16, vertical: 10),
               child: AppButton.dark(
                 title: S.of(context).next,
                 onPressed: () {
                   _key.currentState?.save();
                   _key.currentState?.validate();
-                  if ((_key.currentState?.isValid ?? false) && length >= 2) {
+                  if (_key.currentState?.isValid ?? false) {
                     context.read<HomeBloc>().add(SetOrderParamEvent(
                         desiredDate: dateTime.toIso8601String(),
-                        locationStart: LocationModel(region: '', street: '', latitude: latLng[0].latitude, longitude: latLng[0].longitude),
-                        locationEnd: LocationModel(latitude: latLng[1].latitude, longitude: latLng[1].longitude, street: '', region: ''),
+                        locationStart: LocationModel(
+                          region: _key.currentState?.value['region'],
+                          street: _key.currentState?.value['street'],
+                          latitude:
+                              _key.currentState?.value['startPoint'].latitude ??
+                                  0,
+                          longitude: _key.currentState?.value['startPoint']
+                                  .longitude ??
+                              0,
+                        ),
+                        locationEnd: LocationModel(
+                          latitude:
+                              _key.currentState?.value['endPoint'].latitude ??
+                                  0,
+                          longitude:
+                              _key.currentState?.value['endPoint'].longitude ??
+                                  0,
+                          street: _key.currentState?.value['street2'],
+                          region: _key.currentState?.value['region2'],
+                        ),
                         porters: porters.value ? _currentValue + 1 : 0,
                         advantages: state
-                            .getState<List<CarAdvantage>>(HomeState.carAdvantage)
+                            .getState<List<CarAdvantage>>(
+                                HomeState.carAdvantage)
                             .data
                             ?.where((element) => element.isSelect)
                             .map((e) => e.id)
@@ -81,55 +99,51 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
             );
           },
         ),
-        appBar: AppAppBar(appBarParams: AppBarParams(title: S.of(context).new_naqla)),
+        appBar: AppAppBar(
+            appBarParams: AppBarParams(title: S.of(context).new_naqla)),
         body: SingleChildScrollView(
+          padding:
+              REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
           child: FormBuilder(
             key: _key,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SetLocationOrder(
-                  onValid: (value) => length = value?.length ?? 0,
-                  onChanged: (value) => latLng = value ?? [],
-                ),
+                const StartLocationCard(),
                 16.verticalSpace,
-                Padding(
-                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                  child: AppDatePicker(
-                    validator: FormBuilderValidators.required(errorText: S.of(context).this_field_is_required),
-                    name: 'date',
-                    onDateTimeChanged: (p0) => dateTime = p0,
-                    minimumDate: DateTime.now(),
-                  ),
+                const EndLocationCard(),
+                16.verticalSpace,
+                AppDatePicker(
+                  validator: FormBuilderValidators.required(
+                      errorText: S.of(context).this_field_is_required),
+                  name: 'date',
+                  onDateTimeChanged: (p0) => dateTime = p0,
+                  minimumDate: DateTime.now(),
                 ),
                 20.verticalSpace,
-                Padding(
-                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                  child: Row(
-                    children: [
-                      ValueListenableBuilder(
-                        builder: (context, value, _) => AppCheckbox(
-                          isSelected: value,
-                          onChanged: (value) {
-                            porters.value = value;
-                            setState(() {});
-                          },
-                        ),
-                        valueListenable: porters,
+                Row(
+                  children: [
+                    ValueListenableBuilder(
+                      builder: (context, value, _) => AppCheckbox(
+                        isSelected: value,
+                        onChanged: (value) {
+                          porters.value = value;
+                          setState(() {});
+                        },
                       ),
-                      8.horizontalSpace,
-                      AppText.bodySmMedium(
-                        S.of(context).porters,
-                        color: Colors.black,
-                      )
-                    ],
-                  ),
+                      valueListenable: porters,
+                    ),
+                    8.horizontalSpace,
+                    AppText.bodySmMedium(
+                      S.of(context).porters,
+                      color: Colors.black,
+                    )
+                  ],
                 ),
                 11.verticalSpace,
-                Padding(
-                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                  child: AppText.bodySmMedium(S.of(context).the_remuneration_will_depend_on_the_number_of_porters_required),
-                ),
+                AppText.bodySmMedium(S
+                    .of(context)
+                    .the_remuneration_will_depend_on_the_number_of_porters_required),
                 10.verticalSpace,
                 AnimatedOpacity(
                   duration: const Duration(milliseconds: 300),
@@ -137,45 +151,47 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   child: AnimatedSize(
                     duration: const Duration(milliseconds: 300),
                     reverseDuration: const Duration(milliseconds: 1000),
-                    child: Padding(
-                      padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                      child: porters.value
-                          ? Row(
-                              children: [
-                                Flexible(child: AppText.titleSmall(S.of(context).total_number_of_floors)),
-                                10.horizontalSpace,
-                                NumberPicker(
-                                  decoration:
-                                      BoxDecoration(border: Border.all(color: context.colorScheme.outline), borderRadius: BorderRadius.circular(8)),
-                                  value: _currentValue,
-                                  textStyle: context.textTheme.bodySmMedium,
-                                  minValue: 0,
-                                  maxValue: 100,
-                                  onChanged: (value) => setState(() => _currentValue = value),
-                                ),
-                              ],
-                            )
-                          : const SizedBox(),
-                    ),
+                    child: porters.value
+                        ? Row(
+                            children: [
+                              Flexible(
+                                  child: AppText.titleSmall(
+                                      S.of(context).total_number_of_floors)),
+                              10.horizontalSpace,
+                              NumberPicker(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: context.colorScheme.outline),
+                                    borderRadius: BorderRadius.circular(8)),
+                                value: _currentValue,
+                                textStyle: context.textTheme.bodySmMedium,
+                                minValue: 0,
+                                maxValue: 100,
+                                onChanged: (value) =>
+                                    setState(() => _currentValue = value),
+                              ),
+                            ],
+                          )
+                        : const SizedBox(),
                   ),
                 ),
                 18.verticalSpace,
-                Padding(
-                  padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                  child: AppText.bodySmMedium(
-                    S.of(context).additional_specifications_of_the_car,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                  ),
+                AppText.bodySmMedium(
+                  S.of(context).additional_specifications_of_the_car,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
                 ),
                 AppCommonStateBuilder<HomeBloc, List<CarAdvantage>>(
                   stateName: HomeState.carAdvantage,
                   onEmpty: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Center(child: AppText.subHeadMedium(S.of(context).there_is_nothing_to_show)),
+                    child: Center(
+                        child: AppText.subHeadMedium(
+                            S.of(context).there_is_nothing_to_show)),
                   ),
                   onSuccess: (data) => Padding(
-                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
+                    padding: REdgeInsets.symmetric(
+                        horizontal: UIConstants.screenPadding16, vertical: 10),
                     child: ListView.separated(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -186,7 +202,9 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           AppCheckbox(
                             isSelected: data[index].isSelect,
                             onChanged: (value) {
-                              context.read<HomeBloc>().add(ChangeSelectAdvantageEvent(carAdvantage: data[index]));
+                              context.read<HomeBloc>().add(
+                                  ChangeSelectAdvantageEvent(
+                                      carAdvantage: data[index]));
                             },
                           ),
                           8.horizontalSpace,
@@ -195,7 +213,9 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                               TextSpan(children: [
                                 TextSpan(text: data[index].name),
                                 WidgetSpan(child: 4.horizontalSpace),
-                                TextSpan(text: "[${data[index].cost}]")
+                                TextSpan(
+                                    text:
+                                        "[${data[index].cost} ${S.of(context).syp}]")
                               ])),
                         ],
                       ),

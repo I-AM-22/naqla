@@ -200,6 +200,26 @@ class S {
     );
   }
 
+  /// `The starting point must be determined`
+  String get the_starting_point_must_be_determined {
+    return Intl.message(
+      'The starting point must be determined',
+      name: 'the_starting_point_must_be_determined',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The end point must be determined`
+  String get the_end_point_must_be_determined {
+    return Intl.message(
+      'The end point must be determined',
+      name: 'the_end_point_must_be_determined',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get _________________authentication________________ {
     return Intl.message(
@@ -845,6 +865,26 @@ class S {
     return Intl.message(
       'Loading...',
       name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Street`
+  String get street {
+    return Intl.message(
+      'Street',
+      name: 'street',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Region`
+  String get region {
+    return Intl.message(
+      'Region',
+      name: 'region',
       desc: '',
       args: [],
     );

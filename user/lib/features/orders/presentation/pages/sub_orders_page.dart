@@ -32,7 +32,8 @@ class _SubOrdersPageState extends State<SubOrdersPage> {
   final OrderBloc bloc = getIt<OrderBloc>();
   @override
   void initState() {
-    bloc.add(GetSubOrdersEvent(param: GetSubOrdersParam(orderId: widget.orderId)));
+    bloc.add(
+        GetSubOrdersEvent(param: GetSubOrdersParam(orderId: widget.orderId)));
     super.initState();
   }
 
@@ -42,18 +43,20 @@ class _SubOrdersPageState extends State<SubOrdersPage> {
       value: bloc,
       child: AppScaffold(
         appBar: AppAppBar(
-          appBarParams: AppBarParams(title: S.of(context).sub_orders),
+          appBarParams: AppBarParams(title: S.of(context).order_details),
         ),
         body: AppCommonStateBuilder<OrderBloc, List<SubOrderModel>>(
           stateName: OrderState.getSubOrders,
           onSuccess: (data) {
             return Padding(
-              padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
+              padding: REdgeInsets.symmetric(
+                  horizontal: UIConstants.screenPadding16, vertical: 10),
               child: ListView(
                 children: data
                     .map(
                       (e) => InkWell(
-                        onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: e.id),
+                        onTap: () => context.pushNamed(SubOrderDetailsPage.name,
+                            extra: e.id),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6),
                           child: SubOrderCard(orderModel: e),

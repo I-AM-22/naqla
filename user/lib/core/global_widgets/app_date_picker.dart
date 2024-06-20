@@ -4,7 +4,6 @@ import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:naqla/core/core.dart';
 
-import '../../generated/flutter_gen/assets.gen.dart';
 
 class AppDatePicker extends StatefulWidget {
   final String name;

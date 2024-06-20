@@ -42,7 +42,9 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.ready,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).waiting_for_drivers_to_be_hired}')),
+          child: Center(
+              child: AppText.subHeadMedium(
+                  '${S.of(context).order_status} ${S.of(context).waiting_for_drivers_to_be_hired}')),
         );
       case SubOrderStatus.onTheWay:
         return Container(
@@ -51,7 +53,9 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.success.shade600,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).order_on_the_way}')),
+          child: Center(
+              child: AppText.subHeadMedium(
+                  '${S.of(context).order_status} ${S.of(context).order_on_the_way}')),
         );
       case SubOrderStatus.delivered:
         return Container(
@@ -60,7 +64,9 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.success.shade600,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).delivered}')),
+          child: Center(
+              child: AppText.subHeadMedium(
+                  '${S.of(context).order_status} ${S.of(context).delivered}')),
         );
       case SubOrderStatus.waiting:
         return Container(
@@ -69,7 +75,9 @@ enum SubOrderStatus {
             borderRadius: BorderRadius.circular(40),
             color: context.colorScheme.waiting,
           ),
-          child: Center(child: AppText.subHeadMedium('${S.of(context).order_status} ${S.of(context).waiting_for_the_supervisor_to_review}')),
+          child: Center(
+              child: AppText.subHeadMedium(
+                  '${S.of(context).order_status} ${S.of(context).waiting_for_customer_confirmation}')),
         );
     }
   }

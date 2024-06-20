@@ -153,6 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "يرجى إلتقاط صور للإغراض التي سيتم نقلها للمساعدة بالعثور على سيارة (او عدة سيارات) مناسبة."),
         "porters": MessageLookupByLibrary.simpleMessage("حمالين"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+        "region": MessageLookupByLibrary.simpleMessage("المنطقة"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "resend_again":
             MessageLookupByLibrary.simpleMessage("إعادة الإرسال مرة أخرى"),
@@ -174,15 +175,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "skip_for_now": MessageLookupByLibrary.simpleMessage("تخطي الان"),
         "start_point": MessageLookupByLibrary.simpleMessage("نقطة الانطلاق"),
+        "street": MessageLookupByLibrary.simpleMessage("الشارع"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("النقلات الفرعية"),
         "syp": MessageLookupByLibrary.simpleMessage("ل.س"),
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage("الزبون قام بتأكيد النقلة"),
+        "the_end_point_must_be_determined":
+            MessageLookupByLibrary.simpleMessage("يجب تحديد نقطة الوصول"),
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("عدد الطوابق"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
+        "the_starting_point_must_be_determined":
+            MessageLookupByLibrary.simpleMessage("يجب تحديد نقطة الانطلاق"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لا يوجد بيانات لعرضها"),
         "this_field_is_required":
