@@ -6,10 +6,3 @@ export const DRIVER_TYPES = {
     wallet: 'IDriverWalletRepository',
   },
 };
-export const CAR_TYPES = {
-  service: 'ICarsService',
-  repository: {
-    car: 'ICarRepository',
-    photo: 'ICarPhotoRepository',
-  },
-};

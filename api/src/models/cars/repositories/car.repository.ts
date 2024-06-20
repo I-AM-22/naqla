@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Advantage } from '../../../advantages/entities/advantage.entity';
-import { CreateCarDto, UpdateCarDto } from '../../dtos';
-import { CarPhoto } from '../../entities/car-photo.entity';
-import { Car } from '../../entities/car.entity';
-import { Driver } from '../../entities/driver.entity';
-import { ICarRepository } from '../../interfaces/repositories/car.repository.interface';
-import { Order } from '../../../orders/entities/order.entity';
+import { Advantage } from '../../advantages/entities/advantage.entity';
+import { CreateCarDto, UpdateCarDto } from '../dtos';
+import { CarPhoto } from '../entities/car-photo.entity';
+import { Car } from '../entities/car.entity';
+import { Driver } from '../../drivers/entities/driver.entity';
+import { ICarRepository } from '../interfaces/repositories/car.repository.interface';
+import { Order } from '../../orders/entities/order.entity';
 
 @Injectable()
 export class CarRepository implements ICarRepository {
@@ -110,7 +110,7 @@ export class CarRepository implements ICarRepository {
     await this.carRepository.softRemove(car);
   }
 
-  async countCarFordriver(driverId: string): Promise<number> {
+  async countCarForDriver(driverId: string): Promise<number> {
     const carCount = await this.carRepository
       .createQueryBuilder('car')
       .where('car.driverId = :driverId', { driverId })

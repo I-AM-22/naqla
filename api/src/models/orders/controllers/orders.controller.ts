@@ -1,4 +1,3 @@
-import { Length } from 'class-validator';
 // Order.controller.ts
 
 import { bad_req, data_not_found, denied_error } from '@common/constants';
@@ -6,7 +5,6 @@ import { Auth, GetUser, Id, Roles } from '@common/decorators';
 import { ROLE } from '@common/enums';
 import { LoggingInterceptor } from '@common/interceptors';
 import { IPerson } from '@common/interfaces';
-import { SubOrdersService } from '@models/sub-orders/services/sub-orders.service';
 import { User } from '@models/users/entities/user.entity';
 import {
   Body,
@@ -44,38 +42,27 @@ import { ORDER_TYPES } from '../interfaces/type';
 export class OrderController {
   constructor(
     @Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService,
-    private readonly subordersService: SubOrdersService,
   ) {}
 
   @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get()
   async findAll(): Promise<Order[]> {
-    return this.ordersService.find();
+    return await this.ordersService.find();
   }
 
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('mine')
   async findMine(@GetUser('id') userId: string): Promise<Order[]> {
-    return this.ordersService.findMyOrders(userId);
+    return await this.ordersService.findMyOrders(userId);
   }
 
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('accepted')
-  async findMineForAccepted(@GetUser('id') userId: string): Promise<any[]> {
-    const orders = await this.ordersService.findMineForAccepted(userId);
-    const updatedOrders = await Promise.all(
-      orders.map(async (order) => {
-        const subOrders = await this.subordersService.findForOrder(order.id);
-        return {
-          ...order,
-          subOrders,
-        };
-      }),
-    );
-    return updatedOrders;
+  async findMineForAccepted(@GetUser('id') userId: string) {
+    return await this.ordersService.findMineWithAccepted(userId);
   }
 
   @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
@@ -97,25 +84,20 @@ export class OrderController {
   @ApiOkResponse({ type: Order })
   @Patch(':id/acceptance')
   async acceptance(@Id() id: string): Promise<Order> {
-    const order = await this.ordersService.acceptance(id);
-    await this.subordersService.ready(id);
-    return order;
+    return await this.ordersService.acceptance(id);
   }
   @Roles(ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order })
   @Patch(':id/cancellation')
   async cancellation(@Id() id: string): Promise<Order> {
-    const order = await this.ordersService.cancellation(id);
-    return order;
+    return await this.ordersService.cancellation(id);
   }
 
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order })
   @Patch(':id/refusal')
   async refusal(@Id() id: string): Promise<Order> {
-    const order = await this.ordersService.refusal(id);
-    await this.subordersService.refusedForOrder(id);
-    return order;
+    return await this.ordersService.refusal(id);
   }
 
   @Roles(ROLE.USER)

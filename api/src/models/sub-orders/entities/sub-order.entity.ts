@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { GlobalEntity } from '@common/base';
-import { Car } from '@models/drivers/entities/car.entity';
+import { Car } from '@models/cars/entities/car.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { SUB_ORDER_STATUS } from '@common/enums';
 import { OrderPhoto } from '@models/orders/entities/order-photo.entity';
@@ -27,23 +27,23 @@ export class SubOrder extends GlobalEntity {
 
   @ApiProperty()
   @Column({ nullable: true })
-  acceptedAt: string;
+  acceptedAt: Date;
 
   @ApiProperty()
   @Column({ nullable: true })
-  arrivedAt: string;
+  arrivedAt: Date;
 
   @ApiProperty()
   @Column({ nullable: true })
-  deliveredAt: string;
+  deliveredAt: Date;
 
   @ApiProperty()
   @Column({ nullable: true })
-  driverAssignedAt: string;
+  driverAssignedAt: Date;
 
   @ApiProperty()
   @Column({ nullable: true })
-  pickedUpAt: string;
+  pickedUpAt: Date;
 
   @ApiProperty({ type: () => Order })
   @ManyToOne(() => Order, (order) => order.subOrders)

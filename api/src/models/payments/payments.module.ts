@@ -11,10 +11,20 @@ export const PaymentRepositoryProvider: Provider = {
   useClass: PaymentRepository,
 };
 
+export const PaymentsServiceProvider: Provider = {
+  provide: PAYMENT_TYPES.service,
+  useClass: PaymentsService,
+};
+
 @Module({
   imports: [TypeOrmModule.forFeature([Payment])],
   controllers: [PaymentsController],
-  providers: [PaymentsService, PaymentRepository, PaymentRepositoryProvider],
-  exports: [PaymentRepositoryProvider],
+  providers: [
+    PaymentsService,
+    PaymentRepository,
+    PaymentRepositoryProvider,
+    PaymentsServiceProvider,
+  ],
+  exports: [PaymentRepositoryProvider, PaymentsServiceProvider],
 })
 export class PaymentsModule {}

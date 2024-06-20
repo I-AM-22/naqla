@@ -4,7 +4,7 @@ import { UpdateCarDto } from '../../dtos';
 import { CreateCarDto } from '../../dtos/create-car.dto';
 import { CarPhoto } from '../../entities/car-photo.entity';
 import { Car } from '../../entities/car.entity';
-import { Driver } from '../../entities/driver.entity';
+import { Driver } from '../../../drivers/entities/driver.entity';
 
 export interface ICarRepository {
   find(): Promise<Car[]>;
@@ -21,6 +21,6 @@ export interface ICarRepository {
   update(car: Car, dto: UpdateCarDto, photo: CarPhoto): Promise<Car>;
   delete(car: Car): Promise<void>;
   addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void>;
-
+  countCarForDriver(driverId: string): Promise<number>;
   removeAdvantageFromCar(car: Car, advantage: Advantage): Promise<void>;
 }

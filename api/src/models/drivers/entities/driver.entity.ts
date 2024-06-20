@@ -7,13 +7,12 @@ import {
   OneToOne,
 } from 'typeorm';
 import { BasePersonWithActive, BasePhoto } from '@common/base';
-import { Exclude, Expose, Transform } from 'class-transformer';
-import { GROUPS } from '@common/enums';
+import { Exclude, Transform } from 'class-transformer';
 import { Role } from '@models/roles/entities/role.entity';
 import { DriverPhoto } from './driver-photo.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { DriverWallet } from './driver-wallet.entity';
-import { Car } from './car.entity';
+import { Car } from '../../cars/entities/car.entity';
 
 @Entity({ name: 'drivers' })
 export class Driver extends BasePersonWithActive {

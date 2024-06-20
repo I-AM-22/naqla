@@ -1,6 +1,6 @@
 // advantage.entity.ts
 import { Column, Entity, ManyToMany } from 'typeorm';
-import { Car } from '@models/drivers/entities/car.entity';
+import { Car } from '@models/cars/entities/car.entity';
 import { GlobalEntity } from '@common/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';

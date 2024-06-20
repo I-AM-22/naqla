@@ -1,4 +1,3 @@
-import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 import { ORDER_STATUS } from '@common/enums';
 import { Advantage } from '@models/advantages/entities/advantage.entity';
 import { User } from '@models/users/entities/user.entity';
@@ -64,23 +63,37 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async findMineForAccepted(userId: string): Promise<Order[]> {
+  async findMineWithAccepted(userId: string): Promise<Order[]> {
     return this.orderRepository.find({
       where: { userId, status: ORDER_STATUS.ACCEPTED },
       select: {
         advantages: { id: false, cost: false, name: true },
+        subOrders: {
+          id: true,
+          cost: true,
+          weight: true,
+          photos: true,
+          car: {
+            id: true,
+            color: true,
+            model: true,
+            brand: true,
+            driver: { id: true, firstName: true, lastName: true },
+          },
+        },
       },
       relations: {
         photos: true,
         advantages: true,
         payment: true,
+        subOrders: { car: { driver: true }, photos: true },
       },
     });
   }
 
-  async findAdvantages(orderId: string): Promise<Order> {
+  async findOneWithAdvantages(id: string): Promise<Order> {
     return this.orderRepository.findOne({
-      where: { id: orderId },
+      where: { id },
       select: {
         advantages: { id: true, cost: false, name: true },
       },
@@ -175,32 +188,11 @@ export class OrderRepository implements IOrderRepository {
     await this.orderRepository.save(order);
     return this.findOne(order.id);
   }
-  async divisionDone(id: string): Promise<Order> {
-    await this.orderRepository
-      .createQueryBuilder()
-      .update(Order)
-      .set({ status: ORDER_STATUS.ACCEPTED })
-      .where('id = :id', { id })
-      .execute();
-    const updatedOrder = await this.findOne(id);
-    if (!updatedOrder) {
-      throw new Error('Order not found');
-    }
-    return updatedOrder;
-  }
 
   async updateStatus(id: string, status: ORDER_STATUS): Promise<Order> {
-    await this.orderRepository
-      .createQueryBuilder()
-      .update(Order)
-      .set({ status })
-      .where('id = :id', { id })
-      .execute();
-    const updatedOrder = await this.findOne(id);
-    if (!updatedOrder) {
-      throw new Error('Order not found');
-    }
-    return updatedOrder;
+    await this.orderRepository.update({ id }, { status });
+
+    return this.findOne(id);
   }
 
   async delete(order: Order): Promise<void> {

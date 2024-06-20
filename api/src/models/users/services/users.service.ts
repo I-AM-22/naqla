@@ -6,10 +6,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
-import { Entities, ROLE } from './../../../common/enums';
 import { defaultPhotoUrl, item_not_found } from '@common/constants';
-import { ICitiesService } from '@models/cities/interfaces/services/cities.service.interface';
-import { CITY_TYPES } from '@models/cities/interfaces/type';
 import { IUsersService } from '../interfaces/services/users.service.interface';
 import { PaginatedResponse } from '@common/types';
 import { UserPhoto } from '../entities/user-photo.entity';
@@ -20,7 +17,9 @@ import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { UserWallet } from '../entities/user-wallet.entity';
-import { OrderRepository } from '../../orders/repositories/order.repository';
+import { ORDER_TYPES } from '@models/orders/interfaces/type';
+import { Entities, ROLE } from '@common/enums';
+import { IOrdersService } from '@models/orders/interfaces/services/orders.service.interface';
 
 @Injectable()
 export class UsersService implements IUsersService {
@@ -32,9 +31,9 @@ export class UsersService implements IUsersService {
     @Inject(USER_TYPES.repository.wallet)
     private userWalletRepository: IWalletRepository<UserWallet>,
     @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
-    @Inject(CITY_TYPES.service)
-    private citiesService: ICitiesService,
-    private orderRepository: OrderRepository,
+
+    @Inject(ORDER_TYPES.service)
+    private ordersService: IOrdersService,
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -65,17 +64,17 @@ export class UsersService implements IUsersService {
       limit,
       withDeleted,
     );
-    const updateUserawait = await Promise.all(
+    const updateUser = await Promise.all(
       data.data.map(async (user) => {
-        const countOrderDliverd =
-          await this.orderRepository.countOrdersCompletedForUser(user.id);
+        const countOrderDelivered =
+          await this.ordersService.countOrdersCompletedForUser(user.id);
         return {
           ...user,
-          countOrderDliverd,
+          countOrderDelivered,
         };
       }),
     );
-    return updateUserawait;
+    return updateUser;
   }
 
   async findOne(id: string, withDeleted = false): Promise<User> {

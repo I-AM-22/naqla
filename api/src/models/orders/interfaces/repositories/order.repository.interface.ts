@@ -10,9 +10,10 @@ export interface IOrderRepository {
   find(): Promise<Order[]>;
   findWaiting(): Promise<Order[]>;
   findMyOrder(userId: string): Promise<Order[]>;
-  findMineForAccepted(userId: string): Promise<Order[]>;
+  findMineWithAccepted(userId: string): Promise<Order[]>;
   findOne(id: string): Promise<Order>;
   findOneForOwner(id: string, userId: string): Promise<Order>;
+  findOneWithAdvantages(id: string): Promise<Order>;
   create(
     user: User,
     photo: OrderPhoto[],
@@ -24,7 +25,7 @@ export interface IOrderRepository {
     dto: UpdateOrderDto,
     photo: OrderPhoto[],
   ): Promise<Order>;
-  divisionDone(id: string): Promise<Order>;
+  countOrdersCompletedForUser(userId: string): Promise<number>;
   updateStatus(id: string, status: ORDER_STATUS): Promise<Order>;
   delete(order: Order): Promise<void>;
   addAdvantageToOrder(Order: Order, advantages: Advantage[]): Promise<void>;

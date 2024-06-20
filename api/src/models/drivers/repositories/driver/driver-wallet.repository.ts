@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
 import { DriverWallet } from '../../entities/driver-wallet.entity';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IWalletRepository } from '../../../../common/interfaces';
+import { IWalletRepository } from '@common/interfaces';
 
 @Injectable()
 export class DriverWalletRepository implements IWalletRepository<DriverWallet> {
@@ -21,9 +21,10 @@ export class DriverWalletRepository implements IWalletRepository<DriverWallet> {
       .where('driverId = :id', { id, cost })
       .returning('*')
       .execute();
+
     const updatedWallet = result.raw[0];
     if (!updatedWallet) {
-      throw new Error('Wallet not found');
+      throw new NotFoundException('Wallet not found');
     }
     return updatedWallet;
   }
@@ -38,9 +39,10 @@ export class DriverWalletRepository implements IWalletRepository<DriverWallet> {
       .where('driverId = :id', { id, cost })
       .returning('*')
       .execute();
+
     const updatedWallet = result.raw[0];
     if (!updatedWallet) {
-      throw new Error('Wallet not found');
+      throw new NotFoundException('Wallet not found');
     }
     return updatedWallet;
   }

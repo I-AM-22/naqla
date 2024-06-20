@@ -95,16 +95,6 @@ export class UsersController {
     example: 10,
     required: false,
   })
-  @Get('/statics')
-  async staticsUser(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Req() req: Request & { query: { withDeleted: string } },
-  ) {
-    const withDeleted = JSON.parse(req.query.withDeleted);
-    return this.usersService.staticsUser(page, limit, withDeleted);
-  }
-
   @ApiOkResponse({ type: User })
   @SerializeOptions({ groups: [GROUPS.USER] })
   @Roles(ROLE.USER)

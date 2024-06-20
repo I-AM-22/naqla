@@ -1,4 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateSubOrdersDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
@@ -7,19 +13,26 @@ import { ISubOrdersService } from '../interfaces/services/sub-orders.service.int
 import { SubOrder } from '../entities/sub-order.entity';
 import { ORDER_TYPES } from '@models/orders/interfaces/type';
 import { OrderPhotoRepository } from '@models/orders/repositories/order-photo.repository';
-import { OrderRepository } from '@models/orders/repositories/order.repository';
 import { ISettingRepository } from '@models/settings/interfaces/repositories/setting.repository.interface';
-import { GpsDrivingService } from '../../../shared/gpsDriving';
 import { Setting } from '@models/settings/entities/setting.entity';
-import { Car } from '@models/drivers/entities/car.entity';
-import { IPaymentRepository } from '@models/payments/interfaces/repositories/payment.repository.interface';
+import { Car } from '@models/cars/entities/car.entity';
 import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
 import { SETTING_TYPES } from '@models/settings/interfaces/type';
-import { ORDER_STATUS, SETTING_PROPERTIES } from '@common/enums';
-import { UserWalletRepository } from '@models/users/repositories/user-wallet.repository';
-import { DriverWalletRepository } from '@models/drivers/repositories/driver/driver-wallet.repository';
+import { Entities, ORDER_STATUS, SETTING_PROPERTIES } from '@common/enums';
 import { DataSource } from 'typeorm';
 import { InjectDataSource } from '@nestjs/typeorm';
+import { UserWallet } from '@models/users/entities/user-wallet.entity';
+import { IWalletRepository } from '@common/interfaces';
+import { DriverWallet } from '@models/drivers/entities/driver-wallet.entity';
+import { GpsDrivingService } from '@shared/gpsDriving';
+import { IPaymentsService } from '@models/payments/interfaces/services/payments.service.interface';
+import { IOrdersService } from '@models/orders/interfaces/services/orders.service.interface';
+import { USER_TYPES } from '@models/users/interfaces/type';
+import { DRIVER_TYPES } from '@models/drivers/interfaces/type';
+import { Order } from '@models/orders/entities/order.entity';
+import { item_not_found } from '@common/constants';
+import { CAR_TYPES } from '@models/cars/interfaces/type';
+import { ICarsService } from '@models/cars/interfaces/services/cars.service.interface';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {
@@ -27,25 +40,26 @@ export class SubOrdersService implements ISubOrdersService {
     @InjectDataSource() private dataSource: DataSource,
     @Inject(SUB_ORDER_TYPES.repository.subOrder)
     private readonly subOrderRepository: ISubOrderRepository,
+    @Inject(CAR_TYPES.service)
+    private readonly carsService: ICarsService,
     @Inject(ORDER_TYPES.repository.photo)
     private readonly orderPhotoRepository: OrderPhotoRepository,
-    @Inject(ORDER_TYPES.repository.order)
-    private readonly orderRepository: OrderRepository,
-    @Inject(PAYMENT_TYPES.repository)
-    private readonly paymentRepository: IPaymentRepository,
+    @Inject(ORDER_TYPES.service)
+    private readonly ordersService: IOrdersService,
+    @Inject(PAYMENT_TYPES.service)
+    private readonly paymentsService: IPaymentsService,
     @Inject(SETTING_TYPES.repository)
     private readonly settingRepository: ISettingRepository,
-    private readonly userwalletRepository: UserWalletRepository,
-    private readonly driverwalletRepository: DriverWalletRepository,
-
+    @Inject(USER_TYPES.repository.wallet)
+    private readonly userWalletRepository: IWalletRepository<UserWallet>,
+    @Inject(DRIVER_TYPES.repository.wallet)
+    private readonly driverWalletRepository: IWalletRepository<DriverWallet>,
     private readonly gpsDrivingService: GpsDrivingService,
   ) {}
 
-  async create(CreateSubOrdersDto: CreateSubOrdersDto): Promise<SubOrder[]> {
+  async create(CreateSubOrdersDto: CreateSubOrdersDto): Promise<Order> {
     const subOrders: SubOrder[] = [];
-    const order = await this.orderRepository.findOne(
-      CreateSubOrdersDto.orderId,
-    );
+    const order = await this.ordersService.findOne(CreateSubOrdersDto.orderId);
 
     const [defaultWeight, minWeight, midWeight, maxWeight, portersSetting] =
       await Promise.all([
@@ -103,51 +117,63 @@ export class SubOrdersService implements ISubOrdersService {
 
       subOrders.push(newSubOrder);
     }
-
-    return subOrders;
+    const cost = await this.findTotalCost(CreateSubOrdersDto.orderId);
+    return await this.ordersService.divisionDone(
+      CreateSubOrdersDto.orderId,
+      cost,
+    );
   }
 
-  find(): Promise<SubOrder[]> {
-    return this.subOrderRepository.find();
+  async find(): Promise<SubOrder[]> {
+    return await this.subOrderRepository.find();
   }
 
-  findForDriver(cars: Car[]): Promise<SubOrder[]> {
-    return this.subOrderRepository.findForDriver(cars);
+  async findOne(subOrderId: string): Promise<SubOrder> {
+    const subOrder = await this.subOrderRepository.findOne(subOrderId);
+    if (!subOrder) {
+      throw new NotFoundException(item_not_found(Entities.Suborder));
+    }
+    return subOrder;
   }
 
-  findAllActiveForDriver(driverId: string): Promise<SubOrder[]> {
-    return this.subOrderRepository.findAllActiveForDriver(driverId);
+  async findForDriver(driverId: string): Promise<SubOrder[]> {
+    const cars = await this.carsService.findMyCars(driverId);
+
+    return await this.subOrderRepository.findForDriver(cars);
   }
 
-  findForOrder(orderId: string): Promise<SubOrder[]> {
-    return this.subOrderRepository.findForOrder(orderId);
-  }
-  findIsDoneForDriver(driverId: string): Promise<SubOrder[]> {
-    return this.subOrderRepository.findIsDoneForDriver(driverId);
+  async findAllActiveForDriver(driverId: string): Promise<SubOrder[]> {
+    return await this.subOrderRepository.findAllActiveForDriver(driverId);
   }
 
-  findOne(subOrderId: string): Promise<SubOrder> {
-    return this.subOrderRepository.findOne(subOrderId);
+  async findIsDoneForDriver(driverId: string): Promise<SubOrder[]> {
+    return await this.subOrderRepository.findIsDoneForDriver(driverId);
   }
 
-  update(
+  async findForOrder(orderId: string): Promise<SubOrder[]> {
+    return await this.subOrderRepository.findForOrder(orderId);
+  }
+
+  async update(
     subOrderId: string,
     updateSubOrderDto: UpdateSubOrderDto,
   ): Promise<SubOrder> {
-    return this.subOrderRepository.update(subOrderId, updateSubOrderDto);
+    const subOrder = await this.findOne(subOrderId);
+    return this.subOrderRepository.update(subOrder, updateSubOrderDto);
   }
 
-  setArrivedAt(subOrderId: string): Promise<SubOrder> {
-    return this.subOrderRepository.setArrivedAt(subOrderId);
+  async setArrivedAt(subOrderId: string): Promise<SubOrder> {
+    const subOrder = await this.findOne(subOrderId);
+    return this.subOrderRepository.setArrivedAt(subOrder);
   }
 
   async setPickedUpAt(subOrderId: string): Promise<SubOrder> {
-    const thisSub = await this.subOrderRepository.findOne(subOrderId);
-    await this.orderRepository.updateStatus(
-      thisSub.orderId,
+    const subOrder = await this.findOne(subOrderId);
+    await this.ordersService.updateStatus(
+      subOrder.orderId,
       ORDER_STATUS.ON_THE_WAY,
     );
-    return this.subOrderRepository.setPickedUpAt(subOrderId);
+    return this.subOrderRepository.setPickedUpAt(subOrder);
   }
 
   async setDeliveredAt(subOrderId: string): Promise<SubOrder> {
@@ -157,33 +183,34 @@ export class SubOrdersService implements ISubOrdersService {
     await queryRunner.startTransaction();
 
     try {
-      const subOrder = await this.subOrderRepository.findOne(subOrderId);
+      const subOrder = await this.findOne(subOrderId);
 
-      // تحديث حالة التسليم للطلب الفرعي
-      await this.subOrderRepository.setDeliveredAt(subOrderId);
+      // Update delivery status for the suborder
+      await this.subOrderRepository.setDeliveredAt(subOrder);
 
-      // سحب المبلغ من محفظة المستخدم
-      await this.userwalletRepository.withdrawForDriver(
+      // take the cost from the user wallet
+      await this.userWalletRepository.withdrawForDriver(
         subOrder.order.userId,
         subOrder.cost,
       );
 
-      // إيداع المبلغ في محفظة السائق
-      await this.driverwalletRepository.deposit(
+      // transfer the money to the driver wallet
+      await this.driverWalletRepository.deposit(
         subOrder.car.driverId,
         subOrder.cost,
       );
 
-      // التحقق من حالة الطلبات الفرعية وتحديث حالة الطلب الأساسي إذا كانت جميع الطلبات الفرعية مكتملة
+      // check if the order has been delivered
       const allSubOrdersCompleted =
         await this.subOrderRepository.areAllSubOrdersCompleted(
           subOrder.orderId,
         );
       if (allSubOrdersCompleted) {
-        // تحديث تاريخ التسليم في مستودع الدفع
-        await this.paymentRepository.setDeliveredDate(subOrder.orderId);
-        // تحديث حالة الطلب الى موصل
-        await this.orderRepository.updateStatus(
+        // Update the delivered date for the associated payment
+        await this.paymentsService.setDeliveredDate(subOrder.orderId);
+
+        // update the order status to completed
+        await this.ordersService.updateStatus(
           subOrder.orderId,
           ORDER_STATUS.DELIVERED,
         );
@@ -193,32 +220,61 @@ export class SubOrdersService implements ISubOrdersService {
       return subOrder;
     } catch (error) {
       await queryRunner.rollbackTransaction();
-      throw new Error(`Failed to set delivered at: ${error.message}`);
+      throw new InternalServerErrorException(
+        `Failed to set delivered at: ${error.message}`,
+      );
     } finally {
       await queryRunner.release();
     }
   }
 
-  ready(subOrderId: string): Promise<SubOrder[]> {
-    return this.subOrderRepository.ready(subOrderId);
+  async setStatusToReady(orderId: string): Promise<SubOrder[]> {
+    return await this.subOrderRepository.setStatusToReady(orderId);
   }
 
-  setDriver(subOrderId: string, car: Car): Promise<SubOrder> {
-    return this.subOrderRepository.setDriver(subOrderId, car);
+  async setDriver(subOrderId: string, car: Car): Promise<SubOrder> {
+    const subOrder =
+      await this.subOrderRepository.findOneWithAdvantages(subOrderId);
+
+    if (!subOrder) {
+      throw new NotFoundException(`SubOrder with id ${subOrderId} not found`);
+    }
+
+    const requestedFeatures = subOrder.order.advantages.map(
+      (feature) => feature.id,
+    );
+
+    const carFeatures = car.advantages.map((advantage) => advantage.id);
+    const hasAllFeatures = requestedFeatures.every((feature) =>
+      carFeatures.includes(feature),
+    );
+
+    if (!hasAllFeatures) {
+      throw new BadRequestException(
+        `Car does not have all the requested features`,
+      );
+    }
+
+    return this.subOrderRepository.setDriver(subOrder, car);
   }
 
-  delete(subOrderId: string): Promise<void> {
-    return this.subOrderRepository.delete(subOrderId);
+  async countSubOrdersCompletedForDriver(driverId: string): Promise<number> {
+    return this.subOrderRepository.countSubOrdersCompletedForDriver(driverId);
+  }
+  async delete(subOrderId: string): Promise<void> {
+    const subOrder = await this.findOne(subOrderId);
+    return await this.subOrderRepository.delete(subOrder);
   }
 
-  deleteForOrder(orderId: string): Promise<void> {
-    return this.subOrderRepository.deleteForOrder(orderId);
+  async deleteForOrder(orderId: string): Promise<void> {
+    return await this.subOrderRepository.deleteForOrder(orderId);
   }
-  refusedForOrder(orderId: string): Promise<boolean> {
+
+  async refusedForOrder(orderId: string): Promise<void> {
     return this.subOrderRepository.refusedForOrder(orderId);
   }
 
-  findTotalCost(subOrderId: string): Promise<number> {
-    return this.subOrderRepository.findTotalCost(subOrderId);
+  async findTotalCost(subOrderId: string): Promise<number> {
+    return await this.subOrderRepository.findTotalCost(subOrderId);
   }
 }
