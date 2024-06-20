@@ -8,8 +8,6 @@ import { CreateDriverDto, UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
 import { Entities, ROLE } from '@common/enums';
 import { defaultPhotoUrl, item_not_found } from '@common/constants';
-import { ICitiesService } from '@models/cities/interfaces/services/cities.service.interface';
-import { CITY_TYPES } from '@models/cities/interfaces/type';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { PaginatedResponse } from '@common/types';
 import { DriverPhoto } from '../entities/driver-photo.entity';
@@ -21,6 +19,10 @@ import { IRolesService } from '@models/roles/interfaces/services/roles.service.i
 // import { UpdatePhoneDto } from '../../../auth-driver';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { DriverWallet } from '../entities/driver-wallet.entity';
+import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
+import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
+import { ICarsService } from '@models/cars/interfaces/services/cars.service.interface';
+import { CAR_TYPES } from '@models/cars/interfaces/type';
 
 @Injectable()
 export class DriversService implements IDriversService {
@@ -32,7 +34,10 @@ export class DriversService implements IDriversService {
     @Inject(DRIVER_TYPES.repository.photo)
     private driverPhotoRepository: IPhotoRepository<DriverPhoto>,
     @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
-    @Inject(CITY_TYPES.service) private citiesService: ICitiesService,
+    @Inject(SUB_ORDER_TYPES.service)
+    private subOrderService: ISubOrdersService,
+    @Inject(CAR_TYPES.service)
+    private carsService: ICarsService,
   ) {}
 
   async create(dto: CreateDriverDto): Promise<Driver> {
@@ -51,6 +56,33 @@ export class DriversService implements IDriversService {
     withDeleted: boolean,
   ): Promise<PaginatedResponse<Driver> | Driver[]> {
     return this.driverRepository.find(page, limit, withDeleted);
+  }
+
+  async staticsDriver(
+    page: number,
+    limit: number,
+    withDeleted: boolean,
+  ): Promise<any[]> {
+    const data = await this.driverRepository.staticsDriver(
+      page,
+      limit,
+      withDeleted,
+    );
+    const updateDriver = await Promise.all(
+      data.data.map(async (driver) => {
+        const countOrderDelivered =
+          await this.subOrderService.countSubOrdersCompletedForDriver(
+            driver.id,
+          );
+        const countCar = await this.carsService.countCarForDriver(driver.id);
+        return {
+          ...driver,
+          countOrderDelivered,
+          countCar,
+        };
+      }),
+    );
+    return updateDriver;
   }
 
   async findOne(id: string, withDeleted = false): Promise<Driver> {

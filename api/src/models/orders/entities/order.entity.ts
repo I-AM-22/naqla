@@ -76,6 +76,7 @@ export class Order extends GlobalEntity {
   @Column('uuid', { nullable: true })
   paymentId: string;
 
+  // @ApiProperty({ isArray: true, type: () => SubOrder })
   @Exclude()
   @OneToMany(() => SubOrder, (subOrder) => subOrder.order, { cascade: true })
   subOrders: SubOrder[];

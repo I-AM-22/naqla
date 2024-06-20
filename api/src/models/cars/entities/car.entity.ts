@@ -8,27 +8,26 @@ import {
   OneToMany,
 } from 'typeorm';
 import { BasePhoto, GlobalEntity } from '@common/base';
-import { Driver } from './driver.entity';
+import { Driver } from '../../drivers/entities/driver.entity';
 import { CarPhoto } from './car-photo.entity';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { Advantage } from '@models/advantages/entities/advantage.entity';
-import { GROUPS } from '@common/enums';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 
 @Entity('cars')
 export class Car extends GlobalEntity {
-  @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
+  // @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
   @ApiProperty()
   @Column()
   model: string;
 
-  @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
+  // @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
   @ApiProperty()
   @Column()
   brand: string;
 
-  @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
+  // @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
   @ApiProperty()
   @Column()
   color: string;

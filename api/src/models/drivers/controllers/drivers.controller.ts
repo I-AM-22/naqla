@@ -78,6 +78,31 @@ export class DriversController implements ICrud<Driver> {
     return this.driversService.find(page, limit, withDeleted);
   }
 
+  @UseInterceptors(WithDeletedInterceptor)
+  @SerializeOptions({ groups: [GROUPS.ALL_DRIVERS] })
+  @ApiOkResponse({ type: PaginatedResponse<Driver> })
+  @ApiQuery({
+    name: 'page',
+    allowEmptyValue: false,
+    example: 1,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    allowEmptyValue: false,
+    example: 10,
+    required: false,
+  })
+  @Get('/statics')
+  async staticsDriver(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Req() req: Request & { query: { withDeleted: string } },
+  ) {
+    const withDeleted = JSON.parse(req.query.withDeleted);
+    return this.driversService.staticsDriver(page, limit, withDeleted);
+  }
+
   @ApiOkResponse({ type: Driver })
   @SerializeOptions({ groups: [GROUPS.DRIVER] })
   @Roles(ROLE.DRIVER)

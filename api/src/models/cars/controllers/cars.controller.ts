@@ -1,5 +1,3 @@
-// car.controller.ts
-
 import {
   Controller,
   Post,
@@ -8,14 +6,12 @@ import {
   UseInterceptors,
   ParseUUIDPipe,
   SerializeOptions,
+  Delete,
+  Get,
+  Param,
+  Patch,
 } from '@nestjs/common';
-import { AddAdvansToCarDto, CreateCarDto, UpdateCarDto } from '../dtos';
-import { Param, Get, Patch, Delete } from '@nestjs/common';
-import { Car } from '../entities/car.entity';
-import { ICarsService } from '../interfaces/services/cars.service.interface';
-import { CAR_TYPES } from '../interfaces/type';
-import { Auth, GetUser, Id, Roles } from '@common/decorators';
-import { Driver } from '../entities/driver.entity';
+
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -28,6 +24,12 @@ import {
 import { bad_req, denied_error, data_not_found } from '@common/constants';
 import { LoggingInterceptor } from '@common/interceptors';
 import { GROUPS, ROLE } from '@common/enums';
+import { Auth, GetUser, Id, Roles } from '@common/decorators';
+import { CAR_TYPES } from '../interfaces/type';
+import { ICarsService } from '../interfaces/services/cars.service.interface';
+import { CreateCarDto, UpdateCarDto, AddAdvansToCarDto } from '../dtos';
+import { Car } from '../entities/car.entity';
+import { Driver } from '@models/drivers/entities/driver.entity';
 
 @ApiTags('Cars')
 @ApiBadRequestResponse({ description: bad_req })
@@ -55,9 +57,9 @@ export class CarController {
   @Get('mine/order/:id')
   async findMineForOrder(
     @GetUser('id') driverId: string,
-    @Id() orderid: string,
+    @Id() orderId: string,
   ): Promise<Car[]> {
-    return this.carsService.findMyCarsForOrder(driverId, orderid);
+    return this.carsService.findMyCarsForOrder(driverId, orderId);
   }
 
   @SerializeOptions({ groups: [GROUPS.CAR] })

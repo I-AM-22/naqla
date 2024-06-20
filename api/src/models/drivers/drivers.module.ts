@@ -8,17 +8,12 @@ import { DriverPhoto } from './entities/driver-photo.entity';
 import { DriversController } from './controllers/drivers.controller';
 import { DriversService } from './services/drivers.service';
 import { CitiesModule } from '../cities/cities.module';
-import { CAR_TYPES, DRIVER_TYPES } from './interfaces/type';
+import { DRIVER_TYPES } from './interfaces/type';
 import { DriverWallet } from './entities/driver-wallet.entity';
 import { RolesModule } from '../roles/roles.module';
-import { CarsService } from './services/cars.service';
-import { CarRepository } from './repositories/car/car.repository';
-import { CarController } from './controllers/cars.controller';
-import { CarPhotoRepository } from './repositories/car/car-photo.repository';
-import { Car } from './entities/car.entity';
-import { CarPhoto } from './entities/car-photo.entity';
 import { AdvantagesModule } from '../advantages/advantages.module';
-import { OrdersModule } from '@models/orders/orders.module';
+import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
+import { CarsModule } from '@models/cars/cars.module';
 
 export const DriversServiceProvider: Provider = {
   provide: DRIVER_TYPES.service,
@@ -39,44 +34,21 @@ export const DriverWalletRepositoryProvider: Provider = {
   useClass: DriverWalletRepository,
 };
 
-export const CarsServiceProvider: Provider = {
-  provide: CAR_TYPES.service,
-  useClass: CarsService,
-};
-
-export const CarRepositoryProvider: Provider = {
-  provide: CAR_TYPES.repository.car,
-  useClass: CarRepository,
-};
-
-export const CarPhotoRepositoryProvider: Provider = {
-  provide: CAR_TYPES.repository.photo,
-  useClass: CarPhotoRepository,
-};
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      Driver,
-      DriverWallet,
-      DriverPhoto,
-      Car,
-      CarPhoto,
-    ]),
-    forwardRef(() => OrdersModule),
+    TypeOrmModule.forFeature([Driver, DriverWallet, DriverPhoto]),
+    forwardRef(() => SubOrdersModule),
     RolesModule,
     CitiesModule,
     AdvantagesModule,
+    CarsModule,
   ],
-  controllers: [DriversController, CarController],
+  controllers: [DriversController],
   providers: [
     DriverPhotoRepositoryProvider,
     DriverRepositoryProvider,
     DriverWalletRepositoryProvider,
     DriversServiceProvider,
-    CarsServiceProvider,
-    CarRepositoryProvider,
-    CarPhotoRepositoryProvider,
-    CarsService,
     DriverWalletRepository,
   ],
   exports: [
@@ -84,7 +56,6 @@ export const CarPhotoRepositoryProvider: Provider = {
     DriverRepositoryProvider,
     DriverWalletRepositoryProvider,
     DriversServiceProvider,
-    CarsService,
     DriverWalletRepository,
   ],
 })

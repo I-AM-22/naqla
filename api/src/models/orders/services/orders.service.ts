@@ -16,50 +16,50 @@ import { ADVANTAGE_TYPES } from '@models/advantages/interfaces/type';
 import { IAdvantagesService } from '@models/advantages/interfaces/services/advantages.service.interface';
 import { OrderPhotoRepository } from '../repositories/order-photo.repository';
 import { IPerson } from '@common/interfaces';
-import { ISettingRepository } from '@models/settings/interfaces/repositories/setting.repository.interface';
-import { IPaymentRepository } from '@models/payments/interfaces/repositories/payment.repository.interface';
 import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
-import { SETTING_TYPES } from '@models/settings/interfaces/type';
 import { UserWalletRepository } from '@models/users/repositories/user-wallet.repository';
+import { IPaymentsService } from '@models/payments/interfaces/services/payments.service.interface';
+import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
+import { ISubOrderRepository } from '@models/sub-orders/interfaces/repositories/sub-order.repository.interface';
 
 @Injectable()
 export class OrdersService implements IOrdersService {
   constructor(
     @Inject(ORDER_TYPES.repository.order)
     private readonly orderRepository: IOrderRepository,
-    @Inject(SETTING_TYPES.repository)
-    private readonly settingRepository: ISettingRepository,
     @Inject(ORDER_TYPES.repository.photo)
     private readonly orderPhotoRepository: OrderPhotoRepository,
     private readonly walletRepository: UserWalletRepository,
     @Inject(ADVANTAGE_TYPES.service)
     private readonly advantagesService: IAdvantagesService,
-    @Inject(PAYMENT_TYPES.repository)
-    private readonly paymentRepository: IPaymentRepository,
+    @Inject(PAYMENT_TYPES.service)
+    private readonly paymentsService: IPaymentsService,
+    @Inject(SUB_ORDER_TYPES.repository.subOrder)
+    private readonly subOrderRepository: ISubOrderRepository,
   ) {}
 
   async find(): Promise<Order[]> {
-    return this.orderRepository.find();
+    return await this.orderRepository.find();
   }
   async findWaiting(): Promise<Order[]> {
-    return this.orderRepository.findWaiting();
-  }
-
-  async findOne(id: string, person: IPerson): Promise<Order> {
-    if (person.role.name === ROLE.USER)
-      return this.findOneForOwner(id, person.id);
-
-    const order = await this.orderRepository.findOne(id);
-    if (!order) throw new NotFoundException(item_not_found(Entities.Order));
-    return order;
+    return await this.orderRepository.findWaiting();
   }
 
   async findMyOrders(userId: string): Promise<Order[]> {
     return await this.orderRepository.findMyOrder(userId);
   }
 
-  async findMineForAccepted(userId: string): Promise<Order[]> {
-    return await this.orderRepository.findMineForAccepted(userId);
+  async findMineWithAccepted(userId: string): Promise<Order[]> {
+    return await this.orderRepository.findMineWithAccepted(userId);
+  }
+
+  async findOne(id: string, person?: IPerson): Promise<Order> {
+    if (person && person.role.name === ROLE.USER)
+      return await this.findOneForOwner(id, person.id);
+
+    const order = await this.orderRepository.findOne(id);
+    if (!order) throw new NotFoundException(item_not_found(Entities.Order));
+    return order;
   }
 
   async findOneForOwner(id: string, userId: string): Promise<Order> {
@@ -68,6 +68,9 @@ export class OrdersService implements IOrdersService {
     return order;
   }
 
+  async findOneWithAdvantages(id: string): Promise<Order> {
+    return await this.orderRepository.findOneWithAdvantages(id);
+  }
   async create(user: User, dto: CreateOrderDto): Promise<Order> {
     const photo = await this.orderPhotoRepository.uploadPhotoMultiple(
       dto.items,
@@ -84,7 +87,7 @@ export class OrdersService implements IOrdersService {
       advantages,
       dto,
     );
-    await this.paymentRepository.create(order, sum);
+    await this.paymentsService.create(order, sum);
     return order;
   }
 
@@ -106,23 +109,32 @@ export class OrdersService implements IOrdersService {
     return this.orderRepository.update(order, dto, photo);
   }
 
+  async updateStatus(id: string, status: ORDER_STATUS): Promise<Order> {
+    return await this.orderRepository.updateStatus(id, status);
+  }
+
+  async countOrdersCompletedForUser(userId: string): Promise<number> {
+    return await this.orderRepository.countOrdersCompletedForUser(userId);
+  }
+
   async divisionDone(id: string, cost: number): Promise<Order> {
-    await this.paymentRepository.setTotal(id, cost);
-    return this.orderRepository.divisionDone(id);
+    await this.paymentsService.setTotal(id, cost);
+    return await this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
   }
 
   async acceptance(id: string): Promise<Order> {
     const order = await this.orderRepository.findOne(id);
     if (order.status !== ORDER_STATUS.ACCEPTED) {
       throw new ForbiddenException(
-        'Can not acceptance Done this order becouss him status is not accepted',
+        'Can not acceptance Done this order because him status is not accepted',
       );
     }
     if (!(await this.walletRepository.check(order.userId, order.payment.cost)))
       throw new ForbiddenException(
-        `Can not acceptance Done this order becouss you do not have order's cost`,
+        `Can not acceptance Done this order because you do not have order's cost`,
       );
     await this.walletRepository.updatePending(order.userId, order.payment.cost);
+    await this.subOrderRepository.setStatusToReady(order.id);
     return this.orderRepository.updateStatus(id, ORDER_STATUS.READY);
   }
 
@@ -136,13 +148,14 @@ export class OrdersService implements IOrdersService {
     return this.orderRepository.updateStatus(id, ORDER_STATUS.CANCELED);
   }
 
-  refusal(id: string): Promise<Order> {
+  async refusal(id: string): Promise<Order> {
     // const order = await this.orderRepository.findOne(id);
     // if (order.status !== ORDER_STATUS.WAITING) {
     //   throw new ForbiddenException(
     //     'Can not division Done this order becouss him status is not waiting',
     //   );
     // }
+    await this.subOrderRepository.refusedForOrder(id);
     return this.orderRepository.updateStatus(id, ORDER_STATUS.REFUSED);
   }
 

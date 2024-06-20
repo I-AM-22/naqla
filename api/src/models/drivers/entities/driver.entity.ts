@@ -7,17 +7,16 @@ import {
   OneToOne,
 } from 'typeorm';
 import { BasePersonWithActive, BasePhoto } from '@common/base';
-import { Exclude, Expose, Transform } from 'class-transformer';
-import { GROUPS } from '@common/enums';
+import { Exclude, Transform } from 'class-transformer';
 import { Role } from '@models/roles/entities/role.entity';
 import { DriverPhoto } from './driver-photo.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { DriverWallet } from './driver-wallet.entity';
-import { Car } from './car.entity';
+import { Car } from '../../cars/entities/car.entity';
 
 @Entity({ name: 'drivers' })
 export class Driver extends BasePersonWithActive {
-  @Expose({ groups: [GROUPS.DRIVER] })
+  // @Expose({ groups: [GROUPS.DRIVER] })
   @Transform(({ value }) => value.name)
   @ManyToOne(() => Role, (role) => role.drivers)
   @JoinColumn({ name: 'roleId' })
@@ -28,7 +27,7 @@ export class Driver extends BasePersonWithActive {
   roleId: string;
 
   @ApiProperty({ type: DriverWallet })
-  @Expose({ groups: [GROUPS.DRIVER] })
+  // @Expose({ groups: [GROUPS.DRIVER] })
   @OneToOne(() => DriverWallet, (wallet) => wallet.driver, {
     onDelete: 'CASCADE',
     cascade: true,
@@ -45,7 +44,7 @@ export class Driver extends BasePersonWithActive {
   })
   photos: DriverPhoto[];
 
-  @Expose({})
+  // @Expose({})
   @ApiProperty({ type: BasePhoto })
   photo() {
     if (this.photos) return this.photos[this.photos.length - 1];

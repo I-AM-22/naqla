@@ -1,12 +1,12 @@
 import { Order } from '@models/orders/entities/order.entity';
 import { Payment } from '@models/payments/entities/payment.entity';
 
-export interface IPaymentRepository {
+export interface IPaymentsService {
   create(order: Order, sum: number): Promise<Payment>;
 
   fineOneByOrderId(orderId: string): Promise<Payment>;
 
-  setTotal(payment: Payment, cost: number): Promise<Payment>;
+  setTotal(orderId: string, cost: number): Promise<Payment>;
 
-  setDeliveredDate(payment: Payment): Promise<Payment>;
+  setDeliveredDate(orderId: string): Promise<Payment>;
 }

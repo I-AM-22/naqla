@@ -1,65 +1,52 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Payment } from '../../payments/entities/payment.entity';
 import { Order } from '@models/orders/entities/order.entity';
+import { IPaymentRepository } from '../interfaces/repositories/payment.repository.interface';
 
 @Injectable()
-export class PaymentRepository {
+export class PaymentRepository implements IPaymentRepository {
   constructor(
     @InjectRepository(Payment)
-    private readonly paymentRepository: Repository<Payment>,
+    private readonly paymentRepo: Repository<Payment>,
   ) {}
 
   async create(order: Order, sum: number): Promise<Payment> {
-    const payment = this.paymentRepository.create();
+    const payment = this.paymentRepo.create();
     payment.additionalCost = sum;
     payment.orderId = order.id;
-    await this.paymentRepository.save(payment);
+    await this.paymentRepo.save(payment);
     order.paymentId = payment.id;
     await order.save();
     return payment;
   }
 
-  async setTotal(id: string, cost: number): Promise<Payment> {
-    const payment = await this.paymentRepository.findOne({
-      where: { orderId: id },
+  async fineOneByOrderId(orderId: string): Promise<Payment> {
+    return await this.paymentRepo.findOne({
+      where: { orderId },
     });
-    payment.cost = cost;
-    return await this.paymentRepository.save(payment);
   }
 
-  async setDeliveredDate(id: string): Promise<Payment> {
-    const payment = await this.paymentRepository.findOne({
-      where: { orderId: id },
-    });
+  async setTotal(payment: Payment, cost: number): Promise<Payment> {
+    payment.cost = cost;
+    return await this.paymentRepo.save(payment);
+  }
 
-    if (!payment) {
-      throw new Error('Payment not found');
-    }
-
+  async setDeliveredDate(payment: Payment): Promise<Payment> {
     const newDeliveredDate =
       payment.deliveredDate == null ||
       payment.deliveredDate.getTime() < Date.now()
         ? new Date()
         : payment.deliveredDate;
 
-    await this.paymentRepository
+    await this.paymentRepo
       .createQueryBuilder()
       .update(Payment)
       .set({ deliveredDate: newDeliveredDate })
-      .where('orderId = :id', { id })
+      .where('orderId = :id', { id: payment.orderId })
       .execute();
 
-    // استرجاع الدفع بعد التحديث
-    const updatedPayment = await this.paymentRepository.findOne({
-      where: { orderId: id },
-    });
-
-    if (!updatedPayment) {
-      throw new NotFoundException('Payment not found after update');
-    }
-
-    return updatedPayment;
+    return this.fineOneByOrderId(payment.orderId);
   }
 }

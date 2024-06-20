@@ -80,6 +80,21 @@ export class UsersController {
     return this.usersService.find(page, limit, withDeleted);
   }
 
+  @UseInterceptors(WithDeletedInterceptor)
+  @SerializeOptions({ groups: [GROUPS.ALL_USERS] })
+  @ApiOkResponse({ type: PaginatedResponse<User> })
+  @ApiQuery({
+    name: 'page',
+    allowEmptyValue: false,
+    example: 1,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    allowEmptyValue: false,
+    example: 10,
+    required: false,
+  })
   @ApiOkResponse({ type: User })
   @SerializeOptions({ groups: [GROUPS.USER] })
   @Roles(ROLE.USER)
