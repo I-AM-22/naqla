@@ -18,17 +18,17 @@ import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 
 @Entity('cars')
 export class Car extends GlobalEntity {
-  @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
+  // @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
   @ApiProperty()
   @Column()
   model: string;
 
-  @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
+  // @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
   @ApiProperty()
   @Column()
   brand: string;
 
-  @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
+  // @Expose({ groups: [GROUPS.ALL_CARS, GROUPS.CAR] })
   @ApiProperty()
   @Column()
   color: string;

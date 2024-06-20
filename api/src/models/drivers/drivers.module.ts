@@ -19,6 +19,7 @@ import { Car } from './entities/car.entity';
 import { CarPhoto } from './entities/car-photo.entity';
 import { AdvantagesModule } from '../advantages/advantages.module';
 import { OrdersModule } from '@models/orders/orders.module';
+import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
 
 export const DriversServiceProvider: Provider = {
   provide: DRIVER_TYPES.service,
@@ -63,6 +64,7 @@ export const CarPhotoRepositoryProvider: Provider = {
       CarPhoto,
     ]),
     forwardRef(() => OrdersModule),
+    forwardRef(() => SubOrdersModule),
     RolesModule,
     CitiesModule,
     AdvantagesModule,
@@ -75,6 +77,7 @@ export const CarPhotoRepositoryProvider: Provider = {
     DriversServiceProvider,
     CarsServiceProvider,
     CarRepositoryProvider,
+    CarRepository,
     CarPhotoRepositoryProvider,
     CarsService,
     DriverWalletRepository,
@@ -85,6 +88,7 @@ export const CarPhotoRepositoryProvider: Provider = {
     DriverWalletRepositoryProvider,
     DriversServiceProvider,
     CarsService,
+    CarRepository,
     DriverWalletRepository,
   ],
 })

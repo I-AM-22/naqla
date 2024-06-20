@@ -28,7 +28,7 @@ export class User extends BasePersonWithActive {
   roleId: string;
 
   @ApiProperty({ type: UserWallet })
-  @Expose({ groups: [GROUPS.USER] })
+  @Expose({ groups: [GROUPS.USER, GROUPS.ALL_USERS] })
   @OneToOne(() => UserWallet, (wallet) => wallet.user, {
     onDelete: 'CASCADE',
     cascade: true,

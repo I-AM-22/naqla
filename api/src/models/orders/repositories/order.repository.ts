@@ -1,3 +1,4 @@
+import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 import { ORDER_STATUS } from '@common/enums';
 import { Advantage } from '@models/advantages/entities/advantage.entity';
 import { User } from '@models/users/entities/user.entity';
@@ -69,7 +70,11 @@ export class OrderRepository implements IOrderRepository {
       select: {
         advantages: { id: false, cost: false, name: true },
       },
-      relations: { photos: true, advantages: true, payment: true },
+      relations: {
+        photos: true,
+        advantages: true,
+        payment: true,
+      },
     });
   }
 
@@ -200,6 +205,18 @@ export class OrderRepository implements IOrderRepository {
 
   async delete(order: Order): Promise<void> {
     await this.orderRepository.softRemove(order);
+  }
+
+  async countOrdersCompletedForUser(userId: string): Promise<number> {
+    const completeOrderCount = await this.orderRepository
+      .createQueryBuilder('order')
+      .where('order.userId = :userId', { userId })
+      .andWhere('order.status = :status', {
+        status: ORDER_STATUS.DELIVERED,
+      })
+      .getCount();
+
+    return completeOrderCount;
   }
 
   async addAdvantageToOrder(

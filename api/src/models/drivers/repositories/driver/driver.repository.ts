@@ -42,6 +42,24 @@ export class DriverRepository
     return pagination(page, limit, totalDataCount, data);
   }
 
+  async staticsDriver(
+    page: number,
+    limit: number,
+    withDeleted: boolean,
+  ): Promise<PaginatedResponse<Driver>> {
+    const skip = (page - 1) * limit || 0;
+    const take = limit || 100;
+    const data = await this.driverRepo.find({
+      where: { active: true },
+      relations: { photos: true, wallet: true },
+      skip,
+      take,
+      withDeleted,
+    });
+    const totalDataCount = await this.driverRepo.count({ withDeleted });
+    return pagination(page, limit, totalDataCount, data);
+  }
+
   async create(
     dto: CreateDriverDto,
     wallet: DriverWallet,

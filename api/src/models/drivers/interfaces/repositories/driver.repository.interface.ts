@@ -12,7 +12,11 @@ export interface IDriverRepository {
     limit: number,
     withDeleted: boolean,
   ): Promise<PaginatedResponse<Driver> | Driver[]>;
-
+  staticsDriver(
+    page: number,
+    limit: number,
+    withDeleted: boolean,
+  ): Promise<PaginatedResponse<Driver>>;
   findById(id: string, withDeleted?: boolean): Promise<Driver>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Driver>;

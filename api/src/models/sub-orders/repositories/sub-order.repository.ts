@@ -20,10 +20,34 @@ export class SubOrderRepository implements ISubOrderRepository {
   }
 
   async findForOrder(orderId: string): Promise<SubOrder[]> {
-    return this.subOrderRepository.find({
-      where: { orderId },
-      relations: { car: true },
-    });
+    const subOrders = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.order', 'order')
+      .leftJoinAndSelect('subOrder.photos', 'photos')
+      .leftJoinAndSelect('order.advantages', 'advantages')
+      .leftJoinAndSelect('subOrder.car', 'car')
+      .leftJoinAndSelect('car.driver', 'driver')
+      .where('order.id = :orderId', { orderId })
+      .select([
+        'subOrder.id',
+        'subOrder.cost',
+        'subOrder.weight',
+        'photos',
+        'order.id',
+        'order.locationStart',
+        'order.locationEnd',
+        'order.desiredDate',
+        'order.porters',
+        'advantages.name',
+        'advantages.id',
+        'car.model',
+        'car.brand',
+        'car.color',
+        'driver.firstName',
+        'driver.lastName',
+      ])
+      .getMany();
+    return subOrders;
   }
 
   async findAllActiveForDriver(driverId: string): Promise<SubOrder[]> {
@@ -116,10 +140,34 @@ export class SubOrderRepository implements ISubOrderRepository {
   }
 
   async findOne(id: string): Promise<SubOrder> {
-    return this.subOrderRepository.findOne({
-      where: { id },
-      relations: { order: true, car: true },
-    });
+    const subOrders = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.order', 'order')
+      .leftJoinAndSelect('subOrder.photos', 'photos')
+      .leftJoinAndSelect('order.advantages', 'advantages')
+      .leftJoinAndSelect('subOrder.car', 'car')
+      .leftJoinAndSelect('car.driver', 'driver')
+      .where('subOrder.id = :id', { id })
+      .select([
+        'subOrder.id',
+        'subOrder.cost',
+        'subOrder.weight',
+        'photos',
+        'order.id',
+        'order.locationStart',
+        'order.locationEnd',
+        'order.desiredDate',
+        'order.porters',
+        'advantages.name',
+        'advantages.id',
+        'car.model',
+        'car.brand',
+        'car.color',
+        'driver.firstName',
+        'driver.lastName',
+      ])
+      .getMany();
+    return subOrders[0];
   }
 
   async create(
@@ -239,5 +287,18 @@ export class SubOrderRepository implements ISubOrderRepository {
       .where('subOrder.orderId = :id', { id })
       .getRawOne();
     return result.totalCost ?? 0;
+  }
+
+  async countSubOrdersCompletedFordriver(driverId: string): Promise<number> {
+    const completeSubOrderCount = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.car', 'car')
+      .where('car.driverId = :driverId', { driverId })
+      .andWhere('subOrder.status = :status', {
+        status: SUB_ORDER_STATUS.DELIVERED,
+      })
+      .getCount();
+
+    return completeSubOrderCount;
   }
 }

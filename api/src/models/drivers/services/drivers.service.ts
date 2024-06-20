@@ -21,6 +21,8 @@ import { IRolesService } from '@models/roles/interfaces/services/roles.service.i
 // import { UpdatePhoneDto } from '../../../auth-driver';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { DriverWallet } from '../entities/driver-wallet.entity';
+import { SubOrderRepository } from '@models/sub-orders/repositories/sub-order.repository';
+import { CarRepository } from '../repositories/car/car.repository';
 
 @Injectable()
 export class DriversService implements IDriversService {
@@ -33,6 +35,8 @@ export class DriversService implements IDriversService {
     private driverPhotoRepository: IPhotoRepository<DriverPhoto>,
     @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
     @Inject(CITY_TYPES.service) private citiesService: ICitiesService,
+    private subOrderRepository: SubOrderRepository,
+    private carRepository: CarRepository,
   ) {}
 
   async create(dto: CreateDriverDto): Promise<Driver> {
@@ -51,6 +55,34 @@ export class DriversService implements IDriversService {
     withDeleted: boolean,
   ): Promise<PaginatedResponse<Driver> | Driver[]> {
     return this.driverRepository.find(page, limit, withDeleted);
+  }
+
+  async staticsDriver(
+    page: number,
+    limit: number,
+    withDeleted: boolean,
+  ): Promise<any[]> {
+    const data = await this.driverRepository.staticsDriver(
+      page,
+      limit,
+      withDeleted,
+    );
+    console.log(data.data);
+    const updateDriver = await Promise.all(
+      data.data.map(async (driver) => {
+        const countOrderDliverd =
+          await this.subOrderRepository.countSubOrdersCompletedFordriver(
+            driver.id,
+          );
+        const countCar = await this.carRepository.countCarFordriver(driver.id);
+        return {
+          ...driver,
+          countOrderDliverd,
+          countCar,
+        };
+      }),
+    );
+    return updateDriver;
   }
 
   async findOne(id: string, withDeleted = false): Promise<Driver> {

@@ -1,3 +1,4 @@
+import { Length } from 'class-validator';
 // Order.controller.ts
 
 import { bad_req, data_not_found, denied_error } from '@common/constants';
@@ -63,8 +64,18 @@ export class OrderController {
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('accepted')
-  async findMineForAccepted(@GetUser('id') userId: string): Promise<Order[]> {
-    return this.ordersService.findMineForAccepted(userId);
+  async findMineForAccepted(@GetUser('id') userId: string): Promise<any[]> {
+    const orders = await this.ordersService.findMineForAccepted(userId);
+    const updatedOrders = await Promise.all(
+      orders.map(async (order) => {
+        const subOrders = await this.subordersService.findForOrder(order.id);
+        return {
+          ...order,
+          subOrders,
+        };
+      }),
+    );
+    return updatedOrders;
   }
 
   @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)

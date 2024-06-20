@@ -41,6 +41,24 @@ export class UserRepository
     return pagination(page, limit, totalDataCount, data);
   }
 
+  async staticsUser(
+    page: number,
+    limit: number,
+    withDeleted: boolean,
+  ): Promise<PaginatedResponse<User>> {
+    const skip = (page - 1) * limit || 0;
+    const take = limit || 100;
+    const data = await this.userRepo.find({
+      where: { active: true },
+      relations: { photos: true, wallet: true },
+      skip,
+      take,
+      withDeleted,
+    });
+    const totalDataCount = await this.userRepo.count({ withDeleted });
+    return pagination(page, limit, totalDataCount, data);
+  }
+
   async create(
     dto: CreateUserDto,
     wallet: UserWallet,

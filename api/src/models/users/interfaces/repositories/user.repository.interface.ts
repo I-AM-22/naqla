@@ -13,6 +13,12 @@ export interface IUserRepository {
     withDeleted: boolean,
   ): Promise<PaginatedResponse<User> | User[]>;
 
+  staticsUser(
+    page: number,
+    limit: number,
+    withDeleted: boolean,
+  ): Promise<PaginatedResponse<User>>;
+
   findById(id: string, withDeleted?: boolean): Promise<User>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<User>;

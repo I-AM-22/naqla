@@ -80,6 +80,31 @@ export class UsersController {
     return this.usersService.find(page, limit, withDeleted);
   }
 
+  @UseInterceptors(WithDeletedInterceptor)
+  @SerializeOptions({ groups: [GROUPS.ALL_USERS] })
+  @ApiOkResponse({ type: PaginatedResponse<User> })
+  @ApiQuery({
+    name: 'page',
+    allowEmptyValue: false,
+    example: 1,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    allowEmptyValue: false,
+    example: 10,
+    required: false,
+  })
+  @Get('/statics')
+  async staticsUser(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Req() req: Request & { query: { withDeleted: string } },
+  ) {
+    const withDeleted = JSON.parse(req.query.withDeleted);
+    return this.usersService.staticsUser(page, limit, withDeleted);
+  }
+
   @ApiOkResponse({ type: User })
   @SerializeOptions({ groups: [GROUPS.USER] })
   @Roles(ROLE.USER)

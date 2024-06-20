@@ -110,6 +110,14 @@ export class CarRepository implements ICarRepository {
     await this.carRepository.softRemove(car);
   }
 
+  async countCarFordriver(driverId: string): Promise<number> {
+    const carCount = await this.carRepository
+      .createQueryBuilder('car')
+      .where('car.driverId = :driverId', { driverId })
+      .getCount();
+    return carCount;
+  }
+
   async addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void> {
     await this.carRepository
       .createQueryBuilder()

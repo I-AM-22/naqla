@@ -11,6 +11,7 @@ import { UsersService } from './services/users.service';
 import { CitiesModule } from '../cities/cities.module';
 import { USER_TYPES } from './interfaces/type';
 import { RolesModule } from '../roles/roles.module';
+import { OrdersModule } from '@models/orders/orders.module';
 
 export const UsersServiceProvider: Provider = {
   provide: USER_TYPES.service,
@@ -35,6 +36,7 @@ export const UserWalletRepositoryProvider: Provider = {
     TypeOrmModule.forFeature([User, UserWallet, UserPhoto]),
     RolesModule,
     CitiesModule,
+    OrdersModule,
   ],
   controllers: [UsersController],
   providers: [

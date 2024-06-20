@@ -20,6 +20,7 @@ import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { UserWallet } from '../entities/user-wallet.entity';
+import { OrderRepository } from '../../orders/repositories/order.repository';
 
 @Injectable()
 export class UsersService implements IUsersService {
@@ -33,6 +34,7 @@ export class UsersService implements IUsersService {
     @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
     @Inject(CITY_TYPES.service)
     private citiesService: ICitiesService,
+    private orderRepository: OrderRepository,
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -51,6 +53,29 @@ export class UsersService implements IUsersService {
     withDeleted: boolean,
   ): Promise<PaginatedResponse<User> | User[]> {
     return this.userRepository.find(page, limit, withDeleted);
+  }
+
+  async staticsUser(
+    page: number,
+    limit: number,
+    withDeleted: boolean,
+  ): Promise<any[]> {
+    const data = await this.userRepository.staticsUser(
+      page,
+      limit,
+      withDeleted,
+    );
+    const updateUserawait = await Promise.all(
+      data.data.map(async (user) => {
+        const countOrderDliverd =
+          await this.orderRepository.countOrdersCompletedForUser(user.id);
+        return {
+          ...user,
+          countOrderDliverd,
+        };
+      }),
+    );
+    return updateUserawait;
   }
 
   async findOne(id: string, withDeleted = false): Promise<User> {

@@ -34,11 +34,13 @@ export const SubOrderRepositoryProvider: Provider = {
   providers: [
     SubOrdersServiceProvider,
     SubOrderRepositoryProvider,
+    SubOrderRepository,
     SubOrdersService,
   ],
   exports: [
     SubOrdersServiceProvider,
     SubOrderRepositoryProvider,
+    SubOrderRepository,
     SubOrdersService,
   ],
 })
