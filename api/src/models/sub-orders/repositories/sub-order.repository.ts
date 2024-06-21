@@ -55,18 +55,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         status: SUB_ORDER_STATUS.DELIVERED,
       })
       .andWhere('car.driverId = :driverId', { driverId })
-      .select([
-        'subOrder.id',
-        'subOrder.cost',
-        'subOrder.status',
-        'subOrder.weight',
-        'photos',
-        'order.locationStart',
-        'order.locationEnd',
-        'order.desiredDate',
-        'order.porters',
-        'advantages.name',
-      ])
+      .select(['subOrder', 'photos', 'order', 'advantages.name'])
       .getMany();
   }
 
@@ -81,19 +70,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         status: SUB_ORDER_STATUS.DELIVERED,
       })
       .andWhere('car.driverId = :driverId', { driverId })
-      .select([
-        'subOrder.id',
-        'subOrder.cost',
-        'subOrder.rating',
-        'subOrder.weight',
-        'subOrder.deliveredAt',
-        'photos',
-        'order.locationStart',
-        'order.locationEnd',
-        'order.desiredDate',
-        'order.porters',
-        'advantages.name',
-      ])
+      .select(['subOrder', 'photos', 'order', 'advantages.name'])
       .getMany();
   }
 
