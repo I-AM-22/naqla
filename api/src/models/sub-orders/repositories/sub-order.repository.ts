@@ -29,15 +29,9 @@ export class SubOrderRepository implements ISubOrderRepository {
       .leftJoinAndSelect('car.driver', 'driver')
       .where('order.id = :orderId', { orderId })
       .select([
-        'subOrder.id',
-        'subOrder.cost',
-        'subOrder.weight',
+        'subOrder',
         'photos',
-        'order.id',
-        'order.locationStart',
-        'order.locationEnd',
-        'order.desiredDate',
-        'order.porters',
+        'order',
         'advantages.name',
         'advantages.id',
         'car.model',
@@ -149,15 +143,9 @@ export class SubOrderRepository implements ISubOrderRepository {
       .leftJoinAndSelect('car.driver', 'driver')
       .where('subOrder.id = :id', { id })
       .select([
-        'subOrder.id',
-        'subOrder.cost',
-        'subOrder.weight',
+        'subOrder',
         'photos',
-        'order.id',
-        'order.locationStart',
-        'order.locationEnd',
-        'order.desiredDate',
-        'order.porters',
+        'order',
         'advantages.name',
         'advantages.id',
         'car.model',
