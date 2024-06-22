@@ -39,6 +39,7 @@ import { Driver } from '../entities/driver.entity';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { DRIVER_TYPES } from '../interfaces/type';
 import { DriverWalletRepository } from '../repositories/driver/driver-wallet.repository';
+import { StaticsDriver } from '../interfaces/statics-driver';
 
 @ApiTags('Drivers')
 @ApiBadRequestResponse({ description: bad_req })
@@ -80,7 +81,7 @@ export class DriversController implements ICrud<Driver> {
 
   @UseInterceptors(WithDeletedInterceptor)
   @SerializeOptions({ groups: [GROUPS.ALL_DRIVERS] })
-  @ApiOkResponse({ type: PaginatedResponse<Driver> })
+  @ApiOkResponse({ isArray: true, type: StaticsDriver })
   @ApiQuery({
     name: 'page',
     allowEmptyValue: false,
