@@ -86,7 +86,7 @@ export class OrderController {
   async acceptance(@Id() id: string): Promise<Order> {
     return await this.ordersService.acceptance(id);
   }
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @ApiOkResponse({ type: Order })
   @Patch(':id/cancellation')
   async cancellation(@Id() id: string): Promise<Order> {

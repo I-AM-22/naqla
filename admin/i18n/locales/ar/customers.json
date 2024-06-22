@@ -2,5 +2,11 @@
   "name": "الاسم",
   "phone": "رقم الهاتف",
   "wallet": "الرصيد",
-  "createdAt": "مسجل منذ"
+  "createdAt": "مسجل منذ",
+  "deposit": "إيداع رصيد",
+  "walletPending": "معلق",
+  "walletAvailable": "متاح",
+  "walletTotal": "إجمالي",
+  "depositAvailable": "إيداع",
+  "depositSuccess": "تم إيداع {{amount}} بنجاح"
 }

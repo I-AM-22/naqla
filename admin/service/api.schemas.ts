@@ -14,6 +14,72 @@ export type PhotosControllerUploadSingleBody = {
   photo: Blob;
 };
 
+export type AuthDriverControllerConfirmParams = {
+  /**
+   * assign true to the field to confirm new number
+   */
+  phoneConfirm: boolean;
+};
+
+export type AdminsControllerRemovePathParameters = {
+  id: string;
+};
+export type AdminsControllerUpdatePathParameters = {
+  id: string;
+};
+export type AdminsControllerFindOnePathParameters = {
+  id: string;
+};
+export type EmployeesControllerRemovePathParameters = {
+  id: string;
+};
+export type EmployeesControllerUpdatePathParameters = {
+  id: string;
+};
+export type EmployeesControllerFindOnePathParameters = {
+  id: string;
+};
+export type CarControllerRemoveAdvantagesFromCarPathParameters = {
+  id: string;
+  advantageId: string;
+};
+export type CarControllerAddAdvantagesToCarPathParameters = {
+  id: string;
+};
+export type CarControllerDeletePathParameters = {
+  id: string;
+};
+export type CarControllerUpdatePathParameters = {
+  id: string;
+};
+export type CarControllerFindOnePathParameters = {
+  id: string;
+};
+export type CarControllerFindMineForOrderPathParameters = {
+  id: string;
+};
+export type DriversControllerRemovePathParameters = {
+  id: string;
+};
+export type DriversControllerUpdatePathParameters = {
+  id: string;
+};
+export type DriversControllerFindOnePathParameters = {
+  id: string;
+};
+export type DriversControllerWithdrawPathParameters = {
+  id: string;
+};
+export type DriversControllerStaticsDriverParams = {
+  page?: number;
+  limit?: number;
+};
+
+export type DriversControllerFindParams = {
+  page?: number;
+  limit?: number;
+};
+
 export type SubOrdersControllerSetDriverPathParameters = {
   id: string;
 };
@@ -78,67 +144,6 @@ export type OrderControllerUpdatePathParameters = {
 export type OrderControllerFindOnePathParameters = {
   id: string;
 };
-export type CarControllerRemoveAdvantagesFromCarPathParameters = {
-  id: string;
-  advantageId: string;
-};
-export type CarControllerAddAdvantagesToCarPathParameters = {
-  id: string;
-};
-export type CarControllerDeletePathParameters = {
-  id: string;
-};
-export type CarControllerUpdatePathParameters = {
-  id: string;
-};
-export type CarControllerFindOnePathParameters = {
-  id: string;
-};
-export type CarControllerFindMineForOrderPathParameters = {
-  id: string;
-};
-export type DriversControllerRemovePathParameters = {
-  id: string;
-};
-export type DriversControllerUpdatePathParameters = {
-  id: string;
-};
-export type DriversControllerFindOnePathParameters = {
-  id: string;
-};
-export type DriversControllerWithdrawPathParameters = {
-  id: string;
-};
-export type DriversControllerFindParams = {
-  page?: number;
-  limit?: number;
-};
-
-export type AuthDriverControllerConfirmParams = {
-  /**
-   * assign true to the field to confirm new number
-   */
-  phoneConfirm: boolean;
-};
-
-export type AdminsControllerRemovePathParameters = {
-  id: string;
-};
-export type AdminsControllerUpdatePathParameters = {
-  id: string;
-};
-export type AdminsControllerFindOnePathParameters = {
-  id: string;
-};
-export type EmployeesControllerRemovePathParameters = {
-  id: string;
-};
-export type EmployeesControllerUpdatePathParameters = {
-  id: string;
-};
-export type EmployeesControllerFindOnePathParameters = {
-  id: string;
-};
 export type CitiesControllerRemovePathParameters = {
   id: string;
 };
@@ -178,6 +183,11 @@ export type UsersControllerDepositPathParameters = {
 export type UsersControllerWithdrawPathParameters = {
   id: string;
 };
+export type UsersControllerGetMyPhotosParams = {
+  limit?: unknown;
+  page?: unknown;
+};
+
 export type UsersControllerFindParams = {
   page?: number;
   limit?: number;
@@ -190,23 +200,176 @@ export type AuthUserControllerConfirmParams = {
   phoneConfirm: boolean;
 };
 
+export type UpdateDriverPhoneDto = {
+  phone: string;
+};
+
+export type AuthDriverResponse = {
+  driver: Driver;
+  token: string;
+};
+
+export type ConfirmDriverDto = {
+  otp: string;
+  phone: string;
+};
+
+export type LoginDriverDto = {
+  phone: string;
+};
+
+export type SignUpDriverDto = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+};
+
+export type UpdateAdminDto = {
+  name?: string;
+  password: string;
+  phone: string;
+  photo?: string;
+};
+
+export type CreateAdminDto = {
+  firstName: string;
+  lastName: string;
+  password: string;
+  phone: string;
+  photo?: string;
+};
+
+export type Admin = {
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+};
+
+export type AuthAdminResponse = {
+  admin: Admin;
+  token: string;
+};
+
+export type LoginAdminDto = {
+  password: string;
+  phone: string;
+};
+
+export type UpdateEmployeeDto = {
+  address: string;
+  name?: string;
+  password: string;
+  phone: string;
+  photo?: string;
+};
+
+export type CreateEmployeeDto = {
+  address: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  phone: string;
+  photo?: string;
+};
+
+export type Employee = {
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+};
+
+export type AuthEmployeeResponse = {
+  employee: Employee;
+  token: string;
+};
+
+export type LoginEmployeeDto = {
+  password: string;
+  phone: string;
+};
+
+export type AddAdvansToCarDto = {
+  advantages: string[];
+};
+
+export type UpdateCarDto = {
+  brand: string;
+  color: string;
+  model: string;
+  photo: string;
+};
+
+export type CreateCarDto = {
+  advantages: string[];
+  brand: string;
+  color: string;
+  model: string;
+  photo: string;
+};
+
+export type UpdateDriverDto = {
+  firstName: string;
+  lastName: string;
+  photo: string;
+};
+
+export type DriverWallet = {
+  available: Function;
+  createdAt: Date;
+  id: string;
+  pending: number;
+  total: number;
+  updatedAt: Date;
+};
+
+export type Driver = {
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+  wallet: DriverWallet;
+};
+
+export type Car = {
+  advantages: string[];
+  brand: string;
+  color: string;
+  createdAt: Date;
+  id: string;
+  model: string;
+  photo: BasePhoto;
+  photos: string[];
+  updatedAt: Date;
+};
+
 export type UpdateSubOrderDto = {
   car: Car;
   rating: number;
 };
 
 export type SubOrder = {
-  acceptedAt: string;
-  arrivedAt: string;
+  acceptedAt: Date;
+  arrivedAt: Date;
   car: Car;
   cost: number;
   createdAt: Date;
-  deliveredAt: string;
-  driverAssignedAt: string;
+  deliveredAt: Date;
+  driverAssignedAt: Date;
   id: string;
   order: Order;
   photos: string[];
-  pickedUpAt: string;
+  pickedUpAt: Date;
   rating: number;
   status: string;
   updatedAt: Date;
@@ -353,159 +516,6 @@ export type Order = {
   status: OrderStatus;
   updatedAt: Date;
   user: MiniUser;
-};
-
-export type AddAdvansToCarDto = {
-  advantages: string[];
-};
-
-export type UpdateCarDto = {
-  brand: string;
-  color: string;
-  model: string;
-  photo: string;
-};
-
-export type CreateCarDto = {
-  advantages: string[];
-  brand: string;
-  color: string;
-  model: string;
-  photo: string;
-};
-
-export type Car = {
-  advantages: string[];
-  brand: string;
-  color: string;
-  createdAt: Date;
-  id: string;
-  model: string;
-  photo: BasePhoto;
-  photos: string[];
-  updatedAt: Date;
-};
-
-export type UpdateDriverDto = {
-  firstName: string;
-  lastName: string;
-  photo: string;
-};
-
-export type UpdateDriverPhoneDto = {
-  phone: string;
-};
-
-export type DriverWallet = {
-  available: Function;
-  createdAt: Date;
-  id: string;
-  pending: number;
-  total: number;
-  updatedAt: Date;
-};
-
-export type Driver = {
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
-  phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-  wallet: DriverWallet;
-};
-
-export type AuthDriverResponse = {
-  driver: Driver;
-  token: string;
-};
-
-export type ConfirmDriverDto = {
-  otp: string;
-  phone: string;
-};
-
-export type LoginDriverDto = {
-  phone: string;
-};
-
-export type SignUpDriverDto = {
-  firstName: string;
-  lastName: string;
-  phone: string;
-};
-
-export type UpdateAdminDto = {
-  name?: string;
-  password: string;
-  phone: string;
-  photo?: string;
-};
-
-export type CreateAdminDto = {
-  firstName: string;
-  lastName: string;
-  password: string;
-  phone: string;
-  photo?: string;
-};
-
-export type Admin = {
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
-  phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-};
-
-export type AuthAdminResponse = {
-  admin: Admin;
-  token: string;
-};
-
-export type LoginAdminDto = {
-  password: string;
-  phone: string;
-};
-
-export type UpdateEmployeeDto = {
-  address: string;
-  name?: string;
-  password: string;
-  phone: string;
-  photo?: string;
-};
-
-export type CreateEmployeeDto = {
-  address: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  phone: string;
-  photo?: string;
-};
-
-export type Employee = {
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
-  phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-};
-
-export type AuthEmployeeResponse = {
-  employee: Employee;
-  token: string;
-};
-
-export type LoginEmployeeDto = {
-  password: string;
-  phone: string;
 };
 
 export type UpdateCityDto = {

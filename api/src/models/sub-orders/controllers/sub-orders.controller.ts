@@ -1,17 +1,19 @@
+import { bad_req, data_not_found, denied_error } from '@common/constants';
+import { Auth, GetUser, Id, Roles } from '@common/decorators';
+import { ROLE } from '@common/enums';
+import { LoggingInterceptor } from '@common/interceptors';
+import { Order } from '@models/orders/entities/order.entity';
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
+  Controller,
   // Param,
   Delete,
+  Get,
   Inject,
+  Patch,
+  Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
-import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
-import { SUB_ORDER_TYPES } from '../interfaces/type';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -20,13 +22,11 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Auth, GetUser, Id, Roles } from '@common/decorators';
-import { SubOrder } from '../entities/sub-order.entity';
-import { ROLE } from '@common/enums';
-import { LoggingInterceptor } from '@common/interceptors';
-import { bad_req, data_not_found, denied_error } from '@common/constants';
-import { Order } from '@models/orders/entities/order.entity';
 import { CreateSubOrdersDto } from '../dto/create-sub-order.dto';
+import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
+import { SubOrder } from '../entities/sub-order.entity';
+import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
+import { SUB_ORDER_TYPES } from '../interfaces/type';
 
 @ApiTags('SubOrders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -135,7 +135,7 @@ export class SubOrdersController {
     return await this.subOrdersService.setDriver(id, dto.car);
   }
 
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @ApiNoContentResponse()
   @Delete(':id')
   async delete(@Id() id: string): Promise<void> {

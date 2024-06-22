@@ -2,5 +2,13 @@
   "name": "الاسم",
   "phone": "رقم الهاتف",
   "wallet": "الرصيد",
-  "createdAt": "مسجل منذ"
+  "createdAt": "مسجل منذ",
+  "countOrderDelivered": "التوصيلات المكتملة",
+  "countCar": "عدد السيارت",
+  "withdraw": "سحب الرصيد",
+  "walletPending": "معلق",
+  "walletAvailable": "متاح",
+  "walletTotal": "إجمالي",
+  "withdrawAvailable": "سحب",
+  "withdrawSuccess": "تم سحب {{amount}} بنجاح"
 }

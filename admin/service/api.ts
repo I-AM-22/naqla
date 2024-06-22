@@ -48,6 +48,7 @@ import type {
   DriversControllerFindOnePathParameters,
   DriversControllerFindParams,
   DriversControllerRemovePathParameters,
+  DriversControllerStaticsDriverParams,
   DriversControllerUpdatePathParameters,
   DriversControllerWithdrawPathParameters,
   Employee,
@@ -111,6 +112,7 @@ import type {
   UsersControllerDepositPathParameters,
   UsersControllerFindOnePathParameters,
   UsersControllerFindParams,
+  UsersControllerGetMyPhotosParams,
   UsersControllerRemovePathParameters,
   UsersControllerUpdatePathParameters,
   UsersControllerWithdrawPathParameters,
@@ -201,10 +203,11 @@ export const usersControllerFind = (
 };
 
 export const usersControllerGetMyPhotos = (
+  params?: UsersControllerGetMyPhotosParams,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<User>(
-    { url: `/api/v1/users/myPhotos`, method: "GET" },
+  return fetchInstance<PaginatedResponse>(
+    { url: `/api/v1/users/myPhotos`, method: "GET", params },
     options,
   );
 };
@@ -473,445 +476,6 @@ export const citiesControllerRemove = (
 ) => {
   return fetchInstance<void>(
     { url: `/api/v1/cities/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-/**
- * @summary Login
- */
-export const employeesControllerLogin = (
-  loginEmployeeDto: LoginEmployeeDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<AuthEmployeeResponse>(
-    {
-      url: `/api/v1/employees/login`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: loginEmployeeDto,
-    },
-    options,
-  );
-};
-
-export const employeesControllerFind = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Employee>(
-    { url: `/api/v1/employees`, method: "GET" },
-    options,
-  );
-};
-
-export const employeesControllerCreate = (
-  createEmployeeDto: CreateEmployeeDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Employee>(
-    {
-      url: `/api/v1/employees`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: createEmployeeDto,
-    },
-    options,
-  );
-};
-
-export const employeesControllerFindOne = (
-  { id }: EmployeesControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Employee>(
-    { url: `/api/v1/employees/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const employeesControllerUpdate = (
-  { id }: EmployeesControllerUpdatePathParameters,
-  updateEmployeeDto: UpdateEmployeeDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Employee>(
-    {
-      url: `/api/v1/employees/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateEmployeeDto,
-    },
-    options,
-  );
-};
-
-export const employeesControllerRemove = (
-  { id }: EmployeesControllerRemovePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/employees/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-/**
- * @summary Login
- */
-export const adminsControllerLogin = (
-  loginAdminDto: LoginAdminDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<AuthAdminResponse>(
-    {
-      url: `/api/v1/admins/login`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: loginAdminDto,
-    },
-    options,
-  );
-};
-
-export const adminsControllerCreate = (
-  createAdminDto: CreateAdminDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Admin>(
-    {
-      url: `/api/v1/admins`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: createAdminDto,
-    },
-    options,
-  );
-};
-
-export const adminsControllerFind = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Admin>(
-    { url: `/api/v1/admins`, method: "GET" },
-    options,
-  );
-};
-
-export const adminsControllerFindOne = (
-  { id }: AdminsControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Admin>(
-    { url: `/api/v1/admins/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const adminsControllerUpdate = (
-  { id }: AdminsControllerUpdatePathParameters,
-  updateAdminDto: UpdateAdminDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Admin>(
-    {
-      url: `/api/v1/admins/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateAdminDto,
-    },
-    options,
-  );
-};
-
-export const adminsControllerRemove = (
-  { id }: AdminsControllerRemovePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/admins/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-export const authDriverControllerSignup = (
-  signUpDriverDto: SignUpDriverDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<SendConfirm>(
-    {
-      url: `/api/v1/auth/driver/signup`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: signUpDriverDto,
-    },
-    options,
-  );
-};
-
-/**
- * @summary Login
- */
-export const authDriverControllerLogin = (
-  loginDriverDto: LoginDriverDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<SendConfirm>(
-    {
-      url: `/api/v1/auth/driver/login`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: loginDriverDto,
-    },
-    options,
-  );
-};
-
-/**
- * @summary Confirm
- */
-export const authDriverControllerConfirm = (
-  confirmDriverDto: ConfirmDriverDto,
-  params: AuthDriverControllerConfirmParams,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<AuthDriverResponse>(
-    {
-      url: `/api/v1/auth/driver/confirm`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: confirmDriverDto,
-      params,
-    },
-    options,
-  );
-};
-
-/**
- * @summary update phone number
- */
-export const authDriverControllerUpdateMyNumber = (
-  updateDriverPhoneDto: UpdateDriverPhoneDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<SendConfirm>(
-    {
-      url: `/api/v1/auth/driver/updateMyNumber`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateDriverPhoneDto,
-    },
-    options,
-  );
-};
-
-export const driversControllerFind = (
-  params?: DriversControllerFindParams,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<PaginatedResponse>(
-    { url: `/api/v1/drivers`, method: "GET", params },
-    options,
-  );
-};
-
-export const driversControllerGetMyPhotos = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Driver>(
-    { url: `/api/v1/drivers/myPhotos`, method: "GET" },
-    options,
-  );
-};
-
-export const driversControllerGetMe = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Driver>(
-    { url: `/api/v1/drivers/me`, method: "GET" },
-    options,
-  );
-};
-
-export const driversControllerUpdateMe = (
-  updateDriverDto: UpdateDriverDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Driver>(
-    {
-      url: `/api/v1/drivers/me`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateDriverDto,
-    },
-    options,
-  );
-};
-
-export const driversControllerDeleteMe = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/drivers/me`, method: "DELETE" },
-    options,
-  );
-};
-
-export const driversControllerWithdraw = (
-  { id }: DriversControllerWithdrawPathParameters,
-  updateWalletDto: UpdateWalletDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<DriverWallet>(
-    {
-      url: `/api/v1/drivers/${id}/wallet/withdraw`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateWalletDto,
-    },
-    options,
-  );
-};
-
-export const driversControllerFindOne = (
-  { id }: DriversControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Driver>(
-    { url: `/api/v1/drivers/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const driversControllerUpdate = (
-  { id }: DriversControllerUpdatePathParameters,
-  updateDriverDto: UpdateDriverDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Driver>(
-    {
-      url: `/api/v1/drivers/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateDriverDto,
-    },
-    options,
-  );
-};
-
-export const driversControllerRemove = (
-  { id }: DriversControllerRemovePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/drivers/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-export const carControllerFindMine = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Car[]>(
-    { url: `/api/v1/drivers/cars/mine`, method: "GET" },
-    options,
-  );
-};
-
-export const carControllerFindMineForOrder = (
-  { id }: CarControllerFindMineForOrderPathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Car[]>(
-    { url: `/api/v1/drivers/cars/mine/order/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const carControllerFindAll = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Car[]>(
-    { url: `/api/v1/drivers/cars/all`, method: "GET" },
-    options,
-  );
-};
-
-export const carControllerFindOne = (
-  { id }: CarControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Car>(
-    { url: `/api/v1/drivers/cars/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const carControllerUpdate = (
-  { id }: CarControllerUpdatePathParameters,
-  updateCarDto: UpdateCarDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Car>(
-    {
-      url: `/api/v1/drivers/cars/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateCarDto,
-    },
-    options,
-  );
-};
-
-export const carControllerDelete = (
-  { id }: CarControllerDeletePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/drivers/cars/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-export const carControllerCreate = (
-  createCarDto: CreateCarDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Car>(
-    {
-      url: `/api/v1/drivers/cars`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: createCarDto,
-    },
-    options,
-  );
-};
-
-export const carControllerAddAdvantagesToCar = (
-  { id }: CarControllerAddAdvantagesToCarPathParameters,
-  addAdvansToCarDto: AddAdvansToCarDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    {
-      url: `/api/v1/drivers/cars/${id}/advantages`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: addAdvansToCarDto,
-    },
-    options,
-  );
-};
-
-export const carControllerRemoveAdvantagesFromCar = (
-  { id, advantageId }: CarControllerRemoveAdvantagesFromCarPathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    {
-      url: `/api/v1/drivers/cars/${id}/advantages/${advantageId}`,
-      method: "DELETE",
-    },
     options,
   );
 };
@@ -1297,6 +861,455 @@ export const subOrdersControllerSetDriver = (
   );
 };
 
+export const driversControllerFind = (
+  params?: DriversControllerFindParams,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<PaginatedResponse>(
+    { url: `/api/v1/drivers`, method: "GET", params },
+    options,
+  );
+};
+
+export const driversControllerStaticsDriver = (
+  params?: DriversControllerStaticsDriverParams,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<PaginatedResponse>(
+    { url: `/api/v1/drivers/statics`, method: "GET", params },
+    options,
+  );
+};
+
+export const driversControllerGetMyPhotos = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Driver>(
+    { url: `/api/v1/drivers/myPhotos`, method: "GET" },
+    options,
+  );
+};
+
+export const driversControllerGetMe = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Driver>(
+    { url: `/api/v1/drivers/me`, method: "GET" },
+    options,
+  );
+};
+
+export const driversControllerUpdateMe = (
+  updateDriverDto: UpdateDriverDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Driver>(
+    {
+      url: `/api/v1/drivers/me`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateDriverDto,
+    },
+    options,
+  );
+};
+
+export const driversControllerDeleteMe = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/drivers/me`, method: "DELETE" },
+    options,
+  );
+};
+
+export const driversControllerWithdraw = (
+  { id }: DriversControllerWithdrawPathParameters,
+  updateWalletDto: UpdateWalletDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<DriverWallet>(
+    {
+      url: `/api/v1/drivers/${id}/wallet/withdraw`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateWalletDto,
+    },
+    options,
+  );
+};
+
+export const driversControllerFindOne = (
+  { id }: DriversControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Driver>(
+    { url: `/api/v1/drivers/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const driversControllerUpdate = (
+  { id }: DriversControllerUpdatePathParameters,
+  updateDriverDto: UpdateDriverDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Driver>(
+    {
+      url: `/api/v1/drivers/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateDriverDto,
+    },
+    options,
+  );
+};
+
+export const driversControllerRemove = (
+  { id }: DriversControllerRemovePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/drivers/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const carControllerFindMine = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car[]>(
+    { url: `/api/v1/drivers/cars/mine`, method: "GET" },
+    options,
+  );
+};
+
+export const carControllerFindMineForOrder = (
+  { id }: CarControllerFindMineForOrderPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car[]>(
+    { url: `/api/v1/drivers/cars/mine/order/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const carControllerFindAll = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car[]>(
+    { url: `/api/v1/drivers/cars/all`, method: "GET" },
+    options,
+  );
+};
+
+export const carControllerFindOne = (
+  { id }: CarControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car>(
+    { url: `/api/v1/drivers/cars/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const carControllerUpdate = (
+  { id }: CarControllerUpdatePathParameters,
+  updateCarDto: UpdateCarDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car>(
+    {
+      url: `/api/v1/drivers/cars/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateCarDto,
+    },
+    options,
+  );
+};
+
+export const carControllerDelete = (
+  { id }: CarControllerDeletePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/drivers/cars/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const carControllerCreate = (
+  createCarDto: CreateCarDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Car>(
+    {
+      url: `/api/v1/drivers/cars`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createCarDto,
+    },
+    options,
+  );
+};
+
+export const carControllerAddAdvantagesToCar = (
+  { id }: CarControllerAddAdvantagesToCarPathParameters,
+  addAdvansToCarDto: AddAdvansToCarDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    {
+      url: `/api/v1/drivers/cars/${id}/advantages`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: addAdvansToCarDto,
+    },
+    options,
+  );
+};
+
+export const carControllerRemoveAdvantagesFromCar = (
+  { id, advantageId }: CarControllerRemoveAdvantagesFromCarPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    {
+      url: `/api/v1/drivers/cars/${id}/advantages/${advantageId}`,
+      method: "DELETE",
+    },
+    options,
+  );
+};
+
+/**
+ * @summary Login
+ */
+export const employeesControllerLogin = (
+  loginEmployeeDto: LoginEmployeeDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<AuthEmployeeResponse>(
+    {
+      url: `/api/v1/employees/login`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: loginEmployeeDto,
+    },
+    options,
+  );
+};
+
+export const employeesControllerFind = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Employee>(
+    { url: `/api/v1/employees`, method: "GET" },
+    options,
+  );
+};
+
+export const employeesControllerCreate = (
+  createEmployeeDto: CreateEmployeeDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Employee>(
+    {
+      url: `/api/v1/employees`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createEmployeeDto,
+    },
+    options,
+  );
+};
+
+export const employeesControllerFindOne = (
+  { id }: EmployeesControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Employee>(
+    { url: `/api/v1/employees/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const employeesControllerUpdate = (
+  { id }: EmployeesControllerUpdatePathParameters,
+  updateEmployeeDto: UpdateEmployeeDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Employee>(
+    {
+      url: `/api/v1/employees/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateEmployeeDto,
+    },
+    options,
+  );
+};
+
+export const employeesControllerRemove = (
+  { id }: EmployeesControllerRemovePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/employees/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+/**
+ * @summary Login
+ */
+export const adminsControllerLogin = (
+  loginAdminDto: LoginAdminDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<AuthAdminResponse>(
+    {
+      url: `/api/v1/admins/login`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: loginAdminDto,
+    },
+    options,
+  );
+};
+
+export const adminsControllerCreate = (
+  createAdminDto: CreateAdminDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Admin>(
+    {
+      url: `/api/v1/admins`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createAdminDto,
+    },
+    options,
+  );
+};
+
+export const adminsControllerFind = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Admin>(
+    { url: `/api/v1/admins`, method: "GET" },
+    options,
+  );
+};
+
+export const adminsControllerFindOne = (
+  { id }: AdminsControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Admin>(
+    { url: `/api/v1/admins/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const adminsControllerUpdate = (
+  { id }: AdminsControllerUpdatePathParameters,
+  updateAdminDto: UpdateAdminDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Admin>(
+    {
+      url: `/api/v1/admins/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateAdminDto,
+    },
+    options,
+  );
+};
+
+export const adminsControllerRemove = (
+  { id }: AdminsControllerRemovePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/admins/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const authDriverControllerSignup = (
+  signUpDriverDto: SignUpDriverDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<SendConfirm>(
+    {
+      url: `/api/v1/auth/driver/signup`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: signUpDriverDto,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary Login
+ */
+export const authDriverControllerLogin = (
+  loginDriverDto: LoginDriverDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<SendConfirm>(
+    {
+      url: `/api/v1/auth/driver/login`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: loginDriverDto,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary Confirm
+ */
+export const authDriverControllerConfirm = (
+  confirmDriverDto: ConfirmDriverDto,
+  params: AuthDriverControllerConfirmParams,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<AuthDriverResponse>(
+    {
+      url: `/api/v1/auth/driver/confirm`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: confirmDriverDto,
+      params,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary update phone number
+ */
+export const authDriverControllerUpdateMyNumber = (
+  updateDriverPhoneDto: UpdateDriverPhoneDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<SendConfirm>(
+    {
+      url: `/api/v1/auth/driver/updateMyNumber`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateDriverPhoneDto,
+    },
+    options,
+  );
+};
+
 /**
  * @summary Upload single photo
  */
@@ -1423,108 +1436,6 @@ export type CitiesControllerUpdateResult = NonNullable<
 export type CitiesControllerRemoveResult = NonNullable<
   Awaited<ReturnType<typeof citiesControllerRemove>>
 >;
-export type EmployeesControllerLoginResult = NonNullable<
-  Awaited<ReturnType<typeof employeesControllerLogin>>
->;
-export type EmployeesControllerFindResult = NonNullable<
-  Awaited<ReturnType<typeof employeesControllerFind>>
->;
-export type EmployeesControllerCreateResult = NonNullable<
-  Awaited<ReturnType<typeof employeesControllerCreate>>
->;
-export type EmployeesControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof employeesControllerFindOne>>
->;
-export type EmployeesControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof employeesControllerUpdate>>
->;
-export type EmployeesControllerRemoveResult = NonNullable<
-  Awaited<ReturnType<typeof employeesControllerRemove>>
->;
-export type AdminsControllerLoginResult = NonNullable<
-  Awaited<ReturnType<typeof adminsControllerLogin>>
->;
-export type AdminsControllerCreateResult = NonNullable<
-  Awaited<ReturnType<typeof adminsControllerCreate>>
->;
-export type AdminsControllerFindResult = NonNullable<
-  Awaited<ReturnType<typeof adminsControllerFind>>
->;
-export type AdminsControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof adminsControllerFindOne>>
->;
-export type AdminsControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof adminsControllerUpdate>>
->;
-export type AdminsControllerRemoveResult = NonNullable<
-  Awaited<ReturnType<typeof adminsControllerRemove>>
->;
-export type AuthDriverControllerSignupResult = NonNullable<
-  Awaited<ReturnType<typeof authDriverControllerSignup>>
->;
-export type AuthDriverControllerLoginResult = NonNullable<
-  Awaited<ReturnType<typeof authDriverControllerLogin>>
->;
-export type AuthDriverControllerConfirmResult = NonNullable<
-  Awaited<ReturnType<typeof authDriverControllerConfirm>>
->;
-export type AuthDriverControllerUpdateMyNumberResult = NonNullable<
-  Awaited<ReturnType<typeof authDriverControllerUpdateMyNumber>>
->;
-export type DriversControllerFindResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerFind>>
->;
-export type DriversControllerGetMyPhotosResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerGetMyPhotos>>
->;
-export type DriversControllerGetMeResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerGetMe>>
->;
-export type DriversControllerUpdateMeResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerUpdateMe>>
->;
-export type DriversControllerDeleteMeResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerDeleteMe>>
->;
-export type DriversControllerWithdrawResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerWithdraw>>
->;
-export type DriversControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerFindOne>>
->;
-export type DriversControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerUpdate>>
->;
-export type DriversControllerRemoveResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerRemove>>
->;
-export type CarControllerFindMineResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerFindMine>>
->;
-export type CarControllerFindMineForOrderResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerFindMineForOrder>>
->;
-export type CarControllerFindAllResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerFindAll>>
->;
-export type CarControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerFindOne>>
->;
-export type CarControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerUpdate>>
->;
-export type CarControllerDeleteResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerDelete>>
->;
-export type CarControllerCreateResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerCreate>>
->;
-export type CarControllerAddAdvantagesToCarResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerAddAdvantagesToCar>>
->;
-export type CarControllerRemoveAdvantagesFromCarResult = NonNullable<
-  Awaited<ReturnType<typeof carControllerRemoveAdvantagesFromCar>>
->;
 export type OrderControllerFindAllResult = NonNullable<
   Awaited<ReturnType<typeof orderControllerFindAll>>
 >;
@@ -1626,6 +1537,111 @@ export type SubOrdersControllerSetDeliveredAtResult = NonNullable<
 >;
 export type SubOrdersControllerSetDriverResult = NonNullable<
   Awaited<ReturnType<typeof subOrdersControllerSetDriver>>
+>;
+export type DriversControllerFindResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerFind>>
+>;
+export type DriversControllerStaticsDriverResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerStaticsDriver>>
+>;
+export type DriversControllerGetMyPhotosResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerGetMyPhotos>>
+>;
+export type DriversControllerGetMeResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerGetMe>>
+>;
+export type DriversControllerUpdateMeResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerUpdateMe>>
+>;
+export type DriversControllerDeleteMeResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerDeleteMe>>
+>;
+export type DriversControllerWithdrawResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerWithdraw>>
+>;
+export type DriversControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerFindOne>>
+>;
+export type DriversControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerUpdate>>
+>;
+export type DriversControllerRemoveResult = NonNullable<
+  Awaited<ReturnType<typeof driversControllerRemove>>
+>;
+export type CarControllerFindMineResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerFindMine>>
+>;
+export type CarControllerFindMineForOrderResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerFindMineForOrder>>
+>;
+export type CarControllerFindAllResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerFindAll>>
+>;
+export type CarControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerFindOne>>
+>;
+export type CarControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerUpdate>>
+>;
+export type CarControllerDeleteResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerDelete>>
+>;
+export type CarControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerCreate>>
+>;
+export type CarControllerAddAdvantagesToCarResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerAddAdvantagesToCar>>
+>;
+export type CarControllerRemoveAdvantagesFromCarResult = NonNullable<
+  Awaited<ReturnType<typeof carControllerRemoveAdvantagesFromCar>>
+>;
+export type EmployeesControllerLoginResult = NonNullable<
+  Awaited<ReturnType<typeof employeesControllerLogin>>
+>;
+export type EmployeesControllerFindResult = NonNullable<
+  Awaited<ReturnType<typeof employeesControllerFind>>
+>;
+export type EmployeesControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof employeesControllerCreate>>
+>;
+export type EmployeesControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof employeesControllerFindOne>>
+>;
+export type EmployeesControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof employeesControllerUpdate>>
+>;
+export type EmployeesControllerRemoveResult = NonNullable<
+  Awaited<ReturnType<typeof employeesControllerRemove>>
+>;
+export type AdminsControllerLoginResult = NonNullable<
+  Awaited<ReturnType<typeof adminsControllerLogin>>
+>;
+export type AdminsControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof adminsControllerCreate>>
+>;
+export type AdminsControllerFindResult = NonNullable<
+  Awaited<ReturnType<typeof adminsControllerFind>>
+>;
+export type AdminsControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof adminsControllerFindOne>>
+>;
+export type AdminsControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof adminsControllerUpdate>>
+>;
+export type AdminsControllerRemoveResult = NonNullable<
+  Awaited<ReturnType<typeof adminsControllerRemove>>
+>;
+export type AuthDriverControllerSignupResult = NonNullable<
+  Awaited<ReturnType<typeof authDriverControllerSignup>>
+>;
+export type AuthDriverControllerLoginResult = NonNullable<
+  Awaited<ReturnType<typeof authDriverControllerLogin>>
+>;
+export type AuthDriverControllerConfirmResult = NonNullable<
+  Awaited<ReturnType<typeof authDriverControllerConfirm>>
+>;
+export type AuthDriverControllerUpdateMyNumberResult = NonNullable<
+  Awaited<ReturnType<typeof authDriverControllerUpdateMyNumber>>
 >;
 export type PhotosControllerUploadSingleResult = NonNullable<
   Awaited<ReturnType<typeof photosControllerUploadSingle>>

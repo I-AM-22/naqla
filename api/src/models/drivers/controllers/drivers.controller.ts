@@ -1,44 +1,44 @@
 import {
-  UseInterceptors,
-  Controller,
-  SerializeOptions,
-  Get,
-  Patch,
   Body,
+  Controller,
+  Delete,
+  Get,
   HttpCode,
   HttpStatus,
-  Delete,
+  Inject,
+  Patch,
   Query,
   Req,
-  Inject,
+  SerializeOptions,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
-  ApiTags,
-  ApiOkResponse,
-  ApiQuery,
   ApiBadRequestResponse,
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
 } from '@nestjs/swagger';
 
-import { UpdateDriverDto } from '../dtos';
-import { Driver } from '../entities/driver.entity';
-import { GetUser, Roles, CheckAbilities, Id, Auth } from '@common/decorators';
-import { GROUPS, ROLE, Entities, Action } from '@common/enums';
+import { bad_req, data_not_found, denied_error } from '@common/constants';
+import { Auth, CheckAbilities, GetUser, Id, Roles } from '@common/decorators';
+import { Action, Entities, GROUPS, ROLE } from '@common/enums';
 import {
   LoggingInterceptor,
   WithDeletedInterceptor,
 } from '@common/interceptors';
-import { PaginatedResponse } from '@common/types';
 import { ICrud } from '@common/interfaces';
-import { bad_req, data_not_found, denied_error } from '@common/constants';
+import { PaginatedResponse } from '@common/types';
 import { Request } from 'express';
+import { UpdateDriverDto } from '../dtos';
+import { UpdateWalletDto } from '../dtos/update-wallet.dto ';
+import { DriverWallet } from '../entities/driver-wallet.entity';
+import { Driver } from '../entities/driver.entity';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { DRIVER_TYPES } from '../interfaces/type';
 import { DriverWalletRepository } from '../repositories/driver/driver-wallet.repository';
-import { DriverWallet } from '../entities/driver-wallet.entity';
-import { UpdateWalletDto } from '../dtos/update-wallet.dto ';
 
 @ApiTags('Drivers')
 @ApiBadRequestResponse({ description: bad_req })
@@ -140,7 +140,7 @@ export class DriversController implements ICrud<Driver> {
   }
 
   @ApiOkResponse({ type: DriverWallet })
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @Patch(':id/wallet/withdraw')
   async withdraw(@Id() id: string, @Body() dto: UpdateWalletDto) {
     return this.walletRepository.withdraw(id, dto.cost);

@@ -4,6 +4,6 @@ import { useTranslation } from "react-i18next";
 import { columns } from "./data-table";
 
 export default function Loading() {
-  const { t } = useTranslation("drivers");
-  return <DataTable columns={columns(t)} type="loading" />;
+  const { t, i18n } = useTranslation("drivers");
+  return <DataTable columns={columns(t, i18n.language)} type="loading" />;
 }
