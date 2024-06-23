@@ -4,7 +4,7 @@ import { getTranslation } from "@/i18n/server";
 import { advantagesControllerFindAll } from "@/service/api";
 import { carAdvantagesTagKeys } from "@/service/car-advantages";
 import Link from "next/link";
-import { AdvantagesDataTable } from "./columns";
+import { AdvantagesDataTable } from "./data-table";
 
 export default async function Page(props: PageProps) {
   const { t: ct } = await getTranslation(props.params.lng);

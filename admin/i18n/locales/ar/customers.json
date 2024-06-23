@@ -8,5 +8,8 @@
   "walletAvailable": "متاح",
   "walletTotal": "إجمالي",
   "depositAvailable": "إيداع",
-  "depositSuccess": "تم إيداع {{amount}} بنجاح"
+  "depositSuccess": "تم إيداع {{amount}} بنجاح",
+  "removeSuccess": "تم حذف المستخدم بنجاح",
+  "options": "الخيارات",
+  "remove": "حذف"
 }

@@ -7,6 +7,5 @@
   "save": "حفظ",
   "options": "الخيارات",
   "remove": "حذف",
-  "removeSuccess": "تم حذف الميزة بنجاح",
-  "removeFailed": "فشل حذف الميزة"
+  "removeSuccess": "تم حذف الميزة بنجاح"
 }

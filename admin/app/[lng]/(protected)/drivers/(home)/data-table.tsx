@@ -15,7 +15,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
     cell: ({ row }) => (
       <img
         alt="customer"
-        className="h-5 w-5 flex-shrink"
+        className="h-5 min-w-5 flex-shrink"
         // @ts-ignore
         src={row.original.photos[0].webUrl}
       />
