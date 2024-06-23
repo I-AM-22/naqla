@@ -33,7 +33,15 @@ export const SubOrderRepositoryProvider: Provider = {
     forwardRef(() => UsersModule),
   ],
   controllers: [SubOrdersController],
-  providers: [SubOrdersServiceProvider, SubOrderRepositoryProvider],
-  exports: [SubOrdersServiceProvider, SubOrderRepositoryProvider],
+  providers: [
+    SubOrdersServiceProvider,
+    SubOrderRepositoryProvider,
+    SubOrderRepository,
+  ],
+  exports: [
+    SubOrdersServiceProvider,
+    SubOrderRepositoryProvider,
+    SubOrderRepository,
+  ],
 })
 export class SubOrdersModule {}

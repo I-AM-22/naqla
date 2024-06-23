@@ -60,6 +60,13 @@ export class DriverRepository
     return pagination(page, limit, totalDataCount, data);
   }
 
+  async countDriver(): Promise<number> {
+    const driverCount = await this.driverRepo
+      .createQueryBuilder('driver')
+      .getCount();
+    return driverCount;
+  }
+
   async create(
     dto: CreateDriverDto,
     wallet: DriverWallet,

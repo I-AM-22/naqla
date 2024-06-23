@@ -50,6 +50,7 @@ export const DriverWalletRepositoryProvider: Provider = {
     DriverWalletRepositoryProvider,
     DriversServiceProvider,
     DriverWalletRepository,
+    DriverRepository,
   ],
   exports: [
     DriverPhotoRepositoryProvider,
@@ -57,6 +58,7 @@ export const DriverWalletRepositoryProvider: Provider = {
     DriverWalletRepositoryProvider,
     DriversServiceProvider,
     DriverWalletRepository,
+    DriverRepository,
   ],
 })
 export class DriversModule {}

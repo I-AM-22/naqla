@@ -59,6 +59,14 @@ export class UserRepository
     return pagination(page, limit, totalDataCount, data);
   }
 
+
+  async countUser(): Promise<number> {
+    const userCount = await this.userRepo
+      .createQueryBuilder('user')
+      .getCount();
+    return userCount;
+  }
+
   async create(
     dto: CreateUserDto,
     wallet: UserWallet,

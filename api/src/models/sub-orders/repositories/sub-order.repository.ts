@@ -240,4 +240,24 @@ export class SubOrderRepository implements ISubOrderRepository {
 
     return completeSubOrderCount;
   }
+
+  async countSubOrdersCompleted(): Promise<number> {
+    const count = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .where('subOrder.status = :status', {
+        status: SUB_ORDER_STATUS.DELIVERED,
+      })
+      .getCount();
+    return count;
+  }
+
+  async countSubOrdersActive(): Promise<number> {
+    const count = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .where('subOrder.status <> :status', {
+        status: SUB_ORDER_STATUS.DELIVERED,
+      })
+      .getCount();
+    return count;
+  }
 }

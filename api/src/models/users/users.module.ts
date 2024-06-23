@@ -45,8 +45,10 @@ export const UserWalletRepositoryProvider: Provider = {
     UserWalletRepositoryProvider,
     UsersServiceProvider,
     UserWalletRepository,
+    UserRepository,
   ],
   exports: [
+    UserRepository,
     UserPhotoRepositoryProvider,
     UserRepositoryProvider,
     UserWalletRepositoryProvider,

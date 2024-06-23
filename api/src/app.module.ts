@@ -34,6 +34,7 @@ import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
 import { SettingsModule } from '@models/settings/settings.module';
 import { GpsDrivingModule } from '@shared/gpsDriving';
 import { PaymentsModule } from './models/payments/payments.module';
+import { StatisticsModule } from '@models/statics/statistics.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { PaymentsModule } from './models/payments/payments.module';
       http: process.env.ENV !== 'production',
       port: 8001,
     }),
+    StatisticsModule,
     AuthUserModule,
     UsersModule,
     AuthDriverModule,

@@ -118,6 +118,21 @@ export class CarRepository implements ICarRepository {
     return carCount;
   }
 
+  async countCar(): Promise<number> {
+    const carCount = await this.carRepository
+      .createQueryBuilder('car')
+      .getCount();
+    return carCount;
+  }
+  async countCarAdvantage(advantage: string): Promise<number> {
+    const count = await this.carRepository
+      .createQueryBuilder('car')
+      .leftJoinAndSelect('car.advantages', 'advantages')
+      .where('advantages.name =:name', { name: advantage })
+      .getCount();
+    return count;
+  }
+
   async addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void> {
     await this.carRepository
       .createQueryBuilder()

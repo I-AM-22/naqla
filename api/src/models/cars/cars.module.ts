@@ -35,9 +35,11 @@ export const CarPhotoRepositoryProvider: Provider = {
   providers: [
     CarsServiceProvider,
     CarRepositoryProvider,
+    CarRepository,
     CarPhotoRepositoryProvider,
   ],
   exports: [
+    CarRepository,
     CarsServiceProvider,
     CarRepositoryProvider,
     CarPhotoRepositoryProvider,

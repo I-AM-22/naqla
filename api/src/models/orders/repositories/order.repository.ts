@@ -8,6 +8,8 @@ import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
+import { OrderStatsDate } from '@models/statics/class/OrderStatsDate';
+import { AdvantageSuper } from '@models/statics/class/AdvantageSuper';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -209,6 +211,75 @@ export class OrderRepository implements IOrderRepository {
       .getCount();
 
     return completeOrderCount;
+  }
+
+  async StaticsOrdersForDate(
+    startDate: string,
+    endDate: string,
+  ): Promise<OrderStatsDate[]> {
+    return this.orderRepository
+      .createQueryBuilder('order')
+      .select('DATE(order.createdAt)', 'day')
+      .addSelect(
+        "COUNT(CASE WHEN order.status = 'delivered' THEN 1 END)",
+        'completedOrders',
+      )
+      .addSelect('COUNT(id)', 'AllOrders')
+      .addSelect(
+        "COUNT(CASE WHEN order.status = 'refused' THEN 1 END)",
+        'refusedOrders',
+      )
+      .where('order.createdAt BETWEEN :startDate AND :endDate', {
+        startDate,
+        endDate,
+      })
+      .groupBy('day')
+      .getRawMany<OrderStatsDate>();
+  }
+
+  async advantageSuper(limit: number): Promise<any[]> {
+    return this.orderRepository
+      .createQueryBuilder('order')
+      .leftJoin('order.advantages', 'advantages')
+      .select('advantages.name', 'advantage')
+      .addSelect('COUNT(advantages.name)', 'x')
+      .groupBy('advantages.name')
+      .orderBy('x', 'DESC')
+      .getRawMany<AdvantageSuper>();
+  }
+
+  async countOrdersCompleted(): Promise<number> {
+    const completeOrderCount = await this.orderRepository
+      .createQueryBuilder('order')
+      .where('order.status = :status', {
+        status: ORDER_STATUS.DELIVERED,
+      })
+      .getCount();
+
+    return completeOrderCount;
+  }
+
+  async countOrdersActive(): Promise<number> {
+    const count = await this.orderRepository
+      .createQueryBuilder('order')
+      .where('order.status <> :status', {
+        status: ORDER_STATUS.DELIVERED,
+      })
+      .andWhere('order.status <> :status', {
+        status: ORDER_STATUS.WAITING,
+      })
+      .getCount();
+    return count;
+  }
+
+  async countOrdersWaiting(): Promise<number> {
+    const count = await this.orderRepository
+      .createQueryBuilder('order')
+      .where('order.status = :status', {
+        status: ORDER_STATUS.WAITING,
+      })
+      .getCount();
+    return count;
   }
 
   async addAdvantageToOrder(
