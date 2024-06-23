@@ -32,7 +32,7 @@ export default function Page() {
   });
   const login = useMutation(adminsControllerLogin, form);
   const onSubmit = async (data: FormSchema) => {
-    const response = await login(data, {
+    const response = await login.mutate(data, {
       onError: parseResponseError({ setFormError: form.setError }),
     });
     if (response) loginUser(response.data);

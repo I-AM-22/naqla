@@ -322,7 +322,7 @@ export type UpdateDriverDto = {
 };
 
 export type DriverWallet = {
-  available: Function;
+  available: number;
   createdAt: Date;
   id: string;
   pending: number;
@@ -622,7 +622,7 @@ export type AuthUserResponse = {
 export type Function = { [key: string]: any };
 
 export type UserWallet = {
-  available: Function;
+  available: number;
   createdAt: Date;
   id: string;
   pending: number;

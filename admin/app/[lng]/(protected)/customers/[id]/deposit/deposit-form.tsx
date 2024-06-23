@@ -31,12 +31,12 @@ export function DepositForm({ customer }: DepositFormProps) {
     },
   });
   const router = useRouter();
-  const add = useMutation(
+  const deposit = useMutation(
     (dto: UpdateWalletDto) => usersControllerDeposit({ id: customer.id }, dto),
     form,
   );
   const onSubmit = async (data: Schema) => {
-    await add(data, {
+    await deposit.mutate(data, {
       onSuccess: async () => {
         await revalidatePath(`/customers`);
         await revalidatePath(`/customers/${customer.id}/deposit`);

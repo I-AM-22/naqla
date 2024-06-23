@@ -1,17 +1,29 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
+  Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
-  SerializeOptions,
   Inject,
+  Patch,
+  Post,
+  SerializeOptions,
 } from '@nestjs/common';
-import { UpdateAdminDto, CreateAdminDto, LoginAdminDto } from '../dtos';
+import { CreateAdminDto, LoginAdminDto, UpdateAdminDto } from '../dtos';
 
+import { bad_req, denied_error, item_not_found } from '@common/constants';
+import {
+  Auth,
+  CheckAbilities,
+  GetUser,
+  Id,
+  Public,
+  Roles,
+} from '@common/decorators';
+import { Action, Entities, GROUPS, ROLE } from '@common/enums';
+import { ICrud } from '@common/interfaces';
+import { Role } from '@models/roles/entities/role.entity';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -21,19 +33,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Admin } from '../entities/admin.entity';
-import { Role } from '@models/roles/entities/role.entity';
-import {
-  Public,
-  CheckAbilities,
-  GetUser,
-  Roles,
-  Id,
-  Auth,
-} from '@common/decorators';
-import { GROUPS, Entities, Action, ROLE } from '@common/enums';
-import { ICrud } from '@common/interfaces';
 import { AuthAdminResponse } from '../interfaces';
-import { bad_req, denied_error, item_not_found } from '@common/constants';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
 
@@ -62,7 +62,7 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @ApiOkResponse({ type: Admin })
-  @Roles(ROLE.ADMIN)
+  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @CheckAbilities({ action: Action.Create, subject: Entities.Admin })
   @SerializeOptions({ groups: [GROUPS.ADMIN] })
   @Post()
@@ -71,7 +71,7 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @ApiOkResponse({ type: Admin })
-  @Roles(ROLE.ADMIN)
+  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @CheckAbilities({ action: Action.Read, subject: Entities.Admin })
   @SerializeOptions({ groups: [GROUPS.ALL_ADMINS] })
   @Get()
@@ -80,7 +80,7 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @ApiOkResponse({ type: Admin })
-  @Roles(ROLE.ADMIN)
+  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @SerializeOptions({ groups: [GROUPS.ADMIN] })
   @CheckAbilities({ action: Action.Read, subject: Entities.Admin })
   @Get(':id')
@@ -89,7 +89,7 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @ApiOkResponse({ type: Admin })
-  @Roles(ROLE.ADMIN)
+  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @SerializeOptions({ groups: [GROUPS.ADMIN] })
   @CheckAbilities({ action: Action.Update, subject: Entities.Admin })
   @Patch(':id')
@@ -98,7 +98,7 @@ export class AdminsController implements ICrud<Admin> {
   }
 
   @CheckAbilities({ action: Action.Delete, subject: Entities.Admin })
-  @Roles(ROLE.ADMIN)
+  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   remove(@Id() id: string) {

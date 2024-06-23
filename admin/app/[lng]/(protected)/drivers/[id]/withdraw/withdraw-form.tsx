@@ -30,17 +30,16 @@ export function WithdrawForm({ driver }: WithdrawFormProps) {
   const form = useForm<z.input<ReturnType<typeof schema>>>({
     resolver: zodResolver(schema(driver.wallet.available)),
     defaultValues: {
-      name: "",
       cost: 0,
     },
   });
   const router = useRouter();
-  const add = useMutation(
+  const withdraw = useMutation(
     (dto: UpdateWalletDto) => driversControllerWithdraw({ id: driver.id }, dto),
     form,
   );
   const onSubmit = async (data: Schema) => {
-    await add(data, {
+    await withdraw.mutate(data, {
       onSuccess: () => {
         revalidatePath(`/drivers/${driver.id}/withdraw`);
         revalidatePath(`/drivers`);

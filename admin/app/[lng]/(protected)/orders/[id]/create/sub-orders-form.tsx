@@ -68,7 +68,7 @@ export function SubOrdersForm({ order }: SubOrdersFormProps) {
   const router = useRouter();
   const create = useMutation(subOrdersControllerCreate, form);
   const onSubmit = async (data: Schema) => {
-    await create(
+    await create.mutate(
       {
         ...data,
         subOrders: data.subOrders.map((sub) => ({
