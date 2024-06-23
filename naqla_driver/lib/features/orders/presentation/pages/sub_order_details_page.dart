@@ -58,34 +58,65 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                   16.verticalSpace,
                   Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
-                    child: RichText(
-                      text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary), children: [
-                        TextSpan(text: '${S.of(context).weight}${data.weight},'),
-                        WidgetSpan(child: 5.horizontalSpace),
-                        TextSpan(text: '${S.of(context).cost}${formatter.format(data.cost)} ${S.of(context).syp},'),
-                        if ((data.order?.porters ?? 0) > 0) ...{
+                    child: Container(
+                      padding: REdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: context.colorScheme.outline),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: RichText(
+                        text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.6), children: [
+                          TextSpan(text: '${S.of(context).weight}${data.weight},'),
                           WidgetSpan(child: 5.horizontalSpace),
-                          TextSpan(text: '${S.of(context).the_number_of_floors}: ${(data.order?.porters ?? 1) - 1}'),
-                        }
-                      ]),
+                          TextSpan(text: '${S.of(context).cost}${formatter.format(data.cost)} ${S.of(context).syp},'),
+                          if ((data.order?.porters ?? 0) > 0) ...{
+                            WidgetSpan(child: 5.horizontalSpace),
+                            TextSpan(text: '${S.of(context).the_number_of_floors}: ${(data.order?.porters ?? 1) - 1}'),
+                          },
+                          TextSpan(text: '\n${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate)}'),
+                          TextSpan(
+                              text:
+                                  '\n${CoreHelperFunctions.formatOrderTime(context, data.status!, deliveredAt: data.deliveredAt, acceptedAt: data.acceptedAt, arrivedAt: data.arrivedAt, driverAssignedAt: data.driverAssignedAt, pickedUpAt: data.pickedUpAt)}'),
+                        ]),
+                      ),
                     ),
                   ),
+                  if (data.carModel != null) ...{
+                    16.verticalSpace,
+                    Padding(
+                      padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
+                      child: Container(
+                        padding: REdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: context.colorScheme.outline),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: RichText(
+                          text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
+                            TextSpan(
+                                text: '${S.of(context).vehicle_advantages}: ${data.order?.advantages?.map(
+                              (e) => e,
+                            )}\n'),
+                            TextSpan(text: '${S.of(context).driver_name}: ${data.carModel?.driver.firstName} ${data.carModel?.driver.lastName}\n'),
+                            TextSpan(text: '${S.of(context).car_model}: ${data.carModel?.model}\n'),
+                            TextSpan(text: '${S.of(context).car_brand}: ${data.carModel?.brand}\n'),
+                            WidgetSpan(
+                                child: Padding(
+                              padding: REdgeInsets.symmetric(vertical: 10),
+                            )),
+                            TextSpan(text: '${S.of(context).car_color}:\n'),
+                            WidgetSpan(
+                                child: Container(
+                              width: 70.w,
+                              height: 20.h,
+                              color: CoreHelperFunctions.hexToColor(data.carModel?.color ?? ''),
+                            ))
+                          ]),
+                        ),
+                      ),
+                    )
+                  },
                   16.verticalSpace,
-                  Padding(
-                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                    child: AppText.subHeadMedium(
-                        '${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate)}'),
-                  ),
-                  16.verticalSpace,
-                  Padding(
-                    padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                    child: AppText.subHeadMedium(CoreHelperFunctions.formatOrderTime(context, data.status!,
-                        deliveredAt: data.deliveredAt,
-                        acceptedAt: data.acceptedAt,
-                        arrivedAt: data.arrivedAt,
-                        driverAssignedAt: data.driverAssignedAt,
-                        pickedUpAt: data.pickedUpAt)),
-                  ),
                   SizedBox(
                     width: 200.w,
                     height: 200.h,

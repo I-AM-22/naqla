@@ -1,4 +1,5 @@
 import 'package:naqla_driver/features/auth/data/model/photo_model.dart';
+import 'package:naqla_driver/features/home/data/model/car_model.dart';
 
 import '../../../../core/common/enums/order_status.dart';
 import 'order_model.dart';
@@ -16,6 +17,7 @@ class SubOrderModel {
   final DateTime? driverAssignedAt;
   final DateTime? pickedUpAt;
   final List<PhotoModel> photos;
+  final SubOrderCarModel? carModel;
 
   SubOrderModel({
     required this.id,
@@ -30,6 +32,7 @@ class SubOrderModel {
     required this.driverAssignedAt,
     required this.pickedUpAt,
     required this.photos,
+    required this.carModel,
   });
 
   SubOrderModel copyWith({
@@ -45,6 +48,7 @@ class SubOrderModel {
     DateTime? driverAssignedAt,
     DateTime? pickedUpAt,
     List<PhotoModel>? photos,
+    SubOrderCarModel? carModel,
   }) =>
       SubOrderModel(
         id: id ?? this.id,
@@ -59,21 +63,27 @@ class SubOrderModel {
         driverAssignedAt: driverAssignedAt ?? this.driverAssignedAt,
         pickedUpAt: pickedUpAt ?? this.pickedUpAt,
         rating: rating ?? this.rating,
+        carModel: carModel ?? this.carModel,
       );
 
   factory SubOrderModel.fromJson(Map<String, dynamic> json) => SubOrderModel(
         id: json["id"],
         weight: json["weight"],
         cost: json["cost"],
-        order: json["order"] == null ? null : OrderModel.fromJson(json["order"]),
+        order:
+            json["order"] == null ? null : OrderModel.fromJson(json["order"]),
         rating: json["rating"],
-        status: SubOrderStatus.values.byName(json["status"] ?? SubOrderStatus.delivered.name),
+        status: SubOrderStatus.values
+            .byName(json["status"] ?? SubOrderStatus.delivered.name),
         acceptedAt: DateTime.tryParse(json["acceptedAt"] ?? ''),
         arrivedAt: DateTime.tryParse(json["arrivedAt"] ?? ''),
         deliveredAt: DateTime.tryParse(json["deliveredAt"] ?? ''),
         driverAssignedAt: DateTime.tryParse(json["driverAssignedAt"] ?? ''),
         pickedUpAt: DateTime.tryParse(json["pickedUpAt"] ?? ''),
-        photos: List<PhotoModel>.from(json["photos"].map((x) => PhotoModel.fromJson(x))),
+        photos: List<PhotoModel>.from(
+            json["photos"].map((x) => PhotoModel.fromJson(x))),
+        carModel:
+            json['car'] == null ? null : SubOrderCarModel.fromJson(json['car']),
       );
 
   Map<String, dynamic> toJson() => {

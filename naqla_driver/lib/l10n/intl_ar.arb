@@ -96,6 +96,11 @@
   "delivered": "تم توصيله",
   "the_number_of_floors": "عدد الطوابق",
   "the_driver_agreed_to_the_request": "السائق وافق على النقلة",
+  "vehicle_advantages": "ميزات السيارة",
+  "driver_name":"اسم السائق",
+  "car_model":"موديل السيارة",
+  "car_color":"لون السيارة",
+  "car_brand":"العلامة التجارية للسيارة",
 
   "__________________________profile______________________________":"",
   "profile":"الملف الشخصي",

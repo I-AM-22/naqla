@@ -66,6 +66,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "brand": MessageLookupByLibrary.simpleMessage("العلامة التجارية"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
+        "car_brand":
+            MessageLookupByLibrary.simpleMessage("العلامة التجارية للسيارة"),
+        "car_color": MessageLookupByLibrary.simpleMessage("لون السيارة"),
+        "car_model": MessageLookupByLibrary.simpleMessage("موديل السيارة"),
         "cars": MessageLookupByLibrary.simpleMessage("السيارات"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
@@ -85,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
         "done_orders": MessageLookupByLibrary.simpleMessage("الطلبات المنتهية"),
+        "driver_name": MessageLookupByLibrary.simpleMessage("اسم السائق"),
         "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("تعديل رقم الهاتف"),
         "edit_profile":
@@ -170,6 +175,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لايوجد هناك بيانات لعرضها"),
         "total_money": MessageLookupByLibrary.simpleMessage("الاموال الكلية: "),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),
+        "vehicle_advantages":
+            MessageLookupByLibrary.simpleMessage("ميزات السيارة"),
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
         "waiting_for_customer_confirmation":
             MessageLookupByLibrary.simpleMessage("بإنتظار تأكيد الزبون"),

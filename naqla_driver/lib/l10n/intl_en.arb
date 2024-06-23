@@ -98,6 +98,11 @@
   "delivered": "Delivered",
   "the_number_of_floors": "the number of floors",
   "the_driver_agreed_to_the_request": "The driver agreed to the order",
+  "vehicle_advantages": "Vehicle advantages",
+  "driver_name":"driver name",
+  "car_model":"car model",
+  "car_color":"car color",
+  "car_brand":"car brand",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

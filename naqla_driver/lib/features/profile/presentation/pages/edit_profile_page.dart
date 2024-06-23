@@ -65,7 +65,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               width: 130.w,
                               height: 130.w,
                               decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                              child: AppImage.network(widget.driverModel.photo.profileUrl)),
+                              child: AppImage.network(widget.driverModel.photo?.profileUrl ?? '')),
                           onSuccess: (data) {
                             photo = data;
                             return Container(

@@ -970,6 +970,56 @@ class S {
     );
   }
 
+  /// `Vehicle advantages`
+  String get vehicle_advantages {
+    return Intl.message(
+      'Vehicle advantages',
+      name: 'vehicle_advantages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `driver name`
+  String get driver_name {
+    return Intl.message(
+      'driver name',
+      name: 'driver_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `car model`
+  String get car_model {
+    return Intl.message(
+      'car model',
+      name: 'car_model',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `car color`
+  String get car_color {
+    return Intl.message(
+      'car color',
+      name: 'car_color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `car brand`
+  String get car_brand {
+    return Intl.message(
+      'car brand',
+      name: 'car_brand',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(

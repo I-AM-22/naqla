@@ -45,9 +45,7 @@ final GlobalKey<NavigatorState> _shell4NavigatorKey = GlobalKey<NavigatorState>(
 final GlobalKey<NavigatorState> _shell5NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell5');
 
 class GRouter {
-  static GoRouter get router => _router;
-
-  static final GoRouter _router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootNavigatorKey, routes: <RouteBase>[
+  static final GoRouter router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootNavigatorKey, routes: <RouteBase>[
     GoRoute(
         path: SplashScreen.path,
         name: SplashScreen.name,

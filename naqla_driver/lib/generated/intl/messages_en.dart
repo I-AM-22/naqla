@@ -67,6 +67,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "car_brand": MessageLookupByLibrary.simpleMessage("car brand"),
+        "car_color": MessageLookupByLibrary.simpleMessage("car color"),
+        "car_model": MessageLookupByLibrary.simpleMessage("car model"),
         "cars": MessageLookupByLibrary.simpleMessage("Cars"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
@@ -91,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don’t have an account? "),
         "done_orders": MessageLookupByLibrary.simpleMessage("Orders done"),
         "driver_arrived": MessageLookupByLibrary.simpleMessage("Order arrives"),
+        "driver_name": MessageLookupByLibrary.simpleMessage("driver name"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "edit_phone": MessageLookupByLibrary.simpleMessage("Edit Phone Number"),
         "edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
@@ -176,6 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total money: "),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
+        "vehicle_advantages":
+            MessageLookupByLibrary.simpleMessage("Vehicle advantages"),
         "verify": MessageLookupByLibrary.simpleMessage("Verify"),
         "waiting_for_customer_confirmation":
             MessageLookupByLibrary.simpleMessage(

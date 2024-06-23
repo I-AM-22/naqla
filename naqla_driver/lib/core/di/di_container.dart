@@ -6,8 +6,12 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/app/domain/repository/prefs_repository.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
 import '../api/log_interceptor.dart';
 import '../common/constants/configuration/api_routes.dart';
+import '../common/enums/status_code_type.dart';
+import '../config/router/router.dart';
 import 'di_container.config.dart';
 
 final getIt = GetIt.I;
@@ -34,7 +38,17 @@ abstract class AppModule {
   @lazySingleton
   Dio dio(BaseOptions options, Logger logger) {
     final dio = Dio(options);
-    dio.interceptors.addAll([DioLogInterceptor()]);
+    dio.interceptors.addAll([
+      DioLogInterceptor(),
+      InterceptorsWrapper(
+        onError: (error, handler) async {
+          if (error.response?.statusCode == StatusCode.unAuthorized.code && getIt<PrefsRepository>().registeredUser) {
+            await getIt<PrefsRepository>().clearUser();
+            GRouter.router.goNamed(SignInPage.name);
+          }
+        },
+      )
+    ]);
     return dio;
   }
 

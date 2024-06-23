@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 138.w,
                           height: 138.w,
                           decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                          child: AppImage.network(data.photo.mobileUrl),
+                          child: AppImage.network(data.photo?.mobileUrl ?? ''),
                         ),
                       ),
                       24.verticalSpace,

@@ -9,7 +9,7 @@ class DriverModel {
   final String lastName;
   final String? phone;
   final WalletModel wallet;
-  final PhotoModel photo;
+  final PhotoModel? photo;
 
   DriverModel({
     required this.id,
@@ -51,7 +51,7 @@ class DriverModel {
         lastName: json["lastName"],
         phone: json["phone"],
         wallet: WalletModel.fromJson(json["wallet"]),
-        photo: PhotoModel.fromJson(json["photo"]),
+        photo: json["photo"] == null ? null : PhotoModel.fromJson(json["photo"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -62,6 +62,6 @@ class DriverModel {
         "lastName": lastName,
         "phone": phone,
         "wallet": wallet.toJson(),
-        "photo": photo.toJson,
+        "photo": photo?.toJson,
       };
 }
