@@ -103,7 +103,8 @@ export class DriversService implements IDriversService {
   }
 
   async deleteMe(driver: Driver): Promise<void> {
-    await this.driverRepository.remove(driver);
+    const toDelete = await this.driverRepository.findByIdForDelete(driver.id);
+    await this.driverRepository.delete(toDelete);
   }
   async getMyPhotos(driver: Driver): Promise<DriverPhoto[]> {
     return this.driverPhotoRepository.findPhotosByOwner(driver.id);
@@ -135,9 +136,9 @@ export class DriversService implements IDriversService {
     return this.driverRepository.confirm(nonConfirmedDriver);
   }
 
-  async remove(id: string): Promise<void> {
-    const driver = await this.findOne(id);
-    await this.driverRepository.remove(driver);
+  async delete(id: string): Promise<void> {
+    const driver = await this.driverRepository.findByIdForDelete(id);
+    await this.driverRepository.delete(driver);
     return;
   }
 

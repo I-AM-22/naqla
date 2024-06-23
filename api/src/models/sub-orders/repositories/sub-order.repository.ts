@@ -110,8 +110,8 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
-  async findOne(id: string): Promise<SubOrder> {
-    const subOrders = await this.subOrderRepository
+  async findById(id: string): Promise<SubOrder> {
+    const subOrder = await this.subOrderRepository
       .createQueryBuilder('subOrder')
       .leftJoinAndSelect('subOrder.order', 'order')
       .leftJoinAndSelect('subOrder.photos', 'photos')
@@ -131,15 +131,40 @@ export class SubOrderRepository implements ISubOrderRepository {
         'driver.firstName',
         'driver.lastName',
       ])
-      .getMany();
-    return subOrders[0];
+      .getOne();
+    return subOrder;
   }
 
-  async findOneWithAdvantages(id: string): Promise<SubOrder> {
+  async findByIdWithAdvantages(id: string): Promise<SubOrder> {
     return this.subOrderRepository.findOne({
       where: { id },
       relations: ['order', 'order.advantages'],
     });
+  }
+
+  async findByIdForDelete(id: string): Promise<SubOrder> {
+    return this.subOrderRepository.findOne({
+      where: { id },
+      relations: { messages: true },
+    });
+  }
+
+  async findByIdForMessage(id: string): Promise<SubOrder> {
+    return await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.order', 'order')
+      .leftJoinAndSelect('order.user', 'user')
+      .leftJoinAndSelect('subOrder.car', 'car')
+      .leftJoinAndSelect('car.driver', 'driver')
+      .where('subOrder.status NOT IN (:...statuses)', {
+        statuses: [
+          SUB_ORDER_STATUS.READY,
+          SUB_ORDER_STATUS.REFUSED,
+          SUB_ORDER_STATUS.WAITING,
+        ],
+      })
+      .andWhere('subOrder.id = :id', { id })
+      .getOne();
   }
 
   async create(
@@ -186,10 +211,6 @@ export class SubOrderRepository implements ISubOrderRepository {
 
   async delete(subOrder: SubOrder): Promise<void> {
     await this.subOrderRepository.softRemove(subOrder);
-  }
-
-  async deleteForOrder(orderId: string): Promise<void> {
-    await this.subOrderRepository.softRemove({ orderId });
   }
 
   async refusedForOrder(orderId: string): Promise<void> {

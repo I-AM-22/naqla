@@ -78,7 +78,7 @@ export class AdvantagesController {
   @ApiNoContentResponse()
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  delete(@Param('id') id: string) {
     return this.advantagesService.delete(id);
   }
 }

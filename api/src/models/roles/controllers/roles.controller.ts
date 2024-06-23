@@ -103,7 +103,7 @@ export class RolesController implements ICrud<Role> {
     return this.rolesService.deletePermissions(id, dto);
   }
 
-  remove(...n: any[]): Promise<any> {
+  delete(...n: any[]): Promise<any> {
     return;
   }
 }

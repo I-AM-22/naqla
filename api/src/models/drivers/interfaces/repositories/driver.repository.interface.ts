@@ -23,6 +23,8 @@ export interface IDriverRepository {
 
   findByIdForThings(id: string): Promise<Driver>;
 
+  findByIdForDelete(id: string): Promise<Driver>;
+
   create(
     dto: CreateDriverDto,
     wallet: DriverWallet,
@@ -42,7 +44,7 @@ export interface IDriverRepository {
 
   // recover(driver: Driver): Promise<Driver>;
 
-  remove(driver: Driver): Promise<void>;
+  delete(driver: Driver): Promise<void>;
 
   validate(id: string): Promise<Driver>;
 }

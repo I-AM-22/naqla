@@ -5,7 +5,7 @@ export interface ICrud<T> {
   find(...n): Promise<T[] | PaginatedResponse<T>>;
   findOne(...n): Promise<T>;
   update(...n): Promise<T>;
-  remove(...n): Promise<any>;
+  delete(...n): Promise<any>;
 }
 
 export interface INestedController<T> {
@@ -16,5 +16,5 @@ export interface INestedController<T> {
 export interface IGenericController<T> {
   findOne(...n): Promise<T>;
   update(...n): Promise<T>;
-  remove(...n): Promise<void>;
+  delete(...n): Promise<void>;
 }

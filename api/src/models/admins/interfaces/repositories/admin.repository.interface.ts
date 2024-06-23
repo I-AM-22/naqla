@@ -16,7 +16,7 @@ export interface IAdminRepository {
 
   // recover(admin: Admin): Promise<Admin>;
 
-  remove(admin: Admin): Promise<void>;
+  delete(admin: Admin): Promise<void>;
 
   validate(id: string): Promise<Admin>;
 }

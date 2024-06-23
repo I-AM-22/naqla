@@ -32,7 +32,7 @@ export interface IUsersService {
 
   update(id: string, dto: UpdateUserDto): Promise<User>;
 
-  remove(id: string): Promise<void>;
+  delete(id: string): Promise<void>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<User>;
 

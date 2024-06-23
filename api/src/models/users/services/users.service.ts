@@ -95,7 +95,8 @@ export class UsersService implements IUsersService {
   }
 
   async deleteMe(user: User): Promise<void> {
-    await this.userRepository.remove(user);
+    const toDelete = await this.userRepository.findByIdForDelete(user.id);
+    await this.userRepository.delete(toDelete);
   }
 
   async getMyPhotos(user: User): Promise<UserPhoto[]> {
@@ -124,9 +125,9 @@ export class UsersService implements IUsersService {
     return this.userRepository.confirm(nonConfirmedUser);
   }
 
-  async remove(id: string): Promise<void> {
-    const user = await this.findOne(id);
-    await this.userRepository.remove(user);
+  async delete(id: string): Promise<void> {
+    const user = await this.userRepository.findByIdForDelete(id);
+    await this.userRepository.delete(user);
     return;
   }
 

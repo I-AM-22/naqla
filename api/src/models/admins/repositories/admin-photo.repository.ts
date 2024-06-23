@@ -30,5 +30,5 @@ export class AdminPhotoRepository implements IPhotoRepository<AdminPhoto> {
     return photo;
   }
 
-  async remove(photo: AdminPhoto): Promise<void> {}
+  async delete(photo: AdminPhoto): Promise<void> {}
 }

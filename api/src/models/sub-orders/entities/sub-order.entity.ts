@@ -6,6 +6,7 @@ import { SUB_ORDER_STATUS } from '@common/enums';
 import { OrderPhoto } from '@models/orders/entities/order-photo.entity';
 import { Order } from '@models/orders/entities/order.entity';
 import { Exclude } from 'class-transformer';
+import { Message } from '@models/messages/entities/message.entity';
 
 @Entity('sub_orders')
 export class SubOrder extends GlobalEntity {
@@ -68,4 +69,7 @@ export class SubOrder extends GlobalEntity {
     eager: true,
   })
   photos: OrderPhoto[];
+
+  @OneToMany(() => Message, (message) => message.subOrder, { cascade: true })
+  messages: Message[];
 }

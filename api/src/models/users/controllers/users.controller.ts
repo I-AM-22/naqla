@@ -40,7 +40,6 @@ import { IUsersService } from '../interfaces/services/users.service.interface';
 import { USER_TYPES } from '../interfaces/type';
 import { UpdateWalletDto } from '@models/drivers/dtos/update-wallet.dto ';
 import { UserWalletRepository } from '../repositories/user-wallet.repository';
-import { number } from 'joi';
 import { StaticsUser } from '../interfaces/statics-user.interface';
 
 @ApiTags('Users')
@@ -187,8 +186,8 @@ export class UsersController {
   @CheckAbilities({ action: Action.Delete, subject: Entities.User })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  async remove(@Id() id: string) {
-    return this.usersService.remove(id);
+  async delete(@Id() id: string) {
+    return this.usersService.delete(id);
   }
 
   // @ApiOperation({ summary: 'recover deleted user' })

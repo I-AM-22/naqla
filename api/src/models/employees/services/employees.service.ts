@@ -90,9 +90,9 @@ export class EmployeesService implements IEmployeesService {
   //   return employee;
   // }
 
-  async remove(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const emp = await this.findOne(id);
-    await this.employeeRepository.remove(emp);
+    await this.employeeRepository.delete(emp);
     return;
   }
 

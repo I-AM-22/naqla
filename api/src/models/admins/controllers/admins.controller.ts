@@ -101,8 +101,8 @@ export class AdminsController implements ICrud<Admin> {
   @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Id() id: string) {
-    return this.adminsService.remove(id);
+  delete(@Id() id: string) {
+    return this.adminsService.delete(id);
   }
 
   // @ApiOperation({ summary: 'recover deleted admin' })

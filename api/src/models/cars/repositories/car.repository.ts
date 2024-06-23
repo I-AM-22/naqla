@@ -75,7 +75,17 @@ export class CarRepository implements ICarRepository {
   }
 
   async findOne(id: string): Promise<Car> {
-    return this.carRepository.findOne({ where: { id } });
+    return await this.carRepository.findOne({
+      where: { id },
+      relations: { photos: true, advantages: true },
+    });
+  }
+
+  async findByIdForDelete(id: string, driverId: string): Promise<Car> {
+    return await this.carRepository.findOne({
+      where: { id, driverId },
+      relations: { photos: true },
+    });
   }
 
   async create(

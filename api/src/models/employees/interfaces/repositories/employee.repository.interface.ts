@@ -23,7 +23,7 @@ export interface IEmployeeRepository {
   ): Promise<Employee>;
   // recover(employee: Employee): Promise<Employee>;
 
-  remove(employee: Employee): Promise<void>;
+  delete(employee: Employee): Promise<void>;
 
   validate(id: string): Promise<Employee>;
 }

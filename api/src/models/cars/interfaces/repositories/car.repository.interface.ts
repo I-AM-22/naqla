@@ -12,6 +12,7 @@ export interface ICarRepository {
   findOne(id: string): Promise<Car>;
   findOneForOwner(id: string, driverId: string): Promise<Car>;
   findMyCarsForOrder(driverId: string, order: Order): Promise<Car[]>;
+  findByIdForDelete(id: string, driverId: string): Promise<Car>;
   create(
     driver: Driver,
     photo: CarPhoto,

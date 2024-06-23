@@ -121,11 +121,11 @@ export class OrderController {
     return await this.ordersService.update(id, user, dto);
   }
 
-  @Roles(ROLE.USER, ROLE.EMPLOYEE)
+  @Roles(ROLE.USER, ROLE.SUPER_ADMIN, ROLE.EMPLOYEE)
   @ApiNoContentResponse()
   @Delete(':id')
-  async delete(@Id() id: string, @GetUser() user: IPerson): Promise<void> {
-    await this.ordersService.delete(id, user);
+  async delete(@Id() id: string): Promise<void> {
+    await this.ordersService.delete(id);
   }
 
   @Roles(ROLE.USER)

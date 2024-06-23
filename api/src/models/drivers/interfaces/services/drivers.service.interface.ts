@@ -33,7 +33,7 @@ export interface IDriversService {
 
   update(id: string, dto: UpdateDriverDto): Promise<Driver>;
 
-  remove(id: string): Promise<void>;
+  delete(id: string): Promise<void>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Driver>;
 

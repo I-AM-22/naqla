@@ -91,7 +91,7 @@ export const permissions: pp[] = [
   },
   {
     action: Action.Manage,
-    subject: Entities.Chat,
+    subject: Entities.Message,
     roles: [ROLE.USER, ROLE.DRIVER, ROLE.ADMIN],
   },
   {

@@ -44,9 +44,9 @@ export class CitiesService implements ICitiesService {
   //   return city.recover();
   // }
 
-  async remove(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const city = await this.findOne(id);
-    this.cityRepository.remove(city);
+    this.cityRepository.delete(city);
     return;
   }
 }

@@ -8,9 +8,11 @@ export interface ISubOrderRepository {
   findForOrder(orderId: string): Promise<SubOrder[]>;
   findForDriver(cars: Car[]): Promise<SubOrder[]>;
   findAllActiveForDriver(driverId: string): Promise<SubOrder[]>;
-  findOne(id: string): Promise<SubOrder>;
-  findOneWithAdvantages(id: string): Promise<SubOrder>;
+  findById(id: string): Promise<SubOrder>;
+  findByIdWithAdvantages(id: string): Promise<SubOrder>;
+  findByIdForMessage(id: string): Promise<SubOrder>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
+  findByIdForDelete(id: string): Promise<SubOrder>;
   findTotalCost(id: string): Promise<number>;
   create(
     orderId: string,
@@ -27,5 +29,4 @@ export interface ISubOrderRepository {
   setDriver(subOrder: SubOrder, car: Car): Promise<SubOrder>;
   countSubOrdersCompletedForDriver(driverId: string): Promise<number>;
   delete(subOrder: SubOrder): Promise<void>;
-  deleteForOrder(orderId: string): Promise<void>;
 }

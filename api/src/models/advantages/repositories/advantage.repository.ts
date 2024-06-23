@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { CreateAdvantageDto, UpdateAdvantageDto } from '../dto';
 import { Advantage } from '../entities/advantage.entity';
-import { IAdvantageRepository } from '../interfaces/repositories/advantages.repository.interface';
+import { IAdvantageRepository } from '../interfaces/repositories/advantage.repository.interface';
 
 @Injectable()
 export class AdvantageRepository implements IAdvantageRepository {

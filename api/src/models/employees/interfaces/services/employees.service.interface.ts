@@ -21,5 +21,5 @@ export interface IEmployeesService {
   // recover(id: string): Promise<Employee>;
   validate(id: string, iat: number): Promise<Employee>;
 
-  remove(id: string): Promise<void>;
+  delete(id: string): Promise<void>;
 }

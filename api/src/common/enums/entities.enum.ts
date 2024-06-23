@@ -7,7 +7,6 @@ export enum Entities {
   Photo = 'Photo',
   Admin = 'Admin',
   Employee = 'Employee',
-  Chat = 'Chat',
   Message = 'Message',
   City = 'City',
   Payment = 'Payment',

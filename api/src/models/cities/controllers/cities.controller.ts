@@ -77,7 +77,7 @@ export class CitiesController implements ICrud<City> {
   @ApiNoContentResponse({ description: 'delete City' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Id() id: string) {
-    return this.citiesService.remove(id);
+  delete(@Id() id: string) {
+    return this.citiesService.delete(id);
   }
 }

@@ -12,5 +12,5 @@ export interface ICityRepository {
   ): Promise<City>;
   findForDeleteById(id: string, withDeleted: boolean): Promise<City>;
   update(city: City, dto: UpdateCityDto): Promise<City>;
-  remove(city: City): Promise<void>;
+  delete(city: City): Promise<void>;
 }

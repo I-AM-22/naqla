@@ -21,6 +21,8 @@ export interface IUserRepository {
 
   findById(id: string, withDeleted?: boolean): Promise<User>;
 
+  findByIdForDelete(id: string): Promise<User>;
+
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<User>;
 
   findByIdForThings(id: string): Promise<User>;
@@ -40,7 +42,7 @@ export interface IUserRepository {
 
   // recover(user: User): Promise<User>;
 
-  remove(user: User): Promise<void>;
+  delete(user: User): Promise<void>;
 
   validate(id: string): Promise<User>;
 }

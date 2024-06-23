@@ -63,7 +63,7 @@ export class EmployeeRepository
   //   return this.employeeRepo.recover(employee);
   // }
 
-  async remove(employee: Employee): Promise<void> {
+  async delete(employee: Employee): Promise<void> {
     await this.employeeRepo.softRemove(employee);
   }
 }

@@ -24,7 +24,7 @@ export class CarPhotoRepository implements IPhotoRepository<CarPhoto> {
     return photo;
   }
 
-  remove(photo: CarPhoto): Promise<void> {
+  delete(photo: CarPhoto): Promise<void> {
     return;
   }
 }

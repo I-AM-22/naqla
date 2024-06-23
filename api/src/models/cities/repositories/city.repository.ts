@@ -47,7 +47,7 @@ export class CityRepository implements ICityRepository {
     return this.findById(city.id);
   }
 
-  async remove(city: City): Promise<void> {
+  async delete(city: City): Promise<void> {
     this.cityRepo.softRemove(city);
     return;
   }

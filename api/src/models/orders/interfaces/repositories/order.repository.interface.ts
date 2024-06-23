@@ -11,9 +11,10 @@ export interface IOrderRepository {
   findWaiting(): Promise<Order[]>;
   findMyOrder(userId: string): Promise<Order[]>;
   findMineWithAccepted(userId: string): Promise<Order[]>;
-  findOne(id: string): Promise<Order>;
-  findOneForOwner(id: string, userId: string): Promise<Order>;
+  findById(id: string): Promise<Order>;
+  findByIdForOwner(id: string, userId: string): Promise<Order>;
   findOneWithAdvantages(id: string): Promise<Order>;
+  findByIdForDelete(id: string): Promise<Order>;
   create(
     user: User,
     photo: OrderPhoto[],

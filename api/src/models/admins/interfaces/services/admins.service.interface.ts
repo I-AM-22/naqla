@@ -17,5 +17,5 @@ export interface IAdminsService {
 
   // recover(id: string): Promise<Admin>;
 
-  remove(id: string): Promise<void>;
+  delete(id: string): Promise<void>;
 }

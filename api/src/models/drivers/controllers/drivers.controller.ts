@@ -166,8 +166,8 @@ export class DriversController implements ICrud<Driver> {
   @CheckAbilities({ action: Action.Delete, subject: Entities.Driver })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  async remove(@Id() id: string) {
-    return this.driversService.remove(id);
+  async delete(@Id() id: string) {
+    return this.driversService.delete(id);
   }
 
   // @ApiOperation({ summary: 'recover deleted driver' })

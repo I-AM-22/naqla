@@ -35,6 +35,7 @@ import { SettingsModule } from '@models/settings/settings.module';
 import { GpsDrivingModule } from '@shared/gpsDriving';
 import { PaymentsModule } from './models/payments/payments.module';
 import { StatisticsModule } from '@models/statics/statistics.module';
+import { MessagesModule } from '@models/messages/messages.module';
 
 @Module({
   imports: [
@@ -82,12 +83,12 @@ import { StatisticsModule } from '@models/statics/statistics.module';
     SettingsModule,
     GpsDrivingModule,
     PaymentsModule,
+    MessagesModule,
   ],
   providers: [
     IsUniqueConstraint,
     IsExistConstraint,
     IsPhotoExistConstraint,
-
     {
       provide: APP_GUARD,
       useClass: JwtGuard,

@@ -41,6 +41,18 @@ export class UserRepository
     return pagination(page, limit, totalDataCount, data);
   }
 
+  async findByIdForDelete(id: string): Promise<User> {
+    return await this.userRepo.findOne({
+      where: { id, active: true },
+
+      relations: {
+        photos: true,
+        wallet: true,
+        orders: { subOrders: { messages: true }, photos: true, payment: true },
+      },
+    });
+  }
+
   async staticsUser(
     page: number,
     limit: number,
@@ -124,7 +136,7 @@ export class UserRepository
   // async recover(user: User): Promise<User> {
   //   return this.userRepo.recover(user);
   // }
-  async remove(user: User): Promise<void> {
+  async delete(user: User): Promise<void> {
     this.userRepo.softRemove(user);
   }
 }

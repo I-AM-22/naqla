@@ -68,7 +68,7 @@ export class CarsService implements ICarsService {
     return this.carRepository.countCarForDriver(driverId);
   }
   async delete(id: string, driverId: string): Promise<void> {
-    const car = await this.findOneForOwner(id, driverId);
+    const car = await this.carRepository.findByIdForDelete(id, driverId);
     return this.carRepository.delete(car);
   }
 

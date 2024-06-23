@@ -57,13 +57,13 @@ export class OrdersService implements IOrdersService {
     if (person && person.role.name === ROLE.USER)
       return await this.findOneForOwner(id, person.id);
 
-    const order = await this.orderRepository.findOne(id);
+    const order = await this.orderRepository.findById(id);
     if (!order) throw new NotFoundException(item_not_found(Entities.Order));
     return order;
   }
 
   async findOneForOwner(id: string, userId: string): Promise<Order> {
-    const order = await this.orderRepository.findOneForOwner(id, userId);
+    const order = await this.orderRepository.findByIdForOwner(id, userId);
     if (!order) throw new NotFoundException(item_not_found(Entities.Order));
     return order;
   }
@@ -119,14 +119,14 @@ export class OrdersService implements IOrdersService {
 
   async divisionDone(id: string, cost: number): Promise<Order> {
     await this.paymentsService.setTotal(id, cost);
-    return await this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
+    return await this.orderRepository.updateStatus(id, ORDER_STATUS.READY);
   }
 
   async acceptance(id: string): Promise<Order> {
-    const order = await this.orderRepository.findOne(id);
-    if (order.status !== ORDER_STATUS.ACCEPTED) {
+    const order = await this.orderRepository.findById(id);
+    if (order.status !== ORDER_STATUS.READY) {
       throw new ForbiddenException(
-        'Can not acceptance Done this order because him status is not accepted',
+        'Can not acceptance Done this order because his status is not accepted',
       );
     }
     if (!(await this.walletRepository.check(order.userId, order.payment.cost)))
@@ -135,7 +135,7 @@ export class OrdersService implements IOrdersService {
       );
     await this.walletRepository.updatePending(order.userId, order.payment.cost);
     await this.subOrderRepository.setStatusToReady(order.id);
-    return this.orderRepository.updateStatus(id, ORDER_STATUS.READY);
+    return this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
   }
 
   cancellation(id: string): Promise<Order> {
@@ -159,8 +159,8 @@ export class OrdersService implements IOrdersService {
     return this.orderRepository.updateStatus(id, ORDER_STATUS.REFUSED);
   }
 
-  async delete(id: string, person: IPerson): Promise<void> {
-    const order = await this.findOne(id, person);
+  async delete(id: string): Promise<void> {
+    const order = await this.orderRepository.findByIdForDelete(id);
     return this.orderRepository.delete(order);
   }
 

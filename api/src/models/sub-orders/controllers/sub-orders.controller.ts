@@ -16,6 +16,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -27,6 +28,7 @@ import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
 import { SUB_ORDER_TYPES } from '../interfaces/type';
+import { SetDriverSubOrderDto } from '../dto/set-driver.dto';
 
 @ApiTags('SubOrders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -40,11 +42,12 @@ export class SubOrdersController {
     @Inject(SUB_ORDER_TYPES.service)
     private readonly subOrdersService: ISubOrdersService,
   ) {}
+
   @Roles(ROLE.EMPLOYEE, ROLE.SUPER_ADMIN)
-  @ApiOkResponse({ type: Order })
+  @ApiCreatedResponse({ type: Order })
   @Post()
   async create(@Body() dto: CreateSubOrdersDto) {
-    await this.subOrdersService.create(dto);
+    return await this.subOrdersService.create(dto);
   }
 
   @ApiOkResponse({ type: SubOrder, isArray: true })
@@ -130,9 +133,9 @@ export class SubOrdersController {
   @Patch(':id/setDriver')
   async setDriver(
     @Id() id: string,
-    @Body() dto: UpdateSubOrderDto,
+    @Body() dto: SetDriverSubOrderDto,
   ): Promise<SubOrder> {
-    return await this.subOrdersService.setDriver(id, dto.car);
+    return await this.subOrdersService.setDriver(id, dto.carId);
   }
 
   @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)

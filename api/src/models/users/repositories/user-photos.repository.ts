@@ -27,7 +27,7 @@ export class UserPhotoRepository implements IPhotoRepository<UserPhoto> {
     return photo;
   }
 
-  remove(photo: UserPhoto): Promise<void> {
+  delete(photo: UserPhoto): Promise<void> {
     return;
   }
 }

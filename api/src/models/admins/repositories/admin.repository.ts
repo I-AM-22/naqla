@@ -54,7 +54,7 @@ export class AdminRepository
   //   return this.adminRepository.recover(admin);
   // }
 
-  async remove(admin: Admin): Promise<void> {
+  async delete(admin: Admin): Promise<void> {
     await this.adminRepository.softRemove(admin);
   }
 }

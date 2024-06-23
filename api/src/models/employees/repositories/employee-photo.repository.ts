@@ -22,7 +22,7 @@ export class EmployeePhotoRepository
     return this.employeePhotoRepo.find({ where: { employeeId: ownerId } });
   }
 
-  async remove(photo: EmployeePhoto): Promise<void> {
+  async delete(photo: EmployeePhoto): Promise<void> {
     return;
   }
 

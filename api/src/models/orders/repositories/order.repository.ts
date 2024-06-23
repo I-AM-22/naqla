@@ -103,7 +103,7 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async findOneForOwner(id: string, userId: string): Promise<Order> {
+  async findByIdForOwner(id: string, userId: string): Promise<Order> {
     return this.orderRepository.findOne({
       where: { id, userId },
       select: {
@@ -130,7 +130,7 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async findOne(id: string): Promise<Order> {
+  async findById(id: string): Promise<Order> {
     return this.orderRepository.findOne({
       where: { id },
       select: {
@@ -161,6 +161,13 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
+  async findByIdForDelete(id: string): Promise<Order> {
+    return this.orderRepository.findOne({
+      where: { id },
+      relations: { photos: true, subOrders: { messages: true }, payment: true },
+    });
+  }
+
   async create(
     user: User,
     photos: OrderPhoto[],
@@ -188,13 +195,13 @@ export class OrderRepository implements IOrderRepository {
     order.locationEnd = dto.locationEnd;
     order.photos.push(...photos);
     await this.orderRepository.save(order);
-    return this.findOne(order.id);
+    return this.findById(order.id);
   }
 
   async updateStatus(id: string, status: ORDER_STATUS): Promise<Order> {
     await this.orderRepository.update({ id }, { status });
 
-    return this.findOne(id);
+    return await this.findById(id);
   }
 
   async delete(order: Order): Promise<void> {

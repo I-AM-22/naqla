@@ -125,10 +125,21 @@ export class DriverRepository
     });
   }
 
+  async findByIdForDelete(id: string): Promise<Driver> {
+    return await this.driverRepo.findOne({
+      where: { id, active: true },
+
+      relations: {
+        photos: true,
+        cars: { photos: true },
+        wallet: true,
+      },
+    });
+  }
   // async recover(driver: Driver): Promise<Driver> {
   //   return this.driverRepo.recover(driver);
   // }
-  async remove(driver: Driver): Promise<void> {
+  async delete(driver: Driver): Promise<void> {
     this.driverRepo.softRemove(driver);
   }
 }

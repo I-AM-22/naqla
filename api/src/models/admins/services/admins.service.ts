@@ -82,9 +82,9 @@ export class AdminsService implements IAdminsService {
   //   return this.adminRepository.recover(admin);
   // }
 
-  async remove(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const admin = await this.findOne(id);
-    await this.adminRepository.remove(admin);
+    await this.adminRepository.delete(admin);
   }
 
   async validate(id: string, iat: number): Promise<Admin> {

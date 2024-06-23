@@ -52,7 +52,9 @@ async function bootstrap() {
     extensions: ['jpg', 'css', 'png', 'mp3'],
     index: false,
   });
+
   app.useGlobalFilters(new HttpExceptionFilter(httpAdapter, appConfig));
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,

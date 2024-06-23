@@ -1,32 +1,16 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Delete,
-  HttpCode,
-  HttpStatus,
-  Inject,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiCreatedResponse,
   ApiForbiddenResponse,
-  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Auth, CheckAbilities, Id, Roles } from '@common/decorators';
-import { Action, Entities, ROLE } from '@common/enums';
+import { Auth, Roles } from '@common/decorators';
+import { ROLE } from '@common/enums';
 import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { Numerical } from '../class/Numerical';
-import { roles } from '../../../database/seeders/roles/data';
-import { Role } from '@models/roles/entities/role.entity';
 import { UserRepository } from '@models/users/repositories/user.repository';
-import { Driver } from '../../drivers/entities/driver.entity';
 import { DriverRepository } from '@models/drivers/repositories/driver/driver.repository';
 import { CarRepository } from '@models/cars/repositories/car.repository';
 import { OrderRepository } from '@models/orders/repositories/order.repository';
@@ -52,7 +36,7 @@ export class CitiesController {
   @ApiOkResponse({ type: Numerical })
   @Get()
   async find() {
-    let data = new Numerical();
+    const data = new Numerical();
     data.car = await this.carRepository.countCar();
     data.driver = await this.driverRepository.countDriver();
     data.user = await this.userRepository.countUser();
@@ -79,9 +63,9 @@ export class CitiesController {
   @Get('advantages/:limit')
   async findLimetAdvantages(@Param('limit') limit: number) {
     const ad = await this.orderRepository.advantageSuper(limit);
-    let data: AdvantageSuper[] = [];
+    const data: AdvantageSuper[] = [];
     for (let i = 0; i < ad.length && i < limit; i++) {
-      let obj = new AdvantageSuper();
+      const obj = new AdvantageSuper();
       obj.advantage = ad[i].advantage;
       obj.countUserUsed = +ad[i].x;
       obj.countCarUsed = await this.carRepository.countCarAdvantage(

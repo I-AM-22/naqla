@@ -99,8 +99,8 @@ export class EmployeesController implements ICrud<Employee> {
   @CheckAbilities({ action: Action.Delete, subject: Entities.Employee })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Id() id: string) {
-    return this.employeesService.remove(id);
+  delete(@Id() id: string) {
+    return this.employeesService.delete(id);
   }
 
   // @ApiOperation({ summary: 'recover deleted Employee' })

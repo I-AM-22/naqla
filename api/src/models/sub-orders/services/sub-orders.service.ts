@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -15,7 +16,6 @@ import { ORDER_TYPES } from '@models/orders/interfaces/type';
 import { OrderPhotoRepository } from '@models/orders/repositories/order-photo.repository';
 import { ISettingRepository } from '@models/settings/interfaces/repositories/setting.repository.interface';
 import { Setting } from '@models/settings/entities/setting.entity';
-import { Car } from '@models/cars/entities/car.entity';
 import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
 import { SETTING_TYPES } from '@models/settings/interfaces/type';
 import { Entities, ORDER_STATUS, SETTING_PROPERTIES } from '@common/enums';
@@ -60,14 +60,23 @@ export class SubOrdersService implements ISubOrdersService {
   async create(CreateSubOrdersDto: CreateSubOrdersDto): Promise<Order> {
     const subOrders: SubOrder[] = [];
     const order = await this.ordersService.findOne(CreateSubOrdersDto.orderId);
-
+    if (order.status !== ORDER_STATUS.WAITING)
+      throw new ConflictException('Already divided');
     const [defaultWeight, minWeight, midWeight, maxWeight, portersSetting] =
       await Promise.all([
-        this.settingRepository.findOneByName(SETTING_PROPERTIES.DEFAULT_WEIGHT),
-        this.settingRepository.findOneByName(SETTING_PROPERTIES.MIN_WEIGHT),
-        this.settingRepository.findOneByName(SETTING_PROPERTIES.MID_WEIGHT),
-        this.settingRepository.findOneByName(SETTING_PROPERTIES.MAX_WEIGHT),
-        this.settingRepository.findOneByName(SETTING_PROPERTIES.PORTERS),
+        await this.settingRepository.findOneByName(
+          SETTING_PROPERTIES.DEFAULT_WEIGHT,
+        ),
+        await this.settingRepository.findOneByName(
+          SETTING_PROPERTIES.MIN_WEIGHT,
+        ),
+        await this.settingRepository.findOneByName(
+          SETTING_PROPERTIES.MID_WEIGHT,
+        ),
+        await this.settingRepository.findOneByName(
+          SETTING_PROPERTIES.MAX_WEIGHT,
+        ),
+        await this.settingRepository.findOneByName(SETTING_PROPERTIES.PORTERS),
       ]);
 
     const distanceInMeters = await this.gpsDrivingService.costDistance(
@@ -95,7 +104,6 @@ export class SubOrdersService implements ISubOrdersService {
       } else {
         settingWeight = settings.maxWeight;
       }
-
       const costDistance = (distanceInMeters / 1000) * settingWeight.cost;
       const portersCost = order.porters
         ? order.porters * settings.portersSetting.cost * subOrder.weight
@@ -129,7 +137,7 @@ export class SubOrdersService implements ISubOrdersService {
   }
 
   async findOne(subOrderId: string): Promise<SubOrder> {
-    const subOrder = await this.subOrderRepository.findOne(subOrderId);
+    const subOrder = await this.subOrderRepository.findById(subOrderId);
     if (!subOrder) {
       throw new NotFoundException(item_not_found(Entities.Suborder));
     }
@@ -152,6 +160,15 @@ export class SubOrdersService implements ISubOrdersService {
 
   async findForOrder(orderId: string): Promise<SubOrder[]> {
     return await this.subOrderRepository.findForOrder(orderId);
+  }
+
+  async findByIdForMessage(subOrderId: string): Promise<SubOrder> {
+    const subOrder =
+      await this.subOrderRepository.findByIdForMessage(subOrderId);
+    if (!subOrder) {
+      throw new NotFoundException(item_not_found(Entities.Suborder));
+    }
+    return subOrder;
   }
 
   async update(
@@ -232,9 +249,9 @@ export class SubOrdersService implements ISubOrdersService {
     return await this.subOrderRepository.setStatusToReady(orderId);
   }
 
-  async setDriver(subOrderId: string, car: Car): Promise<SubOrder> {
+  async setDriver(subOrderId: string, carId: string): Promise<SubOrder> {
     const subOrder =
-      await this.subOrderRepository.findOneWithAdvantages(subOrderId);
+      await this.subOrderRepository.findByIdWithAdvantages(subOrderId);
 
     if (!subOrder) {
       throw new NotFoundException(`SubOrder with id ${subOrderId} not found`);
@@ -243,7 +260,7 @@ export class SubOrdersService implements ISubOrdersService {
     const requestedFeatures = subOrder.order.advantages.map(
       (feature) => feature.id,
     );
-
+    const car = await this.carsService.findOne(carId);
     const carFeatures = car.advantages.map((advantage) => advantage.id);
     const hasAllFeatures = requestedFeatures.every((feature) =>
       carFeatures.includes(feature),
@@ -262,12 +279,9 @@ export class SubOrdersService implements ISubOrdersService {
     return this.subOrderRepository.countSubOrdersCompletedForDriver(driverId);
   }
   async delete(subOrderId: string): Promise<void> {
-    const subOrder = await this.findOne(subOrderId);
+    const subOrder =
+      await this.subOrderRepository.findByIdForDelete(subOrderId);
     return await this.subOrderRepository.delete(subOrder);
-  }
-
-  async deleteForOrder(orderId: string): Promise<void> {
-    return await this.subOrderRepository.deleteForOrder(orderId);
   }
 
   async refusedForOrder(orderId: string): Promise<void> {

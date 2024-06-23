@@ -13,5 +13,5 @@ export interface ICitiesService {
 
   // recover(id: string): Promise<City>;
 
-  remove(id: string): Promise<void>;
+  delete(id: string): Promise<void>;
 }
