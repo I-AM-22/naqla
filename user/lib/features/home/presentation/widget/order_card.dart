@@ -12,9 +12,10 @@ import '../../../orders/presentation/pages/sub_orders_page.dart';
 import '../../data/model/order_model.dart';
 
 class OrderCard extends StatefulWidget {
-  const OrderCard({super.key, required this.orderModel, required this.showIndicator});
+  const OrderCard({super.key, required this.orderModel, required this.showIndicator, this.onTap});
   final OrderModel orderModel;
   final bool showIndicator;
+  final Function()? onTap;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -25,7 +26,11 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(SubOrdersPage.name, extra: widget.orderModel.id);
+        if (widget.onTap != null) {
+          widget.onTap!();
+        } else {
+          context.pushNamed(SubOrdersPage.name, extra: widget.orderModel.id);
+        }
       },
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,

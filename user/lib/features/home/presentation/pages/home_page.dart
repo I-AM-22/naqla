@@ -40,16 +40,14 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _bloc.add(GetOrdersActiveEvent());
     _hideButtonController.addListener(() {
-      if (_hideButtonController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
+      if (_hideButtonController.position.userScrollDirection == ScrollDirection.reverse) {
         if (_isVisible) {
           setState(() {
             _isVisible = false;
           });
         }
       } else {
-        if (_hideButtonController.position.userScrollDirection ==
-            ScrollDirection.forward) {
+        if (_hideButtonController.position.userScrollDirection == ScrollDirection.forward) {
           if (!_isVisible) {
             setState(() {
               _isVisible = true;
@@ -82,9 +80,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          appBar: AppAppBar(
-              back: false,
-              appBarParams: AppBarParams(title: S.of(context).home)),
+          appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
           body: RefreshIndicator(
             onRefresh: () async {
               _bloc.add(GetOrdersActiveEvent());
@@ -92,9 +88,7 @@ class _HomePageState extends State<HomePage> {
             child: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
               stateName: HomeState.ordersActive,
               onSuccess: (data) => Padding(
-                padding: REdgeInsets.symmetric(
-                    vertical: UIConstants.screenPadding20,
-                    horizontal: UIConstants.screenPadding16),
+                padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding20, horizontal: UIConstants.screenPadding16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -105,13 +99,10 @@ class _HomePageState extends State<HomePage> {
                         controller: _hideButtonController,
                         itemCount: data.length,
                         separatorBuilder: (context, index) => 16.verticalSpace,
-                        itemBuilder: (context, index) => InkWell(
-                          onTap: () => context.pushNamed(OrderDetailsPage.name,
-                              extra: data[index]),
-                          child: OrderCard(
-                            showIndicator: true,
-                            orderModel: data[index],
-                          ),
+                        itemBuilder: (context, index) => OrderCard(
+                          onTap: () => context.pushNamed(OrderDetailsPage.name, extra: data[index]),
+                          showIndicator: true,
+                          orderModel: data[index],
                         ),
                       ),
                     ),
