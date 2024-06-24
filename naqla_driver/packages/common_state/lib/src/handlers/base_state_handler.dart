@@ -60,6 +60,7 @@ class BaseHandler {
       (r) {
         if (_isResponseEmpty(emptyChecker, r)) {
           emit(state.updateState(stateName, EmptyState<T>(emptyMessage)));
+          onSuccess?.call(r);
           return;
         }
         emit(state.updateState(stateName, SuccessState<T>(r)));
@@ -136,8 +137,7 @@ class BaseHandler {
     void Function(T data)? onFirstPageFetched,
     bool Function(T data)? isLastPage,
   }) {
-    final PaginationModel paginationData =
-        data is PaginatedData ? (data).paginatedData : data as PaginationModel;
+    final PaginationModel paginationData = data is PaginatedData ? (data).paginatedData : data as PaginationModel;
 
     if (pageKey == controller.firstPageKey) onFirstPageFetched?.call(data);
 

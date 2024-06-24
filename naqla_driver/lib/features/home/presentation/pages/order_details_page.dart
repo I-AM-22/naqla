@@ -48,7 +48,7 @@ class OrderDetailsPage extends StatelessWidget {
                     } else {
                       context
                           .read<HomeBloc>()
-                          .add(SetDriverEvent(param: SetDriverParam(id: subOrderModel.id, carModel: carModel!), onSuccess: () => context.pop()));
+                          .add(SetDriverEvent(param: SetDriverParam(id: subOrderModel.id, carId: carModel!.id), onSuccess: () => context.pop()));
                     }
                   },
                 );
@@ -81,19 +81,25 @@ class OrderDetailsPage extends StatelessWidget {
                     height: 200.h,
                   ),
                   10.verticalSpace,
-                  RichText(
-                    text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary), children: [
-                      TextSpan(text: '${S.of(context).weight}${subOrderModel.weight},'),
-                      WidgetSpan(child: 5.horizontalSpace),
-                      TextSpan(text: '${S.of(context).cost}${formatter.format(subOrderModel.cost)} ${S.of(context).syp},'),
-                      if ((subOrderModel.order?.porters ?? 0) > 0) ...{
+                  Container(
+                    width: double.infinity,
+                    padding: REdgeInsets.all(10),
+                    decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(8)),
+                    child: RichText(
+                      text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary), children: [
+                        TextSpan(text: '${S.of(context).weight}${subOrderModel.weight},'),
                         WidgetSpan(child: 5.horizontalSpace),
-                        TextSpan(text: '${S.of(context).the_number_of_floors}: ${(subOrderModel.order?.porters ?? 1) - 1}'),
-                      }
-                    ]),
+                        TextSpan(text: '${S.of(context).cost}${formatter.format(subOrderModel.cost)} ${S.of(context).syp},'),
+                        if ((subOrderModel.order?.porters ?? 0) > 0) ...{
+                          WidgetSpan(child: 5.horizontalSpace),
+                          TextSpan(text: '${S.of(context).the_number_of_floors}: ${(subOrderModel.order?.porters ?? 1) - 1}'),
+                        },
+                        TextSpan(
+                            text:
+                                '\n${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(subOrderModel.order!.desiredDate)}'),
+                      ]),
+                    ),
                   ),
-                  AppText.subHeadMedium(
-                      '${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(subOrderModel.order!.desiredDate)}'),
                   16.verticalSpace,
                   if (subOrderModel.photos.isNotEmpty) AppText.subHeadWebMedium(S.of(context).photos),
                   8.verticalSpace,

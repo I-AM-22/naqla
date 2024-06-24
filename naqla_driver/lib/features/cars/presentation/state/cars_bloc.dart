@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/use_case/use_case.dart';
 import '../../data/model/car_advantage.dart';
-import '../../../home/domain/usecase/add_car_use_case.dart';
+import '../../domain/usecases/add_car_use_case.dart';
 import '../../../home/domain/usecase/car_advantage_use_case.dart';
 import '../../data/model/car_model.dart';
 import '../../domain/usecases/delete_car_use_case.dart';

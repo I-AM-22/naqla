@@ -4,7 +4,7 @@ import 'package:naqla_driver/features/cars/data/datasources/cars_remote_data_sou
 import 'package:naqla_driver/features/cars/domain/repositories/cars_repository.dart';
 
 import '../../../../core/api/api_utils.dart';
-import '../../../home/domain/usecase/add_car_use_case.dart';
+import '../../domain/usecases/add_car_use_case.dart';
 import '../model/car_model.dart';
 
 @Injectable(as: CarsRepository)
@@ -16,6 +16,13 @@ class CarsRepositoryImplement implements CarsRepository {
   FutureResult<List<CarModel>> getAllCars() {
     return toApiResult(
       () => dataSource.getAllCars(),
+    );
+  }
+
+  @override
+  FutureResult<CarModel> addCar(AddCarParam params) {
+    return toApiResult(
+      () => dataSource.addCar(params),
     );
   }
 

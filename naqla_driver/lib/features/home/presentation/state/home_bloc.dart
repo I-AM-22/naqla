@@ -19,9 +19,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final SetDriverUseCase setDriverUseCase;
   final GetOrderCarUseCase getOrderCarUseCase;
   HomeBloc(this.getSubOrdersUseCase, this.setDriverUseCase, this.getOrderCarUseCase) : super(HomeState()) {
-    multiStateApiCall<SetDriverEvent, void>(
+    multiStateApiCall<SetDriverEvent, bool>(
       HomeState.setDriver,
       (event) => setDriverUseCase(event.param),
+      onFailure: (failure, event, emit) async {
+        print(failure.toString());
+        print('failure.toString()');
+      },
       onSuccess: (data, event, emit) async {
         final oldData = (state.getState<List<SubOrderModel>>(HomeState.subOrders).data ?? [])
           ..removeWhere(

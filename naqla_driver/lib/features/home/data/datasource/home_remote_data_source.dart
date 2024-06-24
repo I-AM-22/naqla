@@ -4,7 +4,6 @@ import 'package:naqla_driver/core/api/api_utils.dart';
 import 'package:naqla_driver/core/common/constants/configuration/api_routes.dart';
 import 'package:naqla_driver/features/cars/data/model/car_advantage.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
-import 'package:naqla_driver/features/home/domain/usecase/add_car_use_case.dart';
 import 'package:naqla_driver/features/home/domain/usecase/set_driver_use_case.dart';
 
 import '../../../cars/data/model/car_model.dart';
@@ -14,15 +13,6 @@ class HomeRemoteDataSource {
   final Dio dio;
 
   HomeRemoteDataSource(this.dio);
-
-  Future<CarModel> addCar(AddCarParam params) {
-    return throwAppException(
-      () async {
-        final result = await dio.post(ApiRoutes.cars, data: params.toMap);
-        return CarModel.fromJson(result.data);
-      },
-    );
-  }
 
   Future<List<CarAdvantage>> getCarAdvantage() {
     return throwAppException(
@@ -63,10 +53,11 @@ class HomeRemoteDataSource {
     );
   }
 
-  Future<void> setDriver(SetDriverParam params) {
+  Future<bool> setDriver(SetDriverParam params) {
     return throwAppException(
       () async {
         await dio.patch(ApiRoutes.setDriver(params.id), data: params.toMap);
+        return true;
       },
     );
   }

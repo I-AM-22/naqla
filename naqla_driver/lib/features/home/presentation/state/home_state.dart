@@ -8,7 +8,7 @@ class HomeState extends StateObject<HomeState> {
   HomeState({States? states})
       : super([
           InitialState<List<SubOrderModel>>(subOrders),
-          InitialState<void>(setDriver),
+          InitialState<bool>(setDriver),
           InitialState<List<CarModel>>(orderCars),
         ], (states) => HomeState(states: states), states);
 }

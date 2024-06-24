@@ -28,68 +28,56 @@ class SubOrderCard extends StatelessWidget {
         children: [
           Container(
             clipBehavior: Clip.antiAlias,
-            padding: REdgeInsets.all(8),
             decoration: BoxDecoration(
-                border: Border.all(color: context.colorScheme.primary),
-                borderRadius: BorderRadius.only(
-                    topRight: const Radius.circular(8),
-                    topLeft: const Radius.circular(8),
-                    bottomLeft: subOrderModel.status == SubOrderStatus.onTheWay ? Radius.zero : const Radius.circular(8),
-                    bottomRight: subOrderModel.status == SubOrderStatus.onTheWay ? Radius.zero : const Radius.circular(8))),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary), children: [
-                      TextSpan(text: '${S.of(context).weight}${subOrderModel.weight},'),
-                      WidgetSpan(child: 5.horizontalSpace),
-                      TextSpan(text: '${S.of(context).cost}${formatter.format(subOrderModel.cost)} ${S.of(context).syp},'),
-                      if ((subOrderModel.order?.porters ?? 0) > 0) ...{
+              border: Border.all(color: context.colorScheme.primary),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: REdgeInsets.all(10),
+                    child: RichText(
+                      text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary), children: [
+                        TextSpan(text: '${S.of(context).weight}${subOrderModel.weight},'),
                         WidgetSpan(child: 5.horizontalSpace),
-                        TextSpan(text: '${S.of(context).the_number_of_floors}: ${(subOrderModel.order?.porters ?? 1) - 1},'),
-                      },
-                      WidgetSpan(child: 5.horizontalSpace),
-                      TextSpan(text: '${S.of(context).order_status}: ${subOrderModel.status?.name}'),
-                    ]),
+                        TextSpan(text: '${S.of(context).cost}${formatter.format(subOrderModel.cost)} ${S.of(context).syp}\n'),
+                        if ((subOrderModel.order?.porters ?? 0) > 0) ...{
+                          TextSpan(text: '${S.of(context).the_number_of_floors}: ${(subOrderModel.order?.porters ?? 1) - 1}\n'),
+                        },
+                        TextSpan(text: '${S.of(context).order_status}: ${subOrderModel.status?.name}\n'),
+                        TextSpan(
+                            text: CoreHelperFunctions.formatOrderTime(context, subOrderModel.status!,
+                                pickedUpAt: subOrderModel.pickedUpAt,
+                                driverAssignedAt: subOrderModel.driverAssignedAt,
+                                arrivedAt: subOrderModel.arrivedAt,
+                                acceptedAt: subOrderModel.acceptedAt,
+                                deliveredAt: subOrderModel.deliveredAt)),
+                      ]),
+                    ),
                   ),
-                  10.verticalSpace,
-                  AppText.subHeadMedium(CoreHelperFunctions.formatOrderTime(context, subOrderModel.status!,
-                      pickedUpAt: subOrderModel.pickedUpAt,
-                      driverAssignedAt: subOrderModel.driverAssignedAt,
-                      arrivedAt: subOrderModel.arrivedAt,
-                      acceptedAt: subOrderModel.acceptedAt,
-                      deliveredAt: subOrderModel.deliveredAt)),
-                  if (subOrderModel.photos.isNotEmpty) ...{
-                    10.verticalSpace,
-                    Stack(
-                      children: [
+                ),
+                if (subOrderModel.photos.isNotEmpty) ...{
+                  Stack(
+                    children: [
+                      SizedBox(height: 150.h, width: 150.w, child: Center(child: AppImage.network(subOrderModel.photos[0].mobileUrl))),
+                      if (subOrderModel.photos.length > 1)
                         Container(
-                            height: 200.h,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: context.colorScheme.outline),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Center(child: AppImage.network(subOrderModel.photos[0].mobileUrl))),
-                        if (subOrderModel.photos.length > 1)
-                          Container(
-                            color: context.colorScheme.primary.withOpacity(.5),
-                            child: SizedBox(
-                              height: 200.h,
-                              child: Center(
-                                  child: AppText.titleMedium(
-                                '+${subOrderModel.photos.length - 1}',
-                                color: Colors.white,
-                              )),
-                            ),
-                          ),
-                      ],
-                    )
-                  }
-                ],
-              ),
+                          width: 150.w,
+                          height: 150.h,
+                          color: context.colorScheme.primary.withOpacity(.5),
+                          child: Center(
+                              child: AppText.titleMedium(
+                            '+${subOrderModel.photos.length - 1}',
+                            color: Colors.white,
+                          )),
+                        ),
+                    ],
+                  )
+                }
+              ],
             ),
           ),
           if (subOrderModel.status == SubOrderStatus.onTheWay)

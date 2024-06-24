@@ -14,7 +14,7 @@ import 'package:naqla_driver/features/app/presentation/widgets/params_appbar.dar
 import 'package:naqla_driver/features/cars/presentation/state/cars_bloc.dart';
 import 'package:naqla_driver/features/cars/data/model/car_model.dart';
 import 'package:naqla_driver/features/cars/presentation/widgets/color_car.dart';
-import 'package:naqla_driver/features/home/domain/usecase/add_car_use_case.dart';
+import 'package:naqla_driver/features/cars/domain/usecases/add_car_use_case.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/states/app_common_state_builder.dart';
