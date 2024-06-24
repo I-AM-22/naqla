@@ -9,6 +9,7 @@ import { CarsService } from './services/cars.service';
 import { CarRepository } from './repositories/car.repository';
 import { OrdersModule } from '@models/orders/orders.module';
 import { AdvantagesModule } from '@models/advantages/advantages.module';
+import { OrderCarController } from './controllers/orders-cars.controller';
 
 export const CarsServiceProvider: Provider = {
   provide: CAR_TYPES.service,
@@ -31,7 +32,7 @@ export const CarPhotoRepositoryProvider: Provider = {
     AdvantagesModule,
     forwardRef(() => OrdersModule),
   ],
-  controllers: [CarController],
+  controllers: [CarController, OrderCarController],
   providers: [
     CarsServiceProvider,
     CarRepositoryProvider,

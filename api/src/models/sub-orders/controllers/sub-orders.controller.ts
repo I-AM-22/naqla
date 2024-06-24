@@ -43,7 +43,7 @@ export class SubOrdersController {
     private readonly subOrdersService: ISubOrdersService,
   ) {}
 
-  @Roles(ROLE.EMPLOYEE, ROLE.SUPER_ADMIN)
+  @Roles(ROLE.EMPLOYEE)
   @ApiCreatedResponse({ type: Order })
   @Post()
   async create(@Body() dto: CreateSubOrdersDto) {
@@ -79,14 +79,6 @@ export class SubOrdersController {
     @GetUser('id') driverId: string,
   ): Promise<SubOrder[]> {
     return await this.subOrdersService.findIsDoneForDriver(driverId);
-  }
-
-  @Roles(ROLE.USER, ROLE.EMPLOYEE)
-  @ApiOkResponse({ isArray: true, type: SubOrder })
-  @Get('order/:id')
-  async findForOrder(@Id() id: string): Promise<SubOrder[]> {
-    const suborder = await this.subOrdersService.findForOrder(id);
-    return suborder;
   }
 
   @Roles(ROLE.USER, ROLE.EMPLOYEE, ROLE.DRIVER)
@@ -138,7 +130,7 @@ export class SubOrdersController {
     return await this.subOrdersService.setDriver(id, dto.carId);
   }
 
-  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN)
   @ApiNoContentResponse()
   @Delete(':id')
   async delete(@Id() id: string): Promise<void> {

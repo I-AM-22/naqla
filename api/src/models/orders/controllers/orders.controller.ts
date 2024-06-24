@@ -44,7 +44,17 @@ export class OrderController {
     @Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService,
   ) {}
 
-  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
+  @Roles(ROLE.USER)
+  @ApiCreatedResponse({ type: Order })
+  @Post()
+  async create(
+    @Body() createOrderDto: CreateOrderDto,
+    @GetUser() user: User,
+  ): Promise<Order> {
+    return await this.ordersService.create(user, createOrderDto);
+  }
+
+  @Roles(ROLE.ADMIN)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get()
   async findAll(): Promise<Order[]> {
@@ -65,14 +75,14 @@ export class OrderController {
     return await this.ordersService.findMineWithAccepted(userId);
   }
 
-  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN)
   @ApiOkResponse({ type: Order, isArray: true })
   @Get('waiting')
   async findAllWaiting(): Promise<Order[]> {
     return this.ordersService.findWaiting();
   }
 
-  @Roles(ROLE.USER, ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
+  @Roles(ROLE.USER, ROLE.EMPLOYEE, ROLE.ADMIN)
   @ApiOkResponse({ type: Order })
   @Get(':id')
   async findOne(@Id() id: string, @GetUser() user: IPerson): Promise<Order> {
@@ -86,7 +96,7 @@ export class OrderController {
   async acceptance(@Id() id: string): Promise<Order> {
     return await this.ordersService.acceptance(id);
   }
-  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN)
   @ApiOkResponse({ type: Order })
   @Patch(':id/cancellation')
   async cancellation(@Id() id: string): Promise<Order> {
@@ -100,16 +110,6 @@ export class OrderController {
     return await this.ordersService.refusal(id);
   }
 
-  @Roles(ROLE.USER)
-  @ApiCreatedResponse({ type: Order })
-  @Post()
-  async create(
-    @Body() createOrderDto: CreateOrderDto,
-    @GetUser() user: User,
-  ): Promise<Order> {
-    return await this.ordersService.create(user, createOrderDto);
-  }
-
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order })
   @Patch(':id')
@@ -121,7 +121,7 @@ export class OrderController {
     return await this.ordersService.update(id, user, dto);
   }
 
-  @Roles(ROLE.USER, ROLE.SUPER_ADMIN, ROLE.EMPLOYEE)
+  @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiNoContentResponse()
   @Delete(':id')
   async delete(@Id() id: string): Promise<void> {

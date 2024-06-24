@@ -32,7 +32,7 @@ export class CitiesController {
     private orderRepository: OrderRepository,
     private subOrderRepository: SubOrderRepository,
   ) {}
-  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN, ROLE.EMPLOYEE)
+  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Numerical })
   @Get()
   async find() {

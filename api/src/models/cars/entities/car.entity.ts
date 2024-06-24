@@ -45,7 +45,6 @@ export class Car extends GlobalEntity {
   driverId: string;
 
   @Exclude()
-  @ApiProperty()
   @OneToMany(() => CarPhoto, (photo) => photo.car, {
     cascade: true,
     eager: true,

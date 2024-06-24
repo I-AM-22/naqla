@@ -44,7 +44,7 @@ export class AdvantagesController {
 
   @SerializeOptions({ groups: [GROUPS.ADVANTAGE] })
   @ApiCreatedResponse({ type: Advantage })
-  @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN)
+  @Roles(ROLE.ADMIN)
   @Post()
   create(@Body() createAdvantageDto: CreateAdvantageDto) {
     return this.advantagesService.create(createAdvantageDto);
@@ -66,7 +66,7 @@ export class AdvantagesController {
 
   @SerializeOptions({ groups: [GROUPS.ADVANTAGE] })
   @ApiOkResponse({ type: Advantage })
-  @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN)
+  @Roles(ROLE.ADMIN)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -76,7 +76,7 @@ export class AdvantagesController {
   }
 
   @ApiNoContentResponse()
-  @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN)
+  @Roles(ROLE.ADMIN)
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.advantagesService.delete(id);

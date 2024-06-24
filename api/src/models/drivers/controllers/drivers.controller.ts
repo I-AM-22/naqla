@@ -29,7 +29,6 @@ import {
   LoggingInterceptor,
   WithDeletedInterceptor,
 } from '@common/interceptors';
-import { ICrud } from '@common/interfaces';
 import { PaginatedResponse } from '@common/types';
 import { Request } from 'express';
 import { UpdateDriverDto } from '../dtos';
@@ -48,7 +47,7 @@ import { StaticsDriver } from '../interfaces/statics-driver';
 @UseInterceptors(new LoggingInterceptor())
 @Auth()
 @Controller({ path: 'drivers', version: '1' })
-export class DriversController implements ICrud<Driver> {
+export class DriversController {
   constructor(
     @Inject(DRIVER_TYPES.service) private driversService: IDriversService,
     private walletRepository: DriverWalletRepository,
@@ -112,10 +111,6 @@ export class DriversController implements ICrud<Driver> {
     return this.driversService.getMyPhotos(driver);
   }
 
-  create(...n: any[]): Promise<Driver> {
-    return;
-  }
-
   @ApiOkResponse({ type: Driver })
   @SerializeOptions({ groups: [GROUPS.DRIVER] })
   @Roles(ROLE.DRIVER)
@@ -141,7 +136,7 @@ export class DriversController implements ICrud<Driver> {
   }
 
   @ApiOkResponse({ type: DriverWallet })
-  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN, ROLE.SUPER_ADMIN)
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN)
   @Patch(':id/wallet/withdraw')
   async withdraw(@Id() id: string, @Body() dto: UpdateWalletDto) {
     return this.walletRepository.withdraw(id, dto.cost);
@@ -169,13 +164,4 @@ export class DriversController implements ICrud<Driver> {
   async delete(@Id() id: string) {
     return this.driversService.delete(id);
   }
-
-  // @ApiOperation({ summary: 'recover deleted driver' })
-  // @CheckAbilities({ action: Action.Update, subject: Entities.Driver })
-  // @SerializeOptions({ groups: [GROUPS.DRIVER] })
-  // @HttpCode(HttpStatus.OK)
-  // @Post(':id/recover')
-  // async recover(@Id() id: string) {
-  //   return this.driversService.recover(id);
-  // }
 }

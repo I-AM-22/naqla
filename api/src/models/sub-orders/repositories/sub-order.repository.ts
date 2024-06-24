@@ -34,11 +34,17 @@ export class SubOrderRepository implements ISubOrderRepository {
         'order',
         'advantages.name',
         'advantages.id',
+        'car.id',
         'car.model',
         'car.brand',
         'car.color',
+        'car.createdAt',
+        'car.updatedAt',
+        'driver.id',
         'driver.firstName',
         'driver.lastName',
+        'driver.createdAt',
+        'driver.updatedAt',
       ])
       .getMany();
     return subOrders;

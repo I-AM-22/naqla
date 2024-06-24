@@ -19,7 +19,7 @@ import { UpdateSettingDto } from '../dtos';
 @Controller('settings')
 @ApiForbiddenResponse({ description: denied_error })
 @ApiNotFoundResponse({ description: data_not_found })
-@Roles(ROLE.ADMIN, ROLE.EMPLOYEE, ROLE.SUPER_ADMIN)
+@Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
 export class SettingsController {
   constructor(
     @Inject(SETTING_TYPES.service) private settingsService: ISettingsService,

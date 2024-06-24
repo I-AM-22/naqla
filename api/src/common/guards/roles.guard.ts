@@ -7,6 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { denied_error } from '../constants';
+import { ROLE } from '@common/enums';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -21,6 +22,7 @@ export class RolesGuard implements CanActivate {
 
     if (!requiredRoles) return true;
     const { user }: { user: any } = context.switchToHttp().getRequest();
+    if (user.role.name === ROLE.SUPER_ADMIN) return true;
     if (!requiredRoles.includes(user.role.name))
       throw new ForbiddenException(denied_error);
     else return true;

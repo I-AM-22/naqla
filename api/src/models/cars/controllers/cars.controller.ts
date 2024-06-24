@@ -37,7 +37,7 @@ import { Driver } from '@models/drivers/entities/driver.entity';
 @ApiNotFoundResponse({ description: data_not_found })
 @UseInterceptors(new LoggingInterceptor())
 @Auth()
-@Controller({ path: 'drivers/cars', version: '1' })
+@Controller({ path: 'cars', version: '1' })
 export class CarController {
   constructor(
     @Inject(CAR_TYPES.service) private readonly carsService: ICarsService,
@@ -51,19 +51,8 @@ export class CarController {
     return this.carsService.findMyCars(driverId);
   }
 
-  @SerializeOptions({ groups: [GROUPS.ALL_CARS] })
-  @Roles(ROLE.DRIVER)
-  @ApiOkResponse({ type: Car, isArray: true })
-  @Get('mine/order/:id')
-  async findMineForOrder(
-    @GetUser('id') driverId: string,
-    @Id() orderId: string,
-  ): Promise<Car[]> {
-    return this.carsService.findMyCarsForOrder(driverId, orderId);
-  }
-
   @SerializeOptions({ groups: [GROUPS.CAR] })
-  @Roles(ROLE.ADMIN, ROLE.SUPER_ADMIN)
+  @Roles(ROLE.ADMIN)
   @ApiOkResponse({ type: Car, isArray: true })
   @Get('all')
   async findAll(): Promise<Car[]> {
