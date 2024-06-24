@@ -29,6 +29,10 @@ import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
 import { SUB_ORDER_TYPES } from '../interfaces/type';
 import { SetDriverSubOrderDto } from '../dto/set-driver.dto';
+import { IPerson } from '@common/interfaces';
+import { Query } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
+import { PaginatedResponse } from '@common/types';
 
 @ApiTags('SubOrders')
 @ApiBadRequestResponse({ description: bad_req })
@@ -79,6 +83,29 @@ export class SubOrdersController {
     @GetUser('id') driverId: string,
   ): Promise<SubOrder[]> {
     return await this.subOrdersService.findIsDoneForDriver(driverId);
+  }
+
+  @Roles(ROLE.USER, ROLE.DRIVER)
+  @ApiOkResponse({ type: PaginatedResponse<SubOrder> })
+  @ApiQuery({
+    name: 'page',
+    allowEmptyValue: false,
+    example: 1,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    allowEmptyValue: false,
+    example: 10,
+    required: false,
+  })
+  @Get('chats')
+  async findChats(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @GetUser() person: IPerson,
+  ) {
+    return await this.subOrdersService.findChats(person, page, limit);
   }
 
   @Roles(ROLE.USER, ROLE.EMPLOYEE, ROLE.DRIVER)

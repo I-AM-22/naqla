@@ -9,12 +9,12 @@ import {
   ConnectedSocket,
 } from '@nestjs/websockets';
 import { Logger, Inject, UseGuards } from '@nestjs/common';
-import { Socket, Server } from 'socket.io';
-import { CreateMessageDto } from '../dto/create-message.dto';
+import { Server } from 'socket.io';
 import { WsJwtGuard } from '@common/guards';
-import { IPerson } from '@common/interfaces';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { ISubOrderRepository } from '@models/sub-orders/interfaces/repositories/sub-order.repository.interface';
+import { ISocketWithUser } from '@common/interfaces/socket-user.interface';
+import { SocketMessageDto } from '../dto/socket.message.dto';
 
 @UseGuards(WsJwtGuard)
 @WebSocketGateway()
@@ -31,45 +31,55 @@ export class MessageGateway
   ) {}
 
   @SubscribeMessage('setup')
-  handleSetup(
-    @ConnectedSocket() client: Socket,
-    @MessageBody() userData: IPerson,
-  ) {
-    client.join(userData.id);
+  handleSetup(@ConnectedSocket() client: ISocketWithUser) {
+    client.join(client.userId);
     client.emit('connected');
   }
 
-  @SubscribeMessage('join chat')
+  @SubscribeMessage('join-chat')
   async handleJoinChat(
-    @ConnectedSocket() client: Socket,
-    data: { subOrderId: string; userId: string; isUser: boolean },
+    @ConnectedSocket() client: ISocketWithUser,
+    @MessageBody()
+    data: { subOrderId: string; isUser: boolean },
   ) {
-    if (!data.subOrderId || typeof data.isUser !== 'boolean' || !data.userId) {
+    if (!data) {
       client.emit('error', {
         type: 'socket',
-        message: 'please provide subOrderId and isUser and userId',
+        message: 'please provide subOrderId and isUser',
       });
       return;
     }
-    const subOrder = await this.subOrderRepository.findByIdForMessage(
-      data.subOrderId,
-    );
-    if (!subOrder) {
-      client.to(data.userId).emit('error', {
+
+    try {
+      const subOrder = await this.subOrderRepository.findByIdForMessage(
+        data.subOrderId,
+        client.userId,
+      );
+      if (!subOrder) {
+        client.to(client.userId).emit('error', {
+          type: 'socket',
+          message: 'subOrder not found',
+        });
+        return;
+      }
+      if (
+        (!data.isUser && subOrder.car.driver.id !== client.userId) ||
+        (data.isUser && subOrder.order.user.id !== client.userId)
+      ) {
+        client.emit('error', {
+          type: 'socket',
+          message: 'Can not join this chat',
+        });
+        return;
+      }
+    } catch (error) {
+      client.emit('error', {
         type: 'socket',
         message: 'subOrder not found',
       });
       return;
     }
-    if (
-      (!data.isUser && subOrder.car.driver.id !== data.userId) ||
-      (data.isUser && subOrder.order.user.id !== data.userId)
-    ) {
-      client.to(data.userId).emit('error', {
-        type: 'socket',
-        message: 'Can not join this chat',
-      });
-    }
+
     client.join(data.subOrderId);
     client.emit('joined');
   }
@@ -77,16 +87,24 @@ export class MessageGateway
   @SubscribeMessage('new-message')
   async handleMessage(
     @MessageBody()
-    message: CreateMessageDto,
-    @ConnectedSocket() client: Socket,
+    message: SocketMessageDto,
+    @ConnectedSocket() client: ISocketWithUser,
   ): Promise<void> {
-    if (!message.content || !message.isUser || !message.subOrderId) {
+    if (
+      !message.content ||
+      !message.isUser ||
+      !message.subOrderId ||
+      !message.createdAt ||
+      !message.updatedAt
+    ) {
       client.emit('error', {
         type: 'socket',
-        message: 'please provide content and isUser and subOrderId',
+        message:
+          'please provide content and isUser and subOrderId and updatedAt and createdAt',
       });
       return;
     }
+
     client.to(message.subOrderId).emit('message-received', message);
   }
 
@@ -94,11 +112,11 @@ export class MessageGateway
     this.logger.log('Init');
   }
 
-  handleDisconnect(client: Socket) {
+  handleDisconnect(client: ISocketWithUser) {
     this.logger.log(`Client disconnected: ${client.id}`);
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
+  handleConnection(client: ISocketWithUser, ...args: any[]) {
     this.logger.log(`Client connected: ${client.id}`);
   }
 }

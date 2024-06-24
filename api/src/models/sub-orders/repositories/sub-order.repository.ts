@@ -2,12 +2,13 @@ import { SUB_ORDER_STATUS } from '@common/enums';
 import { Car } from '@models/cars/entities/car.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { ResponseTime } from '@models/statics/class/ResponseTime';
+import { PaginatedResponse } from '@common/types';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -116,6 +117,61 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
+  async findChats(
+    personId: string,
+    page: number,
+    limit: number,
+  ): Promise<PaginatedResponse<SubOrder>> {
+    const skip = (page - 1) * limit || 0;
+    const take = limit || 100;
+    const data = await this.subOrderRepository.find({
+      where: [
+        {
+          order: { userId: personId },
+          status: In([
+            SUB_ORDER_STATUS.DELIVERED,
+            SUB_ORDER_STATUS.ON_THE_WAY,
+            SUB_ORDER_STATUS.TAKEN,
+          ]),
+        },
+        {
+          car: { driverId: personId },
+          status: In([
+            SUB_ORDER_STATUS.DELIVERED,
+            SUB_ORDER_STATUS.ON_THE_WAY,
+            SUB_ORDER_STATUS.TAKEN,
+          ]),
+        },
+      ],
+      relations: { order: true, car: true },
+      skip,
+      take,
+    });
+
+    const totalDataCount = await this.subOrderRepository.count({
+      where: [
+        {
+          order: { userId: personId },
+          status: In([
+            SUB_ORDER_STATUS.DELIVERED,
+            SUB_ORDER_STATUS.ON_THE_WAY,
+            SUB_ORDER_STATUS.TAKEN,
+          ]),
+        },
+        {
+          car: { driverId: personId },
+          status: In([
+            SUB_ORDER_STATUS.DELIVERED,
+            SUB_ORDER_STATUS.ON_THE_WAY,
+            SUB_ORDER_STATUS.TAKEN,
+          ]),
+        },
+      ],
+      relations: { order: true, car: true },
+    });
+    return PaginatedResponse.pagination(page, limit, totalDataCount, data);
+  }
+
   async findById(id: string): Promise<SubOrder> {
     const subOrder = await this.subOrderRepository
       .createQueryBuilder('subOrder')
@@ -156,22 +212,30 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
-  async findByIdForMessage(id: string): Promise<SubOrder> {
-    return await this.subOrderRepository
-      .createQueryBuilder('subOrder')
-      .leftJoinAndSelect('subOrder.order', 'order')
-      .leftJoinAndSelect('order.user', 'user')
-      .leftJoinAndSelect('subOrder.car', 'car')
-      .leftJoinAndSelect('car.driver', 'driver')
-      .where('subOrder.status NOT IN (:...statuses)', {
-        statuses: [
-          SUB_ORDER_STATUS.READY,
-          SUB_ORDER_STATUS.REFUSED,
-          SUB_ORDER_STATUS.WAITING,
-        ],
-      })
-      .andWhere('subOrder.id = :id', { id })
-      .getOne();
+  async findByIdForMessage(id: string, personId: string): Promise<SubOrder> {
+    return await this.subOrderRepository.findOne({
+      where: [
+        {
+          id,
+          order: { userId: personId },
+          status: In([
+            SUB_ORDER_STATUS.DELIVERED,
+            SUB_ORDER_STATUS.ON_THE_WAY,
+            SUB_ORDER_STATUS.TAKEN,
+          ]),
+        },
+        {
+          id,
+          car: { driverId: personId },
+          status: In([
+            SUB_ORDER_STATUS.DELIVERED,
+            SUB_ORDER_STATUS.ON_THE_WAY,
+            SUB_ORDER_STATUS.TAKEN,
+          ]),
+        },
+      ],
+      relations: { order: true, car: true },
+    });
   }
 
   async create(

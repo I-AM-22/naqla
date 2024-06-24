@@ -1,3 +1,4 @@
+import { PaginatedResponse } from '@common/types';
 import { Car } from '@models/cars/entities/car.entity';
 import { CreateSubOrderDto } from '@models/sub-orders/dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '@models/sub-orders/dto/update-sub-order.dto';
@@ -5,12 +6,17 @@ import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 
 export interface ISubOrderRepository {
   find(): Promise<SubOrder[]>;
+  findChats(
+    personId: string,
+    page: number,
+    limit: number,
+  ): Promise<PaginatedResponse<SubOrder>>;
   findForOrder(orderId: string): Promise<SubOrder[]>;
   findForDriver(cars: Car[]): Promise<SubOrder[]>;
   findAllActiveForDriver(driverId: string): Promise<SubOrder[]>;
   findById(id: string): Promise<SubOrder>;
   findByIdWithAdvantages(id: string): Promise<SubOrder>;
-  findByIdForMessage(id: string): Promise<SubOrder>;
+  findByIdForMessage(id: string, personId: string): Promise<SubOrder>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
   findByIdForDelete(id: string): Promise<SubOrder>;
   findTotalCost(id: string): Promise<number>;

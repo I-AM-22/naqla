@@ -9,6 +9,7 @@ import { MessageGateway } from './gateways/messages.gateway';
 import { ConfigModule } from '@nestjs/config';
 import { JwtConfig } from '@config/app';
 import { MessagesController } from './controllers/messages.controller';
+import { SubOrdersMessagesController } from './controllers/sub-orders-messages.controller';
 
 export const MessagesServiceProvider: Provider = {
   provide: MESSAGE_TYPES.service,
@@ -26,7 +27,7 @@ export const MessageRepositoryProvider: Provider = {
     TypeOrmModule.forFeature([Message]),
     ConfigModule.forFeature(JwtConfig),
   ],
-  controllers: [MessagesController],
+  controllers: [MessagesController, SubOrdersMessagesController],
   providers: [
     MessageRepositoryProvider,
     MessagesServiceProvider,

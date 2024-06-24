@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators';
-import { Socket } from 'socket.io';
 import { JwtService } from '@nestjs/jwt';
 import { JwtConfig } from '@config/app';
 import { ConfigType } from '@nestjs/config';
 import { jwtPayload } from '@app/auth-user';
+import { ISocketWithUser } from '@common/interfaces/socket-user.interface';
 
 @Injectable()
 export class WsJwtGuard implements CanActivate {
@@ -30,7 +30,7 @@ export class WsJwtGuard implements CanActivate {
       return true;
     }
 
-    const client = context.switchToWs().getClient<Socket>();
+    const client = context.switchToWs().getClient<ISocketWithUser>();
     const token = client.handshake.headers['authorization']?.split(' ')[1];
 
     if (!token) {
@@ -42,9 +42,10 @@ export class WsJwtGuard implements CanActivate {
     }
 
     try {
-      this.jwt.verify<jwtPayload>(token, {
+      const user = this.jwt.verify<jwtPayload>(token, {
         secret: this.jwtConfig.jwt_secret,
       });
+      client.userId = user.sub;
       return true;
     } catch (err) {
       client.emit('error', {

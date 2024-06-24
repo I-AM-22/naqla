@@ -5,6 +5,7 @@ import { Message } from '../entities/message.entity';
 import { IMessageRepository } from '../interfaces/repositories/message.repository.interface';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import { UpdateMessageDto } from '../dto/update-message.dto';
+import { PaginatedResponse } from '@common/types';
 
 @Injectable()
 export class MessageRepository implements IMessageRepository {
@@ -13,8 +14,36 @@ export class MessageRepository implements IMessageRepository {
     private readonly messageRepository: Repository<Message>,
   ) {}
 
-  async findAll(subOrderId: string): Promise<Message[]> {
-    return await this.messageRepository.find({ where: { subOrderId } });
+  async findAll(
+    page: number,
+    limit: number,
+  ): Promise<PaginatedResponse<Message>> {
+    const skip = (page - 1) * limit || 0;
+    const take = limit || 100;
+    const data = await this.messageRepository.find({
+      skip,
+      take,
+    });
+    const totalDataCount = await this.messageRepository.count();
+    return PaginatedResponse.pagination(page, limit, totalDataCount, data);
+  }
+
+  async findForSubOrder(
+    subOrderId: string,
+    page: number,
+    limit: number,
+  ): Promise<PaginatedResponse<Message>> {
+    const skip = (page - 1) * limit || 0;
+    const take = limit || 100;
+    const data = await this.messageRepository.find({
+      where: { subOrderId },
+      skip,
+      take,
+    });
+    const totalDataCount = await this.messageRepository.count({
+      where: { subOrderId },
+    });
+    return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
   async findById(id: string): Promise<Message> {

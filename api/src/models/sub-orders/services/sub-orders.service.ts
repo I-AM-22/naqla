@@ -22,7 +22,7 @@ import { Entities, ORDER_STATUS, SETTING_PROPERTIES } from '@common/enums';
 import { DataSource } from 'typeorm';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { UserWallet } from '@models/users/entities/user-wallet.entity';
-import { IWalletRepository } from '@common/interfaces';
+import { IPerson, IWalletRepository } from '@common/interfaces';
 import { DriverWallet } from '@models/drivers/entities/driver-wallet.entity';
 import { GpsDrivingService } from '@shared/gpsDriving';
 import { IPaymentsService } from '@models/payments/interfaces/services/payments.service.interface';
@@ -33,6 +33,7 @@ import { Order } from '@models/orders/entities/order.entity';
 import { item_not_found } from '@common/constants';
 import { CAR_TYPES } from '@models/cars/interfaces/type';
 import { ICarsService } from '@models/cars/interfaces/services/cars.service.interface';
+import { PaginatedResponse } from '@common/types';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {
@@ -136,6 +137,14 @@ export class SubOrdersService implements ISubOrdersService {
     return await this.subOrderRepository.find();
   }
 
+  async findChats(
+    person: IPerson,
+    page: number,
+    limit: number,
+  ): Promise<PaginatedResponse<SubOrder>> {
+    return await this.subOrderRepository.findChats(person.id, page, limit);
+  }
+
   async findOne(subOrderId: string): Promise<SubOrder> {
     const subOrder = await this.subOrderRepository.findById(subOrderId);
     if (!subOrder) {
@@ -162,9 +171,14 @@ export class SubOrdersService implements ISubOrdersService {
     return await this.subOrderRepository.findForOrder(orderId);
   }
 
-  async findByIdForMessage(subOrderId: string): Promise<SubOrder> {
-    const subOrder =
-      await this.subOrderRepository.findByIdForMessage(subOrderId);
+  async findByIdForMessage(
+    subOrderId: string,
+    person: IPerson,
+  ): Promise<SubOrder> {
+    const subOrder = await this.subOrderRepository.findByIdForMessage(
+      subOrderId,
+      person.id,
+    );
     if (!subOrder) {
       throw new NotFoundException(item_not_found(Entities.Suborder));
     }
@@ -202,21 +216,20 @@ export class SubOrdersService implements ISubOrdersService {
     try {
       const subOrder = await this.findOne(subOrderId);
 
-      
       // take the cost from the user wallet
       await this.userWalletRepository.withdrawForDriver(
         subOrder.order.userId,
         subOrder.cost,
-        );
-        console.log(subOrder);
-        // transfer the money to the driver wallet
-        await this.driverWalletRepository.deposit(
-          subOrder.car.driverId,
-          subOrder.cost - subOrder.cost * 0.05,
-          );
-          
-          // Update delivery status for the suborder
-          await this.subOrderRepository.setDeliveredAt(subOrder);
+      );
+      console.log(subOrder);
+      // transfer the money to the driver wallet
+      await this.driverWalletRepository.deposit(
+        subOrder.car.driverId,
+        subOrder.cost - subOrder.cost * 0.05,
+      );
+
+      // Update delivery status for the suborder
+      await this.subOrderRepository.setDeliveredAt(subOrder);
 
       // check if the order has been delivered
       const allSubOrdersCompleted =

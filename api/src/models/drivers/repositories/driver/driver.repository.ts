@@ -5,7 +5,6 @@ import { BaseAuthRepo } from '../../../../common/base';
 import { IDriverRepository } from '../../interfaces/repositories/driver.repository.interface';
 // import { UpdatePhoneDto } from '../../../auth-driver';
 import { UpdateDriverPhoneDto } from '../../../../auth-driver';
-import { pagination } from '../../../../common/helpers';
 import { PaginatedResponse } from '../../../../common/types';
 import { Role } from '../../../roles/entities/role.entity';
 import { CreateDriverDto, UpdateDriverDto } from '../../dtos';
@@ -38,8 +37,11 @@ export class DriverRepository
       take,
       withDeleted,
     });
-    const totalDataCount = await this.driverRepo.count({ withDeleted });
-    return pagination(page, limit, totalDataCount, data);
+    const totalDataCount = await this.driverRepo.count({
+      where: { active: true },
+      withDeleted,
+    });
+    return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
   async staticsDriver(
@@ -56,8 +58,11 @@ export class DriverRepository
       take,
       withDeleted,
     });
-    const totalDataCount = await this.driverRepo.count({ withDeleted });
-    return pagination(page, limit, totalDataCount, data);
+    const totalDataCount = await this.driverRepo.count({
+      where: { active: true },
+      withDeleted,
+    });
+    return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
   async countDriver(): Promise<number> {

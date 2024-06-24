@@ -2,9 +2,17 @@ import { IPerson } from '@common/interfaces';
 import { CreateMessageDto } from './../../dto/create-message.dto';
 import { UpdateMessageDto } from './../../dto/update-message.dto';
 import { Message } from './../../entities/message.entity';
+import { PaginatedResponse } from '@common/types';
 
 export interface IMessagesService {
-  find(subOrderId: string, person: IPerson): Promise<Message[]>;
+  find(page: number, limit: number): Promise<PaginatedResponse<Message>>;
+
+  findForSubOrder(
+    subOrderId: string,
+    person: IPerson,
+    page: number,
+    limit: number,
+  ): Promise<PaginatedResponse<Message>>;
 
   findOne(id: string): Promise<Message>;
 

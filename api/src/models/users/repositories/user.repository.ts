@@ -1,5 +1,4 @@
 import { BaseAuthRepo } from '@common/base';
-import { pagination } from '@common/helpers';
 import { PaginatedResponse } from '@common/types';
 import { Role } from '@models/roles/entities/role.entity';
 import { Injectable } from '@nestjs/common';
@@ -37,8 +36,11 @@ export class UserRepository
       take,
       withDeleted,
     });
-    const totalDataCount = await this.userRepo.count({ withDeleted });
-    return pagination(page, limit, totalDataCount, data);
+    const totalDataCount = await this.userRepo.count({
+      where: { active: true },
+      withDeleted,
+    });
+    return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
   async findByIdForDelete(id: string): Promise<User> {
@@ -67,15 +69,15 @@ export class UserRepository
       take,
       withDeleted,
     });
-    const totalDataCount = await this.userRepo.count({ withDeleted });
-    return pagination(page, limit, totalDataCount, data);
+    const totalDataCount = await this.userRepo.count({
+      where: { active: true },
+      withDeleted,
+    });
+    return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
-
   async countUser(): Promise<number> {
-    const userCount = await this.userRepo
-      .createQueryBuilder('user')
-      .getCount();
+    const userCount = await this.userRepo.createQueryBuilder('user').getCount();
     return userCount;
   }
 
