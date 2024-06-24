@@ -10,6 +10,7 @@ import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
 import { OrderStatsDate } from '@models/statics/class/OrderStatsDate';
 import { AdvantageSuper } from '@models/statics/class/AdvantageSuper';
+import { StaticProfits } from '@models/statics/class/StaticProfits';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -67,7 +68,7 @@ export class OrderRepository implements IOrderRepository {
 
   async findMineWithAccepted(userId: string): Promise<Order[]> {
     return this.orderRepository.find({
-      where: { userId, status: ORDER_STATUS.ACCEPTED },
+      where: { userId, status: ORDER_STATUS.READY },
       select: {
         advantages: { id: false, cost: false, name: true },
         subOrders: {
@@ -242,6 +243,28 @@ export class OrderRepository implements IOrderRepository {
       })
       .groupBy('day')
       .getRawMany<OrderStatsDate>();
+  }
+
+  async staticProfits(
+    startDate: string,
+    endDate: string,
+  ): Promise<StaticProfits[]> {
+    const rawData = await this.orderRepository
+      .createQueryBuilder('order')
+      .leftJoinAndSelect('order.payment', 'payment')
+      .select('DATE(payment.deliveredDate)', 'day')
+      .addSelect('SUM(payment.cost)', 'profits')
+      .where('order.status = :status', { status: ORDER_STATUS.DELIVERED })
+      .andWhere('payment.deliveredDate BETWEEN :startDate AND :endDate', {
+        startDate,
+        endDate,
+      })
+      .groupBy('day')
+      .getRawMany<StaticProfits>();
+    return rawData.map((data) => ({
+      day: data.day,
+      profits: data.profits * 0.05,
+    }));
   }
 
   async advantageSuper(limit: number): Promise<any[]> {

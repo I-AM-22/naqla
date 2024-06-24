@@ -14,6 +14,7 @@ export class DriverWalletRepository implements IWalletRepository<DriverWallet> {
     return this.walletRepo.create();
   }
   async deposit(id: string, cost: number): Promise<DriverWallet> {
+    console.log(id);
     const result = await this.walletRepo
       .createQueryBuilder()
       .update(DriverWallet)

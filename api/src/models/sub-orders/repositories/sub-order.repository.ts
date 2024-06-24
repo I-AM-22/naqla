@@ -7,6 +7,7 @@ import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
+import { ResponseTime } from '@models/statics/class/ResponseTime';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -102,7 +103,6 @@ export class SubOrderRepository implements ISubOrderRepository {
         'advantages.id',
       ])
       .getMany();
-
     const carAdvantagesIds = cars.flatMap((car) =>
       car.advantages.map((adv) => adv.id),
     );
@@ -134,6 +134,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         'car.model',
         'car.brand',
         'car.color',
+        'car.driverId',
         'driver.firstName',
         'driver.lastName',
       ])
@@ -286,5 +287,23 @@ export class SubOrderRepository implements ISubOrderRepository {
       })
       .getCount();
     return count;
+  }
+
+  async responseTime(): Promise<ResponseTime> {
+    const queryResult = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.order', 'order')
+      .select(
+        'AVG(CASE WHEN DATE(order.createdAt) = CURRENT_DATE THEN  subOrder.createdAt - order.createdAt  END)',
+        'today',
+      )
+      .addSelect(
+        'AVG(CASE WHEN DATE(order.createdAt) = CURRENT_DATE - 1 THEN subOrder.createdAt - order.createdAt  END)',
+        'yesterday',
+      )
+      // .where('order.createdAt BETWEEN CURRENT_DATE AND CURRENT_DATE - 1 ')
+      .getRawOne<ResponseTime>();
+
+    return queryResult;
   }
 }

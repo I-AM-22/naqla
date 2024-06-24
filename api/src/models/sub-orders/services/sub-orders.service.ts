@@ -202,20 +202,21 @@ export class SubOrdersService implements ISubOrdersService {
     try {
       const subOrder = await this.findOne(subOrderId);
 
-      // Update delivery status for the suborder
-      await this.subOrderRepository.setDeliveredAt(subOrder);
-
+      
       // take the cost from the user wallet
       await this.userWalletRepository.withdrawForDriver(
         subOrder.order.userId,
         subOrder.cost,
-      );
-
-      // transfer the money to the driver wallet
-      await this.driverWalletRepository.deposit(
-        subOrder.car.driverId,
-        subOrder.cost,
-      );
+        );
+        console.log(subOrder);
+        // transfer the money to the driver wallet
+        await this.driverWalletRepository.deposit(
+          subOrder.car.driverId,
+          subOrder.cost - subOrder.cost * 0.05,
+          );
+          
+          // Update delivery status for the suborder
+          await this.subOrderRepository.setDeliveredAt(subOrder);
 
       // check if the order has been delivered
       const allSubOrdersCompleted =

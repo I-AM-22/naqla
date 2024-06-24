@@ -17,6 +17,8 @@ import { OrderRepository } from '@models/orders/repositories/order.repository';
 import { SubOrderRepository } from '@models/sub-orders/repositories/sub-order.repository';
 import { OrderStatsDate } from '../class/OrderStatsDate';
 import { AdvantageSuper } from '../class/AdvantageSuper';
+import { StaticProfits } from '../class/StaticProfits';
+import { ResponseTime } from '../class/ResponseTime';
 
 @ApiTags('Statistics')
 @ApiBadRequestResponse({ description: bad_req })
@@ -50,6 +52,14 @@ export class CitiesController {
     return data;
   }
 
+  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
+  @ApiOkResponse({ type: ResponseTime })
+  @Get('/responseTime')
+  async responseTime() {
+    return await this.subOrderRepository.responseTime();
+  }
+
+  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: OrderStatsDate })
   @Get('order/:first_date/:second_date')
   findForDate(
@@ -59,6 +69,17 @@ export class CitiesController {
     return this.orderRepository.StaticsOrdersForDate(first, second);
   }
 
+  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
+  @ApiOkResponse({ isArray: true, type: StaticProfits })
+  @Get('profits/:first_date/:second_date')
+  profits(
+    @Param('first_date') first: string,
+    @Param('second_date') second: string,
+  ) {
+    return this.orderRepository.staticProfits(first, second);
+  }
+
+  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: AdvantageSuper })
   @Get('advantages/:limit')
   async findLimetAdvantages(@Param('limit') limit: number) {
