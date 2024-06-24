@@ -1,3 +1,11 @@
+import { bad_req, data_not_found, denied_error } from '@common/constants';
+import { Auth, Roles } from '@common/decorators';
+import { ROLE } from '@common/enums';
+import { CarRepository } from '@models/cars/repositories/car.repository';
+import { DriverRepository } from '@models/drivers/repositories/driver/driver.repository';
+import { OrderRepository } from '@models/orders/repositories/order.repository';
+import { SubOrderRepository } from '@models/sub-orders/repositories/sub-order.repository';
+import { UserRepository } from '@models/users/repositories/user.repository';
 import { Controller, Get, Param } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -6,19 +14,11 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Auth, Roles } from '@common/decorators';
-import { ROLE } from '@common/enums';
-import { bad_req, data_not_found, denied_error } from '@common/constants';
-import { Numerical } from '../class/Numerical';
-import { UserRepository } from '@models/users/repositories/user.repository';
-import { DriverRepository } from '@models/drivers/repositories/driver/driver.repository';
-import { CarRepository } from '@models/cars/repositories/car.repository';
-import { OrderRepository } from '@models/orders/repositories/order.repository';
-import { SubOrderRepository } from '@models/sub-orders/repositories/sub-order.repository';
-import { OrderStatsDate } from '../class/OrderStatsDate';
 import { AdvantageSuper } from '../class/AdvantageSuper';
-import { StaticProfits } from '../class/StaticProfits';
+import { Numerical } from '../class/Numerical';
+import { OrderStatsDate } from '../class/OrderStatsDate';
 import { ResponseTime } from '../class/ResponseTime';
+import { StaticProfits } from '../class/StaticProfits';
 
 @ApiTags('Statistics')
 @ApiBadRequestResponse({ description: bad_req })
@@ -26,7 +26,7 @@ import { ResponseTime } from '../class/ResponseTime';
 @ApiNotFoundResponse({ description: data_not_found })
 @Auth()
 @Controller({ path: 'statistics', version: '1' })
-export class CitiesController {
+export class StatisticsController {
   constructor(
     private userRepository: UserRepository,
     private driverRepository: DriverRepository,
@@ -34,7 +34,7 @@ export class CitiesController {
     private orderRepository: OrderRepository,
     private subOrderRepository: SubOrderRepository,
   ) {}
-  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
+  @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Numerical })
   @Get()
   async find() {
@@ -52,14 +52,14 @@ export class CitiesController {
     return data;
   }
 
-  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
+  @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: ResponseTime })
   @Get('/responseTime')
   async responseTime() {
     return await this.subOrderRepository.responseTime();
   }
 
-  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
+  @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: OrderStatsDate })
   @Get('order/:first_date/:second_date')
   findForDate(
@@ -69,7 +69,7 @@ export class CitiesController {
     return this.orderRepository.StaticsOrdersForDate(first, second);
   }
 
-  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
+  @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: StaticProfits })
   @Get('profits/:first_date/:second_date')
   profits(
@@ -79,7 +79,7 @@ export class CitiesController {
     return this.orderRepository.staticProfits(first, second);
   }
 
-  @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
+  @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: AdvantageSuper })
   @Get('advantages/:limit')
   async findLimetAdvantages(@Param('limit') limit: number) {

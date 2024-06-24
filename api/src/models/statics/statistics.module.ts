@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
-import { CitiesController } from './controllers/statistics.controller';
-import { UsersModule } from '@models/users/users.module';
-import { SubOrdersModule } from '../sub-orders/sub-orders.module';
+import { CarsModule } from '@models/cars/cars.module';
 import { DriversModule } from '@models/drivers/drivers.module';
 import { OrdersModule } from '@models/orders/orders.module';
-import { CarsModule } from '@models/cars/cars.module';
+import { UsersModule } from '@models/users/users.module';
+import { Module } from '@nestjs/common';
+import { SubOrdersModule } from '../sub-orders/sub-orders.module';
+import { StatisticsController } from './controllers/statistics.controller';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { CarsModule } from '@models/cars/cars.module';
     OrdersModule,
     CarsModule,
   ],
-  controllers: [CitiesController],
+  controllers: [StatisticsController],
   providers: [],
   exports: [],
 })
