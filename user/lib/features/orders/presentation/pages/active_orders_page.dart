@@ -40,14 +40,16 @@ class ActiveOrdersPage extends StatelessWidget {
               : ListView.builder(
                   itemBuilder: (context, index) => Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: 10),
-                    child: InkWell(
-                        onTap: () {
-                          context.pushNamed(SubOrdersPage.name, extra: data[index].id);
-                        },
-                        child: OrderCard(
-                          orderModel: data[index],
-                          showIndicator: false,
-                        )),
+                    child: OrderCard(
+                      orderModel: data
+                          .where(
+                            (element) => (element.status != OrderStatus.delivered &&
+                                element.status != OrderStatus.refused &&
+                                element.status != OrderStatus.canceled),
+                          )
+                          .elementAt(index),
+                      showIndicator: false,
+                    ),
                   ),
                   itemCount: data
                       .where(
