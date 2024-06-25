@@ -3,6 +3,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
+  IsDateString,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -37,6 +38,7 @@ export class LocationDto {
 export class CreateOrderDto {
   @ApiProperty()
   @IsNotEmpty()
+  @IsDateString()
   desiredDate: Date;
 
   @ApiProperty()

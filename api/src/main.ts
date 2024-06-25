@@ -4,18 +4,18 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import {
   ClassSerializerInterceptor,
   Logger,
-  ValidationPipe,
   VersioningType,
 } from '@nestjs/common';
 import { HttpExceptionFilter } from '@common/exceptions';
 import { SwaggerModule } from '@nestjs/swagger';
-import { createDocument, errorsFormat } from '@common/helpers';
+import { createDocument } from '@common/helpers';
 import { useContainer } from 'class-validator';
 import { join } from 'path';
 import { ConfigService, ConfigType } from '@nestjs/config';
 import { AppConfig } from '@config/app';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import { MainValidationPipe } from '@common/pipes';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -55,17 +55,8 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter(httpAdapter, appConfig));
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      validationError: { target: false },
-      exceptionFactory: (errors) => {
-        errorsFormat(errors);
-      },
-    }),
-  );
+  app.useGlobalPipes(new MainValidationPipe());
+
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.enableVersioning({ type: VersioningType.URI });
   app.setGlobalPrefix('api');

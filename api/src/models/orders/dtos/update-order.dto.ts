@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
+  IsDateString,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -16,6 +17,7 @@ import { LocationDto } from './create-order.dto';
 export class UpdateOrderDto {
   @ApiProperty()
   @IsNotEmpty()
+  @IsDateString()
   @IsOptional()
   desiredDate?: Date;
 

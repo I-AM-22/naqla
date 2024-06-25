@@ -8,16 +8,33 @@ import {
   MessageBody,
   ConnectedSocket,
 } from '@nestjs/websockets';
-import { Logger, Inject, UseGuards } from '@nestjs/common';
+import {
+  Logger,
+  Inject,
+  UseGuards,
+  ParseUUIDPipe,
+  UseFilters,
+  UsePipes,
+} from '@nestjs/common';
 import { Server } from 'socket.io';
 import { WsJwtGuard } from '@common/guards';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
-import { ISubOrderRepository } from '@models/sub-orders/interfaces/repositories/sub-order.repository.interface';
 import { ISocketWithUser } from '@common/interfaces/socket-user.interface';
 import { SocketMessageDto } from '../dto/socket.message.dto';
+import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
+import { WebsocketExceptionsFilter } from '@common/exceptions';
+import { MainValidationPipe } from '@common/pipes';
 
 @UseGuards(WsJwtGuard)
-@WebSocketGateway()
+@UseFilters(WebsocketExceptionsFilter)
+@UsePipes(MainValidationPipe)
+@WebSocketGateway({
+  cors: {
+    origin: 'http://localhost:3000',
+    allowedHeaders: ['content-type', 'authorization'],
+    credentials: true,
+  },
+})
 export class MessageGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
@@ -26,62 +43,26 @@ export class MessageGateway
   private logger: Logger = new Logger('MessageGateway');
 
   constructor(
-    @Inject(SUB_ORDER_TYPES.repository.subOrder)
-    private readonly subOrderRepository: ISubOrderRepository,
+    @Inject(SUB_ORDER_TYPES.service)
+    private readonly subOrdersService: ISubOrdersService,
   ) {}
 
   @SubscribeMessage('setup')
   handleSetup(@ConnectedSocket() client: ISocketWithUser) {
-    client.join(client.userId);
-    client.emit('connected');
+    client.join(client.user.id);
+    client.emit('connected', { status: 'success' });
   }
 
   @SubscribeMessage('join-chat')
   async handleJoinChat(
     @ConnectedSocket() client: ISocketWithUser,
-    @MessageBody()
-    data: { subOrderId: string; isUser: boolean },
+    @MessageBody('subOrderId', ParseUUIDPipe) subOrderId: string,
   ) {
-    if (!data) {
-      client.emit('error', {
-        type: 'socket',
-        message: 'please provide subOrderId and isUser',
-      });
-      return;
-    }
+    await this.subOrdersService.findByIdForMessage(subOrderId, client.user);
 
-    try {
-      const subOrder = await this.subOrderRepository.findByIdForMessage(
-        data.subOrderId,
-        client.userId,
-      );
-      if (!subOrder) {
-        client.to(client.userId).emit('error', {
-          type: 'socket',
-          message: 'subOrder not found',
-        });
-        return;
-      }
-      if (
-        (!data.isUser && subOrder.car.driver.id !== client.userId) ||
-        (data.isUser && subOrder.order.user.id !== client.userId)
-      ) {
-        client.emit('error', {
-          type: 'socket',
-          message: 'Can not join this chat',
-        });
-        return;
-      }
-    } catch (error) {
-      client.emit('error', {
-        type: 'socket',
-        message: 'subOrder not found',
-      });
-      return;
-    }
-
-    client.join(data.subOrderId);
-    client.emit('joined');
+    client.join(subOrderId);
+    client.emit('joined', { status: 'success' });
+    this.logger.log(`Client ${client.user.id} joined room ${subOrderId}`);
   }
 
   @SubscribeMessage('new-message')
@@ -90,33 +71,18 @@ export class MessageGateway
     message: SocketMessageDto,
     @ConnectedSocket() client: ISocketWithUser,
   ): Promise<void> {
-    if (
-      !message.content ||
-      !message.isUser ||
-      !message.subOrderId ||
-      !message.createdAt ||
-      !message.updatedAt
-    ) {
-      client.emit('error', {
-        type: 'socket',
-        message:
-          'please provide content and isUser and subOrderId and updatedAt and createdAt',
-      });
-      return;
-    }
-
     client.to(message.subOrderId).emit('message-received', message);
   }
 
-  afterInit(server: Server) {
-    this.logger.log('Init');
+  afterInit() {
+    this.logger.log(`Init Server Gateway`);
   }
 
   handleDisconnect(client: ISocketWithUser) {
     this.logger.log(`Client disconnected: ${client.id}`);
   }
 
-  handleConnection(client: ISocketWithUser, ...args: any[]) {
+  handleConnection(client: ISocketWithUser) {
     this.logger.log(`Client connected: ${client.id}`);
   }
 }

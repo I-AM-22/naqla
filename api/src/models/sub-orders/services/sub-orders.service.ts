@@ -221,7 +221,6 @@ export class SubOrdersService implements ISubOrdersService {
         subOrder.order.userId,
         subOrder.cost,
       );
-      console.log(subOrder);
       // transfer the money to the driver wallet
       await this.driverWalletRepository.deposit(
         subOrder.car.driverId,
@@ -292,6 +291,7 @@ export class SubOrdersService implements ISubOrdersService {
   async countSubOrdersCompletedForDriver(driverId: string): Promise<number> {
     return this.subOrderRepository.countSubOrdersCompletedForDriver(driverId);
   }
+
   async delete(subOrderId: string): Promise<void> {
     const subOrder =
       await this.subOrderRepository.findByIdForDelete(subOrderId);
