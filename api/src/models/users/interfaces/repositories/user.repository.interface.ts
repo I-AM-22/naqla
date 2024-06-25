@@ -19,6 +19,8 @@ export interface IUserRepository {
     withDeleted: boolean,
   ): Promise<PaginatedResponse<User>>;
 
+  countUser(): Promise<number>;
+
   findById(id: string, withDeleted?: boolean): Promise<User>;
 
   findByIdForDelete(id: string): Promise<User>;

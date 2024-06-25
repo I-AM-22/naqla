@@ -5,6 +5,8 @@ import { OrderPhoto } from '../../entities/order-photo.entity';
 import { Order } from '../../entities/order.entity';
 import { User } from '../../../users/entities/user.entity';
 import { ORDER_STATUS } from '@common/enums';
+import { OrderStatsDate } from '@models/statics/responses/OrderStatsDate';
+import { StaticProfits } from '@models/statics/responses/StaticProfits';
 
 export interface IOrderRepository {
   find(): Promise<Order[]>;
@@ -15,6 +17,15 @@ export interface IOrderRepository {
   findByIdForOwner(id: string, userId: string): Promise<Order>;
   findOneWithAdvantages(id: string): Promise<Order>;
   findByIdForDelete(id: string): Promise<Order>;
+  advantageSuper(limit: number): Promise<any[]>;
+  countOrdersCompleted(): Promise<number>;
+  countOrdersWaiting(): Promise<number>;
+  countOrdersActive(): Promise<number>;
+  staticsOrdersForDate(
+    startDate: string,
+    endDate: string,
+  ): Promise<OrderStatsDate[]>;
+  staticProfits(startDate: string, endDate: string): Promise<StaticProfits[]>;
   create(
     user: User,
     photo: OrderPhoto[],

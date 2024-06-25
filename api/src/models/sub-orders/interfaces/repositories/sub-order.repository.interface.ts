@@ -1,5 +1,6 @@
 import { PaginatedResponse } from '@common/types';
 import { Car } from '@models/cars/entities/car.entity';
+import { ResponseTime } from '@models/statics/responses/ResponseTime';
 import { CreateSubOrderDto } from '@models/sub-orders/dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '@models/sub-orders/dto/update-sub-order.dto';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
@@ -20,6 +21,9 @@ export interface ISubOrderRepository {
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
   findByIdForDelete(id: string): Promise<SubOrder>;
   findTotalCost(id: string): Promise<number>;
+  countSubOrdersCompleted(): Promise<number>;
+  countSubOrdersActive(): Promise<number>;
+  responseTime(): Promise<ResponseTime>;
   create(
     orderId: string,
     dto: CreateSubOrderDto,

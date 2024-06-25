@@ -12,7 +12,6 @@ import {
   Logger,
   Inject,
   UseGuards,
-  ParseUUIDPipe,
   UseFilters,
   UsePipes,
 } from '@nestjs/common';
@@ -24,7 +23,10 @@ import { SocketMessageDto } from '../dto/socket.message.dto';
 import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
 import { WebsocketExceptionsFilter } from '@common/exceptions';
 import { MainValidationPipe } from '@common/pipes';
+import { JoinChatDto } from '../dto/join-chat.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Chat-event')
 @UseGuards(WsJwtGuard)
 @UseFilters(WebsocketExceptionsFilter)
 @UsePipes(MainValidationPipe)
@@ -56,13 +58,13 @@ export class MessageGateway
   @SubscribeMessage('join-chat')
   async handleJoinChat(
     @ConnectedSocket() client: ISocketWithUser,
-    @MessageBody('subOrderId', ParseUUIDPipe) subOrderId: string,
+    @MessageBody() dto: JoinChatDto,
   ) {
-    await this.subOrdersService.findByIdForMessage(subOrderId, client.user);
+    await this.subOrdersService.findByIdForMessage(dto.subOrderId, client.user);
 
-    client.join(subOrderId);
+    client.join(dto.subOrderId);
     client.emit('joined', { status: 'success' });
-    this.logger.log(`Client ${client.user.id} joined room ${subOrderId}`);
+    this.logger.log(`Client ${client.user.id} joined room ${dto.subOrderId}`);
   }
 
   @SubscribeMessage('new-message')

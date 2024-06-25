@@ -25,6 +25,8 @@ export interface IDriverRepository {
 
   findByIdForDelete(id: string): Promise<Driver>;
 
+  countDriver(): Promise<number>;
+
   create(
     dto: CreateDriverDto,
     wallet: DriverWallet,

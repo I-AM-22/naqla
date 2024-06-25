@@ -6,3 +6,4 @@ dist/
 
 # JavaScript & TypeScript
 *.js
+src/database/migrations

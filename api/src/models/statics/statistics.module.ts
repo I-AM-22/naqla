@@ -5,6 +5,7 @@ import { UsersModule } from '@models/users/users.module';
 import { Module } from '@nestjs/common';
 import { SubOrdersModule } from '../sub-orders/sub-orders.module';
 import { StatisticsController } from './controllers/statistics.controller';
+import { StatisticsService } from './services/statistics.service';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { StatisticsController } from './controllers/statistics.controller';
     CarsModule,
   ],
   controllers: [StatisticsController],
-  providers: [],
+  providers: [StatisticsService],
   exports: [],
 })
 export class StatisticsModule {}

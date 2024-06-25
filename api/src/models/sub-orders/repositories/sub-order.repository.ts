@@ -7,7 +7,7 @@ import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
-import { ResponseTime } from '@models/statics/class/ResponseTime';
+import { ResponseTime } from '@models/statics/responses/ResponseTime';
 import { PaginatedResponse } from '@common/types';
 
 @Injectable()

@@ -8,9 +8,9 @@ import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
-import { OrderStatsDate } from '@models/statics/class/OrderStatsDate';
-import { AdvantageSuper } from '@models/statics/class/AdvantageSuper';
-import { StaticProfits } from '@models/statics/class/StaticProfits';
+import { OrderStatsDate } from '@models/statics/responses/OrderStatsDate';
+import { AdvantageSuper } from '@models/statics/responses/AdvantageSuper';
+import { StaticProfits } from '@models/statics/responses/StaticProfits';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -221,7 +221,7 @@ export class OrderRepository implements IOrderRepository {
     return completeOrderCount;
   }
 
-  async StaticsOrdersForDate(
+  async staticsOrdersForDate(
     startDate: string,
     endDate: string,
   ): Promise<OrderStatsDate[]> {

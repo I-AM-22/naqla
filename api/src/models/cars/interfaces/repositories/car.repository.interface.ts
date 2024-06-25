@@ -8,11 +8,14 @@ import { Driver } from '../../../drivers/entities/driver.entity';
 
 export interface ICarRepository {
   find(): Promise<Car[]>;
+  countCar(): Promise<number>;
   findMyCar(driverId: string): Promise<Car[]>;
   findOne(id: string): Promise<Car>;
   findOneForOwner(id: string, driverId: string): Promise<Car>;
   findMyCarsForOrder(driverId: string, order: Order): Promise<Car[]>;
   findByIdForDelete(id: string, driverId: string): Promise<Car>;
+  countCar(): Promise<number>;
+  countCarAdvantage(advantage: string): Promise<number>;
   create(
     driver: Driver,
     photo: CarPhoto,

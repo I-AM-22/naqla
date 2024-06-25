@@ -12,6 +12,7 @@ import { MessagesController } from './controllers/messages.controller';
 import { SubOrdersMessagesController } from './controllers/sub-orders-messages.controller';
 import { UsersModule } from '@models/users/users.module';
 import { DriversModule } from '@models/drivers/drivers.module';
+import { WebSocketDocsController } from './controllers/websocket.controller';
 
 export const MessagesServiceProvider: Provider = {
   provide: MESSAGE_TYPES.service,
@@ -31,7 +32,11 @@ export const MessageRepositoryProvider: Provider = {
     TypeOrmModule.forFeature([Message]),
     ConfigModule.forFeature(JwtConfig),
   ],
-  controllers: [MessagesController, SubOrdersMessagesController],
+  controllers: [
+    MessagesController,
+    SubOrdersMessagesController,
+    WebSocketDocsController,
+  ],
   providers: [
     MessageRepositoryProvider,
     MessagesServiceProvider,

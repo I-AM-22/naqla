@@ -28,7 +28,6 @@ import { Role } from '../entities/role.entity';
 import { CheckAbilities, Id } from '@common/decorators';
 import { Action, Entities, GROUPS } from '@common/enums';
 import { CaslAbilitiesGuard } from '@common/guards';
-import { ICrud } from '@common/interfaces';
 import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { ROLE_TYPES } from '../interfaces/type';
 import { IRolesService } from '../interfaces/services/roles.service.interface';
@@ -41,7 +40,7 @@ import { IRolesService } from '../interfaces/services/roles.service.interface';
 @UseGuards(CaslAbilitiesGuard)
 @CheckAbilities({ action: Action.Manage, subject: Entities.Role })
 @Controller({ path: 'roles', version: '1' })
-export class RolesController implements ICrud<Role> {
+export class RolesController {
   constructor(
     @Inject(ROLE_TYPES.service)
     private rolesService: IRolesService,
@@ -101,9 +100,5 @@ export class RolesController implements ICrud<Role> {
     @Body() dto: UpdateRoleDto,
   ): Promise<Role | undefined> {
     return this.rolesService.deletePermissions(id, dto);
-  }
-
-  delete(...n: any[]): Promise<any> {
-    return;
   }
 }
