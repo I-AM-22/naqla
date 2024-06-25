@@ -9,6 +9,7 @@
   "search": "ابحث...",
   "copyLink": "نسخ الرابط",
   "report": "التبليغ عن مشكلة",
+  "pickDate": "حدد التاريخ",
   "copyToClipboard": {
     "success": "تم نسخ الرابط للحافظة",
     "error": "حدث خطأ ما!"

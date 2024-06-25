@@ -2,6 +2,7 @@ import { getUser } from "@/actions/auth";
 import { LayoutProps } from "@/app/type";
 import { NavigationBar } from "@/components/layouts/navigation-bar";
 import { redirect } from "next/navigation";
+import { Providers } from "../providers";
 
 export default async function Layout({ children }: LayoutProps) {
   const user = await getUser();
@@ -10,7 +11,10 @@ export default async function Layout({ children }: LayoutProps) {
   return (
     <div className="flex">
       <NavigationBar />
-      <div className="flex w-full flex-col p-4">{children}</div>
+
+      <Providers>
+        <div className="flex w-full flex-col p-4">{children}</div>
+      </Providers>
     </div>
   );
 }

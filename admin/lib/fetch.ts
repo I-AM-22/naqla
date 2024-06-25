@@ -74,7 +74,7 @@ export const fetchInstance = async <T>(
   if (!isJson) {
     delete headers["Content-Type"];
   }
-  // await new Promise((res) => setTimeout(res, 1000));
+  await new Promise((res) => setTimeout(res, 1000));
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}${config.url}` +
       (config.params ? `?${new URLSearchParams(config.params)}` : ""),

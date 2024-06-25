@@ -1,5 +1,7 @@
 import { SUB_ORDER_STATUS } from '@common/enums';
+import { PaginatedResponse } from '@common/types';
 import { Car } from '@models/cars/entities/car.entity';
+import { ResponseTime } from '@models/statics/class/ResponseTime';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
@@ -7,8 +9,6 @@ import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
-import { ResponseTime } from '@models/statics/responses/ResponseTime';
-import { PaginatedResponse } from '@common/types';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
