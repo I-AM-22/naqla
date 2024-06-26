@@ -72,21 +72,13 @@ export class CarsService implements ICarsService {
     return this.carRepository.delete(car);
   }
 
-  async addAdvantagesToCar(
-    id: string,
-    dto: AddAdvansToCarDto,
-    driver: Driver,
-  ): Promise<void> {
+  async addAdvantagesToCar(id: string, dto: AddAdvansToCarDto, driver: Driver): Promise<void> {
     const car = await this.findOneForOwner(id, driver.id);
     const advantages = await this.advantagesService.findInIds(dto.advantages);
     return this.carRepository.addAdvantageToCar(car, advantages);
   }
 
-  async removeAdvantagesFromCar(
-    id: string,
-    advantageId: string,
-    driver: Driver,
-  ): Promise<void> {
+  async removeAdvantagesFromCar(id: string, advantageId: string, driver: Driver): Promise<void> {
     const car = await this.findOneForOwner(id, driver.id);
     const advantage = await this.advantagesService.findOne(advantageId);
     return this.carRepository.removeAdvantageFromCar(car, advantage);

@@ -1,17 +1,7 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  Inject,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException, Inject, UnprocessableEntityException } from '@nestjs/common';
 import { User } from '@models/users/entities/user.entity';
 import { JwtTokenService } from '@shared/jwt';
-import {
-  SignUpUserDto,
-  LoginUserDto,
-  ConfirmUserDto,
-  UpdateUserPhoneDto,
-} from '../dtos';
+import { SignUpUserDto, LoginUserDto, ConfirmUserDto, UpdateUserPhoneDto } from '../dtos';
 import { AuthUserResponse, jwtPayload } from '../interfaces';
 
 import {
@@ -40,11 +30,7 @@ export class AuthUserService implements IAuthUserService {
   async signup(dto: SignUpUserDto, ip: string): Promise<SendConfirm> {
     const user = await this.usersService.findOneByPhone(dto.phone);
     if (!user) {
-      const otp = await this.otpsService.findOneForUser(
-        dto.phone,
-        ip,
-        OTP_TYPE.CHANGE_NUMBER,
-      );
+      const otp = await this.otpsService.findOneForUser(dto.phone, ip, OTP_TYPE.CHANGE_NUMBER);
 
       if (otp) {
         throw new UnprocessableEntityException(item_already_exist('mobile'));
@@ -83,13 +69,8 @@ export class AuthUserService implements IAuthUserService {
 
   async login(dto: LoginUserDto, ip: string): Promise<SendConfirm> {
     const user = await this.usersService.findOneByPhone(dto.phone);
-    if (!user || !user.active)
-      throw new UnauthorizedException(incorrect_phone_number);
-    const otp = await this.otpsService.findOneForUser(
-      dto.phone,
-      ip,
-      OTP_TYPE.LOGIN,
-    );
+    if (!user || !user.active) throw new UnauthorizedException(incorrect_phone_number);
+    const otp = await this.otpsService.findOneForUser(dto.phone, ip, OTP_TYPE.LOGIN);
     await this.otpsService.createForUser(
       {
         userId: user.id,
@@ -102,18 +83,9 @@ export class AuthUserService implements IAuthUserService {
     return { message: confirmMessage };
   }
 
-  async confirm(
-    dto: ConfirmUserDto,
-    ip: string,
-    phoneConfirm: boolean,
-  ): Promise<AuthUserResponse> {
+  async confirm(dto: ConfirmUserDto, ip: string, phoneConfirm: boolean): Promise<AuthUserResponse> {
     let user: User;
-    const otp = await this.otpsService.findOneOtpForUser(
-      dto.phone,
-      dto.otp,
-      ip,
-      phoneConfirm,
-    );
+    const otp = await this.otpsService.findOneOtpForUser(dto.phone, dto.otp, ip, phoneConfirm);
     if (!otp) {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
@@ -127,24 +99,15 @@ export class AuthUserService implements IAuthUserService {
         phone: otp.phone,
       });
     } else {
-      if (otp.type === OTP_TYPE.SIGNUP)
-        user = await this.usersService.confirm(nonConfirmedUser);
+      if (otp.type === OTP_TYPE.SIGNUP) user = await this.usersService.confirm(nonConfirmedUser);
       else user = nonConfirmedUser;
     }
     await this.otpsService.updateForUser(otp);
     return this.sendAuthResponse(user);
   }
 
-  async updatePhone(
-    dto: UpdateUserPhoneDto,
-    ip: string,
-    user: User,
-  ): Promise<SendConfirm> {
-    const otp = await this.otpsService.findOneForUser(
-      dto.phone,
-      ip,
-      OTP_TYPE.CHANGE_NUMBER,
-    );
+  async updatePhone(dto: UpdateUserPhoneDto, ip: string, user: User): Promise<SendConfirm> {
+    const otp = await this.otpsService.findOneForUser(dto.phone, ip, OTP_TYPE.CHANGE_NUMBER);
 
     if (!otp) {
       await this.otpsService.createForUser({

@@ -14,25 +14,14 @@ import { CreateAdvantageDto } from '../dto/create-advantage.dto';
 import { UpdateAdvantageDto } from '../dto/update-advantage.dto';
 import { IAdvantagesService } from '../interfaces/services/advantages.service.interface';
 import { ADVANTAGE_TYPES } from '../interfaces/type';
-import {
-  ApiTags,
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiNoContentResponse,
-} from '@nestjs/swagger';
-import { bad_req, denied_error, data_not_found } from '@common/constants';
+import { ApiTags, ApiCreatedResponse, ApiOkResponse, ApiNoContentResponse } from '@nestjs/swagger';
 import { LoggingInterceptor } from '@common/interceptors';
 import { Advantage } from '../entities/advantage.entity';
-import { Auth, Roles } from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, Roles } from '@common/decorators';
 import { GROUPS, ROLE } from '@common/enums';
 
 @ApiTags('Advantages')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @UseInterceptors(new LoggingInterceptor())
 @Auth()
 @Controller({ path: 'advantages', version: '1' })
@@ -68,10 +57,7 @@ export class AdvantagesController {
   @ApiOkResponse({ type: Advantage })
   @Roles(ROLE.ADMIN)
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateAdvantageDto: UpdateAdvantageDto,
-  ) {
+  update(@Param('id') id: string, @Body() updateAdvantageDto: UpdateAdvantageDto) {
     return this.advantagesService.update(id, updateAdvantageDto);
   }
 

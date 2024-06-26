@@ -1,37 +1,26 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { ApiTags, ApiBody } from '@nestjs/swagger';
+import { Controller, Post } from '@nestjs/common';
+import { ApiTags, ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import { SocketMessageDto } from '../dto/socket.message.dto';
 import { JoinChatDto } from '../dto/join-chat.dto';
-import { Auth } from '@common/decorators';
-import { ApiWebSocketEvent } from '@common/decorators/swagger/websocket.swagger';
+import { ApiWebSocketEvent, Auth } from '@common/decorators';
 import { SuccessDto } from '../dto/success.dto';
+import { CustomValidationError } from '@common/types';
 
 @ApiTags('Websocket')
 @Auth()
 @Controller('websocket')
 export class WebSocketDocsController {
-  @ApiWebSocketEvent(
-    'setup',
-    'Setup the user main room',
-    'connected',
-    SuccessDto,
-  )
+  @ApiWebSocketEvent('setup', 'Setup the user main room', 'connected', SuccessDto)
   @Post('setup')
   setup() {
     return { message: 'WebSocket setup endpoint for Swagger documentation' };
   }
 
-  @ApiWebSocketEvent(
-    'join-chat',
-    'Join the chat room',
-    'joined',
-    SuccessDto,
-    JoinChatDto,
-  )
+  @ApiWebSocketEvent('join-chat', 'Join the chat room', 'joined', SuccessDto, JoinChatDto)
   @Post('join-chat')
-  joinChat(@Body() dto: JoinChatDto) {
+  joinChat() {
     return {
-      message: `Join chat room ${dto.subOrderId} endpoint for Swagger documentation`,
+      message: `Join chat room endpoint for Swagger documentation`,
     };
   }
 
@@ -44,7 +33,16 @@ export class WebSocketDocsController {
   )
   @Post('new-message')
   @ApiBody({ type: SocketMessageDto })
-  newMessage(@Body() dto: SocketMessageDto) {
+  newMessage() {
+    return { message: 'Send new message endpoint for Swagger documentation' };
+  }
+
+  @ApiOkResponse({
+    type: CustomValidationError,
+    description: `Event: "error" will be emitted`,
+  })
+  @Post('error')
+  error() {
     return { message: 'Send new message endpoint for Swagger documentation' };
   }
 }

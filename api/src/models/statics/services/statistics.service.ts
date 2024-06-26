@@ -33,10 +33,8 @@ export class StatisticsService {
     data.orderCompleted = await this.orderRepository.countOrdersCompleted();
     data.orderActive = await this.orderRepository.countOrdersActive();
     data.orderWaiting = await this.orderRepository.countOrdersWaiting();
-    data.subOrderActive =
-      await this.subOrderRepository.countSubOrdersCompleted();
-    data.subOrderCompleted =
-      await this.subOrderRepository.countSubOrdersActive();
+    data.subOrderActive = await this.subOrderRepository.countSubOrdersCompleted();
+    data.subOrderCompleted = await this.subOrderRepository.countSubOrdersActive();
     return data;
   }
 
@@ -59,9 +57,7 @@ export class StatisticsService {
       const obj = new AdvantageSuper();
       obj.advantage = ad[i].advantage;
       obj.countUserUsed = +ad[i].x;
-      obj.countCarUsed = await this.carRepository.countCarAdvantage(
-        ad[i].advantage,
-      );
+      obj.countCarUsed = await this.carRepository.countCarAdvantage(ad[i].advantage);
       data.push(obj);
     }
     return data;

@@ -1,21 +1,11 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  NotFoundException,
-  Inject,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException, NotFoundException, Inject } from '@nestjs/common';
 import { Entities, ROLE } from '@common/enums';
 import { JwtTokenService } from '../../../shared/jwt';
 import { CreateEmployeeDto } from '../dtos/create-employee.dto';
 import { UpdateEmployeeDto } from '../dtos/update-employee.dto';
 import { Employee } from '../entities/employee.entity';
 import { AuthEmployeeResponse } from '../interfaces';
-import {
-  defaultPhotoUrl,
-  incorrect_credentials,
-  item_not_found,
-  password_changed_recently,
-} from '@common/constants';
+import { defaultPhotoUrl, incorrect_credentials, item_not_found, password_changed_recently } from '@common/constants';
 import { IEmployeesService } from '../interfaces/services/employees.service.interface';
 import { PaginatedResponse } from '@common/types';
 import { IEmployeeRepository } from '../interfaces/repositories/employee.repository.interface';
@@ -40,22 +30,14 @@ export class EmployeesService implements IEmployeesService {
 
   async login(dto: LoginEmployeeDto): Promise<AuthEmployeeResponse> {
     const employee = await this.employeeRepository.findOneByPhone(dto.phone);
-    if (
-      !employee ||
-      !(await employee.verifyHash(employee.password, dto.password))
-    ) {
+    if (!employee || !(await employee.verifyHash(employee.password, dto.password))) {
       throw new UnauthorizedException(incorrect_credentials);
     }
-    const token = await this.jwtTokenService.signToken(
-      employee.id,
-      Entities.Employee,
-    );
+    const token = await this.jwtTokenService.signToken(employee.id, Entities.Employee);
     return { token, employee };
   }
 
-  async find(
-    withDeleted: boolean,
-  ): Promise<Employee[] | PaginatedResponse<Employee>> {
+  async find(withDeleted: boolean): Promise<Employee[] | PaginatedResponse<Employee>> {
     return this.employeeRepository.find(withDeleted);
   }
 
@@ -70,10 +52,8 @@ export class EmployeesService implements IEmployeesService {
   async create(dto: CreateEmployeeDto): Promise<Employee> {
     const role = await this.rolesService.findByName(ROLE.EMPLOYEE);
     let photo;
-    if (dto.photo)
-      photo = await this.employeePhotoRepository.uploadPhoto(dto.photo);
-    else
-      photo = await this.employeePhotoRepository.uploadPhoto(defaultPhotoUrl);
+    if (dto.photo) photo = await this.employeePhotoRepository.uploadPhoto(dto.photo);
+    else photo = await this.employeePhotoRepository.uploadPhoto(defaultPhotoUrl);
 
     return this.employeeRepository.create(dto, photo, role);
   }

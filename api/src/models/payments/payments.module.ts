@@ -19,12 +19,7 @@ export const PaymentsServiceProvider: Provider = {
 @Module({
   imports: [TypeOrmModule.forFeature([Payment])],
   controllers: [PaymentsController],
-  providers: [
-    PaymentsService,
-    PaymentRepository,
-    PaymentRepositoryProvider,
-    PaymentsServiceProvider,
-  ],
+  providers: [PaymentsService, PaymentRepository, PaymentRepositoryProvider, PaymentsServiceProvider],
   exports: [PaymentRepositoryProvider, PaymentsServiceProvider],
 })
 export class PaymentsModule {}

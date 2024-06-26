@@ -88,12 +88,7 @@ export class CarRepository implements ICarRepository {
     });
   }
 
-  async create(
-    driver: Driver,
-    photo: CarPhoto,
-    advantages: Advantage[],
-    dto: CreateCarDto,
-  ): Promise<Car> {
+  async create(driver: Driver, photo: CarPhoto, advantages: Advantage[], dto: CreateCarDto): Promise<Car> {
     const car = new Car();
     car.model = dto.model;
     car.brand = dto.brand;
@@ -129,9 +124,7 @@ export class CarRepository implements ICarRepository {
   }
 
   async countCar(): Promise<number> {
-    const carCount = await this.carRepository
-      .createQueryBuilder('car')
-      .getCount();
+    const carCount = await this.carRepository.createQueryBuilder('car').getCount();
     return carCount;
   }
   async countCarAdvantage(advantage: string): Promise<number> {
@@ -144,18 +137,10 @@ export class CarRepository implements ICarRepository {
   }
 
   async addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void> {
-    await this.carRepository
-      .createQueryBuilder()
-      .relation(Car, 'advantages')
-      .of(car)
-      .add(advantages);
+    await this.carRepository.createQueryBuilder().relation(Car, 'advantages').of(car).add(advantages);
   }
 
   async removeAdvantageFromCar(car: Car, advantage: Advantage): Promise<void> {
-    await this.carRepository
-      .createQueryBuilder()
-      .relation(Car, 'advantages')
-      .of(car)
-      .remove(advantage);
+    await this.carRepository.createQueryBuilder().relation(Car, 'advantages').of(car).remove(advantage);
   }
 }

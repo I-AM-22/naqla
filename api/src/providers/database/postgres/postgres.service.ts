@@ -28,9 +28,7 @@ export class PostgresService implements TypeOrmOptionsFactory {
     }
 
     const type: DataSourceOptions['type'] = 'postgres';
-    const entities: DataSourceOptions['entities'] = [
-      __dirname + '/../../../models/**/entities/*.entity.{js,ts}',
-    ];
+    const entities: DataSourceOptions['entities'] = [__dirname + '/../../../models/**/entities/*.entity.{js,ts}'];
 
     return {
       type,

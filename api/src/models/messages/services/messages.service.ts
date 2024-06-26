@@ -1,12 +1,7 @@
 import { IMessageRepository } from '../interfaces/repositories/message.repository.interface';
 import { MESSAGE_TYPES } from '../interfaces/type';
 import { IMessagesService } from '../interfaces/services/messages.service.interface';
-import {
-  Injectable,
-  Inject,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, Inject, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import { UpdateMessageDto } from '../dto/update-message.dto';
 import { Message } from '../entities/message.entity';
@@ -38,11 +33,7 @@ export class MessagesService implements IMessagesService {
   ): Promise<PaginatedResponse<Message>> {
     await this.subOrdersService.findByIdForMessage(subOrderId, person);
 
-    return await this.messageRepository.findForSubOrder(
-      subOrderId,
-      page,
-      limit,
-    );
+    return await this.messageRepository.findForSubOrder(subOrderId, page, limit);
   }
 
   async findOne(id: string): Promise<Message> {
@@ -54,10 +45,7 @@ export class MessagesService implements IMessagesService {
   }
 
   async create(dto: CreateMessageDto, person: IPerson): Promise<Message> {
-    if (
-      (dto.isUser && person.role.name !== ROLE.USER) ||
-      (!dto.isUser && person.role.name !== ROLE.DRIVER)
-    ) {
+    if ((dto.isUser && person.role.name !== ROLE.USER) || (!dto.isUser && person.role.name !== ROLE.DRIVER)) {
       throw new BadRequestException(
         `When isUser is ${dto.isUser} the logged in user must be ${dto.isUser ? ROLE.USER : ROLE.DRIVER}`,
       );

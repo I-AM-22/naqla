@@ -23,21 +23,13 @@ export class BaseAuthRepo<Entity> {
       .leftJoin('role.permissions', 'permissions')
       .leftJoinAndSelect('entity.photos', 'photos');
 
-    if (
-      this.repository.metadata.name === Entities.User ||
-      this.repository.metadata.name === Entities.Driver
-    ) {
+    if (this.repository.metadata.name === Entities.User || this.repository.metadata.name === Entities.Driver) {
       qb.where('entity.id = :id AND entity.active = :active', {
         id,
         active: true,
       });
       qb.leftJoin('entity.wallet', 'wallet');
-      qb.addSelect([
-        'wallet.id',
-        'wallet.total',
-        'wallet.pending',
-        'entity.active',
-      ]);
+      qb.addSelect(['wallet.id', 'wallet.total', 'wallet.pending', 'entity.active']);
     } else {
       qb.where('entity.id = :id', { id });
       qb.addSelect(['entity.passwordChangedAt']);
@@ -68,10 +60,7 @@ export class BaseAuthRepo<Entity> {
       .leftJoin('role.permissions', 'permissions')
       .leftJoinAndSelect('entity.photos', 'photos');
 
-    if (
-      this.repository.metadata.name === Entities.User ||
-      this.repository.metadata.name === Entities.Driver
-    ) {
+    if (this.repository.metadata.name === Entities.User || this.repository.metadata.name === Entities.Driver) {
       qb.leftJoin('entity.wallet', 'wallet');
       qb.addSelect([
         'wallet.id',
@@ -113,17 +102,9 @@ export class BaseAuthRepo<Entity> {
       .leftJoin('role.permissions', 'permissions')
       .leftJoinAndSelect('entity.photos', 'photos');
 
-    if (
-      this.repository.metadata.name === Entities.User ||
-      this.repository.metadata.name === Entities.Driver
-    ) {
+    if (this.repository.metadata.name === Entities.User || this.repository.metadata.name === Entities.Driver) {
       qb.leftJoin('entity.wallet', 'wallet');
-      qb.addSelect([
-        'wallet.id',
-        'wallet.total',
-        'wallet.pending',
-        'entity.active',
-      ]);
+      qb.addSelect(['wallet.id', 'wallet.total', 'wallet.pending', 'entity.active']);
     } else {
       qb.addSelect(['entity.passwordChangedAt', 'entity.password']);
     }

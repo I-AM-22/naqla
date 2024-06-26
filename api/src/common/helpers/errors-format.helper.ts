@@ -1,12 +1,8 @@
 import { BadRequestException } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
-import { AppError } from '../types';
+import { ValidationErrorType } from '../types';
 
-function consOrChild(
-  error: ValidationError,
-  formattedErrors: AppError[],
-  father?: string[],
-) {
+function consOrChild(error: ValidationError, formattedErrors: ValidationErrorType[], father?: string[]) {
   const { property, constraints, children } = error;
   if (constraints) {
     for (const key in constraints) {

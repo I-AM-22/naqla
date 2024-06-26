@@ -1,22 +1,7 @@
-import { bad_req, data_not_found, denied_error } from '@common/constants';
-import { Auth, GetUser } from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, GetUser } from '@common/decorators';
 import { LoggingInterceptor } from '@common/interceptors';
-import {
-  Controller,
-  Get,
-  Inject,
-  Param,
-  Query,
-  UseInterceptors,
-} from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiQuery,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Controller, Get, Inject, Param, Query, UseInterceptors } from '@nestjs/common';
+import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { MESSAGE_TYPES } from '../interfaces/type';
 import { IMessagesService } from '../interfaces/services/messages.service.interface';
 import { PaginatedResponse } from '@common/types';
@@ -24,9 +9,7 @@ import { Message } from '../entities/message.entity';
 import { IPerson } from '@common/interfaces';
 
 @ApiTags('Messages')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @UseInterceptors(new LoggingInterceptor())
 @Auth()
 @Controller({ path: 'suborders/:id/messages', version: '1' })
@@ -56,11 +39,6 @@ export class SubOrdersMessagesController {
     @Query('limit') limit: number,
     @GetUser() person: IPerson,
   ) {
-    return this.messagesService.findForSubOrder(
-      subOrderId,
-      person,
-      page,
-      limit,
-    );
+    return this.messagesService.findForSubOrder(subOrderId, person, page, limit);
   }
 }

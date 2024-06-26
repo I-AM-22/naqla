@@ -11,9 +11,7 @@ import { PaginatedResponse } from '@common/types';
 
 @Injectable()
 export class CitiesService implements ICitiesService {
-  constructor(
-    @Inject(CITY_TYPES.repository) private cityRepository: ICityRepository,
-  ) {}
+  constructor(@Inject(CITY_TYPES.repository) private cityRepository: ICityRepository) {}
   async create(dto: CreateCityDto) {
     const city = this.cityRepository.create(dto);
     return city;
@@ -21,8 +19,7 @@ export class CitiesService implements ICitiesService {
 
   async find(ids?: string[]): Promise<PaginatedResponse<City> | City[]> {
     const cities = await this.cityRepository.find(ids);
-    if (ids && ids.length !== cities.length)
-      throw new NotFoundException('some of cities not found');
+    if (ids && ids.length !== cities.length) throw new NotFoundException('some of cities not found');
 
     return cities;
   }

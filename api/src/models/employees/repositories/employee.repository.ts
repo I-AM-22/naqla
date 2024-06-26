@@ -12,10 +12,7 @@ import { EmployeePhoto } from '../entities/employee-photo.entity';
 import { IPhotoRepository } from '@common/interfaces';
 
 @Injectable()
-export class EmployeeRepository
-  extends BaseAuthRepo<Employee>
-  implements IEmployeeRepository
-{
+export class EmployeeRepository extends BaseAuthRepo<Employee> implements IEmployeeRepository {
   constructor(
     @InjectRepository(Employee)
     private readonly employeeRepo: Repository<Employee>,
@@ -43,11 +40,7 @@ export class EmployeeRepository
     });
   }
 
-  async update(
-    employee: Employee,
-    dto: UpdateEmployeeDto,
-    photo?: EmployeePhoto,
-  ): Promise<Employee> {
+  async update(employee: Employee, dto: UpdateEmployeeDto, photo?: EmployeePhoto): Promise<Employee> {
     if (photo) employee.photos.push(photo);
     Object.assign<Employee, any>(employee, {
       phone: dto.phone,

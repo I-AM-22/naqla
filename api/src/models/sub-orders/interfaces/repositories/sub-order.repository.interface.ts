@@ -7,11 +7,7 @@ import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 
 export interface ISubOrderRepository {
   find(): Promise<SubOrder[]>;
-  findChats(
-    personId: string,
-    page: number,
-    limit: number,
-  ): Promise<PaginatedResponse<SubOrder>>;
+  findChats(personId: string, page: number, limit: number): Promise<PaginatedResponse<SubOrder>>;
   findForOrder(orderId: string): Promise<SubOrder[]>;
   findForDriver(cars: Car[]): Promise<SubOrder[]>;
   findAllActiveForDriver(driverId: string): Promise<SubOrder[]>;
@@ -24,11 +20,7 @@ export interface ISubOrderRepository {
   countSubOrdersCompleted(): Promise<number>;
   countSubOrdersActive(): Promise<number>;
   responseTime(): Promise<ResponseTime>;
-  create(
-    orderId: string,
-    dto: CreateSubOrderDto,
-    cost: number,
-  ): Promise<SubOrder>;
+  create(orderId: string, dto: CreateSubOrderDto, cost: number): Promise<SubOrder>;
   update(subOrder: SubOrder, dto: UpdateSubOrderDto): Promise<SubOrder>;
   refusedForOrder(orderId: string): Promise<void>;
   setArrivedAt(subOrder: SubOrder): Promise<SubOrder>;

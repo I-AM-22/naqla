@@ -9,10 +9,7 @@ import { PostgresService } from './postgres/postgres.service';
   imports: [
     TypeOrmModule.forRootAsync({
       useClass: PostgresService,
-      imports: [
-        ConfigModule.forFeature(PostgresConfig),
-        ConfigModule.forFeature(AppConfig),
-      ],
+      imports: [ConfigModule.forFeature(PostgresConfig), ConfigModule.forFeature(AppConfig)],
     }),
   ],
 })

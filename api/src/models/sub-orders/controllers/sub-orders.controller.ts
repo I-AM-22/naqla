@@ -1,5 +1,4 @@
-import { bad_req, data_not_found, denied_error } from '@common/constants';
-import { Auth, GetUser, Id, Roles } from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, GetUser, Id, Roles } from '@common/decorators';
 import { ROLE } from '@common/enums';
 import { LoggingInterceptor } from '@common/interceptors';
 import { Order } from '@models/orders/entities/order.entity';
@@ -14,15 +13,7 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiCreatedResponse,
-  ApiForbiddenResponse,
-  ApiNoContentResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CreateSubOrdersDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
@@ -35,9 +26,7 @@ import { ApiQuery } from '@nestjs/swagger';
 import { PaginatedResponse } from '@common/types';
 
 @ApiTags('SubOrders')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @Auth()
 @UseInterceptors(new LoggingInterceptor())
 @Controller({ path: 'sub-orders', version: '1' })
@@ -70,18 +59,14 @@ export class SubOrdersController {
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: SubOrder, isArray: true })
   @Get('active-driver')
-  async findAllActiveForDriver(
-    @GetUser('id') driverId: string,
-  ): Promise<SubOrder[]> {
+  async findAllActiveForDriver(@GetUser('id') driverId: string): Promise<SubOrder[]> {
     return this.subOrdersService.findAllActiveForDriver(driverId);
   }
 
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ isArray: true, type: SubOrder })
   @Get('done-driver')
-  async findIsDoneForDriver(
-    @GetUser('id') driverId: string,
-  ): Promise<SubOrder[]> {
+  async findIsDoneForDriver(@GetUser('id') driverId: string): Promise<SubOrder[]> {
     return await this.subOrdersService.findIsDoneForDriver(driverId);
   }
 
@@ -100,11 +85,7 @@ export class SubOrdersController {
     required: false,
   })
   @Get('chats')
-  async findChats(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @GetUser() person: IPerson,
-  ) {
+  async findChats(@Query('page') page: number, @Query('limit') limit: number, @GetUser() person: IPerson) {
     return await this.subOrdersService.findChats(person, page, limit);
   }
 
@@ -119,10 +100,7 @@ export class SubOrdersController {
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: SubOrder })
   @Patch(':id')
-  async update(
-    @Id() id: string,
-    @Body() dto: UpdateSubOrderDto,
-  ): Promise<SubOrder> {
+  async update(@Id() id: string, @Body() dto: UpdateSubOrderDto): Promise<SubOrder> {
     return await this.subOrdersService.update(id, dto);
   }
 
@@ -150,10 +128,7 @@ export class SubOrdersController {
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: SubOrder })
   @Patch(':id/setDriver')
-  async setDriver(
-    @Id() id: string,
-    @Body() dto: SetDriverSubOrderDto,
-  ): Promise<SubOrder> {
+  async setDriver(@Id() id: string, @Body() dto: SetDriverSubOrderDto): Promise<SubOrder> {
     return await this.subOrdersService.setDriver(id, dto.carId);
   }
 

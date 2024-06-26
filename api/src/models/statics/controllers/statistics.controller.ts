@@ -1,14 +1,7 @@
-import { bad_req, data_not_found, denied_error } from '@common/constants';
-import { Auth, Roles } from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, Roles } from '@common/decorators';
 import { ROLE } from '@common/enums';
 import { Controller, Get, Param } from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AdvantageSuper } from '../responses/AdvantageSuper';
 import { Numerical } from '../responses/Numerical';
 import { OrderStatsDate } from '../responses/OrderStatsDate';
@@ -17,9 +10,7 @@ import { StaticProfits } from '../responses/StaticProfits';
 import { StatisticsService } from '../services/statistics.service';
 
 @ApiTags('Statistics')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @Auth()
 @Controller({ path: 'statistics', version: '1' })
 export class StatisticsController {
@@ -41,20 +32,14 @@ export class StatisticsController {
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: OrderStatsDate })
   @Get('order/:first_date/:second_date')
-  findForDate(
-    @Param('first_date') first: string,
-    @Param('second_date') second: string,
-  ) {
+  findForDate(@Param('first_date') first: string, @Param('second_date') second: string) {
     return this.staticsService.staticsOrdersForDate(first, second);
   }
 
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: StaticProfits })
   @Get('profits/:first_date/:second_date')
-  profits(
-    @Param('first_date') first: string,
-    @Param('second_date') second: string,
-  ) {
+  profits(@Param('first_date') first: string, @Param('second_date') second: string) {
     return this.staticsService.staticProfits(first, second);
   }
 

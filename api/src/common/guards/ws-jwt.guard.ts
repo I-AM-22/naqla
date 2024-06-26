@@ -1,10 +1,4 @@
-import {
-  Injectable,
-  ExecutionContext,
-  Inject,
-  CanActivate,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, ExecutionContext, Inject, CanActivate, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators';
 import { JwtService } from '@nestjs/jwt';
@@ -56,9 +50,7 @@ export class WsJwtGuard implements CanActivate {
         client.user = (await this.usersService.findOne(decode.sub)) as IPerson;
         return true;
       } else if (decode.entity === Entities.Driver) {
-        client.user = (await this.driversService.findOne(
-          decode.sub,
-        )) as IPerson;
+        client.user = (await this.driversService.findOne(decode.sub)) as IPerson;
         return true;
       }
       throw new UnauthorizedException('The user not here');

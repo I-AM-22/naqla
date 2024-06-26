@@ -1,29 +1,14 @@
-import {
-  Controller,
-  ParseFilePipe,
-  Post,
-  Req,
-  UploadedFile,
-  UploadedFiles,
-  UseInterceptors,
-} from '@nestjs/common';
-import {
-  FileFieldsInterceptor,
-  FileInterceptor,
-} from '@nestjs/platform-express';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Controller, ParseFilePipe, Post, Req, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { SharpPipe } from '@common/pipes';
 import { PhotosService } from './photos.service';
+import { ApiMainErrorsResponse, Auth } from '@common/decorators';
 
 @ApiTags('Photos')
-@ApiBearerAuth('token')
+@Auth()
+@ApiMainErrorsResponse()
 @Controller({ path: 'photos', version: '1' })
 export class PhotosController {
   constructor(private photosService: PhotosService) {}

@@ -24,8 +24,7 @@ export class PermissionsService implements IPermissionsService {
 
   async findOne(id: string, withDeleted?: boolean): Promise<Permission> {
     const permission = await this.permissionRepository.findOne(id, withDeleted);
-    if (!permission)
-      throw new NotFoundException(item_not_found(Entities.Permission));
+    if (!permission) throw new NotFoundException(item_not_found(Entities.Permission));
     return permission;
   }
 }

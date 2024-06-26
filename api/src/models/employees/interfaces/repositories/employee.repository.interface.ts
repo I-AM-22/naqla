@@ -10,17 +10,9 @@ export interface IEmployeeRepository {
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Employee>;
 
-  create(
-    dto: CreateEmployeeDto,
-    photo: EmployeePhoto,
-    role: Role,
-  ): Promise<Employee>;
+  create(dto: CreateEmployeeDto, photo: EmployeePhoto, role: Role): Promise<Employee>;
 
-  update(
-    employee: Employee,
-    dto: UpdateEmployeeDto,
-    photo: EmployeePhoto,
-  ): Promise<Employee>;
+  update(employee: Employee, dto: UpdateEmployeeDto, photo: EmployeePhoto): Promise<Employee>;
   // recover(employee: Employee): Promise<Employee>;
 
   delete(employee: Employee): Promise<void>;

@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  Length,
-  Matches,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, Length, Matches } from 'class-validator';
 import { IsPhotoExist, IsUnique } from '@common/decorators';
 import { Entities } from '@common/enums';
 import { item_already_exist, item_not_found } from '@common/constants';

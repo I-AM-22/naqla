@@ -32,15 +32,7 @@ export const MessageRepositoryProvider: Provider = {
     TypeOrmModule.forFeature([Message]),
     ConfigModule.forFeature(JwtConfig),
   ],
-  controllers: [
-    MessagesController,
-    SubOrdersMessagesController,
-    WebSocketDocsController,
-  ],
-  providers: [
-    MessageRepositoryProvider,
-    MessagesServiceProvider,
-    MessageGateway,
-  ],
+  controllers: [MessagesController, SubOrdersMessagesController, WebSocketDocsController],
+  providers: [MessageRepositoryProvider, MessagesServiceProvider, MessageGateway],
 })
 export class MessagesModule {}

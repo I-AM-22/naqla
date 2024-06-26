@@ -9,40 +9,24 @@ import {
   Patch,
   Query,
   Ip,
-  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiCreatedResponse,
   ApiOperation,
   ApiOkResponse,
-  ApiBearerAuth,
   ApiQuery,
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { GetUser, Public, Roles } from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, GetUser, Public, Roles } from '@common/decorators';
 import { GROUPS, ROLE } from '@common/enums';
-import {
-  SignUpDriverDto,
-  LoginDriverDto,
-  ConfirmDriverDto,
-  UpdateDriverPhoneDto,
-} from '../dtos';
+import { SignUpDriverDto, LoginDriverDto, ConfirmDriverDto, UpdateDriverPhoneDto } from '../dtos';
 import { AUTH_DRIVER_TYPES, AuthDriverResponse } from '../interfaces';
-import {
-  bad_req,
-  confirmMessage,
-  data_not_found,
-  denied_error,
-} from '@common/constants';
+import { confirmMessage } from '@common/constants';
 import { Driver } from '@models/drivers/entities/driver.entity';
 import { item_already_exist } from '@common/constants';
 import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
 import { SendConfirm } from '@common/types';
-import { RolesGuard } from '@common/guards';
 
 /**
  * @ngdoc controller
@@ -52,12 +36,9 @@ import { RolesGuard } from '@common/guards';
  * My controller description.
  */
 @ApiTags('Auth-Driver')
-@ApiBearerAuth('token')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@Auth()
+@ApiMainErrorsResponse()
 @ApiUnprocessableEntityResponse({ description: item_already_exist('mobile') })
-@UseGuards(RolesGuard)
 @Controller({ path: 'auth/driver', version: '1' })
 export class AuthDriverController {
   constructor(

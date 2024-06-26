@@ -9,10 +9,7 @@ import { Entities } from '@common/enums';
 import { strategies } from '@common/constants/jwt.constant';
 
 @Injectable()
-export class JwtUserStrategy extends PassportStrategy(
-  Strategy,
-  strategies.user,
-) {
+export class JwtUserStrategy extends PassportStrategy(Strategy, strategies.user) {
   constructor(
     config: ConfigService,
     @Inject(AUTH_TYPES.service) private authUserService: IAuthUserService,

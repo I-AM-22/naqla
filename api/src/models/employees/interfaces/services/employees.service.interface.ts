@@ -1,9 +1,5 @@
 import { PaginatedResponse } from '../../../../common/types';
-import {
-  CreateEmployeeDto,
-  LoginEmployeeDto,
-  UpdateEmployeeDto,
-} from '../../dtos';
+import { CreateEmployeeDto, LoginEmployeeDto, UpdateEmployeeDto } from '../../dtos';
 import { Employee } from '../../entities/employee.entity';
 import { AuthEmployeeResponse } from '../auth-employee.interface';
 

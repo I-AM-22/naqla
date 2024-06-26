@@ -12,23 +12,10 @@ import {
   SerializeOptions,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNoContentResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiQuery,
-  ApiTags,
-} from '@nestjs/swagger';
-
-import { bad_req, data_not_found, denied_error } from '@common/constants';
-import { Auth, CheckAbilities, GetUser, Id, Roles } from '@common/decorators';
+import { ApiNoContentResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiMainErrorsResponse, Auth, CheckAbilities, GetUser, Id, Roles } from '@common/decorators';
 import { Action, Entities, GROUPS, ROLE } from '@common/enums';
-import {
-  LoggingInterceptor,
-  WithDeletedInterceptor,
-} from '@common/interceptors';
+import { LoggingInterceptor, WithDeletedInterceptor } from '@common/interceptors';
 import { PaginatedResponse } from '@common/types';
 import { Request } from 'express';
 import { UpdateDriverDto } from '../dtos';
@@ -41,9 +28,7 @@ import { DriverWalletRepository } from '../repositories/driver/driver-wallet.rep
 import { StaticsDriver } from '../interfaces/statics-driver';
 
 @ApiTags('Drivers')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @UseInterceptors(new LoggingInterceptor())
 @Auth()
 @Controller({ path: 'drivers', version: '1' })

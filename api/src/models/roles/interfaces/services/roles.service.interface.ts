@@ -3,11 +3,7 @@ import { Role } from '../../entities/role.entity';
 
 export interface IRolesService {
   find(): Promise<Role[]>;
-  findOne(
-    id: string,
-    withDeleted?: boolean,
-    relations?: string[],
-  ): Promise<Role>;
+  findOne(id: string, withDeleted?: boolean, relations?: string[]): Promise<Role>;
 
   findByName(name: string);
   create(dto: CreateRoleDto): Promise<Role>;

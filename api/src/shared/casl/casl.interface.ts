@@ -14,13 +14,7 @@ export interface RequiredRole {
 }
 export type Subjects =
   | InferSubjects<
-      | typeof Admin
-      | typeof City
-      | typeof Employee
-      | typeof Permission
-      | typeof Role
-      | typeof User
-      | typeof Driver
+      typeof Admin | typeof City | typeof Employee | typeof Permission | typeof Role | typeof User | typeof Driver
     >
   | Entities
   | 'all';

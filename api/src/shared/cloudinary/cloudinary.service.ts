@@ -31,10 +31,7 @@ export class CloudinaryService {
     return result;
   }
 
-  async FormatPhoto(
-    result: cloudinary.UploadApiResponse,
-    blurHash: string,
-  ): Promise<IPhoto> {
+  async FormatPhoto(result: cloudinary.UploadApiResponse, blurHash: string): Promise<IPhoto> {
     const mobileUrl = cloudinary.v2.url(result.public_id, {
       secure: true,
       transformation: ['mobile'],
@@ -63,9 +60,7 @@ export class CloudinaryService {
   async uploadMultiplePhotos(paths: string[]) {
     const blurHashs = await createBlurHashs(paths);
     const results = await Promise.all(paths.map((e) => this.uploadPhoto(e)));
-    return Promise.all(
-      results.map((e, i) => this.FormatPhoto(e, blurHashs[i])),
-    );
+    return Promise.all(results.map((e, i) => this.FormatPhoto(e, blurHashs[i])));
   }
   async removePhoto(publicId: string) {
     return await cloudinary.v2.uploader.destroy(publicId, {
@@ -74,8 +69,6 @@ export class CloudinaryService {
   }
 
   async removeMultiplePhotos(publicIds: string[]) {
-    return await Promise.all(
-      publicIds.map(async (p) => await this.removePhoto(p)),
-    );
+    return await Promise.all(publicIds.map(async (p) => await this.removePhoto(p)));
   }
 }

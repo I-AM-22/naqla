@@ -22,14 +22,6 @@ export interface IOrdersService {
   divisionDone(id: string, cost: number): Promise<Order>;
   refusal(id: string): Promise<Order>;
   delete(id: string): Promise<void>;
-  addAdvantagesToOrder(
-    id: string,
-    createAdvantageDto: AddAdvansToOrderDto,
-    user: User,
-  ): Promise<void>;
-  removeAdvantagesFromOrder(
-    id: string,
-    advantageId: string,
-    user: User,
-  ): Promise<void>;
+  addAdvantagesToOrder(id: string, createAdvantageDto: AddAdvansToOrderDto, user: User): Promise<void>;
+  removeAdvantagesFromOrder(id: string, advantageId: string, user: User): Promise<void>;
 }

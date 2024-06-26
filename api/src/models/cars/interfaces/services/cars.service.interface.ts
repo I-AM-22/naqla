@@ -12,15 +12,7 @@ export interface ICarsService {
   create(driver: Driver, dto: CreateCarDto): Promise<Car>;
   update(id: string, driverId: string, dto: UpdateCarDto): Promise<Car>;
   delete(id: string, driverId: string): Promise<void>;
-  addAdvantagesToCar(
-    id: string,
-    createAdvantageDto: AddAdvansToCarDto,
-    driver: Driver,
-  ): Promise<void>;
+  addAdvantagesToCar(id: string, createAdvantageDto: AddAdvansToCarDto, driver: Driver): Promise<void>;
   countCarForDriver(driverId: string): Promise<number>;
-  removeAdvantagesFromCar(
-    id: string,
-    advantageId: string,
-    driver: Driver,
-  ): Promise<void>;
+  removeAdvantagesFromCar(id: string, advantageId: string, driver: Driver): Promise<void>;
 }

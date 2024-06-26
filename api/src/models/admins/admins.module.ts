@@ -26,16 +26,7 @@ export const AdminPhotoRepositoryProvider: Provider = {
 @Module({
   imports: [TypeOrmModule.forFeature([Admin, AdminPhoto]), RolesModule],
   controllers: [AdminsController],
-  providers: [
-    AdminsServiceProvider,
-    AdminRepositoryProvider,
-    AdminPhotoRepositoryProvider,
-    JwtAdminStrategy,
-  ],
-  exports: [
-    AdminsServiceProvider,
-    AdminRepositoryProvider,
-    AdminPhotoRepositoryProvider,
-  ],
+  providers: [AdminsServiceProvider, AdminRepositoryProvider, AdminPhotoRepositoryProvider, JwtAdminStrategy],
+  exports: [AdminsServiceProvider, AdminRepositoryProvider, AdminPhotoRepositoryProvider],
 })
 export class AdminsModule {}

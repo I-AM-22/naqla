@@ -7,16 +7,8 @@ import { DriverWallet } from '../../entities/driver-wallet.entity';
 import { Driver } from '../../entities/driver.entity';
 
 export interface IDriverRepository {
-  find(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<Driver> | Driver[]>;
-  staticsDriver(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<Driver>>;
+  find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver> | Driver[]>;
+  staticsDriver(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver>>;
   findById(id: string, withDeleted?: boolean): Promise<Driver>;
 
   findOneByPhone(phone: string, withDeleted?: boolean): Promise<Driver>;
@@ -27,20 +19,11 @@ export interface IDriverRepository {
 
   countDriver(): Promise<number>;
 
-  create(
-    dto: CreateDriverDto,
-    wallet: DriverWallet,
-    photo: DriverPhoto,
-    role: Role,
-  ): Promise<Driver>;
+  create(dto: CreateDriverDto, wallet: DriverWallet, photo: DriverPhoto, role: Role): Promise<Driver>;
 
   confirm(nonConfirmedDriver: Driver): Promise<Driver>;
 
-  update(
-    driver: Driver,
-    dto: UpdateDriverDto,
-    photo: DriverPhoto,
-  ): Promise<Driver>;
+  update(driver: Driver, dto: UpdateDriverDto, photo: DriverPhoto): Promise<Driver>;
 
   updatePhone(driver: Driver, dto: UpdateDriverPhoneDto): Promise<Driver>;
 

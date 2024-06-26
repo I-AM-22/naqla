@@ -1,12 +1,4 @@
-import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNoContentResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiNoContentResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Employee } from '../entities/employee.entity';
 import {
   Body,
@@ -22,25 +14,18 @@ import {
   SerializeOptions,
   UseInterceptors,
 } from '@nestjs/common';
-import { Public, CheckAbilities, Id, Auth } from '@common/decorators';
+import { Public, CheckAbilities, Id, Auth, ApiMainErrorsResponse } from '@common/decorators';
 import { GROUPS, Entities, Action } from '@common/enums';
-import {
-  CreateEmployeeDto,
-  LoginEmployeeDto,
-  UpdateEmployeeDto,
-} from '../dtos';
+import { CreateEmployeeDto, LoginEmployeeDto, UpdateEmployeeDto } from '../dtos';
 import { ICrud } from '@common/interfaces';
 import { AuthEmployeeResponse } from '../interfaces';
-import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { WithDeletedInterceptor } from '@common/interceptors';
 import { Request } from 'express';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { IEmployeesService } from '../interfaces/services/employees.service.interface';
 
 @ApiTags('Employees')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @Auth()
 @Controller({ path: 'employees', version: '1' })
 export class EmployeesController implements ICrud<Employee> {

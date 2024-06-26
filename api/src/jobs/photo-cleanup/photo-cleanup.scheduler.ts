@@ -12,10 +12,7 @@ export class PhotoCleanupScheduler {
       await this.imageCleanupService.deletePhotosOlderThanDays();
       Logger.log(`Photo cleanup completed for 1 days.`, 'PhotoCleanupService');
     } catch (error) {
-      Logger.error(
-        `Error occurred during file cleanup: ${error}`,
-        'PhotoCleanupService',
-      );
+      Logger.error(`Error occurred during file cleanup: ${error}`, 'PhotoCleanupService');
     }
   }
 }

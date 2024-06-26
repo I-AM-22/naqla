@@ -169,12 +169,7 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async create(
-    user: User,
-    photos: OrderPhoto[],
-    advantages: Advantage[],
-    dto: CreateOrderDto,
-  ): Promise<Order> {
+  async create(user: User, photos: OrderPhoto[], advantages: Advantage[], dto: CreateOrderDto): Promise<Order> {
     const order = this.orderRepository.create({ photos: [] });
     order.desiredDate = dto.desiredDate;
     order.locationStart = dto.locationStart;
@@ -186,11 +181,7 @@ export class OrderRepository implements IOrderRepository {
     return this.orderRepository.save(order);
   }
 
-  async update(
-    order: Order,
-    dto: UpdateOrderDto,
-    photos: OrderPhoto[],
-  ): Promise<Order> {
+  async update(order: Order, dto: UpdateOrderDto, photos: OrderPhoto[]): Promise<Order> {
     order.desiredDate = dto.desiredDate;
     order.locationStart = dto.locationStart;
     order.locationEnd = dto.locationEnd;
@@ -221,22 +212,13 @@ export class OrderRepository implements IOrderRepository {
     return completeOrderCount;
   }
 
-  async staticsOrdersForDate(
-    startDate: string,
-    endDate: string,
-  ): Promise<OrderStatsDate[]> {
+  async staticsOrdersForDate(startDate: string, endDate: string): Promise<OrderStatsDate[]> {
     return this.orderRepository
       .createQueryBuilder('order')
       .select('DATE(order.createdAt)', 'day')
-      .addSelect(
-        "COUNT(CASE WHEN order.status = 'delivered' THEN 1 END)",
-        'completedOrders',
-      )
+      .addSelect("COUNT(CASE WHEN order.status = 'delivered' THEN 1 END)", 'completedOrders')
       .addSelect('COUNT(id)', 'AllOrders')
-      .addSelect(
-        "COUNT(CASE WHEN order.status = 'refused' THEN 1 END)",
-        'refusedOrders',
-      )
+      .addSelect("COUNT(CASE WHEN order.status = 'refused' THEN 1 END)", 'refusedOrders')
       .where('order.createdAt BETWEEN :startDate AND :endDate', {
         startDate,
         endDate,
@@ -245,10 +227,7 @@ export class OrderRepository implements IOrderRepository {
       .getRawMany<OrderStatsDate>();
   }
 
-  async staticProfits(
-    startDate: string,
-    endDate: string,
-  ): Promise<StaticProfits[]> {
+  async staticProfits(startDate: string, endDate: string): Promise<StaticProfits[]> {
     const rawData = await this.orderRepository
       .createQueryBuilder('order')
       .leftJoinAndSelect('order.payment', 'payment')
@@ -312,25 +291,11 @@ export class OrderRepository implements IOrderRepository {
     return count;
   }
 
-  async addAdvantageToOrder(
-    order: Order,
-    advantages: Advantage[],
-  ): Promise<void> {
-    await this.orderRepository
-      .createQueryBuilder()
-      .relation(Order, 'advantages')
-      .of(order)
-      .add(advantages);
+  async addAdvantageToOrder(order: Order, advantages: Advantage[]): Promise<void> {
+    await this.orderRepository.createQueryBuilder().relation(Order, 'advantages').of(order).add(advantages);
   }
 
-  async removeAdvantageFromOrder(
-    order: Order,
-    advantage: Advantage,
-  ): Promise<void> {
-    await this.orderRepository
-      .createQueryBuilder()
-      .relation(Order, 'advantages')
-      .of(order)
-      .remove(advantage);
+  async removeAdvantageFromOrder(order: Order, advantage: Advantage): Promise<void> {
+    await this.orderRepository.createQueryBuilder().relation(Order, 'advantages').of(order).remove(advantage);
   }
 }

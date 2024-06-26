@@ -10,10 +10,7 @@ export interface IAdvantagesService {
 
   create(createAdvantageDto: CreateAdvantageDto): Promise<Advantage>;
 
-  update(
-    id: string,
-    updateAdvantageDto: UpdateAdvantageDto,
-  ): Promise<Advantage>;
+  update(id: string, updateAdvantageDto: UpdateAdvantageDto): Promise<Advantage>;
 
   disactive(id: string): Promise<void>;
 

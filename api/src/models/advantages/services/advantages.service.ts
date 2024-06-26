@@ -20,15 +20,13 @@ export class AdvantagesService implements IAdvantagesService {
 
   async findInIds(ids: string[]): Promise<Advantage[]> {
     const advantages = await this.advantageRepository.findInIds(ids);
-    if (advantages.length !== ids.length)
-      throw new NotFoundException(item_not_found(Entities.Advantage));
+    if (advantages.length !== ids.length) throw new NotFoundException(item_not_found(Entities.Advantage));
     return advantages;
   }
 
   async findOne(id: string): Promise<Advantage> {
     const advantage = await this.advantageRepository.findById(id);
-    if (!advantage)
-      throw new NotFoundException(item_not_found(Entities.Advantage));
+    if (!advantage) throw new NotFoundException(item_not_found(Entities.Advantage));
     return advantage;
   }
 
@@ -36,10 +34,7 @@ export class AdvantagesService implements IAdvantagesService {
     return this.advantageRepository.create(createAdvantageDto);
   }
 
-  async update(
-    id: string,
-    updateAdvantageDto: UpdateAdvantageDto,
-  ): Promise<Advantage> {
+  async update(id: string, updateAdvantageDto: UpdateAdvantageDto): Promise<Advantage> {
     const advantage = await this.findOne(id);
     return this.advantageRepository.update(advantage, updateAdvantageDto);
   }

@@ -21,11 +21,7 @@ export class CityRepository implements ICityRepository {
     return cities.getMany();
   }
 
-  async findById(
-    id: string,
-    withDeleted?: boolean,
-    relations?: FindOptionsRelations<City>,
-  ): Promise<City> {
+  async findById(id: string, withDeleted?: boolean, relations?: FindOptionsRelations<City>): Promise<City> {
     return this.cityRepo.findOne({
       where: { id },
       withDeleted,

@@ -29,10 +29,7 @@ export class AdvantageRepository implements IAdvantageRepository {
     return this.advantageRepository.save(newAdvantage);
   }
 
-  async update(
-    advantage: Advantage,
-    updateAdvantageDto: UpdateAdvantageDto,
-  ): Promise<Advantage> {
+  async update(advantage: Advantage, updateAdvantageDto: UpdateAdvantageDto): Promise<Advantage> {
     const updatedAdvantage = Object.assign(advantage, updateAdvantageDto);
     await this.advantageRepository.save(updatedAdvantage);
     return this.findById(advantage.id);

@@ -13,21 +13,12 @@ import { DriverWallet } from '../../entities/driver-wallet.entity';
 import { Driver } from '../../entities/driver.entity';
 
 @Injectable()
-export class DriverRepository
-  extends BaseAuthRepo<Driver>
-  implements IDriverRepository
-{
-  constructor(
-    @InjectRepository(Driver) private readonly driverRepo: Repository<Driver>,
-  ) {
+export class DriverRepository extends BaseAuthRepo<Driver> implements IDriverRepository {
+  constructor(@InjectRepository(Driver) private readonly driverRepo: Repository<Driver>) {
     super(driverRepo);
   }
 
-  async find(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<Driver>> {
+  async find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || undefined;
     const data = await this.driverRepo.find({
@@ -44,11 +35,7 @@ export class DriverRepository
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
-  async staticsDriver(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<Driver>> {
+  async staticsDriver(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || 100;
     const data = await this.driverRepo.find({
@@ -66,18 +53,11 @@ export class DriverRepository
   }
 
   async countDriver(): Promise<number> {
-    const driverCount = await this.driverRepo
-      .createQueryBuilder('driver')
-      .getCount();
+    const driverCount = await this.driverRepo.createQueryBuilder('driver').getCount();
     return driverCount;
   }
 
-  async create(
-    dto: CreateDriverDto,
-    wallet: DriverWallet,
-    photo: DriverPhoto,
-    role: Role,
-  ): Promise<Driver> {
+  async create(dto: CreateDriverDto, wallet: DriverWallet, photo: DriverPhoto, role: Role): Promise<Driver> {
     const driver = this.driverRepo.create({
       ...dto,
       role,
@@ -95,20 +75,13 @@ export class DriverRepository
   }
 
   //TODO
-  async updatePhone(
-    driver: Driver,
-    dto: UpdateDriverPhoneDto,
-  ): Promise<Driver> {
+  async updatePhone(driver: Driver, dto: UpdateDriverPhoneDto): Promise<Driver> {
     Object.assign(driver, dto);
     await this.driverRepo.save(driver);
     return this.findById(driver.id);
   }
 
-  async update(
-    driver: Driver,
-    dto: UpdateDriverDto,
-    photo: DriverPhoto,
-  ): Promise<Driver> {
+  async update(driver: Driver, dto: UpdateDriverDto, photo: DriverPhoto): Promise<Driver> {
     driver.photos.push(photo);
     Object.assign(driver, {
       firstName: dto.firstName,

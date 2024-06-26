@@ -35,8 +35,7 @@ export class PaymentRepository implements IPaymentRepository {
 
   async setDeliveredDate(payment: Payment): Promise<Payment> {
     const newDeliveredDate =
-      payment.deliveredDate == null ||
-      payment.deliveredDate.getTime() < Date.now()
+      payment.deliveredDate == null || payment.deliveredDate.getTime() < Date.now()
         ? new Date()
         : payment.deliveredDate;
 

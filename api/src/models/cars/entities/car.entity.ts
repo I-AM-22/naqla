@@ -1,12 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { BasePhoto, GlobalEntity } from '@common/base';
 import { Driver } from '../../drivers/entities/driver.entity';
 import { CarPhoto } from './car-photo.entity';
