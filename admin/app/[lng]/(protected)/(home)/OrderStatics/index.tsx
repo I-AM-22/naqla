@@ -1,5 +1,4 @@
 "use client";
-import { DatePickerRange } from "@/components/ui/date-picker-range";
 import { statisticsControllerFindForDate } from "@/service/api";
 import {
   Bar,
@@ -13,14 +12,22 @@ import {
   YAxis,
 } from "recharts";
 
+import { Calendar } from "@/components/ui/calendar";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { TFunction } from "i18next";
+import { ReactNode, useState } from "react";
 import { DateRange } from "react-day-picker";
 import { useTranslation } from "react-i18next";
-export type OrderStaticsProps = {};
-export function OrderStatics({}: OrderStaticsProps) {
-  const { t, i18n } = useTranslation();
+const labels = (t: TFunction) =>
+  ({
+    completedOrders: t("completedOrders"),
+    AllOrders: t("AllOrders"),
+    refusedOrders: t("refusedOrders"),
+  }) as Record<string, string>;
+export type OrderStaticsProps = { children: ReactNode };
+export function OrderStatics({ children }: OrderStaticsProps) {
+  const { t, i18n } = useTranslation("home");
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: dayjs().set("date", 1).toDate(),
@@ -35,11 +42,20 @@ export function OrderStatics({}: OrderStaticsProps) {
         secondDate: date?.to?.toISOString() ?? new Date().toISOString(),
       }),
   });
-  console.log(ordersQuery.data);
   return (
-    <div className="flex h-[400px] w-[700px] flex-col">
-      <DatePickerRange date={date} className="mx-auto" onChange={setDate} />
-      <ResponsiveContainer className="p-10 pt-2">
+    <div className="flex h-[400px] w-full flex-row">
+      <div className="flex flex-col">
+        {children}
+        <Calendar
+          initialFocus
+          mode="range"
+          defaultMonth={date?.from}
+          selected={date}
+          onSelect={setDate}
+          numberOfMonths={1}
+        />
+      </div>
+      <ResponsiveContainer className="pt-2">
         <BarChart
           width={500}
           height={300}
@@ -61,17 +77,15 @@ export function OrderStatics({}: OrderStaticsProps) {
           <YAxis
             orientation={i18n.dir() === "ltr" ? "left" : "right"}
             dx={i18n.dir() === "ltr" ? 0 : 30}
+            allowDecimals={false}
           />
           <Tooltip
-            labelFormatter={(label, payload) => {
+            labelFormatter={(label) => {
               return dayjs(label).format("YYYY/MM/DD");
             }}
-            formatter={(label, payload) => {
-              console.log(label, payload);
-              return [label, payload];
-            }}
+            formatter={(label, payload) => [label, labels(t)[payload]]}
           />
-          <Legend />
+          <Legend formatter={(v) => labels(t)[v]} />
           <Bar
             dataKey="completedOrders"
             fill="#82ca9d"

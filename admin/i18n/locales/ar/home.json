@@ -6,5 +6,11 @@
   "orderActive": "الطلبات الجارية",
   "orderWaiting": "الطلبات قيد الإنتظار",
   "subOrderCompleted": "التوصيلات المكتملة",
-  "subOrderActive": "التوصيلات الجارية"
+  "subOrderActive": "التوصيلات الجارية",
+  "responseTime": "متوسط استجابة المشرفين لليوم",
+  "fasterThanYesterday": "اسرع من البارحة",
+  "slowerThanYesterday": "أبطأ من البارحة",
+  "completedOrders": "الطلبات المكتملة",
+  "AllOrders": "الطلبات الكلية",
+  "refusedOrders": "الطلبات المرفوضة"
 }

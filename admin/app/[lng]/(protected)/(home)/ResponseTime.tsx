@@ -6,13 +6,8 @@ import { Timer } from "lucide-react";
 
 export type ResponseTimeProps = PageProps;
 export async function ResponseTime(props: ResponseTimeProps) {
-  const { i18n } = await getTranslation(props.params.lng);
-  let responseTime = (await statisticsControllerResponseTime()).data;
-  // mock data
-  responseTime = {
-    today: { hours: 1, minutes: 3, seconds: 0, milliseconds: 0 },
-    yesterday: { hours: 3, minutes: 55, seconds: 0, milliseconds: 0 },
-  };
+  const { i18n, t } = await getTranslation(props.params.lng, "home");
+  const responseTime = (await statisticsControllerResponseTime()).data;
   const todayInMilliseconds = responseTime.today
     ? timeToMilliseconds(responseTime.today)
     : 0;
@@ -26,8 +21,8 @@ export async function ResponseTime(props: ResponseTimeProps) {
   return (
     <div className="flex">
       <div>
-        <h4 className="text-lg ">متوسط استجابة المشرفين لليوم</h4>
-        <p className="m-1 rounded-sm bg-secondary p-1">
+        <h4 className="text-lg ">{t("responseTime")}</h4>
+        <p className="mx-1 my-3 rounded-sm bg-secondary p-1">
           {responseTime.today
             ? humanizeDuration(todayInMilliseconds, {
                 language: i18n.language,
@@ -53,12 +48,12 @@ export async function ResponseTime(props: ResponseTimeProps) {
           <>
             {isTodayBetter && (
               <p className="text-green-600 dark:text-green-400">
-                {differencePercentage}% اسرع من البارحة
+                {differencePercentage}% {t("fasterThanYesterday")}
               </p>
             )}
             {!isTodayBetter && (
               <p className="text-red-400">
-                {differencePercentage}% أبطأ من البارحة
+                {differencePercentage}% {t("slowerThanYesterday")}
               </p>
             )}
           </>

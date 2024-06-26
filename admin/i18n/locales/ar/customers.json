@@ -3,6 +3,7 @@
   "phone": "رقم الهاتف",
   "wallet": "الرصيد",
   "createdAt": "مسجل منذ",
+  "countOrderDelivered": "عدد الطلبات المكتملة",
   "deposit": "إيداع رصيد",
   "walletPending": "معلق",
   "walletAvailable": "متاح",

@@ -12,11 +12,12 @@ export default async function Page(props: PageProps) {
       <Suspense fallback={<SkeletonCounts />}>
         <Counts {...props} />
       </Suspense>
-      <Card className="flex justify-between p-3">
-        <Suspense fallback={<Loading />}>
-          <ResponseTime {...props} />
-        </Suspense>
-        <OrderStatics />
+      <Card className="flex flex-wrap justify-between p-3">
+        <OrderStatics>
+          <Suspense fallback={<Loading />}>
+            <ResponseTime {...props} />
+          </Suspense>
+        </OrderStatics>
       </Card>
     </div>
   );
