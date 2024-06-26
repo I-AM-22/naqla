@@ -1,7 +1,7 @@
 import { SUB_ORDER_STATUS } from '@common/enums';
 import { PaginatedResponse } from '@common/types';
 import { Car } from '@models/cars/entities/car.entity';
-import { ResponseTime } from '@models/statics/class/ResponseTime';
+import { ResponseTime } from '@models/statics/responses/ResponseTime';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
