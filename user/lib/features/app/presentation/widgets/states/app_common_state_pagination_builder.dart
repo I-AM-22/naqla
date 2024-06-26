@@ -24,6 +24,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
   final Widget? noMoreItemsIndicatorBuilder;
   final EdgeInsetsGeometry? padding;
   final SliverGridDelegate? gridDelegate;
+  final bool reverse;
   final void Function(PagingController<int, T>)? prepare;
 
   final Axis? scrollDirection;
@@ -55,6 +56,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
     this.prepare,
     this.onEmptyPressed,
     this.onErrorPressed,
+    this.reverse = false,
   }) : _type = PagedWidgetType.pagedListView;
 
   const AppPagedBuilder.pagedGridView({
@@ -76,6 +78,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
     this.prepare,
     this.onEmptyPressed,
     this.onErrorPressed,
+    this.reverse = false,
   })  : _type = PagedWidgetType.pagedGridView,
         separatorBuilder = null;
 
@@ -98,6 +101,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
     this.prepare,
     this.onEmptyPressed,
     this.onErrorPressed,
+    this.reverse = false,
   })  : _type = PagedWidgetType.pagedSliverList,
         gridDelegate = null;
 
@@ -120,6 +124,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
     this.prepare,
     this.onEmptyPressed,
     this.onErrorPressed,
+    this.reverse = false,
   })  : _type = PagedWidgetType.pagedSliverGrid,
         separatorBuilder = null;
 
@@ -142,6 +147,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
     this.prepare,
     this.onEmptyPressed,
     this.onErrorPressed,
+    this.reverse = false,
   })  : _type = PagedWidgetType.pagedPageView,
         gridDelegate = null;
 
@@ -159,6 +165,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
     switch (type) {
       case PagedWidgetType.pagedGridView:
         return PagedBuilder<B, T>.pagedGridView(
+          reverse: reverse,
           stateName: stateName,
           builderDelegate: commonStateBuilderDelegate,
           onPageKeyChanged: onPageKeyChanged,
@@ -178,6 +185,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
         if (separatorBuilder != null) {
           return PagedBuilder<B, T>.pagedListView(
             prepare: prepare,
+            reverse: reverse,
             separatorBuilder: separatorBuilder!,
             stateName: stateName,
             padding: padding,
@@ -190,6 +198,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
         }
         return PagedBuilder<B, T>.pagedListView(
           prepare: prepare,
+          reverse: reverse,
           padding: padding,
           stateName: stateName,
           physics: physics,
@@ -202,6 +211,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
         if (separatorBuilder != null) {
           return PagedBuilder<B, T>.pagedSliverList(
             prepare: prepare,
+            reverse: reverse,
             stateName: stateName,
             separatorBuilder: separatorBuilder!,
             builderDelegate: commonStateBuilderDelegate,
@@ -214,6 +224,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
         }
         return PagedBuilder<B, T>.pagedSliverList(
           prepare: prepare,
+          reverse: reverse,
           stateName: stateName,
           builderDelegate: commonStateBuilderDelegate,
           shrinkWrap: shrinkWrap ?? false,
@@ -222,6 +233,7 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
         return PagedBuilder<B, T>.pagedSliverGrid(
           prepare: prepare,
           stateName: stateName,
+          reverse: reverse,
           onPageKeyChanged: onPageKeyChanged,
           padding: padding,
           physics: physics,

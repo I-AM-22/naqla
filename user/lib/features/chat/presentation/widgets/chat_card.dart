@@ -17,6 +17,7 @@ class ChatCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.pushNamed(MessagesPage.name, extra: item.id),
       child: Container(
+        margin: REdgeInsets.only(bottom: 16),
         alignment: AlignmentDirectional.centerStart,
         padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 8),
         decoration: BoxDecoration(

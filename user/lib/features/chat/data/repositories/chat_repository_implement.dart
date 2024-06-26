@@ -5,6 +5,7 @@ import 'package:naqla/features/chat/data/datasource/chat_remote_data_source.dart
 import 'package:naqla/features/chat/data/model/message_model.dart';
 import 'package:naqla/features/chat/domain/repositories/chat_repository.dart';
 import 'package:naqla/features/chat/domain/usecases/get_messages_use_case.dart';
+import 'package:naqla/features/chat/domain/usecases/send_message_use_case.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 
 import '../../domain/usecases/get_chats_use_case.dart';
@@ -28,6 +29,15 @@ class ChatRepositoryImplement implements ChatRepository {
     return toApiResult(
       () async {
         return await dataSource.getMessages(params);
+      },
+    );
+  }
+
+  @override
+  FutureResult<MessageModel> sendMessages(SendMessageParam params) {
+    return toApiResult(
+      () async {
+        return await dataSource.sendMessages(params);
       },
     );
   }

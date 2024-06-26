@@ -93,12 +93,16 @@ class CoreHelperFunctions {
 
   //?============================================ Date & Time helpers ============================================
 
-  static String fromDateTimeToString(DateTime dateTime) => DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR}").format(dateTime);
+  static String fromDateTimeToString(DateTime dateTime) =>
+      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR}").format(dateTime.toLocal());
 
   static String fromOrderDateTimeToString(DateTime dateTime) =>
-      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_Hm().format(dateTime);
+      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_Hm().format(dateTime.toLocal());
 
-  static String fromTimeToString(DateTime dateTime) => DateFormat.Hm().format(dateTime);
+  static String fromMessageDateTimeToString(DateTime dateTime) =>
+      '${DateFormat.yMd().format(dateTime.toLocal())} - ${DateFormat().add_jm().format(dateTime.toLocal())}';
+
+  static String fromTimeToString(DateTime dateTime) => DateFormat.Hm().format(dateTime.toLocal());
 
   static String timeOfDayToString(TimeOfDay time) => '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00';
 

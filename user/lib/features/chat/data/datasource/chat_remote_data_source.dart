@@ -5,6 +5,7 @@ import 'package:naqla/core/api/api_utils.dart';
 import 'package:naqla/core/common/constants/configuration/api_routes.dart';
 import 'package:naqla/features/chat/data/model/message_model.dart';
 import 'package:naqla/features/chat/domain/usecases/get_messages_use_case.dart';
+import 'package:naqla/features/chat/domain/usecases/send_message_use_case.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 
 import '../../domain/usecases/get_chats_use_case.dart';
@@ -35,6 +36,15 @@ class ChatRemoteDataSource {
           result.data,
           (json) => MessageModel.fromJson(json),
         );
+      },
+    );
+  }
+
+  Future<MessageModel> sendMessages(SendMessageParam param) {
+    return throwAppException(
+      () async {
+        final result = await dio.post(ApiRoutes.sendMessage, data: param.toMap);
+        return MessageModel.fromJson(result.data);
       },
     );
   }

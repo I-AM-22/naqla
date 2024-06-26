@@ -28,8 +28,9 @@ class BaseHandler {
         if (_isResponseEmpty(emptyChecker, r)) {
           emit(EmptyState<T>(emptyMessage));
           return;
+        } else {
+          emit(SuccessState<T>(r));
         }
-        emit(SuccessState<T>(r));
         await onSuccess?.call(r);
       },
     );
@@ -60,9 +61,9 @@ class BaseHandler {
       (r) {
         if (_isResponseEmpty(emptyChecker, r)) {
           emit(state.updateState(stateName, EmptyState<T>(emptyMessage)));
-          return;
+        } else {
+          emit(state.updateState(stateName, SuccessState<T>(r)));
         }
-        emit(state.updateState(stateName, SuccessState<T>(r)));
         onSuccess?.call(r);
       },
     );
@@ -136,8 +137,7 @@ class BaseHandler {
     void Function(T data)? onFirstPageFetched,
     bool Function(T data)? isLastPage,
   }) {
-    final PaginationModel paginationData =
-        data is PaginatedData ? (data).paginatedData : data as PaginationModel;
+    final PaginationModel paginationData = data is PaginatedData ? (data).paginatedData : data as PaginationModel;
 
     if (pageKey == controller.firstPageKey) onFirstPageFetched?.call(data);
 
@@ -153,6 +153,6 @@ class BaseHandler {
 
   static bool _isLastPage(PaginationModel data) {
     if (data.totalPages == null || data.pageNumber == null) return false;
-    return ((data.totalPages)! - 1) <= (data.pageNumber!);
+    return ((data.totalPages)!) <= (data.pageNumber!);
   }
 }

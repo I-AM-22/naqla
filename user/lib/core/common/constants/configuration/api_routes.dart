@@ -21,6 +21,7 @@ class ApiRoutes {
   //?////////////////?Chats////////////////////
   static String chats = '/api/v1/sub-orders/chats';
   static String messages(String id) => '/api/v1/suborders/$id/messages';
+  static String sendMessage = '/api/v1/messages';
 
   //?////////////////?Order////////////////////
   static String orderMine = '/api/v1/orders/mine';

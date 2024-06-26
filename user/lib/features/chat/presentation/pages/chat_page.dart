@@ -39,7 +39,7 @@ class _ChatPageState extends State<ChatPage> {
             padding: REdgeInsets.only(left: UIConstants.screenPadding16, right: UIConstants.screenPadding16, top: UIConstants.screenPadding30),
             child: RefreshIndicator(
               onRefresh: () async {
-                bloc.state.getState(ChatState.getChats).pagingController.itemList = null;
+                bloc.state.getState(ChatState.getChats).pagingController.refresh();
               },
               child: AppPagedBuilder<ChatBloc, SubOrderModel>.pagedListView(
                 stateName: ChatState.getChats,

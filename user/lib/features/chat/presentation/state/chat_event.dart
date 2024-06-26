@@ -14,3 +14,10 @@ class GetMessagesEvent extends ChatEvent {
 
   GetMessagesEvent({required this.param});
 }
+
+class SendMessagesEvent extends ChatEvent {
+  final SendMessageParam param;
+  final VoidCallback onSuccess;
+
+  SendMessagesEvent({required this.param, required this.onSuccess});
+}
