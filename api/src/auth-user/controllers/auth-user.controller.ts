@@ -15,14 +15,16 @@ import {
   ApiCreatedResponse,
   ApiOperation,
   ApiOkResponse,
-  ApiBearerAuth,
   ApiQuery,
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { GetUser, Public, Roles } from '@common/decorators';
+import {
+  ApiMainErrorsResponse,
+  Auth,
+  GetUser,
+  Public,
+  Roles,
+} from '@common/decorators';
 import { GROUPS, ROLE } from '@common/enums';
 import {
   SignUpUserDto,
@@ -33,12 +35,7 @@ import {
 import { AuthUserResponse } from '../interfaces';
 import { IAuthUserService } from '../interfaces/services/auth.service.interface';
 import { AUTH_TYPES } from '../interfaces';
-import {
-  bad_req,
-  confirmMessage,
-  data_not_found,
-  denied_error,
-} from '@common/constants';
+import { confirmMessage } from '@common/constants';
 import { User } from '@models/users/entities/user.entity';
 import { item_already_exist } from '@common/constants/validation-errors.constant';
 import { SendConfirm } from '@common/types';
@@ -51,10 +48,8 @@ import { SendConfirm } from '@common/types';
  * My controller description.
  */
 @ApiTags('Auth-User')
-@ApiBearerAuth('token')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@Auth()
+@ApiMainErrorsResponse()
 @ApiUnprocessableEntityResponse({ description: item_already_exist('mobile') })
 @Controller({ path: 'auth/user', version: '1' })
 export class AuthUserController {

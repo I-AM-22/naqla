@@ -1,5 +1,5 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiBody, ApiOkResponse } from '@nestjs/swagger';
 
 export function ApiWebSocketEvent(
   event: string,
@@ -11,8 +11,7 @@ export function ApiWebSocketEvent(
   return applyDecorators(
     ApiOperation({ summary: `WebSocket Event: ${event}`, description }),
     ApiBody({ type: dto || Object }),
-    ApiResponse({
-      status: 200,
+    ApiOkResponse({
       type: response,
       description: `Event: "${resEvent}" will be emitted`,
     }),

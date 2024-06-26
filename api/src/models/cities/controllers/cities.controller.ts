@@ -12,26 +12,25 @@ import {
 import { CreateCityDto } from '../dtos';
 import { UpdateCityDto } from '../dtos';
 import {
-  ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiForbiddenResponse,
   ApiNoContentResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Auth, CheckAbilities, Id } from '@common/decorators';
+import {
+  ApiMainErrorsResponse,
+  Auth,
+  CheckAbilities,
+  Id,
+} from '@common/decorators';
 import { Action, Entities } from '@common/enums';
 import { City } from '../entities/city.entity';
 import { ICrud } from '@common/interfaces';
-import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { ICitiesService } from '../interfaces/services/cities.service.interface';
 import { CITY_TYPES } from '../interfaces/type';
 
 @ApiTags('Cities')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @Auth()
 @Controller({ path: 'cities', version: '1' })
 export class CitiesController implements ICrud<City> {

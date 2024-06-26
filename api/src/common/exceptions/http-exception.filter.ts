@@ -15,6 +15,7 @@ import { Response } from 'express';
 import { AppConfig } from '@config/app';
 import { ConfigType } from '@nestjs/config';
 import { denied_error } from '../constants';
+import { ErrorType } from '@common/enums/error-type.enum';
 
 const handelPassportError = () =>
   new UnauthorizedException({ message: 'الرجاء تسجيل الدخول' });
@@ -45,7 +46,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (this.appConfig.env === 'production') {
       console.log(error);
       const rep = {
-        type: error.response.errors ? 'form' : 'default',
+        type: error.response.errors ? ErrorType.Form : ErrorType.Default,
         message: error.response.errors ? undefined : error.message,
         errors: error.response.errors,
       };

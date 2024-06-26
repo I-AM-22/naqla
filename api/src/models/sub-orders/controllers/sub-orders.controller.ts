@@ -1,5 +1,4 @@
-import { bad_req, data_not_found, denied_error } from '@common/constants';
-import { Auth, GetUser, Id, Roles } from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, GetUser, Id, Roles } from '@common/decorators';
 import { ROLE } from '@common/enums';
 import { LoggingInterceptor } from '@common/interceptors';
 import { Order } from '@models/orders/entities/order.entity';
@@ -15,11 +14,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import {
-  ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiForbiddenResponse,
   ApiNoContentResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -35,9 +31,7 @@ import { ApiQuery } from '@nestjs/swagger';
 import { PaginatedResponse } from '@common/types';
 
 @ApiTags('SubOrders')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @Auth()
 @UseInterceptors(new LoggingInterceptor())
 @Controller({ path: 'sub-orders', version: '1' })

@@ -1,34 +1,20 @@
-import {
-  Controller,
-  Get,
-  UseGuards,
-  SerializeOptions,
-  Inject,
-} from '@nestjs/common';
+import { Controller, Get, SerializeOptions, Inject } from '@nestjs/common';
 import { Permission } from '../entities/permission.entity';
+import { ApiOkResponse, ApiTags, OmitType } from '@nestjs/swagger';
 import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-  OmitType,
-} from '@nestjs/swagger';
-import { CaslAbilitiesGuard } from '@common/guards';
-import { CheckAbilities, Id } from '@common/decorators';
+  ApiMainErrorsResponse,
+  Auth,
+  CheckAbilities,
+  Id,
+} from '@common/decorators';
 import { Action, Entities, GROUPS } from '@common/enums';
-import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { IPermissionsService } from '../interfaces/services/permissions.service.interface';
 import { PERMISSION_TYPES } from '../interfaces/type';
 
 @ApiTags('Permissions')
-@ApiBearerAuth('token')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@Auth()
+@ApiMainErrorsResponse()
 @CheckAbilities({ action: Action.Manage, subject: Entities.Permission })
-@UseGuards(CaslAbilitiesGuard)
 @Controller({ path: 'permissions', version: '1' })
 export class PermissionsController {
   constructor(

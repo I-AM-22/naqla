@@ -1,7 +1,6 @@
 // Order.controller.ts
 
-import { bad_req, data_not_found, denied_error } from '@common/constants';
-import { Auth, GetUser, Id, Roles } from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, GetUser, Id, Roles } from '@common/decorators';
 import { ROLE } from '@common/enums';
 import { LoggingInterceptor } from '@common/interceptors';
 import { IPerson } from '@common/interfaces';
@@ -19,11 +18,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import {
-  ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiForbiddenResponse,
   ApiNoContentResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -33,9 +29,7 @@ import { IOrdersService } from '../interfaces/services/orders.service.interface'
 import { ORDER_TYPES } from '../interfaces/type';
 
 @ApiTags('Orders')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @Auth()
 @UseInterceptors(new LoggingInterceptor())
 @Controller({ path: 'orders', version: '1' })

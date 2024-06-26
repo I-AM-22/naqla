@@ -13,18 +13,20 @@ import {
 } from '@nestjs/common';
 
 import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { bad_req, denied_error, data_not_found } from '@common/constants';
 import { LoggingInterceptor } from '@common/interceptors';
 import { GROUPS, ROLE } from '@common/enums';
-import { Auth, GetUser, Id, Roles } from '@common/decorators';
+import {
+  ApiMainErrorsResponse,
+  Auth,
+  GetUser,
+  Id,
+  Roles,
+} from '@common/decorators';
 import { CAR_TYPES } from '../interfaces/type';
 import { ICarsService } from '../interfaces/services/cars.service.interface';
 import { CreateCarDto, UpdateCarDto, AddAdvansToCarDto } from '../dtos';
@@ -32,9 +34,7 @@ import { Car } from '../entities/car.entity';
 import { Driver } from '@models/drivers/entities/driver.entity';
 
 @ApiTags('Cars')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@ApiMainErrorsResponse()
 @UseInterceptors(new LoggingInterceptor())
 @Auth()
 @Controller({ path: 'cars', version: '1' })

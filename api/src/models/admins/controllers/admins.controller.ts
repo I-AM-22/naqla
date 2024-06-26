@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { CreateAdminDto, LoginAdminDto, UpdateAdminDto } from '../dtos';
 
-import { bad_req, denied_error, item_not_found } from '@common/constants';
 import {
+  ApiMainErrorsResponse,
   Auth,
   CheckAbilities,
   GetUser,
@@ -24,23 +24,14 @@ import {
 import { Action, Entities, GROUPS, ROLE } from '@common/enums';
 import { ICrud } from '@common/interfaces';
 import { Role } from '@models/roles/entities/role.entity';
-import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from '../entities/admin.entity';
 import { AuthAdminResponse } from '../interfaces';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
 
 @ApiTags('Admins')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: item_not_found('Data') })
+@ApiMainErrorsResponse()
 @Auth()
 @Controller({ path: 'admins', version: '1' })
 export class AdminsController implements ICrud<Admin> {

@@ -1,5 +1,4 @@
 import {
-  UseGuards,
   Controller,
   SerializeOptions,
   Get,
@@ -11,33 +10,29 @@ import {
   Inject,
 } from '@nestjs/common';
 import {
-  ApiBearerAuth,
   ApiTags,
   ApiOkResponse,
   OmitType,
   ApiCreatedResponse,
   ApiParam,
   ApiOperation,
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
 } from '@nestjs/swagger';
 
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities/role.entity';
-import { CheckAbilities, Id } from '@common/decorators';
+import {
+  ApiMainErrorsResponse,
+  Auth,
+  CheckAbilities,
+  Id,
+} from '@common/decorators';
 import { Action, Entities, GROUPS } from '@common/enums';
-import { CaslAbilitiesGuard } from '@common/guards';
-import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { ROLE_TYPES } from '../interfaces/type';
 import { IRolesService } from '../interfaces/services/roles.service.interface';
 
 @ApiTags('Roles')
-@ApiBearerAuth('token')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
-@UseGuards(CaslAbilitiesGuard)
+@Auth()
+@ApiMainErrorsResponse()
 @CheckAbilities({ action: Action.Manage, subject: Entities.Role })
 @Controller({ path: 'roles', version: '1' })
 export class RolesController {

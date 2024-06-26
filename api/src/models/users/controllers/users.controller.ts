@@ -1,5 +1,4 @@
 import {
-  UseGuards,
   UseInterceptors,
   Controller,
   SerializeOptions,
@@ -15,26 +14,27 @@ import {
 } from '@nestjs/common';
 import {
   ApiTags,
-  ApiBearerAuth,
   ApiOkResponse,
   ApiQuery,
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
   ApiNoContentResponse,
-  ApiNotFoundResponse,
 } from '@nestjs/swagger';
 
 import { UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
-import { GetUser, Roles, CheckAbilities, Id } from '@common/decorators';
+import {
+  GetUser,
+  Roles,
+  CheckAbilities,
+  Id,
+  ApiMainErrorsResponse,
+  Auth,
+} from '@common/decorators';
 import { GROUPS, ROLE, Entities, Action } from '@common/enums';
-import { CaslAbilitiesGuard, RolesGuard } from '@common/guards';
 import {
   LoggingInterceptor,
   WithDeletedInterceptor,
 } from '@common/interceptors';
 import { PaginatedResponse } from '@common/types';
-import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { Request } from 'express';
 import { IUsersService } from '../interfaces/services/users.service.interface';
 import { USER_TYPES } from '../interfaces/type';
@@ -43,12 +43,9 @@ import { UserWalletRepository } from '../repositories/user-wallet.repository';
 import { StaticsUser } from '../interfaces/statics-user.interface';
 
 @ApiTags('Users')
-@ApiBearerAuth('token')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
+@Auth()
+@ApiMainErrorsResponse()
 @UseInterceptors(new LoggingInterceptor())
-@UseGuards(CaslAbilitiesGuard, RolesGuard)
 @Controller({ path: 'users', version: '1' })
 export class UsersController {
   constructor(

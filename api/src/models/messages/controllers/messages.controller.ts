@@ -16,28 +16,27 @@ import { MESSAGE_TYPES } from '../interfaces/type';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import { UpdateMessageDto } from '../dto/update-message.dto';
 import {
-  ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiForbiddenResponse,
   ApiNoContentResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { PaginatedResponse } from '@common/types';
-import { bad_req, denied_error, data_not_found } from '@common/constants';
-import { Auth, GetUser, Roles } from '@common/decorators';
+import {
+  ApiMainErrorsResponse,
+  Auth,
+  GetUser,
+  Roles,
+} from '@common/decorators';
 import { LoggingInterceptor } from '@common/interceptors';
 import { IPerson } from '@common/interfaces';
 import { ROLE } from '@common/enums';
 
 @ApiTags('Messages')
-@ApiBadRequestResponse({ description: bad_req })
-@ApiForbiddenResponse({ description: denied_error })
-@ApiNotFoundResponse({ description: data_not_found })
-@UseInterceptors(new LoggingInterceptor())
+@ApiMainErrorsResponse()
 @Auth()
+@UseInterceptors(new LoggingInterceptor())
 @Controller({ path: 'messages', version: '1' })
 export class MessagesController {
   constructor(
