@@ -11,7 +11,7 @@ import { PaginatedMessageResponse } from '../responses/pagination.response';
 @ApiMainErrorsResponse()
 @UseInterceptors(new LoggingInterceptor())
 @Auth()
-@Controller({ path: 'suborders/:id/messages', version: '1' })
+@Controller({ path: 'suborders/:subOrderId/messages', version: '1' })
 export class SubOrdersMessagesController {
   constructor(
     @Inject(MESSAGE_TYPES.service)
