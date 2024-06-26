@@ -38,9 +38,7 @@ class CoreHelperFunctions {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 AppButton.ghost(
-                    style: ButtonStyle(
-                        backgroundColor: WidgetStateColor.resolveWith(
-                            (states) => context.colorScheme.error)),
+                    style: ButtonStyle(backgroundColor: WidgetStateColor.resolveWith((states) => context.colorScheme.error)),
                     buttonSize: ButtonSize.medium,
                     child: AppText.bodySmall(
                       S.of(context).logOut,
@@ -66,73 +64,60 @@ class CoreHelperFunctions {
         ),
       ));
 
-  static void deleteCar(BuildContext context, String id, CarsBloc bloc) =>
-      AnimatedDialog.show(context,
-          child: Padding(
-            padding: REdgeInsets.symmetric(
-                horizontal: UIConstants.screenPadding16,
-                vertical: UIConstants.screenPadding20),
-            child: BlocProvider.value(
-              value: bloc,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+  static void deleteCar(BuildContext context, String id, CarsBloc bloc) => AnimatedDialog.show(context,
+      child: Padding(
+        padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding20),
+        child: BlocProvider.value(
+          value: bloc,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AppText.subHeadRegular(S.of(context).delete_car),
+              16.verticalSpace,
+              AppText.subHeadMedium(S.of(context).are_you_sure_delete_this_car),
+              16.verticalSpace,
+              Row(
                 children: [
-                  AppText.subHeadRegular(S.of(context).delete_car),
-                  16.verticalSpace,
-                  AppText.subHeadMedium(
-                      S.of(context).are_you_sure_delete_this_car),
-                  16.verticalSpace,
-                  Row(
-                    children: [
-                      Expanded(
-                          child: AppButton.dark(
-                        title: S.of(context).no,
+                  Expanded(
+                      child: AppButton.dark(
+                    title: S.of(context).no,
+                    onPressed: () {
+                      context.pop();
+                    },
+                  )),
+                  5.horizontalSpace,
+                  Expanded(
+                      child: BlocSelector<CarsBloc, CarsState, CommonState>(
+                    selector: (state) => state.getState(CarsState.deleteCar),
+                    builder: (context, state) {
+                      return AppButton.gray(
+                        isLoading: state.isLoading,
+                        title: S.of(context).yes,
+                        textStyle: TextStyle(color: context.colorScheme.error),
                         onPressed: () {
-                          context.pop();
+                          context.read<CarsBloc>().add(DeleteCarEvent(
+                                id: id,
+                                onSuccess: () => context.pop(),
+                              ));
                         },
-                      )),
-                      5.horizontalSpace,
-                      Expanded(
-                          child: BlocSelector<CarsBloc, CarsState, CommonState>(
-                        selector: (state) =>
-                            state.getState(CarsState.deleteCar),
-                        builder: (context, state) {
-                          return AppButton.gray(
-                            isLoading: state.isLoading,
-                            title: S.of(context).yes,
-                            textStyle:
-                                TextStyle(color: context.colorScheme.error),
-                            onPressed: () {
-                              context.read<CarsBloc>().add(DeleteCarEvent(
-                                    id: id,
-                                    onSuccess: () => context.pop(),
-                                  ));
-                            },
-                          );
-                        },
-                      )),
-                    ],
-                  )
+                      );
+                    },
+                  )),
                 ],
-              ),
-            ),
-          ));
+              )
+            ],
+          ),
+        ),
+      ));
 
   static String formatOrderTime(BuildContext context, SubOrderStatus status,
-      {DateTime? acceptedAt,
-      DateTime? arrivedAt,
-      DateTime? deliveredAt,
-      DateTime? driverAssignedAt,
-      DateTime? pickedUpAt}) {
-    if (status == SubOrderStatus.ready)
-      return '${S.of(context).order_accepted_date}:\n${fromOrderDateTimeToString(acceptedAt!)}';
+      {DateTime? acceptedAt, DateTime? arrivedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
+    if (status == SubOrderStatus.ready) return '${S.of(context).order_accepted_date}:\n${fromOrderDateTimeToString(acceptedAt!)}';
     if (status == SubOrderStatus.delivered) {
       return '${S.of(context).order_delivered_date}:\n${fromOrderDateTimeToString(deliveredAt ?? DateTime.now())}';
     }
-    if (status == SubOrderStatus.taken)
-      return '${S.of(context).order_driverAssigned_date}:\n${fromOrderDateTimeToString(driverAssignedAt!)}';
-    if (status == SubOrderStatus.onTheWay)
-      return '${S.of(context).order_pickedUp_date}:\n${fromOrderDateTimeToString(pickedUpAt!)}';
+    if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n${fromOrderDateTimeToString(driverAssignedAt!)}';
+    if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n${fromOrderDateTimeToString(pickedUpAt!)}';
     return '';
   }
 
@@ -145,11 +130,9 @@ class CoreHelperFunctions {
 
   static Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    var ic =
-        (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer;
+    var ic = (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer;
 
     return ic.asUint8List();
   }
@@ -157,19 +140,17 @@ class CoreHelperFunctions {
   //?============================================ Date & Time helpers ============================================
 
   static String fromDateTimeToString(DateTime dateTime) =>
-      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR}")
-          .format(dateTime);
+      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR}").format(dateTime.toLocal());
 
   static String fromOrderDateTimeToString(DateTime dateTime) =>
-      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ")
-          .add_Hm()
-          .format(dateTime);
+      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_Hm().format(dateTime.toLocal());
 
-  static String fromTimeToString(DateTime dateTime) =>
-      DateFormat.Hm().format(dateTime);
+  static String fromMessageDateTimeToString(DateTime dateTime) =>
+      '${DateFormat.yMd().format(dateTime.toLocal())} - ${DateFormat().add_jm().format(dateTime.toLocal())}';
 
-  static String timeOfDayToString(TimeOfDay time) =>
-      '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00';
+  static String fromTimeToString(DateTime dateTime) => DateFormat.Hm().format(dateTime.toLocal());
+
+  static String timeOfDayToString(TimeOfDay time) => '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00';
 
   ///Converts from [TimeOfDay] to [DateTime]
   static DateTime timeOfDayToDateTime(TimeOfDay timeOfDay) => DateTime(

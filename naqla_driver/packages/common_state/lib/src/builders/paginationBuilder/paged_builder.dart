@@ -20,6 +20,7 @@ class PagedBuilder<B extends StateStreamable<BaseState>, T> extends StatefulWidg
       this.shrinkWrap = false,
       this.prepare,
       this.successWrapper,
+      this.reverse = false,
       this.onRetry})
       : _type = PagedWidgetType.pagedListView,
         gridDelegate = null;
@@ -36,6 +37,7 @@ class PagedBuilder<B extends StateStreamable<BaseState>, T> extends StatefulWidg
       this.shrinkWrap = false,
       this.prepare,
       this.successWrapper,
+      this.reverse = false,
       this.onRetry})
       : _type = PagedWidgetType.pagedGridView,
         separatorBuilder = null;
@@ -52,6 +54,7 @@ class PagedBuilder<B extends StateStreamable<BaseState>, T> extends StatefulWidg
       this.shrinkWrap = false,
       this.prepare,
       this.successWrapper,
+      this.reverse = false,
       this.onRetry})
       : _type = PagedWidgetType.pagedSliverList,
         gridDelegate = null;
@@ -68,6 +71,7 @@ class PagedBuilder<B extends StateStreamable<BaseState>, T> extends StatefulWidg
       this.shrinkWrap = false,
       this.prepare,
       this.successWrapper,
+      this.reverse = false,
       this.onRetry})
       : _type = PagedWidgetType.pagedSliverGrid,
         separatorBuilder = null;
@@ -84,6 +88,7 @@ class PagedBuilder<B extends StateStreamable<BaseState>, T> extends StatefulWidg
       this.shrinkWrap = false,
       this.prepare,
       this.successWrapper,
+      this.reverse = false,
       this.onRetry})
       : _type = PagedWidgetType.pagedPageView,
         gridDelegate = null;
@@ -92,6 +97,7 @@ class PagedBuilder<B extends StateStreamable<BaseState>, T> extends StatefulWidg
   final PagedBuilderDelegate<T> builderDelegate;
 
   final String? stateName;
+  final bool reverse;
   final bool shrinkWrap;
   final Axis? scrollDirection;
   final EdgeInsetsGeometry? padding;
@@ -165,12 +171,10 @@ class _PagedBuilderState<B extends StateStreamable<BaseState>, T> extends State<
       newPageProgressIndicatorBuilder: widget.builderDelegate.newPageProgressIndicatorBuilder == null
           ? null
           : (context) => widget.builderDelegate.newPageProgressIndicatorBuilder!,
-      noItemsFoundIndicatorBuilder: widget.builderDelegate.noItemsFoundIndicatorBuilder == null
-          ? null
-          : (context) => widget.builderDelegate.noItemsFoundIndicatorBuilder!,
-      noMoreItemsIndicatorBuilder: widget.builderDelegate.noMoreItemsIndicatorBuilder == null
-          ? null
-          : (context) => widget.builderDelegate.noMoreItemsIndicatorBuilder!,
+      noItemsFoundIndicatorBuilder:
+          widget.builderDelegate.noItemsFoundIndicatorBuilder == null ? null : (context) => widget.builderDelegate.noItemsFoundIndicatorBuilder!,
+      noMoreItemsIndicatorBuilder:
+          widget.builderDelegate.noMoreItemsIndicatorBuilder == null ? null : (context) => widget.builderDelegate.noMoreItemsIndicatorBuilder!,
       firstPageErrorIndicatorBuilder: widget.builderDelegate.firstPageErrorIndicatorBuilder == null
           ? null
           : (context) => widget.builderDelegate.firstPageErrorIndicatorBuilder!(
@@ -188,6 +192,7 @@ class _PagedBuilderState<B extends StateStreamable<BaseState>, T> extends State<
     switch (type) {
       case PagedWidgetType.pagedGridView:
         return PagedGridView<int, T>(
+          reverse: widget.reverse,
           shrinkWrap: widget.shrinkWrap,
           pagingController: controller,
           builderDelegate: builderDelegate,
@@ -203,6 +208,7 @@ class _PagedBuilderState<B extends StateStreamable<BaseState>, T> extends State<
             scrollDirection: widget.scrollDirection ?? Axis.vertical,
             physics: widget.physics,
             pagingController: controller,
+            reverse: widget.reverse,
             builderDelegate: builderDelegate,
             shrinkWrap: widget.shrinkWrap,
           );
@@ -213,6 +219,7 @@ class _PagedBuilderState<B extends StateStreamable<BaseState>, T> extends State<
           physics: widget.physics,
           pagingController: controller,
           builderDelegate: builderDelegate,
+          reverse: widget.reverse,
           shrinkWrap: widget.shrinkWrap,
         );
       case PagedWidgetType.pagedSliverList:

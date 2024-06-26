@@ -29,6 +29,11 @@ class ApiRoutes {
   static String editCar(String id) => '/api/v1/cars/$id';
   static String getOrderCars(String id) => '/api/v1/orders/$id/cars/mine';
 
+  //?////////////////?Chats////////////////////
+  static String chats = '/api/v1/sub-orders/chats';
+  static String messages(String id) => '/api/v1/suborders/$id/messages';
+  static String sendMessage = '/api/v1/messages';
+
   //?////////////////?Sub-Order////////////////////
   static String subOrders = '/api/v1/sub-orders';
   static String subOrderDetails(String id) => '/api/v1/sub-orders/$id';

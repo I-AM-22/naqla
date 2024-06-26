@@ -23,6 +23,7 @@ import 'package:naqla_driver/features/profile/presentation/pages/wallet_page.dar
 import '../../../features/app/presentation/pages/base_page.dart';
 import '../../../features/auth/presentation/pages/phone_verfication.dart';
 import '../../../features/auth/presentation/pages/sign_up_page.dart';
+import '../../../features/chat/presentation/pages/messages_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/orders/presentation/pages/image_page.dart';
 import '../../../features/profile/presentation/pages/delete_account_page.dart';
@@ -146,11 +147,16 @@ class GRouter {
             ])
           ]),
           StatefulShellBranch(initialLocation: ChatPage.path, navigatorKey: _shell4NavigatorKey, routes: [
-            GoRoute(
-              path: ChatPage.path,
-              name: ChatPage.name,
-              builder: (context, state) => const ChatPage(),
-            )
+            GoRoute(path: ChatPage.path, name: ChatPage.name, builder: (context, state) => const ChatPage(), routes: [
+              GoRoute(
+                path: MessagesPage.path,
+                name: MessagesPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                builder: (context, state) => MessagesPage(
+                  subOrderId: state.extra as String,
+                ),
+              )
+            ])
           ]),
           StatefulShellBranch(initialLocation: ProfilePage.path, navigatorKey: _shell5NavigatorKey, routes: [
             GoRoute(path: ProfilePage.path, name: ProfilePage.name, builder: (context, state) => const ProfilePage(), routes: [

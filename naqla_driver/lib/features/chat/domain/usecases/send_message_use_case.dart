@@ -1,8 +1,8 @@
 import 'package:common_state/common_state.dart';
 import 'package:injectable/injectable.dart';
-import 'package:naqla/core/use_case/use_case.dart';
-import 'package:naqla/features/chat/data/model/message_model.dart';
-import 'package:naqla/features/chat/domain/repositories/chat_repository.dart';
+import 'package:naqla_driver/core/use_case/use_case.dart';
+import 'package:naqla_driver/features/chat/data/model/message_model.dart';
+import 'package:naqla_driver/features/chat/domain/repositories/chat_repository.dart';
 
 @injectable
 class SendMessageUseCase extends UseCase<MessageModel, SendMessageParam> {
