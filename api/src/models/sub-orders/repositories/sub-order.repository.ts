@@ -202,6 +202,10 @@ export class SubOrderRepository implements ISubOrderRepository {
           status: In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.TAKEN]),
         },
       ],
+      select: {
+        order: { user: { id: true, firstName: true, lastName: true } },
+        car: { driver: { id: true, firstName: true, lastName: true } },
+      },
       relations: { order: true, car: true },
     });
   }
