@@ -44,7 +44,7 @@ export class Car extends GlobalEntity {
   photos: CarPhoto[];
 
   // @Expose({ groups: [GROUPS.CAR] })
-  @ApiProperty()
+  @ApiProperty({ isArray: true, type: () => Advantage })
   @ManyToMany(() => Advantage, (advantage) => advantage.cars)
   @JoinTable({ name: 'cars_advantages' })
   advantages: Advantage[];

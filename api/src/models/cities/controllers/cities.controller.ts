@@ -8,6 +8,7 @@ import { City } from '../entities/city.entity';
 import { ICrud } from '@common/interfaces';
 import { ICitiesService } from '../interfaces/services/cities.service.interface';
 import { CITY_TYPES } from '../interfaces/type';
+import { PaginatedCityResponse } from '../responses/pagination.response';
 
 @ApiTags('Cities')
 @ApiMainErrorsResponse()
@@ -23,7 +24,7 @@ export class CitiesController implements ICrud<City> {
     return this.citiesService.create(dto);
   }
 
-  @ApiOkResponse({ type: City, isArray: true, description: 'get all cities' })
+  @ApiOkResponse({ type: PaginatedCityResponse, description: 'get all cities' })
   @Get()
   find() {
     return this.citiesService.find();

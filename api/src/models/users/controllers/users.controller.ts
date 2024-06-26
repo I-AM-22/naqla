@@ -26,6 +26,7 @@ import { USER_TYPES } from '../interfaces/type';
 import { UpdateWalletDto } from '@models/drivers/dtos/update-wallet.dto ';
 import { UserWalletRepository } from '../repositories/user-wallet.repository';
 import { StaticsUser } from '../interfaces/statics-user.interface';
+import { PaginatedUserResponse } from '../responses/pagination.response';
 
 @ApiTags('Users')
 @Auth()
@@ -40,7 +41,7 @@ export class UsersController {
 
   @UseInterceptors(WithDeletedInterceptor)
   @SerializeOptions({ groups: [GROUPS.ALL_USERS] })
-  @ApiOkResponse({ type: PaginatedResponse<User> })
+  @ApiOkResponse({ type: PaginatedUserResponse })
   @ApiQuery({
     name: 'page',
     allowEmptyValue: false,

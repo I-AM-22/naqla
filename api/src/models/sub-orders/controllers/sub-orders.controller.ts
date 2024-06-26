@@ -23,7 +23,7 @@ import { SetDriverSubOrderDto } from '../dto/set-driver.dto';
 import { IPerson } from '@common/interfaces';
 import { Query } from '@nestjs/common';
 import { ApiQuery } from '@nestjs/swagger';
-import { PaginatedResponse } from '@common/types';
+import { PaginatedSubOrderResponse } from '../responses/pagination.response';
 
 @ApiTags('SubOrders')
 @ApiMainErrorsResponse()
@@ -71,7 +71,7 @@ export class SubOrdersController {
   }
 
   @Roles(ROLE.USER, ROLE.DRIVER)
-  @ApiOkResponse({ type: PaginatedResponse<SubOrder> })
+  @ApiOkResponse({ type: PaginatedSubOrderResponse })
   @ApiQuery({
     name: 'page',
     allowEmptyValue: false,

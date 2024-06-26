@@ -1,6 +1,6 @@
 import { Controller, Get, SerializeOptions, Inject } from '@nestjs/common';
 import { Permission } from '../entities/permission.entity';
-import { ApiOkResponse, ApiTags, OmitType } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ApiMainErrorsResponse, Auth, CheckAbilities, Id } from '@common/decorators';
 import { Action, Entities, GROUPS } from '@common/enums';
 import { IPermissionsService } from '../interfaces/services/permissions.service.interface';
@@ -17,7 +17,7 @@ export class PermissionsController {
     public permissionsService: IPermissionsService,
   ) {}
   @ApiOkResponse({
-    type: OmitType(Permission, ['createdAt', 'updatedAt']),
+    type: Permission,
     isArray: true,
   })
   @SerializeOptions({ groups: [GROUPS.ALL_PERMISSIONS] })

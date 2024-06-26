@@ -51,7 +51,7 @@ export class AdminsController implements ICrud<Admin> {
     return this.adminsService.create(createAdminDto);
   }
 
-  @ApiOkResponse({ type: Admin })
+  @ApiOkResponse({ type: Admin, isArray: true })
   @Roles(ROLE.ADMIN)
   @CheckAbilities({ action: Action.Read, subject: Entities.Admin })
   @SerializeOptions({ groups: [GROUPS.ALL_ADMINS] })

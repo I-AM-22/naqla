@@ -11,7 +11,7 @@ export class PaginatedResponse<T> {
   @ApiProperty()
   totalDataCount: number;
 
-  @ApiProperty({ type: GlobalEntity })
+  @ApiProperty({ type: GlobalEntity, isArray: true })
   data: T[];
 
   constructor(pageNumber: number, totalPages: number, totalDataCount: number, data: T[]) {

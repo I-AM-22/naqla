@@ -5,11 +5,11 @@ import { MESSAGE_TYPES } from '../interfaces/type';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import { UpdateMessageDto } from '../dto/update-message.dto';
 import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { PaginatedResponse } from '@common/types';
 import { ApiMainErrorsResponse, Auth, GetUser, Roles } from '@common/decorators';
 import { LoggingInterceptor } from '@common/interceptors';
 import { IPerson } from '@common/interfaces';
 import { ROLE } from '@common/enums';
+import { PaginatedMessageResponse } from '../responses/pagination.response';
 
 @ApiTags('Messages')
 @ApiMainErrorsResponse()
@@ -23,7 +23,7 @@ export class MessagesController {
   ) {}
 
   @Roles(ROLE.ADMIN)
-  @ApiOkResponse({ type: PaginatedResponse<Message> })
+  @ApiOkResponse({ type: PaginatedMessageResponse })
   @ApiQuery({
     name: 'page',
     allowEmptyValue: false,

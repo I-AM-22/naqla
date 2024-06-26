@@ -7,7 +7,6 @@ import { Employee } from '../entities/employee.entity';
 import { AuthEmployeeResponse } from '../interfaces';
 import { defaultPhotoUrl, incorrect_credentials, item_not_found, password_changed_recently } from '@common/constants';
 import { IEmployeesService } from '../interfaces/services/employees.service.interface';
-import { PaginatedResponse } from '@common/types';
 import { IEmployeeRepository } from '../interfaces/repositories/employee.repository.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { ROLE_TYPES } from '@models/roles/interfaces/type';
@@ -37,7 +36,7 @@ export class EmployeesService implements IEmployeesService {
     return { token, employee };
   }
 
-  async find(withDeleted: boolean): Promise<Employee[] | PaginatedResponse<Employee>> {
+  async find(withDeleted: boolean): Promise<Employee[]> {
     return this.employeeRepository.find(withDeleted);
   }
 

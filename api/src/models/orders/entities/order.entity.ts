@@ -51,7 +51,7 @@ export class Order extends GlobalEntity {
   })
   photos: OrderPhoto[];
 
-  @ApiProperty()
+  @ApiProperty({ type: () => Advantage, isArray: true })
   @ManyToMany(() => Advantage, (advantage) => advantage.orders)
   @JoinTable({ name: 'orders_advantages' })
   advantages: Advantage[];

@@ -16,7 +16,6 @@ import { ApiNoContentResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/
 import { ApiMainErrorsResponse, Auth, CheckAbilities, GetUser, Id, Roles } from '@common/decorators';
 import { Action, Entities, GROUPS, ROLE } from '@common/enums';
 import { LoggingInterceptor, WithDeletedInterceptor } from '@common/interceptors';
-import { PaginatedResponse } from '@common/types';
 import { Request } from 'express';
 import { UpdateDriverDto } from '../dtos';
 import { UpdateWalletDto } from '../dtos/update-wallet.dto ';
@@ -25,7 +24,8 @@ import { Driver } from '../entities/driver.entity';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { DRIVER_TYPES } from '../interfaces/type';
 import { DriverWalletRepository } from '../repositories/driver/driver-wallet.repository';
-import { StaticsDriver } from '../interfaces/statics-driver';
+import { StaticsDriver } from '../responses/statics-driver';
+import { PaginatedDriverResponse } from '../responses/pagination.response';
 
 @ApiTags('Drivers')
 @ApiMainErrorsResponse()
@@ -40,7 +40,7 @@ export class DriversController {
 
   @UseInterceptors(WithDeletedInterceptor)
   @SerializeOptions({ groups: [GROUPS.ALL_DRIVERS] })
-  @ApiOkResponse({ type: PaginatedResponse<Driver> })
+  @ApiOkResponse({ type: PaginatedDriverResponse })
   @ApiQuery({
     name: 'page',
     allowEmptyValue: false,

@@ -47,7 +47,7 @@ export class EmployeesController implements ICrud<Employee> {
   }
 
   @UseInterceptors(WithDeletedInterceptor)
-  @ApiOkResponse({ type: Employee })
+  @ApiOkResponse({ type: Employee, isArray: true })
   @SerializeOptions({ groups: [GROUPS.ALL_EMPLOYEES] })
   @CheckAbilities({ action: Action.Read, subject: Entities.Employee })
   @Get()

@@ -4,9 +4,8 @@ import { Controller, Get, Inject, Param, Query, UseInterceptors } from '@nestjs/
 import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { MESSAGE_TYPES } from '../interfaces/type';
 import { IMessagesService } from '../interfaces/services/messages.service.interface';
-import { PaginatedResponse } from '@common/types';
-import { Message } from '../entities/message.entity';
 import { IPerson } from '@common/interfaces';
+import { PaginatedMessageResponse } from '../responses/pagination.response';
 
 @ApiTags('Messages')
 @ApiMainErrorsResponse()
@@ -19,7 +18,7 @@ export class SubOrdersMessagesController {
     private readonly messagesService: IMessagesService,
   ) {}
 
-  @ApiOkResponse({ type: PaginatedResponse<Message> })
+  @ApiOkResponse({ type: PaginatedMessageResponse })
   @ApiQuery({
     name: 'page',
     allowEmptyValue: false,

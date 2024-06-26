@@ -1,4 +1,3 @@
-import { PaginatedResponse } from '../../../../common/types';
 import { CreateEmployeeDto, LoginEmployeeDto, UpdateEmployeeDto } from '../../dtos';
 import { Employee } from '../../entities/employee.entity';
 import { AuthEmployeeResponse } from '../auth-employee.interface';
@@ -6,7 +5,7 @@ import { AuthEmployeeResponse } from '../auth-employee.interface';
 export interface IEmployeesService {
   login(dto: LoginEmployeeDto): Promise<AuthEmployeeResponse>;
 
-  find(withDeleted: boolean): Promise<Employee[] | PaginatedResponse<Employee>>;
+  find(withDeleted: boolean): Promise<Employee[]>;
 
   findOne(id: string, withDeleted?: boolean): Promise<Employee>;
 
