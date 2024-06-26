@@ -7,17 +7,9 @@ import { User } from '../../entities/user.entity';
 import { UserWallet } from '../../entities/user-wallet.entity';
 
 export interface IUserRepository {
-  find(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<User> | User[]>;
+  find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User> | User[]>;
 
-  staticsUser(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<User>>;
+  staticsUser(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User>>;
 
   countUser(): Promise<number>;
 
@@ -29,12 +21,7 @@ export interface IUserRepository {
 
   findByIdForThings(id: string): Promise<User>;
 
-  create(
-    dto: CreateUserDto,
-    wallet: UserWallet,
-    photo: UserPhoto,
-    role: Role,
-  ): Promise<User>;
+  create(dto: CreateUserDto, wallet: UserWallet, photo: UserPhoto, role: Role): Promise<User>;
 
   confirm(nonConfirmedUser: User): Promise<User>;
 

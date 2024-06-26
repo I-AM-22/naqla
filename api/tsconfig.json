@@ -19,7 +19,8 @@
       "@shared/*": ["src/shared/*"],
       "@config/*": ["src/config/*"],
       "@jobs/*": ["src/jobs/*"],
-      "@app/*": ["src/*"],    },
+      "@app/*": ["src/*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "noImplicitAny": false,

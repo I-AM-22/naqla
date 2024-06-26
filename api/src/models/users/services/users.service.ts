@@ -1,9 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
 import { defaultPhotoUrl, item_not_found } from '@common/constants';
@@ -39,35 +34,21 @@ export class UsersService implements IUsersService {
   async create(dto: CreateUserDto): Promise<User> {
     const role = await this.rolesService.findByName(ROLE.USER);
     let photo;
-    if (dto.photo)
-      photo = await this.userPhotoRepository.uploadPhoto(dto.photo);
+    if (dto.photo) photo = await this.userPhotoRepository.uploadPhoto(dto.photo);
     else photo = await this.userPhotoRepository.uploadPhoto(defaultPhotoUrl);
     const wallet = this.userWalletRepository.create();
     return this.userRepository.create(dto, wallet, photo, role);
   }
 
-  async find(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<User> | User[]> {
+  async find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User> | User[]> {
     return this.userRepository.find(page, limit, withDeleted);
   }
 
-  async staticsUser(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<any[]> {
-    const data = await this.userRepository.staticsUser(
-      page,
-      limit,
-      withDeleted,
-    );
+  async staticsUser(page: number, limit: number, withDeleted: boolean): Promise<any[]> {
+    const data = await this.userRepository.staticsUser(page, limit, withDeleted);
     const updateUser = await Promise.all(
       data.data.map(async (user) => {
-        const countOrderDelivered =
-          await this.ordersService.countOrdersCompletedForUser(user.id);
+        const countOrderDelivered = await this.ordersService.countOrdersCompletedForUser(user.id);
         return {
           ...user,
           countOrderDelivered,

@@ -1,9 +1,4 @@
-import {
-  ApiNoContentResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiNoContentResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Employee } from '../entities/employee.entity';
 import {
   Body,
@@ -21,11 +16,7 @@ import {
 } from '@nestjs/common';
 import { Public, CheckAbilities, Id, Auth, ApiMainErrorsResponse } from '@common/decorators';
 import { GROUPS, Entities, Action } from '@common/enums';
-import {
-  CreateEmployeeDto,
-  LoginEmployeeDto,
-  UpdateEmployeeDto,
-} from '../dtos';
+import { CreateEmployeeDto, LoginEmployeeDto, UpdateEmployeeDto } from '../dtos';
 import { ICrud } from '@common/interfaces';
 import { AuthEmployeeResponse } from '../interfaces';
 import { WithDeletedInterceptor } from '@common/interceptors';

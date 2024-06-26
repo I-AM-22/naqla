@@ -6,9 +6,7 @@ import { IPhoto, IPhotoRepository } from '@common/interfaces';
 import { EmployeePhoto } from '../entities/employee-photo.entity';
 
 @Injectable()
-export class EmployeePhotoRepository
-  implements IPhotoRepository<EmployeePhoto>
-{
+export class EmployeePhotoRepository implements IPhotoRepository<EmployeePhoto> {
   constructor(
     @InjectRepository(EmployeePhoto)
     private readonly employeePhotoRepo: Repository<EmployeePhoto>,

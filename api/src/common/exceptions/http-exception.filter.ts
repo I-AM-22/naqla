@@ -17,8 +17,7 @@ import { ConfigType } from '@nestjs/config';
 import { denied_error } from '../constants';
 import { ErrorType } from '@common/enums/error-type.enum';
 
-const handelPassportError = () =>
-  new UnauthorizedException({ message: 'الرجاء تسجيل الدخول' });
+const handelPassportError = () => new UnauthorizedException({ message: 'الرجاء تسجيل الدخول' });
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {

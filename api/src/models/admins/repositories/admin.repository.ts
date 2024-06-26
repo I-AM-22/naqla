@@ -10,10 +10,7 @@ import { AdminPhoto } from '../entities/admin-photo.entity';
 import { Admin } from '../entities/admin.entity';
 
 @Injectable()
-export class AdminRepository
-  extends BaseAuthRepo<Admin>
-  implements IAdminRepository
-{
+export class AdminRepository extends BaseAuthRepo<Admin> implements IAdminRepository {
   constructor(
     @InjectRepository(Admin)
     private readonly adminRepository: Repository<Admin>,

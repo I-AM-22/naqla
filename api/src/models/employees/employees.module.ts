@@ -32,10 +32,6 @@ export const EmployeePhotoRepositoryProvider: Provider = {
     EmployeesServiceProvider,
     JwtEmployeeStrategy,
   ],
-  exports: [
-    EmployeePhotoRepositoryProvider,
-    EmployeeRepositoryProvider,
-    EmployeesServiceProvider,
-  ],
+  exports: [EmployeePhotoRepositoryProvider, EmployeeRepositoryProvider, EmployeesServiceProvider],
 })
 export class EmployeesModule {}

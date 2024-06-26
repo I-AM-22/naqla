@@ -14,13 +14,7 @@ export const AuthUserServiceProvider: Provider = {
   useClass: AuthUserService,
 };
 @Module({
-  imports: [
-    PassportModule.register({}),
-    UsersModule,
-    EmployeesModule,
-    AdminsModule,
-    OtpsModule,
-  ],
+  imports: [PassportModule.register({}), UsersModule, EmployeesModule, AdminsModule, OtpsModule],
   controllers: [AuthUserController],
   providers: [AuthUserServiceProvider, JwtUserStrategy],
   exports: [PassportModule],

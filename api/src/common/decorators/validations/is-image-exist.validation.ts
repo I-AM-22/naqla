@@ -18,9 +18,7 @@ export class IsPhotoExistConstraint implements ValidatorConstraintInterface {
   }
 }
 
-export function IsPhotoExist(
-  validationOptions?: ValidationOptions,
-): PropertyDecorator {
+export function IsPhotoExist(validationOptions?: ValidationOptions): PropertyDecorator {
   return function (object: object, propertyName: string) {
     registerDecorator({
       target: object.constructor,

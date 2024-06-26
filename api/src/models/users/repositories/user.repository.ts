@@ -12,21 +12,12 @@ import { User } from '../entities/user.entity';
 import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
 
 @Injectable()
-export class UserRepository
-  extends BaseAuthRepo<User>
-  implements IUserRepository
-{
-  constructor(
-    @InjectRepository(User) private readonly userRepo: Repository<User>,
-  ) {
+export class UserRepository extends BaseAuthRepo<User> implements IUserRepository {
+  constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) {
     super(userRepo);
   }
 
-  async find(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<User>> {
+  async find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || undefined;
     const data = await this.userRepo.find({
@@ -55,11 +46,7 @@ export class UserRepository
     });
   }
 
-  async staticsUser(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<User>> {
+  async staticsUser(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || 100;
     const data = await this.userRepo.find({
@@ -81,12 +68,7 @@ export class UserRepository
     return userCount;
   }
 
-  async create(
-    dto: CreateUserDto,
-    wallet: UserWallet,
-    photo: UserPhoto,
-    role: Role,
-  ): Promise<User> {
+  async create(dto: CreateUserDto, wallet: UserWallet, photo: UserPhoto, role: Role): Promise<User> {
     const user = this.userRepo.create({
       ...dto,
       role,
@@ -109,11 +91,7 @@ export class UserRepository
     return this.findById(user.id);
   }
 
-  async update(
-    user: User,
-    dto: UpdateUserDto,
-    photo: UserPhoto,
-  ): Promise<User> {
+  async update(user: User, dto: UpdateUserDto, photo: UserPhoto): Promise<User> {
     user.photos.push(photo);
     Object.assign(user, {
       firstName: dto.firstName,

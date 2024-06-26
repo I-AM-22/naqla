@@ -28,10 +28,7 @@ export class InitialDatabaseSeeder {
 
     await this.Permissions()
       .then((completed) => {
-        this.logger.debug(
-          'Seeder',
-          'Successfully completed seeding permissions...',
-        );
+        this.logger.debug('Seeder', 'Successfully completed seeding permissions...');
         Promise.resolve(completed);
       })
       .catch((error) => {
@@ -41,10 +38,7 @@ export class InitialDatabaseSeeder {
 
     await this.SuperAdmin()
       .then((completed) => {
-        this.logger.debug(
-          'Seeder',
-          'Successfully completed seeding superadmin...',
-        );
+        this.logger.debug('Seeder', 'Successfully completed seeding superadmin...');
         Promise.resolve(completed);
       })
       .catch((error) => {
@@ -54,10 +48,7 @@ export class InitialDatabaseSeeder {
 
     await this.Settings()
       .then((completed) => {
-        this.logger.debug(
-          'Seeder',
-          'Successfully completed seeding settings...',
-        );
+        this.logger.debug('Seeder', 'Successfully completed seeding settings...');
         Promise.resolve(completed);
       })
       .catch((error) => {
@@ -73,9 +64,7 @@ export class InitialDatabaseSeeder {
         this.logger.debug(
           'Seeder',
           'No. of Permissions created : ' +
-            createdPermissions.filter(
-              (nullValueOrCreatedPermission) => nullValueOrCreatedPermission,
-            ).length,
+            createdPermissions.filter((nullValueOrCreatedPermission) => nullValueOrCreatedPermission).length,
         );
         return Promise.resolve(true);
       })
@@ -85,8 +74,7 @@ export class InitialDatabaseSeeder {
   async SuperAdmin() {
     return await Promise.resolve(this.superadminService.create())
       .then((createdSuper) => {
-        if (!createdSuper)
-          this.logger.debug('Seeder', 'super admin already exist');
+        if (!createdSuper) this.logger.debug('Seeder', 'super admin already exist');
         else this.logger.debug('Seeder', 'super admin created');
         return Promise.resolve(true);
       })
@@ -98,10 +86,7 @@ export class InitialDatabaseSeeder {
       .then((createdRoles) => {
         this.logger.debug(
           'Seeder',
-          'No. of Roles created : ' +
-            createdRoles.filter(
-              (nullValueOrCreatedRole) => nullValueOrCreatedRole,
-            ).length,
+          'No. of Roles created : ' + createdRoles.filter((nullValueOrCreatedRole) => nullValueOrCreatedRole).length,
         );
         return Promise.resolve(true);
       })
@@ -114,9 +99,7 @@ export class InitialDatabaseSeeder {
         this.logger.debug(
           'Seeder',
           'No. of Settings created : ' +
-            createdSettings.filter(
-              (nullValueOrCreatedRole) => nullValueOrCreatedRole,
-            ).length,
+            createdSettings.filter((nullValueOrCreatedRole) => nullValueOrCreatedRole).length,
         );
         return Promise.resolve(true);
       })

@@ -9,10 +9,7 @@ import { SuperAdminInfo } from '@config/app';
 import { AdminPhoto } from '@models/admins/entities/admin-photo.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Admin, Permission, Role, AdminPhoto]),
-    ConfigModule.forFeature(SuperAdminInfo),
-  ],
+  imports: [TypeOrmModule.forFeature([Admin, Permission, Role, AdminPhoto]), ConfigModule.forFeature(SuperAdminInfo)],
   providers: [SuperadminSeederService],
   exports: [SuperadminSeederService],
 })

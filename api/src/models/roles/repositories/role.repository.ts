@@ -9,9 +9,7 @@ import { IRoleRepository } from '../interfaces/repositories/role.repository.inte
 
 @Injectable()
 export class RoleRepository implements IRoleRepository {
-  constructor(
-    @InjectRepository(Role) private readonly roleRepo: Repository<Role>,
-  ) {}
+  constructor(@InjectRepository(Role) private readonly roleRepo: Repository<Role>) {}
 
   async create(dto: CreateRoleDto, permissions: Permission[]): Promise<Role> {
     const role = this.roleRepo.create({
@@ -26,11 +24,7 @@ export class RoleRepository implements IRoleRepository {
     return this.roleRepo.find({ where: { name: Not(ROLE.SUPER_ADMIN) } });
   }
 
-  async findOne(
-    id: string,
-    withDeleted = false,
-    relations?: string[],
-  ): Promise<Role> {
+  async findOne(id: string, withDeleted = false, relations?: string[]): Promise<Role> {
     const role = await this.roleRepo.findOne({
       where: { id, name: Not(ROLE.SUPER_ADMIN) },
       select: {
@@ -80,10 +74,7 @@ export class RoleRepository implements IRoleRepository {
     return this.findOne(role.id);
   }
 
-  async deletePermissions(
-    role: Role,
-    permissions: Permission[],
-  ): Promise<Role> {
+  async deletePermissions(role: Role, permissions: Permission[]): Promise<Role> {
     await this.roleRepo
       .createQueryBuilder()
       .relation(Role, 'permissions')

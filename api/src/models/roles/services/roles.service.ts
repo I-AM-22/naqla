@@ -22,11 +22,7 @@ export class RolesService implements IRolesService {
     return this.roleRepository.find();
   }
 
-  async findOne(
-    id: string,
-    withDeleted?: boolean,
-    relations?: string[],
-  ): Promise<Role | undefined> {
+  async findOne(id: string, withDeleted?: boolean, relations?: string[]): Promise<Role | undefined> {
     const role = await this.roleRepository.findOne(id, withDeleted, relations);
     if (!role) throw new NotFoundException(item_not_found(Entities.Role));
     return role;
@@ -60,8 +56,7 @@ export class RolesService implements IRolesService {
     if (!role) throw new NotFoundException(item_not_found(Entities.Role));
 
     let permissions;
-    if (dto.permissionsIds)
-      permissions = await this.permissionsService.find(dto.permissionsIds);
+    if (dto.permissionsIds) permissions = await this.permissionsService.find(dto.permissionsIds);
 
     return this.roleRepository.addPermissions(role, permissions);
   }

@@ -10,24 +10,13 @@ import { CustomValidationError } from '@common/types';
 @Auth()
 @Controller('websocket')
 export class WebSocketDocsController {
-  @ApiWebSocketEvent(
-    'setup',
-    'Setup the user main room',
-    'connected',
-    SuccessDto,
-  )
+  @ApiWebSocketEvent('setup', 'Setup the user main room', 'connected', SuccessDto)
   @Post('setup')
   setup() {
     return { message: 'WebSocket setup endpoint for Swagger documentation' };
   }
 
-  @ApiWebSocketEvent(
-    'join-chat',
-    'Join the chat room',
-    'joined',
-    SuccessDto,
-    JoinChatDto,
-  )
+  @ApiWebSocketEvent('join-chat', 'Join the chat room', 'joined', SuccessDto, JoinChatDto)
   @Post('join-chat')
   joinChat() {
     return {

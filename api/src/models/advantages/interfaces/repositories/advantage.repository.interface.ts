@@ -6,10 +6,7 @@ export interface IAdvantageRepository {
   findInIds(ids: string[]): Promise<Advantage[]>;
   findById(id: string): Promise<Advantage>;
   create(createAdvantageDto: CreateAdvantageDto): Promise<Advantage>;
-  update(
-    advantage: Advantage,
-    updateAdvantageDto: UpdateAdvantageDto,
-  ): Promise<Advantage>;
+  update(advantage: Advantage, updateAdvantageDto: UpdateAdvantageDto): Promise<Advantage>;
   disactive(advantage: Advantage): Promise<void>;
   delete(advantage: Advantage): Promise<void>;
 }

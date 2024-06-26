@@ -1,28 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Delete,
-  HttpCode,
-  HttpStatus,
-  Inject,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, HttpCode, HttpStatus, Inject } from '@nestjs/common';
 import { CreateCityDto } from '../dtos';
 import { UpdateCityDto } from '../dtos';
-import {
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import {
-  ApiMainErrorsResponse,
-  Auth,
-  CheckAbilities,
-  Id,
-} from '@common/decorators';
+import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiMainErrorsResponse, Auth, CheckAbilities, Id } from '@common/decorators';
 import { Action, Entities } from '@common/enums';
 import { City } from '../entities/city.entity';
 import { ICrud } from '@common/interfaces';
@@ -34,9 +14,7 @@ import { CITY_TYPES } from '../interfaces/type';
 @Auth()
 @Controller({ path: 'cities', version: '1' })
 export class CitiesController implements ICrud<City> {
-  constructor(
-    @Inject(CITY_TYPES.service) private readonly citiesService: ICitiesService,
-  ) {}
+  constructor(@Inject(CITY_TYPES.service) private readonly citiesService: ICitiesService) {}
 
   @CheckAbilities({ action: Action.Manage, subject: Entities.City })
   @ApiCreatedResponse({ description: 'city has created', type: City })

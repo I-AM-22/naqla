@@ -1,17 +1,7 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  Inject,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException, Inject, UnprocessableEntityException } from '@nestjs/common';
 import { Driver } from '@models/drivers/entities/driver.entity';
 import { JwtTokenService } from '@shared/jwt';
-import {
-  SignUpDriverDto,
-  LoginDriverDto,
-  ConfirmDriverDto,
-  UpdateDriverPhoneDto,
-} from '../dtos';
+import { SignUpDriverDto, LoginDriverDto, ConfirmDriverDto, UpdateDriverPhoneDto } from '../dtos';
 import { AuthDriverResponse, jwtPayload } from '../interfaces';
 
 import {
@@ -44,11 +34,7 @@ export class AuthDriverService implements IAuthDriverService {
   async signup(dto: SignUpDriverDto, ip: string): Promise<SendConfirm> {
     const driver = await this.driversService.findOneByPhone(dto.phone);
     if (!driver) {
-      const otp = await this.otpsService.findOneForDriver(
-        dto.phone,
-        ip,
-        OTP_TYPE.CHANGE_NUMBER,
-      );
+      const otp = await this.otpsService.findOneForDriver(dto.phone, ip, OTP_TYPE.CHANGE_NUMBER);
 
       if (otp) {
         throw new UnprocessableEntityException(item_already_exist('mobile'));
@@ -88,13 +74,8 @@ export class AuthDriverService implements IAuthDriverService {
 
   async login(dto: LoginDriverDto, ip: string): Promise<SendConfirm> {
     const driver = await this.driversService.findOneByPhone(dto.phone);
-    if (!driver || !driver.active)
-      throw new UnauthorizedException(incorrect_phone_number);
-    const otp = await this.otpsService.findOneForDriver(
-      dto.phone,
-      ip,
-      OTP_TYPE.LOGIN,
-    );
+    if (!driver || !driver.active) throw new UnauthorizedException(incorrect_phone_number);
+    const otp = await this.otpsService.findOneForDriver(dto.phone, ip, OTP_TYPE.LOGIN);
     await this.otpsService.createForDriver(
       {
         userId: driver.id,
@@ -107,18 +88,9 @@ export class AuthDriverService implements IAuthDriverService {
     return { message: confirmMessage };
   }
 
-  async confirm(
-    dto: ConfirmDriverDto,
-    ip: string,
-    phoneConfirm: boolean,
-  ): Promise<AuthDriverResponse> {
+  async confirm(dto: ConfirmDriverDto, ip: string, phoneConfirm: boolean): Promise<AuthDriverResponse> {
     let driver: Driver;
-    const otp = await this.otpsService.findOneOtpForDriver(
-      dto.phone,
-      dto.otp,
-      ip,
-      phoneConfirm,
-    );
+    const otp = await this.otpsService.findOneOtpForDriver(dto.phone, dto.otp, ip, phoneConfirm);
     if (!otp) {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
@@ -132,24 +104,15 @@ export class AuthDriverService implements IAuthDriverService {
         phone: otp.phone,
       });
     } else {
-      if (otp.type === OTP_TYPE.SIGNUP)
-        driver = await this.driversService.confirm(nonConfirmedDriver);
+      if (otp.type === OTP_TYPE.SIGNUP) driver = await this.driversService.confirm(nonConfirmedDriver);
       else driver = nonConfirmedDriver;
     }
     await this.otpsService.updateForDriver(otp);
     return this.sendAuthResponse(driver);
   }
 
-  async updatePhone(
-    dto: UpdateDriverPhoneDto,
-    ip: string,
-    driver: Driver,
-  ): Promise<SendConfirm> {
-    const otp = await this.otpsService.findOneForDriver(
-      dto.phone,
-      ip,
-      OTP_TYPE.CHANGE_NUMBER,
-    );
+  async updatePhone(dto: UpdateDriverPhoneDto, ip: string, driver: Driver): Promise<SendConfirm> {
+    const otp = await this.otpsService.findOneForDriver(dto.phone, ip, OTP_TYPE.CHANGE_NUMBER);
 
     if (!otp) {
       await this.otpsService.createForDriver({
@@ -174,10 +137,7 @@ export class AuthDriverService implements IAuthDriverService {
   }
 
   async sendAuthResponse(driver: Driver): Promise<AuthDriverResponse> {
-    const token = await this.jwtTokenService.signToken(
-      driver.id,
-      Entities.Driver,
-    );
+    const token = await this.jwtTokenService.signToken(driver.id, Entities.Driver);
     return { token, driver };
   }
 

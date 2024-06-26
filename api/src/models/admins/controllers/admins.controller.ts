@@ -12,15 +12,7 @@ import {
 } from '@nestjs/common';
 import { CreateAdminDto, LoginAdminDto, UpdateAdminDto } from '../dtos';
 
-import {
-  ApiMainErrorsResponse,
-  Auth,
-  CheckAbilities,
-  GetUser,
-  Id,
-  Public,
-  Roles,
-} from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, CheckAbilities, GetUser, Id, Public, Roles } from '@common/decorators';
 import { Action, Entities, GROUPS, ROLE } from '@common/enums';
 import { ICrud } from '@common/interfaces';
 import { Role } from '@models/roles/entities/role.entity';
@@ -35,9 +27,7 @@ import { ADMIN_TYPES } from '../interfaces/type';
 @Auth()
 @Controller({ path: 'admins', version: '1' })
 export class AdminsController implements ICrud<Admin> {
-  constructor(
-    @Inject(ADMIN_TYPES.service) private readonly adminsService: IAdminsService,
-  ) {}
+  constructor(@Inject(ADMIN_TYPES.service) private readonly adminsService: IAdminsService) {}
 
   @Public()
   @ApiOperation({ summary: 'Login' })

@@ -1,8 +1,4 @@
-import {
-  AbilityBuilder,
-  ExtractSubjectType,
-  createMongoAbility,
-} from '@casl/ability';
+import { AbilityBuilder, ExtractSubjectType, createMongoAbility } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { AppAbility, Subjects } from './casl.interface';
 import { IPerson } from '@common/interfaces';
@@ -15,8 +11,7 @@ export class CaslAbilityFactory {
       can(p.action, p.subject);
     });
     return build({
-      detectSubjectType: (item) =>
-        item.constructor as ExtractSubjectType<Subjects>,
+      detectSubjectType: (item) => item.constructor as ExtractSubjectType<Subjects>,
     });
   }
 }

@@ -10,10 +10,7 @@ import { Entities } from '@common/enums';
 import { strategies } from '@common/constants/jwt.constant';
 
 @Injectable()
-export class JwtEmployeeStrategy extends PassportStrategy(
-  Strategy,
-  strategies.employee,
-) {
+export class JwtEmployeeStrategy extends PassportStrategy(Strategy, strategies.employee) {
   constructor(
     config: ConfigService,
     @Inject(EMPLOYEE_TYPES.service) private employeesService: IEmployeesService,
@@ -27,10 +24,7 @@ export class JwtEmployeeStrategy extends PassportStrategy(
   async validate(payload: jwtPayload) {
     if (payload.entity !== Entities.Employee) return;
 
-    const employee = await this.employeesService.validate(
-      payload.sub,
-      payload.iat,
-    );
+    const employee = await this.employeesService.validate(payload.sub, payload.iat);
 
     return employee;
   }

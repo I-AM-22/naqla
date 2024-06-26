@@ -1,7 +1,4 @@
-import {
-  BullRootModuleOptions,
-  SharedBullConfigurationFactory,
-} from '@nestjs/bull';
+import { BullRootModuleOptions, SharedBullConfigurationFactory } from '@nestjs/bull';
 import { ConfigType } from '@nestjs/config';
 import MailConfig from '@config/mail/mail.config';
 import { Inject } from '@nestjs/common';
@@ -11,9 +8,7 @@ export class BullService implements SharedBullConfigurationFactory {
     @Inject(MailConfig.KEY)
     private readonly queueConfig: ConfigType<typeof MailConfig>,
   ) {}
-  createSharedConfiguration():
-    | BullRootModuleOptions
-    | Promise<BullRootModuleOptions> {
+  createSharedConfiguration(): BullRootModuleOptions | Promise<BullRootModuleOptions> {
     return {
       redis: {
         host: this.queueConfig.queue_host,

@@ -18,20 +18,9 @@ import {
   ApiQuery,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import {
-  ApiMainErrorsResponse,
-  Auth,
-  GetUser,
-  Public,
-  Roles,
-} from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, GetUser, Public, Roles } from '@common/decorators';
 import { GROUPS, ROLE } from '@common/enums';
-import {
-  SignUpDriverDto,
-  LoginDriverDto,
-  ConfirmDriverDto,
-  UpdateDriverPhoneDto,
-} from '../dtos';
+import { SignUpDriverDto, LoginDriverDto, ConfirmDriverDto, UpdateDriverPhoneDto } from '../dtos';
 import { AUTH_DRIVER_TYPES, AuthDriverResponse } from '../interfaces';
 import { confirmMessage } from '@common/constants';
 import { Driver } from '@models/drivers/entities/driver.entity';

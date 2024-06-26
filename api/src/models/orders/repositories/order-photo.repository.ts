@@ -20,9 +20,7 @@ export class OrderPhotoRepository implements IPhotoRepository<OrderPhoto> {
 
   async uploadPhotoMultiple(items: Item[]): Promise<OrderPhoto[]> {
     if (!items) return [];
-    let uploaded = await this.cloudinaryService.uploadMultiplePhotos(
-      items.map((item) => item.photo),
-    );
+    let uploaded = await this.cloudinaryService.uploadMultiplePhotos(items.map((item) => item.photo));
 
     uploaded = uploaded.map((up, index) => {
       up.weight = items[index].weight;

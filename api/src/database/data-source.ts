@@ -3,15 +3,9 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { SeederOptions } from 'typeorm-extension';
 
 const type: DataSourceOptions['type'] = 'postgres';
-const entities: DataSourceOptions['entities'] = [
-  __dirname + '/../models/**/entities/*.entity.{js,ts}',
-];
-const factories: SeederOptions['factories'] = [
-  __dirname + '/../database/factories/**/*.factory.{js,ts}',
-];
-const seeds: SeederOptions['seeds'] = [
-  __dirname + '/../database/seeders/**/*.seeder.{js,ts}',
-];
+const entities: DataSourceOptions['entities'] = [__dirname + '/../models/**/entities/*.entity.{js,ts}'];
+const factories: SeederOptions['factories'] = [__dirname + '/../database/factories/**/*.factory.{js,ts}'];
+const seeds: SeederOptions['seeds'] = [__dirname + '/../database/seeders/**/*.seeder.{js,ts}'];
 
 const dev = {
   host: process.env.POSTGRES_HOST,
@@ -51,16 +45,12 @@ const dataSourceOptions = {
   extra: {
     // based on https://node-postgres.com/api/pool
     // max connection pool size
-    max: process.env.POSTGRES_MAX_CONNECTIONS
-      ? parseInt(process.env.POSTGRES_MAX_CONNECTIONS, 10)
-      : 100,
+    max: process.env.POSTGRES_MAX_CONNECTIONS ? parseInt(process.env.POSTGRES_MAX_CONNECTIONS, 10) : 100,
   },
 };
 const finalData =
   process.env.ENV === 'production'
-    ? new DataSource({ ...prod, ...dataSourceOptions } as DataSourceOptions &
-        SeederOptions)
-    : new DataSource({ ...dev, ...dataSourceOptions } as DataSourceOptions &
-        SeederOptions);
+    ? new DataSource({ ...prod, ...dataSourceOptions } as DataSourceOptions & SeederOptions)
+    : new DataSource({ ...dev, ...dataSourceOptions } as DataSourceOptions & SeederOptions);
 
 export default finalData;

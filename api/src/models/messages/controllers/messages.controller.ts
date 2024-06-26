@@ -1,34 +1,12 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Post,
-  Body,
-  Delete,
-  Inject,
-  Patch,
-  UseInterceptors,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Inject, Patch, UseInterceptors, Query } from '@nestjs/common';
 import { Message } from '../entities/message.entity';
 import { IMessagesService } from '../interfaces/services/messages.service.interface';
 import { MESSAGE_TYPES } from '../interfaces/type';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import { UpdateMessageDto } from '../dto/update-message.dto';
-import {
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiOkResponse,
-  ApiQuery,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PaginatedResponse } from '@common/types';
-import {
-  ApiMainErrorsResponse,
-  Auth,
-  GetUser,
-  Roles,
-} from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, GetUser, Roles } from '@common/decorators';
 import { LoggingInterceptor } from '@common/interceptors';
 import { IPerson } from '@common/interfaces';
 import { ROLE } from '@common/enums';
@@ -71,19 +49,13 @@ export class MessagesController {
 
   @ApiCreatedResponse({ type: Message })
   @Post()
-  async create(
-    @Body() createMessageDto: CreateMessageDto,
-    @GetUser() person: IPerson,
-  ): Promise<Message> {
+  async create(@Body() createMessageDto: CreateMessageDto, @GetUser() person: IPerson): Promise<Message> {
     return this.messagesService.create(createMessageDto, person);
   }
 
   @ApiOkResponse({ type: Message })
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateMessageDto: UpdateMessageDto,
-  ): Promise<Message> {
+  async update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto): Promise<Message> {
     return this.messagesService.update(id, updateMessageDto);
   }
 

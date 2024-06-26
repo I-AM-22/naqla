@@ -1,11 +1,7 @@
 import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import {
-  ClassSerializerInterceptor,
-  Logger,
-  VersioningType,
-} from '@nestjs/common';
+import { ClassSerializerInterceptor, Logger, VersioningType } from '@nestjs/common';
 import { HttpExceptionFilter } from '@common/exceptions';
 import { SwaggerModule } from '@nestjs/swagger';
 import { createDocument } from '@common/helpers';
@@ -32,9 +28,7 @@ async function bootstrap() {
 
   const httpAdapter = app.get(HttpAdapterHost);
   const logger = app.get(Logger);
-  const appConfig: ConfigType<typeof AppConfig> = app
-    .get(ConfigService)
-    .get('application');
+  const appConfig: ConfigType<typeof AppConfig> = app.get(ConfigService).get('application');
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
@@ -64,9 +58,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document, setupOptions);
   await app.listen(appConfig.port, () => {
     logger.debug(`server started at port: ${appConfig.port}`);
-    logger.debug(
-      `swagger docs started at http://localhost:${appConfig.port}/api`,
-    );
+    logger.debug(`swagger docs started at http://localhost:${appConfig.port}/api`);
   });
 }
 bootstrap();

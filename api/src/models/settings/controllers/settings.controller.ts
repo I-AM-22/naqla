@@ -13,9 +13,7 @@ import { UpdateSettingDto } from '../dtos';
 @Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
 @Controller('settings')
 export class SettingsController {
-  constructor(
-    @Inject(SETTING_TYPES.service) private settingsService: ISettingsService,
-  ) {}
+  constructor(@Inject(SETTING_TYPES.service) private settingsService: ISettingsService) {}
 
   @ApiOkResponse({ type: Setting, isArray: true })
   @Get()

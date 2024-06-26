@@ -32,20 +32,14 @@ export class StatisticsController {
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: OrderStatsDate })
   @Get('order/:first_date/:second_date')
-  findForDate(
-    @Param('first_date') first: string,
-    @Param('second_date') second: string,
-  ) {
+  findForDate(@Param('first_date') first: string, @Param('second_date') second: string) {
     return this.staticsService.staticsOrdersForDate(first, second);
   }
 
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: StaticProfits })
   @Get('profits/:first_date/:second_date')
-  profits(
-    @Param('first_date') first: string,
-    @Param('second_date') second: string,
-  ) {
+  profits(@Param('first_date') first: string, @Param('second_date') second: string) {
     return this.staticsService.staticProfits(first, second);
   }
 

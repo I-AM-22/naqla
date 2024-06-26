@@ -28,10 +28,7 @@ export class IsExistConstraint implements ValidatorConstraintInterface {
   }
 }
 
-export function IsExist(
-  entity: string,
-  validationOptions?: ValidationOptions,
-): PropertyDecorator {
+export function IsExist(entity: string, validationOptions?: ValidationOptions): PropertyDecorator {
   return function (object: object, propertyName: string) {
     registerDecorator({
       target: object.constructor,

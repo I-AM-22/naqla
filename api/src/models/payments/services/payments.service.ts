@@ -35,8 +35,7 @@ export class PaymentsService implements IPaymentsService {
   async setDeliveredDate(orderId: string): Promise<Payment> {
     const payment = await this.fineOneByOrderId(orderId);
 
-    const updatedPayment =
-      await this.paymentRepository.setDeliveredDate(payment);
+    const updatedPayment = await this.paymentRepository.setDeliveredDate(payment);
 
     if (!updatedPayment) {
       throw new NotFoundException('Payment not found after update');

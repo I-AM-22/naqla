@@ -13,12 +13,7 @@ export const AuthDriverServiceProvider: Provider = {
   useClass: AuthDriverService,
 };
 @Module({
-  imports: [
-    PassportModule.register({}),
-    DriversModule,
-    RolesModule,
-    OtpsModule,
-  ],
+  imports: [PassportModule.register({}), DriversModule, RolesModule, OtpsModule],
   controllers: [AuthDriverController],
   providers: [AuthDriverServiceProvider, JwtDriverStrategy],
   exports: [PassportModule],

@@ -101,7 +101,7 @@ $ yarn doc:generate
 $ yarn doc:run
 
 ```
- 
+
 ## Create and drop the database
 
 ```bash
@@ -133,9 +133,6 @@ $ yarn db:seed
 
 ```
 
-
-
 ## License
 
 Nest is [MIT licensed](LICENSE).
-

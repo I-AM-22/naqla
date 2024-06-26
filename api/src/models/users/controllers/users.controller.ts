@@ -12,28 +12,13 @@ import {
   Req,
   Inject,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOkResponse,
-  ApiQuery,
-  ApiNoContentResponse,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOkResponse, ApiQuery, ApiNoContentResponse } from '@nestjs/swagger';
 
 import { UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
-import {
-  GetUser,
-  Roles,
-  CheckAbilities,
-  Id,
-  ApiMainErrorsResponse,
-  Auth,
-} from '@common/decorators';
+import { GetUser, Roles, CheckAbilities, Id, ApiMainErrorsResponse, Auth } from '@common/decorators';
 import { GROUPS, ROLE, Entities, Action } from '@common/enums';
-import {
-  LoggingInterceptor,
-  WithDeletedInterceptor,
-} from '@common/interceptors';
+import { LoggingInterceptor, WithDeletedInterceptor } from '@common/interceptors';
 import { PaginatedResponse } from '@common/types';
 import { Request } from 'express';
 import { IUsersService } from '../interfaces/services/users.service.interface';

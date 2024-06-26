@@ -1,9 +1,4 @@
-import {
-  ForbiddenException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ORDER_TYPES } from '../interfaces/type';
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
@@ -54,8 +49,7 @@ export class OrdersService implements IOrdersService {
   }
 
   async findOne(id: string, person?: IPerson): Promise<Order> {
-    if (person && person.role.name === ROLE.USER)
-      return await this.findOneForOwner(id, person.id);
+    if (person && person.role.name === ROLE.USER) return await this.findOneForOwner(id, person.id);
 
     const order = await this.orderRepository.findById(id);
     if (!order) throw new NotFoundException(item_not_found(Entities.Order));
@@ -73,38 +67,22 @@ export class OrdersService implements IOrdersService {
   }
 
   async create(user: User, dto: CreateOrderDto): Promise<Order> {
-    const photo = await this.orderPhotoRepository.uploadPhotoMultiple(
-      dto.items,
-    );
+    const photo = await this.orderPhotoRepository.uploadPhotoMultiple(dto.items);
 
     const advantages = await this.advantagesService.findInIds(dto.advantages);
     let sum: number = 0;
     advantages.forEach((item) => {
       sum += +item.cost;
     });
-    const order = await this.orderRepository.create(
-      user,
-      photo,
-      advantages,
-      dto,
-    );
+    const order = await this.orderRepository.create(user, photo, advantages, dto);
     await this.paymentsService.create(order, sum);
     return order;
   }
 
-  async update(
-    id: string,
-    person: IPerson,
-    dto: UpdateOrderDto,
-  ): Promise<Order> {
+  async update(id: string, person: IPerson, dto: UpdateOrderDto): Promise<Order> {
     const order = await this.findOne(id, person);
-    if (
-      order.status !== ORDER_STATUS.WAITING &&
-      order.status !== ORDER_STATUS.READY
-    ) {
-      throw new ForbiddenException(
-        'Can not update order advantages after accept the offer',
-      );
+    if (order.status !== ORDER_STATUS.WAITING && order.status !== ORDER_STATUS.READY) {
+      throw new ForbiddenException('Can not update order advantages after accept the offer');
     }
     const photo = await this.orderPhotoRepository.uploadPhotoMultiple([]);
     return this.orderRepository.update(order, dto, photo);
@@ -126,14 +104,10 @@ export class OrdersService implements IOrdersService {
   async acceptance(id: string): Promise<Order> {
     const order = await this.orderRepository.findById(id);
     if (order.status !== ORDER_STATUS.READY) {
-      throw new ForbiddenException(
-        'Can not acceptance Done this order because his status is not accepted',
-      );
+      throw new ForbiddenException('Can not acceptance Done this order because his status is not accepted');
     }
     if (!(await this.walletRepository.check(order.userId, order.payment.cost)))
-      throw new ForbiddenException(
-        `Can not acceptance Done this order because you do not have order's cost`,
-      );
+      throw new ForbiddenException(`Can not acceptance Done this order because you do not have order's cost`);
     await this.walletRepository.updatePending(order.userId, order.payment.cost);
     await this.subOrderRepository.setStatusToReady(order.id);
     return this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
@@ -165,39 +139,21 @@ export class OrdersService implements IOrdersService {
     return this.orderRepository.delete(order);
   }
 
-  async addAdvantagesToOrder(
-    id: string,
-    dto: AddAdvansToOrderDto,
-    user: User,
-  ): Promise<void> {
+  async addAdvantagesToOrder(id: string, dto: AddAdvansToOrderDto, user: User): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
 
-    if (
-      order.status !== ORDER_STATUS.WAITING &&
-      order.status !== ORDER_STATUS.READY
-    ) {
-      throw new ForbiddenException(
-        'Can not update order advantages after accept the offer',
-      );
+    if (order.status !== ORDER_STATUS.WAITING && order.status !== ORDER_STATUS.READY) {
+      throw new ForbiddenException('Can not update order advantages after accept the offer');
     }
 
     const advantages = await this.advantagesService.findInIds(dto.advantages);
     return await this.orderRepository.addAdvantageToOrder(order, advantages);
   }
 
-  async removeAdvantagesFromOrder(
-    id: string,
-    advantageId: string,
-    user: User,
-  ): Promise<void> {
+  async removeAdvantagesFromOrder(id: string, advantageId: string, user: User): Promise<void> {
     const order = await this.findOneForOwner(id, user.id);
-    if (
-      order.status !== ORDER_STATUS.WAITING &&
-      order.status !== ORDER_STATUS.READY
-    ) {
-      throw new ForbiddenException(
-        'Can not update order advantages after accept the offer',
-      );
+    if (order.status !== ORDER_STATUS.WAITING && order.status !== ORDER_STATUS.READY) {
+      throw new ForbiddenException('Can not update order advantages after accept the offer');
     }
     const advantage = await this.advantagesService.findOne(advantageId);
     return this.orderRepository.removeAdvantageFromOrder(order, advantage);

@@ -1,12 +1,7 @@
 import { Controller, Get, SerializeOptions, Inject } from '@nestjs/common';
 import { Permission } from '../entities/permission.entity';
 import { ApiOkResponse, ApiTags, OmitType } from '@nestjs/swagger';
-import {
-  ApiMainErrorsResponse,
-  Auth,
-  CheckAbilities,
-  Id,
-} from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, CheckAbilities, Id } from '@common/decorators';
 import { Action, Entities, GROUPS } from '@common/enums';
 import { IPermissionsService } from '../interfaces/services/permissions.service.interface';
 import { PERMISSION_TYPES } from '../interfaces/type';

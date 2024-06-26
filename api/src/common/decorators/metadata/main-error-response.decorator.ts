@@ -1,11 +1,7 @@
 import { bad_req, data_not_found, denied_error } from '@common/constants';
 import { AppError, CustomValidationError } from '@common/types';
 import { applyDecorators } from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-} from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiForbiddenResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 
 export function ApiMainErrorsResponse() {
   return applyDecorators(

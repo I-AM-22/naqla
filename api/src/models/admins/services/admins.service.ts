@@ -1,19 +1,9 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  NotFoundException,
-  Inject,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException, NotFoundException, Inject } from '@nestjs/common';
 import { Entities, ROLE } from '@common/enums';
 import { CreateAdminDto, LoginAdminDto, UpdateAdminDto } from '../dtos';
 import { Admin } from '../entities/admin.entity';
 import { AuthAdminResponse } from '../interfaces';
-import {
-  defaultPhotoUrl,
-  incorrect_credentials,
-  item_not_found,
-  password_changed_recently,
-} from '@common/constants';
+import { defaultPhotoUrl, incorrect_credentials, item_not_found, password_changed_recently } from '@common/constants';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
 import { IAdminRepository } from '../interfaces/repositories/admin.repository.interface';
@@ -40,10 +30,7 @@ export class AdminsService implements IAdminsService {
     if (!admin || !(await admin.verifyHash(admin.password, dto.password))) {
       throw new UnauthorizedException(incorrect_credentials);
     }
-    const token = await this.jwtTokenService.signToken(
-      admin.id,
-      Entities.Admin,
-    );
+    const token = await this.jwtTokenService.signToken(admin.id, Entities.Admin);
     return { token, admin };
   }
 
@@ -64,8 +51,7 @@ export class AdminsService implements IAdminsService {
   async create(dto: CreateAdminDto): Promise<Admin> {
     const role = await this.rolesService.findByName(ROLE.ADMIN);
     let photo;
-    if (dto.photo)
-      photo = await this.adminPhotoRepository.uploadPhoto(dto.photo);
+    if (dto.photo) photo = await this.adminPhotoRepository.uploadPhoto(dto.photo);
     else photo = await this.adminPhotoRepository.uploadPhoto(defaultPhotoUrl);
     const admin = await this.adminRepository.create(dto, photo, role);
     return admin;

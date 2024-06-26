@@ -1,9 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateDriverDto, UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
 import { Entities, ROLE } from '@common/enums';
@@ -43,37 +38,21 @@ export class DriversService implements IDriversService {
   async create(dto: CreateDriverDto): Promise<Driver> {
     const role = await this.rolesService.findByName(ROLE.DRIVER);
     let photo;
-    if (dto.photo)
-      photo = await this.driverPhotoRepository.uploadPhoto(dto.photo);
+    if (dto.photo) photo = await this.driverPhotoRepository.uploadPhoto(dto.photo);
     else photo = await this.driverPhotoRepository.uploadPhoto(defaultPhotoUrl);
     const wallet = this.driverWalletRepository.create();
     return this.driverRepository.create(dto, wallet, photo, role);
   }
 
-  async find(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<PaginatedResponse<Driver> | Driver[]> {
+  async find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver> | Driver[]> {
     return this.driverRepository.find(page, limit, withDeleted);
   }
 
-  async staticsDriver(
-    page: number,
-    limit: number,
-    withDeleted: boolean,
-  ): Promise<any[]> {
-    const data = await this.driverRepository.staticsDriver(
-      page,
-      limit,
-      withDeleted,
-    );
+  async staticsDriver(page: number, limit: number, withDeleted: boolean): Promise<any[]> {
+    const data = await this.driverRepository.staticsDriver(page, limit, withDeleted);
     const updateDriver = await Promise.all(
       data.data.map(async (driver) => {
-        const countOrderDelivered =
-          await this.subOrderService.countSubOrdersCompletedForDriver(
-            driver.id,
-          );
+        const countOrderDelivered = await this.subOrderService.countSubOrdersCompletedForDriver(driver.id);
         const countCar = await this.carsService.countCarForDriver(driver.id);
         return {
           ...driver,
@@ -118,10 +97,7 @@ export class DriversService implements IDriversService {
   }
 
   //TODO
-  async updatePhone(
-    driver: Driver,
-    dto: UpdateDriverPhoneDto,
-  ): Promise<Driver> {
+  async updatePhone(driver: Driver, dto: UpdateDriverPhoneDto): Promise<Driver> {
     return this.driverRepository.updatePhone(driver, dto);
   }
 

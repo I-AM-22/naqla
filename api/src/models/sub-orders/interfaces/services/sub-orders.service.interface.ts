@@ -7,11 +7,7 @@ import { IPerson } from '@common/interfaces';
 
 export interface ISubOrdersService {
   find(): Promise<SubOrder[]>;
-  findChats(
-    person: IPerson,
-    page: number,
-    limit: number,
-  ): Promise<PaginatedResponse<SubOrder>>;
+  findChats(person: IPerson, page: number, limit: number): Promise<PaginatedResponse<SubOrder>>;
   findForDriver(driverId: string): Promise<SubOrder[]>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
   findAllActiveForDriver(driverId: string): Promise<SubOrder[]>;

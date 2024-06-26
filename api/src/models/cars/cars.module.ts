@@ -27,23 +27,9 @@ export const CarPhotoRepositoryProvider: Provider = {
 };
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Car, CarPhoto]),
-    AdvantagesModule,
-    forwardRef(() => OrdersModule),
-  ],
+  imports: [TypeOrmModule.forFeature([Car, CarPhoto]), AdvantagesModule, forwardRef(() => OrdersModule)],
   controllers: [CarController, OrderCarController],
-  providers: [
-    CarsServiceProvider,
-    CarRepositoryProvider,
-    CarRepository,
-    CarPhotoRepositoryProvider,
-  ],
-  exports: [
-    CarRepository,
-    CarsServiceProvider,
-    CarRepositoryProvider,
-    CarPhotoRepositoryProvider,
-  ],
+  providers: [CarsServiceProvider, CarRepositoryProvider, CarRepository, CarPhotoRepositoryProvider],
+  exports: [CarRepository, CarsServiceProvider, CarRepositoryProvider, CarPhotoRepositoryProvider],
 })
 export class CarsModule {}

@@ -18,9 +18,7 @@ export class IsItemExistConstraint implements ValidatorConstraintInterface {
   }
 }
 
-export function IsItemExist(
-  validationOptions?: ValidationOptions,
-): PropertyDecorator {
+export function IsItemExist(validationOptions?: ValidationOptions): PropertyDecorator {
   return function (object: object, propertyName: string) {
     registerDecorator({
       target: object.constructor,

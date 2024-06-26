@@ -10,10 +10,7 @@ import { ADMIN_TYPES } from '../interfaces/type';
 import { IAdminsService } from '../interfaces/services/admins.service.interface';
 
 @Injectable()
-export class JwtAdminStrategy extends PassportStrategy(
-  Strategy,
-  strategies.admin,
-) {
+export class JwtAdminStrategy extends PassportStrategy(Strategy, strategies.admin) {
   constructor(
     config: ConfigService,
     @Inject(ADMIN_TYPES.service) private adminsService: IAdminsService,
@@ -27,10 +24,7 @@ export class JwtAdminStrategy extends PassportStrategy(
   async validate(payload: jwtPayload) {
     if (payload.entity !== Entities.Admin) return;
 
-    const employee = await this.adminsService.validate(
-      payload.sub,
-      payload.iat,
-    );
+    const employee = await this.adminsService.validate(payload.sub, payload.iat);
 
     return employee;
   }

@@ -2,11 +2,7 @@ import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { CloudinaryModule } from '@shared/cloudinary';
-import {
-  IsExistConstraint,
-  IsPhotoExistConstraint,
-  IsUniqueConstraint,
-} from '@common/decorators';
+import { IsExistConstraint, IsPhotoExistConstraint, IsUniqueConstraint } from '@common/decorators';
 import { PhotosModule } from './photos/photos.module';
 import { PhotoCleanupModule } from '@jobs/photo-cleanup';
 import { AdminsModule } from '@models/admins/admins.module';

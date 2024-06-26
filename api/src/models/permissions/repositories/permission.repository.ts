@@ -14,29 +14,21 @@ export class PermissionRepository implements IPermissionRepository {
   async find(permissionsIds?: string[]): Promise<Permission[]> {
     let permissions = this.permissionRepo
       .createQueryBuilder('permission')
-      .where(
-        '(permission.subject != :subject OR permission.action != :action)',
-        {
-          subject: Entities.All,
-          action: Action.Manage,
-        },
-      );
-    permissions = permissionsIds
-      ? permissions.andWhereInIds(permissionsIds)
-      : permissions;
+      .where('(permission.subject != :subject OR permission.action != :action)', {
+        subject: Entities.All,
+        action: Action.Manage,
+      });
+    permissions = permissionsIds ? permissions.andWhereInIds(permissionsIds) : permissions;
 
     return permissions.getMany();
   }
   async findOne(id: string, withDeleted = false): Promise<Permission> {
     let permission = this.permissionRepo
       .createQueryBuilder('permission')
-      .where(
-        '(permission.subject != :subject OR permission.action != :action)',
-        {
-          subject: Entities.All,
-          action: Action.Manage,
-        },
-      )
+      .where('(permission.subject != :subject OR permission.action != :action)', {
+        subject: Entities.All,
+        action: Action.Manage,
+      })
       .andWhere('permission.id = :id', { id });
     permission = withDeleted ? permission.withDeleted() : permission;
     return permission.getOne();

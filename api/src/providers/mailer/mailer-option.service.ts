@@ -7,9 +7,7 @@ import path = require('path');
 
 @Injectable()
 export class MailerOptionService implements MailerOptionsFactory {
-  constructor(
-    @Inject(MailConfig.KEY) private mailConfig: ConfigType<typeof MailConfig>,
-  ) {}
+  constructor(@Inject(MailConfig.KEY) private mailConfig: ConfigType<typeof MailConfig>) {}
   createMailerOptions(): MailerOptions | Promise<MailerOptions> {
     const mailerOptions: MailerOptions = {
       transport: {

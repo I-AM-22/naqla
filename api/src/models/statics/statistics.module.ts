@@ -8,13 +8,7 @@ import { StatisticsController } from './controllers/statistics.controller';
 import { StatisticsService } from './services/statistics.service';
 
 @Module({
-  imports: [
-    UsersModule,
-    SubOrdersModule,
-    DriversModule,
-    OrdersModule,
-    CarsModule,
-  ],
+  imports: [UsersModule, SubOrdersModule, DriversModule, OrdersModule, CarsModule],
   controllers: [StatisticsController],
   providers: [StatisticsService],
   exports: [],

@@ -13,12 +13,7 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CreateSubOrdersDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
@@ -64,18 +59,14 @@ export class SubOrdersController {
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: SubOrder, isArray: true })
   @Get('active-driver')
-  async findAllActiveForDriver(
-    @GetUser('id') driverId: string,
-  ): Promise<SubOrder[]> {
+  async findAllActiveForDriver(@GetUser('id') driverId: string): Promise<SubOrder[]> {
     return this.subOrdersService.findAllActiveForDriver(driverId);
   }
 
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ isArray: true, type: SubOrder })
   @Get('done-driver')
-  async findIsDoneForDriver(
-    @GetUser('id') driverId: string,
-  ): Promise<SubOrder[]> {
+  async findIsDoneForDriver(@GetUser('id') driverId: string): Promise<SubOrder[]> {
     return await this.subOrdersService.findIsDoneForDriver(driverId);
   }
 
@@ -94,11 +85,7 @@ export class SubOrdersController {
     required: false,
   })
   @Get('chats')
-  async findChats(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @GetUser() person: IPerson,
-  ) {
+  async findChats(@Query('page') page: number, @Query('limit') limit: number, @GetUser() person: IPerson) {
     return await this.subOrdersService.findChats(person, page, limit);
   }
 
@@ -113,10 +100,7 @@ export class SubOrdersController {
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: SubOrder })
   @Patch(':id')
-  async update(
-    @Id() id: string,
-    @Body() dto: UpdateSubOrderDto,
-  ): Promise<SubOrder> {
+  async update(@Id() id: string, @Body() dto: UpdateSubOrderDto): Promise<SubOrder> {
     return await this.subOrdersService.update(id, dto);
   }
 
@@ -144,10 +128,7 @@ export class SubOrdersController {
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: SubOrder })
   @Patch(':id/setDriver')
-  async setDriver(
-    @Id() id: string,
-    @Body() dto: SetDriverSubOrderDto,
-  ): Promise<SubOrder> {
+  async setDriver(@Id() id: string, @Body() dto: SetDriverSubOrderDto): Promise<SubOrder> {
     return await this.subOrdersService.setDriver(id, dto.carId);
   }
 

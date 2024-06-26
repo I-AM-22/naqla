@@ -14,10 +14,7 @@ export class MessageRepository implements IMessageRepository {
     private readonly messageRepository: Repository<Message>,
   ) {}
 
-  async findAll(
-    page: number,
-    limit: number,
-  ): Promise<PaginatedResponse<Message>> {
+  async findAll(page: number, limit: number): Promise<PaginatedResponse<Message>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || 100;
     const data = await this.messageRepository.find({
@@ -28,11 +25,7 @@ export class MessageRepository implements IMessageRepository {
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
-  async findForSubOrder(
-    subOrderId: string,
-    page: number,
-    limit: number,
-  ): Promise<PaginatedResponse<Message>> {
+  async findForSubOrder(subOrderId: string, page: number, limit: number): Promise<PaginatedResponse<Message>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || 100;
     const data = await this.messageRepository.find({

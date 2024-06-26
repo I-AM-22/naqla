@@ -7,11 +7,7 @@ export interface IRoleRepository {
 
   find(): Promise<Role[]>;
 
-  findOne(
-    id: string,
-    withDeleted?: boolean,
-    relations?: string[],
-  ): Promise<Role>;
+  findOne(id: string, withDeleted?: boolean, relations?: string[]): Promise<Role>;
 
   findByName(name: string): Promise<Role>;
 

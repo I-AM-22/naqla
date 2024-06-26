@@ -32,12 +32,7 @@ export const UserWalletRepositoryProvider: Provider = {
   useClass: UserWalletRepository,
 };
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User, UserWallet, UserPhoto]),
-    RolesModule,
-    CitiesModule,
-    OrdersModule,
-  ],
+  imports: [TypeOrmModule.forFeature([User, UserWallet, UserPhoto]), RolesModule, CitiesModule, OrdersModule],
   controllers: [UsersController],
   providers: [
     UserPhotoRepositoryProvider,

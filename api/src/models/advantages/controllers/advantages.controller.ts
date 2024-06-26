@@ -14,12 +14,7 @@ import { CreateAdvantageDto } from '../dto/create-advantage.dto';
 import { UpdateAdvantageDto } from '../dto/update-advantage.dto';
 import { IAdvantagesService } from '../interfaces/services/advantages.service.interface';
 import { ADVANTAGE_TYPES } from '../interfaces/type';
-import {
-  ApiTags,
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiNoContentResponse,
-} from '@nestjs/swagger';
+import { ApiTags, ApiCreatedResponse, ApiOkResponse, ApiNoContentResponse } from '@nestjs/swagger';
 import { LoggingInterceptor } from '@common/interceptors';
 import { Advantage } from '../entities/advantage.entity';
 import { ApiMainErrorsResponse, Auth, Roles } from '@common/decorators';
@@ -62,10 +57,7 @@ export class AdvantagesController {
   @ApiOkResponse({ type: Advantage })
   @Roles(ROLE.ADMIN)
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateAdvantageDto: UpdateAdvantageDto,
-  ) {
+  update(@Param('id') id: string, @Body() updateAdvantageDto: UpdateAdvantageDto) {
     return this.advantagesService.update(id, updateAdvantageDto);
   }
 

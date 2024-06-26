@@ -104,43 +104,27 @@ export class SubOrderRepository implements ISubOrderRepository {
         'advantages.id',
       ])
       .getMany();
-    const carAdvantagesIds = cars.flatMap((car) =>
-      car.advantages.map((adv) => adv.id),
-    );
+    const carAdvantagesIds = cars.flatMap((car) => car.advantages.map((adv) => adv.id));
 
     const carAdvantagesSet = new Set(carAdvantagesIds);
     return subOrders.filter((subOrder) => {
-      const subOrderAdvantagesIds = subOrder.order.advantages.map(
-        (adv) => adv.id,
-      );
+      const subOrderAdvantagesIds = subOrder.order.advantages.map((adv) => adv.id);
       return subOrderAdvantagesIds.every((id) => carAdvantagesSet.has(id));
     });
   }
 
-  async findChats(
-    personId: string,
-    page: number,
-    limit: number,
-  ): Promise<PaginatedResponse<SubOrder>> {
+  async findChats(personId: string, page: number, limit: number): Promise<PaginatedResponse<SubOrder>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || 100;
     const data = await this.subOrderRepository.find({
       where: [
         {
           order: { userId: personId },
-          status: In([
-            SUB_ORDER_STATUS.DELIVERED,
-            SUB_ORDER_STATUS.ON_THE_WAY,
-            SUB_ORDER_STATUS.TAKEN,
-          ]),
+          status: In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.TAKEN]),
         },
         {
           car: { driverId: personId },
-          status: In([
-            SUB_ORDER_STATUS.DELIVERED,
-            SUB_ORDER_STATUS.ON_THE_WAY,
-            SUB_ORDER_STATUS.TAKEN,
-          ]),
+          status: In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.TAKEN]),
         },
       ],
       relations: { order: true, car: true },
@@ -152,19 +136,11 @@ export class SubOrderRepository implements ISubOrderRepository {
       where: [
         {
           order: { userId: personId },
-          status: In([
-            SUB_ORDER_STATUS.DELIVERED,
-            SUB_ORDER_STATUS.ON_THE_WAY,
-            SUB_ORDER_STATUS.TAKEN,
-          ]),
+          status: In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.TAKEN]),
         },
         {
           car: { driverId: personId },
-          status: In([
-            SUB_ORDER_STATUS.DELIVERED,
-            SUB_ORDER_STATUS.ON_THE_WAY,
-            SUB_ORDER_STATUS.TAKEN,
-          ]),
+          status: In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.TAKEN]),
         },
       ],
       relations: { order: true, car: true },
@@ -218,31 +194,19 @@ export class SubOrderRepository implements ISubOrderRepository {
         {
           id,
           order: { userId: personId },
-          status: In([
-            SUB_ORDER_STATUS.DELIVERED,
-            SUB_ORDER_STATUS.ON_THE_WAY,
-            SUB_ORDER_STATUS.TAKEN,
-          ]),
+          status: In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.TAKEN]),
         },
         {
           id,
           car: { driverId: personId },
-          status: In([
-            SUB_ORDER_STATUS.DELIVERED,
-            SUB_ORDER_STATUS.ON_THE_WAY,
-            SUB_ORDER_STATUS.TAKEN,
-          ]),
+          status: In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.TAKEN]),
         },
       ],
       relations: { order: true, car: true },
     });
   }
 
-  async create(
-    orderId: string,
-    dto: CreateSubOrderDto,
-    cost: number,
-  ): Promise<SubOrder> {
+  async create(orderId: string, dto: CreateSubOrderDto, cost: number): Promise<SubOrder> {
     const sub = this.subOrderRepository.create({
       orderId,
       weight: dto.weight,
@@ -285,10 +249,7 @@ export class SubOrderRepository implements ISubOrderRepository {
   }
 
   async refusedForOrder(orderId: string): Promise<void> {
-    await this.subOrderRepository.update(
-      { orderId },
-      { status: SUB_ORDER_STATUS.REFUSED },
-    );
+    await this.subOrderRepository.update({ orderId }, { status: SUB_ORDER_STATUS.REFUSED });
   }
 
   async setDriver(subOrder: SubOrder, car: Car): Promise<SubOrder> {

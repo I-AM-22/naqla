@@ -12,19 +12,10 @@ import {
   SerializeOptions,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiNoContentResponse,
-  ApiOkResponse,
-  ApiQuery,
-  ApiTags,
-} from '@nestjs/swagger';
-
+import { ApiNoContentResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ApiMainErrorsResponse, Auth, CheckAbilities, GetUser, Id, Roles } from '@common/decorators';
 import { Action, Entities, GROUPS, ROLE } from '@common/enums';
-import {
-  LoggingInterceptor,
-  WithDeletedInterceptor,
-} from '@common/interceptors';
+import { LoggingInterceptor, WithDeletedInterceptor } from '@common/interceptors';
 import { PaginatedResponse } from '@common/types';
 import { Request } from 'express';
 import { UpdateDriverDto } from '../dtos';

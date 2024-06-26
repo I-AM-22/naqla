@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { BasePersonWithActive, BasePhoto } from '@common/base';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { GROUPS } from '@common/enums';

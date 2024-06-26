@@ -17,12 +17,7 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrdersService } from '../interfaces/services/orders.service.interface';
@@ -34,17 +29,12 @@ import { ORDER_TYPES } from '../interfaces/type';
 @UseInterceptors(new LoggingInterceptor())
 @Controller({ path: 'orders', version: '1' })
 export class OrderController {
-  constructor(
-    @Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService,
-  ) {}
+  constructor(@Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService) {}
 
   @Roles(ROLE.USER)
   @ApiCreatedResponse({ type: Order })
   @Post()
-  async create(
-    @Body() createOrderDto: CreateOrderDto,
-    @GetUser() user: User,
-  ): Promise<Order> {
+  async create(@Body() createOrderDto: CreateOrderDto, @GetUser() user: User): Promise<Order> {
     return await this.ordersService.create(user, createOrderDto);
   }
 
@@ -107,11 +97,7 @@ export class OrderController {
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: Order })
   @Patch(':id')
-  async update(
-    @Id() id: string,
-    @GetUser() user: IPerson,
-    @Body() dto: UpdateOrderDto,
-  ): Promise<Order> {
+  async update(@Id() id: string, @GetUser() user: IPerson, @Body() dto: UpdateOrderDto): Promise<Order> {
     return await this.ordersService.update(id, user, dto);
   }
 
@@ -125,16 +111,8 @@ export class OrderController {
   @Roles(ROLE.USER)
   @ApiOkResponse()
   @Post(':id/advantages')
-  async addAdvantagesToOrder(
-    @Id() id: string,
-    @Body() createAdvantageDto: AddAdvansToOrderDto,
-    @GetUser() user: User,
-  ) {
-    return this.ordersService.addAdvantagesToOrder(
-      id,
-      createAdvantageDto,
-      user,
-    );
+  async addAdvantagesToOrder(@Id() id: string, @Body() createAdvantageDto: AddAdvansToOrderDto, @GetUser() user: User) {
+    return this.ordersService.addAdvantagesToOrder(id, createAdvantageDto, user);
   }
 
   @Roles(ROLE.USER, ROLE.EMPLOYEE)

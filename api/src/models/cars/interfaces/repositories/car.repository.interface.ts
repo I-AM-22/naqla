@@ -16,12 +16,7 @@ export interface ICarRepository {
   findByIdForDelete(id: string, driverId: string): Promise<Car>;
   countCar(): Promise<number>;
   countCarAdvantage(advantage: string): Promise<number>;
-  create(
-    driver: Driver,
-    photo: CarPhoto,
-    advantages: Advantage[],
-    dto: CreateCarDto,
-  ): Promise<Car>;
+  create(driver: Driver, photo: CarPhoto, advantages: Advantage[], dto: CreateCarDto): Promise<Car>;
   update(car: Car, dto: UpdateCarDto, photo: CarPhoto): Promise<Car>;
   delete(car: Car): Promise<void>;
   addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void>;

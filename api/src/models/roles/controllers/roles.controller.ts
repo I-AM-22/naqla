@@ -1,31 +1,9 @@
-import {
-  Controller,
-  SerializeOptions,
-  Get,
-  Post,
-  Body,
-  Param,
-  Patch,
-  Delete,
-  Inject,
-} from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOkResponse,
-  OmitType,
-  ApiCreatedResponse,
-  ApiParam,
-  ApiOperation,
-} from '@nestjs/swagger';
+import { Controller, SerializeOptions, Get, Post, Body, Param, Patch, Delete, Inject } from '@nestjs/common';
+import { ApiTags, ApiOkResponse, OmitType, ApiCreatedResponse, ApiParam, ApiOperation } from '@nestjs/swagger';
 
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities/role.entity';
-import {
-  ApiMainErrorsResponse,
-  Auth,
-  CheckAbilities,
-  Id,
-} from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, CheckAbilities, Id } from '@common/decorators';
 import { Action, Entities, GROUPS } from '@common/enums';
 import { ROLE_TYPES } from '../interfaces/type';
 import { IRolesService } from '../interfaces/services/roles.service.interface';
@@ -68,10 +46,7 @@ export class RolesController {
   @ApiOkResponse({ type: Role })
   @SerializeOptions({ groups: [GROUPS.ROLE] })
   @Patch(':id')
-  async update(
-    @Id() id: string,
-    @Body() dto: UpdateRoleDto,
-  ): Promise<Role | undefined> {
+  async update(@Id() id: string, @Body() dto: UpdateRoleDto): Promise<Role | undefined> {
     return this.rolesService.update(id, dto);
   }
 
@@ -79,10 +54,7 @@ export class RolesController {
   @ApiOkResponse({ type: Role })
   @SerializeOptions({ groups: [GROUPS.ROLE] })
   @Post(':id/permissions')
-  async addPermissions(
-    @Id() id: string,
-    @Body() dto: UpdateRoleDto,
-  ): Promise<Role | undefined> {
+  async addPermissions(@Id() id: string, @Body() dto: UpdateRoleDto): Promise<Role | undefined> {
     return this.rolesService.addPermissions(id, dto);
   }
 
@@ -90,10 +62,7 @@ export class RolesController {
   @ApiOkResponse({ type: Role })
   @SerializeOptions({ groups: [GROUPS.ROLE] })
   @Delete(':id/permissions')
-  async deletePermissions(
-    @Id() id: string,
-    @Body() dto: UpdateRoleDto,
-  ): Promise<Role | undefined> {
+  async deletePermissions(@Id() id: string, @Body() dto: UpdateRoleDto): Promise<Role | undefined> {
     return this.rolesService.deletePermissions(id, dto);
   }
 }

@@ -1,13 +1,6 @@
 import { ApiMainErrorsResponse, Auth, GetUser } from '@common/decorators';
 import { LoggingInterceptor } from '@common/interceptors';
-import {
-  Controller,
-  Get,
-  Inject,
-  Param,
-  Query,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Inject, Param, Query, UseInterceptors } from '@nestjs/common';
 import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { MESSAGE_TYPES } from '../interfaces/type';
 import { IMessagesService } from '../interfaces/services/messages.service.interface';
@@ -46,11 +39,6 @@ export class SubOrdersMessagesController {
     @Query('limit') limit: number,
     @GetUser() person: IPerson,
   ) {
-    return this.messagesService.findForSubOrder(
-      subOrderId,
-      person,
-      page,
-      limit,
-    );
+    return this.messagesService.findForSubOrder(subOrderId, person, page, limit);
   }
 }

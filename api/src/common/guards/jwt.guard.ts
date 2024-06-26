@@ -5,12 +5,7 @@ import { IS_PUBLIC_KEY } from '../decorators';
 import { strategies } from '../constants/jwt.constant';
 
 @Injectable()
-export class JwtGuard extends AuthGuard([
-  strategies.user,
-  strategies.driver,
-  strategies.admin,
-  strategies.employee,
-]) {
+export class JwtGuard extends AuthGuard([strategies.user, strategies.driver, strategies.admin, strategies.employee]) {
   constructor(private reflector: Reflector) {
     super();
   }

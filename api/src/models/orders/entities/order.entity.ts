@@ -3,16 +3,7 @@ import { Advantage } from '@models/advantages/entities/advantage.entity';
 import { User } from '@models/users/entities/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Type } from 'class-transformer';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { OrderPhoto } from './order-photo.entity';
 import { ORDER_STATUS } from '@common/enums';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';

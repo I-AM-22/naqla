@@ -12,21 +12,10 @@ import {
   Patch,
 } from '@nestjs/common';
 
-import {
-  ApiOkResponse,
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOkResponse, ApiCreatedResponse, ApiNoContentResponse, ApiTags } from '@nestjs/swagger';
 import { LoggingInterceptor } from '@common/interceptors';
 import { GROUPS, ROLE } from '@common/enums';
-import {
-  ApiMainErrorsResponse,
-  Auth,
-  GetUser,
-  Id,
-  Roles,
-} from '@common/decorators';
+import { ApiMainErrorsResponse, Auth, GetUser, Id, Roles } from '@common/decorators';
 import { CAR_TYPES } from '../interfaces/type';
 import { ICarsService } from '../interfaces/services/cars.service.interface';
 import { CreateCarDto, UpdateCarDto, AddAdvansToCarDto } from '../dtos';
@@ -39,9 +28,7 @@ import { Driver } from '@models/drivers/entities/driver.entity';
 @Auth()
 @Controller({ path: 'cars', version: '1' })
 export class CarController {
-  constructor(
-    @Inject(CAR_TYPES.service) private readonly carsService: ICarsService,
-  ) {}
+  constructor(@Inject(CAR_TYPES.service) private readonly carsService: ICarsService) {}
 
   @SerializeOptions({ groups: [GROUPS.ALL_CARS] })
   @Roles(ROLE.DRIVER)
@@ -63,10 +50,7 @@ export class CarController {
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: Car })
   @Get(':id')
-  async findOne(
-    @Id() id: string,
-    @GetUser('id') driverId: string,
-  ): Promise<Car> {
+  async findOne(@Id() id: string, @GetUser('id') driverId: string): Promise<Car> {
     const car = await this.carsService.findOneForOwner(id, driverId);
 
     return car;
@@ -76,10 +60,7 @@ export class CarController {
   @Roles(ROLE.DRIVER)
   @ApiCreatedResponse({ type: Car })
   @Post()
-  async create(
-    @Body() createCarDto: CreateCarDto,
-    @GetUser() driver: Driver,
-  ): Promise<Car> {
+  async create(@Body() createCarDto: CreateCarDto, @GetUser() driver: Driver): Promise<Car> {
     return await this.carsService.create(driver, createCarDto);
   }
 
@@ -87,32 +68,21 @@ export class CarController {
   @Roles(ROLE.DRIVER)
   @ApiOkResponse({ type: Car })
   @Patch(':id')
-  async update(
-    @Id() id: string,
-    @GetUser('id') driverId: string,
-    @Body() dto: UpdateCarDto,
-  ): Promise<Car> {
+  async update(@Id() id: string, @GetUser('id') driverId: string, @Body() dto: UpdateCarDto): Promise<Car> {
     return await this.carsService.update(id, driverId, dto);
   }
 
   @Roles(ROLE.DRIVER)
   @ApiNoContentResponse()
   @Delete(':id')
-  async delete(
-    @Id() id: string,
-    @GetUser('id') driverId: string,
-  ): Promise<void> {
+  async delete(@Id() id: string, @GetUser('id') driverId: string): Promise<void> {
     await this.carsService.delete(id, driverId);
   }
 
   @Roles(ROLE.DRIVER)
   @ApiOkResponse()
   @Post(':id/advantages')
-  async addAdvantagesToCar(
-    @Id() id: string,
-    @Body() createAdvantageDto: AddAdvansToCarDto,
-    @GetUser() driver: Driver,
-  ) {
+  async addAdvantagesToCar(@Id() id: string, @Body() createAdvantageDto: AddAdvansToCarDto, @GetUser() driver: Driver) {
     return this.carsService.addAdvantagesToCar(id, createAdvantageDto, driver);
   }
 

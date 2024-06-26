@@ -5,26 +5,14 @@ import { Item } from '@models/orders/interfaces/item.inteface';
 
 export const createBlurHash = async (path: string): Promise<string> => {
   const image = fs.readFileSync(path);
-  const { info, data } = await sharp(image)
-    .resize(200, 200)
-    .ensureAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
+  const { info, data } = await sharp(image).resize(200, 200).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 
-  const blurHash = encode(
-    new Uint8ClampedArray(data),
-    info.width,
-    info.height,
-    4,
-    4,
-  );
+  const blurHash = encode(new Uint8ClampedArray(data), info.width, info.height, 4, 4);
   return blurHash;
 };
 
 export const createBlurHashs = async (paths: string[]) => {
-  const res = await Promise.all(
-    paths.map(async (p) => await createBlurHash(p)),
-  );
+  const res = await Promise.all(paths.map(async (p) => await createBlurHash(p)));
   return res;
 };
 

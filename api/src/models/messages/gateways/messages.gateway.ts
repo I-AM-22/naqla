@@ -8,13 +8,7 @@ import {
   MessageBody,
   ConnectedSocket,
 } from '@nestjs/websockets';
-import {
-  Logger,
-  Inject,
-  UseGuards,
-  UseFilters,
-  UsePipes,
-} from '@nestjs/common';
+import { Logger, Inject, UseGuards, UseFilters, UsePipes } from '@nestjs/common';
 import { Server } from 'socket.io';
 import { WsJwtGuard } from '@common/guards';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
@@ -37,9 +31,7 @@ import { ApiTags } from '@nestjs/swagger';
     credentials: true,
   },
 })
-export class MessageGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
+export class MessageGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
   private logger: Logger = new Logger('MessageGateway');
@@ -56,10 +48,7 @@ export class MessageGateway
   }
 
   @SubscribeMessage('join-chat')
-  async handleJoinChat(
-    @ConnectedSocket() client: ISocketWithUser,
-    @MessageBody() dto: JoinChatDto,
-  ) {
+  async handleJoinChat(@ConnectedSocket() client: ISocketWithUser, @MessageBody() dto: JoinChatDto) {
     await this.subOrdersService.findByIdForMessage(dto.subOrderId, client.user);
 
     client.join(dto.subOrderId);

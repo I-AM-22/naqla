@@ -9,10 +9,7 @@ import { Entities } from '@common/enums';
 import { strategies } from '@common/constants/jwt.constant';
 
 @Injectable()
-export class JwtDriverStrategy extends PassportStrategy(
-  Strategy,
-  strategies.driver,
-) {
+export class JwtDriverStrategy extends PassportStrategy(Strategy, strategies.driver) {
   constructor(
     config: ConfigService,
     @Inject(AUTH_DRIVER_TYPES.service)

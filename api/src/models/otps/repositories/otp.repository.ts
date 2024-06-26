@@ -8,9 +8,7 @@ import { IOtp } from '../interfaces/otp.interface';
 
 @Injectable()
 export class OtpRepository {
-  constructor(
-    @InjectRepository(Otp) private readonly otpRepo: Repository<Otp>,
-  ) {}
+  constructor(@InjectRepository(Otp) private readonly otpRepo: Repository<Otp>) {}
 
   async find(phone: string, ip: string, type: OTP_TYPE, perType: OTP_PERSON) {
     return await this.otpRepo.find({
@@ -26,12 +24,7 @@ export class OtpRepository {
     });
   }
 
-  async findOne(
-    phone: string,
-    ip: string,
-    type: OTP_TYPE,
-    perType: OTP_PERSON,
-  ) {
+  async findOne(phone: string, ip: string, type: OTP_TYPE, perType: OTP_PERSON) {
     return await this.otpRepo.findOne({
       where: {
         phone,
@@ -45,13 +38,7 @@ export class OtpRepository {
     });
   }
 
-  async findOneOtp(
-    phone: string,
-    otp: string,
-    ip: string,
-    perType: OTP_PERSON,
-    phoneConfirm: boolean,
-  ) {
+  async findOneOtp(phone: string, otp: string, ip: string, perType: OTP_PERSON, phoneConfirm: boolean) {
     if (phoneConfirm) {
       return await this.otpRepo.findOne({
         where: {

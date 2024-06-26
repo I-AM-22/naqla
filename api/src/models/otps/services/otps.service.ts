@@ -16,19 +16,8 @@ export class OtpsService {
     return this.otpRepository.find(phone, ip, type, OTP_PERSON.USER);
   }
 
-  findOneOtpForUser(
-    phone: string,
-    otp: string,
-    ip: string,
-    phoneConfirm: boolean,
-  ) {
-    return this.otpRepository.findOneOtp(
-      phone,
-      otp,
-      ip,
-      OTP_PERSON.USER,
-      phoneConfirm,
-    );
+  findOneOtpForUser(phone: string, otp: string, ip: string, phoneConfirm: boolean) {
+    return this.otpRepository.findOneOtp(phone, otp, ip, OTP_PERSON.USER, phoneConfirm);
   }
 
   findOneForUser(phone: string, ip: string, type: OTP_TYPE) {
@@ -48,19 +37,8 @@ export class OtpsService {
     return this.otpRepository.find(phone, ip, type, OTP_PERSON.DRIVER);
   }
 
-  findOneOtpForDriver(
-    phone: string,
-    otp: string,
-    ip: string,
-    phoneConfirm: boolean,
-  ) {
-    return this.otpRepository.findOneOtp(
-      phone,
-      otp,
-      ip,
-      OTP_PERSON.DRIVER,
-      phoneConfirm,
-    );
+  findOneOtpForDriver(phone: string, otp: string, ip: string, phoneConfirm: boolean) {
+    return this.otpRepository.findOneOtp(phone, otp, ip, OTP_PERSON.DRIVER, phoneConfirm);
   }
 
   findOneForDriver(phone: string, ip: string, type: OTP_TYPE) {
