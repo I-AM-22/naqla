@@ -1,24 +1,28 @@
 class ApiRoutes {
-  //////////////////?Base////////////////////
+  //?////////////////?Base////////////////////
   static const String baseUrl = 'http://192.168.1.110:5500';
 
-  //////////////////?Auth////////////////////
+  //?////////////////?Auth////////////////////
   static String login = '/api/v1/auth/user/login';
   static String signup = '/api/v1/auth/user/signup';
   static String confirm = '/api/v1/auth/user/confirm';
   static String updateMyNumber = '/api/v1/auth/user/updateMyNumber';
 
-  //////////////////?File////////////////////
+  //?////////////////?File////////////////////
   static String single = '/api/v1/photos/single';
   static String multiple = '/api/v1/photos/multiple';
 
-  //////////////////?Account////////////////////
+  //?////////////////?Account////////////////////
   static String personalInfo = '/api/v1/users/me';
 
-  //////////////////?Advantages////////////////////
+  //?////////////////?Advantages////////////////////
   static String advantages = '/api/v1/advantages';
 
-  //////////////////?Order////////////////////
+  //?////////////////?Chats////////////////////
+  static String chats = '/api/v1/sub-orders/chats';
+  static String messages(String id) => '/api/v1/suborders/$id/messages';
+
+  //?////////////////?Order////////////////////
   static String orderMine = '/api/v1/orders/mine';
   static String order = '/api/v1/orders';
   static String orderAccepted = '/api/v1/orders/accepted';

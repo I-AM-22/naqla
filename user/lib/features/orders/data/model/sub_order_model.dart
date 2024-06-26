@@ -6,9 +6,9 @@ import '../../../home/data/model/order_model.dart';
 
 class SubOrderModel {
   final String id;
-  final int rating;
-  final int weight;
-  final int cost;
+  final num rating;
+  final num weight;
+  final num cost;
   final OrderModel? order;
   final SubOrderStatus status;
   final DateTime? acceptedAt;
@@ -37,9 +37,9 @@ class SubOrderModel {
 
   SubOrderModel copyWith({
     String? id,
-    int? rating,
-    int? weight,
-    int? cost,
+    num? rating,
+    num? weight,
+    num? cost,
     SubOrderStatus? status,
     DateTime? acceptedAt,
     DateTime? arrivedAt,
@@ -71,18 +71,15 @@ class SubOrderModel {
         rating: json["rating"] ?? 0,
         weight: json["weight"],
         cost: json["cost"],
-        order:
-            json['order'] == null ? null : OrderModel.fromJson(json['order']),
-        status: SubOrderStatus.values
-            .byName(json["status"] ?? SubOrderStatus.waiting.name),
+        order: json['order'] == null ? null : OrderModel.fromJson(json['order']),
+        status: SubOrderStatus.values.byName(json["status"] ?? SubOrderStatus.waiting.name),
         acceptedAt: DateTime.tryParse(json["acceptedAt"] ?? ''),
         arrivedAt: DateTime.tryParse(json["arrivedAt"] ?? ''),
         deliveredAt: DateTime.tryParse(json["deliveredAt"] ?? ''),
         driverAssignedAt: DateTime.tryParse(json["driverAssignedAt"] ?? ''),
         pickedUpAt: DateTime.tryParse(json["pickedUpAt"] ?? ''),
         carModel: json['car'] == null ? null : CarModel.fromJson(json['car']),
-        photos: List<OrderPhotosModel>.from(
-            json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
+        photos: List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

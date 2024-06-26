@@ -93,7 +93,7 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                                 text: '${S.of(context).vehicle_advantages}: ${data.order?.advantages?.map(
                               (e) => e,
                             )}\n'),
-                            TextSpan(text: '${S.of(context).driver_name}: ${data.carModel?.driver.firstName} ${data.carModel?.driver.lastName}\n'),
+                            TextSpan(text: '${S.of(context).driver_name}: ${data.carModel?.driver?.firstName} ${data.carModel?.driver?.lastName}\n'),
                             TextSpan(text: '${S.of(context).car_model}: ${data.carModel?.model}\n'),
                             TextSpan(text: '${S.of(context).car_brand}: ${data.carModel?.brand}\n'),
                             WidgetSpan(

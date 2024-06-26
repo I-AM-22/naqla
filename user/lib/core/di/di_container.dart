@@ -58,6 +58,7 @@ abstract class AppModule {
     return dio;
   }
 
+  @preResolve
   @singleton
   Future<SharedPreferences> get sharedPreferences => SharedPreferences.getInstance();
 }
