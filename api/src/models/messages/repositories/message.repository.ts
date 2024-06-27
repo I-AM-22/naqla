@@ -35,6 +35,7 @@ export class MessageRepository implements IMessageRepository {
     });
     const totalDataCount = await this.messageRepository.count({
       where: { subOrderId },
+      order: { createdAt: -1 },
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
