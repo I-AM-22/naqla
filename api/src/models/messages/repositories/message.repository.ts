@@ -33,6 +33,7 @@ export class MessageRepository implements IMessageRepository {
       where: { subOrderId },
       skip,
       take,
+      order: { createdAt: -1 },
     });
     const totalDataCount = await this.messageRepository.count({
       where: { subOrderId },
