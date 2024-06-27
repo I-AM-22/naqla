@@ -67,7 +67,7 @@ class _MessagesPageState extends State<MessagesPage> {
                           child: AppText.bodyRegular(
                             item.content,
                             style: TextStyle(fontSize: 14.sp),
-                            color: !item.isUser ? context.colorScheme.tertiary : context.colorScheme.systemGray.shade700,
+                            color: item.isUser ? context.colorScheme.tertiary : context.colorScheme.systemGray.shade700,
                           ),
                         ),
                         AppText.bodyRegular(

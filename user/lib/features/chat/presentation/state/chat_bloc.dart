@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:naqla/features/chat/data/model/message_model.dart';
 import 'package:naqla/features/chat/domain/usecases/get_messages_use_case.dart';
 import 'package:naqla/features/chat/domain/usecases/send_message_use_case.dart';
+import 'package:naqla/services/socket_io.dart';
 
 import '../../../orders/data/model/sub_order_model.dart';
 import '../../domain/usecases/get_chats_use_case.dart';
@@ -23,21 +24,28 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       ChatState.getChats,
       (event) => getChatUseCase(event.param),
       (event) => event.param.pageNumber,
+      onFirstPageFetched: (event, emit, data) {
+        SocketIo.connection();
+        SocketIo.error();
+      },
     );
 
     multiStatePaginatedApiCall<GetMessagesEvent, PaginationModel<MessageModel>>(
       ChatState.getMessages,
       (event) => getMessagesUseCase(event.param),
       (event) => event.param.pageNumber,
+      onFirstPageFetched: (event, emit, data) {
+        SocketIo.joinChat(event.param.subOrderId);
+      },
     );
 
     multiStateApiCall<SendMessagesEvent, MessageModel>(
       ChatState.sendMessages,
       (event) => sendMessageUseCase(event.param),
       onSuccess: (data, event, emit) async {
+        SocketIo.newMessage(data);
         final list = state.getState(ChatState.getMessages).pagingController.itemList as List<MessageModel>;
         state.getState(ChatState.getMessages).pagingController.appendPage(list..insert(0, data), 1);
-
         event.onSuccess();
       },
     );

@@ -51,23 +51,23 @@ class _MessagesPageState extends State<MessagesPage> {
                   itemBuilder: (context, item, index) => Padding(
                     padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16),
                     child: Column(
-                      crossAxisAlignment: !item.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                      crossAxisAlignment: item.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                       children: [
                         16.verticalSpace,
                         Container(
                           padding: REdgeInsets.all(10),
                           decoration: BoxDecoration(
-                              color: !item.isUser ? context.colorScheme.systemGray.shade100 : context.colorScheme.primary50,
+                              color: item.isUser ? context.colorScheme.systemGray.shade100 : context.colorScheme.primary50,
                               borderRadius: BorderRadius.only(
-                                  topRight: !item.isUser ? const Radius.circular(16) : Radius.zero,
-                                  topLeft: !item.isUser ? const Radius.circular(16) : Radius.zero,
+                                  topRight: item.isUser ? const Radius.circular(8) : Radius.zero,
+                                  topLeft: !item.isUser ? const Radius.circular(8) : Radius.zero,
                                   bottomLeft: const Radius.circular(16),
                                   bottomRight: const Radius.circular(16)),
-                              border: !item.isUser ? null : Border.all(color: context.colorScheme.primary)),
+                              border: item.isUser ? null : Border.all(color: context.colorScheme.primary)),
                           child: AppText.bodyRegular(
                             item.content,
                             style: TextStyle(fontSize: 14.sp),
-                            color: item.isUser ? context.colorScheme.tertiary : context.colorScheme.systemGray.shade700,
+                            color: !item.isUser ? context.colorScheme.tertiary : context.colorScheme.systemGray.shade700,
                           ),
                         ),
                         AppText.bodyRegular(
