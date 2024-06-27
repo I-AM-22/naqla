@@ -181,7 +181,10 @@ export class SubOrdersService implements ISubOrdersService {
       // take the cost from the user wallet
       await this.userWalletRepository.withdrawForDriver(subOrder.order.userId, subOrder.cost);
       // transfer the money to the driver wallet
-      await this.driverWalletRepository.deposit(subOrder.car.driverId, subOrder.cost - subOrder.cost * 0.05);
+      await this.driverWalletRepository.deposit(
+        subOrder.car.driverId,
+        Math.round(subOrder.cost - subOrder.cost * 0.05),
+      );
 
       // Update delivery status for the suborder
       await this.subOrderRepository.setDeliveredAt(subOrder);
