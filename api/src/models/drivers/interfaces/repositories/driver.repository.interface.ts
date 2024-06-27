@@ -7,7 +7,12 @@ import { DriverWallet } from '../../entities/driver-wallet.entity';
 import { Driver } from '../../entities/driver.entity';
 
 export interface IDriverRepository {
-  find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver> | Driver[]>;
+  find(
+    page: number,
+    limit: number,
+    active?: boolean,
+    withDeleted?: boolean,
+  ): Promise<PaginatedResponse<Driver> | Driver[]>;
   staticsDriver(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver>>;
   findById(id: string, withDeleted?: boolean): Promise<Driver>;
 
@@ -27,9 +32,9 @@ export interface IDriverRepository {
 
   updatePhone(driver: Driver, dto: UpdateDriverPhoneDto): Promise<Driver>;
 
-  // recover(driver: Driver): Promise<Driver>;
-
   delete(driver: Driver): Promise<void>;
+
+  deactivate(id: string): Promise<Driver>;
 
   validate(id: string): Promise<Driver>;
 }

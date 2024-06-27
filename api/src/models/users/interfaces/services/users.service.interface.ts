@@ -9,7 +9,7 @@ export interface IUsersService {
 
   confirm(nonConfirmedUser: User): Promise<User>;
 
-  find(page: number, limit: number, withDeleted?: boolean): Promise<PaginatedResponse<User> | User[]>;
+  find(page: number, limit: number, active?: boolean, withDeleted?: boolean): Promise<PaginatedResponse<User> | User[]>;
   staticsUser(page: number, limit: number, withDeleted?: boolean): Promise<any[]>;
 
   findOne(id: string, withDeleted?: boolean): Promise<User>;

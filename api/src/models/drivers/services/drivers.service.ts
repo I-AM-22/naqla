@@ -44,8 +44,13 @@ export class DriversService implements IDriversService {
     return this.driverRepository.create(dto, wallet, photo, role);
   }
 
-  async find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver> | Driver[]> {
-    return this.driverRepository.find(page, limit, withDeleted);
+  async find(
+    page: number,
+    limit: number,
+    active: boolean = true,
+    withDeleted: boolean = false,
+  ): Promise<PaginatedResponse<Driver> | Driver[]> {
+    return this.driverRepository.find(page, limit, active, withDeleted);
   }
 
   async staticsDriver(page: number, limit: number, withDeleted: boolean): Promise<any[]> {
@@ -101,22 +106,16 @@ export class DriversService implements IDriversService {
     return this.driverRepository.updatePhone(driver, dto);
   }
 
-  // async recover(id: string): Promise<Driver> {
-  //   const driver = await this.findOne(id, true);
-  //   if (!driver) throw new NotFoundException(item_not_found(Entities.Driver));
-  //   await this.driverRepository.recover(driver);
-  //   return driver;
-  // }
-
   confirm(nonConfirmedDriver: Driver): Promise<Driver> {
     return this.driverRepository.confirm(nonConfirmedDriver);
   }
 
   async delete(id: string): Promise<void> {
-    const driver = await this.driverRepository.findByIdForDelete(id);
-    await this.driverRepository.delete(driver);
-    return;
-  }
+    // const driver = await this.driverRepository.findByIdForDelete(id);
+    // await this.driverRepository.delete(driver);
+     await this.driverRepository.deactivate(id);
+     return
+    }
 
   async validate(id: string): Promise<Driver> {
     const driver = await this.driverRepository.findById(id);
