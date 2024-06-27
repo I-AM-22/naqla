@@ -12,5 +12,10 @@
   "slowerThanYesterday": "أبطأ من البارحة",
   "completedOrders": "الطلبات المكتملة",
   "AllOrders": "الطلبات الكلية",
-  "refusedOrders": "الطلبات المرفوضة"
+  "refusedOrders": "الطلبات المرفوضة",
+  "profits": "صافي الربح",
+  "countUserUsed": "الطلبات",
+  "countCarUsed": "السيارات",
+  "totalCount": "مرات التواجد",
+  "advantagesUsage": "عدد السيارات التي تحوي الميزات مقابل عدد الطلبات"
 }

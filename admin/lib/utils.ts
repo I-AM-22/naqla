@@ -11,12 +11,12 @@ const locale: Record<string, string> = {
 export const priceFormatter = (
   price: number,
   language: string,
+  withSymbol = true,
   currency = "SYP",
 ) =>
   new Intl.NumberFormat(locale[language], {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
     currencyDisplay: "symbol",
-    style: "currency",
-    currency,
+    ...(withSymbol && { style: "currency", currency }),
   }).format(price);

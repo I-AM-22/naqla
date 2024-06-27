@@ -13,6 +13,7 @@ import {
 } from "recharts";
 
 import { Calendar } from "@/components/ui/calendar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { TFunction } from "i18next";
@@ -43,7 +44,7 @@ export function OrderStatics({ children }: OrderStaticsProps) {
       }),
   });
   return (
-    <div className="flex h-[400px] w-full flex-row">
+    <div className="flex w-full flex-row">
       <div className="flex flex-col">
         {children}
         <Calendar
@@ -55,54 +56,57 @@ export function OrderStatics({ children }: OrderStaticsProps) {
           numberOfMonths={1}
         />
       </div>
-      <ResponsiveContainer className="pt-2">
-        <BarChart
-          width={500}
-          height={300}
-          data={
-            ordersQuery.data?.data.map((data) => ({
-              ...data,
-              AllOrders: Number(data.AllOrders),
-              completedOrders: Number(data.completedOrders),
-              refusedOrders: Number(data.refusedOrders),
-            })) ?? []
-          }
-        >
-          <CartesianGrid vertical={false} />
-          <XAxis
-            reversed={i18n.dir() === "ltr" ? false : true}
-            dataKey="day"
-            tickFormatter={(v: string) => dayjs(v).format("MM/DD")}
-          />
-          <YAxis
-            orientation={i18n.dir() === "ltr" ? "left" : "right"}
-            dx={i18n.dir() === "ltr" ? 0 : 30}
-            allowDecimals={false}
-          />
-          <Tooltip
-            labelFormatter={(label) => {
-              return dayjs(label).format("YYYY/MM/DD");
-            }}
-            formatter={(label, payload) => [label, labels(t)[payload]]}
-          />
-          <Legend formatter={(v) => labels(t)[v]} />
-          <Bar
-            dataKey="completedOrders"
-            fill="#82ca9d"
-            activeBar={<Rectangle fill="gold" stroke="purple" />}
-          />
-          <Bar
-            dataKey="AllOrders"
-            fill="#8884d8"
-            activeBar={<Rectangle fill="pink" stroke="blue" />}
-          />
-          <Bar
-            dataKey="refusedOrders"
-            fill="#f87171"
-            activeBar={<Rectangle fill="gold" stroke="purple" />}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="relative h-[400px] w-full">
+        {ordersQuery.isLoading && <Skeleton className="absolute inset-0" />}
+        <ResponsiveContainer className="pt-2">
+          <BarChart
+            width={500}
+            height={300}
+            data={
+              ordersQuery.data?.data.map((data) => ({
+                ...data,
+                AllOrders: Number(data.AllOrders),
+                completedOrders: Number(data.completedOrders),
+                refusedOrders: Number(data.refusedOrders),
+              })) ?? []
+            }
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              reversed={i18n.dir() === "ltr" ? false : true}
+              dataKey="day"
+              tickFormatter={(v: string) => dayjs(v).format("MM/DD")}
+            />
+            <YAxis
+              orientation={i18n.dir() === "ltr" ? "left" : "right"}
+              dx={i18n.dir() === "ltr" ? 0 : 30}
+              allowDecimals={false}
+            />
+            <Tooltip
+              labelFormatter={(label) => {
+                return dayjs(label).format("YYYY/MM/DD");
+              }}
+              formatter={(label, payload) => [label, labels(t)[payload]]}
+            />
+            <Legend formatter={(v) => labels(t)[v]} />
+            <Bar
+              dataKey="completedOrders"
+              fill="#82ca9d"
+              activeBar={<Rectangle fill="gold" stroke="purple" />}
+            />
+            <Bar
+              dataKey="AllOrders"
+              fill="#8884d8"
+              activeBar={<Rectangle fill="pink" stroke="blue" />}
+            />
+            <Bar
+              dataKey="refusedOrders"
+              fill="#f87171"
+              activeBar={<Rectangle fill="gold" stroke="purple" />}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }

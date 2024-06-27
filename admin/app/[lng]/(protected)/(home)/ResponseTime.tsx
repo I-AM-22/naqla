@@ -8,12 +8,14 @@ export type ResponseTimeProps = PageProps;
 export async function ResponseTime(props: ResponseTimeProps) {
   const { i18n, t } = await getTranslation(props.params.lng, "home");
   const responseTime = (await statisticsControllerResponseTime()).data;
+
   const todayInMilliseconds = responseTime.today
     ? timeToMilliseconds(responseTime.today)
     : 0;
   const yesterdayInMilliseconds = responseTime.yesterday
     ? timeToMilliseconds(responseTime.yesterday)
     : 0;
+
   // calculate who is better in percentage
   const percentage = (todayInMilliseconds / yesterdayInMilliseconds) * 100;
   const differencePercentage = Math.abs(percentage - 100).toFixed(2);
@@ -70,9 +72,9 @@ function timeToMilliseconds(time: {
   milliseconds: number;
 }) {
   return (
-    time.hours * 60 * 60 * 1000 +
-    time.minutes * 60 * 1000 +
-    time.seconds * 1000 +
-    time.milliseconds
+    (time.hours ?? 0) * 60 * 60 * 1000 +
+      (time.minutes ?? 0) * 60 * 1000 +
+      (time.seconds ?? 0) * 1000 +
+      time.milliseconds ?? 0
   );
 }

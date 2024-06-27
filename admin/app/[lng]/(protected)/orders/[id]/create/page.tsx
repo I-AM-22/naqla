@@ -14,6 +14,7 @@ export default async function Page(props: PageProps<{ id: string }>) {
     { id: props.params.id },
     { next: { tags: ordersTagKeys.details() } },
   );
+
   return (
     <article className="flex flex-col gap-2">
       <Card className="">
@@ -28,7 +29,7 @@ export default async function Page(props: PageProps<{ id: string }>) {
             <div className="text-foreground/70">
               {data.advantages.map((ad) => (
                 //  @ts-ignore
-                <Badge variant="outline" key={ad.id}>
+                <Badge variant="outline" key={ad.name}>
                   {/* @ts-ignore */}
                   {ad.name}
                 </Badge>

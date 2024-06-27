@@ -14,7 +14,7 @@ import { Loading } from "@/components/ui/loading";
 import { useMutation } from "@/hooks/use-mutation";
 import { useTranslation } from "@/i18n/client";
 import { priceFormatter } from "@/lib/utils";
-import { usersControllerRemove } from "@/service/api";
+import { usersControllerDelete } from "@/service/api";
 import { StaticsUser, User } from "@/service/api.schemas";
 import { createColumnHelper } from "@tanstack/react-table";
 import dayjs from "dayjs";
@@ -31,6 +31,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
       <img
         alt="driver"
         className="h-5 min-w-5 flex-shrink"
+        // @ts-ignore
         src={row.original.photos[0].webUrl}
       />
     ),
@@ -57,6 +58,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
           className="flex gap-2 font-normal"
           href={true ? `/customers/${row.original.id}/deposit` : ""}
         >
+          {/* @ts-ignore */}
           {priceFormatter(cell.getValue(), language)}{" "}
           {<CircleArrowDown className="text-green-500" />}
         </Link>
@@ -75,7 +77,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
     header: t("options"),
     cell: function Cell({ row }) {
       const [dropdownOpen, setDropdownOpen] = useState(false);
-      const remove = useMutation(usersControllerRemove);
+      const remove = useMutation(usersControllerDelete);
       return (
         <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
           <DropdownMenuTrigger asChild>

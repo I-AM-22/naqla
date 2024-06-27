@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { revalidatePath } from "@/actions/cache";
 import { DataTable } from "@/components/ui/data-table";
 import { useMutation } from "@/hooks/use-mutation";
-import { advantagesControllerRemove } from "@/service/api";
+import { advantagesControllerDelete } from "@/service/api";
 import { TFunction } from "i18next";
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import Link from "next/link";
@@ -31,7 +31,7 @@ export const columns = (t: TFunction) => [
     header: t("options"),
     cell: function Cell({ row }) {
       const [dropdownOpen, setDropdownOpen] = useState(false);
-      const remove = useMutation(advantagesControllerRemove);
+      const remove = useMutation(advantagesControllerDelete);
       return (
         <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
           <DropdownMenuTrigger asChild>
