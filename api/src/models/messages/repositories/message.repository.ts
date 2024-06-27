@@ -20,6 +20,7 @@ export class MessageRepository implements IMessageRepository {
     const data = await this.messageRepository.find({
       skip,
       take,
+      order: { createdAt: 'DESC' },
     });
     const totalDataCount = await this.messageRepository.count();
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
@@ -32,9 +33,11 @@ export class MessageRepository implements IMessageRepository {
       where: { subOrderId },
       skip,
       take,
+      order: { createdAt: 'DESC' },
     });
     const totalDataCount = await this.messageRepository.count({
       where: { subOrderId },
+      order: { createdAt: 'DESC' },
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
