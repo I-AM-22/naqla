@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:naqla/core/core.dart';
 
 import '../app_loading_indicator.dart';
 import 'empty_page.dart.dart';
@@ -159,7 +160,10 @@ class AppPagedBuilder<B extends StateStreamable<StateObject>, T> extends Statele
       newPageErrorIndicatorBuilder: newPageErrorIndicatorBuilder ?? (error, voidCallBack) => Text(error),
       newPageProgressIndicatorBuilder: newPageProgressIndicatorBuilder ?? const AppLoadingIndicator(),
       noMoreItemsIndicatorBuilder: noMoreItemsIndicatorBuilder ?? const SizedBox.shrink(),
-      noItemsFoundIndicatorBuilder: noItemsFoundIndicatorBuilder ?? const EmptyPage(),
+      noItemsFoundIndicatorBuilder: noItemsFoundIndicatorBuilder ??
+          Center(
+            child: AppText('لا يوجد بيانات لعرضها'),
+          ),
     );
 
     switch (type) {

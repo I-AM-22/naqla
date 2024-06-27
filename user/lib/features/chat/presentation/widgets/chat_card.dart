@@ -29,10 +29,16 @@ class ChatCard extends StatelessWidget {
         child: Row(
           children: [
             if (item.photos.isNotEmpty)
-              CircleAvatar(
-                radius: 25.r,
-                backgroundImage: NetworkImage(item.photos[0].mobileUrl),
-                backgroundColor: context.colorScheme.systemGray.shade200,
+              Container(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(color: context.colorScheme.black.withOpacity(.24), offset: const Offset(0, 0), blurRadius: 1)],
+                  shape: BoxShape.circle,
+                ),
+                child: AppImage.network(
+                  item.photos[0].mobileUrl,
+                  size: 50.r,
+                ),
               ),
             8.horizontalSpace,
             Flexible(

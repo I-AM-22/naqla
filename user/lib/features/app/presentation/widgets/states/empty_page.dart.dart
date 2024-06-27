@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:naqla/core/core.dart';
 import 'package:naqla/core/global_widgets/app_text.dart';
 
+import '../../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../../generated/l10n.dart';
 
 class EmptyPage extends StatelessWidget {
@@ -14,7 +16,7 @@ class EmptyPage extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
-            AppText.bodyLarge(S.of(context).there_is_nothing_to_show),
+            AppImage.asset(Assets.images.svg.noDataRafiki1.path),
           ],
         ),
       ),
