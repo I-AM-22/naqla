@@ -20,6 +20,7 @@ export class MessageRepository implements IMessageRepository {
     const data = await this.messageRepository.find({
       skip,
       take,
+      order: { createdAt: -1 },
     });
     const totalDataCount = await this.messageRepository.count();
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
