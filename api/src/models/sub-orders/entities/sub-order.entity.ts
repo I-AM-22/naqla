@@ -23,6 +23,10 @@ export class SubOrder extends GlobalEntity {
   cost: number;
 
   @ApiProperty()
+  @Column({ default: 0 })
+  realCost: number;
+
+  @ApiProperty()
   @Column({ default: SUB_ORDER_STATUS.WAITING })
   status: SUB_ORDER_STATUS;
 

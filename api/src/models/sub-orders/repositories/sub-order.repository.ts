@@ -9,6 +9,7 @@ import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
+import { StaticProfits } from '@models/statics/responses/StaticProfits';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -210,11 +211,12 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
-  async create(orderId: string, dto: CreateSubOrderDto, cost: number): Promise<SubOrder> {
+  async create(orderId: string, dto: CreateSubOrderDto, cost: number, profit: number): Promise<SubOrder> {
     const sub = this.subOrderRepository.create({
       orderId,
       weight: dto.weight,
-      cost,
+      cost: Math.round(cost - (cost * profit) / 100),
+      realCost: cost,
     });
     return await this.subOrderRepository.save(sub);
   }
@@ -279,7 +281,7 @@ export class SubOrderRepository implements ISubOrderRepository {
   async findTotalCost(id: string): Promise<number> {
     const result = await this.subOrderRepository
       .createQueryBuilder('subOrder')
-      .select('SUM(subOrder.cost)', 'totalCost')
+      .select('SUM(subOrder.realCost)', 'totalCost')
       .where('subOrder.orderId = :id', { id })
       .getRawOne();
     return result.totalCost ?? 0;
@@ -332,6 +334,21 @@ export class SubOrderRepository implements ISubOrderRepository {
       )
       // .where('order.createdAt BETWEEN CURRENT_DATE AND CURRENT_DATE - 1 ')
       .getRawOne<ResponseTime>();
+
+    return queryResult;
+  }
+  async staticProfits(startDate: string, endDate: string): Promise<StaticProfits[]> {
+    const queryResult = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .select('DATE(subOrder.deliveredAt)', 'day')
+      .addSelect('SUM(COALESCE(subOrder.realCost, 0) - COALESCE(subOrder.cost, 0))', 'profits')
+      .where('subOrder.status = :status', { status: SUB_ORDER_STATUS.DELIVERED })
+      .andWhere('subOrder.deliveredAt BETWEEN :startDate AND :endDate', {
+        startDate,
+        endDate,
+      })
+      .groupBy('day')
+      .getRawMany<StaticProfits>();
 
     return queryResult;
   }

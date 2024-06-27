@@ -1,6 +1,7 @@
 import { PaginatedResponse } from '@common/types';
 import { Car } from '@models/cars/entities/car.entity';
 import { ResponseTime } from '@models/statics/responses/ResponseTime';
+import { StaticProfits } from '@models/statics/responses/StaticProfits';
 import { CreateSubOrderDto } from '@models/sub-orders/dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '@models/sub-orders/dto/update-sub-order.dto';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
@@ -20,7 +21,7 @@ export interface ISubOrderRepository {
   countSubOrdersCompleted(): Promise<number>;
   countSubOrdersActive(): Promise<number>;
   responseTime(): Promise<ResponseTime>;
-  create(orderId: string, dto: CreateSubOrderDto, cost: number): Promise<SubOrder>;
+  create(orderId: string, dto: CreateSubOrderDto, cost: number, profit: number): Promise<SubOrder>;
   update(subOrder: SubOrder, dto: UpdateSubOrderDto): Promise<SubOrder>;
   refusedForOrder(orderId: string): Promise<void>;
   setArrivedAt(subOrder: SubOrder): Promise<SubOrder>;
@@ -28,6 +29,7 @@ export interface ISubOrderRepository {
   setDeliveredAt(subOrder: SubOrder): Promise<SubOrder>;
   areAllSubOrdersCompleted(orderId: string): Promise<boolean>;
   setStatusToReady(orderId: string): Promise<SubOrder[]>;
+  staticProfits(startDate: string, endDate: string): Promise<StaticProfits[]>;
   setDriver(subOrder: SubOrder, car: Car): Promise<SubOrder>;
   countSubOrdersCompletedForDriver(driverId: string): Promise<number>;
   delete(subOrder: SubOrder): Promise<void>;

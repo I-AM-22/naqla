@@ -22,7 +22,6 @@ export interface IOrderRepository {
   countOrdersWaiting(): Promise<number>;
   countOrdersActive(): Promise<number>;
   staticsOrdersForDate(startDate: string, endDate: string): Promise<OrderStatsDate[]>;
-  staticProfits(startDate: string, endDate: string): Promise<StaticProfits[]>;
   create(user: User, photo: OrderPhoto[], advantages: Advantage[], dto: CreateOrderDto): Promise<Order>;
   update(order: Order, dto: UpdateOrderDto, photo: OrderPhoto[]): Promise<Order>;
   countOrdersCompletedForUser(userId: string): Promise<number>;

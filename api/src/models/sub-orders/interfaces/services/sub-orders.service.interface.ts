@@ -16,7 +16,7 @@ export interface ISubOrdersService {
   findByIdForMessage(id: string, person: IPerson): Promise<SubOrder>;
   findForOrder(orderId: string): Promise<SubOrder[]>;
   create(dto: CreateSubOrdersDto): Promise<Order>;
-  update(id: string, dto: UpdateSubOrderDto): Promise<SubOrder>;
+  update(id: string, dto: UpdateSubOrderDto, userId: string): Promise<SubOrder>;
   setArrivedAt(id: string): Promise<SubOrder>;
   setPickedUpAt(id: string): Promise<SubOrder>;
   setDeliveredAt(id: string): Promise<SubOrder>;

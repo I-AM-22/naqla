@@ -99,9 +99,9 @@ export class SubOrdersController {
 
   @Roles(ROLE.USER, ROLE.EMPLOYEE)
   @ApiOkResponse({ type: SubOrder })
-  @Patch(':id')
-  async update(@Id() id: string, @Body() dto: UpdateSubOrderDto): Promise<SubOrder> {
-    return await this.subOrdersService.update(id, dto);
+  @Patch(':id/rating')
+  async update(@Id() id: string, @Body() dto: UpdateSubOrderDto, @GetUser('id') userId: string): Promise<SubOrder> {
+    return await this.subOrdersService.update(id, dto, userId);
   }
 
   @Roles(ROLE.USER)

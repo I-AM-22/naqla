@@ -4,4 +4,5 @@ export enum SETTING_PROPERTIES {
   MAX_WEIGHT = 'maxWeight',
   DEFAULT_WEIGHT = 'defaultWeight',
   PORTERS = 'porters',
+  PROFIT = 'profit',
 }

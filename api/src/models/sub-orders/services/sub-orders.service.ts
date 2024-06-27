@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -62,14 +63,14 @@ export class SubOrdersService implements ISubOrdersService {
     const subOrders: SubOrder[] = [];
     const order = await this.ordersService.findOne(CreateSubOrdersDto.orderId);
     if (order.status !== ORDER_STATUS.WAITING) throw new ConflictException('Already divided');
-    const [defaultWeight, minWeight, midWeight, maxWeight, portersSetting] = await Promise.all([
+    const [defaultWeight, minWeight, midWeight, maxWeight, portersSetting, profitSetting] = await Promise.all([
       await this.settingRepository.findOneByName(SETTING_PROPERTIES.DEFAULT_WEIGHT),
       await this.settingRepository.findOneByName(SETTING_PROPERTIES.MIN_WEIGHT),
       await this.settingRepository.findOneByName(SETTING_PROPERTIES.MID_WEIGHT),
       await this.settingRepository.findOneByName(SETTING_PROPERTIES.MAX_WEIGHT),
       await this.settingRepository.findOneByName(SETTING_PROPERTIES.PORTERS),
+      await this.settingRepository.findOneByName(SETTING_PROPERTIES.PROFIT),
     ]);
-
     const distanceInMeters = await this.gpsDrivingService.costDistance(order.locationStart, order.locationEnd);
 
     const settings = {
@@ -78,6 +79,7 @@ export class SubOrdersService implements ISubOrdersService {
       midWeight,
       maxWeight,
       portersSetting,
+      profitSetting,
     };
 
     for (const subOrder of CreateSubOrdersDto.subOrders) {
@@ -101,6 +103,7 @@ export class SubOrdersService implements ISubOrdersService {
         CreateSubOrdersDto.orderId,
         subOrder,
         Math.round(totalCost),
+        profitSetting.cost,
       );
 
       await this.orderPhotoRepository.setPhotoSub(subOrder.photos, newSubOrder.id);
@@ -153,8 +156,9 @@ export class SubOrdersService implements ISubOrdersService {
     return subOrder;
   }
 
-  async update(subOrderId: string, updateSubOrderDto: UpdateSubOrderDto): Promise<SubOrder> {
+  async update(subOrderId: string, updateSubOrderDto: UpdateSubOrderDto, userId: string): Promise<SubOrder> {
     const subOrder = await this.findOne(subOrderId);
+    if (subOrder.order.userId != userId) throw new ForbiddenException('you are not owner this order');
     return this.subOrderRepository.update(subOrder, updateSubOrderDto);
   }
 
@@ -179,12 +183,9 @@ export class SubOrdersService implements ISubOrdersService {
       const subOrder = await this.findOne(subOrderId);
 
       // take the cost from the user wallet
-      await this.userWalletRepository.withdrawForDriver(subOrder.order.userId, subOrder.cost);
+      await this.userWalletRepository.withdrawForDriver(subOrder.order.userId, subOrder.realCost);
       // transfer the money to the driver wallet
-      await this.driverWalletRepository.deposit(
-        subOrder.car.driverId,
-        Math.round(subOrder.cost - subOrder.cost * 0.05),
-      );
+      await this.driverWalletRepository.deposit(subOrder.car.driverId, subOrder.cost);
 
       // Update delivery status for the suborder
       await this.subOrderRepository.setDeliveredAt(subOrder);

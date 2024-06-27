@@ -227,25 +227,6 @@ export class OrderRepository implements IOrderRepository {
       .getRawMany<OrderStatsDate>();
   }
 
-  async staticProfits(startDate: string, endDate: string): Promise<StaticProfits[]> {
-    const rawData = await this.orderRepository
-      .createQueryBuilder('order')
-      .leftJoinAndSelect('order.payment', 'payment')
-      .select('DATE(payment.deliveredDate)', 'day')
-      .addSelect('SUM(payment.cost)', 'profits')
-      .where('order.status = :status', { status: ORDER_STATUS.DELIVERED })
-      .andWhere('payment.deliveredDate BETWEEN :startDate AND :endDate', {
-        startDate,
-        endDate,
-      })
-      .groupBy('day')
-      .getRawMany<StaticProfits>();
-    return rawData.map((data) => ({
-      day: data.day,
-      profits: data.profits * 0.05,
-    }));
-  }
-
   async advantageSuper(limit: number): Promise<any[]> {
     return this.orderRepository
       .createQueryBuilder('order')

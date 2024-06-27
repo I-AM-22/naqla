@@ -6,4 +6,5 @@ export const settings: any[] = [
   { name: SETTING_PROPERTIES.MIN_WEIGHT, cost: 20 },
   { name: SETTING_PROPERTIES.MID_WEIGHT, cost: 20 },
   { name: SETTING_PROPERTIES.MAX_WEIGHT, cost: 20 },
+  { name: SETTING_PROPERTIES.PROFIT, cost: 5 },
 ];

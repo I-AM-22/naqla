@@ -47,7 +47,7 @@ export class StatisticsService {
   }
 
   async staticProfits(first: string, second: string) {
-    return await this.orderRepository.staticProfits(first, second);
+    return await this.subOrderRepository.staticProfits(first, second)
   }
 
   async findLimitAdvantages(limit: number) {
