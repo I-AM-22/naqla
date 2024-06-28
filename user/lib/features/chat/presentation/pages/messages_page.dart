@@ -41,27 +41,27 @@ class _MessagesPageState extends State<MessagesPage> {
               appBarParams: AppBarParams(
             title: 'islam',
           )),
-          body: Column(
-            children: [
-              Expanded(
-                child: AppPagedBuilder<ChatBloc, MessageModel>.pagedListView(
-                  reverse: true,
-                  stateName: ChatState.getMessages,
-                  itemBuilder: (context, item, index) => MessageCard(item: item),
-                  onPageKeyChanged: (value) {
-                    bloc.add(GetMessagesEvent(param: GetMessagesParam(pageNumber: value, subOrderId: widget.subOrderId)));
-                  },
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    BlocSelector<ChatBloc, ChatState, CommonState>(
-                      selector: (state) => state.getState(ChatState.sendMessages),
-                      builder: (context, state) {
-                        return IconButton(
+          body: BlocSelector<ChatBloc, ChatState, CommonState>(
+            selector: (state) => state.getState(ChatState.sendMessages),
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: AppPagedBuilder<ChatBloc, MessageModel>.pagedListView(
+                      reverse: true,
+                      stateName: ChatState.getMessages,
+                      itemBuilder: (context, item, index) => MessageCard(item: item),
+                      onPageKeyChanged: (value) {
+                        bloc.add(GetMessagesEvent(param: GetMessagesParam(pageNumber: value, subOrderId: widget.subOrderId)));
+                      },
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        IconButton(
                           onPressed: () {
                             if (controller.text.isNotEmpty) {
                               bloc.add(SendMessagesEvent(
@@ -80,24 +80,24 @@ class _MessagesPageState extends State<MessagesPage> {
                                   Assets.icons.essential.sendIcon.path,
                                   size: 20.w,
                                 ),
-                        );
-                      },
-                    ),
-                    Expanded(
-                      child: AppTextFormField(
-                        hintText: S.of(context).write_message,
-                        controller: controller,
-                        textInputAction: TextInputAction.newline,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(color: context.colorScheme.systemGray.shade300),
                         ),
-                      ),
+                        Expanded(
+                          child: AppTextFormField(
+                            hintText: S.of(context).write_message,
+                            controller: controller,
+                            textInputAction: TextInputAction.newline,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(color: context.colorScheme.systemGray.shade300),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            ],
+                  )
+                ],
+              );
+            },
           )),
     );
   }

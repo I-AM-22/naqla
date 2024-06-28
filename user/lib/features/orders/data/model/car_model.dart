@@ -1,9 +1,9 @@
 import 'package:naqla/features/orders/data/model/driver_model.dart';
 
 class CarModel {
-  final String model;
-  final String brand;
-  final String color;
+  final String? model;
+  final String? brand;
+  final String? color;
   final DriverModel? driver;
 
   CarModel({required this.model, required this.brand, required this.color, required this.driver});

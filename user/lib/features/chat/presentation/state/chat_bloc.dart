@@ -25,8 +25,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (event) => getChatUseCase(event.param),
       (event) => event.param.pageNumber,
       onFirstPageFetched: (event, emit, data) {
-        SocketIo.connection();
-        SocketIo.error();
+        state.socketIo.connection();
+        state.socketIo.error();
       },
     );
 
@@ -35,7 +35,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (event) => getMessagesUseCase(event.param),
       (event) => event.param.pageNumber,
       onFirstPageFetched: (event, emit, data) {
-        SocketIo.joinChat(event.param.subOrderId);
+        state.socketIo.joinChat(event.param.subOrderId);
+        state.socketIo.messageReceived(
+          (data) {
+            print(data);
+          },
+        );
       },
     );
 
@@ -43,9 +48,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       ChatState.sendMessages,
       (event) => sendMessageUseCase(event.param),
       onSuccess: (data, event, emit) async {
-        SocketIo.newMessage(data);
-        final list = state.getState(ChatState.getMessages).pagingController.itemList as List<MessageModel>;
-        state.getState(ChatState.getMessages).pagingController.appendPage(list..insert(0, data), 1);
+        state.socketIo.newMessage(data, event.param.subOrderId);
+        state.getState(ChatState.getMessages).pagingController.itemList?.insert(0, data);
         event.onSuccess();
       },
     );

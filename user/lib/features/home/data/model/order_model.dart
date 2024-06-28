@@ -9,8 +9,8 @@ class OrderModel {
   final DateTime desiredDate;
   final OrderStatus status;
   final int? porters;
-  final LocationModel locationStart;
-  final LocationModel locationEnd;
+  final LocationModel? locationStart;
+  final LocationModel? locationEnd;
   final List<String>? advantages;
   final List<OrderPhotosModel> photos;
   final PaymentModel? paymentModel;
@@ -55,34 +55,22 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         id: json["id"],
-        desiredDate: json['desiredDate'] == null
-            ? DateTime.now()
-            : DateTime.parse(json['desiredDate']),
-        createdAt: json['createdAt'] == null
-            ? DateTime.now()
-            : DateTime.parse(json['createdAt']),
-        status: OrderStatus.values
-            .byName(json["status"] ?? OrderStatus.waiting.name),
-        locationStart: LocationModel.fromJson(json["locationStart"]),
-        locationEnd: LocationModel.fromJson(json["locationEnd"]),
+        desiredDate: json['desiredDate'] == null ? DateTime.now() : DateTime.parse(json['desiredDate']),
+        createdAt: json['createdAt'] == null ? DateTime.now() : DateTime.parse(json['createdAt']),
+        status: OrderStatus.values.byName(json["status"] ?? OrderStatus.waiting.name),
+        locationStart: json["locationStart"] == null ? null : LocationModel.fromJson(json["locationStart"]),
+        locationEnd: json["locationEnd"] == null ? null : LocationModel.fromJson(json["locationEnd"]),
         porters: json['porters'],
-        advantages: json["advantages"] == null
-            ? null
-            : List<String>.from(json["advantages"].map((x) => x['name'])),
-        photos: json["photos"] == null
-            ? []
-            : List<OrderPhotosModel>.from(
-                json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
-        paymentModel: json["payment"] == null
-            ? null
-            : PaymentModel.fromJson(json["payment"]),
+        advantages: json["advantages"] == null ? null : List<String>.from(json["advantages"].map((x) => x['name'])),
+        photos: json["photos"] == null ? [] : List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
+        paymentModel: json["payment"] == null ? null : PaymentModel.fromJson(json["payment"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "status": status,
-        "locationStart": locationStart.toJson(),
-        "locationEnd": locationEnd.toJson(),
+        "locationStart": locationStart?.toJson(),
+        "locationEnd": locationEnd?.toJson(),
         "advantages": List<dynamic>.from(advantages?.map((x) => x) ?? []),
         "photos": List<dynamic>.from(photos.map((x) => x.toJson())),
         "createdAt": createdAt.toIso8601String(),

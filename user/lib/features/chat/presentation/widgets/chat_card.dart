@@ -46,8 +46,14 @@ class ChatCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
-                    child: AppText.subHeadMedium(
-                      '${item.order?.locationStart.region} [${item.order?.locationStart.street}] --> ${item.order?.locationEnd.region} [${item.order?.locationEnd.street}]',
+                    child: RichText(
+                      text: TextSpan(style: context.textTheme.titleSmall, children: [
+                        TextSpan(text: '${item.carModel?.driver?.firstName} ${item.carModel?.driver?.lastName}\n'),
+                        TextSpan(
+                            style: context.textTheme.bodySmall,
+                            text:
+                                '${item.order?.locationStart?.region} [${item.order?.locationStart?.street}] --> ${item.order?.locationEnd?.region} [${item.order?.locationEnd?.street}]'),
+                      ]),
                     ),
                   ),
                   AppImage.asset(
