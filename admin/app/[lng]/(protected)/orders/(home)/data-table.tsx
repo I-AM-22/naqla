@@ -43,8 +43,8 @@ export const columns = (t: TFunction<string, string>) => [
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem asChild>
-            <Link href={`/orders/${row.original.id}/create`}>
-              {t("createSubOrders")}
+            <Link href={`/orders/${row.original.id}/review`}>
+              {t("review")}
             </Link>
           </DropdownMenuItem>
         </DropdownMenuContent>

@@ -41,6 +41,9 @@ export const PhotosPicker: FC<PhotosPickerProps> = ({ photos }) => {
           "subOrders",
           getValues().subOrders.map((sub) => ({
             ...sub,
+            weight: sub.photos
+              .filter((subPhoto) => subPhoto.webUrl !== photo.webUrl)
+              .reduce((sum, ph) => sum + ph.weight, 0),
             photos: sub.photos.filter(
               (subPhoto) => subPhoto.webUrl !== photo.webUrl,
             ),

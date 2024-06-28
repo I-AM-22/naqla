@@ -28,6 +28,7 @@ export type WithdrawFormProps = { driver: Driver };
 export function WithdrawForm({ driver }: WithdrawFormProps) {
   const { t, i18n } = useTranslation("drivers");
   const form = useForm<z.input<ReturnType<typeof schema>>>({
+    // @ts-ignore
     resolver: zodResolver(schema(driver.wallet.available)),
     defaultValues: {
       cost: 0,
@@ -70,6 +71,7 @@ export function WithdrawForm({ driver }: WithdrawFormProps) {
               label={t("walletAvailable")}
               labelProps={{ className: cn("w-16") }}
             >
+              {/* @ts-ignore */}
               {priceFormatter(driver.wallet.available, i18n.language)}
             </LabelValue>
             <LabelValue
@@ -94,6 +96,7 @@ export function WithdrawForm({ driver }: WithdrawFormProps) {
                   <Button
                     size={"icon"}
                     onClick={() => {
+                      // @ts-ignore
                       form.setValue("cost", driver.wallet.available);
                       form.trigger("cost");
                     }}

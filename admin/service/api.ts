@@ -44,6 +44,7 @@ import type {
   CreateOrderDto,
   CreateRoleDto,
   CreateSubOrdersDto,
+  CustomValidationError,
   Driver,
   DriverWallet,
   DriversControllerDeletePathParameters,
@@ -56,6 +57,7 @@ import type {
   EmployeesControllerDeletePathParameters,
   EmployeesControllerFindOnePathParameters,
   EmployeesControllerUpdatePathParameters,
+  JoinChatDto,
   LoginAdminDto,
   LoginDriverDto,
   LoginEmployeeDto,
@@ -63,9 +65,10 @@ import type {
   Message,
   MessagesControllerDeletePathParameters,
   MessagesControllerFindOnePathParameters,
-  MessagesControllerFindPathParameters,
+  MessagesControllerFindParams,
   MessagesControllerUpdatePathParameters,
   Numerical,
+  Object,
   OmitTypeClass,
   Order,
   OrderCarControllerFindMineForOrderPathParameters,
@@ -80,7 +83,12 @@ import type {
   OrderStatsDate,
   OrderSubOrder,
   OrdersSubOrdersControllerFindForOrderPathParameters,
+  PaginatedCityResponse,
+  PaginatedDriverResponse,
+  PaginatedMessageResponse,
   PaginatedResponse,
+  PaginatedSubOrderResponse,
+  PaginatedUserResponse,
   Permission,
   PermissionsControllerFindOnePathParameters,
   PhotosControllerUploadMultipleBody,
@@ -98,20 +106,25 @@ import type {
   SettingsControllerUpdatePathParameters,
   SignUpDriverDto,
   SignUpUserDto,
+  SocketMessageDto,
   StaticProfits,
   StaticsDriver,
   StaticsUser,
   StatisticsControllerFindForDatePathParameters,
-  StatisticsControllerFindLimetAdvantagesPathParameters,
+  StatisticsControllerFindLimitAdvantagesPathParameters,
   StatisticsControllerProfitsPathParameters,
   SubOrder,
   SubOrdersControllerDeletePathParameters,
+  SubOrdersControllerFindChatsParams,
   SubOrdersControllerFindOnePathParameters,
   SubOrdersControllerSetArrivedAtPathParameters,
   SubOrdersControllerSetDeliveredAtPathParameters,
   SubOrdersControllerSetDriverPathParameters,
   SubOrdersControllerSetPickedUpAtPathParameters,
   SubOrdersControllerUpdatePathParameters,
+  SubOrdersMessagesControllerFindParams,
+  SubOrdersMessagesControllerFindPathParameters,
+  SuccessDto,
   UpdateAdminDto,
   UpdateAdvantageDto,
   UpdateCarDto,
@@ -141,65 +154,82 @@ import { fetchInstance } from "../lib/fetch";
 
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
-export const statisticsControllerFind = (
+export const authUserControllerSignup = (
+  signUpUserDto: SignUpUserDto,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<Numerical>(
-    { url: `/api/v1/statistics`, method: "GET" },
-    options,
-  );
-};
-
-export const statisticsControllerResponseTime = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<ResponseTime>(
-    { url: `/api/v1/statistics/responseTime`, method: "GET" },
-    options,
-  );
-};
-
-export const statisticsControllerFindForDate = (
-  { firstDate, secondDate }: StatisticsControllerFindForDatePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<OrderStatsDate[]>(
+  return fetchInstance<SendConfirm>(
     {
-      url: `/api/v1/statistics/order/${firstDate}/${secondDate}`,
-      method: "GET",
+      url: `/api/v1/auth/user/signup`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: signUpUserDto,
     },
     options,
   );
 };
 
-export const statisticsControllerProfits = (
-  { firstDate, secondDate }: StatisticsControllerProfitsPathParameters,
+/**
+ * @summary Login
+ */
+export const authUserControllerLogin = (
+  loginUserDto: LoginUserDto,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<StaticProfits[]>(
+  return fetchInstance<SendConfirm>(
     {
-      url: `/api/v1/statistics/profits/${firstDate}/${secondDate}`,
-      method: "GET",
+      url: `/api/v1/auth/user/login`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: loginUserDto,
     },
     options,
   );
 };
 
-export const statisticsControllerFindLimetAdvantages = (
-  { limit }: StatisticsControllerFindLimetAdvantagesPathParameters,
+/**
+ * @summary Confirm
+ */
+export const authUserControllerConfirm = (
+  confirmUserDto: ConfirmUserDto,
+  params: AuthUserControllerConfirmParams,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<AdvantageSuper[]>(
-    { url: `/api/v1/statistics/advantages/${limit}`, method: "GET" },
+  return fetchInstance<AuthUserResponse>(
+    {
+      url: `/api/v1/auth/user/confirm`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: confirmUserDto,
+      params,
+    },
+    options,
+  );
+};
+
+/**
+ * @summary update phone number
+ */
+export const authUserControllerUpdateMyNumber = (
+  updateUserPhoneDto: UpdateUserPhoneDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<SendConfirm>(
+    {
+      url: `/api/v1/auth/user/updateMyNumber`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateUserPhoneDto,
+    },
     options,
   );
 };
 
 export const usersControllerFind = (
-  params?: UsersControllerFindParams,
+  params: UsersControllerFindParams,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<PaginatedResponse>(
+  return fetchInstance<PaginatedUserResponse>(
     { url: `/api/v1/users`, method: "GET", params },
     options,
   );
@@ -417,7 +447,7 @@ export const rolesControllerDeletePermissions = (
 export const permissionsControllerFind = (
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<OmitTypeClass[]>(
+  return fetchInstance<Permission[]>(
     { url: `/api/v1/permissions`, method: "GET" },
     options,
   );
@@ -451,7 +481,7 @@ export const citiesControllerCreate = (
 export const citiesControllerFind = (
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<City[]>(
+  return fetchInstance<PaginatedCityResponse>(
     { url: `/api/v1/cities`, method: "GET" },
     options,
   );
@@ -782,12 +812,32 @@ export const subOrdersControllerFindIsDoneForDriver = (
   );
 };
 
+export const subOrdersControllerFindChats = (
+  params?: SubOrdersControllerFindChatsParams,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<PaginatedSubOrderResponse>(
+    { url: `/api/v1/sub-orders/chats`, method: "GET", params },
+    options,
+  );
+};
+
 export const subOrdersControllerFindOne = (
   { id }: SubOrdersControllerFindOnePathParameters,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
   return fetchInstance<SubOrder>(
     { url: `/api/v1/sub-orders/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const subOrdersControllerDelete = (
+  { id }: SubOrdersControllerDeletePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/sub-orders/${id}`, method: "DELETE" },
     options,
   );
 };
@@ -799,21 +849,11 @@ export const subOrdersControllerUpdate = (
 ) => {
   return fetchInstance<SubOrder>(
     {
-      url: `/api/v1/sub-orders/${id}`,
+      url: `/api/v1/sub-orders/${id}/rating`,
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       data: updateSubOrderDto,
     },
-    options,
-  );
-};
-
-export const subOrdersControllerDelete = (
-  { id }: SubOrdersControllerDeletePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/sub-orders/${id}`, method: "DELETE" },
     options,
   );
 };
@@ -875,10 +915,10 @@ export const ordersSubOrdersControllerFindForOrder = (
 };
 
 export const driversControllerFind = (
-  params?: DriversControllerFindParams,
+  params: DriversControllerFindParams,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<PaginatedResponse>(
+  return fetchInstance<PaginatedDriverResponse>(
     { url: `/api/v1/drivers`, method: "GET", params },
     options,
   );
@@ -1093,77 +1133,6 @@ export const orderCarControllerFindMineForOrder = (
   );
 };
 
-export const authUserControllerSignup = (
-  signUpUserDto: SignUpUserDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<SendConfirm>(
-    {
-      url: `/api/v1/auth/user/signup`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: signUpUserDto,
-    },
-    options,
-  );
-};
-
-/**
- * @summary Login
- */
-export const authUserControllerLogin = (
-  loginUserDto: LoginUserDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<SendConfirm>(
-    {
-      url: `/api/v1/auth/user/login`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: loginUserDto,
-    },
-    options,
-  );
-};
-
-/**
- * @summary Confirm
- */
-export const authUserControllerConfirm = (
-  confirmUserDto: ConfirmUserDto,
-  params: AuthUserControllerConfirmParams,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<AuthUserResponse>(
-    {
-      url: `/api/v1/auth/user/confirm`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: confirmUserDto,
-      params,
-    },
-    options,
-  );
-};
-
-/**
- * @summary update phone number
- */
-export const authUserControllerUpdateMyNumber = (
-  updateUserPhoneDto: UpdateUserPhoneDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<SendConfirm>(
-    {
-      url: `/api/v1/auth/user/updateMyNumber`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateUserPhoneDto,
-    },
-    options,
-  );
-};
-
 /**
  * @summary Login
  */
@@ -1185,7 +1154,7 @@ export const employeesControllerLogin = (
 export const employeesControllerFind = (
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<Employee>(
+  return fetchInstance<Employee[]>(
     { url: `/api/v1/employees`, method: "GET" },
     options,
   );
@@ -1278,7 +1247,7 @@ export const adminsControllerCreate = (
 export const adminsControllerFind = (
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<Admin>(
+  return fetchInstance<Admin[]>(
     { url: `/api/v1/admins`, method: "GET" },
     options,
   );
@@ -1391,6 +1360,60 @@ export const authDriverControllerUpdateMyNumber = (
   );
 };
 
+export const statisticsControllerFind = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Numerical>(
+    { url: `/api/v1/statistics`, method: "GET" },
+    options,
+  );
+};
+
+export const statisticsControllerResponseTime = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<ResponseTime>(
+    { url: `/api/v1/statistics/responseTime`, method: "GET" },
+    options,
+  );
+};
+
+export const statisticsControllerFindForDate = (
+  { firstDate, secondDate }: StatisticsControllerFindForDatePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<OrderStatsDate[]>(
+    {
+      url: `/api/v1/statistics/order/${firstDate}/${secondDate}`,
+      method: "GET",
+    },
+    options,
+  );
+};
+
+export const statisticsControllerProfits = (
+  { firstDate, secondDate }: StatisticsControllerProfitsPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<StaticProfits[]>(
+    {
+      url: `/api/v1/statistics/profits/${firstDate}/${secondDate}`,
+      method: "GET",
+    },
+    options,
+  );
+};
+
+export const statisticsControllerFindLimitAdvantages = (
+  { limit }: StatisticsControllerFindLimitAdvantagesPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<AdvantageSuper[]>(
+    { url: `/api/v1/statistics/advantages/${limit}`, method: "GET" },
+    options,
+  );
+};
+
 /**
  * @summary Upload single photo
  */
@@ -1437,11 +1460,26 @@ export const photosControllerUploadMultiple = (
 };
 
 export const messagesControllerFind = (
-  { subOrderId }: MessagesControllerFindPathParameters,
+  params?: MessagesControllerFindParams,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<PaginatedResponse>(
-    { url: `/api/v1/messages/${subOrderId}`, method: "GET" },
+  return fetchInstance<PaginatedMessageResponse>(
+    { url: `/api/v1/messages`, method: "GET", params },
+    options,
+  );
+};
+
+export const messagesControllerCreate = (
+  createMessageDto: CreateMessageDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Message>(
+    {
+      url: `/api/v1/messages`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createMessageDto,
+    },
     options,
   );
 };
@@ -1482,35 +1520,94 @@ export const messagesControllerDelete = (
   );
 };
 
-export const messagesControllerCreate = (
-  createMessageDto: CreateMessageDto,
+export const subOrdersMessagesControllerFind = (
+  { subOrderId }: SubOrdersMessagesControllerFindPathParameters,
+  params?: SubOrdersMessagesControllerFindParams,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<Message>(
+  return fetchInstance<PaginatedMessageResponse>(
+    { url: `/api/v1/suborders/${subOrderId}/messages`, method: "GET", params },
+    options,
+  );
+};
+
+/**
+ * Setup the user main room
+ * @summary WebSocket Event: setup
+ */
+export const webSocketDocsControllerSetup = (
+  webSocketDocsControllerSetupBody: Object,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<SuccessDto>(
     {
-      url: `/api/v1/messages`,
+      url: `/api/websocket/setup`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      data: createMessageDto,
+      data: webSocketDocsControllerSetupBody,
     },
     options,
   );
 };
 
-export type StatisticsControllerFindResult = NonNullable<
-  Awaited<ReturnType<typeof statisticsControllerFind>>
+/**
+ * Join the chat room
+ * @summary WebSocket Event: join-chat
+ */
+export const webSocketDocsControllerJoinChat = (
+  joinChatDto: JoinChatDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<SuccessDto>(
+    {
+      url: `/api/websocket/join-chat`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: joinChatDto,
+    },
+    options,
+  );
+};
+
+/**
+ * Pass the new message to the users in the same chat
+ * @summary WebSocket Event: new-message
+ */
+export const webSocketDocsControllerNewMessage = (
+  socketMessageDto: SocketMessageDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<SocketMessageDto>(
+    {
+      url: `/api/websocket/new-message`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: socketMessageDto,
+    },
+    options,
+  );
+};
+
+export const webSocketDocsControllerError = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<CustomValidationError>(
+    { url: `/api/websocket/error`, method: "POST" },
+    options,
+  );
+};
+
+export type AuthUserControllerSignupResult = NonNullable<
+  Awaited<ReturnType<typeof authUserControllerSignup>>
 >;
-export type StatisticsControllerResponseTimeResult = NonNullable<
-  Awaited<ReturnType<typeof statisticsControllerResponseTime>>
+export type AuthUserControllerLoginResult = NonNullable<
+  Awaited<ReturnType<typeof authUserControllerLogin>>
 >;
-export type StatisticsControllerFindForDateResult = NonNullable<
-  Awaited<ReturnType<typeof statisticsControllerFindForDate>>
+export type AuthUserControllerConfirmResult = NonNullable<
+  Awaited<ReturnType<typeof authUserControllerConfirm>>
 >;
-export type StatisticsControllerProfitsResult = NonNullable<
-  Awaited<ReturnType<typeof statisticsControllerProfits>>
->;
-export type StatisticsControllerFindLimetAdvantagesResult = NonNullable<
-  Awaited<ReturnType<typeof statisticsControllerFindLimetAdvantages>>
+export type AuthUserControllerUpdateMyNumberResult = NonNullable<
+  Awaited<ReturnType<typeof authUserControllerUpdateMyNumber>>
 >;
 export type UsersControllerFindResult = NonNullable<
   Awaited<ReturnType<typeof usersControllerFind>>
@@ -1662,14 +1759,17 @@ export type SubOrdersControllerFindAllActiveForDriverResult = NonNullable<
 export type SubOrdersControllerFindIsDoneForDriverResult = NonNullable<
   Awaited<ReturnType<typeof subOrdersControllerFindIsDoneForDriver>>
 >;
+export type SubOrdersControllerFindChatsResult = NonNullable<
+  Awaited<ReturnType<typeof subOrdersControllerFindChats>>
+>;
 export type SubOrdersControllerFindOneResult = NonNullable<
   Awaited<ReturnType<typeof subOrdersControllerFindOne>>
 >;
-export type SubOrdersControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof subOrdersControllerUpdate>>
->;
 export type SubOrdersControllerDeleteResult = NonNullable<
   Awaited<ReturnType<typeof subOrdersControllerDelete>>
+>;
+export type SubOrdersControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof subOrdersControllerUpdate>>
 >;
 export type SubOrdersControllerSetArrivedAtResult = NonNullable<
   Awaited<ReturnType<typeof subOrdersControllerSetArrivedAt>>
@@ -1743,18 +1843,6 @@ export type CarControllerRemoveAdvantagesFromCarResult = NonNullable<
 export type OrderCarControllerFindMineForOrderResult = NonNullable<
   Awaited<ReturnType<typeof orderCarControllerFindMineForOrder>>
 >;
-export type AuthUserControllerSignupResult = NonNullable<
-  Awaited<ReturnType<typeof authUserControllerSignup>>
->;
-export type AuthUserControllerLoginResult = NonNullable<
-  Awaited<ReturnType<typeof authUserControllerLogin>>
->;
-export type AuthUserControllerConfirmResult = NonNullable<
-  Awaited<ReturnType<typeof authUserControllerConfirm>>
->;
-export type AuthUserControllerUpdateMyNumberResult = NonNullable<
-  Awaited<ReturnType<typeof authUserControllerUpdateMyNumber>>
->;
 export type EmployeesControllerLoginResult = NonNullable<
   Awaited<ReturnType<typeof employeesControllerLogin>>
 >;
@@ -1803,6 +1891,21 @@ export type AuthDriverControllerConfirmResult = NonNullable<
 export type AuthDriverControllerUpdateMyNumberResult = NonNullable<
   Awaited<ReturnType<typeof authDriverControllerUpdateMyNumber>>
 >;
+export type StatisticsControllerFindResult = NonNullable<
+  Awaited<ReturnType<typeof statisticsControllerFind>>
+>;
+export type StatisticsControllerResponseTimeResult = NonNullable<
+  Awaited<ReturnType<typeof statisticsControllerResponseTime>>
+>;
+export type StatisticsControllerFindForDateResult = NonNullable<
+  Awaited<ReturnType<typeof statisticsControllerFindForDate>>
+>;
+export type StatisticsControllerProfitsResult = NonNullable<
+  Awaited<ReturnType<typeof statisticsControllerProfits>>
+>;
+export type StatisticsControllerFindLimitAdvantagesResult = NonNullable<
+  Awaited<ReturnType<typeof statisticsControllerFindLimitAdvantages>>
+>;
 export type PhotosControllerUploadSingleResult = NonNullable<
   Awaited<ReturnType<typeof photosControllerUploadSingle>>
 >;
@@ -1811,6 +1914,9 @@ export type PhotosControllerUploadMultipleResult = NonNullable<
 >;
 export type MessagesControllerFindResult = NonNullable<
   Awaited<ReturnType<typeof messagesControllerFind>>
+>;
+export type MessagesControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof messagesControllerCreate>>
 >;
 export type MessagesControllerFindOneResult = NonNullable<
   Awaited<ReturnType<typeof messagesControllerFindOne>>
@@ -1821,6 +1927,18 @@ export type MessagesControllerUpdateResult = NonNullable<
 export type MessagesControllerDeleteResult = NonNullable<
   Awaited<ReturnType<typeof messagesControllerDelete>>
 >;
-export type MessagesControllerCreateResult = NonNullable<
-  Awaited<ReturnType<typeof messagesControllerCreate>>
+export type SubOrdersMessagesControllerFindResult = NonNullable<
+  Awaited<ReturnType<typeof subOrdersMessagesControllerFind>>
+>;
+export type WebSocketDocsControllerSetupResult = NonNullable<
+  Awaited<ReturnType<typeof webSocketDocsControllerSetup>>
+>;
+export type WebSocketDocsControllerJoinChatResult = NonNullable<
+  Awaited<ReturnType<typeof webSocketDocsControllerJoinChat>>
+>;
+export type WebSocketDocsControllerNewMessageResult = NonNullable<
+  Awaited<ReturnType<typeof webSocketDocsControllerNewMessage>>
+>;
+export type WebSocketDocsControllerErrorResult = NonNullable<
+  Awaited<ReturnType<typeof webSocketDocsControllerError>>
 >;

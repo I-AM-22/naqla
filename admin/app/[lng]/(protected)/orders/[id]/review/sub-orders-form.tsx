@@ -64,7 +64,7 @@ export function SubOrdersForm({ order }: SubOrdersFormProps) {
     },
   });
   const subOrdersErrorMessage = form.formState.errors.subOrders?.root?.message;
-
+  const canDoActions = order.status === "waiting";
   const router = useRouter();
   const create = useMutation(subOrdersControllerCreate, form);
   const onSubmit = async (data: Schema) => {
@@ -99,10 +99,14 @@ export function SubOrdersForm({ order }: SubOrdersFormProps) {
             )}
             <PhotosPicker photos={order.photos} />
           </div>
-          <SubOrders photos={order.photos} />
+          {canDoActions && <SubOrders photos={order.photos} />}
         </DndProvider>
 
-        <Submit type="submit" className="fit-content ms-auto">
+        <Submit
+          type="submit"
+          disabled={!canDoActions}
+          className="fit-content ms-auto"
+        >
           {t("submit")}
         </Submit>
       </form>

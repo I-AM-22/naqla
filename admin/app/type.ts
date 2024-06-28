@@ -7,9 +7,7 @@ export type PageProps<
   params: { lng: string } & TParams;
   searchParams: TSeach;
 };
-export type LayoutProps<
-  TParams extends object = {},
-  TSeach extends object = {},
-> = PageProps<TParams, TSeach> & {
+export type LayoutProps<TParams extends object = {}> = {
+  params: { lng: string } & TParams;
   children: ReactNode;
 };

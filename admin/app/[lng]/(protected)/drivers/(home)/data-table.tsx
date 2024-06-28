@@ -41,13 +41,15 @@ export const columns = (t: TFunction<string, string>, language: string) => [
   columnHelper.accessor("wallet.available", {
     header: t("wallet"),
     cell: ({ cell, row }) =>
+      // @ts-ignore
       cell.getValue() > 0 ? (
         <Button asChild variant={"ghost"}>
           <Link
             className="flex gap-2 font-normal"
             href={`/drivers/${row.original.id}/withdraw`}
           >
-            {priceFormatter(cell.getValue(), language)}{" "}
+            {/* @ts-ignore */}
+            {priceFormatter(cell.getValue(), language)} {/* @ts-ignore */}
             {cell.getValue() > 0 && (
               <CircleArrowUp className="text-orange-400" />
             )}
@@ -55,6 +57,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
         </Button>
       ) : (
         <Button variant={"ghost"} className="flex gap-2 font-normal">
+          {/* @ts-ignore */}
           {priceFormatter(cell.getValue(), language)}
         </Button>
       ),

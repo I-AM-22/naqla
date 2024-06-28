@@ -67,6 +67,7 @@ export function DepositForm({ customer }: DepositFormProps) {
               label={t("walletAvailable")}
               labelProps={{ className: cn("w-16") }}
             >
+              {/* @ts-ignore */}
               {priceFormatter(customer.wallet.available, i18n.language)}
             </LabelValue>
             <LabelValue

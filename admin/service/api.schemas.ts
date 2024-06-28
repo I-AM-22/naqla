@@ -5,6 +5,14 @@
  * naqleh API
  * OpenAPI spec version: 1.0
  */
+export type SubOrdersMessagesControllerFindParams = {
+  page?: number;
+  limit?: number;
+};
+
+export type SubOrdersMessagesControllerFindPathParameters = {
+  subOrderId: string;
+};
 export type MessagesControllerDeletePathParameters = {
   id: string;
 };
@@ -14,9 +22,11 @@ export type MessagesControllerUpdatePathParameters = {
 export type MessagesControllerFindOnePathParameters = {
   id: string;
 };
-export type MessagesControllerFindPathParameters = {
-  subOrderId: string;
+export type MessagesControllerFindParams = {
+  page?: number;
+  limit?: number;
 };
+
 export type PhotosControllerUploadMultipleBody = {
   photos: Blob[];
 };
@@ -25,6 +35,17 @@ export type PhotosControllerUploadSingleBody = {
   photo: Blob;
 };
 
+export type StatisticsControllerFindLimitAdvantagesPathParameters = {
+  limit: number;
+};
+export type StatisticsControllerProfitsPathParameters = {
+  firstDate: string;
+  secondDate: string;
+};
+export type StatisticsControllerFindForDatePathParameters = {
+  firstDate: string;
+  secondDate: string;
+};
 export type AuthDriverControllerConfirmParams = {
   /**
    * assign true to the field to confirm new number
@@ -50,13 +71,6 @@ export type EmployeesControllerUpdatePathParameters = {
 export type EmployeesControllerFindOnePathParameters = {
   id: string;
 };
-export type AuthUserControllerConfirmParams = {
-  /**
-   * assign true to the field to confirm new number
-   */
-  phoneConfirm: boolean;
-};
-
 export type OrderCarControllerFindMineForOrderPathParameters = {
   id: string;
 };
@@ -95,6 +109,7 @@ export type DriversControllerStaticsDriverParams = {
 
 export type DriversControllerFindParams = {
   page?: number;
+  active: boolean;
   limit?: number;
 };
 
@@ -113,15 +128,20 @@ export type SubOrdersControllerSetPickedUpAtPathParameters = {
 export type SubOrdersControllerSetArrivedAtPathParameters = {
   id: string;
 };
-export type SubOrdersControllerDeletePathParameters = {
+export type SubOrdersControllerUpdatePathParameters = {
   id: string;
 };
-export type SubOrdersControllerUpdatePathParameters = {
+export type SubOrdersControllerDeletePathParameters = {
   id: string;
 };
 export type SubOrdersControllerFindOnePathParameters = {
   id: string;
 };
+export type SubOrdersControllerFindChatsParams = {
+  page?: number;
+  limit?: number;
+};
+
 export type SettingsControllerUpdatePathParameters = {
   id: string;
 };
@@ -213,20 +233,36 @@ export type UsersControllerGetMyPhotosParams = {
 
 export type UsersControllerFindParams = {
   page?: number;
+  active: boolean;
   limit?: number;
 };
 
-export type StatisticsControllerFindLimetAdvantagesPathParameters = {
-  limit: number;
+export type AuthUserControllerConfirmParams = {
+  /**
+   * assign true to the field to confirm new number
+   */
+  phoneConfirm: boolean;
 };
-export type StatisticsControllerProfitsPathParameters = {
-  firstDate: string;
-  secondDate: string;
+
+export type SocketMessageDto = {
+  content: string;
+  createdAt: Date;
+  id: string;
+  isUser: boolean;
+  subOrderId: string;
+  updatedAt: Date;
 };
-export type StatisticsControllerFindForDatePathParameters = {
-  firstDate: string;
-  secondDate: string;
+
+export type JoinChatDto = {
+  subOrderId: string;
 };
+
+export type SuccessDto = {
+  status: string;
+};
+
+export type Object = { [key: string]: any };
+
 export type UpdateMessageDto = {
   content: string;
 };
@@ -243,6 +279,54 @@ export type Message = {
   id: string;
   isUser: boolean;
   updatedAt: Date;
+};
+
+export type PaginatedMessageResponse = {
+  data: Message[];
+  pageNumber: number;
+  totalDataCount: number;
+  totalPages: number;
+};
+
+export type AdvantageSuper = {
+  advantage: string;
+  countCarUsed: number;
+  countUserUsed: number;
+};
+
+export type StaticProfits = {
+  day: string;
+  profits: number;
+};
+
+export type OrderStatsDate = {
+  AllOrders: number;
+  completedOrders: number;
+  day: string;
+  refusedOrders: number;
+};
+
+export type Time = {
+  hours: number;
+  milliseconds: number;
+  minutes: number;
+  seconds: number;
+};
+
+export type ResponseTime = {
+  today: Time;
+  yesterday: Time;
+};
+
+export type Numerical = {
+  car: number;
+  driver: number;
+  orderActive: number;
+  orderCompleted: number;
+  orderWaiting: number;
+  subOrderActive: number;
+  subOrderCompleted: number;
+  user: number;
 };
 
 export type UpdateDriverPhoneDto = {
@@ -341,34 +425,6 @@ export type LoginEmployeeDto = {
   phone: string;
 };
 
-export type UpdateUserPhoneDto = {
-  phone: string;
-};
-
-export type AuthUserResponse = {
-  token: string;
-  user: User;
-};
-
-export type ConfirmUserDto = {
-  otp: string;
-  phone: string;
-};
-
-export type LoginUserDto = {
-  phone: string;
-};
-
-export type SendConfirm = {
-  message: string;
-};
-
-export type SignUpUserDto = {
-  firstName: string;
-  lastName: string;
-  phone: string;
-};
-
 export type AddAdvansToCarDto = {
   advantages: string[];
 };
@@ -403,17 +459,6 @@ export type DriverWallet = {
   updatedAt: Date;
 };
 
-export type Driver = {
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
-  phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-  wallet: DriverWallet;
-};
-
 export type StaticsDriver = {
   countCar: number;
   countOrderDelivered: number;
@@ -427,6 +472,24 @@ export type StaticsDriver = {
   wallet: DriverWallet;
 };
 
+export type Driver = {
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+  wallet: DriverWallet;
+};
+
+export type PaginatedDriverResponse = {
+  data: Driver[];
+  pageNumber: number;
+  totalDataCount: number;
+  totalPages: number;
+};
+
 export type Photo = {
   blurHash: string;
   createdAt: string;
@@ -438,6 +501,26 @@ export type Photo = {
   webUrl: string;
   weight: number;
   width: number;
+};
+
+export type SetDriverSubOrderDto = {
+  carId: string;
+  rating: number;
+};
+
+export type UpdateSubOrderDto = {
+  rating: number;
+};
+
+export type Car = {
+  advantages: Advantage[];
+  brand: string;
+  color: string;
+  createdAt: Date;
+  id: string;
+  model: string;
+  photo: BasePhoto;
+  updatedAt: Date;
 };
 
 export type OrderSubOrder = {
@@ -458,26 +541,6 @@ export type OrderSubOrder = {
   weight: number;
 };
 
-export type SetDriverSubOrderDto = {
-  carId: string;
-  rating: number;
-};
-
-export type UpdateSubOrderDto = {
-  rating: number;
-};
-
-export type Car = {
-  advantages: string[];
-  brand: string;
-  color: string;
-  createdAt: Date;
-  id: string;
-  model: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-};
-
 export type SubOrder = {
   acceptedAt: Date;
   arrivedAt: Date;
@@ -491,9 +554,17 @@ export type SubOrder = {
   photos: string[];
   pickedUpAt: Date;
   rating: number;
+  realCost: number;
   status: string;
   updatedAt: Date;
   weight: number;
+};
+
+export type PaginatedSubOrderResponse = {
+  data: SubOrder[];
+  pageNumber: number;
+  totalDataCount: number;
+  totalPages: number;
 };
 
 export type CreateSubOrderDto = {
@@ -521,14 +592,6 @@ export type Setting = {
 export type UpdateAdvantageDto = {
   cost?: number;
   name?: string;
-};
-
-export type Advantage = {
-  cost: number;
-  createdAt: Date;
-  id: string;
-  name: string;
-  updatedAt: Date;
 };
 
 export type CreateAdvantageDto = {
@@ -570,6 +633,14 @@ export type Payment = {
   updatedAt: Date;
 };
 
+export type Advantage = {
+  cost: number;
+  createdAt: Date;
+  id: string;
+  name: string;
+  updatedAt: Date;
+};
+
 export type OrderPhoto = {
   blurHash: string;
   createdAt: Date;
@@ -601,7 +672,7 @@ export type Location = {
 };
 
 export type Order = {
-  advantages: string[];
+  advantages: Advantage[];
   createdAt: Date;
   desiredDate: Date;
   id: string;
@@ -649,6 +720,13 @@ export type City = {
   updatedAt: Date;
 };
 
+export type PaginatedCityResponse = {
+  data: City[];
+  pageNumber: number;
+  totalDataCount: number;
+  totalPages: number;
+};
+
 export type CreateCityDto = {
   name: string;
 };
@@ -681,9 +759,10 @@ export type CreateRoleDto = {
 };
 
 export type OmitTypeClass = {
-  action: string;
+  createdAt: Date;
   id: string;
-  subject: string;
+  name: string;
+  updatedAt: Date;
 };
 
 export type UpdateWalletDto = {
@@ -696,6 +775,30 @@ export type UpdateUserDto = {
   photo: string;
 };
 
+export type GlobalEntity = {
+  createdAt: Date;
+  id: string;
+  updatedAt: Date;
+};
+
+export type PaginatedResponse = {
+  data: GlobalEntity[];
+  pageNumber: number;
+  totalDataCount: number;
+  totalPages: number;
+};
+
+export type PaginatedUserResponse = {
+  data: User[];
+  pageNumber: number;
+  totalDataCount: number;
+  totalPages: number;
+};
+
+export type UpdateUserPhoneDto = {
+  phone: string;
+};
+
 export type BasePhoto = {
   blurHash: string;
   createdAt: Date;
@@ -704,17 +807,6 @@ export type BasePhoto = {
   profileUrl: string;
   updatedAt: Date;
   webUrl: string;
-};
-
-export type User = {
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
-  phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-  wallet: UserWallet;
 };
 
 export type Function = { [key: string]: any };
@@ -741,56 +833,67 @@ export type StaticsUser = {
   wallet: UserWallet;
 };
 
-export type GlobalEntity = {
+export type User = {
   createdAt: Date;
+  firstName: string;
   id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
   updatedAt: Date;
+  wallet: UserWallet;
 };
 
-export type PaginatedResponse = {
-  data: GlobalEntity;
-  pageNumber: number;
-  totalDataCount: number;
-  totalPages: number;
+export type AuthUserResponse = {
+  token: string;
+  user: User;
 };
 
-export type AdvantageSuper = {
-  advantage: string;
-  countCarUsed: number;
-  countUserUsed: number;
+export type ConfirmUserDto = {
+  otp: string;
+  phone: string;
 };
 
-export type StaticProfits = {
-  day: string;
-  profits: number;
+export type LoginUserDto = {
+  phone: string;
 };
 
-export type OrderStatsDate = {
-  AllOrders: number;
-  completedOrders: number;
-  day: string;
-  refusedOrders: number;
+export type SendConfirm = {
+  message: string;
 };
 
-export type Time = {
-  hours: number;
-  milliseconds: number;
-  minutes: number;
-  seconds: number;
+export type SignUpUserDto = {
+  firstName: string;
+  lastName: string;
+  phone: string;
 };
 
-export type ResponseTime = {
-  today: Time;
-  yesterday: Time;
+export type AppErrorType = (typeof AppErrorType)[keyof typeof AppErrorType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const AppErrorType = {
+  socket: "socket",
+  from: "from",
+  default: "default",
+} as const;
+
+export type AppError = {
+  message?: string;
+  type: AppErrorType;
 };
 
-export type Numerical = {
-  car: number;
-  driver: number;
-  orderActive: number;
-  orderCompleted: number;
-  orderWaiting: number;
-  subOrderActive: number;
-  subOrderCompleted: number;
-  user: number;
+export type CustomValidationErrorType =
+  (typeof CustomValidationErrorType)[keyof typeof CustomValidationErrorType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CustomValidationErrorType = {
+  socket: "socket",
+  from: "from",
+  default: "default",
+} as const;
+
+export type CustomValidationError = {
+  errors?: string[];
+  message?: string;
+  type: CustomValidationErrorType;
 };

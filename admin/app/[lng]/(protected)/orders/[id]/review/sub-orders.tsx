@@ -72,9 +72,11 @@ export const SubOrder: FC<SubOrderProps> = ({ index, onRemove, photos }) => {
         form.clearErrors("subOrders");
         append(photo);
         form.setValue(
-          `subOrders.${index}.weight`,
-          (Number(form.getValues().subOrders[index].weight) || 0) +
-            photo.weight,
+          "subOrders",
+          form.getValues().subOrders.map((sub) => ({
+            ...sub,
+            weight: sub.photos.reduce((sum, ph) => sum + ph.weight, 0),
+          })),
         );
       },
       collect: (monitor) => ({
@@ -129,7 +131,7 @@ export const SubOrder: FC<SubOrderProps> = ({ index, onRemove, photos }) => {
         {form.formState.errors.subOrders?.[index]?.photos?.message}
       </p>
 
-      <div className="flex flex-row flex-wrap justify-center gap-2">
+      <div className="mt-3 flex flex-row flex-wrap justify-center gap-2">
         {fields.map((photo) => (
           <DraggablePhotoCard photo={photo} key={photo.id} />
         ))}
