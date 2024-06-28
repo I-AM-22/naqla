@@ -7,7 +7,7 @@ import { User } from '../../entities/user.entity';
 import { UserWallet } from '../../entities/user-wallet.entity';
 
 export interface IUserRepository {
-  find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User> | User[]>;
+  find(page: number, limit: number, active?: boolean, withDeleted?: boolean): Promise<PaginatedResponse<User> | User[]>;
 
   staticsUser(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User>>;
 
@@ -29,9 +29,9 @@ export interface IUserRepository {
 
   updatePhone(user: User, dto: UpdateUserPhoneDto): Promise<User>;
 
-  // recover(user: User): Promise<User>;
-
   delete(user: User): Promise<void>;
+
+  deactivate(id: string): Promise<User>;
 
   validate(id: string): Promise<User>;
 }

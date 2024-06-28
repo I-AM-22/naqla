@@ -17,18 +17,18 @@ export class UserRepository extends BaseAuthRepo<User> implements IUserRepositor
     super(userRepo);
   }
 
-  async find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User>> {
+  async find(page: number, limit: number, active: boolean, withDeleted: boolean): Promise<PaginatedResponse<User>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || undefined;
     const data = await this.userRepo.find({
-      where: { active: true },
+      where: { active },
       relations: { photos: true, role: true },
       skip,
       take,
       withDeleted,
     });
     const totalDataCount = await this.userRepo.count({
-      where: { active: true },
+      where: { active },
       withDeleted,
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
@@ -113,10 +113,13 @@ export class UserRepository extends BaseAuthRepo<User> implements IUserRepositor
     });
   }
 
-  // async recover(user: User): Promise<User> {
-  //   return this.userRepo.recover(user);
-  // }
   async delete(user: User): Promise<void> {
     this.userRepo.softRemove(user);
+  }
+
+  async deactivate(id: string): Promise<User> {
+    await this.userRepo.update({ id }, { active: false });
+
+    return await this.findById(id);
   }
 }

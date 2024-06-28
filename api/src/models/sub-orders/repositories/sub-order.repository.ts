@@ -10,6 +10,7 @@ import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { StaticProfits } from '@models/statics/responses/StaticProfits';
+import { LocationEnd } from '../responses/order-suborders.response';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -148,7 +149,15 @@ export class SubOrderRepository implements ISubOrderRepository {
           status: In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.TAKEN]),
         },
       ],
-      relations: { order: true, car: true },
+      select: {
+        order: {
+          user: { id: true, firstName: true, lastName: true },
+          locationEnd: { latitude: true, longitude: true, region: true, street: true },
+          locationStart: { latitude: true, longitude: true, region: true, street: true },
+        },
+        car: { driver: { id: true, firstName: true, lastName: true } },
+      },
+      relations: { order: { user: true }, car: { driver: true } },
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }

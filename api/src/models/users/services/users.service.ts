@@ -40,8 +40,13 @@ export class UsersService implements IUsersService {
     return this.userRepository.create(dto, wallet, photo, role);
   }
 
-  async find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User> | User[]> {
-    return this.userRepository.find(page, limit, withDeleted);
+  async find(
+    page: number,
+    limit: number,
+    active: boolean = true,
+    withDeleted: boolean = true,
+  ): Promise<PaginatedResponse<User> | User[]> {
+    return this.userRepository.find(page, limit, active, withDeleted);
   }
 
   async staticsUser(page: number, limit: number, withDeleted: boolean): Promise<any[]> {
@@ -95,20 +100,14 @@ export class UsersService implements IUsersService {
     return this.userRepository.updatePhone(user, dto);
   }
 
-  // async recover(id: string): Promise<User> {
-  //   const user = await this.findOne(id, true);
-  //   if (!user) throw new NotFoundException(item_not_found(Entities.User));
-  //   await this.userRepository.recover(user);
-  //   return user;
-  // }
-
   confirm(nonConfirmedUser: User): Promise<User> {
     return this.userRepository.confirm(nonConfirmedUser);
   }
 
   async delete(id: string): Promise<void> {
-    const user = await this.userRepository.findByIdForDelete(id);
-    await this.userRepository.delete(user);
+    // const user = await this.userRepository.findByIdForDelete(id);
+    // await this.userRepository.delete(user);
+    await this.userRepository.deactivate(id);
     return;
   }
 
