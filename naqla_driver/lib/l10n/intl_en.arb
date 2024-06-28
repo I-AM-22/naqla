@@ -66,6 +66,8 @@
   "advantages": "Advantages",
   "there_is_nothing_to_show": "There is nothing to show",
   "syp": "SYP",
+  "there_are_no_advantages": "There are no advantages",
+  "required_advantages": "Required advantages",
 
   "__________________________wallet______________________________":"",
   "wallet":"wallet",

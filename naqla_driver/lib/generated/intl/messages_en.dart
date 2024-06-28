@@ -152,6 +152,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "porters": MessageLookupByLibrary.simpleMessage("Porters: "),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "required_advantages":
+            MessageLookupByLibrary.simpleMessage("Required advantages"),
         "resend_again": MessageLookupByLibrary.simpleMessage("Resend again"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
         "set_order_delivered":
@@ -176,6 +178,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "The driver agreed to the order"),
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("the number of floors"),
+        "there_are_no_advantages":
+            MessageLookupByLibrary.simpleMessage("There are no advantages"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total money: "),

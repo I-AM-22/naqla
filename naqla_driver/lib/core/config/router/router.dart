@@ -153,7 +153,7 @@ class GRouter {
                 name: MessagesPage.name,
                 parentNavigatorKey: _rootNavigatorKey,
                 builder: (context, state) => MessagesPage(
-                  subOrderId: state.extra as String,
+                  param: state.extra as MessageParam,
                 ),
               )
             ])

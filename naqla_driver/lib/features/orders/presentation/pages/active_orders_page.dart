@@ -25,23 +25,26 @@ class _ActiveOrdersPageState extends State<ActiveOrdersPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppCommonStateBuilder<OrderBloc, List<SubOrderModel>>(
-      stateName: OrderState.getOrders,
-      onSuccess: (data) => ListView.builder(
-          itemBuilder: (context, index) => InkWell(
-                onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: data[index].id),
-                child: SubOrderCard(
-                    subOrderModel: data
-                        .where(
-                          (element) => element.status != SubOrderStatus.delivered,
-                        )
-                        .elementAt(index)),
-              ),
-          itemCount: data
-              .where(
-                (element) => (element.status != SubOrderStatus.delivered),
-              )
-              .length),
+    return RefreshIndicator(
+      onRefresh: () async => context.read<OrderBloc>().add(GetOrdersEvent()),
+      child: AppCommonStateBuilder<OrderBloc, List<SubOrderModel>>(
+        stateName: OrderState.getOrders,
+        onSuccess: (data) => ListView.builder(
+            itemBuilder: (context, index) => InkWell(
+                  onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: data[index].id),
+                  child: SubOrderCard(
+                      subOrderModel: data
+                          .where(
+                            (element) => element.status != SubOrderStatus.delivered,
+                          )
+                          .elementAt(index)),
+                ),
+            itemCount: data
+                .where(
+                  (element) => (element.status != SubOrderStatus.delivered),
+                )
+                .length),
+      ),
     );
   }
 }

@@ -15,7 +15,7 @@ class ChatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushNamed(MessagesPage.name, extra: item.id),
+      onTap: () => context.pushNamed(MessagesPage.name, extra: MessageParam(subOrderId: item.id, userName: item.order?.userName ?? '')),
       child: Container(
         margin: REdgeInsets.only(bottom: 16),
         alignment: AlignmentDirectional.centerStart,
@@ -40,8 +40,14 @@ class ChatCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
-                    child: AppText.subHeadMedium(
-                      '${item.order?.locationStart.region} [${item.order?.locationStart.street}] --> ${item.order?.locationEnd.region} [${item.order?.locationEnd.street}]',
+                    child: RichText(
+                      text: TextSpan(style: context.textTheme.titleSmall, children: [
+                        TextSpan(text: '${item.order?.userName}\n'),
+                        TextSpan(
+                            style: context.textTheme.bodyMedium,
+                            text:
+                                '${item.order?.locationStart?.region} [${item.order?.locationStart?.street}] --> ${item.order?.locationEnd?.region} [${item.order?.locationEnd?.street}]'),
+                      ]),
                     ),
                   ),
                   AppImage.asset(

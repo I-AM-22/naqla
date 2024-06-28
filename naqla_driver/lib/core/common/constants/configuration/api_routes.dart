@@ -1,6 +1,14 @@
 class ApiRoutes {
   //?///////////////Base//////////////////
   static const String baseUrl = 'http://192.168.1.110:5500';
+  static const String realTimeUrl = 'ws://192.168.1.110:5500';
+
+  //?////////////////?RealTime////////////////////
+  static const String joinChat = 'join-chat';
+  static const String setup = 'setup';
+  static const String newMessage = 'new-message';
+  static const String messageReceived = 'message-received';
+  static const String error = 'error';
 
   //?////////////////Auth////////////////////
   static String login = '/api/v1/auth/driver/login';
@@ -28,6 +36,7 @@ class ApiRoutes {
   static String deleteCar(String id) => '/api/v1/cars/$id';
   static String editCar(String id) => '/api/v1/cars/$id';
   static String getOrderCars(String id) => '/api/v1/orders/$id/cars/mine';
+  static String addAdvantage(String id) => '/api/v1/cars/$id/advantages';
 
   //?////////////////?Chats////////////////////
   static String chats = '/api/v1/sub-orders/chats';

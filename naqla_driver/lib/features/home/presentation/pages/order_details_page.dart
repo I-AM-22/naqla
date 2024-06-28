@@ -29,6 +29,7 @@ class OrderDetailsPage extends StatelessWidget {
   static String name = "OrderDetailsPage";
   CarModel? carModel;
 
+  final ScrollController _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -45,6 +46,8 @@ class OrderDetailsPage extends StatelessWidget {
                   onPressed: () {
                     if (carModel == null) {
                       showMessage(S.of(context).pick_a_car);
+                      _controller.animateTo(_controller.position.maxScrollExtent,
+                          duration: const Duration(milliseconds: 1), curve: Curves.fastOutSlowIn);
                     } else {
                       context
                           .read<HomeBloc>()
@@ -59,25 +62,15 @@ class OrderDetailsPage extends StatelessWidget {
             appBarParams: AppBarParams(title: S.of(context).order_details),
           ),
           body: SingleChildScrollView(
+            controller: _controller,
             child: Padding(
               padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText.titleSmall(S.of(context).pick_a_car),
-                  6.verticalSpace,
-                  SizedBox(
-                    height: 200.h,
-                    child: CarsCard(
-                      id: subOrderModel.order!.id,
-                      onSelected: (p0) {
-                        carModel = p0;
-                      },
-                    ),
-                  ),
                   LocationMap(
-                    locationStart: subOrderModel.order!.locationStart,
-                    locationEnd: subOrderModel.order!.locationEnd,
+                    locationStart: subOrderModel.order!.locationStart!,
+                    locationEnd: subOrderModel.order!.locationEnd!,
                     height: 200.h,
                   ),
                   10.verticalSpace,
@@ -96,7 +89,10 @@ class OrderDetailsPage extends StatelessWidget {
                         },
                         TextSpan(
                             text:
-                                '\n${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(subOrderModel.order!.desiredDate)}'),
+                                '\n${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(subOrderModel.order!.desiredDate!)}'),
+                        TextSpan(
+                            text:
+                                '\n${S.of(context).required_advantages}: ${(subOrderModel.order?.advantages?.isEmpty ?? true) ? S.of(context).there_are_no_advantages : subOrderModel.order?.advantages}'),
                       ]),
                     ),
                   ),
@@ -115,7 +111,19 @@ class OrderDetailsPage extends StatelessWidget {
                         );
                       },
                       separatorBuilder: (context, index) => 10.verticalSpace,
-                      itemCount: subOrderModel.photos.length)
+                      itemCount: subOrderModel.photos.length),
+                  16.verticalSpace,
+                  AppText.titleSmall(S.of(context).pick_a_car),
+                  6.verticalSpace,
+                  SizedBox(
+                    height: 200.h,
+                    child: CarsCard(
+                      id: subOrderModel.order!.id,
+                      onSelected: (p0) {
+                        carModel = p0;
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -7,12 +7,36 @@ import '../../data/model/car_model.dart';
 import '../repositories/cars_repository.dart';
 
 @injectable
-class EditCarUseCase extends UseCase<CarModel, AddCarParam> {
+class EditCarUseCase extends UseCase<CarModel, EditCarParam> {
   final CarsRepository _repository;
 
   EditCarUseCase(this._repository);
   @override
-  FutureResult<CarModel> call(AddCarParam params) async {
+  FutureResult<CarModel> call(EditCarParam params) async {
     return _repository.editCar(params);
   }
+}
+
+class EditCarParam {
+  final String? id;
+  final String model;
+  final String brand;
+  final String color;
+  final String? photo;
+  final List<String> advantages;
+
+  EditCarParam({required this.model, required this.brand, required this.color, required this.photo, required this.advantages, this.id});
+
+  Map<String, dynamic> get toMap => {
+        "model": model,
+        "brand": brand,
+        "color": color,
+        "photo": photo,
+      }..removeWhere(
+          (key, value) => value == null,
+        );
+
+  Map<String, dynamic> get advantagesToMap => {
+        "advantages": advantages,
+      };
 }

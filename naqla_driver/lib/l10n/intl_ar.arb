@@ -66,6 +66,8 @@
   "advantages": "الميزات",
   "there_is_nothing_to_show": "لايوجد هناك بيانات لعرضها",
   "syp": "ل.س",
+  "there_are_no_advantages": "لا يوجد ميزات",
+  "required_advantages": "الميزات المطلوبة",
 
   "__________________________wallet______________________________":"",
   "wallet":"المحفظة",

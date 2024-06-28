@@ -5,6 +5,7 @@ import 'package:naqla_driver/features/cars/domain/repositories/cars_repository.d
 
 import '../../../../core/api/api_utils.dart';
 import '../../domain/usecases/add_car_use_case.dart';
+import '../../domain/usecases/edit_car_use_case.dart';
 import '../model/car_model.dart';
 
 @Injectable(as: CarsRepository)
@@ -34,7 +35,7 @@ class CarsRepositoryImplement implements CarsRepository {
   }
 
   @override
-  FutureResult<CarModel> editCar(AddCarParam params) {
+  FutureResult<CarModel> editCar(EditCarParam params) {
     return toApiResult(
       () => dataSource.editCar(params),
     );

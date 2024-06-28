@@ -11,6 +11,7 @@ import 'package:naqla_driver/core/util/media_form_field.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/params_appbar.dart';
+import 'package:naqla_driver/features/cars/domain/usecases/edit_car_use_case.dart';
 import 'package:naqla_driver/features/cars/presentation/state/cars_bloc.dart';
 import 'package:naqla_driver/features/cars/data/model/car_model.dart';
 import 'package:naqla_driver/features/cars/presentation/widgets/color_car.dart';
@@ -68,7 +69,6 @@ class _AddCarPageState extends State<AddCarPage> {
                     _key.currentState?.validate();
                     if (_key.currentState?.isValid ?? false) {
                       final param = AddCarParam(
-                          id: widget.param.carModel?.id,
                           color: _key.currentState?.value['color'],
                           brand: _key.currentState?.value[brand],
                           model: _key.currentState?.value[model],
@@ -96,7 +96,15 @@ class _AddCarPageState extends State<AddCarPage> {
                       } else {
                         widget.param.bloc.add(
                           EditCarEvent(
-                            param: param,
+                            param: EditCarParam(
+                                color: param.color,
+                                advantages: param.advantages,
+                                brand: param.brand,
+                                model: param.model,
+                                photo: _key.currentState?.value[photo] == widget.param.carModel?.photo.mobileUrl
+                                    ? null
+                                    : _key.currentState?.value[photo],
+                                id: widget.param.carModel!.id),
                             onSuccess: () {
                               context.pop();
                             },

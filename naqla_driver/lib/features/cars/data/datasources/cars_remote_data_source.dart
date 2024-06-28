@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/api/api_utils.dart';
 import '../../../../core/common/constants/configuration/api_routes.dart';
 import '../../domain/usecases/add_car_use_case.dart';
+import '../../domain/usecases/edit_car_use_case.dart';
 import '../model/car_model.dart';
 
 @injectable
@@ -41,10 +42,12 @@ class CarsRemoteDataSource {
     );
   }
 
-  Future<CarModel> editCar(AddCarParam params) {
+  Future<CarModel> editCar(EditCarParam params) {
     return throwAppException(
       () async {
+        await dio.post(ApiRoutes.addAdvantage(params.id!), data: params.advantagesToMap);
         final result = await dio.patch(ApiRoutes.editCar(params.id!), data: params.toMap);
+
         return CarModel.fromJson(result.data);
       },
     );

@@ -680,6 +680,26 @@ class S {
     );
   }
 
+  /// `There are no advantages`
+  String get there_are_no_advantages {
+    return Intl.message(
+      'There are no advantages',
+      name: 'there_are_no_advantages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required advantages`
+  String get required_advantages {
+    return Intl.message(
+      'Required advantages',
+      name: 'required_advantages',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(

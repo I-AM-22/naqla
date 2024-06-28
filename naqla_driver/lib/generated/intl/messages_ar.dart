@@ -149,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "porters": MessageLookupByLibrary.simpleMessage("الحمالين: "),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
+        "required_advantages":
+            MessageLookupByLibrary.simpleMessage("الميزات المطلوبة"),
         "resend_again":
             MessageLookupByLibrary.simpleMessage("إعادة الإرسال مرة أخرى"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),
@@ -171,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("السائق وافق على النقلة"),
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("عدد الطوابق"),
+        "there_are_no_advantages":
+            MessageLookupByLibrary.simpleMessage("لا يوجد ميزات"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لايوجد هناك بيانات لعرضها"),
         "total_money": MessageLookupByLibrary.simpleMessage("الاموال الكلية: "),

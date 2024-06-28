@@ -20,7 +20,7 @@ class DeleteCarEvent extends CarsEvent {
 }
 
 class EditCarEvent extends CarsEvent {
-  final AddCarParam param;
+  final EditCarParam param;
   final VoidCallback onSuccess;
 
   EditCarEvent({required this.param, required this.onSuccess});

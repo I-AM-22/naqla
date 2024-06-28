@@ -24,12 +24,15 @@ class _OrdersDonePageState extends State<OrdersDonePage> {
 
   @override
   Widget build(BuildContext context) {
-    return AppCommonStateBuilder<OrderBloc, List<SubOrderModel>>(
-      stateName: OrderState.ordersDone,
-      onSuccess: (data) => ListView.builder(
-          itemBuilder: (context, index) => InkWell(
-              onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: data[index].id), child: SubOrderCard(subOrderModel: data[index])),
-          itemCount: data.length),
+    return RefreshIndicator(
+      onRefresh: () async => context.read<OrderBloc>().add(GetOrdersDoneEvent()),
+      child: AppCommonStateBuilder<OrderBloc, List<SubOrderModel>>(
+        stateName: OrderState.ordersDone,
+        onSuccess: (data) => ListView.builder(
+            itemBuilder: (context, index) => InkWell(
+                onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: data[index].id), child: SubOrderCard(subOrderModel: data[index])),
+            itemCount: data.length),
+      ),
     );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:naqla_driver/features/home/data/model/driver_info.dart';
 
 class SubOrderCarModel {
-  final String model;
-  final String brand;
-  final String color;
+  final String? model;
+  final String? brand;
+  final String? color;
   final DriverInfo? driver;
 
   SubOrderCarModel({required this.model, required this.brand, required this.color, required this.driver});
