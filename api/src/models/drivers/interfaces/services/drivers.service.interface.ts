@@ -11,7 +11,7 @@ export interface IDriversService {
 
   confirm(nonConfirmedDriver: Driver): Promise<Driver>;
 
-  find(page: number, limit: number, withDeleted?: boolean): Promise<PaginatedResponse<Driver> | Driver[]>;
+  find(page: number, limit: number,active?:boolean, withDeleted?: boolean): Promise<PaginatedResponse<Driver> | Driver[]>;
   staticsDriver(page: number, limit: number, withDeleted: boolean): Promise<any[]>;
   findOne(id: string, withDeleted?: boolean): Promise<Driver>;
 

@@ -18,18 +18,18 @@ export class DriverRepository extends BaseAuthRepo<Driver> implements IDriverRep
     super(driverRepo);
   }
 
-  async find(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver>> {
+  async find(page: number, limit: number, active: boolean, withDeleted: boolean): Promise<PaginatedResponse<Driver>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || undefined;
     const data = await this.driverRepo.find({
-      where: { active: true },
+      where: { active },
       relations: { photos: true, role: true },
       skip,
       take,
       withDeleted,
     });
     const totalDataCount = await this.driverRepo.count({
-      where: { active: true },
+      where: { active },
       withDeleted,
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
@@ -114,10 +114,13 @@ export class DriverRepository extends BaseAuthRepo<Driver> implements IDriverRep
       },
     });
   }
-  // async recover(driver: Driver): Promise<Driver> {
-  //   return this.driverRepo.recover(driver);
-  // }
+
   async delete(driver: Driver): Promise<void> {
     this.driverRepo.softRemove(driver);
+  }
+  async deactivate(id: string): Promise<Driver> {
+    await this.driverRepo.update({ id }, { active: false });
+
+    return await this.findById(id);
   }
 }

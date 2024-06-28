@@ -56,11 +56,12 @@ export class DriversController {
   @Get()
   async find(
     @Query('page') page: number,
+    @Query('active') active: boolean,
     @Query('limit') limit: number,
     @Req() req: Request & { query: { withDeleted: string } },
   ) {
     const withDeleted = JSON.parse(req.query.withDeleted);
-    return this.driversService.find(page, limit, withDeleted);
+    return this.driversService.find(page, limit, active, withDeleted);
   }
 
   @UseInterceptors(WithDeletedInterceptor)
