@@ -227,7 +227,7 @@ export class OrderRepository implements IOrderRepository {
       .getRawMany<OrderStatsDate>();
   }
 
-  async advantageSuper(limit: number): Promise<any[]> {
+  async advantageSuper(): Promise<any[]> {
     return this.orderRepository
       .createQueryBuilder('order')
       .leftJoin('order.advantages', 'advantages')
