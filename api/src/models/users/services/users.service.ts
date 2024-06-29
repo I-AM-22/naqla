@@ -112,7 +112,7 @@ export class UsersService implements IUsersService {
   }
 
   async validate(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id);
+    const user = await this.userRepository.validate(id);
     if (!user) {
       throw new UnauthorizedException('The user is not here');
     }

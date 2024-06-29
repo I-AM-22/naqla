@@ -142,8 +142,8 @@ export class AuthDriverService implements IAuthDriverService {
   }
 
   async validate(payload: jwtPayload): Promise<Driver> {
+    if (payload.entity !== Entities.Driver) return;
     const driver = await this.driversService.validate(payload.sub);
-
     return driver;
   }
 }

@@ -113,12 +113,12 @@ export class DriversService implements IDriversService {
   async delete(id: string): Promise<void> {
     // const driver = await this.driverRepository.findByIdForDelete(id);
     // await this.driverRepository.delete(driver);
-     await this.driverRepository.deactivate(id);
-     return
-    }
+    await this.driverRepository.deactivate(id);
+    return;
+  }
 
   async validate(id: string): Promise<Driver> {
-    const driver = await this.driverRepository.findById(id);
+    const driver = await this.driverRepository.validate(id);
     if (!driver) {
       throw new UnauthorizedException('The driver is not here');
     }

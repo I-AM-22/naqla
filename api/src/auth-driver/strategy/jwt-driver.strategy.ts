@@ -13,7 +13,7 @@ export class JwtDriverStrategy extends PassportStrategy(Strategy, strategies.dri
   constructor(
     config: ConfigService,
     @Inject(AUTH_DRIVER_TYPES.service)
-    private authUserService: IAuthDriverService,
+    private authDriverService: IAuthDriverService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -24,7 +24,7 @@ export class JwtDriverStrategy extends PassportStrategy(Strategy, strategies.dri
   async validate(payload: jwtPayload) {
     if (payload.entity !== Entities.Driver) return;
 
-    const driver = this.authUserService.validate(payload);
+    const driver = this.authDriverService.validate(payload);
 
     return driver;
   }

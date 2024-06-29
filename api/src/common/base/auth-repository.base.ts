@@ -5,7 +5,6 @@ export class BaseAuthRepo<Entity> {
   constructor(private readonly repository: Repository<Entity>) {}
   async validate(id: string): Promise<Entity> {
     const qb = this.repository.createQueryBuilder('entity');
-
     qb.select([
       'entity.id',
       'entity.firstName',
@@ -29,7 +28,14 @@ export class BaseAuthRepo<Entity> {
         active: true,
       });
       qb.leftJoin('entity.wallet', 'wallet');
-      qb.addSelect(['wallet.id', 'wallet.total', 'wallet.pending', 'entity.active']);
+      qb.addSelect([
+        'wallet.id',
+        'wallet.total',
+        'wallet.pending',
+        'wallet.createdAt',
+        'wallet.updatedAt',
+        'entity.active',
+      ]);
     } else {
       qb.where('entity.id = :id', { id });
       qb.addSelect(['entity.passwordChangedAt']);
@@ -38,6 +44,7 @@ export class BaseAuthRepo<Entity> {
     const person = await qb.getOne();
     return person;
   }
+
   async findById(id: string, withDeleted = false): Promise<Entity> {
     const qb = this.repository.createQueryBuilder('entity');
 

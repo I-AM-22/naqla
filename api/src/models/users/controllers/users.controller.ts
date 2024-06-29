@@ -117,7 +117,6 @@ export class UsersController {
   }
 
   @ApiOkResponse({ type: User })
-  @SerializeOptions({ groups: [GROUPS.USER] })
   @Roles(ROLE.USER)
   @Get('me')
   async getMe(@GetUser() user: User) {

@@ -98,7 +98,6 @@ export class DriversController {
   }
 
   @ApiOkResponse({ type: Driver })
-  @SerializeOptions({ groups: [GROUPS.DRIVER] })
   @Roles(ROLE.DRIVER)
   @Get('me')
   async getMe(@GetUser() driver: Driver) {
@@ -106,7 +105,6 @@ export class DriversController {
   }
 
   @ApiOkResponse({ type: Driver })
-  @SerializeOptions({ groups: [GROUPS.DRIVER] })
   @Roles(ROLE.DRIVER)
   @Patch('me')
   async updateMe(@Body() dto: UpdateDriverDto, @GetUser() driver: Driver) {
@@ -114,7 +112,6 @@ export class DriversController {
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
-  @SerializeOptions({ groups: [GROUPS.DRIVER] })
   @Roles(ROLE.DRIVER)
   @Delete('me')
   async deleteMe(@GetUser() driver: Driver) {

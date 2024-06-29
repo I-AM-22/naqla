@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { BasePersonWithActive, BasePhoto } from '@common/base';
-import { Exclude, Transform } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { Role } from '@models/roles/entities/role.entity';
 import { DriverPhoto } from './driver-photo.entity';
 import { ApiProperty } from '@nestjs/swagger';
@@ -37,7 +37,7 @@ export class Driver extends BasePersonWithActive {
   })
   photos: DriverPhoto[];
 
-  // @Expose({})
+  @Expose({})
   @ApiProperty({ type: BasePhoto })
   photo() {
     if (this.photos) return this.photos[this.photos.length - 1];
