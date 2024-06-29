@@ -74,6 +74,7 @@ export class CarsService implements ICarsService {
 
   async addAdvantagesToCar(id: string, dto: AddAdvansToCarDto, driver: Driver): Promise<void> {
     const car = await this.findOneForOwner(id, driver.id);
+    // const car = await this.findOne(id);
     const advantages = await this.advantagesService.findInIds(dto.advantages);
     return this.carRepository.addAdvantageToCar(car, advantages);
   }

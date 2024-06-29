@@ -5,8 +5,12 @@ export class AdvantageSuper {
   advantage: string;
 
   @ApiProperty()
-  countUserUsed: number;
+  percentage: number;
+}
+export class ListAdvantageSuper {
+  @ApiProperty({ isArray: true, type: AdvantageSuper })
+  orders: AdvantageSuper[];
 
-  @ApiProperty()
-  countCarUsed: number;
+  @ApiProperty({ isArray: true, type: AdvantageSuper })
+  cars: AdvantageSuper[];
 }

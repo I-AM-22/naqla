@@ -8,6 +8,7 @@ import { Car } from '../entities/car.entity';
 import { Driver } from '../../drivers/entities/driver.entity';
 import { ICarRepository } from '../interfaces/repositories/car.repository.interface';
 import { Order } from '../../orders/entities/order.entity';
+import { AdvantageSuper } from '@models/statics/responses/AdvantageSuper';
 
 @Injectable()
 export class CarRepository implements ICarRepository {
@@ -127,13 +128,16 @@ export class CarRepository implements ICarRepository {
     const carCount = await this.carRepository.createQueryBuilder('car').getCount();
     return carCount;
   }
-  async countCarAdvantage(advantage: string): Promise<number> {
-    const count = await this.carRepository
+
+  async advantageSuper(): Promise<any[]> {
+    return this.carRepository
       .createQueryBuilder('car')
-      .leftJoinAndSelect('car.advantages', 'advantages')
-      .where('advantages.name =:name', { name: advantage })
-      .getCount();
-    return count;
+      .leftJoin('car.advantages', 'advantages')
+      .select('advantages.name', 'advantage')
+      .addSelect('COUNT(advantages.name)', 'x')
+      .groupBy('advantages.name')
+      .orderBy('x', 'DESC')
+      .getRawMany<AdvantageSuper>();
   }
 
   async addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void> {

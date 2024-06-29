@@ -17,7 +17,7 @@ export interface IOrderRepository {
   findByIdForOwner(id: string, userId: string): Promise<Order>;
   findOneWithAdvantages(id: string): Promise<Order>;
   findByIdForDelete(id: string): Promise<Order>;
-  advantageSuper(limit: number): Promise<any[]>;
+  advantageSuper(): Promise<any[]>;
   countOrdersCompleted(): Promise<number>;
   countOrdersWaiting(): Promise<number>;
   countOrdersActive(): Promise<number>;

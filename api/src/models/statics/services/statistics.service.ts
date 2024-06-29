@@ -8,7 +8,7 @@ import { IUserRepository } from '@models/users/interfaces/repositories/user.repo
 import { USER_TYPES } from '@models/users/interfaces/type';
 import { Inject, Injectable } from '@nestjs/common';
 import { Numerical } from '../responses/Numerical';
-import { AdvantageSuper } from '../responses/AdvantageSuper';
+import { AdvantageSuper, ListAdvantageSuper } from '../responses/AdvantageSuper';
 import { CarRepository } from '@models/cars/repositories/car.repository';
 
 @Injectable()
@@ -47,19 +47,40 @@ export class StatisticsService {
   }
 
   async staticProfits(first: string, second: string) {
-    return await this.subOrderRepository.staticProfits(first, second)
+    return await this.subOrderRepository.staticProfits(first, second);
   }
 
   async findLimitAdvantages(limit: number) {
-    const ad = await this.orderRepository.advantageSuper(limit);
-    const data: AdvantageSuper[] = [];
+    const ad = await this.orderRepository.advantageSuper();
+    let count = 0;
+    let data = [];
+    let list: ListAdvantageSuper = new ListAdvantageSuper();
+    for (let i = 0; i < ad.length; i++) {
+      count += +ad[i].x;
+    }
     for (let i = 0; i < ad.length && i < limit; i++) {
       const obj = new AdvantageSuper();
       obj.advantage = ad[i].advantage;
-      obj.countUserUsed = +ad[i].x;
-      obj.countCarUsed = await this.carRepository.countCarAdvantage(ad[i].advantage);
+      obj.percentage = +ad[i].x / count;
       data.push(obj);
     }
-    return data;
+    // console.log(data);
+    list.orders = data;
+    data = [];
+    // console.log('data');
+    count = 0;
+    const adcar = await this.carRepository.advantageSuper();
+    for (let i = 0; i < adcar.length; i++) {
+      count += +adcar[i].x;
+    }
+    for (let i = 0; i < adcar.length && i < limit; i++) {
+      const obj = new AdvantageSuper();
+      obj.advantage = adcar[i].advantage;
+      obj.percentage = +adcar[i].x / count;
+      data.push(obj);
+    }
+    list.cars = data;
+
+    return list;
   }
 }

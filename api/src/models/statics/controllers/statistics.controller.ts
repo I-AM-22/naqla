@@ -2,7 +2,7 @@ import { ApiMainErrorsResponse, Auth, Roles } from '@common/decorators';
 import { ROLE } from '@common/enums';
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { AdvantageSuper } from '../responses/AdvantageSuper';
+import { AdvantageSuper, ListAdvantageSuper } from '../responses/AdvantageSuper';
 import { Numerical } from '../responses/Numerical';
 import { OrderStatsDate } from '../responses/OrderStatsDate';
 import { ResponseTime } from '../responses/ResponseTime';
@@ -44,7 +44,7 @@ export class StatisticsController {
   }
 
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
-  @ApiOkResponse({ isArray: true, type: AdvantageSuper })
+  @ApiOkResponse({ type: ListAdvantageSuper })
   @Get('advantages/:limit')
   async findLimitAdvantages(@Param('limit') limit: number) {
     return await this.staticsService.findLimitAdvantages(limit);
