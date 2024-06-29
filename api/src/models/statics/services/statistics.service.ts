@@ -54,7 +54,7 @@ export class StatisticsService {
     const ad = await this.orderRepository.advantageSuper();
     let count = 0;
     let data = [];
-    let list: ListAdvantageSuper = new ListAdvantageSuper();
+    const list: ListAdvantageSuper = new ListAdvantageSuper();
     for (let i = 0; i < ad.length; i++) {
       count += +ad[i].x;
     }

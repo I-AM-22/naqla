@@ -1,8 +1,8 @@
 import { ApiMainErrorsResponse, Auth, Roles } from '@common/decorators';
 import { ROLE } from '@common/enums';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { AdvantageSuper, ListAdvantageSuper } from '../responses/AdvantageSuper';
+import { ListAdvantageSuper } from '../responses/AdvantageSuper';
 import { Numerical } from '../responses/Numerical';
 import { OrderStatsDate } from '../responses/OrderStatsDate';
 import { ResponseTime } from '../responses/ResponseTime';
@@ -31,15 +31,15 @@ export class StatisticsController {
 
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: OrderStatsDate })
-  @Get('order/:first_date/:second_date')
-  findForDate(@Param('first_date') first: string, @Param('second_date') second: string) {
+  @Get('order')
+  findForDate(@Query('first_date') first: string, @Query('second_date') second: string) {
     return this.staticsService.staticsOrdersForDate(first, second);
   }
 
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)
   @ApiOkResponse({ isArray: true, type: StaticProfits })
-  @Get('profits/:first_date/:second_date')
-  profits(@Param('first_date') first: string, @Param('second_date') second: string) {
+  @Get('profits')
+  profits(@Query('first_date') first: string, @Query('second_date') second: string) {
     return this.staticsService.staticProfits(first, second);
   }
 
