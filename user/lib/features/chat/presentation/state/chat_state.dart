@@ -14,4 +14,7 @@ class ChatState extends StateObject<ChatState> {
           PaginationState<PaginationModel<MessageModel>, MessageModel>(getMessages),
           InitialState<MessageModel>(sendMessages)
         ], (states) => ChatState(states: states), states);
+
+  @override
+  List<Object?> get props => super.props..addAll([socketIo]);
 }

@@ -38,7 +38,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         state.socketIo.joinChat(event.param.subOrderId);
         state.socketIo.messageReceived(
           (newMessage) {
-            state.getState(ChatState.getMessages).pagingController.itemList?.insert(0, newMessage);
+            state.getState(ChatState.getMessages).pagingController.itemList?.insert(0, MessageModel.fromJson(newMessage));
           },
         );
       },

@@ -41,8 +41,7 @@ class _MessagesPageState extends State<MessagesPage> {
               appBarParams: AppBarParams(
             title: 'islam',
           )),
-          body: BlocSelector<ChatBloc, ChatState, CommonState>(
-            selector: (state) => state.getState(ChatState.sendMessages),
+          body: BlocBuilder<ChatBloc, ChatState>(
             builder: (context, state) {
               return Column(
                 children: [
@@ -72,7 +71,7 @@ class _MessagesPageState extends State<MessagesPage> {
                               ));
                             }
                           },
-                          icon: state.isLoading
+                          icon: state.getState(ChatState.sendMessages).isLoading
                               ? AppLoadingIndicator(
                                   size: 25.r,
                                 )
