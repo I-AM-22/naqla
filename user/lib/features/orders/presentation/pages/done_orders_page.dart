@@ -46,7 +46,7 @@ class DoneOrdersPage extends StatelessWidget {
                                 element.status == OrderStatus.canceled),
                           )
                           .elementAt(index),
-                      showIndicator: false,
+                      showBorder: true,
                     ),
                   ),
                   itemCount: data

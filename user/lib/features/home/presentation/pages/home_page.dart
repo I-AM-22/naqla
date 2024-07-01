@@ -31,14 +31,23 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final HomeBloc _bloc = getIt<HomeBloc>();
   final ScrollController _hideButtonController = ScrollController();
   bool _isVisible = true;
+  late final AnimationController _animationController;
+  late final Animation<double> _rotationAnimation;
 
   @override
   void initState() {
     _bloc.add(GetOrdersActiveEvent());
+
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 7),
+      vsync: this,
+    )..repeat();
+    _rotationAnimation = Tween<double>(begin: 0, end: 2 * 3.14159).animate(_animationController);
+
     _hideButtonController.addListener(() {
       if (_hideButtonController.position.userScrollDirection == ScrollDirection.reverse) {
         if (_isVisible) {
@@ -99,10 +108,26 @@ class _HomePageState extends State<HomePage> {
                         controller: _hideButtonController,
                         itemCount: data.length,
                         separatorBuilder: (context, index) => 16.verticalSpace,
-                        itemBuilder: (context, index) => OrderCard(
-                          onTap: () => context.pushNamed(OrderDetailsPage.name, extra: data[index]),
-                          showIndicator: true,
-                          orderModel: data[index],
+                        itemBuilder: (context, index) => AnimatedBuilder(
+                          animation: _rotationAnimation,
+                          builder: (context, child) => Container(
+                            padding: REdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                colors: [const Color(0xffC39A32), const Color(0xffC39A32).withOpacity(.1)],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                transform: GradientRotation(_rotationAnimation.value),
+                              ),
+                            ),
+                            child: OrderCard(
+                              width: double.infinity,
+                              onTap: () => context.pushNamed(OrderDetailsPage.name, extra: data[index]),
+                              showBorder: false,
+                              orderModel: data[index],
+                            ),
+                          ),
                         ),
                       ),
                     ),

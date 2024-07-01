@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
-import 'package:naqla/features/home/presentation/widget/order_status_indicator.dart';
 
 import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
@@ -12,10 +11,11 @@ import '../../../orders/presentation/pages/sub_orders_page.dart';
 import '../../data/model/order_model.dart';
 
 class OrderCard extends StatefulWidget {
-  const OrderCard({super.key, required this.orderModel, required this.showIndicator, this.onTap});
+  const OrderCard({super.key, required this.orderModel, required this.showBorder, this.onTap, this.width});
   final OrderModel orderModel;
-  final bool showIndicator;
+  final bool showBorder;
   final Function()? onTap;
+  final double? width;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -33,9 +33,11 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
         }
       },
       child: Container(
+        width: widget.width,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
-          border: Border.all(color: context.colorScheme.primary),
+          color: context.colorScheme.surface,
+          border: widget.showBorder ? Border.all(color: context.colorScheme.primary) : null,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -85,7 +87,6 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
                 )
               ],
             ),
-            if (widget.showIndicator) OrderStatusIndicator()
           ],
         ),
       ),
