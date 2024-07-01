@@ -38,14 +38,16 @@ export type PhotosControllerUploadSingleBody = {
 export type StatisticsControllerFindLimitAdvantagesPathParameters = {
   limit: number;
 };
-export type StatisticsControllerProfitsPathParameters = {
-  firstDate: string;
-  secondDate: string;
+export type StatisticsControllerProfitsParams = {
+  first_date: string;
+  second_date: string;
 };
-export type StatisticsControllerFindForDatePathParameters = {
-  firstDate: string;
-  secondDate: string;
+
+export type StatisticsControllerFindForDateParams = {
+  first_date: string;
+  second_date: string;
 };
+
 export type AuthDriverControllerConfirmParams = {
   /**
    * assign true to the field to confirm new number
@@ -290,8 +292,12 @@ export type PaginatedMessageResponse = {
 
 export type AdvantageSuper = {
   advantage: string;
-  countCarUsed: number;
-  countUserUsed: number;
+  percentage: number;
+};
+
+export type ListAdvantageSuper = {
+  cars: AdvantageSuper[];
+  orders: AdvantageSuper[];
 };
 
 export type StaticProfits = {

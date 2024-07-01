@@ -2,7 +2,6 @@ import { PageProps } from "@/app/type";
 import { Card } from "@/components/ui/card";
 import { Loading } from "@/components/ui/loading";
 import { Suspense } from "react";
-import { Advantages } from "./Advantages";
 import { Counts, SkeletonCounts } from "./counts";
 import { OrderStatics } from "./OrderStatics";
 import { Profits } from "./Profits";
@@ -23,7 +22,7 @@ export default async function Page(props: PageProps) {
       </Card>
       <Card className="flex flex-col gap-3">
         <Profits />
-        <Advantages />
+        {/* <Advantages /> */}
       </Card>
     </div>
   );

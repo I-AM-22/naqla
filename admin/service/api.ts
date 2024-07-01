@@ -13,7 +13,6 @@ import type {
   AdminsControllerFindOnePathParameters,
   AdminsControllerUpdatePathParameters,
   Advantage,
-  AdvantageSuper,
   AdvantagesControllerDeletePathParameters,
   AdvantagesControllerFindOnePathParameters,
   AdvantagesControllerUpdatePathParameters,
@@ -58,6 +57,7 @@ import type {
   EmployeesControllerFindOnePathParameters,
   EmployeesControllerUpdatePathParameters,
   JoinChatDto,
+  ListAdvantageSuper,
   LoginAdminDto,
   LoginDriverDto,
   LoginEmployeeDto,
@@ -110,9 +110,9 @@ import type {
   StaticProfits,
   StaticsDriver,
   StaticsUser,
-  StatisticsControllerFindForDatePathParameters,
+  StatisticsControllerFindForDateParams,
   StatisticsControllerFindLimitAdvantagesPathParameters,
-  StatisticsControllerProfitsPathParameters,
+  StatisticsControllerProfitsParams,
   SubOrder,
   SubOrdersControllerDeletePathParameters,
   SubOrdersControllerFindChatsParams,
@@ -1379,27 +1379,21 @@ export const statisticsControllerResponseTime = (
 };
 
 export const statisticsControllerFindForDate = (
-  { firstDate, secondDate }: StatisticsControllerFindForDatePathParameters,
+  params: StatisticsControllerFindForDateParams,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
   return fetchInstance<OrderStatsDate[]>(
-    {
-      url: `/api/v1/statistics/order/${firstDate}/${secondDate}`,
-      method: "GET",
-    },
+    { url: `/api/v1/statistics/order`, method: "GET", params },
     options,
   );
 };
 
 export const statisticsControllerProfits = (
-  { firstDate, secondDate }: StatisticsControllerProfitsPathParameters,
+  params: StatisticsControllerProfitsParams,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
   return fetchInstance<StaticProfits[]>(
-    {
-      url: `/api/v1/statistics/profits/${firstDate}/${secondDate}`,
-      method: "GET",
-    },
+    { url: `/api/v1/statistics/profits`, method: "GET", params },
     options,
   );
 };
@@ -1408,7 +1402,7 @@ export const statisticsControllerFindLimitAdvantages = (
   { limit }: StatisticsControllerFindLimitAdvantagesPathParameters,
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
-  return fetchInstance<AdvantageSuper[]>(
+  return fetchInstance<ListAdvantageSuper>(
     { url: `/api/v1/statistics/advantages/${limit}`, method: "GET" },
     options,
   );
