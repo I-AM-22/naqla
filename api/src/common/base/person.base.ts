@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude } from 'class-transformer';
 import { Entity, Column, BeforeInsert, BeforeUpdate } from 'typeorm';
-import { GROUPS } from '../enums';
 import { GlobalEntity } from './global-entity.base';
 import * as argon from 'argon2';
 
@@ -15,17 +14,6 @@ export class BasePerson extends GlobalEntity {
   @Column()
   lastName: string;
 
-  @Expose({
-    groups: [
-      GROUPS.USER,
-      GROUPS.ALL_USERS,
-      GROUPS.DRIVER,
-      GROUPS.ALL_ADMINS,
-      GROUPS.ADMIN,
-      GROUPS.ALL_EMPLOYEES,
-      GROUPS.EMPLOYEE,
-    ],
-  })
   @ApiProperty({ uniqueItems: true })
   @Column({ unique: true })
   phone: string;
