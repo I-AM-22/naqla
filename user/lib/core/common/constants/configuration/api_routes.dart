@@ -35,6 +35,8 @@ class ApiRoutes {
   static String orderMine = '/api/v1/orders/mine';
   static String order = '/api/v1/orders';
   static String orderAccepted = '/api/v1/orders/accepted';
+  static String orderActive = '/api/v1/orders/active-user';
+  static String orderDone = '/api/v1/orders/done-user';
   static String acceptance(String id) => '/api/v1/orders/$id/acceptance';
   static String cancelOrder(String id) => '/api/v1/orders/$id/refusal';
   static String subOrders(String id) => '/api/v1/orders/$id/sub-orders';

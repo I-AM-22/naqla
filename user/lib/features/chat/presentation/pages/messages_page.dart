@@ -43,6 +43,7 @@ class _MessagesPageState extends State<MessagesPage> {
           )),
           body: BlocBuilder<ChatBloc, ChatState>(
             builder: (context, state) {
+              print(state.toString());
               return Column(
                 children: [
                   Expanded(

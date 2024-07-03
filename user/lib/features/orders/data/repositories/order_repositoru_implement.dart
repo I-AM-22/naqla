@@ -14,9 +14,9 @@ class OrderRepositoryImplement implements OrderRepository {
 
   OrderRepositoryImplement(this.dataSource);
   @override
-  FutureResult<List<OrderModel>> getOrders() {
+  FutureResult<List<OrderModel>> getActiveOrders() {
     return toApiResult(
-      () => dataSource.getOrders(),
+      () => dataSource.getActiveOrders(),
     );
   }
 
@@ -45,6 +45,13 @@ class OrderRepositoryImplement implements OrderRepository {
   FutureResult<SubOrderModel> getSubOrderDetails(String id) {
     return toApiResult(
       () => dataSource.getSubOrderDetails(id),
+    );
+  }
+
+  @override
+  FutureResult<List<OrderModel>> getDoneOrders() {
+    return toApiResult(
+      () => dataSource.getDoneOrders(),
     );
   }
 }

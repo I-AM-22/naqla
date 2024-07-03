@@ -22,7 +22,7 @@ import '../../features/app/domain/repository/app_repository.dart' as _i23;
 import '../../features/app/domain/repository/prefs_repository.dart' as _i7;
 import '../../features/app/domain/usecases/upload_image_use_case.dart' as _i37;
 import '../../features/app/presentation/state/bloc/app_bloc.dart' as _i6;
-import '../../features/app/presentation/state/upload_image_cubit.dart' as _i54;
+import '../../features/app/presentation/state/upload_image_cubit.dart' as _i55;
 import '../../features/auth/data/data_sources/auth_remote_data_source.dart'
     as _i14;
 import '../../features/auth/data/repositories/auth_repository_implement.dart'
@@ -31,16 +31,16 @@ import '../../features/auth/domain/repositories/auth_repository.dart' as _i15;
 import '../../features/auth/domain/use_cases/confirm_use_case.dart' as _i21;
 import '../../features/auth/domain/use_cases/login_use_case.dart' as _i25;
 import '../../features/auth/domain/use_cases/sign_up_use_case.dart' as _i22;
-import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i52;
+import '../../features/auth/presentation/state/bloc/auth_bloc.dart' as _i53;
 import '../../features/chat/data/datasource/chat_remote_data_source.dart'
     as _i10;
 import '../../features/chat/data/repositories/chat_repository_implement.dart'
     as _i20;
 import '../../features/chat/domain/repositories/chat_repository.dart' as _i19;
-import '../../features/chat/domain/usecases/get_chats_use_case.dart' as _i44;
-import '../../features/chat/domain/usecases/get_messages_use_case.dart' as _i45;
-import '../../features/chat/domain/usecases/send_message_use_case.dart' as _i46;
-import '../../features/chat/presentation/state/chat_bloc.dart' as _i53;
+import '../../features/chat/domain/usecases/get_chats_use_case.dart' as _i45;
+import '../../features/chat/domain/usecases/get_messages_use_case.dart' as _i46;
+import '../../features/chat/domain/usecases/send_message_use_case.dart' as _i47;
+import '../../features/chat/presentation/state/chat_bloc.dart' as _i54;
 import '../../features/home/data/data_source/home_remote_data_source.dart'
     as _i11;
 import '../../features/home/data/repositories/home_repository_implement.dart'
@@ -61,16 +61,19 @@ import '../../features/orders/data/repositories/order_repositoru_implement.dart'
     as _i36;
 import '../../features/orders/domain/repositories/order_repository.dart'
     as _i35;
-import '../../features/orders/domain/usecases/get_orders_use_case.dart' as _i38;
-import '../../features/orders/domain/usecases/get_sub_order_details_use_case.dart'
-    as _i40;
-import '../../features/orders/domain/usecases/get_sub_orders_use_case.dart'
-    as _i39;
-import '../../features/orders/domain/usecases/set_arrived_use_case.dart'
-    as _i41;
-import '../../features/orders/domain/usecases/set_picked_up_use_case.dart'
+import '../../features/orders/domain/usecases/get_active_orders_use_case.dart'
     as _i42;
-import '../../features/orders/presentation/state/order_bloc.dart' as _i43;
+import '../../features/orders/domain/usecases/get_done_orders_use_case.dart'
+    as _i43;
+import '../../features/orders/domain/usecases/get_sub_order_details_use_case.dart'
+    as _i39;
+import '../../features/orders/domain/usecases/get_sub_orders_use_case.dart'
+    as _i38;
+import '../../features/orders/domain/usecases/set_arrived_use_case.dart'
+    as _i40;
+import '../../features/orders/domain/usecases/set_picked_up_use_case.dart'
+    as _i41;
+import '../../features/orders/presentation/state/order_bloc.dart' as _i44;
 import '../../features/profile/data/data_source/profile_remote_data_source.dart'
     as _i13;
 import '../../features/profile/data/repositories/profile_repository_implement.dart'
@@ -78,18 +81,18 @@ import '../../features/profile/data/repositories/profile_repository_implement.da
 import '../../features/profile/domain/repositories/profile_repository.dart'
     as _i32;
 import '../../features/profile/domain/use_cases/delete_account_use_case.dart'
-    as _i47;
-import '../../features/profile/domain/use_cases/edit_personal_info_use_case.dart'
     as _i48;
-import '../../features/profile/domain/use_cases/get_personal_info_use_case.dart'
+import '../../features/profile/domain/use_cases/edit_personal_info_use_case.dart'
     as _i49;
-import '../../features/profile/domain/use_cases/update_phone_number_use_case.dart'
+import '../../features/profile/domain/use_cases/get_personal_info_use_case.dart'
     as _i50;
-import '../../features/profile/domain/use_cases/upload_single_photo_use_case.dart'
+import '../../features/profile/domain/use_cases/update_phone_number_use_case.dart'
     as _i51;
+import '../../features/profile/domain/use_cases/upload_single_photo_use_case.dart'
+    as _i52;
 import '../../features/profile/presentation/state/bloc/profile_bloc.dart'
-    as _i55;
-import 'di_container.dart' as _i56;
+    as _i56;
+import 'di_container.dart' as _i57;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
@@ -168,60 +171,63 @@ Future<_i1.GetIt> $initGetIt(
       () => _i36.OrderRepositoryImplement(gh<_i12.OrderRemoteDataSource>()));
   gh.factory<_i37.UploadImageUseCase>(
       () => _i37.UploadImageUseCase(gh<_i23.AppRepository>()));
-  gh.factory<_i38.GetOrdersUseCase>(
-      () => _i38.GetOrdersUseCase(gh<_i35.OrderRepository>()));
-  gh.factory<_i39.GetSubOrdersUseCase>(
-      () => _i39.GetSubOrdersUseCase(gh<_i35.OrderRepository>()));
-  gh.factory<_i40.GetSubOrderDetailsUseCase>(
-      () => _i40.GetSubOrderDetailsUseCase(gh<_i35.OrderRepository>()));
-  gh.factory<_i41.SetArrivedUseCase>(
-      () => _i41.SetArrivedUseCase(gh<_i35.OrderRepository>()));
-  gh.factory<_i42.SetPickedUpUseCase>(
-      () => _i42.SetPickedUpUseCase(gh<_i35.OrderRepository>()));
-  gh.lazySingleton<_i43.OrderBloc>(() => _i43.OrderBloc(
-        gh<_i38.GetOrdersUseCase>(),
-        gh<_i39.GetSubOrdersUseCase>(),
-        gh<_i41.SetArrivedUseCase>(),
-        gh<_i42.SetPickedUpUseCase>(),
-        gh<_i40.GetSubOrderDetailsUseCase>(),
+  gh.factory<_i38.GetSubOrdersUseCase>(
+      () => _i38.GetSubOrdersUseCase(gh<_i35.OrderRepository>()));
+  gh.factory<_i39.GetSubOrderDetailsUseCase>(
+      () => _i39.GetSubOrderDetailsUseCase(gh<_i35.OrderRepository>()));
+  gh.factory<_i40.SetArrivedUseCase>(
+      () => _i40.SetArrivedUseCase(gh<_i35.OrderRepository>()));
+  gh.factory<_i41.SetPickedUpUseCase>(
+      () => _i41.SetPickedUpUseCase(gh<_i35.OrderRepository>()));
+  gh.factory<_i42.GetActiveOrdersUseCase>(
+      () => _i42.GetActiveOrdersUseCase(gh<_i35.OrderRepository>()));
+  gh.factory<_i43.GetDoneOrdersUseCase>(
+      () => _i43.GetDoneOrdersUseCase(gh<_i35.OrderRepository>()));
+  gh.lazySingleton<_i44.OrderBloc>(() => _i44.OrderBloc(
+        gh<_i42.GetActiveOrdersUseCase>(),
+        gh<_i38.GetSubOrdersUseCase>(),
+        gh<_i40.SetArrivedUseCase>(),
+        gh<_i41.SetPickedUpUseCase>(),
+        gh<_i39.GetSubOrderDetailsUseCase>(),
+        gh<_i43.GetDoneOrdersUseCase>(),
       ));
-  gh.factory<_i44.GetChatsUseCase>(
-      () => _i44.GetChatsUseCase(gh<_i19.ChatRepository>()));
-  gh.factory<_i45.GetMessagesUseCase>(
-      () => _i45.GetMessagesUseCase(gh<_i19.ChatRepository>()));
-  gh.factory<_i46.SendMessageUseCase>(
-      () => _i46.SendMessageUseCase(gh<_i19.ChatRepository>()));
-  gh.factory<_i47.DeleteAccountUseCase>(
-      () => _i47.DeleteAccountUseCase(gh<_i32.ProfileRepository>()));
-  gh.factory<_i48.EditPersonalInfoUseCase>(
-      () => _i48.EditPersonalInfoUseCase(gh<_i32.ProfileRepository>()));
-  gh.factory<_i49.GetPersonalInfoUseCase>(
-      () => _i49.GetPersonalInfoUseCase(gh<_i32.ProfileRepository>()));
-  gh.factory<_i50.UpdatePhoneNumberUseCase>(
-      () => _i50.UpdatePhoneNumberUseCase(gh<_i32.ProfileRepository>()));
-  gh.factory<_i51.UploadSinglePhotoUseCase>(
-      () => _i51.UploadSinglePhotoUseCase(gh<_i32.ProfileRepository>()));
-  gh.factory<_i52.AuthBloc>(() => _i52.AuthBloc(
+  gh.factory<_i45.GetChatsUseCase>(
+      () => _i45.GetChatsUseCase(gh<_i19.ChatRepository>()));
+  gh.factory<_i46.GetMessagesUseCase>(
+      () => _i46.GetMessagesUseCase(gh<_i19.ChatRepository>()));
+  gh.factory<_i47.SendMessageUseCase>(
+      () => _i47.SendMessageUseCase(gh<_i19.ChatRepository>()));
+  gh.factory<_i48.DeleteAccountUseCase>(
+      () => _i48.DeleteAccountUseCase(gh<_i32.ProfileRepository>()));
+  gh.factory<_i49.EditPersonalInfoUseCase>(
+      () => _i49.EditPersonalInfoUseCase(gh<_i32.ProfileRepository>()));
+  gh.factory<_i50.GetPersonalInfoUseCase>(
+      () => _i50.GetPersonalInfoUseCase(gh<_i32.ProfileRepository>()));
+  gh.factory<_i51.UpdatePhoneNumberUseCase>(
+      () => _i51.UpdatePhoneNumberUseCase(gh<_i32.ProfileRepository>()));
+  gh.factory<_i52.UploadSinglePhotoUseCase>(
+      () => _i52.UploadSinglePhotoUseCase(gh<_i32.ProfileRepository>()));
+  gh.factory<_i53.AuthBloc>(() => _i53.AuthBloc(
         gh<_i25.LoginUseCase>(),
         gh<_i22.SignUpUseCase>(),
         gh<_i21.ConfirmUseCase>(),
       ));
-  gh.factory<_i53.ChatBloc>(() => _i53.ChatBloc(
-        gh<_i44.GetChatsUseCase>(),
-        gh<_i45.GetMessagesUseCase>(),
-        gh<_i46.SendMessageUseCase>(),
+  gh.factory<_i54.ChatBloc>(() => _i54.ChatBloc(
+        gh<_i45.GetChatsUseCase>(),
+        gh<_i46.GetMessagesUseCase>(),
+        gh<_i47.SendMessageUseCase>(),
       ));
-  gh.factory<_i54.UploadImageCubit>(
-      () => _i54.UploadImageCubit(gh<_i37.UploadImageUseCase>()));
-  gh.lazySingleton<_i55.ProfileBloc>(() => _i55.ProfileBloc(
-        gh<_i49.GetPersonalInfoUseCase>(),
-        gh<_i48.EditPersonalInfoUseCase>(),
-        gh<_i51.UploadSinglePhotoUseCase>(),
-        gh<_i50.UpdatePhoneNumberUseCase>(),
-        gh<_i47.DeleteAccountUseCase>(),
+  gh.factory<_i55.UploadImageCubit>(
+      () => _i55.UploadImageCubit(gh<_i37.UploadImageUseCase>()));
+  gh.lazySingleton<_i56.ProfileBloc>(() => _i56.ProfileBloc(
+        gh<_i50.GetPersonalInfoUseCase>(),
+        gh<_i49.EditPersonalInfoUseCase>(),
+        gh<_i52.UploadSinglePhotoUseCase>(),
+        gh<_i51.UpdatePhoneNumberUseCase>(),
+        gh<_i48.DeleteAccountUseCase>(),
         gh<_i21.ConfirmUseCase>(),
       ));
   return getIt;
 }
 
-class _$AppModule extends _i56.AppModule {}
+class _$AppModule extends _i57.AppModule {}

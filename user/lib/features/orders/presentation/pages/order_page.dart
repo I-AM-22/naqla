@@ -29,7 +29,6 @@ class _OrderPageState extends State<OrderPage> with SingleTickerProviderStateMix
 
   @override
   void initState() {
-    bloc.add(GetOrdersEvent());
     tabController = TabController(length: 2, vsync: this);
 
     super.initState();

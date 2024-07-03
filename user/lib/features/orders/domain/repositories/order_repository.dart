@@ -5,7 +5,9 @@ import 'package:naqla/features/orders/domain/usecases/get_sub_orders_use_case.da
 import 'package:naqla/features/orders/domain/usecases/set_arrived_use_case.dart';
 
 abstract class OrderRepository {
-  FutureResult<List<OrderModel>> getOrders();
+  FutureResult<List<OrderModel>> getActiveOrders();
+
+  FutureResult<List<OrderModel>> getDoneOrders();
 
   FutureResult<List<SubOrderModel>> getSubOrders(GetSubOrdersParam params);
 

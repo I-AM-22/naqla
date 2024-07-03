@@ -3,7 +3,9 @@ part of 'order_bloc.dart';
 @immutable
 sealed class OrderEvent {}
 
-class GetOrdersEvent extends OrderEvent {}
+class GetActiveOrdersEvent extends OrderEvent {}
+
+class GetDoneOrdersEvent extends OrderEvent {}
 
 class GetSubOrdersEvent extends OrderEvent {
   final GetSubOrdersParam param;

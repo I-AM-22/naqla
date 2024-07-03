@@ -1,7 +1,8 @@
 part of 'order_bloc.dart';
 
 class OrderState extends StateObject<OrderState> {
-  static String getOrders = "getOrders";
+  static String getActiveOrders = "getActiveOrders";
+  static String getDoneOrders = "getDoneOrders";
   static String getSubOrders = "getSubOrders";
   static String setArrived = "setArrived";
   static String getSuOrderDetails = "getSuOrderDetails";
@@ -10,7 +11,8 @@ class OrderState extends StateObject<OrderState> {
   OrderState({States? states, String? subOrderId})
       : subOrderId = subOrderId ?? '',
         super([
-          InitialState<List<OrderModel>>(getOrders),
+          InitialState<List<OrderModel>>(getActiveOrders),
+          InitialState<List<OrderModel>>(getDoneOrders),
           InitialState<List<SubOrderModel>>(getSubOrders),
           InitialState<SubOrderModel>(setArrived),
           InitialState<SubOrderModel>(getSuOrderDetails),

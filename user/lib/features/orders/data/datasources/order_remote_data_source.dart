@@ -13,10 +13,23 @@ class OrderRemoteDataSource {
 
   OrderRemoteDataSource(this.dio);
 
-  Future<List<OrderModel>> getOrders() {
+  Future<List<OrderModel>> getActiveOrders() {
     return throwAppException(
       () async {
-        final result = await dio.get(ApiRoutes.orderMine);
+        final result = await dio.get(ApiRoutes.orderActive);
+        return (result.data as List)
+            .map(
+              (e) => OrderModel.fromJson(e),
+            )
+            .toList();
+      },
+    );
+  }
+
+  Future<List<OrderModel>> getDoneOrders() {
+    return throwAppException(
+      () async {
+        final result = await dio.get(ApiRoutes.orderDone);
         return (result.data as List)
             .map(
               (e) => OrderModel.fromJson(e),
