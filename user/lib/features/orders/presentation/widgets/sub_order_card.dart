@@ -44,9 +44,9 @@ class SubOrderCard extends StatelessWidget {
                       text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
                         TextSpan(
                             text:
-                                '${CoreHelperFunctions.formatOrderTime(context, orderModel.status, acceptedAt: orderModel.acceptedAt, arrivedAt: orderModel.arrivedAt, deliveredAt: orderModel.deliveredAt, driverAssignedAt: orderModel.driverAssignedAt, pickedUpAt: orderModel.pickedUpAt)} \n'),
+                                '${CoreHelperFunctions.formatOrderTime(context, orderModel.status, acceptedAt: orderModel.acceptedAt, deliveredAt: orderModel.deliveredAt, driverAssignedAt: orderModel.driverAssignedAt, pickedUpAt: orderModel.pickedUpAt)} \n'),
                         TextSpan(text: '${S.of(context).order_status}${orderModel.status.name}\n'),
-                        TextSpan(text: '${S.of(context).cost}${formatter.format(orderModel.cost)} ${S.of(context).syp}\n'),
+                        TextSpan(text: '${S.of(context).cost}${formatter.format(orderModel.realCost)} ${S.of(context).syp}\n'),
                         if ((orderModel.order?.porters ?? 0) > 0) ...{
                           TextSpan(text: '${S.of(context).the_number_of_floors}: ${(orderModel.order?.porters ?? 1) - 1}'),
                         }

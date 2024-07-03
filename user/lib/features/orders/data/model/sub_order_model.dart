@@ -9,6 +9,7 @@ class SubOrderModel {
   final num rating;
   final num weight;
   final num cost;
+  final num realCost;
   final OrderModel? order;
   final SubOrderStatus status;
   final DateTime? acceptedAt;
@@ -24,6 +25,7 @@ class SubOrderModel {
     required this.rating,
     required this.weight,
     required this.cost,
+    required this.realCost,
     required this.status,
     required this.acceptedAt,
     required this.arrivedAt,
@@ -40,6 +42,7 @@ class SubOrderModel {
     num? rating,
     num? weight,
     num? cost,
+    num? realCost,
     SubOrderStatus? status,
     DateTime? acceptedAt,
     DateTime? arrivedAt,
@@ -55,6 +58,7 @@ class SubOrderModel {
         rating: rating ?? this.rating,
         weight: weight ?? this.weight,
         cost: cost ?? this.cost,
+        realCost: realCost ?? this.realCost,
         status: status ?? this.status,
         order: order ?? this.order,
         acceptedAt: acceptedAt ?? this.acceptedAt,
@@ -71,6 +75,7 @@ class SubOrderModel {
         rating: json["rating"] ?? 0,
         weight: json["weight"],
         cost: json["cost"],
+        realCost: json["realCost"],
         order: json['order'] == null ? null : OrderModel.fromJson(json['order']),
         status: SubOrderStatus.values.byName(json["status"] ?? SubOrderStatus.waiting.name),
         acceptedAt: DateTime.tryParse(json["acceptedAt"] ?? ''),
@@ -87,6 +92,7 @@ class SubOrderModel {
         "rating": rating,
         "weight": weight,
         "cost": cost,
+        "realCost": realCost,
         "status": status,
         "acceptedAt": acceptedAt?.toIso8601String(),
         "arrivedAt": arrivedAt?.toIso8601String(),

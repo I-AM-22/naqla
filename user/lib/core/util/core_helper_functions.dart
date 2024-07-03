@@ -61,11 +61,15 @@ class CoreHelperFunctions {
       ));
 
   static String formatOrderTime(BuildContext context, SubOrderStatus status,
-      {DateTime? acceptedAt, DateTime? arrivedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
-    if (status == SubOrderStatus.ready) return '${S.of(context).order_accepted_date}:\n ${fromOrderDateTimeToString(acceptedAt!)}';
-    if (status == SubOrderStatus.delivered) return '${S.of(context).order_delivered_date}:\n ${fromOrderDateTimeToString(deliveredAt!)}';
-    if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n ${fromOrderDateTimeToString(driverAssignedAt!)}';
-    if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n ${fromOrderDateTimeToString(pickedUpAt!)}';
+      {DateTime? acceptedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
+    if (status == SubOrderStatus.ready && acceptedAt != null)
+      return '${S.of(context).order_accepted_date}:\n ${fromOrderDateTimeToString(acceptedAt)}';
+    if (status == SubOrderStatus.delivered && deliveredAt != null)
+      return '${S.of(context).order_delivered_date}:\n ${fromOrderDateTimeToString(deliveredAt)}';
+    if (status == SubOrderStatus.taken && driverAssignedAt != null)
+      return '${S.of(context).order_driverAssigned_date}:\n ${fromOrderDateTimeToString(driverAssignedAt)}';
+    if (status == SubOrderStatus.onTheWay && pickedUpAt != null)
+      return '${S.of(context).order_pickedUp_date}:\n ${fromOrderDateTimeToString(pickedUpAt)}';
     return '';
   }
 

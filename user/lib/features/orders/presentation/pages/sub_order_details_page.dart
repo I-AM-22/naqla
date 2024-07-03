@@ -69,15 +69,18 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                         ),
                         child: RichText(
                           text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
-                            TextSpan(text: '${S.of(context).cost}: ${data.cost} ${S.of(context).syp}\n'),
+                            TextSpan(text: '${S.of(context).cost}: ${data.realCost} ${S.of(context).syp}\n'),
                             TextSpan(text: '${S.of(context).the_weight}: ${data.weight}\n'),
                             if ((data.order?.porters ?? 0) > 0)
                               TextSpan(text: '${S.of(context).the_number_of_floors}: ${(data.order?.porters ?? 1) - 1}\n'),
                             TextSpan(
                                 text: '${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate)}\n'),
                             TextSpan(
-                                text:
-                                    '${CoreHelperFunctions.formatOrderTime(context, data.status, deliveredAt: data.deliveredAt, acceptedAt: data.acceptedAt, arrivedAt: data.arrivedAt, driverAssignedAt: data.driverAssignedAt, pickedUpAt: data.pickedUpAt)}'),
+                                text: CoreHelperFunctions.formatOrderTime(context, data.status,
+                                    deliveredAt: data.deliveredAt,
+                                    acceptedAt: data.acceptedAt,
+                                    driverAssignedAt: data.driverAssignedAt,
+                                    pickedUpAt: data.pickedUpAt)),
                           ]),
                         ),
                       ),
