@@ -1,5 +1,4 @@
 "use client";
-import { statisticsControllerFindLimetAdvantages } from "@/service/api";
 import {
   Legend,
   PolarAngleAxis,
@@ -27,7 +26,7 @@ export function Advantages({}: AdvantagesProps) {
   const theme = useTheme().theme;
   const advantagesQuery = useQuery({
     queryKey: ["statistics", "advantages"],
-    queryFn: () => statisticsControllerFindLimetAdvantages({ limit: 7 }),
+    queryFn: () => StatisticsControllerFindLimitAdvantagesResult({ limit: 7 }),
   });
   const maxCount = Math.max(
     ...(advantagesQuery.data?.data.map((ad) =>

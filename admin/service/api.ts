@@ -49,7 +49,6 @@ import type {
   DriversControllerDeletePathParameters,
   DriversControllerFindOnePathParameters,
   DriversControllerFindParams,
-  DriversControllerStaticsDriverParams,
   DriversControllerUpdatePathParameters,
   DriversControllerWithdrawPathParameters,
   Employee,
@@ -113,6 +112,8 @@ import type {
   StatisticsControllerFindForDateParams,
   StatisticsControllerFindLimitAdvantagesPathParameters,
   StatisticsControllerProfitsParams,
+  StatisticsControllerStaticsDriverParams,
+  StatisticsControllerStaticsUserParams,
   SubOrder,
   SubOrdersControllerDeletePathParameters,
   SubOrdersControllerFindChatsParams,
@@ -146,7 +147,6 @@ import type {
   UsersControllerFindOnePathParameters,
   UsersControllerFindParams,
   UsersControllerGetMyPhotosParams,
-  UsersControllerStaticsUserParams,
   UsersControllerUpdatePathParameters,
   UsersControllerWithdrawPathParameters,
 } from "./api.schemas";
@@ -241,16 +241,6 @@ export const usersControllerGetMyPhotos = (
 ) => {
   return fetchInstance<PaginatedResponse>(
     { url: `/api/v1/users/myPhotos`, method: "GET", params },
-    options,
-  );
-};
-
-export const usersControllerStaticsUser = (
-  params?: UsersControllerStaticsUserParams,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<StaticsUser[]>(
-    { url: `/api/v1/users/statics`, method: "GET", params },
     options,
   );
 };
@@ -523,244 +513,6 @@ export const citiesControllerDelete = (
   );
 };
 
-export const orderControllerCreate = (
-  createOrderDto: CreateOrderDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order>(
-    {
-      url: `/api/v1/orders`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: createOrderDto,
-    },
-    options,
-  );
-};
-
-export const orderControllerFindAll = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order[]>(
-    { url: `/api/v1/orders`, method: "GET" },
-    options,
-  );
-};
-
-export const orderControllerFindMine = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order[]>(
-    { url: `/api/v1/orders/mine`, method: "GET" },
-    options,
-  );
-};
-
-export const orderControllerFindMineForAccepted = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order[]>(
-    { url: `/api/v1/orders/accepted`, method: "GET" },
-    options,
-  );
-};
-
-export const orderControllerFindAllWaiting = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order[]>(
-    { url: `/api/v1/orders/waiting`, method: "GET" },
-    options,
-  );
-};
-
-export const orderControllerFindOne = (
-  { id }: OrderControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order>(
-    { url: `/api/v1/orders/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const orderControllerUpdate = (
-  { id }: OrderControllerUpdatePathParameters,
-  updateOrderDto: UpdateOrderDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order>(
-    {
-      url: `/api/v1/orders/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateOrderDto,
-    },
-    options,
-  );
-};
-
-export const orderControllerDelete = (
-  { id }: OrderControllerDeletePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/orders/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-export const orderControllerAcceptance = (
-  { id }: OrderControllerAcceptancePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order>(
-    { url: `/api/v1/orders/${id}/acceptance`, method: "PATCH" },
-    options,
-  );
-};
-
-export const orderControllerCancellation = (
-  { id }: OrderControllerCancellationPathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order>(
-    { url: `/api/v1/orders/${id}/cancellation`, method: "PATCH" },
-    options,
-  );
-};
-
-export const orderControllerRefusal = (
-  { id }: OrderControllerRefusalPathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Order>(
-    { url: `/api/v1/orders/${id}/refusal`, method: "PATCH" },
-    options,
-  );
-};
-
-export const orderControllerAddAdvantagesToOrder = (
-  { id }: OrderControllerAddAdvantagesToOrderPathParameters,
-  addAdvansToOrderDto: AddAdvansToOrderDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    {
-      url: `/api/v1/orders/${id}/advantages`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: addAdvansToOrderDto,
-    },
-    options,
-  );
-};
-
-export const orderControllerRemoveAdvantagesFromOrder = (
-  { id, advantageId }: OrderControllerRemoveAdvantagesFromOrderPathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/orders/${id}/advantages/${advantageId}`, method: "DELETE" },
-    options,
-  );
-};
-
-export const advantagesControllerCreate = (
-  createAdvantageDto: CreateAdvantageDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Advantage>(
-    {
-      url: `/api/v1/advantages`,
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: createAdvantageDto,
-    },
-    options,
-  );
-};
-
-export const advantagesControllerFindAll = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Advantage[]>(
-    { url: `/api/v1/advantages`, method: "GET" },
-    options,
-  );
-};
-
-export const advantagesControllerFindOne = (
-  { id }: AdvantagesControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Advantage>(
-    { url: `/api/v1/advantages/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const advantagesControllerUpdate = (
-  { id }: AdvantagesControllerUpdatePathParameters,
-  updateAdvantageDto: UpdateAdvantageDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Advantage>(
-    {
-      url: `/api/v1/advantages/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateAdvantageDto,
-    },
-    options,
-  );
-};
-
-export const advantagesControllerDelete = (
-  { id }: AdvantagesControllerDeletePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<void>(
-    { url: `/api/v1/advantages/${id}`, method: "DELETE" },
-    options,
-  );
-};
-
-export const settingsControllerFindAll = (
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Setting[]>(
-    { url: `/api/settings`, method: "GET" },
-    options,
-  );
-};
-
-export const settingsControllerFindOne = (
-  { id }: SettingsControllerFindOnePathParameters,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Setting>(
-    { url: `/api/settings/${id}`, method: "GET" },
-    options,
-  );
-};
-
-export const settingsControllerUpdate = (
-  { id }: SettingsControllerUpdatePathParameters,
-  updateSettingDto: UpdateSettingDto,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<Setting>(
-    {
-      url: `/api/settings/${id}`,
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      data: updateSettingDto,
-    },
-    options,
-  );
-};
-
 export const subOrdersControllerCreate = (
   createSubOrdersDto: CreateSubOrdersDto,
   options?: SecondParameter<typeof fetchInstance>,
@@ -924,16 +676,6 @@ export const driversControllerFind = (
   );
 };
 
-export const driversControllerStaticsDriver = (
-  params?: DriversControllerStaticsDriverParams,
-  options?: SecondParameter<typeof fetchInstance>,
-) => {
-  return fetchInstance<StaticsDriver[]>(
-    { url: `/api/v1/drivers/statics`, method: "GET", params },
-    options,
-  );
-};
-
 export const driversControllerGetMyPhotos = (
   options?: SecondParameter<typeof fetchInstance>,
 ) => {
@@ -1024,6 +766,41 @@ export const driversControllerDelete = (
 ) => {
   return fetchInstance<void>(
     { url: `/api/v1/drivers/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const settingsControllerFindAll = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Setting[]>(
+    { url: `/api/settings`, method: "GET" },
+    options,
+  );
+};
+
+export const settingsControllerFindOne = (
+  { id }: SettingsControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Setting>(
+    { url: `/api/settings/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const settingsControllerUpdate = (
+  { id }: SettingsControllerUpdatePathParameters,
+  updateSettingDto: UpdateSettingDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Setting>(
+    {
+      url: `/api/settings/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateSettingDto,
+    },
     options,
   );
 };
@@ -1129,6 +906,227 @@ export const orderCarControllerFindMineForOrder = (
 ) => {
   return fetchInstance<Car[]>(
     { url: `/api/v1/orders/${id}/cars/mine`, method: "GET" },
+    options,
+  );
+};
+
+export const advantagesControllerCreate = (
+  createAdvantageDto: CreateAdvantageDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Advantage>(
+    {
+      url: `/api/v1/advantages`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createAdvantageDto,
+    },
+    options,
+  );
+};
+
+export const advantagesControllerFindAll = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Advantage[]>(
+    { url: `/api/v1/advantages`, method: "GET" },
+    options,
+  );
+};
+
+export const advantagesControllerFindOne = (
+  { id }: AdvantagesControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Advantage>(
+    { url: `/api/v1/advantages/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const advantagesControllerUpdate = (
+  { id }: AdvantagesControllerUpdatePathParameters,
+  updateAdvantageDto: UpdateAdvantageDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Advantage>(
+    {
+      url: `/api/v1/advantages/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateAdvantageDto,
+    },
+    options,
+  );
+};
+
+export const advantagesControllerDelete = (
+  { id }: AdvantagesControllerDeletePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/advantages/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const orderControllerCreate = (
+  createOrderDto: CreateOrderDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    {
+      url: `/api/v1/orders`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: createOrderDto,
+    },
+    options,
+  );
+};
+
+export const orderControllerFindAll = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindMine = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/mine`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindMineForAccepted = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/accepted`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindAllActiveForDriver = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/active-user`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindAllDoneForUser = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/done-user`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindAllWaiting = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order[]>(
+    { url: `/api/v1/orders/waiting`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerFindOne = (
+  { id }: OrderControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    { url: `/api/v1/orders/${id}`, method: "GET" },
+    options,
+  );
+};
+
+export const orderControllerUpdate = (
+  { id }: OrderControllerUpdatePathParameters,
+  updateOrderDto: UpdateOrderDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    {
+      url: `/api/v1/orders/${id}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: updateOrderDto,
+    },
+    options,
+  );
+};
+
+export const orderControllerDelete = (
+  { id }: OrderControllerDeletePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/orders/${id}`, method: "DELETE" },
+    options,
+  );
+};
+
+export const orderControllerAcceptance = (
+  { id }: OrderControllerAcceptancePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    { url: `/api/v1/orders/${id}/acceptance`, method: "PATCH" },
+    options,
+  );
+};
+
+export const orderControllerCancellation = (
+  { id }: OrderControllerCancellationPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    { url: `/api/v1/orders/${id}/cancellation`, method: "PATCH" },
+    options,
+  );
+};
+
+export const orderControllerRefusal = (
+  { id }: OrderControllerRefusalPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Order>(
+    { url: `/api/v1/orders/${id}/refusal`, method: "PATCH" },
+    options,
+  );
+};
+
+export const orderControllerAddAdvantagesToOrder = (
+  { id }: OrderControllerAddAdvantagesToOrderPathParameters,
+  addAdvansToOrderDto: AddAdvansToOrderDto,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    {
+      url: `/api/v1/orders/${id}/advantages`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: addAdvansToOrderDto,
+    },
+    options,
+  );
+};
+
+export const orderControllerRemoveAdvantagesFromOrder = (
+  { id, advantageId }: OrderControllerRemoveAdvantagesFromOrderPathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<void>(
+    { url: `/api/v1/orders/${id}/advantages/${advantageId}`, method: "DELETE" },
     options,
   );
 };
@@ -1398,6 +1396,26 @@ export const statisticsControllerProfits = (
   );
 };
 
+export const statisticsControllerStaticsUser = (
+  params?: StatisticsControllerStaticsUserParams,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<StaticsUser[]>(
+    { url: `/api/v1/statistics/users`, method: "GET", params },
+    options,
+  );
+};
+
+export const statisticsControllerStaticsDriver = (
+  params?: StatisticsControllerStaticsDriverParams,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<StaticsDriver[]>(
+    { url: `/api/v1/statistics/drivers`, method: "GET", params },
+    options,
+  );
+};
+
 export const statisticsControllerFindLimitAdvantages = (
   { limit }: StatisticsControllerFindLimitAdvantagesPathParameters,
   options?: SecondParameter<typeof fetchInstance>,
@@ -1609,9 +1627,6 @@ export type UsersControllerFindResult = NonNullable<
 export type UsersControllerGetMyPhotosResult = NonNullable<
   Awaited<ReturnType<typeof usersControllerGetMyPhotos>>
 >;
-export type UsersControllerStaticsUserResult = NonNullable<
-  Awaited<ReturnType<typeof usersControllerStaticsUser>>
->;
 export type UsersControllerGetMeResult = NonNullable<
   Awaited<ReturnType<typeof usersControllerGetMe>>
 >;
@@ -1675,69 +1690,6 @@ export type CitiesControllerUpdateResult = NonNullable<
 export type CitiesControllerDeleteResult = NonNullable<
   Awaited<ReturnType<typeof citiesControllerDelete>>
 >;
-export type OrderControllerCreateResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerCreate>>
->;
-export type OrderControllerFindAllResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerFindAll>>
->;
-export type OrderControllerFindMineResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerFindMine>>
->;
-export type OrderControllerFindMineForAcceptedResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerFindMineForAccepted>>
->;
-export type OrderControllerFindAllWaitingResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerFindAllWaiting>>
->;
-export type OrderControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerFindOne>>
->;
-export type OrderControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerUpdate>>
->;
-export type OrderControllerDeleteResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerDelete>>
->;
-export type OrderControllerAcceptanceResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerAcceptance>>
->;
-export type OrderControllerCancellationResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerCancellation>>
->;
-export type OrderControllerRefusalResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerRefusal>>
->;
-export type OrderControllerAddAdvantagesToOrderResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerAddAdvantagesToOrder>>
->;
-export type OrderControllerRemoveAdvantagesFromOrderResult = NonNullable<
-  Awaited<ReturnType<typeof orderControllerRemoveAdvantagesFromOrder>>
->;
-export type AdvantagesControllerCreateResult = NonNullable<
-  Awaited<ReturnType<typeof advantagesControllerCreate>>
->;
-export type AdvantagesControllerFindAllResult = NonNullable<
-  Awaited<ReturnType<typeof advantagesControllerFindAll>>
->;
-export type AdvantagesControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof advantagesControllerFindOne>>
->;
-export type AdvantagesControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof advantagesControllerUpdate>>
->;
-export type AdvantagesControllerDeleteResult = NonNullable<
-  Awaited<ReturnType<typeof advantagesControllerDelete>>
->;
-export type SettingsControllerFindAllResult = NonNullable<
-  Awaited<ReturnType<typeof settingsControllerFindAll>>
->;
-export type SettingsControllerFindOneResult = NonNullable<
-  Awaited<ReturnType<typeof settingsControllerFindOne>>
->;
-export type SettingsControllerUpdateResult = NonNullable<
-  Awaited<ReturnType<typeof settingsControllerUpdate>>
->;
 export type SubOrdersControllerCreateResult = NonNullable<
   Awaited<ReturnType<typeof subOrdersControllerCreate>>
 >;
@@ -1783,9 +1735,6 @@ export type OrdersSubOrdersControllerFindForOrderResult = NonNullable<
 export type DriversControllerFindResult = NonNullable<
   Awaited<ReturnType<typeof driversControllerFind>>
 >;
-export type DriversControllerStaticsDriverResult = NonNullable<
-  Awaited<ReturnType<typeof driversControllerStaticsDriver>>
->;
 export type DriversControllerGetMyPhotosResult = NonNullable<
   Awaited<ReturnType<typeof driversControllerGetMyPhotos>>
 >;
@@ -1809,6 +1758,15 @@ export type DriversControllerUpdateResult = NonNullable<
 >;
 export type DriversControllerDeleteResult = NonNullable<
   Awaited<ReturnType<typeof driversControllerDelete>>
+>;
+export type SettingsControllerFindAllResult = NonNullable<
+  Awaited<ReturnType<typeof settingsControllerFindAll>>
+>;
+export type SettingsControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof settingsControllerFindOne>>
+>;
+export type SettingsControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof settingsControllerUpdate>>
 >;
 export type CarControllerFindMineResult = NonNullable<
   Awaited<ReturnType<typeof carControllerFindMine>>
@@ -1836,6 +1794,66 @@ export type CarControllerRemoveAdvantagesFromCarResult = NonNullable<
 >;
 export type OrderCarControllerFindMineForOrderResult = NonNullable<
   Awaited<ReturnType<typeof orderCarControllerFindMineForOrder>>
+>;
+export type AdvantagesControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerCreate>>
+>;
+export type AdvantagesControllerFindAllResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerFindAll>>
+>;
+export type AdvantagesControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerFindOne>>
+>;
+export type AdvantagesControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerUpdate>>
+>;
+export type AdvantagesControllerDeleteResult = NonNullable<
+  Awaited<ReturnType<typeof advantagesControllerDelete>>
+>;
+export type OrderControllerCreateResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerCreate>>
+>;
+export type OrderControllerFindAllResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindAll>>
+>;
+export type OrderControllerFindMineResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindMine>>
+>;
+export type OrderControllerFindMineForAcceptedResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindMineForAccepted>>
+>;
+export type OrderControllerFindAllActiveForDriverResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindAllActiveForDriver>>
+>;
+export type OrderControllerFindAllDoneForUserResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindAllDoneForUser>>
+>;
+export type OrderControllerFindAllWaitingResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindAllWaiting>>
+>;
+export type OrderControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerFindOne>>
+>;
+export type OrderControllerUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerUpdate>>
+>;
+export type OrderControllerDeleteResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerDelete>>
+>;
+export type OrderControllerAcceptanceResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerAcceptance>>
+>;
+export type OrderControllerCancellationResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerCancellation>>
+>;
+export type OrderControllerRefusalResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerRefusal>>
+>;
+export type OrderControllerAddAdvantagesToOrderResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerAddAdvantagesToOrder>>
+>;
+export type OrderControllerRemoveAdvantagesFromOrderResult = NonNullable<
+  Awaited<ReturnType<typeof orderControllerRemoveAdvantagesFromOrder>>
 >;
 export type EmployeesControllerLoginResult = NonNullable<
   Awaited<ReturnType<typeof employeesControllerLogin>>
@@ -1896,6 +1914,12 @@ export type StatisticsControllerFindForDateResult = NonNullable<
 >;
 export type StatisticsControllerProfitsResult = NonNullable<
   Awaited<ReturnType<typeof statisticsControllerProfits>>
+>;
+export type StatisticsControllerStaticsUserResult = NonNullable<
+  Awaited<ReturnType<typeof statisticsControllerStaticsUser>>
+>;
+export type StatisticsControllerStaticsDriverResult = NonNullable<
+  Awaited<ReturnType<typeof statisticsControllerStaticsDriver>>
 >;
 export type StatisticsControllerFindLimitAdvantagesResult = NonNullable<
   Awaited<ReturnType<typeof statisticsControllerFindLimitAdvantages>>
