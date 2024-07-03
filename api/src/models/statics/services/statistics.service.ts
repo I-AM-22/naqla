@@ -50,6 +50,36 @@ export class StatisticsService {
     return await this.subOrderRepository.staticProfits(first, second);
   }
 
+  async staticsUser(page: number, limit: number, withDeleted: boolean) {
+    const data = await this.userRepository.staticsUser(page, limit, withDeleted);
+    const updateUser = await Promise.all(
+      data.data.map(async (user) => {
+        const countOrderDelivered = await this.orderRepository.countOrdersCompletedForUser(user.id);
+        return {
+          ...user,
+          countOrderDelivered,
+        };
+      }),
+    );
+    return updateUser;
+  }
+
+  async staticsDriver(page: number, limit: number, withDeleted: boolean) {
+    const data = await this.driverRepository.staticsDriver(page, limit, withDeleted);
+    const updateDriver = await Promise.all(
+      data.data.map(async (driver) => {
+        const countOrderDelivered = await this.subOrderRepository.countSubOrdersCompletedForDriver(driver.id);
+        const countCar = await this.carRepository.countCarForDriver(driver.id);
+        return {
+          ...driver,
+          countOrderDelivered,
+          countCar,
+        };
+      }),
+    );
+    return updateDriver;
+  }
+
   async findLimitAdvantages(limit: number) {
     const ad = await this.orderRepository.advantageSuper();
     let count = 0;

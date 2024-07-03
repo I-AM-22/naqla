@@ -25,7 +25,6 @@ import { IUsersService } from '../interfaces/services/users.service.interface';
 import { USER_TYPES } from '../interfaces/type';
 import { UpdateWalletDto } from '@models/drivers/dtos/update-wallet.dto ';
 import { UserWalletRepository } from '../repositories/user-wallet.repository';
-import { StaticsUser } from '../interfaces/statics-user.interface';
 import { PaginatedUserResponse } from '../responses/pagination.response';
 
 @ApiTags('Users')
@@ -88,34 +87,6 @@ export class UsersController {
     return this.usersService.getMyPhotos(user);
   }
 
-  @UseInterceptors(WithDeletedInterceptor)
-  @SerializeOptions({ groups: [GROUPS.ALL_USERS] })
-  @ApiOkResponse({
-    isArray: true,
-    type: StaticsUser,
-  })
-  @ApiQuery({
-    name: 'page',
-    allowEmptyValue: false,
-    example: 1,
-    required: false,
-  })
-  @ApiQuery({
-    name: 'limit',
-    allowEmptyValue: false,
-    example: 10,
-    required: false,
-  })
-  @Get('/statics')
-  async staticsUser(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Req() req: Request & { query: { withDeleted: string } },
-  ) {
-    const withDeleted = JSON.parse(req.query.withDeleted);
-    return this.usersService.staticsUser(page, limit, withDeleted);
-  }
-
   @ApiOkResponse({ type: User })
   @Roles(ROLE.USER)
   @Get('me')
@@ -131,6 +102,7 @@ export class UsersController {
     return this.usersService.updateMe(user, dto);
   }
 
+  @ApiNoContentResponse()
   @HttpCode(HttpStatus.NO_CONTENT)
   @SerializeOptions({ groups: [GROUPS.USER] })
   @Roles(ROLE.USER)

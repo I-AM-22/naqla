@@ -51,7 +51,7 @@ export class AdminRepository extends BaseAuthRepo<Admin> implements IAdminReposi
   //   return this.adminRepository.recover(admin);
   // }
 
-  async delete(admin: Admin): Promise<void> {
-    await this.adminRepository.softRemove(admin);
+  async delete(id: string): Promise<void> {
+    await this.adminRepository.softDelete({ id });
   }
 }

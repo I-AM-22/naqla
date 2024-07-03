@@ -6,7 +6,6 @@ import { Order } from '../../entities/order.entity';
 import { User } from '../../../users/entities/user.entity';
 import { ORDER_STATUS } from '@common/enums';
 import { OrderStatsDate } from '@models/statics/responses/OrderStatsDate';
-import { StaticProfits } from '@models/statics/responses/StaticProfits';
 
 export interface IOrderRepository {
   find(): Promise<Order[]>;
@@ -16,7 +15,6 @@ export interface IOrderRepository {
   findById(id: string): Promise<Order>;
   findByIdForOwner(id: string, userId: string): Promise<Order>;
   findOneWithAdvantages(id: string): Promise<Order>;
-  findByIdForDelete(id: string): Promise<Order>;
   advantageSuper(): Promise<any[]>;
   countOrdersCompleted(): Promise<number>;
   countOrdersWaiting(): Promise<number>;
@@ -26,7 +24,7 @@ export interface IOrderRepository {
   update(order: Order, dto: UpdateOrderDto, photo: OrderPhoto[]): Promise<Order>;
   countOrdersCompletedForUser(userId: string): Promise<number>;
   updateStatus(id: string, status: ORDER_STATUS): Promise<Order>;
-  delete(order: Order): Promise<void>;
+  delete(id: string): Promise<void>;
   addAdvantageToOrder(Order: Order, advantages: Advantage[]): Promise<void>;
   removeAdvantageFromOrder(order: Order, advantage: Advantage): Promise<void>;
 }

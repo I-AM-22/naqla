@@ -4,7 +4,7 @@ import { Car } from '@models/cars/entities/car.entity';
 import { ResponseTime } from '@models/statics/responses/ResponseTime';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { FindOptionsWhere, In, Repository } from 'typeorm';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
@@ -18,6 +18,24 @@ export class SubOrderRepository implements ISubOrderRepository {
     private readonly subOrderRepository: Repository<SubOrder>,
   ) {}
 
+  async findBy(filter?: FindOptionsWhere<SubOrder>): Promise<SubOrder[]> {
+    return await this.subOrderRepository.find({
+      where: filter,
+      select: {
+        order: {
+          id: true,
+          user: { id: true, firstName: true, lastName: true },
+          locationEnd: { latitude: true, longitude: true, region: true, street: true },
+          locationStart: { latitude: true, longitude: true, region: true, street: true },
+        },
+        car: {
+          id: true,
+          driver: { id: true, firstName: true, lastName: true },
+        },
+      },
+      relations: { order: { user: true }, car: { driver: true } },
+    });
+  }
   async find(): Promise<SubOrder[]> {
     return this.subOrderRepository.find();
   }
@@ -194,13 +212,6 @@ export class SubOrderRepository implements ISubOrderRepository {
     });
   }
 
-  async findByIdForDelete(id: string): Promise<SubOrder> {
-    return this.subOrderRepository.findOne({
-      where: { id },
-      relations: { messages: true },
-    });
-  }
-
   async findByIdForMessage(id: string, personId: string): Promise<SubOrder> {
     return await this.subOrderRepository.findOne({
       where: [
@@ -258,8 +269,8 @@ export class SubOrderRepository implements ISubOrderRepository {
     );
   }
 
-  async delete(subOrder: SubOrder): Promise<void> {
-    await this.subOrderRepository.softRemove(subOrder);
+  async delete(id: string): Promise<void> {
+    await this.subOrderRepository.softDelete({ id });
   }
 
   async refusedForOrder(orderId: string): Promise<void> {

@@ -1,4 +1,4 @@
-import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ORDER_TYPES } from '../interfaces/type';
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
@@ -36,6 +36,7 @@ export class OrdersService implements IOrdersService {
   async find(): Promise<Order[]> {
     return await this.orderRepository.find();
   }
+
   async findWaiting(): Promise<Order[]> {
     return await this.orderRepository.findWaiting();
   }
@@ -113,30 +114,31 @@ export class OrdersService implements IOrdersService {
     return this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
   }
 
-  cancellation(id: string): Promise<Order> {
-    // const order = await this.orderRepository.findOne(id);
-    // if (order.status !== ORDER_STATUS.WAITING) {
-    //   throw new ForbiddenException(
-    //     'Can not division Done this order becouss him status is not waiting',
-    //   );
-    // }
+  async cancellation(id: string): Promise<Order> {
+    const order = await this.orderRepository.findById(id);
+    if (order.status !== ORDER_STATUS.WAITING) {
+      throw new ForbiddenException('Can not cancel this order because his status is not waiting');
+    }
     return this.orderRepository.updateStatus(id, ORDER_STATUS.CANCELED);
   }
 
   async refusal(id: string): Promise<Order> {
     // const order = await this.orderRepository.findOne(id);
-    // if (order.status !== ORDER_STATUS.WAITING) {
-    //   throw new ForbiddenException(
-    //     'Can not division Done this order becouss him status is not waiting',
-    //   );
+    // if (order.status !== ORDER_STATUS.READY) {
+    //   throw new ForbiddenException('Can not division Done this order becouss him status is not waiting');
     // }
     await this.subOrderRepository.refusedForOrder(id);
     return this.orderRepository.updateStatus(id, ORDER_STATUS.REFUSED);
   }
 
   async delete(id: string): Promise<void> {
-    const order = await this.orderRepository.findByIdForDelete(id);
-    return this.orderRepository.delete(order);
+    const order = await this.findOne(id);
+
+    if (order.status === ORDER_STATUS.ON_THE_WAY || order.status === ORDER_STATUS.DELIVERED) {
+      throw new BadRequestException('Can not remove the order');
+    }
+
+    return this.orderRepository.delete(id);
   }
 
   async addAdvantagesToOrder(id: string, dto: AddAdvansToOrderDto, user: User): Promise<void> {

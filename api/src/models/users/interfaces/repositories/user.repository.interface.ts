@@ -29,9 +29,9 @@ export interface IUserRepository {
 
   updatePhone(user: User, dto: UpdateUserPhoneDto): Promise<User>;
 
-  delete(user: User): Promise<void>;
+  delete(id: string): Promise<void>;
 
-  deactivate(id: string): Promise<User>;
+  deactivate(id: string): Promise<void>;
 
   validate(id: string): Promise<User>;
 }

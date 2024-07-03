@@ -5,9 +5,11 @@ import { StaticProfits } from '@models/statics/responses/StaticProfits';
 import { CreateSubOrderDto } from '@models/sub-orders/dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '@models/sub-orders/dto/update-sub-order.dto';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
+import { FindOptionsWhere } from 'typeorm';
 
 export interface ISubOrderRepository {
   find(): Promise<SubOrder[]>;
+  findBy(filter?: FindOptionsWhere<SubOrder>): Promise<SubOrder[]>;
   findChats(personId: string, page: number, limit: number): Promise<PaginatedResponse<SubOrder>>;
   findForOrder(orderId: string): Promise<SubOrder[]>;
   findForDriver(cars: Car[]): Promise<SubOrder[]>;
@@ -16,7 +18,6 @@ export interface ISubOrderRepository {
   findByIdWithAdvantages(id: string): Promise<SubOrder>;
   findByIdForMessage(id: string, personId: string): Promise<SubOrder>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
-  findByIdForDelete(id: string): Promise<SubOrder>;
   findTotalCost(id: string): Promise<number>;
   countSubOrdersCompleted(): Promise<number>;
   countSubOrdersActive(): Promise<number>;
@@ -32,5 +33,5 @@ export interface ISubOrderRepository {
   staticProfits(startDate: string, endDate: string): Promise<StaticProfits[]>;
   setDriver(subOrder: SubOrder, car: Car): Promise<SubOrder>;
   countSubOrdersCompletedForDriver(driverId: string): Promise<number>;
-  delete(subOrder: SubOrder): Promise<void>;
+  delete(id: string): Promise<void>;
 }

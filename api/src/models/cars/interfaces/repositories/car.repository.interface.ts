@@ -13,11 +13,10 @@ export interface ICarRepository {
   findOne(id: string): Promise<Car>;
   findOneForOwner(id: string, driverId: string): Promise<Car>;
   findMyCarsForOrder(driverId: string, order: Order): Promise<Car[]>;
-  findByIdForDelete(id: string, driverId: string): Promise<Car>;
   countCar(): Promise<number>;
   create(driver: Driver, photo: CarPhoto, advantages: Advantage[], dto: CreateCarDto): Promise<Car>;
   update(car: Car, dto: UpdateCarDto, photo: CarPhoto): Promise<Car>;
-  delete(car: Car): Promise<void>;
+  delete(id: string): Promise<void>;
   addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void>;
   countCarForDriver(driverId: string): Promise<number>;
   removeAdvantageFromCar(car: Car, advantage: Advantage): Promise<void>;

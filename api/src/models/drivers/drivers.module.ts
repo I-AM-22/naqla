@@ -13,7 +13,6 @@ import { DriverWallet } from './entities/driver-wallet.entity';
 import { RolesModule } from '../roles/roles.module';
 import { AdvantagesModule } from '../advantages/advantages.module';
 import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
-import { CarsModule } from '@models/cars/cars.module';
 
 export const DriversServiceProvider: Provider = {
   provide: DRIVER_TYPES.service,
@@ -41,7 +40,6 @@ export const DriverWalletRepositoryProvider: Provider = {
     RolesModule,
     CitiesModule,
     AdvantagesModule,
-    CarsModule,
   ],
   controllers: [DriversController],
   providers: [

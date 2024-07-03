@@ -1,13 +1,16 @@
 import { ApiMainErrorsResponse, Auth, Roles } from '@common/decorators';
-import { ROLE } from '@common/enums';
-import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { GROUPS, ROLE } from '@common/enums';
+import { Controller, Get, Param, Query, Req, SerializeOptions, UseInterceptors } from '@nestjs/common';
+import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ListAdvantageSuper } from '../responses/AdvantageSuper';
 import { Numerical } from '../responses/Numerical';
 import { OrderStatsDate } from '../responses/OrderStatsDate';
 import { ResponseTime } from '../responses/ResponseTime';
 import { StaticProfits } from '../responses/StaticProfits';
 import { StatisticsService } from '../services/statistics.service';
+import { WithDeletedInterceptor } from '@common/interceptors';
+import { StaticsUser } from '@models/users/interfaces/statics-user.interface';
+import { StaticsDriver } from '@models/drivers/responses/statics-driver';
 
 @ApiTags('Statistics')
 @ApiMainErrorsResponse()
@@ -41,6 +44,59 @@ export class StatisticsController {
   @Get('profits')
   profits(@Query('first_date') first: string, @Query('second_date') second: string) {
     return this.staticsService.staticProfits(first, second);
+  }
+
+  @UseInterceptors(WithDeletedInterceptor)
+  @SerializeOptions({ groups: [GROUPS.ALL_USERS] })
+  @ApiOkResponse({
+    isArray: true,
+    type: StaticsUser,
+  })
+  @ApiQuery({
+    name: 'page',
+    allowEmptyValue: false,
+    example: 1,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    allowEmptyValue: false,
+    example: 10,
+    required: false,
+  })
+  @Get('users')
+  async staticsUser(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Req() req: Request & { query: { withDeleted: string } },
+  ) {
+    const withDeleted = JSON.parse(req.query.withDeleted);
+    return this.staticsService.staticsUser(page, limit, withDeleted);
+  }
+
+  @UseInterceptors(WithDeletedInterceptor)
+  @SerializeOptions({ groups: [GROUPS.ALL_DRIVERS] })
+  @ApiOkResponse({ isArray: true, type: StaticsDriver })
+  @ApiQuery({
+    name: 'page',
+    allowEmptyValue: false,
+    example: 1,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    allowEmptyValue: false,
+    example: 10,
+    required: false,
+  })
+  @Get('drivers')
+  async staticsDriver(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Req() req: Request & { query: { withDeleted: string } },
+  ) {
+    const withDeleted = JSON.parse(req.query.withDeleted);
+    return this.staticsService.staticsDriver(page, limit, withDeleted);
   }
 
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)

@@ -20,7 +20,7 @@ import { Setting } from '@models/settings/entities/setting.entity';
 import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
 import { SETTING_TYPES } from '@models/settings/interfaces/type';
 import { Entities, ORDER_STATUS, SETTING_PROPERTIES } from '@common/enums';
-import { DataSource } from 'typeorm';
+import { DataSource, FindOptionsWhere } from 'typeorm';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { UserWallet } from '@models/users/entities/user-wallet.entity';
 import { IPerson, IWalletRepository } from '@common/interfaces';
@@ -31,7 +31,7 @@ import { IOrdersService } from '@models/orders/interfaces/services/orders.servic
 import { USER_TYPES } from '@models/users/interfaces/type';
 import { DRIVER_TYPES } from '@models/drivers/interfaces/type';
 import { Order } from '@models/orders/entities/order.entity';
-import { item_not_found } from '@common/constants';
+import { cannotSubOrder, item_not_found } from '@common/constants';
 import { CAR_TYPES } from '@models/cars/interfaces/type';
 import { ICarsService } from '@models/cars/interfaces/services/cars.service.interface';
 import { PaginatedResponse } from '@common/types';
@@ -112,6 +112,10 @@ export class SubOrdersService implements ISubOrdersService {
     }
     const cost = await this.findTotalCost(CreateSubOrdersDto.orderId);
     return await this.ordersService.divisionDone(CreateSubOrdersDto.orderId, cost);
+  }
+
+  async findBy(filter?: FindOptionsWhere<SubOrder>): Promise<SubOrder[]> {
+    return await this.subOrderRepository.findBy(filter);
   }
 
   async find(): Promise<SubOrder[]> {
@@ -237,9 +241,13 @@ export class SubOrdersService implements ISubOrdersService {
     return this.subOrderRepository.countSubOrdersCompletedForDriver(driverId);
   }
 
-  async delete(subOrderId: string): Promise<void> {
-    const subOrder = await this.subOrderRepository.findByIdForDelete(subOrderId);
-    return await this.subOrderRepository.delete(subOrder);
+  async delete(id: string): Promise<void> {
+    const subOrder = await this.findOne(id);
+    if (cannotSubOrder.includes(subOrder.order.status)) {
+      throw new BadRequestException('Can not remove suborder');
+    }
+
+    return await this.subOrderRepository.delete(subOrder.id);
   }
 
   async refusedForOrder(orderId: string): Promise<void> {

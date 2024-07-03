@@ -63,14 +63,9 @@ export class AdminsService implements IAdminsService {
     return this.adminRepository.update(admin, dto, photo);
   }
 
-  // async recover(id: string): Promise<Admin> {
-  //   const admin = await this.findOne(id);
-  //   return this.adminRepository.recover(admin);
-  // }
-
   async delete(id: string): Promise<void> {
-    const admin = await this.findOne(id);
-    await this.adminRepository.delete(admin);
+    await this.findOne(id);
+    await this.adminRepository.delete(id);
   }
 
   async validate(id: string, iat: number): Promise<Admin> {

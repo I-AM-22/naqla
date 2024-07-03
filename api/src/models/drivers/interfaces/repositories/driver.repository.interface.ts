@@ -20,8 +20,6 @@ export interface IDriverRepository {
 
   findByIdForThings(id: string): Promise<Driver>;
 
-  findByIdForDelete(id: string): Promise<Driver>;
-
   countDriver(): Promise<number>;
 
   create(dto: CreateDriverDto, wallet: DriverWallet, photo: DriverPhoto, role: Role): Promise<Driver>;
@@ -32,9 +30,9 @@ export interface IDriverRepository {
 
   updatePhone(driver: Driver, dto: UpdateDriverPhoneDto): Promise<Driver>;
 
-  delete(driver: Driver): Promise<void>;
+  delete(id: string): Promise<void>;
 
-  deactivate(id: string): Promise<Driver>;
+  deactivate(id: string): Promise<void>;
 
   validate(id: string): Promise<Driver>;
 }

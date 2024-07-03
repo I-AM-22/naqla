@@ -24,7 +24,6 @@ import { Driver } from '../entities/driver.entity';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { DRIVER_TYPES } from '../interfaces/type';
 import { DriverWalletRepository } from '../repositories/driver/driver-wallet.repository';
-import { StaticsDriver } from '../responses/statics-driver';
 import { PaginatedDriverResponse } from '../responses/pagination.response';
 
 @ApiTags('Drivers')
@@ -62,31 +61,6 @@ export class DriversController {
   ) {
     const withDeleted = JSON.parse(req.query.withDeleted);
     return this.driversService.find(page, limit, active, withDeleted);
-  }
-
-  @UseInterceptors(WithDeletedInterceptor)
-  @SerializeOptions({ groups: [GROUPS.ALL_DRIVERS] })
-  @ApiOkResponse({ isArray: true, type: StaticsDriver })
-  @ApiQuery({
-    name: 'page',
-    allowEmptyValue: false,
-    example: 1,
-    required: false,
-  })
-  @ApiQuery({
-    name: 'limit',
-    allowEmptyValue: false,
-    example: 10,
-    required: false,
-  })
-  @Get('/statics')
-  async staticsDriver(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Req() req: Request & { query: { withDeleted: string } },
-  ) {
-    const withDeleted = JSON.parse(req.query.withDeleted);
-    return this.driversService.staticsDriver(page, limit, withDeleted);
   }
 
   @ApiOkResponse({ type: Driver })

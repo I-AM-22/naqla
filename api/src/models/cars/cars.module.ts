@@ -10,6 +10,7 @@ import { CarRepository } from './repositories/car.repository';
 import { OrdersModule } from '@models/orders/orders.module';
 import { AdvantagesModule } from '@models/advantages/advantages.module';
 import { OrderCarController } from './controllers/orders-cars.controller';
+import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
 
 export const CarsServiceProvider: Provider = {
   provide: CAR_TYPES.service,
@@ -27,7 +28,12 @@ export const CarPhotoRepositoryProvider: Provider = {
 };
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Car, CarPhoto]), AdvantagesModule, forwardRef(() => OrdersModule)],
+  imports: [
+    TypeOrmModule.forFeature([Car, CarPhoto]),
+    AdvantagesModule,
+    forwardRef(() => OrdersModule),
+    forwardRef(() => SubOrdersModule),
+  ],
   controllers: [CarController, OrderCarController],
   providers: [CarsServiceProvider, CarRepositoryProvider, CarRepository, CarPhotoRepositoryProvider],
   exports: [CarRepository, CarsServiceProvider, CarRepositoryProvider, CarPhotoRepositoryProvider],

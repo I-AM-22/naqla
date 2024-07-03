@@ -8,4 +8,3 @@ export abstract class AuthAdminResponse {
   @ApiProperty({ type: Admin })
   admin: Admin;
 }
-///scascsacas

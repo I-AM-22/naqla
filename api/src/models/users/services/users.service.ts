@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
 import { defaultPhotoUrl, item_not_found } from '@common/constants';
@@ -12,9 +12,9 @@ import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { UserWallet } from '../entities/user-wallet.entity';
-import { ORDER_TYPES } from '@models/orders/interfaces/type';
-import { Entities, ROLE } from '@common/enums';
-import { IOrdersService } from '@models/orders/interfaces/services/orders.service.interface';
+import { Entities, ORDER_STATUS, ROLE } from '@common/enums';
+import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
+import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
 
 @Injectable()
 export class UsersService implements IUsersService {
@@ -26,9 +26,8 @@ export class UsersService implements IUsersService {
     @Inject(USER_TYPES.repository.wallet)
     private userWalletRepository: IWalletRepository<UserWallet>,
     @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
-
-    @Inject(ORDER_TYPES.service)
-    private ordersService: IOrdersService,
+    @Inject(SUB_ORDER_TYPES.service)
+    private subOrdersService: ISubOrdersService,
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -49,20 +48,6 @@ export class UsersService implements IUsersService {
     return this.userRepository.find(page, limit, active, withDeleted);
   }
 
-  async staticsUser(page: number, limit: number, withDeleted: boolean): Promise<any[]> {
-    const data = await this.userRepository.staticsUser(page, limit, withDeleted);
-    const updateUser = await Promise.all(
-      data.data.map(async (user) => {
-        const countOrderDelivered = await this.ordersService.countOrdersCompletedForUser(user.id);
-        return {
-          ...user,
-          countOrderDelivered,
-        };
-      }),
-    );
-    return updateUser;
-  }
-
   async findOne(id: string, withDeleted = false): Promise<User> {
     const user = await this.userRepository.findById(id, withDeleted);
     if (!user) throw new NotFoundException(item_not_found(Entities.User));
@@ -81,8 +66,15 @@ export class UsersService implements IUsersService {
   }
 
   async deleteMe(user: User): Promise<void> {
-    const toDelete = await this.userRepository.findByIdForDelete(user.id);
-    await this.userRepository.delete(toDelete);
+    const subOrders = await this.subOrdersService.findBy({
+      order: { userId: user.id, status: ORDER_STATUS.ON_THE_WAY },
+    });
+
+    if (!subOrders.length) {
+      throw new BadRequestException('Can not remove a user who has an active orders');
+    }
+
+    await this.userRepository.deactivate(user.id);
   }
 
   async getMyPhotos(user: User): Promise<UserPhoto[]> {
@@ -105,10 +97,16 @@ export class UsersService implements IUsersService {
   }
 
   async delete(id: string): Promise<void> {
-    // const user = await this.userRepository.findByIdForDelete(id);
-    // await this.userRepository.delete(user);
+    await this.findOne(id);
+    const subOrders = await this.subOrdersService.findBy({
+      order: { userId: id, status: ORDER_STATUS.ON_THE_WAY },
+    });
+
+    if (!subOrders.length) {
+      throw new BadRequestException('Can not remove a user who has an active orders');
+    }
+
     await this.userRepository.deactivate(id);
-    return;
   }
 
   async validate(id: string): Promise<User> {

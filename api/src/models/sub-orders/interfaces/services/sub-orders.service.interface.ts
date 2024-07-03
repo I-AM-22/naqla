@@ -4,9 +4,11 @@ import { UpdateSubOrderDto } from '../../dto/update-sub-order.dto';
 import { SubOrder } from '../../entities/sub-order.entity';
 import { PaginatedResponse } from '@common/types';
 import { IPerson } from '@common/interfaces';
+import { FindOptionsWhere } from 'typeorm';
 
 export interface ISubOrdersService {
   find(): Promise<SubOrder[]>;
+  findBy(filter?: FindOptionsWhere<SubOrder>): Promise<SubOrder[]>;
   findChats(person: IPerson, page: number, limit: number): Promise<PaginatedResponse<SubOrder>>;
   findForDriver(driverId: string): Promise<SubOrder[]>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;

@@ -82,13 +82,6 @@ export class CarRepository implements ICarRepository {
     });
   }
 
-  async findByIdForDelete(id: string, driverId: string): Promise<Car> {
-    return await this.carRepository.findOne({
-      where: { id, driverId },
-      relations: { photos: true },
-    });
-  }
-
   async create(driver: Driver, photo: CarPhoto, advantages: Advantage[], dto: CreateCarDto): Promise<Car> {
     const car = new Car();
     car.model = dto.model;
@@ -112,8 +105,8 @@ export class CarRepository implements ICarRepository {
     return this.findOne(car.id);
   }
 
-  async delete(car: Car): Promise<void> {
-    await this.carRepository.softRemove(car);
+  async delete(id: string): Promise<void> {
+    await this.carRepository.softDelete({ id });
   }
 
   async countCarForDriver(driverId: string): Promise<number> {

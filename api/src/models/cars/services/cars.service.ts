@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { item_not_found } from '@common/constants';
 import { Entities } from '@common/enums';
 import { IPhotoRepository } from '@common/interfaces';
@@ -13,6 +13,8 @@ import { CAR_TYPES } from '../interfaces/type';
 import { ADVANTAGE_TYPES } from '@models/advantages/interfaces/type';
 import { IOrdersService } from '@models/orders/interfaces/services/orders.service.interface';
 import { ORDER_TYPES } from '@models/orders/interfaces/type';
+import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
+import { ISubOrderRepository } from '@models/sub-orders/interfaces/repositories/sub-order.repository.interface';
 
 @Injectable()
 export class CarsService implements ICarsService {
@@ -25,6 +27,8 @@ export class CarsService implements ICarsService {
     private readonly advantagesService: IAdvantagesService,
     @Inject(ORDER_TYPES.service)
     private readonly ordersService: IOrdersService,
+    @Inject(SUB_ORDER_TYPES.repository.subOrder)
+    private readonly subOrderRepository: ISubOrderRepository,
   ) {}
 
   async find(): Promise<Car[]> {
@@ -67,9 +71,17 @@ export class CarsService implements ICarsService {
   async countCarForDriver(driverId: string): Promise<number> {
     return this.carRepository.countCarForDriver(driverId);
   }
+
   async delete(id: string, driverId: string): Promise<void> {
-    const car = await this.carRepository.findByIdForDelete(id, driverId);
-    return this.carRepository.delete(car);
+    const car = await this.findOneForOwner(id, driverId);
+    const subOrders = await this.subOrderRepository.findBy({
+      carId: car.id,
+    });
+
+    if (!subOrders.length) {
+      throw new BadRequestException('Can not remove a car that have orders');
+    }
+    return this.carRepository.delete(car.id);
   }
 
   async addAdvantagesToCar(id: string, dto: AddAdvansToCarDto, driver: Driver): Promise<void> {

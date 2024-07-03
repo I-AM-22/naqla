@@ -1,7 +1,7 @@
-import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateDriverDto, UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
-import { Entities, ROLE } from '@common/enums';
+import { Entities, ORDER_STATUS, ROLE } from '@common/enums';
 import { defaultPhotoUrl, item_not_found } from '@common/constants';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { PaginatedResponse } from '@common/types';
@@ -16,8 +16,6 @@ import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { DriverWallet } from '../entities/driver-wallet.entity';
 import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
-import { ICarsService } from '@models/cars/interfaces/services/cars.service.interface';
-import { CAR_TYPES } from '@models/cars/interfaces/type';
 
 @Injectable()
 export class DriversService implements IDriversService {
@@ -30,9 +28,7 @@ export class DriversService implements IDriversService {
     private driverPhotoRepository: IPhotoRepository<DriverPhoto>,
     @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
     @Inject(SUB_ORDER_TYPES.service)
-    private subOrderService: ISubOrdersService,
-    @Inject(CAR_TYPES.service)
-    private carsService: ICarsService,
+    private subOrdersService: ISubOrdersService,
   ) {}
 
   async create(dto: CreateDriverDto): Promise<Driver> {
@@ -53,22 +49,6 @@ export class DriversService implements IDriversService {
     return this.driverRepository.find(page, limit, active, withDeleted);
   }
 
-  async staticsDriver(page: number, limit: number, withDeleted: boolean): Promise<any[]> {
-    const data = await this.driverRepository.staticsDriver(page, limit, withDeleted);
-    const updateDriver = await Promise.all(
-      data.data.map(async (driver) => {
-        const countOrderDelivered = await this.subOrderService.countSubOrdersCompletedForDriver(driver.id);
-        const countCar = await this.carsService.countCarForDriver(driver.id);
-        return {
-          ...driver,
-          countOrderDelivered,
-          countCar,
-        };
-      }),
-    );
-    return updateDriver;
-  }
-
   async findOne(id: string, withDeleted = false): Promise<Driver> {
     const driver = await this.driverRepository.findById(id, withDeleted);
     if (!driver) throw new NotFoundException(item_not_found(Entities.Driver));
@@ -87,9 +67,18 @@ export class DriversService implements IDriversService {
   }
 
   async deleteMe(driver: Driver): Promise<void> {
-    const toDelete = await this.driverRepository.findByIdForDelete(driver.id);
-    await this.driverRepository.delete(toDelete);
+    const subOrders = await this.subOrdersService.findBy({
+      order: { status: ORDER_STATUS.ON_THE_WAY },
+      car: { driverId: driver.id },
+    });
+
+    if (!subOrders.length) {
+      throw new BadRequestException('Can not remove a driver who has an active orders');
+    }
+
+    await this.driverRepository.deactivate(driver.id);
   }
+
   async getMyPhotos(driver: Driver): Promise<DriverPhoto[]> {
     return this.driverPhotoRepository.findPhotosByOwner(driver.id);
   }
@@ -101,7 +90,6 @@ export class DriversService implements IDriversService {
     return updateDriver;
   }
 
-  //TODO
   async updatePhone(driver: Driver, dto: UpdateDriverPhoneDto): Promise<Driver> {
     return this.driverRepository.updatePhone(driver, dto);
   }
@@ -111,10 +99,18 @@ export class DriversService implements IDriversService {
   }
 
   async delete(id: string): Promise<void> {
-    // const driver = await this.driverRepository.findByIdForDelete(id);
-    // await this.driverRepository.delete(driver);
+    await this.findOne(id);
+
+    const subOrders = await this.subOrdersService.findBy({
+      order: { status: ORDER_STATUS.ON_THE_WAY },
+      car: { driverId: id },
+    });
+
+    if (!subOrders.length) {
+      throw new BadRequestException('Can not remove a driver who has an active orders');
+    }
+
     await this.driverRepository.deactivate(id);
-    return;
   }
 
   async validate(id: string): Promise<Driver> {

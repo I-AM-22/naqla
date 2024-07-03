@@ -10,7 +10,6 @@ import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
 import { OrderStatsDate } from '@models/statics/responses/OrderStatsDate';
 import { AdvantageSuper } from '@models/statics/responses/AdvantageSuper';
-import { StaticProfits } from '@models/statics/responses/StaticProfits';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -162,13 +161,6 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async findByIdForDelete(id: string): Promise<Order> {
-    return this.orderRepository.findOne({
-      where: { id },
-      relations: { photos: true, subOrders: { messages: true }, payment: true },
-    });
-  }
-
   async create(user: User, photos: OrderPhoto[], advantages: Advantage[], dto: CreateOrderDto): Promise<Order> {
     const order = this.orderRepository.create({ photos: [] });
     order.desiredDate = dto.desiredDate;
@@ -196,8 +188,8 @@ export class OrderRepository implements IOrderRepository {
     return await this.findById(id);
   }
 
-  async delete(order: Order): Promise<void> {
-    await this.orderRepository.softRemove(order);
+  async delete(id: string): Promise<void> {
+    await this.orderRepository.softDelete({ id });
   }
 
   async countOrdersCompletedForUser(userId: string): Promise<number> {
