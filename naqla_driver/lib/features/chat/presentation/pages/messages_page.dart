@@ -48,9 +48,9 @@ class _MessagesPageState extends State<MessagesPage> {
               appBarParams: AppBarParams(
             title: widget.param.userName,
           )),
-          body: BlocSelector<ChatBloc, ChatState, CommonState>(
-            selector: (state) => state.getState(ChatState.sendMessages),
+          body: BlocBuilder<ChatBloc, ChatState>(
             builder: (context, state) {
+              print(state.toString());
               return Column(
                 children: [
                   Expanded(
@@ -80,7 +80,7 @@ class _MessagesPageState extends State<MessagesPage> {
                               ));
                             }
                           },
-                          icon: state.isLoading
+                          icon: state.getState(ChatState.sendMessages).isLoading
                               ? AppLoadingIndicator(
                                   size: 25.r,
                                 )

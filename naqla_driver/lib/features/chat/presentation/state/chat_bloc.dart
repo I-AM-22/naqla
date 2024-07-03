@@ -38,9 +38,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         state.socketIo.joinChat(event.param.subOrderId);
         state.socketIo.messageReceived(
           (newMessage) {
-            state.getState(ChatState.getMessages).pagingController.itemList?.insert(0, MessageModel.fromJson(newMessage));
+            add(UpdateWebSocketMessagesEvent(messageModel: MessageModel.fromJson(newMessage)));
           },
         );
+      },
+    );
+
+    on<UpdateWebSocketMessagesEvent>(
+      (event, emit) {
+        state.getState(ChatState.getMessages).pagingController.itemList?.insert(0, event.messageModel);
+        emit(state.updateState(ChatState.messages, const SuccessState(null)));
       },
     );
 

@@ -21,3 +21,9 @@ class SendMessagesEvent extends ChatEvent {
 
   SendMessagesEvent({required this.param, required this.onSuccess});
 }
+
+class UpdateWebSocketMessagesEvent extends ChatEvent {
+  final MessageModel messageModel;
+
+  UpdateWebSocketMessagesEvent({required this.messageModel});
+}
