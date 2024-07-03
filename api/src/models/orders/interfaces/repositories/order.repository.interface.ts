@@ -10,6 +10,8 @@ import { OrderStatsDate } from '@models/statics/responses/OrderStatsDate';
 export interface IOrderRepository {
   find(): Promise<Order[]>;
   findWaiting(): Promise<Order[]>;
+  findAllActiveForUser(userId: string): Promise<Order[]>;
+  findAllDoneForUser(userId: string): Promise<Order[]>;
   findMyOrder(userId: string): Promise<Order[]>;
   findMineWithAccepted(userId: string): Promise<Order[]>;
   findById(id: string): Promise<Order>;

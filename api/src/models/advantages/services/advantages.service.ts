@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ADVANTAGE_TYPES } from '../interfaces/type';
 import { CreateAdvantageDto, UpdateAdvantageDto } from '../dto';
 import { Advantage } from '../entities/advantage.entity';
@@ -45,7 +45,10 @@ export class AdvantagesService implements IAdvantagesService {
   }
 
   async delete(id: string): Promise<void> {
-    const advantage = await this.findOne(id);
+    const advantage = await this.advantageRepository.findByIdAndRelations(id);
+    if (!advantage) throw new NotFoundException(item_not_found(Entities.Advantage));
+    if (advantage.orders.length > 0 || advantage.cars.length > 0)
+      throw new ForbiddenException('this advantage have order or car');
     return this.advantageRepository.delete(advantage);
   }
 }

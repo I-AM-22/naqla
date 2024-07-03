@@ -24,6 +24,10 @@ export class AdvantageRepository implements IAdvantageRepository {
     return this.advantageRepository.findOne({ where: { id } });
   }
 
+  async findByIdAndRelations(id: string): Promise<Advantage> {
+    return this.advantageRepository.findOne({ where: { id }, relations: { orders: true, cars: true } });
+  }
+
   async create(createAdvantageDto: CreateAdvantageDto): Promise<Advantage> {
     const newAdvantage = this.advantageRepository.create(createAdvantageDto);
     return this.advantageRepository.save(newAdvantage);

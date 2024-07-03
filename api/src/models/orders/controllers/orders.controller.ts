@@ -58,6 +58,19 @@ export class OrderController {
   async findMineForAccepted(@GetUser('id') userId: string) {
     return await this.ordersService.findMineWithAccepted(userId);
   }
+  @Roles(ROLE.USER)
+  @ApiOkResponse({ type: Order, isArray: true })
+  @Get('active-user')
+  async findAllActiveForDriver(@GetUser('id') userId: string) {
+    return this.ordersService.findAllActiveForUser(userId);
+  }
+
+  @Roles(ROLE.USER)
+  @ApiOkResponse({ type: Order, isArray: true })
+  @Get('done-user')
+  async findAllDoneForUser(@GetUser('id') userId: string) {
+    return this.ordersService.findAllDoneForUser(userId);
+  }
 
   @Roles(ROLE.EMPLOYEE, ROLE.ADMIN)
   @ApiOkResponse({ type: Order, isArray: true })

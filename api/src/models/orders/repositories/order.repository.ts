@@ -3,7 +3,7 @@ import { Advantage } from '@models/advantages/entities/advantage.entity';
 import { User } from '@models/users/entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { Order } from '../entities/order.entity';
@@ -89,6 +89,34 @@ export class OrderRepository implements IOrderRepository {
         advantages: true,
         payment: true,
         subOrders: { car: { driver: true }, photos: true },
+      },
+    });
+  }
+
+  async findAllActiveForUser(userId: string): Promise<Order[]> {
+    return this.orderRepository.find({
+      where: { userId, status: In([ORDER_STATUS.ACCEPTED, ORDER_STATUS.ON_THE_WAY]) },
+      select: {
+        advantages: { id: false, cost: false, name: true },
+      },
+      relations: {
+        photos: true,
+        advantages: true,
+        payment: true,
+      },
+    });
+  }
+
+  async findAllDoneForUser(userId: string): Promise<Order[]> {
+    return this.orderRepository.find({
+      where: { userId, status: ORDER_STATUS.DELIVERED },
+      select: {
+        advantages: { id: false, cost: false, name: true },
+      },
+      relations: {
+        photos: true,
+        advantages: true,
+        payment: true,
       },
     });
   }
@@ -242,16 +270,10 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async countOrdersActive(): Promise<number> {
-    const count = await this.orderRepository
-      .createQueryBuilder('order')
-      .where('order.status <> :status', {
-        status: ORDER_STATUS.DELIVERED,
-      })
-      .andWhere('order.status <> :status', {
-        status: ORDER_STATUS.WAITING,
-      })
-      .getCount();
-    return count;
+    const order = await this.orderRepository.find({
+      where: { status: In([ORDER_STATUS.ON_THE_WAY, ORDER_STATUS.ACCEPTED, ORDER_STATUS.READY]) },
+    });
+    return order.length;
   }
 
   async countOrdersWaiting(): Promise<number> {

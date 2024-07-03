@@ -49,6 +49,14 @@ export class OrdersService implements IOrdersService {
     return await this.orderRepository.findMineWithAccepted(userId);
   }
 
+  async findAllActiveForUser(userId: string): Promise<Order[]> {
+    return await this.orderRepository.findAllActiveForUser(userId);
+  }
+
+  async findAllDoneForUser(userId: string): Promise<Order[]> {
+    return await this.orderRepository.findAllDoneForUser(userId);
+  }
+
   async findOne(id: string, person?: IPerson): Promise<Order> {
     if (person && person.role.name === ROLE.USER) return await this.findOneForOwner(id, person.id);
 

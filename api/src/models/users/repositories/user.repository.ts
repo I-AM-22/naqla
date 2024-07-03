@@ -64,8 +64,8 @@ export class UserRepository extends BaseAuthRepo<User> implements IUserRepositor
   }
 
   async countUser(): Promise<number> {
-    const userCount = await this.userRepo.createQueryBuilder('user').getCount();
-    return userCount;
+    const userCount = await this.userRepo.find({ where: { active: true } });
+    return userCount.length;
   }
 
   async create(dto: CreateUserDto, wallet: UserWallet, photo: UserPhoto, role: Role): Promise<User> {

@@ -13,6 +13,8 @@ export interface IOrdersService {
   findOne(id: string, person?: IPerson): Promise<Order>;
   findOneForOwner(id: string, userId: string): Promise<Order>;
   findOneWithAdvantages(id: string): Promise<Order>;
+  findAllActiveForUser(userId: string): Promise<Order[]>;
+  findAllDoneForUser(userId: string): Promise<Order[]>;
   countOrdersCompletedForUser(userId: string): Promise<number>;
   create(user: User, dto: CreateOrderDto): Promise<Order>;
   update(id: string, person: IPerson, dto: UpdateOrderDto): Promise<Order>;
