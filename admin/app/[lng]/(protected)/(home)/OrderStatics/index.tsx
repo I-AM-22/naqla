@@ -39,8 +39,8 @@ export function OrderStatics({ children }: OrderStaticsProps) {
     enabled: !!(date?.from && date.to),
     queryFn: () =>
       statisticsControllerFindForDate({
-        firstDate: date?.from?.toISOString() ?? new Date().toISOString(),
-        secondDate: date?.to?.toISOString() ?? new Date().toISOString(),
+        first_date: date?.from?.toISOString() ?? new Date().toISOString(),
+        second_date: date?.to?.toISOString() ?? new Date().toISOString(),
       }),
   });
   return (

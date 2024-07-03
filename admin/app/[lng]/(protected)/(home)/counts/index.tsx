@@ -56,6 +56,7 @@ export async function Counts(props: CountsProps) {
       </Section>
       <Section icon={<Truck />} className="text-sky-500 dark:text-sky-200">
         {[
+
           {
             label: t("subOrderCompleted"),
             count: counts.subOrderCompleted,

@@ -38,6 +38,16 @@ export type PhotosControllerUploadSingleBody = {
 export type StatisticsControllerFindLimitAdvantagesPathParameters = {
   limit: number;
 };
+export type StatisticsControllerStaticsDriverParams = {
+  page?: number;
+  limit?: number;
+};
+
+export type StatisticsControllerStaticsUserParams = {
+  page?: number;
+  limit?: number;
+};
+
 export type StatisticsControllerProfitsParams = {
   first_date: string;
   second_date: string;
@@ -73,6 +83,40 @@ export type EmployeesControllerUpdatePathParameters = {
 export type EmployeesControllerFindOnePathParameters = {
   id: string;
 };
+export type OrderControllerRemoveAdvantagesFromOrderPathParameters = {
+  id: string;
+  advantageId: string;
+};
+export type OrderControllerAddAdvantagesToOrderPathParameters = {
+  id: string;
+};
+export type OrderControllerRefusalPathParameters = {
+  id: string;
+};
+export type OrderControllerCancellationPathParameters = {
+  id: string;
+};
+export type OrderControllerAcceptancePathParameters = {
+  id: string;
+};
+export type OrderControllerDeletePathParameters = {
+  id: string;
+};
+export type OrderControllerUpdatePathParameters = {
+  id: string;
+};
+export type OrderControllerFindOnePathParameters = {
+  id: string;
+};
+export type AdvantagesControllerDeletePathParameters = {
+  id: string;
+};
+export type AdvantagesControllerUpdatePathParameters = {
+  id: string;
+};
+export type AdvantagesControllerFindOnePathParameters = {
+  id: string;
+};
 export type OrderCarControllerFindMineForOrderPathParameters = {
   id: string;
 };
@@ -92,6 +136,12 @@ export type CarControllerUpdatePathParameters = {
 export type CarControllerFindOnePathParameters = {
   id: string;
 };
+export type SettingsControllerUpdatePathParameters = {
+  id: string;
+};
+export type SettingsControllerFindOnePathParameters = {
+  id: string;
+};
 export type DriversControllerDeletePathParameters = {
   id: string;
 };
@@ -104,11 +154,6 @@ export type DriversControllerFindOnePathParameters = {
 export type DriversControllerWithdrawPathParameters = {
   id: string;
 };
-export type DriversControllerStaticsDriverParams = {
-  page?: number;
-  limit?: number;
-};
-
 export type DriversControllerFindParams = {
   page?: number;
   active: boolean;
@@ -144,46 +189,6 @@ export type SubOrdersControllerFindChatsParams = {
   limit?: number;
 };
 
-export type SettingsControllerUpdatePathParameters = {
-  id: string;
-};
-export type SettingsControllerFindOnePathParameters = {
-  id: string;
-};
-export type AdvantagesControllerDeletePathParameters = {
-  id: string;
-};
-export type AdvantagesControllerUpdatePathParameters = {
-  id: string;
-};
-export type AdvantagesControllerFindOnePathParameters = {
-  id: string;
-};
-export type OrderControllerRemoveAdvantagesFromOrderPathParameters = {
-  id: string;
-  advantageId: string;
-};
-export type OrderControllerAddAdvantagesToOrderPathParameters = {
-  id: string;
-};
-export type OrderControllerRefusalPathParameters = {
-  id: string;
-};
-export type OrderControllerCancellationPathParameters = {
-  id: string;
-};
-export type OrderControllerAcceptancePathParameters = {
-  id: string;
-};
-export type OrderControllerDeletePathParameters = {
-  id: string;
-};
-export type OrderControllerUpdatePathParameters = {
-  id: string;
-};
-export type OrderControllerFindOnePathParameters = {
-  id: string;
-};
 export type CitiesControllerDeletePathParameters = {
   id: string;
 };
@@ -223,11 +228,6 @@ export type UsersControllerDepositPathParameters = {
 export type UsersControllerWithdrawPathParameters = {
   id: string;
 };
-export type UsersControllerStaticsUserParams = {
-  page?: number;
-  limit?: number;
-};
-
 export type UsersControllerGetMyPhotosParams = {
   limit?: unknown;
   page?: unknown;
@@ -298,6 +298,32 @@ export type AdvantageSuper = {
 export type ListAdvantageSuper = {
   cars: AdvantageSuper[];
   orders: AdvantageSuper[];
+};
+
+export type StaticsDriver = {
+  countCar: number;
+  countOrderDelivered: number;
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+  wallet: DriverWallet;
+};
+
+export type StaticsUser = {
+  active: boolean;
+  countOrderDelivered: number;
+  createdAt: Date;
+  firstName: string;
+  id: string;
+  lastName: string;
+  phone: string;
+  photo: BasePhoto;
+  updatedAt: Date;
+  wallet: UserWallet;
 };
 
 export type StaticProfits = {
@@ -431,6 +457,51 @@ export type LoginEmployeeDto = {
   phone: string;
 };
 
+export type AddAdvansToOrderDto = {
+  advantages: string[];
+};
+
+export type Item = {
+  length: number;
+  photo: string;
+  weight: number;
+  width: number;
+};
+
+export type LocationDto = {
+  latitude: number;
+  longitude: number;
+  region: string;
+  street: string;
+};
+
+export type UpdateOrderDto = {
+  cost: number;
+  desiredDate: Date;
+  locationEnd: LocationDto;
+  locationStart: LocationDto;
+  photo: string[];
+};
+
+export type CreateOrderDto = {
+  advantages: string[];
+  desiredDate: Date;
+  items: Item[];
+  locationEnd: LocationDto;
+  locationStart: LocationDto;
+  porters: number;
+};
+
+export type UpdateAdvantageDto = {
+  cost?: number;
+  name?: string;
+};
+
+export type CreateAdvantageDto = {
+  cost: number;
+  name: string;
+};
+
 export type AddAdvansToCarDto = {
   advantages: string[];
 };
@@ -450,6 +521,18 @@ export type CreateCarDto = {
   photo: string;
 };
 
+export type UpdateSettingDto = {
+  cost?: number;
+};
+
+export type Setting = {
+  cost: number;
+  createdAt: Date;
+  id: string;
+  name: string;
+  updatedAt: Date;
+};
+
 export type UpdateDriverDto = {
   firstName: string;
   lastName: string;
@@ -463,19 +546,6 @@ export type DriverWallet = {
   pending: number;
   total: number;
   updatedAt: Date;
-};
-
-export type StaticsDriver = {
-  countCar: number;
-  countOrderDelivered: number;
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
-  phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-  wallet: DriverWallet;
 };
 
 export type Driver = {
@@ -509,26 +579,6 @@ export type Photo = {
   width: number;
 };
 
-export type SetDriverSubOrderDto = {
-  carId: string;
-  rating: number;
-};
-
-export type UpdateSubOrderDto = {
-  rating: number;
-};
-
-export type Car = {
-  advantages: Advantage[];
-  brand: string;
-  color: string;
-  createdAt: Date;
-  id: string;
-  model: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-};
-
 export type OrderSubOrder = {
   acceptedAt: string;
   arrivedAt: string;
@@ -545,6 +595,15 @@ export type OrderSubOrder = {
   status: string;
   updatedAt: string;
   weight: number;
+};
+
+export type SetDriverSubOrderDto = {
+  carId: string;
+  rating: number;
+};
+
+export type UpdateSubOrderDto = {
+  rating: number;
 };
 
 export type SubOrder = {
@@ -571,50 +630,6 @@ export type PaginatedSubOrderResponse = {
   pageNumber: number;
   totalDataCount: number;
   totalPages: number;
-};
-
-export type CreateSubOrderDto = {
-  photos: string[];
-  weight: number;
-};
-
-export type CreateSubOrdersDto = {
-  orderId: string;
-  subOrders: CreateSubOrderDto[];
-};
-
-export type UpdateSettingDto = {
-  cost?: number;
-};
-
-export type Setting = {
-  cost: number;
-  createdAt: Date;
-  id: string;
-  name: string;
-  updatedAt: Date;
-};
-
-export type UpdateAdvantageDto = {
-  cost?: number;
-  name?: string;
-};
-
-export type CreateAdvantageDto = {
-  cost: number;
-  name: string;
-};
-
-export type AddAdvansToOrderDto = {
-  advantages: string[];
-};
-
-export type UpdateOrderDto = {
-  cost: number;
-  desiredDate: Date;
-  locationEnd: LocationDto;
-  locationStart: LocationDto;
-  photo: string[];
 };
 
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
@@ -644,6 +659,17 @@ export type Advantage = {
   createdAt: Date;
   id: string;
   name: string;
+  updatedAt: Date;
+};
+
+export type Car = {
+  advantages: Advantage[];
+  brand: string;
+  color: string;
+  createdAt: Date;
+  id: string;
+  model: string;
+  photo: BasePhoto;
   updatedAt: Date;
 };
 
@@ -692,27 +718,14 @@ export type Order = {
   user: MiniUser;
 };
 
-export type Item = {
-  length: number;
-  photo: string;
+export type CreateSubOrderDto = {
+  photos: string[];
   weight: number;
-  width: number;
 };
 
-export type LocationDto = {
-  latitude: number;
-  longitude: number;
-  region: string;
-  street: string;
-};
-
-export type CreateOrderDto = {
-  advantages: string[];
-  desiredDate: Date;
-  items: Item[];
-  locationEnd: LocationDto;
-  locationStart: LocationDto;
-  porters: number;
+export type CreateSubOrdersDto = {
+  orderId: string;
+  subOrders: CreateSubOrderDto[];
 };
 
 export type UpdateCityDto = {
@@ -824,19 +837,6 @@ export type UserWallet = {
   pending: number;
   total: number;
   updatedAt: Date;
-};
-
-export type StaticsUser = {
-  active: boolean;
-  countOrderDelivered: number;
-  createdAt: Date;
-  firstName: string;
-  id: string;
-  lastName: string;
-  phone: string;
-  photo: BasePhoto;
-  updatedAt: Date;
-  wallet: UserWallet;
 };
 
 export type User = {
