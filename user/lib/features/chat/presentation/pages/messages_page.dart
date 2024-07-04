@@ -18,9 +18,16 @@ import '../../../app/presentation/widgets/app_scaffold.dart';
 import '../../../app/presentation/widgets/customer_appbar.dart';
 import '../../../app/presentation/widgets/params_appbar.dart';
 
-class MessagesPage extends StatefulWidget {
-  const MessagesPage({super.key, required this.subOrderId});
+class MessageParam {
   final String subOrderId;
+  final String driverName;
+
+  MessageParam({required this.subOrderId, required this.driverName});
+}
+
+class MessagesPage extends StatefulWidget {
+  const MessagesPage({super.key, required this.param});
+  final MessageParam param;
 
   static const String name = 'MessagesPage';
   static const String path = 'MessagesPage';
@@ -39,25 +46,29 @@ class _MessagesPageState extends State<MessagesPage> {
       child: AppScaffold(
           appBar: AppAppBar(
               appBarParams: AppBarParams(
-            title: 'islam',
+            title: widget.param.driverName,
           )),
           body: BlocBuilder<ChatBloc, ChatState>(
             builder: (context, state) {
-              print(state.toString());
               return Column(
                 children: [
                   Expanded(
                     child: AppPagedBuilder<ChatBloc, MessageModel>.pagedListView(
                       reverse: true,
                       stateName: ChatState.getMessages,
-                      itemBuilder: (context, item, index) => MessageCard(item: item),
+                      itemBuilder: (context, item, index) {
+                        return MessageCard(
+                          item: item,
+                        );
+                      },
                       onPageKeyChanged: (value) {
-                        bloc.add(GetMessagesEvent(param: GetMessagesParam(pageNumber: value, subOrderId: widget.subOrderId)));
+                        bloc.add(GetMessagesEvent(param: GetMessagesParam(pageNumber: value, subOrderId: widget.param.subOrderId)));
                       },
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.all(10),
+                    color: context.colorScheme.surface,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -65,7 +76,7 @@ class _MessagesPageState extends State<MessagesPage> {
                           onPressed: () {
                             if (controller.text.isNotEmpty) {
                               bloc.add(SendMessagesEvent(
-                                param: SendMessageParam(subOrderId: widget.subOrderId, content: controller.text, isUser: true),
+                                param: SendMessageParam(subOrderId: widget.param.subOrderId, content: controller.text, isUser: true),
                                 onSuccess: () {
                                   controller.text = '';
                                 },

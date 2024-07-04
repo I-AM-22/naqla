@@ -156,11 +156,11 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
                 name: MessagesPage.name,
                 parentNavigatorKey: _rootNavigatorKey,
                 builder: (context, state) => MessagesPage(
-                  subOrderId: state.extra as String,
+                  param: state.extra as MessageParam,
                 ),
                 pageBuilder: (context, state) => CustomTransitionPage(
                   child: MessagesPage(
-                    subOrderId: state.extra as String,
+                    param: state.extra as MessageParam,
                   ),
                   transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
                     position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),

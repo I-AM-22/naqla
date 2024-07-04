@@ -15,7 +15,8 @@ class ChatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushNamed(MessagesPage.name, extra: item.id),
+      onTap: () => context.pushNamed(MessagesPage.name,
+          extra: MessageParam(subOrderId: item.id, driverName: '${item.carModel?.driver?.firstName} ${item.carModel?.driver?.lastName}')),
       child: Container(
         margin: REdgeInsets.only(bottom: 16),
         alignment: AlignmentDirectional.centerStart,

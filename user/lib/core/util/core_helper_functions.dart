@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:naqla/core/common/enums/sub_order_status.dart';
 import 'package:naqla/core/core.dart';
+import 'package:naqla/features/chat/data/model/message_model.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
@@ -62,15 +63,31 @@ class CoreHelperFunctions {
 
   static String formatOrderTime(BuildContext context, SubOrderStatus status,
       {DateTime? acceptedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
-    if (status == SubOrderStatus.ready && acceptedAt != null)
+    if (status == SubOrderStatus.ready && acceptedAt != null) {
       return '${S.of(context).order_accepted_date}:\n ${fromOrderDateTimeToString(acceptedAt)}';
-    if (status == SubOrderStatus.delivered && deliveredAt != null)
+    } else if (status == SubOrderStatus.delivered && deliveredAt != null) {
       return '${S.of(context).order_delivered_date}:\n ${fromOrderDateTimeToString(deliveredAt)}';
-    if (status == SubOrderStatus.taken && driverAssignedAt != null)
+    } else if (status == SubOrderStatus.taken && driverAssignedAt != null) {
       return '${S.of(context).order_driverAssigned_date}:\n ${fromOrderDateTimeToString(driverAssignedAt)}';
-    if (status == SubOrderStatus.onTheWay && pickedUpAt != null)
+    } else if (status == SubOrderStatus.onTheWay && pickedUpAt != null) {
       return '${S.of(context).order_pickedUp_date}:\n ${fromOrderDateTimeToString(pickedUpAt)}';
-    return '';
+    } else {
+      return '';
+    }
+  }
+
+  static Map<String, List<MessageModel>> groupMessagesByDate(List<MessageModel> messages) {
+    Map<String, List<MessageModel>> groupedMessages = {};
+
+    for (var message in messages) {
+      String formattedDate = DateFormat('d MMMM y').format(message.createdAt);
+      if (!groupedMessages.containsKey(formattedDate)) {
+        groupedMessages[formattedDate] = [];
+      }
+      groupedMessages[formattedDate]!.add(message);
+    }
+
+    return groupedMessages;
   }
 
   static Color hexToColor(String hexString) {

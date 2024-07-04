@@ -14,6 +14,7 @@ class OrderModel {
   final List<String>? advantages;
   final List<OrderPhotosModel> photos;
   final PaymentModel? paymentModel;
+  final String? userName;
 
   OrderModel({
     required this.id,
@@ -26,6 +27,7 @@ class OrderModel {
     required this.photos,
     required this.porters,
     required this.paymentModel,
+    required this.userName,
   });
 
   OrderModel copyWith({
@@ -39,6 +41,7 @@ class OrderModel {
     List<OrderPhotosModel>? photos,
     int? porters,
     PaymentModel? paymentModel,
+    String? userName,
   }) =>
       OrderModel(
         id: id ?? this.id,
@@ -51,6 +54,7 @@ class OrderModel {
         photos: photos ?? this.photos,
         paymentModel: paymentModel ?? this.paymentModel,
         porters: porters ?? this.porters,
+        userName: userName ?? this.userName,
       );
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
@@ -64,6 +68,7 @@ class OrderModel {
         advantages: json["advantages"] == null ? null : List<String>.from(json["advantages"].map((x) => x['name'])),
         photos: json["photos"] == null ? [] : List<OrderPhotosModel>.from(json["photos"].map((x) => OrderPhotosModel.fromJson(x))),
         paymentModel: json["payment"] == null ? null : PaymentModel.fromJson(json["payment"]),
+        userName: json['user'] == null ? null : "${json["user"]["firstName"]} ${json["user"]["lastName"]}",
       );
 
   Map<String, dynamic> toJson() => {
