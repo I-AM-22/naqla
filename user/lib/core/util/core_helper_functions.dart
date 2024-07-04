@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:naqla/core/common/enums/sub_order_status.dart';
 import 'package:naqla/core/core.dart';
-import 'package:naqla/features/chat/data/model/message_model.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
@@ -76,20 +75,6 @@ class CoreHelperFunctions {
     }
   }
 
-  static Map<String, List<MessageModel>> groupMessagesByDate(List<MessageModel> messages) {
-    Map<String, List<MessageModel>> groupedMessages = {};
-
-    for (var message in messages) {
-      String formattedDate = DateFormat('d MMMM y').format(message.createdAt);
-      if (!groupedMessages.containsKey(formattedDate)) {
-        groupedMessages[formattedDate] = [];
-      }
-      groupedMessages[formattedDate]!.add(message);
-    }
-
-    return groupedMessages;
-  }
-
   static Color hexToColor(String hexString) {
     final buffer = StringBuffer();
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
@@ -118,12 +103,23 @@ class CoreHelperFunctions {
       DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR}").format(dateTime.toLocal());
 
   static String fromOrderDateTimeToString(DateTime dateTime) =>
-      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_Hm().format(dateTime.toLocal());
+      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_jm().format(dateTime.toLocal());
 
-  static String fromMessageDateTimeToString(DateTime dateTime) =>
-      '${DateFormat.yMd().format(dateTime.toLocal())} - ${DateFormat().add_jm().format(dateTime.toLocal())}';
+  static String fromMessageDateTimeToString(DateTime dateTime) => DateFormat().add_jm().format(dateTime.toLocal());
 
   static String fromTimeToString(DateTime dateTime) => DateFormat.Hm().format(dateTime.toLocal());
+
+  static String formatDateChat(DateTime date, BuildContext context) {
+    final DateTime dateTime = DateTime.now();
+    DateTime yesterday = dateTime.subtract(const Duration(days: 1));
+    if (DateFormat('d MMMM y').format(date) == DateFormat('d MMMM y').format(yesterday)) {
+      return S.of(context).yesterday;
+    } else if (DateFormat('d MMMM y').format(date) != DateFormat('d MMMM y').format(dateTime)) {
+      return DateFormat('d MMMM y').format(date);
+    } else {
+      return S.of(context).today;
+    }
+  }
 
   static String timeOfDayToString(TimeOfDay time) => '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00';
 

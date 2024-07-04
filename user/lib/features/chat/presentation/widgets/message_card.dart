@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/features/chat/data/model/message_model.dart';
 
@@ -7,8 +8,11 @@ import '../../../../core/common/constants/constants.dart';
 import '../../../../core/util/core_helper_functions.dart';
 
 class MessageCard extends StatelessWidget {
-  const MessageCard({super.key, required this.item});
+  const MessageCard({super.key, required this.item, required this.index, this.previousItem, required this.lastMessage});
   final MessageModel item;
+  final MessageModel? previousItem;
+  final int index;
+  final bool lastMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +21,15 @@ class MessageCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: !item.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
+          if (lastMessage)
+            Center(
+                child: Container(
+                    padding: REdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: AppText(CoreHelperFunctions.formatDateChat(previousItem!.createdAt.toLocal(), context)))),
           16.verticalSpace,
           Container(
             padding: REdgeInsets.all(7),
@@ -39,6 +52,15 @@ class MessageCard extends StatelessWidget {
             style: TextStyle(fontSize: 12.sp),
             color: context.colorScheme.tertiary,
           ),
+          if (previousItem != null && DateFormat('d MMMM y').format(item.createdAt) != DateFormat('d MMMM y').format(previousItem!.createdAt))
+            Center(
+                child: Container(
+                    padding: REdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: AppText(CoreHelperFunctions.formatDateChat(previousItem!.createdAt.toLocal(), context)))),
         ],
       ),
     );

@@ -59,6 +59,9 @@ class _MessagesPageState extends State<MessagesPage> {
                       itemBuilder: (context, item, index) {
                         return MessageCard(
                           item: item,
+                          index: index,
+                          previousItem: index == 0 ? null : state.getState(ChatState.getMessages).pagingController.itemList?[index - 1],
+                          lastMessage: index == (state.getState(ChatState.getMessages).pagingController.itemList?.length ?? 1) - 1,
                         );
                       },
                       onPageKeyChanged: (value) {

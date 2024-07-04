@@ -8,6 +8,8 @@
   "minute": "minute",
   "hour": "hour",
   "second": "second",
+  "today": "Today",
+  "yesterday": "Yesterday",
 
   "________________onBoarding____________________": "",
   "anywhere_you_are": "Anywhere you are",

@@ -209,6 +209,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
         "this_field_is_required":
             MessageLookupByLibrary.simpleMessage("This field is required"),
+        "today": MessageLookupByLibrary.simpleMessage("Today"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total Money: "),
         "total_number_of_floors":
             MessageLookupByLibrary.simpleMessage("Total number of floors:"),
@@ -238,6 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "write_message":
             MessageLookupByLibrary.simpleMessage("Write a message"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
         "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
             "Your account is ready to use. You will be redirected to the Home Page in a few seconds."),
         "your_code": MessageLookupByLibrary.simpleMessage(" code"),

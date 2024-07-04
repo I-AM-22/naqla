@@ -202,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد بيانات لعرضها"),
         "this_field_is_required":
             MessageLookupByLibrary.simpleMessage("هذا الحقل مطلوب"),
+        "today": MessageLookupByLibrary.simpleMessage("اليوم"),
         "total_money": MessageLookupByLibrary.simpleMessage("الاموال الكلية: "),
         "total_number_of_floors":
             MessageLookupByLibrary.simpleMessage("عدد الطوابق الكلي:"),
@@ -226,6 +227,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("الأمس"),
         "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
             "حسابك جاهز للاستخدام. ستتم إعادة توجيهك إلى الصفحة الرئيسية في بضع ثوان."),
         "your_code": MessageLookupByLibrary.simpleMessage(" الخاص بك"),
