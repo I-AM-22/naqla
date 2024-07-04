@@ -250,26 +250,6 @@ class S {
     );
   }
 
-  /// `Enable your location`
-  String get enable_your_location {
-    return Intl.message(
-      'Enable your location',
-      name: 'enable_your_location',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Choose your location to start find the request around you`
-  String get choose_your_location_to_start {
-    return Intl.message(
-      'Choose your location to start find the request around you',
-      name: 'choose_your_location_to_start',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Use my location`
   String get use_my_location {
     return Intl.message(
@@ -350,16 +330,6 @@ class S {
     );
   }
 
-  /// `City`
-  String get city {
-    return Intl.message(
-      'City',
-      name: 'city',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Sign up `
   String get sign_up {
     return Intl.message(
@@ -385,16 +355,6 @@ class S {
     return Intl.message(
       'Last name',
       name: 'last_name',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Email`
-  String get email {
-    return Intl.message(
-      'Email',
-      name: 'email',
       desc: '',
       args: [],
     );
@@ -480,81 +440,11 @@ class S {
     );
   }
 
-  /// `Didn’t receive code? `
-  String get did_not_receive_code {
-    return Intl.message(
-      'Didn’t receive code? ',
-      name: 'did_not_receive_code',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Resend again`
-  String get resend_again {
-    return Intl.message(
-      'Resend again',
-      name: 'resend_again',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Verify`
   String get verify {
     return Intl.message(
       'Verify',
       name: 'verify',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Set password`
-  String get set_password {
-    return Intl.message(
-      'Set password',
-      name: 'set_password',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Set your password`
-  String get set_your_password {
-    return Intl.message(
-      'Set your password',
-      name: 'set_your_password',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Enter Your Password`
-  String get enter_Your_Password {
-    return Intl.message(
-      'Enter Your Password',
-      name: 'enter_Your_Password',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Confirm Password`
-  String get confirm_Password {
-    return Intl.message(
-      'Confirm Password',
-      name: 'confirm_Password',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `At least 1 number or a special character`
-  String get at_least_number_or_a_special_character {
-    return Intl.message(
-      'At least 1 number or a special character',
-      name: 'at_least_number_or_a_special_character',
       desc: '',
       args: [],
     );
@@ -580,41 +470,11 @@ class S {
     );
   }
 
-  /// `Forget password?`
-  String get forget_password {
-    return Intl.message(
-      'Forget password?',
-      name: 'forget_password',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Don’t have an account? `
   String get do_not_have_an_account {
     return Intl.message(
       'Don’t have an account? ',
       name: 'do_not_have_an_account',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Congratulations `
-  String get congratulations {
-    return Intl.message(
-      'Congratulations ',
-      name: 'congratulations',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Your account is ready to use. You will be redirected to the Home Page in a few seconds.`
-  String get your_account_is_ready_to_use {
-    return Intl.message(
-      'Your account is ready to use. You will be redirected to the Home Page in a few seconds.',
-      name: 'your_account_is_ready_to_use',
       desc: '',
       args: [],
     );
@@ -745,6 +605,26 @@ class S {
     return Intl.message(
       'Item weight (KG)',
       name: 'item_weight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This action will not be undone and the amount due will be deducted from your account`
+  String get this_action_will_not_be_undone {
+    return Intl.message(
+      'This action will not be undone and the amount due will be deducted from your account',
+      name: 'this_action_will_not_be_undone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to cancel the order?`
+  String get are_you_sure_you_want_to_cancel_the_order {
+    return Intl.message(
+      'Are you sure you want to cancel the order?',
+      name: 'are_you_sure_you_want_to_cancel_the_order',
       desc: '',
       args: [],
     );

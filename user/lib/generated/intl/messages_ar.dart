@@ -54,6 +54,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "anywhere_you_are":
             MessageLookupByLibrary.simpleMessage("في أي مكان كنت"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+        "are_you_sure_you_want_to_cancel_the_order":
+            MessageLookupByLibrary.simpleMessage(
+                "هل انت متأكد أنك تريد الغاء الطلب؟"),
         "are_you_sure_you_want_to_delete_account":
             MessageLookupByLibrary.simpleMessage(
                 "هل انت متأكد انك تريد حذف حسابك؟ يرجى قراءة كيف سيؤثر حذف الحساب.\nيؤدي حذف حسابك إلى إزالة المعلومات الشخصية من قاعدة بياناتنا."),
@@ -61,8 +64,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "هل انت متأكد أنك تريد تسجيل الخروج من هذا الحساب؟"),
         "at_anytime": MessageLookupByLibrary.simpleMessage("في أي وقت"),
-        "at_least_number_or_a_special_character":
-            MessageLookupByLibrary.simpleMessage("رقم 1 على الأقل أو حرف خاص"),
         "available_money":
             MessageLookupByLibrary.simpleMessage("الاموال المتوفرة: "),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
@@ -75,20 +76,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "car_model": MessageLookupByLibrary.simpleMessage("موديل السيارة"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
-        "choose_your_location_to_start": MessageLookupByLibrary.simpleMessage(
-            "اختر موقعك للبدء في العثور على الطلب من حولك"),
-        "city": MessageLookupByLibrary.simpleMessage("المدينة"),
-        "confirm_Password":
-            MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
         "confirm_order": MessageLookupByLibrary.simpleMessage("تأكيد النقلة"),
-        "congratulations": MessageLookupByLibrary.simpleMessage("مبروك "),
         "cost": MessageLookupByLibrary.simpleMessage("الكلفة:"),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
         "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
         "delivered": MessageLookupByLibrary.simpleMessage("تم توصيل النقلة"),
-        "did_not_receive_code":
-            MessageLookupByLibrary.simpleMessage("ألم تتلق الرمز؟ "),
         "do_not_have_an_account":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
         "done_orders": MessageLookupByLibrary.simpleMessage("النقلات المنتهية"),
@@ -97,17 +90,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_phone": MessageLookupByLibrary.simpleMessage("تعديل رقم الهاتف"),
         "edit_profile":
             MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
-        "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
-        "enable_your_location":
-            MessageLookupByLibrary.simpleMessage("تمكين موقعك"),
         "end_point": MessageLookupByLibrary.simpleMessage("نقطة الوصول"),
         "english": MessageLookupByLibrary.simpleMessage("الانكليزية"),
-        "enter_Your_Password":
-            MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور الخاصة بك"),
         "enter_code": MessageLookupByLibrary.simpleMessage("أدخل رمز "),
         "first_name": MessageLookupByLibrary.simpleMessage("الاسم الاول"),
-        "forget_password":
-            MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
         "full_Name": MessageLookupByLibrary.simpleMessage("الاسم كامل"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
         "go": MessageLookupByLibrary.simpleMessage("اذهب"),
@@ -161,8 +147,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "region": MessageLookupByLibrary.simpleMessage("المنطقة"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
-        "resend_again":
-            MessageLookupByLibrary.simpleMessage("إعادة الإرسال مرة أخرى"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),
         "select_photo": MessageLookupByLibrary.simpleMessage("اختيار صورة"),
         "sell_houses_easily_with_the_help_of_Listenoryx":
@@ -172,10 +156,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم توصيل النقلة"),
         "set_order_picked_up":
             MessageLookupByLibrary.simpleMessage("تحميل النقلة"),
-        "set_password":
-            MessageLookupByLibrary.simpleMessage("تعيين كلمة المرور"),
-        "set_your_password":
-            MessageLookupByLibrary.simpleMessage("تعيين كلمة المرور الخاصة بك"),
         "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "sign_up": MessageLookupByLibrary.simpleMessage("التسجيل "),
         "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
@@ -200,6 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "the_weight": MessageLookupByLibrary.simpleMessage("الوزن"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لا يوجد بيانات لعرضها"),
+        "this_action_will_not_be_undone": MessageLookupByLibrary.simpleMessage(
+            "لن يتم التراجع عن هذا الامر وسيتم خصم المبلغ المستحق من حسابك"),
         "this_field_is_required":
             MessageLookupByLibrary.simpleMessage("هذا الحقل مطلوب"),
         "today": MessageLookupByLibrary.simpleMessage("اليوم"),
@@ -228,8 +210,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "yesterday": MessageLookupByLibrary.simpleMessage("الأمس"),
-        "your_account_is_ready_to_use": MessageLookupByLibrary.simpleMessage(
-            "حسابك جاهز للاستخدام. ستتم إعادة توجيهك إلى الصفحة الرئيسية في بضع ثوان."),
         "your_code": MessageLookupByLibrary.simpleMessage(" الخاص بك"),
         "your_mobile_number":
             MessageLookupByLibrary.simpleMessage("رقم هاتفك المحمول")

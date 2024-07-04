@@ -100,22 +100,6 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                         },
                       ),
                     ),
-                    20.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppText.subHeadMedium(S.of(context).did_not_receive_code, color: context.colorScheme.systemGray.shade700),
-                        Flexible(
-                          child: TextButton(
-                              onPressed: () {},
-                              child: AppText.subHeadMedium(
-                                S.of(context).resend_again,
-                                color: context.colorScheme.primary,
-                              )),
-                        )
-                      ],
-                    ),
-                    // const Spacer(),
                   ],
                 ),
               ),

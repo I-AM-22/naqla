@@ -15,6 +15,7 @@ import 'package:naqla/features/home/domain/use_case/accept_order_use_case.dart';
 
 import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
+import '../../../app/presentation/widgets/animated_dialog.dart';
 import '../bloc/home_bloc.dart';
 
 class OrderDetailsPage extends StatelessWidget {
@@ -45,11 +46,50 @@ class OrderDetailsPage extends StatelessWidget {
                           isLoading: state.getState(HomeState.acceptOrder).isLoading,
                           title: S.of(context).confirm_order,
                           onPressed: () {
-                            context.read<HomeBloc>().add(AcceptOrderEvent(
-                                param: AcceptOrderParam(id: orderModel.id),
-                                onSuccess: () {
-                                  context.pop();
-                                }));
+                            AnimatedDialog.show(context,
+                                child: Padding(
+                                  padding: REdgeInsets.all(20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      AppText.titleSmall(S.of(context).confirm_order),
+                                      4.verticalSpace,
+                                      AppText.bodyMedium(S.of(context).this_action_will_not_be_undone),
+                                      16.verticalSpace,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            child: AppButton.dark(
+                                                buttonSize: ButtonSize.medium,
+                                                child: AppText.bodySmall(
+                                                  S.of(context).confirm_order,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () async {
+                                                  context.read<HomeBloc>().add(AcceptOrderEvent(
+                                                      param: AcceptOrderParam(id: orderModel.id),
+                                                      onSuccess: () {
+                                                        context.pop();
+                                                      }));
+                                                  context.pop();
+                                                }),
+                                          ),
+                                          16.horizontalSpace,
+                                          Expanded(
+                                            child: AppButton.gray(
+                                              buttonSize: ButtonSize.medium,
+                                              child: AppText.bodySmall(S.of(context).cancel),
+                                              onPressed: () {
+                                                context.pop(S.of(context).cancel);
+                                              },
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ));
                           },
                         ),
                       ),
@@ -64,11 +104,54 @@ class OrderDetailsPage extends StatelessWidget {
                           )),
                           title: S.of(context).cancel_order,
                           onPressed: () {
-                            context.read<HomeBloc>().add(CancelOrderEvent(
-                                param: AcceptOrderParam(id: orderModel.id),
-                                onSuccess: () {
-                                  context.pop();
-                                }));
+                            AnimatedDialog.show(context,
+                                child: Padding(
+                                  padding: REdgeInsets.all(20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      AppText.titleSmall(S.of(context).cancel_order),
+                                      4.verticalSpace,
+                                      AppText.bodyMedium(S.of(context).are_you_sure_you_want_to_cancel_the_order),
+                                      16.verticalSpace,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            child: AppButton.dark(
+                                                style: ButtonStyle(
+                                                    backgroundColor: WidgetStateProperty.resolveWith(
+                                                  (states) => context.colorScheme.error,
+                                                )),
+                                                buttonSize: ButtonSize.medium,
+                                                child: AppText.bodySmall(
+                                                  S.of(context).cancel_order,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () async {
+                                                  context.read<HomeBloc>().add(CancelOrderEvent(
+                                                      param: AcceptOrderParam(id: orderModel.id),
+                                                      onSuccess: () {
+                                                        context.pop();
+                                                      }));
+                                                  context.pop();
+                                                }),
+                                          ),
+                                          16.horizontalSpace,
+                                          Expanded(
+                                            child: AppButton.gray(
+                                              buttonSize: ButtonSize.medium,
+                                              child: AppText.bodySmall(S.of(context).no),
+                                              onPressed: () {
+                                                context.pop(S.of(context).no);
+                                              },
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ));
                           },
                         ),
                       ),
