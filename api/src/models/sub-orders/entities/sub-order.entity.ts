@@ -31,23 +31,23 @@ export class SubOrder extends GlobalEntity {
   status: SUB_ORDER_STATUS;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'timestamptz' })
   acceptedAt: Date;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'timestamptz' })
   arrivedAt: Date;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'timestamptz' })
   deliveredAt: Date;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'timestamptz' })
   driverAssignedAt: Date;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'timestamptz' })
   pickedUpAt: Date;
 
   @ApiProperty({ type: () => Order })

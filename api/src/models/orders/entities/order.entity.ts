@@ -14,7 +14,7 @@ import { MiniUser } from '@models/users/interfaces/mini-user.interface';
 @Entity('orders')
 export class Order extends GlobalEntity {
   @ApiProperty()
-  @Column()
+  @Column({ type: 'timestamptz' })
   desiredDate: Date;
 
   @ApiProperty({ enum: ORDER_STATUS })

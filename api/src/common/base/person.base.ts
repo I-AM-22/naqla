@@ -35,7 +35,7 @@ export class BasePersonWithPass extends BasePerson {
   password: string;
 
   @Exclude()
-  @Column({ nullable: true, select: false })
+  @Column({ nullable: true, select: false, type: 'timestamptz' })
   passwordChangedAt: Date;
 
   @Exclude()
@@ -43,7 +43,7 @@ export class BasePersonWithPass extends BasePerson {
   passwordResetToken: string;
 
   @Exclude()
-  @Column({ nullable: true, select: false })
+  @Column({ nullable: true, select: false, type: 'timestamptz' })
   passwordResetExpires: Date;
 
   @BeforeInsert()

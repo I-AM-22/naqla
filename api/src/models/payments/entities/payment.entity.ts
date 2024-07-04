@@ -15,7 +15,7 @@ export class Payment extends GlobalEntity {
   additionalCost: number;
 
   @ApiProperty({ default: '2022-2-2' })
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'timestamptz' })
   deliveredDate: Date;
 
   @OneToOne(() => Order, (order) => order.payment)
