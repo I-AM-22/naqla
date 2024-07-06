@@ -8,6 +8,8 @@
   "minute": "minute",
   "hour": "hour",
   "second": "second",
+  "today": "Today",
+  "yesterday": "Yesterday",
 
   "_________________authentication________________": "",
   "skip_for_now": "Skip for now",

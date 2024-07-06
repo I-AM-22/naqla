@@ -182,6 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("There are no advantages"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),
+        "today": MessageLookupByLibrary.simpleMessage("Today"),
         "total_money": MessageLookupByLibrary.simpleMessage("Total money: "),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "vehicle_advantages":
@@ -195,6 +196,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "write_message":
             MessageLookupByLibrary.simpleMessage("Write a message"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
         "your_code": MessageLookupByLibrary.simpleMessage(" code"),
         "your_mobile_number":
             MessageLookupByLibrary.simpleMessage("Your mobile number")

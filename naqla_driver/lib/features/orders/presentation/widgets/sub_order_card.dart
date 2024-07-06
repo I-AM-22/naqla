@@ -52,7 +52,6 @@ class SubOrderCard extends StatelessWidget {
                             text: CoreHelperFunctions.formatOrderTime(context, subOrderModel.status!,
                                 pickedUpAt: subOrderModel.pickedUpAt,
                                 driverAssignedAt: subOrderModel.driverAssignedAt,
-                                arrivedAt: subOrderModel.arrivedAt,
                                 acceptedAt: subOrderModel.acceptedAt,
                                 deliveredAt: subOrderModel.deliveredAt)),
                       ]),

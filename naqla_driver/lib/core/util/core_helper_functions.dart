@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/features/auth/presentation/pages/login_page.dart';
 import 'package:naqla_driver/features/home/presentation/state/home_bloc.dart';
-import 'package:naqla_driver/features/orders/presentation/state/order_bloc.dart';
 import 'package:naqla_driver/features/profile/presentation/state/profile_bloc.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../../features/app/presentation/widgets/animated_dialog.dart';
@@ -111,13 +110,19 @@ class CoreHelperFunctions {
       ));
 
   static String formatOrderTime(BuildContext context, SubOrderStatus status,
-      {DateTime? acceptedAt, DateTime? arrivedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
-    if (status == SubOrderStatus.ready) return '${S.of(context).order_accepted_date}:\n${fromOrderDateTimeToString(acceptedAt!)}';
-    if (status == SubOrderStatus.delivered) {
-      return '${S.of(context).order_delivered_date}:\n${fromOrderDateTimeToString(deliveredAt ?? DateTime.now())}';
+      {DateTime? acceptedAt, DateTime? deliveredAt, DateTime? driverAssignedAt, DateTime? pickedUpAt}) {
+    if (status == SubOrderStatus.ready && acceptedAt != null) {
+      return '${S.of(context).order_accepted_date}:\n${fromOrderDateTimeToString(acceptedAt)}';
     }
-    if (status == SubOrderStatus.taken) return '${S.of(context).order_driverAssigned_date}:\n${fromOrderDateTimeToString(driverAssignedAt!)}';
-    if (status == SubOrderStatus.onTheWay) return '${S.of(context).order_pickedUp_date}:\n${fromOrderDateTimeToString(pickedUpAt!)}';
+    if (status == SubOrderStatus.delivered && deliveredAt != null) {
+      return '${S.of(context).order_delivered_date}:\n${fromOrderDateTimeToString(deliveredAt)}';
+    }
+    if (status == SubOrderStatus.taken && driverAssignedAt != null) {
+      return '${S.of(context).order_driverAssigned_date}:\n${fromOrderDateTimeToString(driverAssignedAt)}';
+    }
+    if (status == SubOrderStatus.onTheWay && pickedUpAt != null) {
+      return '${S.of(context).order_pickedUp_date}:\n${fromOrderDateTimeToString(pickedUpAt)}';
+    }
     return '';
   }
 
@@ -143,10 +148,22 @@ class CoreHelperFunctions {
       DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR}").format(dateTime.toLocal());
 
   static String fromOrderDateTimeToString(DateTime dateTime) =>
-      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_Hm().format(dateTime.toLocal());
+      DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_jm().format(dateTime.toLocal());
 
   static String fromMessageDateTimeToString(DateTime dateTime) =>
       '${DateFormat.yMd().format(dateTime.toLocal())} - ${DateFormat().add_jm().format(dateTime.toLocal())}';
+
+  static String formatDateChat(DateTime date, BuildContext context) {
+    final DateTime dateTime = DateTime.now();
+    DateTime yesterday = dateTime.subtract(const Duration(days: 1));
+    if (DateFormat('d MMMM y').format(date) == DateFormat('d MMMM y').format(yesterday)) {
+      return S.of(context).yesterday;
+    } else if (DateFormat('d MMMM y').format(date) != DateFormat('d MMMM y').format(dateTime)) {
+      return DateFormat('d MMMM y').format(date);
+    } else {
+      return S.of(context).today;
+    }
+  }
 
   static String fromTimeToString(DateTime dateTime) => DateFormat.Hm().format(dateTime.toLocal());
 

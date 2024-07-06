@@ -177,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد ميزات"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لايوجد هناك بيانات لعرضها"),
+        "today": MessageLookupByLibrary.simpleMessage("اليوم"),
         "total_money": MessageLookupByLibrary.simpleMessage("الاموال الكلية: "),
         "update": MessageLookupByLibrary.simpleMessage("تحديث"),
         "vehicle_advantages":
@@ -188,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "weight": MessageLookupByLibrary.simpleMessage("الوزن: "),
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("الأمس"),
         "your_code": MessageLookupByLibrary.simpleMessage(" الخاص بك"),
         "your_mobile_number":
             MessageLookupByLibrary.simpleMessage("رقم هاتفك المحمول")

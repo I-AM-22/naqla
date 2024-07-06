@@ -50,7 +50,6 @@ class _MessagesPageState extends State<MessagesPage> {
           )),
           body: BlocBuilder<ChatBloc, ChatState>(
             builder: (context, state) {
-              print(state.toString());
               return Column(
                 children: [
                   Expanded(
@@ -58,7 +57,12 @@ class _MessagesPageState extends State<MessagesPage> {
                       reverse: true,
                       noItemsFoundIndicatorBuilder: Center(child: AppText.titleSmall('لا يوجد رسائل لعرضها')),
                       stateName: ChatState.getMessages,
-                      itemBuilder: (context, item, index) => MessageCard(item: item),
+                      itemBuilder: (context, item, index) => MessageCard(
+                        item: item,
+                        index: index,
+                        previousItem: index == 0 ? null : state.getState(ChatState.getMessages).pagingController.itemList?[index - 1],
+                        lastMessage: index == (state.getState(ChatState.getMessages).pagingController.itemList?.length ?? 1) - 1,
+                      ),
                       onPageKeyChanged: (value) {
                         bloc.add(GetMessagesEvent(param: GetMessagesParam(pageNumber: value, subOrderId: widget.param.subOrderId)));
                       },
@@ -66,6 +70,7 @@ class _MessagesPageState extends State<MessagesPage> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(10),
+                    color: context.colorScheme.surface,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [

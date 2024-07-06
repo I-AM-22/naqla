@@ -79,7 +79,7 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                                 text: '\n${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate!)}'),
                             TextSpan(
                                 text:
-                                    '\n${CoreHelperFunctions.formatOrderTime(context, data.status!, deliveredAt: data.deliveredAt, acceptedAt: data.acceptedAt, arrivedAt: data.arrivedAt, driverAssignedAt: data.driverAssignedAt, pickedUpAt: data.pickedUpAt)}'),
+                                    '\n${CoreHelperFunctions.formatOrderTime(context, data.status!, deliveredAt: data.deliveredAt, acceptedAt: data.acceptedAt, driverAssignedAt: data.driverAssignedAt, pickedUpAt: data.pickedUpAt)}'),
                           ]),
                         ),
                       ),

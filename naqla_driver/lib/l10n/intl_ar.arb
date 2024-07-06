@@ -8,6 +8,8 @@
   "minute": "دقيقة",
   "hour": "ساعة",
   "second": "ثانية",
+  "today": "اليوم",
+  "yesterday": "الأمس",
 
   "_________________authentication________________": "",
   "use_my_location": "استخدام موقعي",
