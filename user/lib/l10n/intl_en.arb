@@ -121,6 +121,8 @@
   "car_color":"car color",
   "car_brand":"car brand",
   "order_photos": "order photos",
+  "rate_the_driver": "Rate the driver",
+  "write_a_comment_note": "Write a comment / note",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

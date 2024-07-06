@@ -145,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "يرجى إلتقاط صور للإغراض التي سيتم نقلها للمساعدة بالعثور على سيارة (او عدة سيارات) مناسبة."),
         "porters": MessageLookupByLibrary.simpleMessage("حمالين"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+        "rate_the_driver": MessageLookupByLibrary.simpleMessage("قيّم السائق"),
         "region": MessageLookupByLibrary.simpleMessage("المنطقة"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),
@@ -207,6 +208,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "waiting_for_the_supervisor_to_review":
             MessageLookupByLibrary.simpleMessage("بإنتظار مراجعة المشرف"),
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
+        "write_a_comment_note":
+            MessageLookupByLibrary.simpleMessage("اكتب تعليق / ملاحظة"),
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "yesterday": MessageLookupByLibrary.simpleMessage("الأمس"),

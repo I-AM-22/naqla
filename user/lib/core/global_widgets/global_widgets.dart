@@ -5,7 +5,6 @@ export 'app_text_field.dart';
 export 'app_drop_down.dart';
 export 'app_password_field.dart';
 export 'app_switch.dart';
-export 'app_tool_tip.dart';
 export 'app_checkbox.dart';
 export 'app_popup_menu.dart';
 export 'word_divider.dart';

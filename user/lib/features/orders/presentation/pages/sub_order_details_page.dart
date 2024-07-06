@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:naqla/core/common/enums/sub_order_status.dart';
+import 'package:naqla/features/orders/presentation/pages/rating_page.dart';
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../../core/core.dart';
@@ -56,7 +59,32 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                     16.verticalSpace,
                     Padding(
                       padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                      child: data.status.displayStatus(context, arrivedAt: data.arrivedAt),
+                      child: Row(
+                        children: [
+                          Expanded(child: data.status.displayStatus(context, arrivedAt: data.arrivedAt)),
+                          if (data.status == SubOrderStatus.delivered) ...{
+                            8.horizontalSpace,
+                            Expanded(
+                              child: InkWell(
+                                onTap: () => context.pushNamed(RatingPage.name),
+                                child: Container(
+                                  padding: REdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: context.colorScheme.delivered,
+                                  ),
+                                  child: Center(
+                                    child: AppText.subHeadMedium(
+                                      S.of(context).rate_the_driver,
+                                      color: context.colorScheme.primary,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          },
+                        ],
+                      ),
                     ),
                     16.verticalSpace,
                     Padding(

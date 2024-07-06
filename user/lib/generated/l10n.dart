@@ -1170,6 +1170,26 @@ class S {
     );
   }
 
+  /// `Rate the driver`
+  String get rate_the_driver {
+    return Intl.message(
+      'Rate the driver',
+      name: 'rate_the_driver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a comment / note`
+  String get write_a_comment_note {
+    return Intl.message(
+      'Write a comment / note',
+      name: 'write_a_comment_note',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(

@@ -29,67 +29,57 @@ enum SubOrderStatus {
         return Container(
           padding: REdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(8),
             color: context.colorScheme.waiting,
           ),
           child: Center(
               child: AppText.subHeadMedium(
-                  '${S.of(context).order_status} ${arrivedAt == null ? S.of(context).waiting_for_the_driver_to_arrive : S.of(context).waiting_for_the_order_to_be_pickUp}')),
+                  arrivedAt == null ? S.of(context).waiting_for_the_driver_to_arrive : S.of(context).waiting_for_the_order_to_be_pickUp)),
         );
       case SubOrderStatus.ready:
         return Container(
           padding: REdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(8),
             color: context.colorScheme.ready,
           ),
-          child: Center(
-              child: AppText.subHeadMedium(
-                  '${S.of(context).order_status} ${S.of(context).waiting_for_drivers_to_be_hired}')),
+          child: Center(child: AppText.subHeadMedium(S.of(context).waiting_for_drivers_to_be_hired)),
         );
       case SubOrderStatus.onTheWay:
         return Container(
           padding: REdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(8),
             color: context.colorScheme.success.shade600,
           ),
-          child: Center(
-              child: AppText.subHeadMedium(
-                  '${S.of(context).order_status} ${S.of(context).order_on_the_way}')),
+          child: Center(child: AppText.subHeadMedium(S.of(context).order_on_the_way)),
         );
       case SubOrderStatus.delivered:
         return Container(
-          padding: REdgeInsets.symmetric(vertical: 15),
+          padding: REdgeInsets.all(15),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
-            color: context.colorScheme.success.shade600,
+            borderRadius: BorderRadius.circular(8),
+            color: context.colorScheme.delivered,
           ),
-          child: Center(
-              child: AppText.subHeadMedium(
-                  '${S.of(context).order_status} ${S.of(context).delivered}')),
+          child: Center(child: AppText.subHeadMedium(S.of(context).delivered)),
         );
       case SubOrderStatus.waiting:
         return Container(
           padding: REdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(8),
             color: context.colorScheme.waiting,
           ),
-          child: Center(
-              child: AppText.subHeadMedium(
-                  '${S.of(context).order_status} ${S.of(context).waiting_for_customer_confirmation}')),
+          child: Center(child: AppText.subHeadMedium(S.of(context).waiting_for_customer_confirmation)),
         );
       case SubOrderStatus.refused:
         return Container(
           padding: REdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(8),
             color: context.colorScheme.warning,
           ),
-          child: Center(
-              child: AppText.subHeadMedium(
-                  '${S.of(context).order_status} ${S.of(context).the_order_has_been_canceled}')),
+          child: Center(child: AppText.subHeadMedium(S.of(context).the_order_has_been_canceled)),
         );
     }
   }

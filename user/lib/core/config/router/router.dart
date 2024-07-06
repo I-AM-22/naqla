@@ -9,6 +9,7 @@ import 'package:naqla/features/chat/presentation/pages/chat_page.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/presentation/pages/create_order.dart';
 import 'package:naqla/features/orders/presentation/pages/order_page.dart';
+import 'package:naqla/features/orders/presentation/pages/rating_page.dart';
 import 'package:naqla/features/profile/presentation/pages/verification_update_phone_number_page.dart';
 import 'package:naqla/features/profile/presentation/pages/wallet_page.dart';
 
@@ -134,13 +135,20 @@ final router = GoRouter(initialLocation: SplashScreen.path, navigatorKey: _rootN
                       ),
                   routes: [
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
-                      path: SubOrderDetailsPage.path,
-                      name: SubOrderDetailsPage.name,
-                      builder: (context, state) => SubOrderDetailsPage(
-                        id: state.extra as String,
-                      ),
-                    ),
+                        parentNavigatorKey: _rootNavigatorKey,
+                        path: SubOrderDetailsPage.path,
+                        name: SubOrderDetailsPage.name,
+                        builder: (context, state) => SubOrderDetailsPage(
+                              id: state.extra as String,
+                            ),
+                        routes: [
+                          GoRoute(
+                            path: RatingPage.path,
+                            name: RatingPage.name,
+                            parentNavigatorKey: _rootNavigatorKey,
+                            builder: (context, state) => RatingPage(),
+                          )
+                        ]),
                   ])
             ])
       ]),

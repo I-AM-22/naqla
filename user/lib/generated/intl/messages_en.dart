@@ -149,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Please take photos of the items to be transported to help find a suitable vehicle (or vehicles)."),
         "porters": MessageLookupByLibrary.simpleMessage("Porters"),
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
+        "rate_the_driver":
+            MessageLookupByLibrary.simpleMessage("Rate the driver"),
         "region": MessageLookupByLibrary.simpleMessage("Region"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "second": MessageLookupByLibrary.simpleMessage("second"),
@@ -218,6 +220,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Waiting for the supervisor to review"),
         "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
+        "write_a_comment_note":
+            MessageLookupByLibrary.simpleMessage("Write a comment / note"),
         "write_message":
             MessageLookupByLibrary.simpleMessage("Write a message"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
