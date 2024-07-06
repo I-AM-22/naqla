@@ -1,12 +1,10 @@
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
-import 'package:naqla/core/global_widgets/image_place_holder.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 
@@ -61,13 +59,9 @@ class SubOrderCard extends StatelessWidget {
                       SizedBox(
                           height: 150.h,
                           width: 150.w,
-                          child: BlurHash(
-                            imageFit: BoxFit.cover,
-                            hash: orderModel.photos[0].blurHash,
-                            image: orderModel.photos[0].mobileUrl,
-                            errorBuilder: (context, error, stackTrace) {
-                              return ImagePlaceHolder(width: 150.w, height: 150.h);
-                            },
+                          child: AppImage.network(
+                            fit: BoxFit.cover,
+                            orderModel.photos[0].mobileUrl,
                           )),
                       if (orderModel.photos.length > 1)
                         Container(

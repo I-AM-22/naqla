@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
@@ -82,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 138.w,
                           height: 138.w,
                           decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
-                          child: BlurHash(imageFit: BoxFit.cover, hash: data.photo.blurHash, image: data.photo.profileUrl),
+                          child: AppImage.network(fit: BoxFit.cover, data.photo.profileUrl),
                         ),
                       ),
                       24.verticalSpace,

@@ -1,7 +1,6 @@
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -56,9 +55,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         ),
         body: Padding(
-          padding: REdgeInsets.symmetric(
-              vertical: UIConstants.screenPadding30,
-              horizontal: UIConstants.screenPadding16),
+          padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding30, horizontal: UIConstants.screenPadding16),
           child: FormBuilder(
             key: _key,
             child: SingleChildScrollView(
@@ -74,14 +71,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             clipBehavior: Clip.hardEdge,
                             width: 130.w,
                             height: 130.w,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: context.colorScheme.primary)),
-                            child: BlurHash(
-                                imageFit: BoxFit.cover,
-                                hash: widget.param.user.photo.blurHash,
-                                image: widget.param.user.photo.profileUrl),
+                            decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
+                            child: AppImage.network(fit: BoxFit.cover, widget.param.user.photo.profileUrl),
                           ),
                           onSuccess: (data) {
                             photo = data;
@@ -89,10 +80,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               clipBehavior: Clip.hardEdge,
                               width: 130.w,
                               height: 130.w,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                      color: context.colorScheme.primary)),
+                              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: context.colorScheme.primary)),
                               child: AppImage.network(
                                 data,
                                 fit: BoxFit.cover,
@@ -112,17 +100,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     return RSizedBox(
                                       width: double.infinity,
                                       child: Padding(
-                                        padding: REdgeInsets.symmetric(
-                                            horizontal: 16, vertical: 10),
+                                        padding: REdgeInsets.symmetric(horizontal: 16, vertical: 10),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             AppButton.ghost(
                                               title: S.of(context).camera,
-                                              postfixIcon:
-                                                  Icon(IconlyBroken.camera),
+                                              postfixIcon: Icon(IconlyBroken.camera),
                                               onPressed: () {
                                                 bloc.add((PickImageEvent(
                                                   ImageSource.camera,
@@ -140,8 +125,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                   (p0) => context.pop(),
                                                 )));
                                               },
-                                              postfixIcon:
-                                                  Icon(IconlyBroken.image),
+                                              postfixIcon: Icon(IconlyBroken.image),
                                               title: S.of(context).gallery,
                                             ),
                                           ],
@@ -155,10 +139,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               width: 25.h,
                               height: 25.h,
                               decoration: BoxDecoration(
-                                  color: const Color(0xFFFAFAFA),
-                                  border: Border.all(
-                                      color: context.colorScheme.primary),
-                                  shape: BoxShape.circle),
+                                  color: const Color(0xFFFAFAFA), border: Border.all(color: context.colorScheme.primary), shape: BoxShape.circle),
                               child: Center(
                                 child: Icon(
                                   IconlyBroken.edit_square,
@@ -176,8 +157,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     initialValue: widget.param.user.firstName,
                     name: 'firstName',
                     label: S.of(context).first_name,
-                    validator: FormBuilderValidators.required(
-                        errorText: S.of(context).this_field_is_required),
+                    validator: FormBuilderValidators.required(errorText: S.of(context).this_field_is_required),
                     keyboardType: TextInputType.name,
                   ),
                   24.verticalSpace,
@@ -185,14 +165,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     name: 'lastName',
                     label: S.of(context).last_name,
                     initialValue: widget.param.user.lastName,
-                    validator: FormBuilderValidators.required(
-                        errorText: S.of(context).this_field_is_required),
+                    validator: FormBuilderValidators.required(errorText: S.of(context).this_field_is_required),
                     keyboardType: TextInputType.name,
                   ),
                   32.verticalSpace,
                   BlocSelector<ProfileBloc, ProfileState, CommonState>(
-                    selector: (state) =>
-                        state.getState(ProfileState.editPersonalInfo),
+                    selector: (state) => state.getState(ProfileState.editPersonalInfo),
                     builder: (context, state) {
                       return AppButton.dark(
                         isLoading: state.isLoading,
@@ -204,10 +182,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           if (_key.currentState?.isValid ?? false) {
                             bloc.add(EditPersonalInfoEvent(
                                 EditPersonalInfoParam(
-                                    firstName:
-                                        _key.currentState?.value['firstName'],
-                                    lastName:
-                                        _key.currentState?.value['lastName'],
+                                    firstName: _key.currentState?.value['firstName'],
+                                    lastName: _key.currentState?.value['lastName'],
                                     photo: photo), (p0) {
                               showMessage('edit successfully', isSuccess: true);
                               context.pop();

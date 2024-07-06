@@ -22,7 +22,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.8
 
   #? common state
   common_state:
@@ -43,8 +43,7 @@ dependencies:
   numberpicker: ^2.1.2
 
   #?IMAGE:
-  flutter_blurhash: ^0.8.2
-  image_picker: ^1.0.5
+  image_picker: ^1.1.2
   flutter_svg: ^2.0.6
   image_cropper: ^5.0.1
   flutter_image_compress: ^2.1.0

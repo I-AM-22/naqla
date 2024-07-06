@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
@@ -65,11 +64,7 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
                 // const Spacer(),
                 Stack(
                   children: [
-                    SizedBox(
-                        height: 150.h,
-                        width: 150.w,
-                        child: BlurHash(
-                            imageFit: BoxFit.cover, hash: widget.orderModel.photos[0].blurHash, image: widget.orderModel.photos[0].mobileUrl)),
+                    SizedBox(height: 150.h, width: 150.w, child: AppImage.network(fit: BoxFit.cover, widget.orderModel.photos[0].mobileUrl)),
                     if (widget.orderModel.photos.length > 1)
                       Container(
                         color: context.colorScheme.primary.withOpacity(.5),

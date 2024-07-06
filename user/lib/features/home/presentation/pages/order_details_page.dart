@@ -1,7 +1,6 @@
 import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
@@ -180,10 +179,9 @@ class OrderDetailsPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: context.colorScheme.outline),
                           ),
-                          child: BlurHash(
-                            hash: orderModel.photos[index].blurHash,
-                            image: orderModel.photos[index].mobileUrl,
-                            imageFit: BoxFit.contain,
+                          child: AppImage.network(
+                            orderModel.photos[index].mobileUrl,
+                            fit: BoxFit.contain,
                           ),
                         );
                       },

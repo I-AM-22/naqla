@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/enums/sub_order_status.dart';
@@ -167,9 +166,8 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(color: context.colorScheme.outline),
                             ),
-                            child: BlurHash(
-                              hash: data.photos[index].blurHash,
-                              image: data.photos[index].mobileUrl,
+                            child: AppImage.network(
+                              data.photos[index].mobileUrl,
                             ),
                           );
                         },
