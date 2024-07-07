@@ -32,6 +32,12 @@ dependencies:
   '@radix-ui/react-tooltip':
     specifier: ^1.0.7
     version: 1.0.7(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
+  '@tanstack/react-query':
+    specifier: ^5.48.0
+    version: 5.50.1(react@18.2.0)
+  '@tanstack/react-query-next-experimental':
+    specifier: ^5.48.0
+    version: 5.50.1(@tanstack/react-query@5.50.1)(next@14.0.4)(react@18.2.0)
   '@tanstack/react-table':
     specifier: ^8.13.2
     version: 8.15.0(react-dom@18.2.0)(react@18.2.0)
@@ -53,6 +59,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.11
     version: 1.11.11
+  humanize-duration:
+    specifier: ^3.32.1
+    version: 3.32.1
   i18next:
     specifier: ^23.7.13
     version: 23.7.13
@@ -130,6 +139,9 @@ dependencies:
     version: 2.25.0(i18next@23.7.13)(zod@3.22.4)
 
 devDependencies:
+  '@types/humanize-duration':
+    specifier: ^3.27.4
+    version: 3.27.4
   '@types/node':
     specifier: ^20
     version: 20.10.5
@@ -2143,6 +2155,31 @@ packages:
       tslib: 2.6.2
     dev: false
 
+  /@tanstack/query-core@5.50.1:
+    resolution: {integrity: sha512-lpfhKPrJlyV2DSVcQb/HuozH3Av3kws4ge22agx+lNGpFkS4vLZ7St0l3GLwlAD+bqB+qXGex3JdRKUNtMviEQ==}
+    dev: false
+
+  /@tanstack/react-query-next-experimental@5.50.1(@tanstack/react-query@5.50.1)(next@14.0.4)(react@18.2.0):
+    resolution: {integrity: sha512-AgMhRPYbNRvol44orcKcf1KToGJcHTNDcKp7RRkEZ7FBNQZoQeNnWmKQBjaEgrC52mbj6rf5QOy1B2FqFZzQDw==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.50.1
+      next: ^13 || ^14 || ^15
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/react-query': 5.50.1(react@18.2.0)
+      next: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+    dev: false
+
+  /@tanstack/react-query@5.50.1(react@18.2.0):
+    resolution: {integrity: sha512-s0DW3rVBDPReDDovUjVqItVa3R2nPfUANK9nqGvarO2DwTiY9U4EBTsqizMxItRCoGgK5apeM7D3mxlHrSKpdQ==}
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-core': 5.50.1
+      react: 18.2.0
+    dev: false
+
   /@tanstack/react-table@8.15.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-8K4RSROUtXUtfiezV6Ehl8z99axFrkQnxXi0vjWBJv3Tsm5x4EyrgXI7d2tOOMoANykKZLB6S1sGZGemoMRt7Q==}
     engines: {node: '>=12'}
@@ -2228,6 +2265,10 @@ packages:
       '@types/react': 18.2.45
       hoist-non-react-statics: 3.3.2
     dev: false
+
+  /@types/humanize-duration@3.27.4:
+    resolution: {integrity: sha512-yaf7kan2Sq0goxpbcwTQ+8E9RP6HutFBPv74T/IA/ojcHKhuKVlk2YFYyHhWZeLvZPzzLE3aatuQB4h0iqyyUA==}
+    dev: true
 
   /@types/json-schema@7.0.15:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -3834,6 +3875,10 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
     dev: true
+
+  /humanize-duration@3.32.1:
+    resolution: {integrity: sha512-inh5wue5XdfObhu/IGEMiA1nUXigSGcaKNemcbLRKa7jXYGDZXr3LoT9pTIzq2hPEbld7w/qv9h+ikWGz8fL1g==}
+    dev: false
 
   /i18next-browser-languagedetector@7.2.0:
     resolution: {integrity: sha512-U00DbDtFIYD3wkWsr2aVGfXGAj2TgnELzOX9qv8bT0aJtvPV9CRO77h+vgmHFBMe7LAxdwvT/7VkCWGya6L3tA==}

@@ -44,7 +44,7 @@ export function OrderStatics({ children }: OrderStaticsProps) {
       }),
   });
   return (
-    <div className="flex w-full flex-row">
+    <div className="flex w-full flex-col md:flex-row">
       <div className="flex flex-col">
         {children}
         <Calendar

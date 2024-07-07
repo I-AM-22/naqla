@@ -17,5 +17,8 @@
   "countUserUsed": "الطلبات",
   "countCarUsed": "السيارات",
   "totalCount": "مرات التواجد",
-  "advantagesUsage": "عدد السيارات التي تحوي الميزات مقابل عدد الطلبات"
+  "advantagesUsage": "عدد السيارات التي تحوي الميزات مقابل عدد الطلبات",
+  "usagePercentage": "نسبة الاستخدام",
+  "advantagesCar": "تواجد الميزات في السيارات",
+  "advantagesOrder": "تواجد الميزات في الطلبيات"
 }

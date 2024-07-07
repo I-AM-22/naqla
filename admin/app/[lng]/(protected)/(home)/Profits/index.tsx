@@ -48,7 +48,7 @@ export function Profits({}: ProfitsProps) {
     <div className="flex flex-col">
       <div className="mx-auto">
         <DatePickerRange
-          className="my-2 ms-[140px]"
+          className="my-2 md:ms-[140px]"
           date={date}
           onChange={setDate}
         />

@@ -1,80 +1,63 @@
-"use client";
-import {
-  Legend,
-  PolarAngleAxis,
-  PolarGrid,
-  PolarRadiusAxis,
-  Radar,
-  RadarChart,
-  ResponsiveContainer,
-} from "recharts";
+import { PageProps } from "@/app/type";
+import { getTranslation } from "@/i18n/server";
+import { statisticsControllerFindLimitAdvantages } from "@/service/api";
+import { AdvantagePie } from "./Pie";
+const COLORS = [
+  "#ef4444",
+  "#f59e0b",
+  "#6366f1",
+  "#65a30d",
+  "#0891b2",
+  "#10b981",
+  "#8b5cf6",
+  "#4ade80",
+  "#c084fc",
+  "#fcd34d",
+  "#e879f9",
+  "#ec4899",
+  "#fb7185",
+  "#2dd4bf",
+  "#9a3412",
+  "#854d0e",
+  "#4d7c0f",
+  "#15803d",
+  "#047857",
+  "#0369a1",
+  "#5b21b6",
+  "#6b21a8",
+  "#a21caf",
+  "#be123c",
+];
+export type AdvantagesProps = PageProps;
+export async function Advantages(props: AdvantagesProps) {
+  const { t } = await getTranslation(props.params.lng, "home");
 
-import { Skeleton } from "@/components/ui/skeleton";
-import { useQuery } from "@tanstack/react-query";
-import { TFunction } from "i18next";
-import { useTheme } from "next-themes";
-import { useTranslation } from "react-i18next";
-const labels = (t: TFunction) =>
-  ({
-    completedOrders: t("completedOrders"),
-    AllOrders: t("AllOrders"),
-    refusedOrders: t("refusedOrders"),
-  }) as Record<string, string>;
-export type AdvantagesProps = {};
-export function Advantages({}: AdvantagesProps) {
-  const { t } = useTranslation("home");
-  const theme = useTheme().theme;
-  const advantagesQuery = useQuery({
-    queryKey: ["statistics", "advantages"],
-    queryFn: () => StatisticsControllerFindLimitAdvantagesResult({ limit: 7 }),
+  const advantagesStats = await statisticsControllerFindLimitAdvantages({
+    limit: 8,
   });
-  const maxCount = Math.max(
-    ...(advantagesQuery.data?.data.map((ad) =>
-      Math.max(ad.countCarUsed, ad.countUserUsed),
-    ) ?? []),
-  );
+  const colorMap = new Map<string, string>();
+  [
+    ...new Set(
+      advantagesStats.data.cars
+        .map((a) => a.advantage)
+        .concat(advantagesStats.data.orders.map((a) => a.advantage)),
+    ),
+  ].forEach((advantage, i) => colorMap.set(advantage, COLORS[i]));
+
+  const carAdvantages = advantagesStats.data.cars.map((ad) => ({
+    ...ad,
+    percentage: Number((ad.percentage * 100).toFixed(2)),
+    color: colorMap.get(ad.advantage) ?? COLORS[0],
+  }));
+  const orderAdvantages = advantagesStats.data.orders.map((ad) => ({
+    ...ad,
+    percentage: Number((ad.percentage * 100).toFixed(2)),
+    color: colorMap.get(ad.advantage) ?? COLORS[0],
+  }));
   return (
-    <div className="relative h-[500px]">
-      {advantagesQuery.isLoading && <Skeleton className="absolute inset-0" />}
-      <p>{t("advantagesUsage")}</p>
-      <ResponsiveContainer width="100%" height="100%">
-        <RadarChart
-          cx="50%"
-          cy="50%"
-          outerRadius="80%"
-          data={advantagesQuery.data?.data.filter((ad) => ad.advantage) ?? []}
-        >
-          <PolarGrid />
-          <Legend />
-          <PolarAngleAxis
-            dataKey="advantage"
-            stroke={theme === "dark" ? "#ddd" : ""}
-            fill={theme === "dark" ? "#ddd" : ""}
-          />
-          <PolarRadiusAxis
-            allowDecimals={false}
-            angle={50}
-            label={{ value: t("totalCount") }}
-            stroke={theme === "dark" ? "#fff" : "#444"}
-            fill={theme === "dark" ? "#fff" : "#444"}
-            domain={[0, maxCount]}
-          />
-          <Radar
-            name={t("countUserUsed")}
-            dataKey="countUserUsed"
-            stroke="#0284c7"
-            fill="#0284c7"
-            fillOpacity={0.4}
-          />
-          <Radar
-            name={t("countCarUsed")}
-            dataKey={"countCarUsed"}
-            stroke="#e11d48"
-            fill="#e11d48"
-            fillOpacity={0.4}
-          />
-        </RadarChart>
-      </ResponsiveContainer>
+    <div className="flex">
+      <AdvantagePie data={carAdvantages} title={t("advantagesCar")} />
+      <AdvantagePie data={orderAdvantages} title={t("advantagesOrder")} />
     </div>
   );
 }
