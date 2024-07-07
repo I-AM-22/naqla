@@ -38,6 +38,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     multiStateApiCall<SetDeliveredEvent, SubOrderModel>(
       OrderState.setDelivered,
       (event) => setDeliveredUseCase(event.param),
+      onFailure: (failure, event, emit) async => event.onFailure(),
       onSuccess: (data, event, emit) async {
         final oldData = state.getState<List<SubOrderModel>>(OrderState.getOrders).data ?? [];
         oldData.removeWhere(

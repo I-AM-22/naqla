@@ -18,7 +18,7 @@ class CarsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: REdgeInsets.all(8),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: context.colorScheme.outline)),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: context.colorScheme.outline)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

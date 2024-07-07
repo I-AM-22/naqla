@@ -95,12 +95,17 @@ class _CarsPageState extends State<CarsPage> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: UIConstants.screenPadding30),
                   itemBuilder: (context, index) {
-                    return CarsSection(
-                      carModel: data[index],
-                      bloc: bloc,
+                    return Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [BoxShadow(color: context.colorScheme.primary.withOpacity(.2), blurRadius: 10, offset: Offset(0, 2))],
+                      ),
+                      child: CarsSection(
+                        carModel: data[index],
+                        bloc: bloc,
+                      ),
                     );
                   },
-                  separatorBuilder: (context, index) => 8.verticalSpace,
+                  separatorBuilder: (context, index) => 16.verticalSpace,
                   itemCount: data.length),
             ),
           )),

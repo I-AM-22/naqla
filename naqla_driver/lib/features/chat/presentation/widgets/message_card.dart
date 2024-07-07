@@ -29,22 +29,22 @@ class MessageCard extends StatelessWidget {
                       color: context.colorScheme.surface,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: AppText(CoreHelperFunctions.formatDateChat(previousItem!.createdAt.toLocal(), context)))),
+                    child: AppText(CoreHelperFunctions.formatDateChat(item.createdAt.toLocal(), context)))),
           16.verticalSpace,
           Container(
             padding: REdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: item.isUser ? context.colorScheme.systemGray.shade100 : context.colorScheme.primary50,
-                borderRadius: BorderRadius.only(
-                    topRight: item.isUser ? const Radius.circular(8) : Radius.zero,
-                    topLeft: !item.isUser ? const Radius.circular(8) : Radius.zero,
-                    bottomLeft: const Radius.circular(16),
-                    bottomRight: const Radius.circular(16)),
-                border: item.isUser ? null : Border.all(color: context.colorScheme.primary)),
+              color: item.isUser ? context.colorScheme.systemGray.shade100 : context.colorScheme.tertiary,
+              borderRadius: BorderRadius.only(
+                  topRight: item.isUser ? const Radius.circular(10) : Radius.zero,
+                  topLeft: !item.isUser ? const Radius.circular(10) : Radius.zero,
+                  bottomLeft: const Radius.circular(10),
+                  bottomRight: const Radius.circular(10)),
+            ),
             child: AppText.bodyRegular(
               item.content,
               style: TextStyle(fontSize: 14.sp),
-              color: !item.isUser ? context.colorScheme.tertiary : context.colorScheme.systemGray.shade700,
+              color: !item.isUser ? Colors.white : context.colorScheme.systemGray.shade700,
             ),
           ),
           AppText.bodyRegular(

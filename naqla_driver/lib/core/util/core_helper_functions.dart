@@ -150,8 +150,7 @@ class CoreHelperFunctions {
   static String fromOrderDateTimeToString(DateTime dateTime) =>
       DateFormat("${DateFormat.DAY} ${DateFormat.MONTH} ${DateFormat.YEAR} - ").add_jm().format(dateTime.toLocal());
 
-  static String fromMessageDateTimeToString(DateTime dateTime) =>
-      '${DateFormat.yMd().format(dateTime.toLocal())} - ${DateFormat().add_jm().format(dateTime.toLocal())}';
+  static String fromMessageDateTimeToString(DateTime dateTime) => DateFormat().add_jm().format(dateTime.toLocal());
 
   static String formatDateChat(DateTime date, BuildContext context) {
     final DateTime dateTime = DateTime.now();

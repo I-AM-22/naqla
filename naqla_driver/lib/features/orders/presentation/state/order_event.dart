@@ -10,8 +10,9 @@ class GetOrdersEvent extends OrderEvent {}
 class SetDeliveredEvent extends OrderEvent {
   final SetDeliveredParam param;
   final VoidCallback onSuccess;
+  final VoidCallback onFailure;
 
-  SetDeliveredEvent({required this.param, required this.onSuccess});
+  SetDeliveredEvent({required this.param, required this.onSuccess, required this.onFailure});
 }
 
 class GetSubOrderDetailsEvent extends OrderEvent {
