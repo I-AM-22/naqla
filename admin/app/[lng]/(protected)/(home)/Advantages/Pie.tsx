@@ -39,11 +39,17 @@ export function AdvantagePie({ data, title }: AdvantagePieProps) {
       <h5 className="text-center text-xl">{title}</h5>
       <ChartContainer
         config={chartConfig}
-        className="mx-auto aspect-square h-[300px]"
+        className="mx-auto aspect-square h-[300px] md:h-[400px]"
       >
         <PieChart>
           <ChartTooltip
-            content={<ChartTooltipContent nameKey="percentage" hideLabel />}
+            content={
+              <ChartTooltipContent
+                valueFormatter={(value) => `${value}%`}
+                nameKey="percentage"
+                hideLabel
+              />
+            }
           />
           <Pie data={colored} dataKey="percentage">
             <LabelList

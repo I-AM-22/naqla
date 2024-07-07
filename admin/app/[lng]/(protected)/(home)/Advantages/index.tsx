@@ -55,7 +55,7 @@ export async function Advantages(props: AdvantagesProps) {
     color: colorMap.get(ad.advantage) ?? COLORS[0],
   }));
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row">
       <AdvantagePie data={carAdvantages} title={t("advantagesCar")} />
       <AdvantagePie data={orderAdvantages} title={t("advantagesOrder")} />
     </div>
