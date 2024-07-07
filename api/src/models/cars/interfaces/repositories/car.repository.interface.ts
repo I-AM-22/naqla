@@ -1,10 +1,10 @@
 import { Order } from '@models/orders/entities/order.entity';
-import { Advantage } from '../../../advantages/entities/advantage.entity';
 import { UpdateCarDto } from '../../dtos';
 import { CreateCarDto } from '../../dtos/create-car.dto';
 import { CarPhoto } from '../../entities/car-photo.entity';
 import { Car } from '../../entities/car.entity';
-import { Driver } from '../../../drivers/entities/driver.entity';
+import { Driver } from '@models/drivers/entities/driver.entity';
+import { Advantage } from '@models/advantages/entities/advantage.entity';
 
 export interface ICarRepository {
   find(): Promise<Car[]>;
