@@ -20,4 +20,5 @@ export interface ICarRepository {
   addAdvantageToCar(car: Car, advantages: Advantage[]): Promise<void>;
   countCarForDriver(driverId: string): Promise<number>;
   removeAdvantageFromCar(car: Car, advantage: Advantage): Promise<void>;
+  advantageSuper(): Promise<any[]>;
 }

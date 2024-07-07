@@ -7,6 +7,7 @@ export class AdvantageSuper {
   @ApiProperty()
   percentage: number;
 }
+
 export class ListAdvantageSuper {
   @ApiProperty({ isArray: true, type: AdvantageSuper })
   orders: AdvantageSuper[];

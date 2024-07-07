@@ -9,8 +9,8 @@ import { ResponseTime } from '../responses/ResponseTime';
 import { StaticProfits } from '../responses/StaticProfits';
 import { StatisticsService } from '../services/statistics.service';
 import { WithDeletedInterceptor } from '@common/interceptors';
-import { StaticsUser } from '@models/users/interfaces/statics-user.interface';
-import { StaticsDriver } from '@models/drivers/responses/statics-driver';
+import { StaticsDriver } from '../responses/statics-driver';
+import { StaticsUser } from '../responses/statics-user.interface';
 
 @ApiTags('Statistics')
 @ApiMainErrorsResponse()

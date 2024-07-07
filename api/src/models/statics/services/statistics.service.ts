@@ -6,10 +6,11 @@ import { ISubOrderRepository } from '@models/sub-orders/interfaces/repositories/
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { IUserRepository } from '@models/users/interfaces/repositories/user.repository.interface';
 import { USER_TYPES } from '@models/users/interfaces/type';
-import { Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Numerical } from '../responses/Numerical';
 import { AdvantageSuper, ListAdvantageSuper } from '../responses/AdvantageSuper';
-import { CarRepository } from '@models/cars/repositories/car.repository';
+import { ICarRepository } from '@models/cars/interfaces/repositories/car.repository.interface';
+import { CAR_TYPES } from '@models/cars/interfaces/type';
 
 @Injectable()
 export class StatisticsService {
@@ -18,8 +19,8 @@ export class StatisticsService {
     private userRepository: IUserRepository,
     @Inject(DRIVER_TYPES.repository.driver)
     private driverRepository: IDriverRepository,
-    // @Inject(CAR_TYPES.repository.car)
-    private carRepository: CarRepository,
+    @Inject(forwardRef(() => CAR_TYPES.repository.car))
+    private carRepository: ICarRepository,
     @Inject(ORDER_TYPES.repository.order)
     private orderRepository: IOrderRepository,
     @Inject(SUB_ORDER_TYPES.repository.subOrder)

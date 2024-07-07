@@ -1,5 +1,5 @@
+import { User } from '@models/users/entities/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../entities/user.entity';
 
 export class StaticsUser extends User {
   @ApiProperty()
