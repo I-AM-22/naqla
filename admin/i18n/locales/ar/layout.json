@@ -5,6 +5,7 @@
     "orders": "الطلبات",
     "customers": "الزبائن",
     "drivers": "السائقين",
+    "admins": "المشرفين",
     "preferences": "التفضيلات"
   },
   "logout": "تسجيل الخروج",
