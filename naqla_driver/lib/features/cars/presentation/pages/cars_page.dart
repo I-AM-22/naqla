@@ -97,7 +97,7 @@ class _CarsPageState extends State<CarsPage> {
                   itemBuilder: (context, index) {
                     return Container(
                       decoration: BoxDecoration(
-                        boxShadow: [BoxShadow(color: context.colorScheme.primary.withOpacity(.2), blurRadius: 10, offset: Offset(0, 2))],
+                        boxShadow: [BoxShadow(color: context.colorScheme.primary.withOpacity(.2), blurRadius: 10, offset: const Offset(0, 2))],
                       ),
                       child: CarsSection(
                         carModel: data[index],

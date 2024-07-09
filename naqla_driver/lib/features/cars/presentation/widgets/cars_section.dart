@@ -17,57 +17,92 @@ class CarsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: REdgeInsets.all(8),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: context.colorScheme.outline)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: context.colorScheme.outline)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppText.subHeadMedium('${S.of(context).model}: ${carModel.model}'),
-          16.verticalSpace,
-          AppText.subHeadMedium('${S.of(context).brand}: ${carModel.brand}'),
-          16.verticalSpace,
-          Row(
-            children: [
-              AppText.subHeadRegular(S.of(context).color),
-              4.horizontalSpace,
-              Container(
-                width: 100.w,
-                height: 20.h,
-                color: CoreHelperFunctions.hexToColor(carModel.color),
-              )
-            ],
+          8.verticalSpace,
+          Padding(
+            padding: REdgeInsets.symmetric(horizontal: 8),
+            child: AppText.subHeadMedium(
+                '${S.of(context).model}: ${carModel.model}'),
           ),
           16.verticalSpace,
-          Container(
-            height: 200.h,
-            decoration: BoxDecoration(
-              border: Border.all(color: context.colorScheme.outline),
-              borderRadius: BorderRadius.circular(8),
+          Padding(
+            padding: REdgeInsets.symmetric(horizontal: 8),
+            child: AppText.subHeadMedium(
+                '${S.of(context).brand}: ${carModel.brand}'),
+          ),
+          16.verticalSpace,
+          Padding(
+            padding: REdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              children: [
+                AppText.subHeadRegular(S.of(context).color),
+                4.horizontalSpace,
+                Container(
+                  width: 100.w,
+                  height: 20.h,
+                  color: CoreHelperFunctions.hexToColor(carModel.color),
+                )
+              ],
             ),
+          ),
+          16.verticalSpace,
+          SizedBox(
+            height: 200.h,
             child: Center(child: AppImage.network(carModel.photo.mobileUrl)),
           ),
           16.verticalSpace,
-          Row(
-            children: [
-              Expanded(
-                child: AppButton.dark(
-                  title: S.of(context).edit,
-                  onPressed: () {
-                    context.pushNamed(AddCarPage.name, extra: AddCaraParam(bloc: bloc, carModel: carModel));
-                  },
-                ),
+          Container(
+            decoration: BoxDecoration(
+              color: context.colorScheme.primary,
+              border: Border(
+                  top:
+                      BorderSide(color: context.colorScheme.waiting, width: 2)),
+            ),
+            width: double.infinity,
+            child: SizedBox(
+              height: 50.h,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () => context.pushNamed(AddCarPage.name,
+                          extra: AddCaraParam(bloc: bloc, carModel: carModel)),
+                      child: Center(
+                        child: AppText.subHeadMedium(
+                          S.of(context).edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                    child: const VerticalDivider(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () => CoreHelperFunctions.deleteCar(
+                          context, carModel.id, bloc),
+                      child: Center(
+                        child: AppText.subHeadMedium(
+                          S.of(context).delete,
+                          color: context.colorScheme.error,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              5.horizontalSpace,
-              Expanded(
-                child: AppButton.gray(
-                  title: S.of(context).delete,
-                  textStyle: TextStyle(color: context.colorScheme.error),
-                  onPressed: () {
-                    CoreHelperFunctions.deleteCar(context, carModel.id, bloc);
-                  },
-                ),
-              ),
-            ],
+            ),
           )
         ],
       ),
