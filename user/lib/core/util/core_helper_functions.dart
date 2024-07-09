@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:naqla/core/common/enums/sub_order_status.dart';
 import 'package:naqla/core/core.dart';
+import 'package:naqla/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
@@ -45,7 +46,7 @@ class CoreHelperFunctions {
                       await getIt.resetLazySingleton<OrderBloc>();
                       await getIt.resetLazySingleton<ProfileBloc>();
                       if (!context.mounted) return;
-                      context.goNamed(OnBoardingScreen.name);
+                      context.goNamed(SignInPage.name,extra: true);
                     }),
                 AppButton.ghost(
                   buttonSize: ButtonSize.medium,

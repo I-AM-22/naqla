@@ -48,7 +48,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                     _key.currentState?.validate();
                     if (code.isNotEmpty && code.length > 5) {
                       context.read<AuthBloc>().add(ConfirmEvent(ConfirmParam(otp: code, phone: widget.phone, false), (p0) {
-                            context.goNamed(HomePage.name, extra: true);
+                            context.goNamed(HomePage.name);
                           }));
                     }
                   },
@@ -93,7 +93,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
                             },
                             onCompleted: (val) {
                               context.read<AuthBloc>().add(ConfirmEvent(ConfirmParam(otp: val, phone: widget.phone, false), (p0) {
-                                    context.goNamed(HomePage.name, extra: true);
+                                    context.goNamed(HomePage.name);
                                   }));
                             },
                           );

@@ -20,18 +20,17 @@ import 'create_order.dart';
 import 'order_details_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, this.comeFromSplash = false});
+  const HomePage({super.key});
 
   static String get path => '/HomePage';
   static String get name => '/HomePage';
-
-  final bool? comeFromSplash;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   final HomeBloc _bloc = getIt<HomeBloc>();
   final ScrollController _hideButtonController = ScrollController();
   bool _isVisible = true;
@@ -46,17 +45,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       duration: const Duration(seconds: 7),
       vsync: this,
     )..repeat();
-    _rotationAnimation = Tween<double>(begin: 0, end: 2 * 3.14159).animate(_animationController);
+    _rotationAnimation =
+        Tween<double>(begin: 0, end: 2 * 3.14159).animate(_animationController);
 
     _hideButtonController.addListener(() {
-      if (_hideButtonController.position.userScrollDirection == ScrollDirection.reverse) {
+      if (_hideButtonController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
         if (_isVisible) {
           setState(() {
             _isVisible = false;
           });
         }
       } else {
-        if (_hideButtonController.position.userScrollDirection == ScrollDirection.forward) {
+        if (_hideButtonController.position.userScrollDirection ==
+            ScrollDirection.forward) {
           if (!_isVisible) {
             setState(() {
               _isVisible = true;
@@ -66,6 +68,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _hideButtonController.dispose();
+    super.dispose();
   }
 
   @override
@@ -89,7 +98,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               ),
             ),
           ),
-          appBar: AppAppBar(back: false, appBarParams: AppBarParams(title: S.of(context).home)),
+          appBar: AppAppBar(
+              back: false,
+              appBarParams: AppBarParams(title: S.of(context).home)),
           body: RefreshIndicator(
             onRefresh: () async {
               _bloc.add(GetOrdersActiveEvent());
@@ -97,7 +108,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             child: AppCommonStateBuilder<HomeBloc, List<OrderModel>>(
               stateName: HomeState.ordersActive,
               onSuccess: (data) => Padding(
-                padding: REdgeInsets.symmetric(vertical: UIConstants.screenPadding20, horizontal: UIConstants.screenPadding16),
+                padding: REdgeInsets.symmetric(
+                    vertical: UIConstants.screenPadding20,
+                    horizontal: UIConstants.screenPadding16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -115,15 +128,21 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               gradient: LinearGradient(
-                                colors: [const Color(0xffC39A32), const Color(0xffC39A32).withOpacity(.1)],
+                                colors: [
+                                  const Color(0xffC39A32),
+                                  const Color(0xffC39A32).withOpacity(.1)
+                                ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
-                                transform: GradientRotation(_rotationAnimation.value),
+                                transform:
+                                    GradientRotation(_rotationAnimation.value),
                               ),
                             ),
                             child: OrderCard(
                               width: double.infinity,
-                              onTap: () => context.pushNamed(OrderDetailsPage.name, extra: data[index]),
+                              onTap: () => context.pushNamed(
+                                  OrderDetailsPage.name,
+                                  extra: data[index]),
                               showBorder: false,
                               orderModel: data[index],
                             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -25,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
       if (getIt<PrefsRepository>().registeredUser) {
-        context.goNamed(HomePage.name, extra: false);
+        context.goNamed(HomePage.name);
       } else {
         context.goNamed(OnBoardingScreen.name);
       }
@@ -41,7 +40,10 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            CircleAvatar(backgroundColor: context.colorScheme.primary, radius: 50.r, backgroundImage: AssetImage(Assets.images.jpg.logo.path)),
+            CircleAvatar(
+                backgroundColor: context.colorScheme.primary,
+                radius: 50.r,
+                backgroundImage: AssetImage(Assets.images.jpg.logo.path)),
             const Spacer(),
             AppText.subHeadMedium(
               "Naqla",

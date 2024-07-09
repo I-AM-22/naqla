@@ -1,4 +1,3 @@
-import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,19 +6,15 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
+import 'package:naqla/features/orders/presentation/widgets/change_order_status.dart';
 
-import '../../../../core/common/enums/change_order_status.dart';
 import '../../../../core/common/enums/sub_order_status.dart';
 import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
-import '../../domain/usecases/set_arrived_use_case.dart';
 
-// ignore: must_be_immutable
 class SubOrderCard extends StatelessWidget {
-  SubOrderCard({super.key, required this.orderModel});
+  const SubOrderCard({super.key, required this.orderModel});
   final SubOrderModel orderModel;
-
-  String orderId = '';
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +22,9 @@ class SubOrderCard extends StatelessWidget {
       value: getIt<OrderBloc>(),
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(border: Border.all(color: context.colorScheme.primary), borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(
+            border: Border.all(color: context.colorScheme.primary),
+            borderRadius: BorderRadius.circular(8)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -39,16 +36,25 @@ class SubOrderCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RichText(
-                      text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
-                        TextSpan(
-                            text:
-                                '${CoreHelperFunctions.formatOrderTime(context, orderModel.status, acceptedAt: orderModel.acceptedAt, deliveredAt: orderModel.deliveredAt, driverAssignedAt: orderModel.driverAssignedAt, pickedUpAt: orderModel.pickedUpAt)} \n'),
-                        TextSpan(text: '${S.of(context).order_status}${orderModel.status.name}\n'),
-                        TextSpan(text: '${S.of(context).cost}${formatter.format(orderModel.realCost)} ${S.of(context).syp}\n'),
-                        if ((orderModel.order?.porters ?? 0) > 0) ...{
-                          TextSpan(text: '${S.of(context).the_number_of_floors}: ${(orderModel.order?.porters ?? 1) - 1}'),
-                        }
-                      ]),
+                      text: TextSpan(
+                          style: context.textTheme.subHeadMedium.copyWith(
+                              color: context.colorScheme.primary, height: 1.5),
+                          children: [
+                            TextSpan(
+                                text:
+                                    '${CoreHelperFunctions.formatOrderTime(context, orderModel.status, acceptedAt: orderModel.acceptedAt, deliveredAt: orderModel.deliveredAt, driverAssignedAt: orderModel.driverAssignedAt, pickedUpAt: orderModel.pickedUpAt)} \n'),
+                            TextSpan(
+                                text:
+                                    '${S.of(context).order_status}${orderModel.status.name}\n'),
+                            TextSpan(
+                                text:
+                                    '${S.of(context).cost}${formatter.format(orderModel.realCost)} ${S.of(context).syp}\n'),
+                            if ((orderModel.order?.porters ?? 0) > 0) ...{
+                              TextSpan(
+                                  text:
+                                      '${S.of(context).the_number_of_floors}: ${(orderModel.order?.porters ?? 1) - 1}'),
+                            }
+                          ]),
                     ),
                   ),
                 ),
@@ -81,31 +87,11 @@ class SubOrderCard extends StatelessWidget {
               ],
             ),
             if (orderModel.status == SubOrderStatus.taken) ...{
-              BlocSelector<OrderBloc, OrderState, CommonState>(
-                selector: (state) => state.getState(OrderState.setArrived),
-                builder: (context, state) {
-                  return AppButton.light(
-                    stretch: true,
-                    isLoading: state.isLoading && orderId == orderModel.id,
-                    buttonSize: ButtonSize.medium,
-                    title:
-                        CoreHelperFunctions.getTitleButton(context, arrivedAt: orderModel.arrivedAt, driverAssignedAt: orderModel.driverAssignedAt),
-                    textStyle: TextStyle(fontSize: 13.sp, height: .2),
-                    onPressed: () {
-                      orderId = orderModel.id;
-                      if (orderModel.arrivedAt != null) {
-                        context
-                            .read<OrderBloc>()
-                            .add(ChangeOrderStatusEvent(param: SetArrivedParam(id: orderModel.id), status: ChangeOrderStatus.pickedUp));
-                      } else if (orderModel.driverAssignedAt != null) {
-                        context
-                            .read<OrderBloc>()
-                            .add(ChangeOrderStatusEvent(param: SetArrivedParam(id: orderModel.id), status: ChangeOrderStatus.arrived));
-                      }
-                    },
-                  );
-                },
-              )
+              ChangeOrderStatusWidget(
+                  orderId: orderModel.id,
+                  status: orderModel.status,
+                  arrivedAt: orderModel.arrivedAt,
+                  driverAssignedAt: orderModel.driverAssignedAt),
             }
           ],
         ),

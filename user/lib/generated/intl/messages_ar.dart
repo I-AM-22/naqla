@@ -175,7 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم ٳلغاء النقلة"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
-                "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة باتفاق من الطرفين."),
+                "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة."),
         "the_starting_point_must_be_determined":
             MessageLookupByLibrary.simpleMessage("يجب تحديد نقطة الانطلاق"),
         "the_weight": MessageLookupByLibrary.simpleMessage("الوزن"),

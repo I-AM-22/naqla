@@ -32,7 +32,9 @@ class _RatingPageState extends State<RatingPage> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: UIConstants.screenPadding30),
+            padding: REdgeInsets.symmetric(
+                horizontal: UIConstants.screenPadding20,
+                vertical: UIConstants.screenPadding30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

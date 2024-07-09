@@ -182,7 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("the order has been canceled"),
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
-                "The remuneration will depend on the number of porters required, floors and the nature of the items transported by agreement of both parties."),
+                "The remuneration will depend on the number of porters required, floors and the nature of the items transported"),
         "the_starting_point_must_be_determined":
             MessageLookupByLibrary.simpleMessage(
                 "The starting point must be determined"),
