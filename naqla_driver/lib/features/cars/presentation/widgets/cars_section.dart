@@ -37,6 +37,16 @@ class CarsSection extends StatelessWidget {
             child: AppText.subHeadMedium(
                 '${S.of(context).brand}: ${carModel.brand}'),
           ),
+          if (carModel.advantages.isNotEmpty) ...{
+            16.verticalSpace,
+            Padding(
+              padding: REdgeInsets.symmetric(horizontal: 8),
+              child: AppText.subHeadMedium(
+                  '${S.of(context).advantages}: ${carModel.advantages.map(
+                        (e) => e.name,
+                      ).toList()}'),
+            ),
+          },
           16.verticalSpace,
           Padding(
             padding: REdgeInsets.symmetric(horizontal: 8),
