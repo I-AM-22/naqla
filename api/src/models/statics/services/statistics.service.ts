@@ -34,8 +34,8 @@ export class StatisticsService {
     data.orderCompleted = await this.orderRepository.countOrdersCompleted();
     data.orderActive = await this.orderRepository.countOrdersActive();
     data.orderWaiting = await this.orderRepository.countOrdersWaiting();
-    data.subOrderActive = await this.subOrderRepository.countSubOrdersCompleted();
-    data.subOrderCompleted = await this.subOrderRepository.countSubOrdersActive();
+    data.subOrderActive = await this.subOrderRepository.countSubOrdersActive();
+    data.subOrderCompleted = await this.subOrderRepository.countSubOrdersCompleted();
     return data;
   }
 

@@ -83,6 +83,7 @@ export class SubOrderRepository implements ISubOrderRepository {
       })
       .andWhere('car.driverId = :driverId', { driverId })
       .select(['subOrder', 'photos', 'order', 'advantages.name'])
+      .orderBy('subOrder.driverAssignedAt', 'DESC')
       .getMany();
   }
 
@@ -98,6 +99,7 @@ export class SubOrderRepository implements ISubOrderRepository {
       })
       .andWhere('car.driverId = :driverId', { driverId })
       .select(['subOrder', 'photos', 'order', 'advantages.name'])
+      .orderBy('subOrder.driverAssignedAt', 'DESC')
       .getMany();
   }
 
@@ -122,6 +124,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         'advantages.name',
         'advantages.id',
       ])
+      .orderBy('order.desiredDate', 'DESC')
       .getMany();
     const carAdvantagesIds = cars.flatMap((car) => car.advantages.map((adv) => adv.id));
 

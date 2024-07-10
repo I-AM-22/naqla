@@ -95,7 +95,7 @@ export class OrderRepository implements IOrderRepository {
 
   async findAllActiveForUser(userId: string): Promise<Order[]> {
     return this.orderRepository.find({
-      where: { userId, status: In([ORDER_STATUS.ACCEPTED, ORDER_STATUS.ON_THE_WAY]) },
+      where: { userId, status: In([ORDER_STATUS.ACCEPTED, ORDER_STATUS.ON_THE_WAY, ORDER_STATUS.WAITING]) },
       select: {
         advantages: { id: false, cost: false, name: true },
       },
@@ -103,13 +103,16 @@ export class OrderRepository implements IOrderRepository {
         photos: true,
         advantages: true,
         payment: true,
+      },
+      order: {
+        createdAt: 'DESC',
       },
     });
   }
 
   async findAllDoneForUser(userId: string): Promise<Order[]> {
     return this.orderRepository.find({
-      where: { userId, status: ORDER_STATUS.DELIVERED },
+      where: { userId, status: In([ORDER_STATUS.DELIVERED, ORDER_STATUS.REFUSED, ORDER_STATUS.CANCELED]) },
       select: {
         advantages: { id: false, cost: false, name: true },
       },
@@ -117,6 +120,9 @@ export class OrderRepository implements IOrderRepository {
         photos: true,
         advantages: true,
         payment: true,
+      },
+      order: {
+        createdAt: 'DESC',
       },
     });
   }
