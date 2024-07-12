@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla_driver/core/common/constants/constants.dart';
+import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/core/di/di_container.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/app_scaffold.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/customer_appbar.dart';
@@ -34,18 +35,30 @@ class _ChatPageState extends State<ChatPage> {
     return BlocProvider(
       create: (context) => bloc,
       child: AppScaffold(
-          appBar: AppAppBar(appBarParams: AppBarParams(title: S.of(context).chat), back: false),
+          appBar: AppAppBar(
+              appBarParams: AppBarParams(title: S.of(context).chat),
+              back: false),
           body: Padding(
-            padding: REdgeInsets.only(left: UIConstants.screenPadding16, right: UIConstants.screenPadding16, top: UIConstants.screenPadding30),
+            padding: REdgeInsets.only(
+                left: UIConstants.screenPadding16,
+                right: UIConstants.screenPadding16,
+                top: UIConstants.screenPadding30),
             child: RefreshIndicator(
               onRefresh: () async {
-                bloc.state.getState(ChatState.getChats).pagingController.refresh();
+                bloc.state
+                    .getState(ChatState.getChats)
+                    .pagingController
+                    .refresh();
               },
               child: AppPagedBuilder<ChatBloc, SubOrderModel>.pagedListView(
                 stateName: ChatState.getChats,
+                noItemsFoundIndicatorBuilder: Center(
+                    child: AppText.titleSmall(
+                        S.of(context).there_is_nothing_to_show)),
                 itemBuilder: (context, item, index) => ChatCard(item: item),
                 onPageKeyChanged: (value) {
-                  bloc.add(GetChatsEvent(param: PaginationParam(pageNumber: value)));
+                  bloc.add(
+                      GetChatsEvent(param: PaginationParam(pageNumber: value)));
                 },
               ),
             ),
