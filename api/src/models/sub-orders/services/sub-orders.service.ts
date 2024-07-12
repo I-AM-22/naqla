@@ -35,6 +35,7 @@ import { cannotSubOrder, item_not_found } from '@common/constants';
 import { CAR_TYPES } from '@models/cars/interfaces/type';
 import { ICarsService } from '@models/cars/interfaces/services/cars.service.interface';
 import { PaginatedResponse } from '@common/types';
+import { Rating } from '../interfaces/rating';
 
 @Injectable()
 export class SubOrdersService implements ISubOrdersService {
@@ -159,7 +160,9 @@ export class SubOrdersService implements ISubOrdersService {
     }
     return subOrder;
   }
-
+  async allratingForDriver(id: string): Promise<Rating[]> {
+    return await this.subOrderRepository.allratingForDriver(id);
+  }
   async update(subOrderId: string, updateSubOrderDto: UpdateSubOrderDto, userId: string): Promise<SubOrder> {
     const subOrder = await this.findOne(subOrderId);
     if (subOrder.order.userId != userId) throw new ForbiddenException('you are not owner this order');

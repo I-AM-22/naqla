@@ -6,4 +6,6 @@ export class StaticsDriver extends Driver {
   countOrderDelivered: number;
   @ApiProperty()
   countCar: number;
+  @ApiProperty({ default: 4 })
+  rating: number;
 }

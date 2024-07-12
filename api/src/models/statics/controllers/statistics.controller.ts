@@ -89,14 +89,21 @@ export class StatisticsController {
     example: 10,
     required: false,
   })
+  @ApiQuery({
+    name: 'sort',
+    allowEmptyValue: false,
+    example: true,
+    required: false,
+  })
   @Get('drivers')
   async staticsDriver(
     @Query('page') page: number,
     @Query('limit') limit: number,
+    @Query('sort') sort: boolean,
     @Req() req: Request & { query: { withDeleted: string } },
   ) {
     const withDeleted = JSON.parse(req.query.withDeleted);
-    return this.staticsService.staticsDriver(page, limit, withDeleted);
+    return this.staticsService.staticsDriver(page, limit, withDeleted, sort);
   }
 
   @Roles(ROLE.SUPER_ADMIN, ROLE.ADMIN, ROLE.EMPLOYEE)

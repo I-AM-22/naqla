@@ -10,6 +10,7 @@ import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { StaticProfits } from '@models/statics/responses/StaticProfits';
+import { Rating } from '../interfaces/rating';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -102,7 +103,35 @@ export class SubOrderRepository implements ISubOrderRepository {
       .orderBy('subOrder.driverAssignedAt', 'DESC')
       .getMany();
   }
-
+  async avgRatingForDriver(driverId: string): Promise<number> {
+    const avgRating = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.car', 'car')
+      .where('subOrder.status = :status', {
+        status: SUB_ORDER_STATUS.DELIVERED,
+      })
+      .andWhere('car.driverId = :driverId', { driverId })
+      .andWhere('subOrder.rating <> 0')
+      .select('AVG(subOrder.rating)', 'avgRating')
+      .getRawOne();
+    return avgRating?.avgRating || 4;
+  }
+  async allratingForDriver(driverId: string): Promise<Rating[]> {
+    const x = await this.subOrderRepository
+      .createQueryBuilder('subOrder')
+      .leftJoinAndSelect('subOrder.order', 'order')
+      .leftJoinAndSelect('order.user', 'user')
+      .leftJoin('subOrder.car', 'car')
+      .where('subOrder.status = :status', {
+        status: SUB_ORDER_STATUS.DELIVERED,
+      })
+      .andWhere('car.driverId = :driverId', { driverId })
+      .andWhere('subOrder.rating <> 0 ')
+      .andWhere('subOrder.note is not null ')
+      .select(['user.firstName as firstName' ,'user.lastName as lastName', 'subOrder.note as note', 'subOrder.rating as rating'])
+      .getRawMany<Rating>();
+    return x;
+  }
   async findForDriver(cars: Car[]): Promise<SubOrder[]> {
     const subOrders = await this.subOrderRepository
       .createQueryBuilder('subOrder')
@@ -245,6 +274,7 @@ export class SubOrderRepository implements ISubOrderRepository {
 
   async update(subOrder: SubOrder, dto: UpdateSubOrderDto): Promise<SubOrder> {
     subOrder.rating = dto.rating;
+    subOrder.note = dto.note;
     return await this.subOrderRepository.save(subOrder);
   }
 

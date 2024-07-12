@@ -15,6 +15,10 @@ export class SubOrder extends GlobalEntity {
   rating: number;
 
   @ApiProperty()
+  @Column({ default: null })
+  note: string;
+
+  @ApiProperty()
   @Column({ default: 0 })
   weight: number;
 

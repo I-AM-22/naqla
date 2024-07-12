@@ -6,6 +6,7 @@ import { CreateSubOrderDto } from '@models/sub-orders/dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '@models/sub-orders/dto/update-sub-order.dto';
 import { SubOrder } from '@models/sub-orders/entities/sub-order.entity';
 import { FindOptionsWhere } from 'typeorm';
+import { Rating } from '../rating';
 
 export interface ISubOrderRepository {
   find(): Promise<SubOrder[]>;
@@ -18,6 +19,8 @@ export interface ISubOrderRepository {
   findByIdWithAdvantages(id: string): Promise<SubOrder>;
   findByIdForMessage(id: string, personId: string): Promise<SubOrder>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
+  avgRatingForDriver(driverId: string): Promise<number>;
+  allratingForDriver(id: string): Promise<Rating[]> 
   findTotalCost(id: string): Promise<number>;
   countSubOrdersCompleted(): Promise<number>;
   countSubOrdersActive(): Promise<number>;

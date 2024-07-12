@@ -65,19 +65,26 @@ export class StatisticsService {
     return updateUser;
   }
 
-  async staticsDriver(page: number, limit: number, withDeleted: boolean) {
+  async staticsDriver(page: number, limit: number, withDeleted: boolean, sort: boolean) {
     const data = await this.driverRepository.staticsDriver(page, limit, withDeleted);
     const updateDriver = await Promise.all(
       data.data.map(async (driver) => {
         const countOrderDelivered = await this.subOrderRepository.countSubOrdersCompletedForDriver(driver.id);
+        const rating = await this.subOrderRepository.avgRatingForDriver(driver.id);
         const countCar = await this.carRepository.countCarForDriver(driver.id);
         return {
           ...driver,
           countOrderDelivered,
           countCar,
+          rating,
         };
       }),
     );
+    if (sort == true) {
+      updateDriver.sort((a, b) => b.rating - a.rating);
+    } else {
+      updateDriver.sort((a, b) => a.rating - b.rating);
+    }
     return updateDriver;
   }
 

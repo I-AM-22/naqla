@@ -5,6 +5,7 @@ import { SubOrder } from '../../entities/sub-order.entity';
 import { PaginatedResponse } from '@common/types';
 import { IPerson } from '@common/interfaces';
 import { FindOptionsWhere } from 'typeorm';
+import { Rating } from '../rating';
 
 export interface ISubOrdersService {
   find(): Promise<SubOrder[]>;
@@ -27,4 +28,5 @@ export interface ISubOrdersService {
   countSubOrdersCompletedForDriver(driverId: string): Promise<number>;
   refusedForOrder(orderId: string): Promise<void>;
   delete(id: string): Promise<void>;
+  allratingForDriver(id:string): Promise<Rating[]>
 }

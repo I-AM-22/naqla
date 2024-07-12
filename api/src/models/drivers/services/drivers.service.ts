@@ -11,11 +11,11 @@ import { DRIVER_TYPES } from '../interfaces/type';
 import { UpdateDriverPhoneDto } from '../../../auth-driver';
 import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
-// import { UpdatePhoneDto } from '../../../auth-driver';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { DriverWallet } from '../entities/driver-wallet.entity';
 import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
+import { Rating } from '@models/sub-orders/interfaces/rating';
 
 @Injectable()
 export class DriversService implements IDriversService {
@@ -119,5 +119,9 @@ export class DriversService implements IDriversService {
       throw new UnauthorizedException('The driver is not here');
     }
     return driver;
+  }
+
+  allratingForDriver(id: string): Promise<Rating[]> {
+    return this.subOrdersService.allratingForDriver(id);
   }
 }

@@ -1,4 +1,5 @@
 // import { UpdatePhoneDto } from '../../../../auth-driver';
+import { Rating } from '@models/sub-orders/interfaces/rating';
 import { UpdateDriverPhoneDto } from '../../../../auth-driver';
 import { PaginatedResponse } from '../../../../common/types';
 import { Role } from '../../../roles/entities/role.entity';
@@ -36,6 +37,7 @@ export interface IDriversService {
 
   validate(id: string): Promise<Driver>;
 
+  allratingForDriver(id:string): Promise<Rating[]>
   // addCar(carDto:CarDto,driver:Driver):Promise<Car>
 
   // recover(id: string): Promise<Driver>;

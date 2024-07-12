@@ -1,10 +1,14 @@
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateSubOrderDto {
-  @ApiProperty()
+  @ApiProperty({ default: 1 })
   @IsOptional()
   @IsNumber()
   rating?: number;
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  note?: string;
 }

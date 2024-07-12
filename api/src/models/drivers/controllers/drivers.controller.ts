@@ -25,6 +25,8 @@ import { IDriversService } from '../interfaces/services/drivers.service.interfac
 import { DRIVER_TYPES } from '../interfaces/type';
 import { DriverWalletRepository } from '../repositories/driver/driver-wallet.repository';
 import { PaginatedDriverResponse } from '../responses/pagination.response';
+import { SubOrderRepository } from '../../sub-orders/repositories/sub-order.repository';
+import { Rating } from '@models/sub-orders/interfaces/rating';
 
 @ApiTags('Drivers')
 @ApiMainErrorsResponse()
@@ -97,6 +99,13 @@ export class DriversController {
   @Patch(':id/wallet/withdraw')
   async withdraw(@Id() id: string, @Body() dto: UpdateWalletDto) {
     return this.walletRepository.withdraw(id, dto.cost);
+  }
+
+  @ApiOkResponse({ type: Rating ,isArray:true})
+  @SerializeOptions({ groups: [GROUPS.DRIVER] })
+  @Get(':id/rating')
+  async rating(@Id() id: string) {
+    return this.driversService.allratingForDriver(id);
   }
 
   @ApiOkResponse({ type: Driver })
