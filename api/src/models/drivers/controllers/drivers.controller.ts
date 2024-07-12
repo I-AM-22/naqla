@@ -102,7 +102,7 @@ export class DriversController {
   }
 
   @ApiOkResponse({ type: Rating ,isArray:true})
-  @SerializeOptions({ groups: [GROUPS.DRIVER] })
+  @Roles(ROLE.EMPLOYEE, ROLE.ADMIN)
   @Get(':id/rating')
   async rating(@Id() id: string) {
     return this.driversService.allratingForDriver(id);
