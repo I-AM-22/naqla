@@ -5,6 +5,7 @@ import 'package:naqla/core/common/constants/configuration/api_routes.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 import 'package:naqla/features/orders/domain/usecases/get_sub_orders_use_case.dart';
+import 'package:naqla/features/orders/domain/usecases/rating_use_case.dart';
 import 'package:naqla/features/orders/domain/usecases/set_arrived_use_case.dart';
 
 @injectable
@@ -35,6 +36,16 @@ class OrderRemoteDataSource {
               (e) => OrderModel.fromJson(e),
             )
             .toList();
+      },
+    );
+  }
+
+  Future<SubOrderModel> rating(RatingParam params) {
+    return throwAppException(
+      () async {
+        final result =
+            await dio.patch(ApiRoutes.rating(params.id), data: params.toMap);
+        return SubOrderModel.fromJson(result.data);
       },
     );
   }

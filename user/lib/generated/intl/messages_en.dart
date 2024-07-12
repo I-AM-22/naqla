@@ -120,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_naqla": MessageLookupByLibrary.simpleMessage("New naqla"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "order_accepted_date":
             MessageLookupByLibrary.simpleMessage("Order accepted date"),
         "order_arrived_date":
@@ -151,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("profile"),
         "rate_the_driver":
             MessageLookupByLibrary.simpleMessage("Rate the driver"),
+        "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "region": MessageLookupByLibrary.simpleMessage("Region"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "second": MessageLookupByLibrary.simpleMessage("second"),

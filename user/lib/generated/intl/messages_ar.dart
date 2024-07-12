@@ -116,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_naqla": MessageLookupByLibrary.simpleMessage("نقلة جديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
+        "notes": MessageLookupByLibrary.simpleMessage("ملاحظات"),
         "order_accepted_date":
             MessageLookupByLibrary.simpleMessage("تاريخ قبول النقلة"),
         "order_arrived_date":
@@ -146,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "porters": MessageLookupByLibrary.simpleMessage("حمالين"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "rate_the_driver": MessageLookupByLibrary.simpleMessage("قيّم السائق"),
+        "rating": MessageLookupByLibrary.simpleMessage("التقييم"),
         "region": MessageLookupByLibrary.simpleMessage("المنطقة"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "second": MessageLookupByLibrary.simpleMessage("ثانية"),

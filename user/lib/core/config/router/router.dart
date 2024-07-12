@@ -162,7 +162,7 @@ final router = GoRouter(
                                     path: RatingPage.path,
                                     name: RatingPage.name,
                                     parentNavigatorKey: _rootNavigatorKey,
-                                    builder: (context, state) => RatingPage(),
+                                    builder: (context, state) => RatingPage(id: state.extra as String),
                                   )
                                 ]),
                           ])

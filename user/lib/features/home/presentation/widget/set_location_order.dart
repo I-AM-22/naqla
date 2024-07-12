@@ -51,8 +51,8 @@ class _SetLocationOrderState extends State<SetLocationOrder> {
                         },
                         initialCameraPosition: cameraPosition ??
                             const CameraPosition(
-                              target: LatLng(36.203977, 37.132782),
-                              zoom: 16,
+                              target: LatLng(36.2027687, 37.1331042),
+                              zoom: 14.5,
                             ),
                         markers: markers,
                         onTap: (argument) async {
@@ -66,7 +66,8 @@ class _SetLocationOrderState extends State<SetLocationOrder> {
                               markerId: MarkerId(widget.name),
                               position: p0.value ??
                                   const LatLng(36.203977, 37.132782),
-                              icon: BitmapDescriptor.fromBytes(
+                              icon: BitmapDescriptor.bytes(
+                                height: 40.h,
                                 await CoreHelperFunctions.getBytesFromAsset(
                                     'assets/icons/png/map.png', 100),
                               ),

@@ -4,11 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/enums/sub_order_status.dart';
 import 'package:naqla/features/orders/presentation/pages/rating_page.dart';
+import 'package:naqla/features/orders/presentation/widgets/car_details_section.dart';
+import 'package:naqla/features/orders/presentation/widgets/sub_order_details_section.dart';
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../../core/core.dart';
 import '../../../../core/di/di_container.dart';
-import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/app_scaffold.dart';
 import '../../../app/presentation/widgets/states/app_common_state_builder.dart';
@@ -54,20 +55,27 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    LocationMap(locationStart: data.order!.locationStart!, locationEnd: data.order!.locationEnd!),
+                    LocationMap(
+                        locationStart: data.order!.locationStart!,
+                        locationEnd: data.order!.locationEnd!),
                     16.verticalSpace,
                     Padding(
-                      padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
+                      padding: REdgeInsets.symmetric(
+                          horizontal: UIConstants.screenPadding20),
                       child: Row(
                         children: [
-                          Expanded(child: data.status.displayStatus(context, arrivedAt: data.arrivedAt)),
+                          Expanded(
+                              child: data.status.displayStatus(context,
+                                  arrivedAt: data.arrivedAt)),
                           if (data.status == SubOrderStatus.delivered) ...{
                             8.horizontalSpace,
                             Expanded(
                               child: InkWell(
-                                onTap: () => context.pushNamed(RatingPage.name),
+                                onTap: () => context.pushNamed(RatingPage.name,
+                                    extra: data.id),
                                 child: Container(
-                                  padding: REdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                                  padding: REdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 10),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     color: context.colorScheme.delivered,
@@ -86,77 +94,20 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                       ),
                     ),
                     16.verticalSpace,
-                    Padding(
-                      padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                      child: Container(
-                        padding: REdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: context.colorScheme.outline),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: RichText(
-                          text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
-                            TextSpan(text: '${S.of(context).cost}: ${data.realCost} ${S.of(context).syp}\n'),
-                            TextSpan(text: '${S.of(context).the_weight}: ${data.weight}\n'),
-                            if ((data.order?.porters ?? 0) > 0)
-                              TextSpan(text: '${S.of(context).the_number_of_floors}: ${(data.order?.porters ?? 1) - 1}\n'),
-                            TextSpan(
-                                text: '${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate)}\n'),
-                            TextSpan(
-                                text: CoreHelperFunctions.formatOrderTime(context, data.status,
-                                    deliveredAt: data.deliveredAt,
-                                    acceptedAt: data.acceptedAt,
-                                    driverAssignedAt: data.driverAssignedAt,
-                                    pickedUpAt: data.pickedUpAt)),
-                          ]),
-                        ),
-                      ),
-                    ),
+                    SubOrderDetailsSection(data: data),
                     if (data.carModel != null) ...{
                       16.verticalSpace,
-                      Padding(
-                        padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
-                        child: Container(
-                          padding: REdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: context.colorScheme.outline),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: RichText(
-                            text:
-                                TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
-                              TextSpan(
-                                  text: '${S.of(context).vehicle_advantages}: ${data.order?.advantages?.map(
-                                (e) => e,
-                              )}\n'),
-                              TextSpan(
-                                  text: '${S.of(context).driver_name}: ${data.carModel?.driver?.firstName} ${data.carModel?.driver?.lastName}\n'),
-                              TextSpan(text: '${S.of(context).car_model}: ${data.carModel?.model}\n'),
-                              TextSpan(text: '${S.of(context).car_brand}: ${data.carModel?.brand}\n'),
-                              WidgetSpan(
-                                  child: Padding(
-                                padding: REdgeInsets.symmetric(vertical: 10),
-                              )),
-                              TextSpan(text: '${S.of(context).car_color}:\n'),
-                              WidgetSpan(
-                                  child: Container(
-                                width: 70.w,
-                                height: 20.h,
-                                color: CoreHelperFunctions.hexToColor(data.carModel?.color ?? ''),
-                              ))
-                            ]),
-                          ),
-                        ),
-                      )
+                      CarDetailsSection(data: data),
                     },
                     16.verticalSpace,
                     SizedBox(
                       width: 200.w,
                       height: 200.h,
                       child: ListView.separated(
-                        padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: UIConstants.screenPadding16),
+                        padding: REdgeInsets.symmetric(
+                            horizontal: UIConstants.screenPadding20,
+                            vertical: UIConstants.screenPadding16),
                         scrollDirection: Axis.horizontal,
-                        // physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return Container(
                             height: 250.h,
@@ -164,7 +115,8 @@ class _SubOrderDetailsPageState extends State<SubOrderDetailsPage> {
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: context.colorScheme.outline),
+                              border: Border.all(
+                                  color: context.colorScheme.outline),
                             ),
                             child: AppImage.network(
                               data.photos[index].mobileUrl,

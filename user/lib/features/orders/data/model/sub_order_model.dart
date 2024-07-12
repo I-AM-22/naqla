@@ -1,12 +1,12 @@
 import 'package:naqla/core/common/enums/sub_order_status.dart';
 import 'package:naqla/features/home/data/model/order_photos_model.dart';
 import 'package:naqla/features/orders/data/model/car_model.dart';
-
 import '../../../home/data/model/order_model.dart';
 
 class SubOrderModel {
   final String id;
   final num rating;
+  final String? note;
   final num weight;
   final num cost;
   final num realCost;
@@ -23,6 +23,7 @@ class SubOrderModel {
   SubOrderModel({
     required this.id,
     required this.rating,
+    required this.note,
     required this.weight,
     required this.cost,
     required this.realCost,
@@ -40,6 +41,7 @@ class SubOrderModel {
   SubOrderModel copyWith({
     String? id,
     num? rating,
+    String? note,
     num? weight,
     num? cost,
     num? realCost,
@@ -56,6 +58,7 @@ class SubOrderModel {
       SubOrderModel(
         id: id ?? this.id,
         rating: rating ?? this.rating,
+        note: note ?? this.note,
         weight: weight ?? this.weight,
         cost: cost ?? this.cost,
         realCost: realCost ?? this.realCost,
@@ -73,6 +76,7 @@ class SubOrderModel {
   factory SubOrderModel.fromJson(Map<String, dynamic> json) => SubOrderModel(
         id: json["id"],
         rating: json["rating"] ?? 0,
+        note: json["note"],
         weight: json["weight"],
         cost: json["cost"],
         realCost: json["realCost"],
@@ -90,6 +94,7 @@ class SubOrderModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "rating": rating,
+        "note": note,
         "weight": weight,
         "cost": cost,
         "realCost": realCost,

@@ -6,6 +6,7 @@ import 'package:naqla/core/use_case/use_case.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 import 'package:naqla/features/orders/domain/usecases/get_done_orders_use_case.dart';
+import 'package:naqla/features/orders/domain/usecases/rating_use_case.dart';
 import 'package:naqla/features/orders/domain/usecases/set_arrived_use_case.dart';
 import 'package:naqla/features/orders/domain/usecases/set_picked_up_use_case.dart';
 
@@ -24,6 +25,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   final GetSubOrdersUseCase getSubOrdersUseCase;
   final SetArrivedUseCase setArrivedUseCase;
   final SetPickedUpUseCase setPickedUpUseCase;
+  final RatingUseCase ratingUseCase;
   final GetSubOrderDetailsUseCase getSubOrderDetailsUseCase;
   OrderBloc(
       this.getActiveOrdersUseCase,
@@ -31,7 +33,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       this.setArrivedUseCase,
       this.setPickedUpUseCase,
       this.getSubOrderDetailsUseCase,
-      this.getDoneOrdersUseCase)
+      this.getDoneOrdersUseCase,
+      this.ratingUseCase)
       : super(OrderState()) {
     multiStateApiCall<GetActiveOrdersEvent, List<OrderModel>>(
         OrderState.getActiveOrders,
@@ -71,6 +74,20 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     multiStateApiCall<GetSubOrderDetailsEvent, SubOrderModel>(
       OrderState.getSuOrderDetails,
       (event) => getSubOrderDetailsUseCase(event.id),
+    );
+
+    multiStateApiCall<RatingEvent, SubOrderModel>(
+      OrderState.rating,
+      (event) => ratingUseCase(event.param),
+      onSuccess: (data, event, emit) async {
+        final oldData =
+            state.getState<SubOrderModel>(OrderState.getSuOrderDetails).data;
+        emit(state.updateData<SubOrderModel>(
+            OrderState.getSuOrderDetails,
+            oldData!.copyWith(
+                rating: event.param.rating, note: event.param.notes)));
+        event.onSuccess();
+      },
     );
   }
 }

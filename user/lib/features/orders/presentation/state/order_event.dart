@@ -19,11 +19,22 @@ class ChangeOrderStatusEvent extends OrderEvent {
   final VoidCallback onSuccess;
   final VoidCallback onFailure;
 
-  ChangeOrderStatusEvent({required this.param, required this.status, required this.onSuccess, required this.onFailure});
+  ChangeOrderStatusEvent(
+      {required this.param,
+      required this.status,
+      required this.onSuccess,
+      required this.onFailure});
 }
 
 class GetSubOrderDetailsEvent extends OrderEvent {
   final String id;
 
   GetSubOrderDetailsEvent({required this.id});
+}
+
+class RatingEvent extends OrderEvent {
+  final RatingParam param;
+  final VoidCallback onSuccess;
+
+  RatingEvent({required this.param, required this.onSuccess});
 }
