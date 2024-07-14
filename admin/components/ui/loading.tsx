@@ -17,7 +17,7 @@ const loadingVariants = cva("animate-spin", {
 
 export type LoadingProps = React.SVGProps<SVGSVGElement> &
   VariantProps<typeof loadingVariants>;
-export function Loading({ size, className, ...props }: LoadingProps) {
+export function Loading({ size, className, ref, ...props }: LoadingProps) {
   return (
     <Loader2 {...props} className={cn(loadingVariants({ size, className }))} />
   );

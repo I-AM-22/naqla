@@ -4,6 +4,7 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -16,7 +17,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useTranslation } from "@/i18n/client";
-import { GalleryHorizontalEnd } from "lucide-react";
+import { ChevronDown, ChevronUp, GalleryHorizontalEnd } from "lucide-react";
+import { Button } from "./button";
 import { Loading } from "./loading";
 
 type DataTableProps<TData> = {
@@ -27,7 +29,16 @@ type DataTableProps<TData> = {
       data: TData[];
     }
   | { type: "loading" }
-);
+) &
+  (
+    | {
+        sorting: SortingState;
+        onSortChange: React.Dispatch<React.SetStateAction<SortingState>>;
+      }
+    | {
+        sorting?: false;
+      }
+  );
 
 export function DataTable<TData>({ columns, ...props }: DataTableProps<TData>) {
   props.type ??= "data";
@@ -36,8 +47,18 @@ export function DataTable<TData>({ columns, ...props }: DataTableProps<TData>) {
     data: props.type === "data" ? props.data : [],
     columns,
     getCoreRowModel: getCoreRowModel(),
+    ...(props.sorting
+      ? {
+          state: {
+            sorting: props.sorting,
+          },
+          onSortingChange: props.onSortChange,
+        }
+      : {}),
   });
   const { t } = useTranslation();
+  console.log(table.getState().sorting);
+
   return (
     <div className="w-full rounded-md border">
       <Table>
@@ -47,12 +68,27 @@ export function DataTable<TData>({ columns, ...props }: DataTableProps<TData>) {
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
+                    {header.column.getIsSorted() && (
+                      <Button
+                        size={"icon"}
+                        onClick={() =>
+                          header.column.toggleSorting(
+                            header.column.getIsSorted() === "asc",
+                          )
+                        }
+                        variant={"ghost"}
+                        className="inline h-4 w-5"
+                      >
+                        {{
+                          asc: <ChevronUp className="h-5 w-5" />,
+                          desc: <ChevronDown className="h-5 w-5" />,
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </Button>
+                    )}
                   </TableHead>
                 );
               })}
@@ -67,7 +103,7 @@ export function DataTable<TData>({ columns, ...props }: DataTableProps<TData>) {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id } >
+                    <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),

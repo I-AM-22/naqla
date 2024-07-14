@@ -4,6 +4,7 @@ import { revalidatePath } from "@/actions/cache";
 import { Card } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { FormInput } from "@/components/ui/form-input";
+import PasswordFormInput from "@/components/ui/password-form-input";
 import Submit from "@/components/ui/submit";
 import { phoneRegex } from "@/constants/regex";
 import { useMutation } from "@/hooks/use-mutation";
@@ -59,8 +60,11 @@ export default function Page() {
             <FormInput label={t("firstName")} name="firstName" />
             <FormInput label={t("lastName")} name="lastName" />
             <FormInput label={t("phone")} name="phone" />
-            <FormInput label={t("password")} name="password" />
-            <FormInput label={t("passwordConfirm")} name="passwordConfirm" />
+            <PasswordFormInput label={t("password")} name="password" />
+            <PasswordFormInput
+              label={t("passwordConfirm")}
+              name="passwordConfirm"
+            />
             <Submit className="mt-3" />
           </div>
         </form>

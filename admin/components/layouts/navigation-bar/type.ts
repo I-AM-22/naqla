@@ -1,3 +1,4 @@
+import { AdminUser } from "@/hooks/use-user";
 import { ReactNode } from "react";
 
 export type Route = {
@@ -6,4 +7,5 @@ export type Route = {
   href?: string;
   disabled?: boolean;
   key: string;
+  roles?: AdminUser["admin"]["role"][];
 };

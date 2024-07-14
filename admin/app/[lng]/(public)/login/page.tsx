@@ -6,6 +6,7 @@ import PasswordFormInput from "@/components/ui/password-form-input";
 import Submit from "@/components/ui/submit";
 import { phoneRegex } from "@/constants/regex";
 import { useMutation } from "@/hooks/use-mutation";
+import { AdminUser } from "@/hooks/use-user";
 import { useTranslation } from "@/i18n/client";
 import { z } from "@/lib/zod";
 import { adminsControllerLogin } from "@/service/api";
@@ -35,7 +36,7 @@ export default function Page() {
     const response = await login.mutate(data, {
       onError: parseResponseError({ setFormError: form.setError }),
     });
-    if (response) loginUser(response.data);
+    if (response) loginUser(response.data as AdminUser);
   };
   return (
     <Form {...form}>

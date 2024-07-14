@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useUser } from "@/hooks/use-user";
+import { AdminUser } from "@/hooks/use-user";
 import { useTranslation } from "@/i18n/client";
 import { locales } from "@/i18n/settings";
 import { cn } from "@/lib/utils";
@@ -77,27 +77,30 @@ const routes: Route[][] = [
       icon: <UserCog />,
       label: "admins",
       key: "admins",
+      roles: ["superadmin"],
     },
   ],
 ];
 
-export type NavigationBarProps = {};
-export const NavigationBar: FC<NavigationBarProps> = ({}) => {
+export type NavigationBarProps = { user: AdminUser };
+export const NavigationBar: FC<NavigationBarProps> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(true);
   const activeRoute = usePathname().split("/")[2] ?? "";
   const { t } = useTranslation("layout");
   const { setTheme, themes, theme } = useTheme();
   const { lng } = useParams<PageProps["params"]>();
   const router = useRouter();
-  const user = useUser();
+
   const pathname = usePathname();
   const pathnameWithoutLocale = pathname.split("/")[2] ?? "";
   const handleLogout = async () => {
     await logoutUser();
     router.push("/");
   };
+
   return (
     <aside
+      suppressHydrationWarning
       className={cn(
         "sticky bottom-0 start-0 top-0 flex h-screen max-h-screen flex-col overflow-y-auto border-e-2 border-e-border",
         isOpen && "w-52",
@@ -117,17 +120,22 @@ export const NavigationBar: FC<NavigationBarProps> = ({}) => {
           <Menu />
         </Button>
       </div>
-      <div className="flex flex-1 flex-col gap-0.5 p-1 transition-all">
+      <div className="flex flex-1 flex-col gap-0.5 p-1 transition-all ">
         {routes.map((section, index) => (
           <Fragment key={index}>
-            {section.map((route) => (
-              <NavigationButton
-                tooltip={!isOpen}
-                key={route.key}
-                route={route}
-                isActive={activeRoute === route.key}
-              />
-            ))}
+            {section
+              .filter(
+                (route) =>
+                  !route.roles || route.roles.includes(user?.admin.role),
+              )
+              .map((route) => (
+                <NavigationButton
+                  tooltip={!isOpen}
+                  key={route.key}
+                  route={route}
+                  isActive={activeRoute === route.key}
+                />
+              ))}
             {index !== routes.length - 1 && <Divider />}
           </Fragment>
         ))}

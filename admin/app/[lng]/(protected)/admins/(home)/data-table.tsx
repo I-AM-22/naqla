@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Loading } from "@/components/ui/loading";
 import { useMutation } from "@/hooks/use-mutation";
+import { useUser } from "@/hooks/use-user";
 import { useTranslation } from "@/i18n/client";
 import { adminsControllerDelete } from "@/service/api";
 import { Admin } from "@/service/api.schemas";
@@ -90,6 +91,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
 export type AdminsTableProps = { data: Admin[] };
 export function AdminsTable({ data }: AdminsTableProps) {
   const { t, i18n } = useTranslation("admins");
+
   return (
     <article className="flex flex-col gap-2">
       <Button asChild className="ms-auto">

@@ -32,10 +32,12 @@ export const NavigationButton = ({
           >
             <span
               className={cn(
-                "transition-colors duration-200",
+                "transition-colors duration-200 animate-in fade-in",
                 "flex w-full rounded p-1 [&_svg]:min-h-6 [&_svg]:min-w-6 [&_svg]:text-primary", // Layout
                 "bg-background hover:bg-accent", // Light mode
-                `${isActive ? "bg-foreground/5 text-foreground shadow-sm" : ""}`,
+                `${
+                  isActive ? "bg-foreground/5 text-foreground shadow-sm" : ""
+                }`,
               )}
             >
               {route.icon}
