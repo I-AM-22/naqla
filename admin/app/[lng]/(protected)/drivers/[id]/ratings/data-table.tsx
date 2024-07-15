@@ -12,6 +12,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
   }),
   columnHelper.accessor("rating", {
     header: t("rating"),
+    cell: ({ getValue }) => getValue().toFixed(2),
   }),
   columnHelper.accessor("note", {
     header: t("note"),

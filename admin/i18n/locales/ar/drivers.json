@@ -14,5 +14,7 @@
   "walletAvailable": "متاح",
   "walletTotal": "إجمالي",
   "withdrawAvailable": "سحب",
-  "withdrawSuccess": "تم سحب {{amount}} بنجاح"
+  "withdrawSuccess": "تم سحب {{amount}} بنجاح",
+  "options": "الخيارات",
+  "remove": "حذف"
 }

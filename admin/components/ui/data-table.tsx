@@ -57,7 +57,6 @@ export function DataTable<TData>({ columns, ...props }: DataTableProps<TData>) {
       : {}),
   });
   const { t } = useTranslation();
-  console.log(table.getState().sorting);
 
   return (
     <div className="w-full rounded-md border">

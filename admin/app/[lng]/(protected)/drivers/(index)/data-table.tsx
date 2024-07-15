@@ -1,16 +1,29 @@
 "use client";
+import { revalidatePath } from "@/actions/cache";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Loading } from "@/components/ui/loading";
+import { useMutation } from "@/hooks/use-mutation";
 import { useTranslation } from "@/i18n/client";
 import { priceFormatter } from "@/lib/utils";
+import { driversControllerDelete } from "@/service/api";
 import { Driver } from "@/service/api.schemas";
 import { createColumnHelper, SortingState } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { TFunction } from "i18next";
-import { CircleArrowUp } from "lucide-react";
+import { CircleArrowUp, MoreHorizontal, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import { toast } from "sonner";
 const columnHelper = createColumnHelper<Driver>();
 export const columns = (t: TFunction<string, string>, language: string) => [
   columnHelper.display({
@@ -50,7 +63,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
           className="underline"
           href={`/drivers/${row.original.id}/ratings`}
         >
-          {getValue()}
+          {getValue().toFixed(2)}
         </Link>
       ) : (
         <div className="ps-6">-</div>
@@ -84,6 +97,52 @@ export const columns = (t: TFunction<string, string>, language: string) => [
   columnHelper.accessor("createdAt", {
     header: t("createdAt"),
     cell: ({ cell }) => dayjs(cell.getValue()).format("YYYY/MM/DD hh:mm A"),
+  }),
+  columnHelper.display({
+    id: "options",
+    header: t("options"),
+    cell: function Cell({ row }) {
+      const [dropdownOpen, setDropdownOpen] = useState(false);
+      const remove = useMutation(driversControllerDelete);
+      return (
+        <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
+          <DropdownMenuTrigger asChild>
+            <Button variant="default" className="h-6 w-6 p-0 ">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="center">
+            <DropdownMenuLabel>{t("options")}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              disabled={remove.isPending}
+              onClick={async (e) => {
+                e.preventDefault();
+
+                await remove.mutate(
+                  { id: row.original.id },
+                  {
+                    onSuccess: () => {
+                      toast.success(t("removeSuccess"));
+                      revalidatePath("/drivers");
+                    },
+                  },
+                );
+                setDropdownOpen(false);
+              }}
+            >
+              <p className="flex-1">{t("remove")}</p>
+              {remove.isPending ? (
+                <Loading className="ms-2" size="sm" />
+              ) : (
+                <Trash2 className="ms-2 h-4 w-4" />
+              )}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   }),
 ];
 export type DiversTableProps = { data: Driver[] };
