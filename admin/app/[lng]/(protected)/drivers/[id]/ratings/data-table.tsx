@@ -20,8 +20,6 @@ export const columns = (t: TFunction<string, string>, language: string) => [
 export type RatingTableProps = { ratings: Rating[]; driver: Driver };
 export function RatingTable({ driver, ratings }: RatingTableProps) {
   const { t, i18n } = useTranslation("drivers");
-  console.log(driver);
-
   return (
     <article className="flex flex-col gap-2">
       <h2 className="text-2xl">
