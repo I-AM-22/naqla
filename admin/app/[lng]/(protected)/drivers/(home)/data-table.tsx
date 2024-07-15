@@ -44,6 +44,18 @@ export const columns = (t: TFunction<string, string>, language: string) => [
   columnHelper.accessor("rating", {
     id: "rating",
     header: t("rating"),
+    cell: ({ getValue, row }) => {
+      return getValue() ? (
+        <Link
+          className="underline"
+          href={`/drivers/${row.original.id}/ratings`}
+        >
+          {getValue()}
+        </Link>
+      ) : (
+        <div className="ps-6">-</div>
+      );
+    },
   }),
   columnHelper.accessor("wallet.available", {
     header: t("wallet"),

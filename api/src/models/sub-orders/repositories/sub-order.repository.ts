@@ -2,15 +2,15 @@ import { SUB_ORDER_STATUS } from '@common/enums';
 import { PaginatedResponse } from '@common/types';
 import { Car } from '@models/cars/entities/car.entity';
 import { ResponseTime } from '@models/statics/responses/ResponseTime';
+import { StaticProfits } from '@models/statics/responses/StaticProfits';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, In, Repository } from 'typeorm';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
-import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
-import { StaticProfits } from '@models/statics/responses/StaticProfits';
 import { Rating } from '../interfaces/rating';
+import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 
 @Injectable()
 export class SubOrderRepository implements ISubOrderRepository {
@@ -114,7 +114,7 @@ export class SubOrderRepository implements ISubOrderRepository {
       .andWhere('subOrder.rating <> 0')
       .select('AVG(subOrder.rating)', 'avgRating')
       .getRawOne();
-    return avgRating?.avgRating || 4;
+    return avgRating?.avgRating;
   }
   async allratingForDriver(driverId: string): Promise<Rating[]> {
     const x = await this.subOrderRepository
@@ -128,7 +128,12 @@ export class SubOrderRepository implements ISubOrderRepository {
       .andWhere('car.driverId = :driverId', { driverId })
       .andWhere('subOrder.rating <> 0 ')
       .andWhere('subOrder.note is not null ')
-      .select(['user.firstName as firstName' ,'user.lastName as lastName', 'subOrder.note as note', 'subOrder.rating as rating'])
+      .select([
+        'user.firstName as firstName',
+        'user.lastName as lastName',
+        'subOrder.note as note',
+        'subOrder.rating as rating',
+      ])
       .getRawMany<Rating>();
     return x;
   }
