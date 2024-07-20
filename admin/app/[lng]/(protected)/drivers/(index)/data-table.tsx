@@ -63,7 +63,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
           className="underline"
           href={`/drivers/${row.original.id}/ratings`}
         >
-          {getValue().toFixed(2)}
+          {Number(getValue()).toFixed(2)}
         </Link>
       ) : (
         <div className="ps-6">-</div>
