@@ -7,7 +7,7 @@ import { TFunction } from "i18next";
 const columnHelper = createColumnHelper<Rating>();
 export const columns = (t: TFunction<string, string>, language: string) => [
   columnHelper.display({
-    cell: ({ row }) => `${row.original.firstName} ${row.original.lastName}`,
+    cell: ({ row }) => `${row.original.firstname} ${row.original.lastname}`,
     header: t("name"),
   }),
   columnHelper.accessor("rating", {
