@@ -11,7 +11,7 @@ export default async function Page(props: PageProps<{ id: string }>) {
 
   return (
     <article className="flex flex-col gap-2">
-      <RatingTable driver={driver.data} ratings={ratings} />
+      <RatingTable driver={driver.data} ratings={ratings.data} />
     </article>
   );
 }
