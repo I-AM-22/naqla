@@ -78,7 +78,7 @@ export class CarsService implements ICarsService {
       carId: car.id,
     });
 
-    if (!subOrders.length) {
+    if (subOrders.length) {
       throw new BadRequestException('Can not remove a car that have orders');
     }
     return this.carRepository.delete(car.id);
@@ -86,13 +86,23 @@ export class CarsService implements ICarsService {
 
   async addAdvantagesToCar(id: string, dto: AddAdvansToCarDto, driver: Driver): Promise<void> {
     const car = await this.findOneForOwner(id, driver.id);
-    // const car = await this.findOne(id);
-    const advantages = await this.advantagesService.findInIds(dto.advantages);
-    return this.carRepository.addAdvantageToCar(car, advantages);
+
+    const carAdvantagesIds = car.advantages.map((advantage) => advantage.id);
+
+    const advantagesToInsert = dto.advantages.filter((advantageId) => !carAdvantagesIds.includes(advantageId));
+
+    if (advantagesToInsert.length === 0) {
+      return; // No new advantages to add
+    }
+
+    const advantages = await this.advantagesService.findInIds(advantagesToInsert);
+
+    await this.carRepository.addAdvantageToCar(car, advantages);
   }
 
   async removeAdvantagesFromCar(id: string, advantageId: string, driver: Driver): Promise<void> {
     const car = await this.findOneForOwner(id, driver.id);
+
     const advantage = await this.advantagesService.findOne(advantageId);
     return this.carRepository.removeAdvantageFromCar(car, advantage);
   }

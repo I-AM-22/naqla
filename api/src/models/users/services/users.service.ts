@@ -70,7 +70,8 @@ export class UsersService implements IUsersService {
       order: { userId: user.id, status: ORDER_STATUS.ON_THE_WAY },
     });
 
-    if (!subOrders.length) {
+    console.log(subOrders);
+    if (subOrders.length) {
       throw new BadRequestException('Can not remove a user who has an active orders');
     }
 
@@ -102,7 +103,7 @@ export class UsersService implements IUsersService {
       order: { userId: id, status: ORDER_STATUS.ON_THE_WAY },
     });
 
-    if (!subOrders.length) {
+    if (subOrders.length) {
       throw new BadRequestException('Can not remove a user who has an active orders');
     }
 

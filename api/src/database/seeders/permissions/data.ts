@@ -95,11 +95,6 @@ export const permissions: pp[] = [
     roles: [ROLE.USER, ROLE.DRIVER, ROLE.ADMIN],
   },
   {
-    action: Action.Manage,
-    subject: Entities.Message,
-    roles: [ROLE.USER, ROLE.DRIVER, ROLE.ADMIN],
-  },
-  {
     action: Action.Read,
     subject: Entities.Payment,
     roles: [ROLE.ADMIN],

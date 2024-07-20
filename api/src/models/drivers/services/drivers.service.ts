@@ -72,7 +72,7 @@ export class DriversService implements IDriversService {
       car: { driverId: driver.id },
     });
 
-    if (!subOrders.length) {
+    if (subOrders.length) {
       throw new BadRequestException('Can not remove a driver who has an active orders');
     }
 
@@ -106,7 +106,7 @@ export class DriversService implements IDriversService {
       car: { driverId: id },
     });
 
-    if (!subOrders.length) {
+    if (subOrders.length) {
       throw new BadRequestException('Can not remove a driver who has an active orders');
     }
 

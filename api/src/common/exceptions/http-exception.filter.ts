@@ -7,8 +7,8 @@ import {
   UnauthorizedException,
   ForbiddenException,
   InternalServerErrorException,
-  BadRequestException,
   NotFoundException,
+  ConflictException,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Response } from 'express';
@@ -18,6 +18,11 @@ import { denied_error } from '../constants';
 import { ErrorType } from '@common/enums/error-type.enum';
 
 const handelPassportError = () => new UnauthorizedException({ message: 'الرجاء تسجيل الدخول' });
+
+const handelDuplicatedRecords = (detail: string) => {
+  const match = detail.match(/Key \("(.+)", "(.+)"\)/);
+  return new ConflictException(`Record already exist on table(s): ${match[1]}, ${match[2]}`);
+};
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -29,11 +34,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
+
     let error: any =
       exception instanceof ForbiddenError
         ? new ForbiddenException(denied_error)
         : exception.code === '23505'
-          ? new BadRequestException(exception.detail)
+          ? handelDuplicatedRecords(exception.detail)
           : exception.code === '23503'
             ? new NotFoundException(exception.detail + ' not found')
             : exception instanceof HttpException
