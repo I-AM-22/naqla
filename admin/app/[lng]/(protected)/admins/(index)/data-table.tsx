@@ -44,49 +44,48 @@ export const columns = (t: TFunction<string, string>, language: string) => [
       console.log(row);
 
       return (
-        row.original.role === "admin" && (
-          <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="default" className="h-6 w-6 p-0 ">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="center">
-              <DropdownMenuLabel>{t("options")}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {/* <DropdownMenuItem asChild>
+        // row.original.role === "admin" &&
+        <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
+          <DropdownMenuTrigger asChild>
+            <Button variant="default" className="h-6 w-6 p-0 ">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="center">
+            <DropdownMenuLabel>{t("options")}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {/* <DropdownMenuItem asChild>
               <Link href={`/admins/${row.original.id}/edit`}>
                 <p className="flex-1">{t("edit")}</p>
                 <Edit className="ms-2 h-4 w-4" />
               </Link>
             </DropdownMenuItem> */}
-              <DropdownMenuItem
-                disabled={remove.isPending}
-                onClick={async (e: any) => {
-                  e.preventDefault();
-                  await remove.mutate(
-                    { id: row.original.id },
-                    {
-                      onSuccess: () => {
-                        toast.success(t("removeSuccess"));
-                        revalidatePath("/admins");
-                      },
+            <DropdownMenuItem
+              disabled={remove.isPending}
+              onClick={async (e: any) => {
+                e.preventDefault();
+                await remove.mutate(
+                  { id: row.original.id },
+                  {
+                    onSuccess: () => {
+                      toast.success(t("removeSuccess"));
+                      revalidatePath("/admins");
                     },
-                  );
-                  setDropdownOpen(false);
-                }}
-              >
-                <p className="flex-1">{t("remove")}</p>
-                {remove.isPending ? (
-                  <Loading className="ms-2" size="sm" />
-                ) : (
-                  <Trash2 className="ms-2 h-4 w-4" />
-                )}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )
+                  },
+                );
+                setDropdownOpen(false);
+              }}
+            >
+              <p className="flex-1">{t("remove")}</p>
+              {remove.isPending ? (
+                <Loading className="ms-2" size="sm" />
+              ) : (
+                <Trash2 className="ms-2 h-4 w-4" />
+              )}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   }),
