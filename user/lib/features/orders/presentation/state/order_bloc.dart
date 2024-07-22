@@ -27,24 +27,14 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   final SetPickedUpUseCase setPickedUpUseCase;
   final RatingUseCase ratingUseCase;
   final GetSubOrderDetailsUseCase getSubOrderDetailsUseCase;
-  OrderBloc(
-      this.getActiveOrdersUseCase,
-      this.getSubOrdersUseCase,
-      this.setArrivedUseCase,
-      this.setPickedUpUseCase,
-      this.getSubOrderDetailsUseCase,
-      this.getDoneOrdersUseCase,
-      this.ratingUseCase)
+  OrderBloc(this.getActiveOrdersUseCase, this.getSubOrdersUseCase, this.setArrivedUseCase, this.setPickedUpUseCase, this.getSubOrderDetailsUseCase,
+      this.getDoneOrdersUseCase, this.ratingUseCase)
       : super(OrderState()) {
-    multiStateApiCall<GetActiveOrdersEvent, List<OrderModel>>(
-        OrderState.getActiveOrders,
-        (event) => getActiveOrdersUseCase(NoParams()));
+    multiStateApiCall<GetActiveOrdersEvent, List<OrderModel>>(OrderState.getActiveOrders, (event) => getActiveOrdersUseCase(NoParams()));
 
-    multiStateApiCall<GetDoneOrdersEvent, List<OrderModel>>(
-        OrderState.getDoneOrders, (event) => getDoneOrdersUseCase(NoParams()));
+    multiStateApiCall<GetDoneOrdersEvent, List<OrderModel>>(OrderState.getDoneOrders, (event) => getDoneOrdersUseCase(NoParams()));
 
-    multiStateApiCall<GetSubOrdersEvent, List<SubOrderModel>>(
-        OrderState.getSubOrders, (event) => getSubOrdersUseCase(event.param));
+    multiStateApiCall<GetSubOrdersEvent, List<SubOrderModel>>(OrderState.getSubOrders, (event) => getSubOrdersUseCase(event.param));
 
     multiStateApiCall<ChangeOrderStatusEvent, SubOrderModel>(
       OrderState.setArrived,
@@ -57,13 +47,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       },
       onSuccess: (data, event, emit) async {
         event.onSuccess();
-        final oldData =
-            state.getState<List<SubOrderModel>>(OrderState.getSubOrders).data ??
-                [];
-        oldData.removeWhere(
-          (element) => event.param.id == element.id,
-        );
-        oldData.add(data);
+        final oldData = state.getState<List<SubOrderModel>>(OrderState.getSubOrders).data ?? [];
+        oldData.removeAt(event.index);
+        oldData.insert(event.index, data);
         emit(state.updateData(OrderState.getSubOrders, oldData));
       },
       onFailure: (failure, event, emit) async {
@@ -80,12 +66,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       OrderState.rating,
       (event) => ratingUseCase(event.param),
       onSuccess: (data, event, emit) async {
-        final oldData =
-            state.getState<SubOrderModel>(OrderState.getSuOrderDetails).data;
-        emit(state.updateData<SubOrderModel>(
-            OrderState.getSuOrderDetails,
-            oldData!.copyWith(
-                rating: event.param.rating, note: event.param.notes)));
+        final oldData = state.getState<SubOrderModel>(OrderState.getSuOrderDetails).data;
+        emit(state.updateData<SubOrderModel>(OrderState.getSuOrderDetails, oldData!.copyWith(rating: event.param.rating, note: event.param.notes)));
         event.onSuccess();
       },
     );

@@ -13,8 +13,9 @@ import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
 
 class SubOrderCard extends StatelessWidget {
-  const SubOrderCard({super.key, required this.orderModel});
+  const SubOrderCard({super.key, required this.orderModel, required this.index});
   final SubOrderModel orderModel;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,7 @@ class SubOrderCard extends StatelessWidget {
       value: getIt<OrderBloc>(),
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(
-            border: Border.all(color: context.colorScheme.primary),
-            borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(border: Border.all(color: context.colorScheme.primary), borderRadius: BorderRadius.circular(8)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -36,25 +35,17 @@ class SubOrderCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RichText(
-                      text: TextSpan(
-                          style: context.textTheme.subHeadMedium.copyWith(
-                              color: context.colorScheme.primary, height: 1.5),
-                          children: [
-                            TextSpan(
-                                text:
-                                    '${CoreHelperFunctions.formatOrderTime(context, orderModel.status, acceptedAt: orderModel.acceptedAt, deliveredAt: orderModel.deliveredAt, driverAssignedAt: orderModel.driverAssignedAt, pickedUpAt: orderModel.pickedUpAt)} \n'),
-                            TextSpan(
-                                text:
-                                    '${S.of(context).order_status}${orderModel.status.name}\n'),
-                            TextSpan(
-                                text:
-                                    '${S.of(context).cost}${formatter.format(orderModel.realCost)} ${S.of(context).syp}\n'),
-                            if ((orderModel.order?.porters ?? 0) > 0) ...{
-                              TextSpan(
-                                  text:
-                                      '${S.of(context).the_number_of_floors}: ${(orderModel.order?.porters ?? 1) - 1}'),
-                            }
-                          ]),
+                      text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
+                        TextSpan(
+                            text:
+                                '${CoreHelperFunctions.formatOrderTime(context, orderModel.status, acceptedAt: orderModel.acceptedAt, deliveredAt: orderModel.deliveredAt, driverAssignedAt: orderModel.driverAssignedAt, pickedUpAt: orderModel.pickedUpAt)} \n'),
+                        TextSpan(text: '${S.of(context).order_status}${orderModel.status.name}\n'),
+                        if (orderModel.realCost > 0)
+                          TextSpan(text: '${S.of(context).cost}${formatter.format(orderModel.realCost)} ${S.of(context).syp}\n'),
+                        if ((orderModel.order?.porters ?? 0) > 0) ...{
+                          TextSpan(text: '${S.of(context).the_number_of_floors}: ${(orderModel.order?.porters ?? 1) - 1}'),
+                        }
+                      ]),
                     ),
                   ),
                 ),
@@ -88,10 +79,12 @@ class SubOrderCard extends StatelessWidget {
             ),
             if (orderModel.status == SubOrderStatus.taken) ...{
               ChangeOrderStatusWidget(
-                  orderId: orderModel.id,
-                  status: orderModel.status,
-                  arrivedAt: orderModel.arrivedAt,
-                  driverAssignedAt: orderModel.driverAssignedAt),
+                orderId: orderModel.id,
+                status: orderModel.status,
+                arrivedAt: orderModel.arrivedAt,
+                driverAssignedAt: orderModel.driverAssignedAt,
+                index: index,
+              ),
             }
           ],
         ),

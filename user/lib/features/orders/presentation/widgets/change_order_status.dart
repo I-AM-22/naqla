@@ -12,16 +12,12 @@ import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 
 // ignore: must_be_immutable
 class ChangeOrderStatusWidget extends StatelessWidget {
-  ChangeOrderStatusWidget(
-      {super.key,
-      required this.orderId,
-      required this.status,
-      this.arrivedAt,
-      this.driverAssignedAt});
+  ChangeOrderStatusWidget({super.key, required this.orderId, required this.status, required this.index, this.arrivedAt, this.driverAssignedAt});
   final String orderId;
   final SubOrderStatus status;
   final DateTime? arrivedAt;
   final DateTime? driverAssignedAt;
+  final int index;
 
   List<String> listOrderId = [];
 
@@ -48,6 +44,7 @@ class ChangeOrderStatusWidget extends StatelessWidget {
                       context.read<OrderBloc>().add(ChangeOrderStatusEvent(
                             param: SetArrivedParam(id: orderId),
                             status: ChangeOrderStatus.pickedUp,
+                            index: index,
                             onSuccess: () {
                               listOrderId.remove(orderId);
                             },
@@ -59,6 +56,7 @@ class ChangeOrderStatusWidget extends StatelessWidget {
                       context.read<OrderBloc>().add(ChangeOrderStatusEvent(
                             param: SetArrivedParam(id: orderId),
                             status: ChangeOrderStatus.arrived,
+                            index: index,
                             onSuccess: () {
                               listOrderId.remove(orderId);
                             },
@@ -70,9 +68,7 @@ class ChangeOrderStatusWidget extends StatelessWidget {
                   },
                   child: Center(
                     child: AppText.subHeadMedium(
-                      CoreHelperFunctions.getTitleButton(context,
-                          arrivedAt: arrivedAt,
-                          driverAssignedAt: driverAssignedAt),
+                      CoreHelperFunctions.getTitleButton(context, arrivedAt: arrivedAt, driverAssignedAt: driverAssignedAt),
                       color: Colors.white,
                       style: TextStyle(fontSize: 13.sp, height: .2),
                     ),

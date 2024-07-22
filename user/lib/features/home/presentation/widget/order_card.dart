@@ -10,11 +10,12 @@ import '../../../orders/presentation/pages/sub_orders_page.dart';
 import '../../data/model/order_model.dart';
 
 class OrderCard extends StatefulWidget {
-  const OrderCard({super.key, required this.orderModel, required this.showBorder, this.onTap, this.width});
+  const OrderCard({super.key, required this.orderModel, required this.showBorder, this.onTap, this.width, required this.isWaiting});
   final OrderModel orderModel;
   final bool showBorder;
   final Function()? onTap;
   final double? width;
+  final bool isWaiting;
 
   @override
   State<OrderCard> createState() => _OrderCardState();
@@ -28,7 +29,7 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
         if (widget.onTap != null) {
           widget.onTap!();
         } else {
-          context.pushNamed(SubOrdersPage.name, extra: widget.orderModel.id);
+          context.pushNamed(SubOrdersPage.name, extra: SubOrderParam(orderId: widget.orderModel.id, isWaiting: widget.isWaiting));
         }
       },
       child: Container(

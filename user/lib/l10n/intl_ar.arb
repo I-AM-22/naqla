@@ -123,6 +123,8 @@
   "write_a_comment_note": "اكتب تعليق / ملاحظة",
   "notes": "ملاحظات",
   "rating": "التقييم",
+  "your_order_is_under_scrutiny_by_the_admin_please_wait": "طلبك قيد التدقيق من قبل المشرف, الرجاء الانتظار",
+  "your_order_was_rejected_by_the_admin": "تم رفض طلبك من قبل المشرف",
 
   "__________________________profile______________________________":"",
   "profile":"الملف الشخصي",

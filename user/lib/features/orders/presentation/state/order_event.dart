@@ -18,12 +18,9 @@ class ChangeOrderStatusEvent extends OrderEvent {
   final ChangeOrderStatus status;
   final VoidCallback onSuccess;
   final VoidCallback onFailure;
+  final int index;
 
-  ChangeOrderStatusEvent(
-      {required this.param,
-      required this.status,
-      required this.onSuccess,
-      required this.onFailure});
+  ChangeOrderStatusEvent({required this.param, required this.status, required this.onSuccess, required this.index, required this.onFailure});
 }
 
 class GetSubOrderDetailsEvent extends OrderEvent {

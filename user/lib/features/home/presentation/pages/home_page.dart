@@ -15,6 +15,7 @@ import 'package:naqla/features/home/presentation/bloc/home_bloc.dart';
 import 'package:naqla/features/home/presentation/widget/order_card.dart';
 
 import '../../../../core/common/constants/constants.dart';
+import '../../../../core/common/enums/order_status.dart';
 import '../../../../generated/l10n.dart';
 import 'create_order.dart';
 import 'order_details_page.dart';
@@ -132,6 +133,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               onTap: () => context.pushNamed(OrderDetailsPage.name, extra: data[index]),
                               showBorder: false,
                               orderModel: data[index],
+                              isWaiting: data.elementAt(index).status == OrderStatus.waiting,
                             ),
                           ),
                         ),

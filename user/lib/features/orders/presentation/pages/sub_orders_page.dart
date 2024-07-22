@@ -13,12 +13,20 @@ import 'package:naqla/features/orders/domain/usecases/get_sub_orders_use_case.da
 import 'package:naqla/features/orders/presentation/pages/sub_order_details_page.dart';
 import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 
+import '../../../../core/global_widgets/app_text.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/sub_order_card.dart';
 
-class SubOrdersPage extends StatefulWidget {
-  const SubOrdersPage({super.key, required this.orderId});
+class SubOrderParam {
   final String orderId;
+  final bool isWaiting;
+
+  SubOrderParam({required this.orderId, required this.isWaiting});
+}
+
+class SubOrdersPage extends StatefulWidget {
+  const SubOrdersPage({super.key, required this.param});
+  final SubOrderParam param;
 
   static String name = "SubOrdersPage";
 
@@ -32,7 +40,7 @@ class _SubOrdersPageState extends State<SubOrdersPage> {
   final OrderBloc bloc = getIt<OrderBloc>();
   @override
   void initState() {
-    bloc.add(GetSubOrdersEvent(param: GetSubOrdersParam(orderId: widget.orderId)));
+    bloc.add(GetSubOrdersEvent(param: GetSubOrdersParam(orderId: widget.param.orderId)));
     super.initState();
   }
 
@@ -46,25 +54,33 @@ class _SubOrdersPageState extends State<SubOrdersPage> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            bloc.add(GetSubOrdersEvent(param: GetSubOrdersParam(orderId: widget.orderId)));
+            bloc.add(GetSubOrdersEvent(param: GetSubOrdersParam(orderId: widget.param.orderId)));
           },
           child: AppCommonStateBuilder<OrderBloc, List<SubOrderModel>>(
             stateName: OrderState.getSubOrders,
+            onEmpty: Padding(
+              padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20),
+              child: Center(
+                child: AppText.bodyRegular(widget.param.isWaiting
+                    ? S.of(context).your_order_is_under_scrutiny_by_the_admin_please_wait
+                    : S.of(context).your_order_was_rejected_by_the_admin),
+              ),
+            ),
             onSuccess: (data) {
               return Padding(
                 padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 10),
-                child: ListView(
-                  children: data
-                      .map(
-                        (e) => InkWell(
-                          onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: e.id),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            child: SubOrderCard(orderModel: e),
-                          ),
-                        ),
-                      )
-                      .toList(),
+                child: ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: data[index].id),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6),
+                      child: SubOrderCard(
+                        orderModel: data[index],
+                        index: index,
+                      ),
+                    ),
+                  ),
                 ),
               );
             },

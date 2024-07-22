@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/common/constants/constants.dart';
+import '../../../../core/common/enums/order_status.dart';
 import '../../../app/presentation/widgets/states/app_common_state_builder.dart';
 import '../../../home/data/model/order_model.dart';
 import '../../../home/presentation/widget/order_card.dart';
@@ -37,6 +38,7 @@ class _ActiveOrdersPageState extends State<ActiveOrdersPage> {
               child: OrderCard(
                 orderModel: data[index],
                 showBorder: true,
+                isWaiting: data.elementAt(index).status == OrderStatus.waiting,
               ),
             ),
             itemCount: data.length,

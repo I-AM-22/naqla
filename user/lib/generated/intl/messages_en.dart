@@ -230,6 +230,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
         "your_code": MessageLookupByLibrary.simpleMessage(" code"),
         "your_mobile_number":
-            MessageLookupByLibrary.simpleMessage("Your mobile number")
+            MessageLookupByLibrary.simpleMessage("Your mobile number"),
+        "your_order_is_under_scrutiny_by_the_admin_please_wait":
+            MessageLookupByLibrary.simpleMessage(
+                "Your order is under scrutiny by the admin, please wait"),
+        "your_order_was_rejected_by_the_admin":
+            MessageLookupByLibrary.simpleMessage(
+                "Your order was rejected by the admin")
       };
 }

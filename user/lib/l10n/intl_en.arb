@@ -125,6 +125,8 @@
   "write_a_comment_note": "Write a comment / note",
   "notes": "Notes",
   "rating": "Rating",
+  "your_order_is_under_scrutiny_by_the_admin_please_wait": "Your order is under scrutiny by the admin, please wait",
+  "your_order_was_rejected_by_the_admin": "Your order was rejected by the admin",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

@@ -1210,6 +1210,26 @@ class S {
     );
   }
 
+  /// `Your order is under scrutiny by the admin, please wait`
+  String get your_order_is_under_scrutiny_by_the_admin_please_wait {
+    return Intl.message(
+      'Your order is under scrutiny by the admin, please wait',
+      name: 'your_order_is_under_scrutiny_by_the_admin_please_wait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your order was rejected by the admin`
+  String get your_order_was_rejected_by_the_admin {
+    return Intl.message(
+      'Your order was rejected by the admin',
+      name: 'your_order_was_rejected_by_the_admin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(
