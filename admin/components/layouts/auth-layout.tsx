@@ -12,22 +12,15 @@ export const AuthLayout: FC<AuthLayoutProps> = ({
 }) => {
   return (
     <div className="flex h-full flex-1 flex-col">
-      <div className="absolute top-0 mx-auto w-full px-8 pt-8 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
+      <div className="absolute top-0 mx-auto w-full px-8 pt-6 md:pt-16">
         <nav className="relative flex items-center justify-between sm:h-10">
           <div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
             <div className="flex w-full items-center justify-between md:w-auto">
               <Image
-                src={"/logo-light.svg"}
+                src={"/logo.jpg"}
+                className="block rounded-full xl:hidden"
                 alt="Logo"
                 height={24}
-                className="dark:hidden"
-                width={120}
-              />
-              <Image
-                src={"/logo-dark.svg"}
-                alt="Logo"
-                height={24}
-                className="hidden dark:block"
                 width={120}
               />
             </div>
@@ -44,7 +37,15 @@ export const AuthLayout: FC<AuthLayoutProps> = ({
             {children}
           </div>
         </main>
-        <aside className="hidden flex-1 flex-shrink basis-1/4 flex-col items-center justify-center bg-gradient-to-tr from-primary-foreground to-yellow-700 xl:flex"></aside>
+        <aside className="hidden flex-1 flex-shrink basis-1/4 flex-col items-center justify-center bg-gradient-to-tl from-primary-foreground to-blue-950/80 xl:flex dark:to-blue-600">
+          <Image
+            src={"/logo.jpg"}
+            alt="Logo"
+            height={30}
+            className="rounded-full"
+            width={180}
+          />
+        </aside>
       </div>
     </div>
   );
