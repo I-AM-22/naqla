@@ -45,7 +45,6 @@ class CarsRemoteDataSource {
   Future<CarModel> editCar(EditCarParam params) {
     return throwAppException(
       () async {
-        await dio.post(ApiRoutes.addAdvantage(params.id!), data: params.advantagesToMap);
         final result = await dio.patch(ApiRoutes.editCar(params.id!), data: params.toMap);
 
         return CarModel.fromJson(result.data);
