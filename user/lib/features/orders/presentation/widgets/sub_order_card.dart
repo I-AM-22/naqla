@@ -39,8 +39,8 @@ class SubOrderCard extends StatelessWidget {
                         TextSpan(
                             text:
                                 '${CoreHelperFunctions.formatOrderTime(context, orderModel.status, acceptedAt: orderModel.acceptedAt, deliveredAt: orderModel.deliveredAt, driverAssignedAt: orderModel.driverAssignedAt, pickedUpAt: orderModel.pickedUpAt)} \n'),
-                        TextSpan(text: '${S.of(context).order_status}${orderModel.status.name}\n'),
-                        if (orderModel.realCost > 0)
+                        TextSpan(text: '${S.of(context).order_status}${orderModel.status.statusName(context: context)}\n'),
+                        if (orderModel.realCost != 0)
                           TextSpan(text: '${S.of(context).cost}${formatter.format(orderModel.realCost)} ${S.of(context).syp}\n'),
                         if ((orderModel.order?.porters ?? 0) > 0) ...{
                           TextSpan(text: '${S.of(context).the_number_of_floors}: ${(orderModel.order?.porters ?? 1) - 1}'),

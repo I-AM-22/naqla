@@ -1230,6 +1230,36 @@ class S {
     );
   }
 
+  /// `Waiting for the driver to arrive and pickUp the order`
+  String get waiting_for_the_driver_to_arrive_and_pickUp_the_order {
+    return Intl.message(
+      'Waiting for the driver to arrive and pickUp the order',
+      name: 'waiting_for_the_driver_to_arrive_and_pickUp_the_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Canceled`
+  String get canceled {
+    return Intl.message(
+      'Canceled',
+      name: 'canceled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm the order`
+  String get confirm_the_order {
+    return Intl.message(
+      'Confirm the order',
+      name: 'confirm_the_order',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(

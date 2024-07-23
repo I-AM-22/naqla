@@ -71,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancel_order": MessageLookupByLibrary.simpleMessage("Cancel order"),
+        "canceled": MessageLookupByLibrary.simpleMessage("Canceled"),
         "car_brand": MessageLookupByLibrary.simpleMessage("car brand"),
         "car_color": MessageLookupByLibrary.simpleMessage("car color"),
         "car_model": MessageLookupByLibrary.simpleMessage("car model"),
@@ -78,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "confirm_order": MessageLookupByLibrary.simpleMessage("Confirm order"),
+        "confirm_the_order":
+            MessageLookupByLibrary.simpleMessage("Confirm the order"),
         "cost": MessageLookupByLibrary.simpleMessage("Cost: "),
         "create_an_account":
             MessageLookupByLibrary.simpleMessage("Create an account"),
@@ -215,6 +218,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "waiting_for_the_driver_to_arrive":
             MessageLookupByLibrary.simpleMessage(
                 "Waiting for the driver to arrive"),
+        "waiting_for_the_driver_to_arrive_and_pickUp_the_order":
+            MessageLookupByLibrary.simpleMessage(
+                "Waiting for the driver to arrive and pickUp the order"),
         "waiting_for_the_order_to_be_pickUp":
             MessageLookupByLibrary.simpleMessage(
                 "Waiting for the order to be pick up"),

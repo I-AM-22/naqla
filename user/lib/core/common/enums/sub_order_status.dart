@@ -23,6 +23,23 @@ enum SubOrderStatus {
     }
   }
 
+  String statusName({required BuildContext context}) {
+    switch (this) {
+      case SubOrderStatus.taken:
+        return S.of(context).waiting_for_the_driver_to_arrive_and_pickUp_the_order;
+      case SubOrderStatus.waiting:
+        return S.of(context).your_order_is_under_scrutiny_by_the_admin_please_wait;
+      case SubOrderStatus.ready:
+        return S.of(context).waiting_for_drivers_to_be_hired;
+      case SubOrderStatus.delivered:
+        return S.of(context).delivered;
+      case SubOrderStatus.onTheWay:
+        return S.of(context).order_on_the_way;
+      case SubOrderStatus.refused:
+        return S.of(context).canceled;
+    }
+  }
+
   Widget displayStatus(BuildContext context, {DateTime? arrivedAt}) {
     switch (this) {
       case SubOrderStatus.taken:

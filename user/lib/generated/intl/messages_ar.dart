@@ -70,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "cancel_order": MessageLookupByLibrary.simpleMessage("ٳلغاء النقلة"),
+        "canceled": MessageLookupByLibrary.simpleMessage("ملغي"),
         "car_brand":
             MessageLookupByLibrary.simpleMessage("العلامة التجارية للسيارة"),
         "car_color": MessageLookupByLibrary.simpleMessage("لون السيارة"),
@@ -77,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "confirm_order": MessageLookupByLibrary.simpleMessage("تأكيد النقلة"),
+        "confirm_the_order":
+            MessageLookupByLibrary.simpleMessage("قم بتأكيد الطلب"),
         "cost": MessageLookupByLibrary.simpleMessage("الكلفة:"),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
@@ -205,6 +208,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" بإنتظار تعيين سائقين"),
         "waiting_for_the_driver_to_arrive":
             MessageLookupByLibrary.simpleMessage("بإنتظار وصول السائق"),
+        "waiting_for_the_driver_to_arrive_and_pickUp_the_order":
+            MessageLookupByLibrary.simpleMessage(
+                "بانتظار وصول السائق وتحميل النقلة"),
         "waiting_for_the_order_to_be_pickUp":
             MessageLookupByLibrary.simpleMessage("بانتظار تحميل النقلة"),
         "waiting_for_the_supervisor_to_review":
