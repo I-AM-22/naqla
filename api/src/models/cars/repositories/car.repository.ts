@@ -137,7 +137,7 @@ export class CarRepository implements ICarRepository {
     await this.carRepository.createQueryBuilder().relation(Car, 'advantages').of(car).add(advantages);
   }
 
-  async removeAdvantageFromCar(car: Car, advantage: Advantage): Promise<void> {
-    await this.carRepository.createQueryBuilder().relation(Car, 'advantages').of(car).remove(advantage);
+  async removeAdvantageFromCar(car: Car, advantages: Advantage[]): Promise<void> {
+    await this.carRepository.createQueryBuilder().relation(Car, 'advantages').of(car).remove(advantages);
   }
 }
