@@ -30,7 +30,7 @@ export class AdminRepository extends BaseAuthRepo<Admin> implements IAdminReposi
 
   async findAll(withDeleted = false) {
     return this.adminRepository.find({
-      where: { role: withDeleted ? {} : { name: Equal(ROLE.ADMIN) } },
+      where: { role: { name: Equal(ROLE.ADMIN) } },
       withDeleted,
       relations: { photos: true, role: true },
     });
