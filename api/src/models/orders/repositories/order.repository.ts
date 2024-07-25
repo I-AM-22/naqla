@@ -66,7 +66,7 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findMineWithAccepted(userId: string): Promise<Order[]> {
-    return this.orderRepository.find({
+    return await this.orderRepository.find({
       where: { userId, status: ORDER_STATUS.READY },
       select: {
         advantages: { id: false, cost: false, name: true },

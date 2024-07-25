@@ -280,6 +280,7 @@ export class SubOrderRepository implements ISubOrderRepository {
   async update(subOrder: SubOrder, dto: UpdateSubOrderDto): Promise<SubOrder> {
     subOrder.rating = dto.rating;
     subOrder.note = dto.note;
+    subOrder.repeatDriver = dto.repeatDriver;
     return await this.subOrderRepository.save(subOrder);
   }
 

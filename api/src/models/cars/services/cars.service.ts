@@ -65,6 +65,10 @@ export class CarsService implements ICarsService {
   async update(id: string, driverId: string, dto: UpdateCarDto): Promise<Car> {
     const car = await this.findOneForOwner(id, driverId);
 
+    const photo = await this.carPhotoRepository.uploadPhoto(dto.photo);
+
+    await this.carRepository.update(car, dto, photo);
+
     if (dto.advantageIds.length) {
       const advantagesToInsert = await this.advantagesService.findInIds(dto.advantageIds);
 
@@ -72,10 +76,7 @@ export class CarsService implements ICarsService {
 
       await this.carRepository.addAdvantageToCar(car, advantagesToInsert);
     }
-
-    const photo = await this.carPhotoRepository.uploadPhoto(dto.photo);
-
-    return this.carRepository.update(car, dto, photo);
+    return this.findOne(car.id);
   }
 
   async countCarForDriver(driverId: string): Promise<number> {

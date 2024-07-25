@@ -19,6 +19,11 @@ export class SubOrder extends GlobalEntity {
   note: string;
 
   @ApiProperty()
+  @Column({ default: null })
+  repeatDriver: boolean;
+
+
+  @ApiProperty()
   @Column({ default: 0 })
   weight: number;
 
