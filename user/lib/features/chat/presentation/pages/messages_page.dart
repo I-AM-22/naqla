@@ -2,6 +2,7 @@ import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iconly/iconly.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/presentation/widgets/app_loading_indicator.dart';
@@ -90,10 +91,7 @@ class _MessagesPageState extends State<MessagesPage> {
                               ? AppLoadingIndicator(
                                   size: 25.r,
                                 )
-                              : AppImage.asset(
-                                  Assets.icons.essential.sendIcon.path,
-                                  size: 20.w,
-                                ),
+                              : Icon(IconlyBroken.send),
                         ),
                         Expanded(
                           child: AppTextFormField(

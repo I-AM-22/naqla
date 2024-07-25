@@ -17,7 +17,6 @@ import 'package:naqla/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:naqla/features/auth/presentation/pages/phone_verfication.dart';
 import 'package:naqla/features/auth/presentation/pages/register_page.dart';
 import 'package:naqla/features/auth/presentation/state/bloc/auth_bloc.dart';
-import 'package:naqla/features/auth/presentation/widgets/custom_social.dart';
 
 import '../../../../generated/l10n.dart';
 
@@ -102,9 +101,6 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   20.verticalSpace,
-                  const WordDivider(),
-                  20.verticalSpace,
-                  const CustomSocial(),
                   if (widget.showTextButton) ...{
                     28.verticalSpace,
                     Row(

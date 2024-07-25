@@ -7,6 +7,7 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

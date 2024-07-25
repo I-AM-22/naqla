@@ -5,8 +5,8 @@ import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/app/domain/repository/prefs_repository.dart';
 import 'package:naqla/features/app/presentation/widgets/app_scaffold.dart';
+import 'package:naqla/features/auth/presentation/pages/welcome_page.dart';
 import 'package:naqla/features/home/presentation/pages/home_page.dart';
-import 'package:naqla/features/on_boarding/presentation/pages/on_boarding_screen.dart';
 
 import '../../generated/flutter_gen/assets.gen.dart';
 
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (getIt<PrefsRepository>().registeredUser) {
         context.goNamed(HomePage.name);
       } else {
-        context.goNamed(OnBoardingScreen.name);
+        context.goNamed(WelcomePage.name);
       }
     });
     super.initState();
@@ -40,10 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            CircleAvatar(
-                backgroundColor: context.colorScheme.primary,
-                radius: 50.r,
-                backgroundImage: AssetImage(Assets.images.jpg.logo.path)),
+            CircleAvatar(backgroundColor: context.colorScheme.primary, radius: 50.r, backgroundImage: AssetImage(Assets.images.jpg.logo.path)),
             const Spacer(),
             AppText.subHeadMedium(
               "Naqla",

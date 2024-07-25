@@ -790,6 +790,16 @@ class S {
     );
   }
 
+  /// `The order was divided into {count} order/orders`
+  String the_order_was_divided_into_orders(int count) {
+    return Intl.message(
+      'The order was divided into $count order/orders',
+      name: 'the_order_was_divided_into_orders',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(

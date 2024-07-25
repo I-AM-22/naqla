@@ -20,11 +20,18 @@ class RatingParam {
   final String id;
   final int rating;
   final String notes;
+  final bool repeatDriver;
 
-  RatingParam({required this.id, required this.rating, required this.notes});
+  RatingParam({
+    required this.id,
+    required this.rating,
+    required this.notes,
+    required this.repeatDriver,
+  });
 
   Map<String, dynamic> get toMap => {
         "rating": rating,
         "note": notes,
+        "repeatDriver": repeatDriver,
       };
 }

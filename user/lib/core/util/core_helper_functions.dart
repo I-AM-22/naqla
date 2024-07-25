@@ -12,7 +12,6 @@ import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
 import '../../features/app/domain/repository/prefs_repository.dart';
 import '../../features/app/presentation/widgets/animated_dialog.dart';
-import '../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import '../../generated/l10n.dart';
 import '../di/di_container.dart';
 
@@ -46,7 +45,7 @@ class CoreHelperFunctions {
                       await getIt.resetLazySingleton<OrderBloc>();
                       await getIt.resetLazySingleton<ProfileBloc>();
                       if (!context.mounted) return;
-                      context.goNamed(SignInPage.name,extra: true);
+                      context.goNamed(SignInPage.name, extra: true);
                     }),
                 AppButton.ghost(
                   buttonSize: ButtonSize.medium,

@@ -79,6 +79,14 @@
   "loading": "Loading...",
   "street":"Street",
   "region":"Region",
+  "the_order_was_divided_into_orders": "The order was divided into {count} order/orders",
+  "@the_order_was_divided_into_orders": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
 
 
   "__________________________wallet______________________________":"",

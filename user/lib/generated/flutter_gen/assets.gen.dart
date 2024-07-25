@@ -11,7 +11,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
-import 'package:lottie/lottie.dart';
 
 class $AssetsIconsGen {
   const $AssetsIconsGen();
@@ -27,9 +26,6 @@ class $AssetsIconsGen {
 
   /// Directory path: assets/icons/png
   $AssetsIconsPngGen get png => const $AssetsIconsPngGen();
-
-  /// Directory path: assets/icons/social
-  $AssetsIconsSocialGen get social => const $AssetsIconsSocialGen();
 }
 
 class $AssetsImagesGen {
@@ -40,22 +36,6 @@ class $AssetsImagesGen {
 
   /// Directory path: assets/images/svg
   $AssetsImagesSvgGen get svg => const $AssetsImagesSvgGen();
-}
-
-class $AssetsLottieGen {
-  const $AssetsLottieGen();
-
-  /// File path: assets/lottie/car_2.json
-  LottieGenImage get car2 => const LottieGenImage('assets/lottie/car_2.json');
-
-  /// File path: assets/lottie/car_3.json
-  LottieGenImage get car3 => const LottieGenImage('assets/lottie/car_3.json');
-
-  /// File path: assets/lottie/car_4.json
-  LottieGenImage get car4 => const LottieGenImage('assets/lottie/car_4.json');
-
-  /// List of all assets
-  List<LottieGenImage> get values => [car2, car3, car4];
 }
 
 class $AssetsIconsArrowGen {
@@ -88,32 +68,6 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get aboutUs =>
       const SvgGenImage('assets/icons/essential/About Us.svg');
 
-  /// File path: assets/icons/essential/Infinity 1s.svg
-  SvgGenImage get infinity1s =>
-      const SvgGenImage('assets/icons/essential/Infinity 1s.svg');
-
-  /// File path: assets/icons/essential/More.svg
-  SvgGenImage get more => const SvgGenImage('assets/icons/essential/More.svg');
-
-  /// File path: assets/icons/essential/_house.svg
-  SvgGenImage get aHouse =>
-      const SvgGenImage('assets/icons/essential/_house.svg');
-
-  /// File path: assets/icons/essential/_user.svg
-  SvgGenImage get aUser =>
-      const SvgGenImage('assets/icons/essential/_user.svg');
-
-  /// File path: assets/icons/essential/calendar.svg
-  SvgGenImage get calendar =>
-      const SvgGenImage('assets/icons/essential/calendar.svg');
-
-  /// File path: assets/icons/essential/camera.svg
-  SvgGenImage get camera =>
-      const SvgGenImage('assets/icons/essential/camera.svg');
-
-  /// File path: assets/icons/essential/chat.svg
-  SvgGenImage get chat => const SvgGenImage('assets/icons/essential/chat.svg');
-
   /// File path: assets/icons/essential/check circle.svg
   SvgGenImage get checkCircle =>
       const SvgGenImage('assets/icons/essential/check circle.svg');
@@ -130,68 +84,11 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get clock2 =>
       const SvgGenImage('assets/icons/essential/clock 2.svg');
 
-  /// File path: assets/icons/essential/current_location.svg
-  SvgGenImage get currentLocation =>
-      const SvgGenImage('assets/icons/essential/current_location.svg');
-
-  /// File path: assets/icons/essential/delete.svg
-  SvgGenImage get delete =>
-      const SvgGenImage('assets/icons/essential/delete.svg');
-
-  /// File path: assets/icons/essential/edit.svg
-  SvgGenImage get edit => const SvgGenImage('assets/icons/essential/edit.svg');
-
-  /// File path: assets/icons/essential/emoje.svg
-  SvgGenImage get emoje =>
-      const SvgGenImage('assets/icons/essential/emoje.svg');
-
-  /// File path: assets/icons/essential/home.svg
-  SvgGenImage get home => const SvgGenImage('assets/icons/essential/home.svg');
-
   /// File path: assets/icons/essential/info.svg
   SvgGenImage get info => const SvgGenImage('assets/icons/essential/info.svg');
 
-  /// File path: assets/icons/essential/logout.svg
-  SvgGenImage get logout =>
-      const SvgGenImage('assets/icons/essential/logout.svg');
-
   /// File path: assets/icons/essential/map.svg
   SvgGenImage get map => const SvgGenImage('assets/icons/essential/map.svg');
-
-  /// File path: assets/icons/essential/message-svgrepo-com.svg
-  SvgGenImage get messageSvgrepoCom =>
-      const SvgGenImage('assets/icons/essential/message-svgrepo-com.svg');
-
-  /// File path: assets/icons/essential/mobile.svg
-  SvgGenImage get mobile =>
-      const SvgGenImage('assets/icons/essential/mobile.svg');
-
-  /// File path: assets/icons/essential/more_icon.svg
-  SvgGenImage get moreIcon =>
-      const SvgGenImage('assets/icons/essential/more_icon.svg');
-
-  /// File path: assets/icons/essential/plus.svg
-  SvgGenImage get plus => const SvgGenImage('assets/icons/essential/plus.svg');
-
-  /// File path: assets/icons/essential/profile.svg
-  SvgGenImage get profile =>
-      const SvgGenImage('assets/icons/essential/profile.svg');
-
-  /// File path: assets/icons/essential/send_icon.svg
-  SvgGenImage get sendIcon =>
-      const SvgGenImage('assets/icons/essential/send_icon.svg');
-
-  /// File path: assets/icons/essential/success.svg
-  SvgGenImage get success =>
-      const SvgGenImage('assets/icons/essential/success.svg');
-
-  /// File path: assets/icons/essential/wallet.svg
-  SvgGenImage get wallet =>
-      const SvgGenImage('assets/icons/essential/wallet.svg');
-
-  /// File path: assets/icons/essential/wallet2.svg
-  SvgGenImage get wallet2 =>
-      const SvgGenImage('assets/icons/essential/wallet2.svg');
 
   /// File path: assets/icons/essential/website.svg
   SvgGenImage get website =>
@@ -200,34 +97,12 @@ class $AssetsIconsEssentialGen {
   /// List of all assets
   List<SvgGenImage> get values => [
         aboutUs,
-        infinity1s,
-        more,
-        aHouse,
-        aUser,
-        calendar,
-        camera,
-        chat,
         checkCircle,
         checkCircle2,
         circleQuistion,
         clock2,
-        currentLocation,
-        delete,
-        edit,
-        emoje,
-        home,
         info,
-        logout,
         map,
-        messageSvgrepoCom,
-        mobile,
-        moreIcon,
-        plus,
-        profile,
-        sendIcon,
-        success,
-        wallet,
-        wallet2,
         website
       ];
 }
@@ -255,23 +130,6 @@ class $AssetsIconsPngGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [map];
-}
-
-class $AssetsIconsSocialGen {
-  const $AssetsIconsSocialGen();
-
-  /// File path: assets/icons/social/Gmail.svg
-  SvgGenImage get gmail => const SvgGenImage('assets/icons/social/Gmail.svg');
-
-  /// File path: assets/icons/social/apple.svg
-  SvgGenImage get apple => const SvgGenImage('assets/icons/social/apple.svg');
-
-  /// File path: assets/icons/social/facebook.svg
-  SvgGenImage get facebook =>
-      const SvgGenImage('assets/icons/social/facebook.svg');
-
-  /// List of all assets
-  List<SvgGenImage> get values => [gmail, apple, facebook];
 }
 
 class $AssetsImagesJpgGen {
@@ -333,7 +191,6 @@ class Assets {
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
 
 class AssetGenImage {
@@ -486,69 +343,6 @@ class SvgGenImage {
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
-    );
-  }
-
-  String get path => _assetName;
-
-  String get keyName => _assetName;
-}
-
-class LottieGenImage {
-  const LottieGenImage(
-    this._assetName, {
-    this.flavors = const {},
-  });
-
-  final String _assetName;
-  final Set<String> flavors;
-
-  LottieBuilder lottie({
-    Animation<double>? controller,
-    bool? animate,
-    FrameRate? frameRate,
-    bool? repeat,
-    bool? reverse,
-    LottieDelegates? delegates,
-    LottieOptions? options,
-    void Function(LottieComposition)? onLoaded,
-    LottieImageProviderFactory? imageProviderFactory,
-    Key? key,
-    AssetBundle? bundle,
-    Widget Function(BuildContext, Widget, LottieComposition?)? frameBuilder,
-    ImageErrorWidgetBuilder? errorBuilder,
-    double? width,
-    double? height,
-    BoxFit? fit,
-    AlignmentGeometry? alignment,
-    String? package,
-    bool? addRepaintBoundary,
-    FilterQuality? filterQuality,
-    void Function(String)? onWarning,
-  }) {
-    return Lottie.asset(
-      _assetName,
-      controller: controller,
-      animate: animate,
-      frameRate: frameRate,
-      repeat: repeat,
-      reverse: reverse,
-      delegates: delegates,
-      options: options,
-      onLoaded: onLoaded,
-      imageProviderFactory: imageProviderFactory,
-      key: key,
-      bundle: bundle,
-      frameBuilder: frameBuilder,
-      errorBuilder: errorBuilder,
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      package: package,
-      addRepaintBoundary: addRepaintBoundary,
-      filterQuality: filterQuality,
-      onWarning: onWarning,
     );
   }
 

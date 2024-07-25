@@ -19,10 +19,8 @@ import 'package:naqla/features/profile/presentation/widget/profile_item.dart';
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/data/model/user_model.dart';
-import 'about_us_page.dart';
 import 'delete_account_page.dart';
 import 'edit_profile_page.dart';
-import 'help_and_support_page.dart';
 import 'language_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -120,25 +118,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: context.colorScheme.primary,
                         ),
                       ),
-                      16.verticalSpace,
-                      ProfileItem(
-                        title: S.of(context).about_us,
-                        onTap: () => context.pushNamed(AboutUsPage.name),
-                        prefixIcon: AppImage.asset(
-                          Assets.icons.essential.circleQuistion.path,
-                          size: 20,
-                          color: context.colorScheme.primary,
-                        ),
-                      ),
-                      16.verticalSpace,
-                      ProfileItem(
-                        title: S.of(context).help_and_support,
-                        prefixIcon: const Icon(IconlyBroken.info_circle),
-                        onTap: () => context.pushNamed(HelpAndSupportPage.name),
-                      ),
-                      16.verticalSpace,
-                      ProfileItem(
-                          onTap: () => CoreHelperFunctions.logOut(context), title: S.of(context).logOut, prefixIcon: Icon(IconlyBroken.logout)),
                       16.verticalSpace,
                       ProfileItem(
                           onTap: () => context.pushNamed(DeleteAccountPage.name),

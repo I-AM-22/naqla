@@ -78,6 +78,14 @@
   "loading": "الرجاء الانتظار...",
   "street":"الشارع",
   "region":"المنطقة",
+  "the_order_was_divided_into_orders": "تم تقسيم النقلة الى {count} نقلة/نقلات",
+  "@the_order_was_divided_into_orders": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
 
   "__________________________wallet______________________________":"",
   "wallet":"المحفظة",

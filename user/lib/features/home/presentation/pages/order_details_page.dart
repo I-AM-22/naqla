@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:injectable/injectable.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
 import 'package:naqla/core/di/di_container.dart';
@@ -170,23 +171,43 @@ class OrderDetailsPage extends StatelessWidget {
                 10.verticalSpace,
                 AppText.bodySmMedium('${S.of(context).cost} ${orderModel.paymentModel?.cost} ${S.of(context).syp}'),
                 16.verticalSpace,
+                AppText(S.of(context).the_order_was_divided_into_orders(orderModel.subOrders?.length ?? 0)),
+                16.verticalSpace,
                 Expanded(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
                         return Container(
                           height: 200.h,
                           decoration: BoxDecoration(
+                            color: context.colorScheme.surface,
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: context.colorScheme.outline),
                           ),
-                          child: AppImage.network(
-                            orderModel.photos[index].mobileUrl,
-                            fit: BoxFit.contain,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: RichText(
+                                      text: TextSpan(style: context.textTheme.bodyMedium, children: [
+                                    TextSpan(text: '\t${S.of(context).the_weight}: ${orderModel.subOrders?[index].weight}\n\n'),
+                                    TextSpan(
+                                        text: '\t${S.of(context).cost}: ${formatter.format(orderModel.subOrders?[index].cost)} ${S.of(context).syp}'),
+                                  ])),
+                                ),
+                              ),
+                              if (orderModel.subOrders?[index].photos.isNotEmpty ?? false)
+                                Expanded(
+                                    child: SizedBox(
+                                        height: 200.h,
+                                        child: AppImage.network(fit: BoxFit.cover, orderModel.subOrders?[index].photos[0].mobileUrl ?? '')))
+                            ],
                           ),
                         );
                       },
                       separatorBuilder: (context, index) => 10.verticalSpace,
-                      itemCount: orderModel.photos.length),
+                      itemCount: orderModel.subOrders?.length ?? 0),
                 )
               ],
             ),

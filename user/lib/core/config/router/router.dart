@@ -21,14 +21,11 @@ import '../../../features/chat/presentation/pages/messages_page.dart';
 import '../../../features/home/presentation/pages/home_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/home/presentation/pages/order_photos_page.dart';
-import '../../../features/on_boarding/presentation/pages/on_boarding_screen.dart';
 import '../../../features/orders/presentation/pages/sub_order_details_page.dart';
 import '../../../features/orders/presentation/pages/sub_orders_page.dart';
-import '../../../features/profile/presentation/pages/about_us_page.dart';
 import '../../../features/profile/presentation/pages/delete_account_page.dart';
 import '../../../features/profile/presentation/pages/edit_phone_number_page.dart';
 import '../../../features/profile/presentation/pages/edit_profile_page.dart';
-import '../../../features/profile/presentation/pages/help_and_support_page.dart';
 import '../../../features/profile/presentation/pages/language_page.dart';
 import '../../../features/profile/presentation/pages/profile_page.dart';
 import '../../../features/welcome/splash.dart';
@@ -50,11 +47,6 @@ final router = GoRouter(debugLogDiagnostics: true, initialLocation: SplashScreen
     path: SplashScreen.path,
     name: SplashScreen.name,
     builder: (context, state) => const SplashScreen(),
-  ),
-  GoRoute(
-    path: OnBoardingScreen.path,
-    name: OnBoardingScreen.name,
-    builder: (context, state) => const OnBoardingScreen(),
   ),
   GoRoute(
       path: WelcomePage.path,
@@ -247,32 +239,6 @@ final router = GoRouter(debugLogDiagnostics: true, initialLocation: SplashScreen
                 builder: (context, state) => const LanguagePage(),
                 pageBuilder: (context, state) => CustomTransitionPage(
                   child: const LanguagePage(),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
-                    position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
-                    child: child,
-                  ),
-                ),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: AboutUsPage.path,
-                name: AboutUsPage.name,
-                builder: (context, state) => const AboutUsPage(),
-                pageBuilder: (context, state) => CustomTransitionPage(
-                  child: const AboutUsPage(),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
-                    position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
-                    child: child,
-                  ),
-                ),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: HelpAndSupportPage.path,
-                name: HelpAndSupportPage.name,
-                builder: (context, state) => const HelpAndSupportPage(),
-                pageBuilder: (context, state) => CustomTransitionPage(
-                  child: const HelpAndSupportPage(),
                   transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
                     position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
                     child: child,

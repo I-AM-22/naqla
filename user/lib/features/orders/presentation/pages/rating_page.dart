@@ -34,6 +34,7 @@ class _RatingPageState extends State<RatingPage> {
   int rate = 1;
   final OrderBloc bloc = getIt<OrderBloc>();
   final GlobalKey<FormBuilderState> _key = GlobalKey();
+  final ValueNotifier<bool> repeatDriver = ValueNotifier(true);
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +46,7 @@ class _RatingPageState extends State<RatingPage> {
           ),
           body: SingleChildScrollView(
             child: Padding(
-              padding: REdgeInsets.symmetric(
-                  horizontal: UIConstants.screenPadding20,
-                  vertical: UIConstants.screenPadding30),
+              padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding20, vertical: UIConstants.screenPadding30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -72,6 +71,47 @@ class _RatingPageState extends State<RatingPage> {
                     ),
                   ),
                   16.verticalSpace,
+                  AppText.bodyMedium('هل سوف تتعامل مع نفس السائق في المرات القادمة؟'),
+                  8.verticalSpace,
+                  Row(
+                    children: [
+                      ValueListenableBuilder(
+                        builder: (context, value, _) => AppCheckbox(
+                          isSelected: value,
+                          onChanged: (value) {
+                            if (!value) return;
+
+                            repeatDriver.value = value;
+                            setState(() {});
+                          },
+                        ),
+                        valueListenable: repeatDriver,
+                      ),
+                      8.horizontalSpace,
+                      AppText.bodySmMedium(
+                        S.of(context).yes,
+                        color: Colors.black,
+                      ),
+                      16.horizontalSpace,
+                      ValueListenableBuilder(
+                        builder: (context, value, _) => AppCheckbox(
+                          isSelected: !value,
+                          onChanged: (value) {
+                            if (!value) return;
+                            repeatDriver.value = !value;
+                            setState(() {});
+                          },
+                        ),
+                        valueListenable: repeatDriver,
+                      ),
+                      8.horizontalSpace,
+                      AppText.bodySmMedium(
+                        S.of(context).no,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                  16.verticalSpace,
                   BlocSelector<OrderBloc, OrderState, CommonState>(
                     selector: (state) {
                       return state.getState(OrderState.rating);
@@ -91,6 +131,7 @@ class _RatingPageState extends State<RatingPage> {
                                 param: RatingParam(
                                   id: widget.id,
                                   notes: _key.currentState?.value['note'],
+                                  repeatDriver: repeatDriver.value,
                                   rating: rate,
                                 ),
                               ),

@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(count) => "تم تقسيم النقلة الى ${count} نقلة/نقلات";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Save": MessageLookupByLibrary.simpleMessage("حفظ"),
@@ -178,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("عدد الطوابق"),
         "the_order_has_been_canceled":
             MessageLookupByLibrary.simpleMessage("تم ٳلغاء النقلة"),
+        "the_order_was_divided_into_orders": m0,
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة."),

@@ -79,7 +79,7 @@ class SubOrderModel {
         note: json["note"],
         weight: json["weight"],
         cost: json["cost"],
-        realCost: json["realCost"],
+        realCost: json["realCost"] ?? 0,
         order: json['order'] == null ? null : OrderModel.fromJson(json['order']),
         status: SubOrderStatus.values.byName(json["status"] ?? SubOrderStatus.waiting.name),
         acceptedAt: DateTime.tryParse(json["acceptedAt"] ?? ''),
