@@ -5,7 +5,7 @@ import { ResponseTime } from '@models/statics/responses/ResponseTime';
 import { StaticProfits } from '@models/statics/responses/StaticProfits';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOptionsWhere, In, Repository } from 'typeorm';
+import { FindOptionsWhere, In, Not, Repository } from 'typeorm';
 import { CreateSubOrderDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
@@ -369,12 +369,11 @@ export class SubOrderRepository implements ISubOrderRepository {
   }
 
   async countSubOrdersActive(): Promise<number> {
-    const count = await this.subOrderRepository
-      .createQueryBuilder('subOrder')
-      .where('subOrder.status <> :status', {
-        status: SUB_ORDER_STATUS.DELIVERED,
-      })
-      .getCount();
+    const count = await this.subOrderRepository.count({
+      where: {
+        status: Not(In([SUB_ORDER_STATUS.DELIVERED, SUB_ORDER_STATUS.REFUSED, SUB_ORDER_STATUS.WAITING])),
+      },
+    });
     return count;
   }
 

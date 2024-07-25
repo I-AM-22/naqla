@@ -20,7 +20,7 @@ export interface ISubOrderRepository {
   findByIdForMessage(id: string, personId: string): Promise<SubOrder>;
   findIsDoneForDriver(driverId: string): Promise<SubOrder[]>;
   avgRatingForDriver(driverId: string): Promise<number>;
-  allratingForDriver(id: string): Promise<Rating[]> 
+  allratingForDriver(id: string): Promise<Rating[]>;
   findTotalCost(id: string): Promise<number>;
   countSubOrdersCompleted(): Promise<number>;
   countSubOrdersActive(): Promise<number>;
