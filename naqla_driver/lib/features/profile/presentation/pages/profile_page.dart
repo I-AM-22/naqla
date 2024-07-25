@@ -111,14 +111,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       16.verticalSpace,
                       ProfileItem(
-                        title: S.of(context).logOut,
-                        prefixIcon: const Icon(IconlyBroken.logout),
-                        onTap: () {
-                          CoreHelperFunctions.logOut(context);
-                        },
-                      ),
-                      16.verticalSpace,
-                      ProfileItem(
                           onTap: () => context.pushNamed(DeleteAccountPage.name),
                           title: S.of(context).delete_account,
                           prefixIcon: const Icon(IconlyBroken.delete)),

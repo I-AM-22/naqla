@@ -107,6 +107,12 @@
   "car_model":"car model",
   "car_color":"car color",
   "car_brand":"car brand",
+  "your_order_is_under_scrutiny_by_the_admin_please_wait": "Your order is under scrutiny by the admin, please wait",
+  "your_order_was_rejected_by_the_admin": "Your order was rejected by the admin",
+  "waiting_for_the_driver_to_arrive_and_pickUp_the_order": "Waiting for the driver to arrive and pickUp the order",
+  "canceled": "Canceled",
+  "confirm_the_order": "Confirm the order",
+  "waiting_for_drivers_to_be_hired": "Waiting for drivers to be hired",
 
   "__________________________profile______________________________":"",
   "profile":"profile",

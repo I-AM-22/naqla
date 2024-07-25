@@ -20,9 +20,9 @@ class OrderRepositoryImplement implements OrderRepository {
   }
 
   @override
-  FutureResult<List<SubOrderModel>> getOrders() {
+  FutureResult<List<SubOrderModel>> getActiveOrders() {
     return toApiResult(
-      () => dataSource.getOrders(),
+      () => dataSource.getActiveOrders(),
     );
   }
 

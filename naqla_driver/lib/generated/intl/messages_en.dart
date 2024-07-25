@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "canceled": MessageLookupByLibrary.simpleMessage("Canceled"),
         "car_brand": MessageLookupByLibrary.simpleMessage("car brand"),
         "car_color": MessageLookupByLibrary.simpleMessage("car color"),
         "car_model": MessageLookupByLibrary.simpleMessage("car model"),
@@ -78,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "color": MessageLookupByLibrary.simpleMessage("Color"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "confirm_the_order":
+            MessageLookupByLibrary.simpleMessage("Confirm the order"),
         "cost": MessageLookupByLibrary.simpleMessage("Cost: "),
         "create_an_account":
             MessageLookupByLibrary.simpleMessage("Create an account"),
@@ -191,6 +194,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "waiting_for_customer_confirmation":
             MessageLookupByLibrary.simpleMessage(
                 "Waiting for customer confirmation"),
+        "waiting_for_drivers_to_be_hired": MessageLookupByLibrary.simpleMessage(
+            "Waiting for drivers to be hired"),
+        "waiting_for_the_driver_to_arrive_and_pickUp_the_order":
+            MessageLookupByLibrary.simpleMessage(
+                "Waiting for the driver to arrive and pickUp the order"),
         "wallet": MessageLookupByLibrary.simpleMessage("wallet"),
         "weight": MessageLookupByLibrary.simpleMessage("Weight: "),
         "write_message":
@@ -199,6 +207,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
         "your_code": MessageLookupByLibrary.simpleMessage(" code"),
         "your_mobile_number":
-            MessageLookupByLibrary.simpleMessage("Your mobile number")
+            MessageLookupByLibrary.simpleMessage("Your mobile number"),
+        "your_order_is_under_scrutiny_by_the_admin_please_wait":
+            MessageLookupByLibrary.simpleMessage(
+                "Your order is under scrutiny by the admin, please wait"),
+        "your_order_was_rejected_by_the_admin":
+            MessageLookupByLibrary.simpleMessage(
+                "Your order was rejected by the admin")
       };
 }

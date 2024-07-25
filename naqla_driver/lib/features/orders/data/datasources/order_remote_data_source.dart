@@ -25,7 +25,7 @@ class OrderRemoteDataSource {
     );
   }
 
-  Future<List<SubOrderModel>> getOrders() {
+  Future<List<SubOrderModel>> getActiveOrders() {
     return throwAppException(
       () async {
         final result = await dio.get(ApiRoutes.activeOrders);

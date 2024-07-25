@@ -16,18 +16,18 @@ part 'order_event.dart';
 @injectable
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
   final GetOrdersDoneUseCase getOrdersDoneUseCase;
-  final GetOrdersUseCase getOrdersUseCase;
+  final GetActiveOrdersUseCase getActiveOrdersUseCase;
   final SetDeliveredUseCase setDeliveredUseCase;
   final GetSubOrderDetailsUseCase getSubOrderDetailsUseCase;
-  OrderBloc(this.getOrdersDoneUseCase, this.getOrdersUseCase, this.setDeliveredUseCase, this.getSubOrderDetailsUseCase) : super(OrderState()) {
+  OrderBloc(this.getOrdersDoneUseCase, this.getActiveOrdersUseCase, this.setDeliveredUseCase, this.getSubOrderDetailsUseCase) : super(OrderState()) {
     multiStateApiCall<GetOrdersDoneEvent, List<SubOrderModel>>(
       OrderState.ordersDone,
       (event) => getOrdersDoneUseCase(NoParams()),
     );
 
-    multiStateApiCall<GetOrdersEvent, List<SubOrderModel>>(
-      OrderState.getOrders,
-      (event) => getOrdersUseCase(NoParams()),
+    multiStateApiCall<GetActiveOrdersEvent, List<SubOrderModel>>(
+      OrderState.getActiveOrders,
+      (event) => getActiveOrdersUseCase(NoParams()),
     );
 
     multiStateApiCall<GetSubOrderDetailsEvent, SubOrderModel>(
@@ -40,11 +40,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       (event) => setDeliveredUseCase(event.param),
       onFailure: (failure, event, emit) async => event.onFailure(),
       onSuccess: (data, event, emit) async {
-        final oldData = state.getState<List<SubOrderModel>>(OrderState.getOrders).data ?? [];
+        final oldData = state.getState<List<SubOrderModel>>(OrderState.getActiveOrders).data ?? [];
         oldData.removeWhere(
           (element) => element.id == event.param.id,
         );
-        emit(state.updateData(OrderState.getOrders, oldData));
+        emit(state.updateData(OrderState.getActiveOrders, oldData));
         event.onSuccess();
       },
     );

@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "brand": MessageLookupByLibrary.simpleMessage("العلامة التجارية"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
+        "canceled": MessageLookupByLibrary.simpleMessage("ملغي"),
         "car_brand":
             MessageLookupByLibrary.simpleMessage("العلامة التجارية للسيارة"),
         "car_color": MessageLookupByLibrary.simpleMessage("لون السيارة"),
@@ -77,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "color": MessageLookupByLibrary.simpleMessage("اللون"),
         "confirm_Password":
             MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
+        "confirm_the_order":
+            MessageLookupByLibrary.simpleMessage("قم بتأكيد الطلب"),
         "cost": MessageLookupByLibrary.simpleMessage("الكلفة: "),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
@@ -185,6 +188,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "verify": MessageLookupByLibrary.simpleMessage("تحقق"),
         "waiting_for_customer_confirmation":
             MessageLookupByLibrary.simpleMessage("بإنتظار تأكيد الزبون"),
+        "waiting_for_drivers_to_be_hired":
+            MessageLookupByLibrary.simpleMessage(" بإنتظار تعيين سائقين"),
+        "waiting_for_the_driver_to_arrive_and_pickUp_the_order":
+            MessageLookupByLibrary.simpleMessage(
+                "بانتظار وصول السائق وتحميل النقلة"),
         "wallet": MessageLookupByLibrary.simpleMessage("المحفظة"),
         "weight": MessageLookupByLibrary.simpleMessage("الوزن: "),
         "write_message": MessageLookupByLibrary.simpleMessage("اكتب رسالة"),
@@ -192,6 +200,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "yesterday": MessageLookupByLibrary.simpleMessage("الأمس"),
         "your_code": MessageLookupByLibrary.simpleMessage(" الخاص بك"),
         "your_mobile_number":
-            MessageLookupByLibrary.simpleMessage("رقم هاتفك المحمول")
+            MessageLookupByLibrary.simpleMessage("رقم هاتفك المحمول"),
+        "your_order_is_under_scrutiny_by_the_admin_please_wait":
+            MessageLookupByLibrary.simpleMessage(
+                "طلبك قيد التدقيق من قبل المشرف, الرجاء الانتظار"),
+        "your_order_was_rejected_by_the_admin":
+            MessageLookupByLibrary.simpleMessage("تم رفض طلبك من قبل المشرف")
       };
 }

@@ -19,25 +19,20 @@ class ActiveOrdersPage extends StatefulWidget {
 class _ActiveOrdersPageState extends State<ActiveOrdersPage> {
   @override
   void initState() {
-    context.read<OrderBloc>().add(GetOrdersEvent());
+    context.read<OrderBloc>().add(GetActiveOrdersEvent());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async => context.read<OrderBloc>().add(GetOrdersEvent()),
+      onRefresh: () async => context.read<OrderBloc>().add(GetActiveOrdersEvent()),
       child: AppCommonStateBuilder<OrderBloc, List<SubOrderModel>>(
-        stateName: OrderState.getOrders,
+        stateName: OrderState.getActiveOrders,
         onSuccess: (data) => ListView.builder(
             itemBuilder: (context, index) => InkWell(
                   onTap: () => context.pushNamed(SubOrderDetailsPage.name, extra: data[index].id),
-                  child: SubOrderCard(
-                      subOrderModel: data
-                          .where(
-                            (element) => element.status != SubOrderStatus.delivered,
-                          )
-                          .elementAt(index)),
+                  child: SubOrderCard(subOrderModel: data.elementAt(index)),
                 ),
             itemCount: data
                 .where(

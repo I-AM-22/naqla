@@ -6,7 +6,7 @@ import '../usecases/set_delivered_use_case.dart';
 abstract class OrderRepository {
   FutureResult<List<SubOrderModel>> getOrdersDone();
 
-  FutureResult<List<SubOrderModel>> getOrders();
+  FutureResult<List<SubOrderModel>> getActiveOrders();
 
   FutureResult<SubOrderModel> setDelivered(SetDeliveredParam params);
 

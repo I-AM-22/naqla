@@ -64,10 +64,6 @@ class $AssetsIconsArrowGen {
 class $AssetsIconsEssentialGen {
   const $AssetsIconsEssentialGen();
 
-  /// File path: assets/icons/essential/About Us.svg
-  SvgGenImage get aboutUs =>
-      const SvgGenImage('assets/icons/essential/About Us.svg');
-
   /// File path: assets/icons/essential/check circle.svg
   SvgGenImage get checkCircle =>
       const SvgGenImage('assets/icons/essential/check circle.svg');
@@ -76,59 +72,12 @@ class $AssetsIconsEssentialGen {
   SvgGenImage get checkCircle2 =>
       const SvgGenImage('assets/icons/essential/check-circle2.svg');
 
-  /// File path: assets/icons/essential/circle_quistion.svg
-  SvgGenImage get circleQuistion =>
-      const SvgGenImage('assets/icons/essential/circle_quistion.svg');
-
-  /// File path: assets/icons/essential/clock 2.svg
-  SvgGenImage get clock2 =>
-      const SvgGenImage('assets/icons/essential/clock 2.svg');
-
-  /// File path: assets/icons/essential/current_location.svg
-  SvgGenImage get currentLocation =>
-      const SvgGenImage('assets/icons/essential/current_location.svg');
-
-  /// File path: assets/icons/essential/emoje.svg
-  SvgGenImage get emoje =>
-      const SvgGenImage('assets/icons/essential/emoje.svg');
-
-  /// File path: assets/icons/essential/info.svg
-  SvgGenImage get info => const SvgGenImage('assets/icons/essential/info.svg');
-
-  /// File path: assets/icons/essential/map.svg
-  SvgGenImage get map => const SvgGenImage('assets/icons/essential/map.svg');
-
-  /// File path: assets/icons/essential/plus.svg
-  SvgGenImage get plus => const SvgGenImage('assets/icons/essential/plus.svg');
-
-  /// File path: assets/icons/essential/send_icon.svg
-  SvgGenImage get sendIcon =>
-      const SvgGenImage('assets/icons/essential/send_icon.svg');
-
-  /// File path: assets/icons/essential/success.svg
-  SvgGenImage get success =>
-      const SvgGenImage('assets/icons/essential/success.svg');
-
   /// File path: assets/icons/essential/website.svg
   SvgGenImage get website =>
       const SvgGenImage('assets/icons/essential/website.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
-        aboutUs,
-        checkCircle,
-        checkCircle2,
-        circleQuistion,
-        clock2,
-        currentLocation,
-        emoje,
-        info,
-        map,
-        plus,
-        sendIcon,
-        success,
-        website
-      ];
+  List<SvgGenImage> get values => [checkCircle, checkCircle2, website];
 }
 
 class $AssetsIconsFlagsGen {
@@ -185,11 +134,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,
@@ -263,17 +217,19 @@ class AssetGenImage {
 class SvgGenImage {
   const SvgGenImage(
     this._assetName, {
-    this.size = null,
+    this.size,
+    this.flavors = const {},
   }) : _isVecFormat = false;
 
   const SvgGenImage.vec(
     this._assetName, {
-    this.size = null,
+    this.size,
+    this.flavors = const {},
   }) : _isVecFormat = true;
 
   final String _assetName;
-
   final Size? size;
+  final Set<String> flavors;
   final bool _isVecFormat;
 
   SvgPicture svg({
@@ -296,12 +252,23 @@ class SvgGenImage {
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
     @deprecated bool cacheColorFilter = false,
   }) {
+    final BytesLoader loader;
+    if (_isVecFormat) {
+      loader = AssetBytesLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+      );
+    } else {
+      loader = SvgAssetLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+        theme: theme,
+      );
+    }
     return SvgPicture(
-      _isVecFormat
-          ? AssetBytesLoader(_assetName,
-              assetBundle: bundle, packageName: package)
-          : SvgAssetLoader(_assetName,
-              assetBundle: bundle, packageName: package),
+      loader,
       key: key,
       matchTextDirection: matchTextDirection,
       width: width,
@@ -312,7 +279,6 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      theme: theme,
       colorFilter: colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,

@@ -5,7 +5,7 @@ sealed class OrderEvent {}
 
 class GetOrdersDoneEvent extends OrderEvent {}
 
-class GetOrdersEvent extends OrderEvent {}
+class GetActiveOrdersEvent extends OrderEvent {}
 
 class SetDeliveredEvent extends OrderEvent {
   final SetDeliveredParam param;

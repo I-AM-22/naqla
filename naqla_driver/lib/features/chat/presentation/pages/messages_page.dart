@@ -2,6 +2,7 @@ import 'package:common_state/common_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iconly/iconly.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/core/di/di_container.dart';
 import 'package:naqla_driver/features/app/presentation/widgets/app_loading_indicator.dart';
@@ -12,7 +13,6 @@ import 'package:naqla_driver/features/chat/domain/usecases/send_message_use_case
 import 'package:naqla_driver/features/chat/presentation/state/chat_bloc.dart';
 import 'package:naqla_driver/features/chat/presentation/widgets/message_card.dart';
 
-import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/app_scaffold.dart';
 import '../../../app/presentation/widgets/customer_appbar.dart';
@@ -89,10 +89,7 @@ class _MessagesPageState extends State<MessagesPage> {
                               ? AppLoadingIndicator(
                                   size: 25.r,
                                 )
-                              : AppImage.asset(
-                                  Assets.icons.essential.sendIcon.path,
-                                  size: 20.w,
-                                ),
+                              : const Icon(IconlyBroken.send),
                         ),
                         Expanded(
                           child: AppTextFormField(

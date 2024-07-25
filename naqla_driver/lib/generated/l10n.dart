@@ -1060,6 +1060,66 @@ class S {
     );
   }
 
+  /// `Your order is under scrutiny by the admin, please wait`
+  String get your_order_is_under_scrutiny_by_the_admin_please_wait {
+    return Intl.message(
+      'Your order is under scrutiny by the admin, please wait',
+      name: 'your_order_is_under_scrutiny_by_the_admin_please_wait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your order was rejected by the admin`
+  String get your_order_was_rejected_by_the_admin {
+    return Intl.message(
+      'Your order was rejected by the admin',
+      name: 'your_order_was_rejected_by_the_admin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for the driver to arrive and pickUp the order`
+  String get waiting_for_the_driver_to_arrive_and_pickUp_the_order {
+    return Intl.message(
+      'Waiting for the driver to arrive and pickUp the order',
+      name: 'waiting_for_the_driver_to_arrive_and_pickUp_the_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Canceled`
+  String get canceled {
+    return Intl.message(
+      'Canceled',
+      name: 'canceled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm the order`
+  String get confirm_the_order {
+    return Intl.message(
+      'Confirm the order',
+      name: 'confirm_the_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for drivers to be hired`
+  String get waiting_for_drivers_to_be_hired {
+    return Intl.message(
+      'Waiting for drivers to be hired',
+      name: 'waiting_for_drivers_to_be_hired',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________profile______________________________ {
     return Intl.message(
