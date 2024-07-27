@@ -56,7 +56,8 @@ class HomeRemoteDataSource {
 
   Future<OrderModel> acceptOrder(AcceptOrderParam param) {
     return throwAppException(() async {
-      final result = await dio.patch(ApiRoutes.acceptance(param.id));
+      await dio.post(ApiRoutes.checkOut(param.id));
+      final result = await dio.patch(ApiRoutes.acceptance(param.id), data: param.toMap);
       return OrderModel.fromJson(result.data);
     });
   }
@@ -65,6 +66,17 @@ class HomeRemoteDataSource {
     return throwAppException(() async {
       final result = await dio.patch(ApiRoutes.cancelOrder(param.id));
       return OrderModel.fromJson(result.data);
+    });
+  }
+
+  Future<List<String>> getPaymentMethod() {
+    return throwAppException(() async {
+      final result = await dio.get(ApiRoutes.paymentMethod);
+      return (result.data as List<dynamic>)
+          .map(
+            (e) => e.toString(),
+          )
+          .toList();
     });
   }
 }

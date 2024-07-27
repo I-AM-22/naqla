@@ -21,6 +21,7 @@ import '../../../features/chat/presentation/pages/messages_page.dart';
 import '../../../features/home/presentation/pages/home_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/home/presentation/pages/order_photos_page.dart';
+import '../../../features/home/presentation/pages/payment_method_page.dart';
 import '../../../features/orders/presentation/pages/sub_order_details_page.dart';
 import '../../../features/orders/presentation/pages/sub_orders_page.dart';
 import '../../../features/profile/presentation/pages/delete_account_page.dart';
@@ -98,13 +99,22 @@ final router = GoRouter(debugLogDiagnostics: true, initialLocation: SplashScreen
                 builder: (context, state) => const OrderPhotosPage(),
               ),
               GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: OrderDetailsPage.path,
-                name: OrderDetailsPage.name,
-                builder: (context, state) => OrderDetailsPage(
-                  orderModel: state.extra as OrderModel,
-                ),
-              ),
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: OrderDetailsPage.path,
+                  name: OrderDetailsPage.name,
+                  builder: (context, state) => OrderDetailsPage(
+                        orderModel: state.extra as OrderModel,
+                      ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: PaymentMethodPage.path,
+                      name: PaymentMethodPage.name,
+                      builder: (context, state) => PaymentMethodPage(
+                        id: state.extra as String,
+                      ),
+                    )
+                  ]),
             ]),
       ]),
       StatefulShellBranch(initialLocation: OrderPage.path, navigatorKey: _shell2NavigatorKey, routes: [

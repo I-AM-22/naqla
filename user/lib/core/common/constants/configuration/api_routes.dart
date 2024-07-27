@@ -44,4 +44,8 @@ class ApiRoutes {
   static String setPickedUp(String id) => '/api/v1/sub-orders/$id/setPickedUpAt';
   static String subOrderDetails(String id) => '/api/v1/sub-orders/$id';
   static String rating(String id) => '/api/v1/sub-orders/$id/rating';
+
+  //?////////////////?Payment////////////////////
+  static String paymentMethod = "/api/v1/payments/payment-methods";
+  static String checkOut(String id) => "/api/v1/payments/$id/check-status";
 }

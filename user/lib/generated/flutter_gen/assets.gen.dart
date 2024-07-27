@@ -24,6 +24,9 @@ class $AssetsIconsGen {
   /// Directory path: assets/icons/flags
   $AssetsIconsFlagsGen get flags => const $AssetsIconsFlagsGen();
 
+  /// Directory path: assets/icons/payments
+  $AssetsIconsPaymentsGen get payments => const $AssetsIconsPaymentsGen();
+
   /// Directory path: assets/icons/png
   $AssetsIconsPngGen get png => const $AssetsIconsPngGen();
 }
@@ -64,10 +67,6 @@ class $AssetsIconsArrowGen {
 class $AssetsIconsEssentialGen {
   const $AssetsIconsEssentialGen();
 
-  /// File path: assets/icons/essential/About Us.svg
-  SvgGenImage get aboutUs =>
-      const SvgGenImage('assets/icons/essential/About Us.svg');
-
   /// File path: assets/icons/essential/check circle.svg
   SvgGenImage get checkCircle =>
       const SvgGenImage('assets/icons/essential/check circle.svg');
@@ -75,17 +74,6 @@ class $AssetsIconsEssentialGen {
   /// File path: assets/icons/essential/check-circle2.svg
   SvgGenImage get checkCircle2 =>
       const SvgGenImage('assets/icons/essential/check-circle2.svg');
-
-  /// File path: assets/icons/essential/circle_quistion.svg
-  SvgGenImage get circleQuistion =>
-      const SvgGenImage('assets/icons/essential/circle_quistion.svg');
-
-  /// File path: assets/icons/essential/clock 2.svg
-  SvgGenImage get clock2 =>
-      const SvgGenImage('assets/icons/essential/clock 2.svg');
-
-  /// File path: assets/icons/essential/info.svg
-  SvgGenImage get info => const SvgGenImage('assets/icons/essential/info.svg');
 
   /// File path: assets/icons/essential/map.svg
   SvgGenImage get map => const SvgGenImage('assets/icons/essential/map.svg');
@@ -95,16 +83,7 @@ class $AssetsIconsEssentialGen {
       const SvgGenImage('assets/icons/essential/website.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
-        aboutUs,
-        checkCircle,
-        checkCircle2,
-        circleQuistion,
-        clock2,
-        info,
-        map,
-        website
-      ];
+  List<SvgGenImage> get values => [checkCircle, checkCircle2, map, website];
 }
 
 class $AssetsIconsFlagsGen {
@@ -120,6 +99,25 @@ class $AssetsIconsFlagsGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [english, syria];
+}
+
+class $AssetsIconsPaymentsGen {
+  const $AssetsIconsPaymentsGen();
+
+  /// File path: assets/icons/payments/mada.png
+  AssetGenImage get mada =>
+      const AssetGenImage('assets/icons/payments/mada.png');
+
+  /// File path: assets/icons/payments/master_card.png
+  AssetGenImage get masterCard =>
+      const AssetGenImage('assets/icons/payments/master_card.png');
+
+  /// File path: assets/icons/payments/visa.png
+  AssetGenImage get visa =>
+      const AssetGenImage('assets/icons/payments/visa.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [mada, masterCard, visa];
 }
 
 class $AssetsIconsPngGen {

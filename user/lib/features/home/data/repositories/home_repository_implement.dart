@@ -47,4 +47,11 @@ class HomeRepositoryImplement extends HomeRepository {
       () => dataSource.cancelOrder(param),
     );
   }
+
+  @override
+  FutureResult<List<String>> getPaymentMethod() {
+    return toApiResult(
+      () => dataSource.getPaymentMethod(),
+    );
+  }
 }
