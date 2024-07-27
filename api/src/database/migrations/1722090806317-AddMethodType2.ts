@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class AddDisactive1722087132872 implements MigrationInterface {
-    name = 'AddDisactive1722087132872'
+export class AddMethodType21722090806317 implements MigrationInterface {
+    name = 'AddMethodType21722090806317'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "payments" ADD "status" character varying NOT NULL DEFAULT 'pending'`);
-        await queryRunner.query(`ALTER TABLE "payments" ADD "methodType" character varying NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "payments" ADD "methodType" character varying NOT NULL DEFAULT ''`);
         await queryRunner.query(`ALTER TABLE "payments" ADD "reference" character varying NOT NULL DEFAULT ''`);
         await queryRunner.query(`ALTER TABLE "payments" ADD "transactionId" character varying NOT NULL DEFAULT ''`);
         await queryRunner.query(`ALTER TABLE "drivers" ADD "disactiveAt" TIMESTAMP`);
