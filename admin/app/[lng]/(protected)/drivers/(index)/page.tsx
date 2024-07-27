@@ -6,7 +6,7 @@ export default async function Page({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const ratingAsc = searchParams?.["rating"] === "asc" ?? true;
+  const ratingAsc = searchParams?.["rating"] === "asc";
 
   const res = await statisticsControllerStaticsDriver({ sort: ratingAsc });
 

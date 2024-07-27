@@ -152,7 +152,7 @@ export function DriversTable({ data }: DiversTableProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const ratingDesc = searchParams.get("rating") === "desc" ?? false;
+  const ratingDesc = searchParams.get("rating") === "desc";
   const sorting: SortingState = [{ desc: ratingDesc, id: "rating" }];
   const createQueryString = useCallback(
     (name: string, value: string) => {

@@ -66,15 +66,15 @@ export async function ResponseTime(props: ResponseTimeProps) {
   );
 }
 function timeToMilliseconds(time: {
-  hours: number;
-  minutes: number;
-  seconds: number;
-  milliseconds: number;
+  hours: number | null;
+  minutes: number | null;
+  seconds: number | null;
+  milliseconds: number | null;
 }) {
   return (
     (time.hours ?? 0) * 60 * 60 * 1000 +
-      (time.minutes ?? 0) * 60 * 1000 +
-      (time.seconds ?? 0) * 1000 +
-      time.milliseconds ?? 0
+    (time.minutes ?? 0) * 60 * 1000 +
+    (time.seconds ?? 0) * 1000 +
+    (time.milliseconds ?? 0)
   );
 }
