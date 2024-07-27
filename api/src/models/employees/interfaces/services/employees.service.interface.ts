@@ -5,7 +5,7 @@ import { AuthEmployeeResponse } from '../auth-employee.interface';
 export interface IEmployeesService {
   login(dto: LoginEmployeeDto): Promise<AuthEmployeeResponse>;
 
-  find(withDeleted: boolean): Promise<Employee[]>;
+  find(): Promise<Employee[]>;
 
   findOne(id: string, withDeleted?: boolean): Promise<Employee>;
 

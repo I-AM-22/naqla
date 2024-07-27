@@ -32,6 +32,7 @@ import { GpsDrivingModule } from '@shared/gpsDriving';
 import { PaymentsModule } from './models/payments/payments.module';
 import { StatisticsModule } from '@models/statics/statistics.module';
 import { MessagesModule } from '@models/messages/messages.module';
+import { HyperPayModule } from '@shared/hyper-pay/hyper-pay.module';
 
 @Module({
   imports: [
@@ -80,6 +81,7 @@ import { MessagesModule } from '@models/messages/messages.module';
     GpsDrivingModule,
     PaymentsModule,
     MessagesModule,
+    HyperPayModule,
   ],
   providers: [
     IsUniqueConstraint,

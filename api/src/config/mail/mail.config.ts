@@ -53,6 +53,7 @@ class EnvironmentVariablesValidator {
   @IsOptional()
   MAIL_QUEUE_PORT: number;
 }
+
 const mailConfig = registerAs<MailConfig>('mail', () => {
   validateConfig(process.env, EnvironmentVariablesValidator);
   return {
@@ -70,4 +71,5 @@ const mailConfig = registerAs<MailConfig>('mail', () => {
     queue_port: Number(process.env.MAIL_QUEUE_PORT),
   };
 });
+
 export default mailConfig;

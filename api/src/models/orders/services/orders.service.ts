@@ -1,6 +1,6 @@
 import { BadRequestException, ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ORDER_TYPES } from '../interfaces/type';
-import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
+import { AcceptanceDto, AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
 import { User } from '@models/users/entities/user.entity';
@@ -16,6 +16,7 @@ import { UserWalletRepository } from '@models/users/repositories/user-wallet.rep
 import { IPaymentsService } from '@models/payments/interfaces/services/payments.service.interface';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { ISubOrderRepository } from '@models/sub-orders/interfaces/repositories/sub-order.repository.interface';
+import { HyperPayService } from '@shared/hyper-pay/hyper-pay.service';
 
 @Injectable()
 export class OrdersService implements IOrdersService {
@@ -31,6 +32,7 @@ export class OrdersService implements IOrdersService {
     private readonly paymentsService: IPaymentsService,
     @Inject(SUB_ORDER_TYPES.repository.subOrder)
     private readonly subOrderRepository: ISubOrderRepository,
+    private readonly hyperPayService: HyperPayService,
   ) {}
 
   async find(): Promise<Order[]> {
@@ -85,7 +87,7 @@ export class OrdersService implements IOrdersService {
     });
     const order = await this.orderRepository.create(user, photo, advantages, dto);
     await this.paymentsService.create(order, sum);
-    return order;
+    return await this.findOne(order.id);
   }
 
   async update(id: string, person: IPerson, dto: UpdateOrderDto): Promise<Order> {
@@ -110,14 +112,12 @@ export class OrdersService implements IOrdersService {
     return await this.orderRepository.updateStatus(id, ORDER_STATUS.READY);
   }
 
-  async acceptance(id: string): Promise<Order> {
-    const order = await this.orderRepository.findById(id);
+  async acceptance(id: string, dto: AcceptanceDto, user: User): Promise<Order> {
+    const order = await this.findOne(id, user as IPerson);
     if (order.status !== ORDER_STATUS.READY) {
       throw new ForbiddenException('Can not acceptance Done this order because his status is not accepted');
     }
-    if (!(await this.walletRepository.check(order.userId, order.payment.cost)))
-      throw new ForbiddenException(`Can not acceptance Done this order because you do not have order's cost`);
-    await this.walletRepository.updatePending(order.userId, order.payment.cost);
+    await this.paymentsService.createCheckout(order.payment, dto.methodType, user);
     await this.subOrderRepository.setStatusToReady(order.id);
     return this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
   }

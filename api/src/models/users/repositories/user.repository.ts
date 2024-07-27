@@ -118,6 +118,6 @@ export class UserRepository extends BaseAuthRepo<User> implements IUserRepositor
   }
 
   async deactivate(id: string): Promise<void> {
-    await this.userRepo.update({ id }, { active: false });
+    await this.userRepo.update({ id }, { disactiveAt: new Date() });
   }
 }

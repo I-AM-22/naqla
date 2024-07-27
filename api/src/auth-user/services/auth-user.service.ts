@@ -44,7 +44,7 @@ export class AuthUserService implements IAuthUserService {
         ip,
         type: OTP_TYPE.SIGNUP,
       });
-    } else if (user.active) {
+    } else if (user.disactiveAt || user.active) {
       throw new UnprocessableEntityException(item_already_exist('mobile'));
     } else if (!user.active) {
       const otp: IOtp = {

@@ -46,14 +46,12 @@ export class EmployeesController implements ICrud<Employee> {
     return this.employeesService.login(dto);
   }
 
-  @UseInterceptors(WithDeletedInterceptor)
   @ApiOkResponse({ type: Employee, isArray: true })
   @SerializeOptions({ groups: [GROUPS.ALL_EMPLOYEES] })
   @CheckAbilities({ action: Action.Read, subject: Entities.Employee })
   @Get()
   find(@Req() req: Request) {
-    const withDeleted = Boolean(req.query.withDeleted);
-    return this.employeesService.find(withDeleted);
+    return this.employeesService.find();
   }
 
   @SerializeOptions({ groups: [GROUPS.EMPLOYEE] })

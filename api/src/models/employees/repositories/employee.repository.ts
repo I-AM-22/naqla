@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ROLE } from '@common/enums';
 import { Role } from '@models/roles/entities/role.entity';
-import { Repository, Equal } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateEmployeeDto, UpdateEmployeeDto } from '../dtos';
 import { Employee } from '../entities/employee.entity';
@@ -32,10 +31,8 @@ export class EmployeeRepository extends BaseAuthRepo<Employee> implements IEmplo
     return employee;
   }
 
-  async find(withDeleted = false) {
+  async find() {
     return this.employeeRepo.find({
-      where: { role: withDeleted ? {} : { name: Equal(ROLE.EMPLOYEE) } },
-      withDeleted,
       relations: { photos: true, role: true },
     });
   }

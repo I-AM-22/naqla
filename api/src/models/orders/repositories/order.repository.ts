@@ -158,9 +158,10 @@ export class OrderRepository implements IOrderRepository {
         photos: true,
         createdAt: true,
         updatedAt: true,
-        advantages: { name: true },
+        advantages: { id: true, cost: true, name: true },
+        status: true,
       },
-      relations: { user: true, photos: true, advantages: true },
+      relations: { user: true, photos: true, advantages: true, payment: true },
     });
   }
 
@@ -184,12 +185,11 @@ export class OrderRepository implements IOrderRepository {
           street: true,
         },
         userId: true,
-        user: { firstName: true, lastName: true },
+        user: { id: true, firstName: true, lastName: true },
         photos: true,
         createdAt: true,
         updatedAt: true,
-        advantages: { name: true },
-        payment: { additionalCost: true, cost: true },
+        advantages: { id: true, cost: true, name: true },
       },
       relations: { user: true, photos: true, advantages: true, payment: true },
     });
@@ -242,12 +242,14 @@ export class OrderRepository implements IOrderRepository {
     return this.orderRepository
       .createQueryBuilder('order')
       .select('DATE(order.createdAt)', 'day')
-      .addSelect("COUNT(CASE WHEN order.status = 'delivered' THEN 1 END)", 'completedOrders')
-      .addSelect('COUNT(id)', 'AllOrders')
-      .addSelect("COUNT(CASE WHEN order.status = 'refused' THEN 1 END)", 'refusedOrders')
+      .addSelect('COUNT(CASE WHEN order.status = :delivered THEN 1 END)', 'completedOrders')
+      .addSelect('COUNT(order.id)', 'AllOrders')
+      .addSelect('COUNT(CASE WHEN order.status = :refused THEN 1 END)', 'refusedOrders')
       .where('order.createdAt BETWEEN :startDate AND :endDate', {
         startDate,
         endDate,
+        delivered: ORDER_STATUS.DELIVERED,
+        refused: ORDER_STATUS.REFUSED,
       })
       .groupBy('day')
       .getRawMany<OrderStatsDate>();

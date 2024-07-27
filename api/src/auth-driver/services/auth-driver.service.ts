@@ -49,7 +49,7 @@ export class AuthDriverService implements IAuthDriverService {
         ip,
         type: OTP_TYPE.SIGNUP,
       });
-    } else if (driver.active) {
+    } else if (driver.disactiveAt || driver.active) {
       throw new UnprocessableEntityException(item_already_exist('mobile'));
     } else if (!driver.active) {
       const otp: IOtp = {

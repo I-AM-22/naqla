@@ -36,8 +36,8 @@ export class EmployeesService implements IEmployeesService {
     return { token, employee };
   }
 
-  async find(withDeleted: boolean): Promise<Employee[]> {
-    return this.employeeRepository.find(withDeleted);
+  async find(): Promise<Employee[]> {
+    return this.employeeRepository.find();
   }
 
   async findOne(id: string, withDeleted?: boolean): Promise<Employee> {

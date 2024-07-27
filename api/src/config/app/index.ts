@@ -11,6 +11,7 @@ const CloudinaryConfig = registerAs('cloudinary', () => ({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 }));
+
 const JwtConfig = registerAs('jwt', () => ({
   jwt_secret: process.env.JWT_SECRET,
   jwt_expires_in: process.env.JWT_EXPIRES_IN,
@@ -22,4 +23,5 @@ const SuperAdminInfo = registerAs('superadmin', () => ({
   phone: process.env.SUPER_ADMIN_PHONE,
   password: process.env.SUPER_ADMIN_PASSWORD,
 }));
+
 export { AppConfig, CloudinaryConfig, JwtConfig, SuperAdminInfo };

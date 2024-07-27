@@ -22,7 +22,6 @@ export class SubOrder extends GlobalEntity {
   @Column({ default: null })
   repeatDriver: boolean;
 
-
   @ApiProperty()
   @Column({ default: 0 })
   weight: number;

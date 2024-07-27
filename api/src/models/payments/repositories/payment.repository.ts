@@ -22,6 +22,9 @@ export class PaymentRepository implements IPaymentRepository {
     return payment;
   }
 
+  async findById(id: string): Promise<Payment> {
+    return await this.paymentRepo.findOne({ where: { id }, relations: { order: true } });
+  }
   async fineOneByOrderId(orderId: string): Promise<Payment> {
     return await this.paymentRepo.findOne({
       where: { orderId },

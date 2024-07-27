@@ -1,5 +1,5 @@
 import { Controller, SerializeOptions, Get, Post, Body, Param, Patch, Delete, Inject } from '@nestjs/common';
-import { ApiTags, ApiOkResponse, OmitType, ApiCreatedResponse, ApiParam, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOkResponse, OmitType, ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
 
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities/role.entity';
@@ -37,7 +37,6 @@ export class RolesController {
   @SerializeOptions({
     groups: [GROUPS.ROLE],
   })
-  @ApiParam({ name: 'id' })
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Role | undefined> {
     return this.rolesService.findOne(id);
