@@ -1,16 +1,16 @@
+import { ApiMainErrorsResponse, Auth, Id, Roles } from '@common/decorators';
+import { ROLE } from '@common/enums';
 import { Body, Controller, Get, Inject, Patch } from '@nestjs/common';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { UpdateSettingDto } from '../dtos';
+import { Setting } from '../entities/setting.entity';
 import { ISettingsService } from '../interfaces/services/settings.service.interface';
 import { SETTING_TYPES } from '../interfaces/type';
-import { ApiMainErrorsResponse, Auth, Id, Roles } from '@common/decorators';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Setting } from '../entities/setting.entity';
-import { ROLE } from '@common/enums';
-import { UpdateSettingDto } from '../dtos';
 
 @ApiTags('Settings')
 @Auth()
 @ApiMainErrorsResponse()
-@Roles(ROLE.ADMIN, ROLE.EMPLOYEE)
+@Roles(ROLE.SUPER_ADMIN)
 @Controller('settings')
 export class SettingsController {
   constructor(@Inject(SETTING_TYPES.service) private settingsService: ISettingsService) {}
