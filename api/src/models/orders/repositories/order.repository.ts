@@ -1,15 +1,15 @@
 import { ORDER_STATUS } from '@common/enums';
 import { Advantage } from '@models/advantages/entities/advantage.entity';
+import { AdvantageSuper } from '@models/statics/responses/AdvantageSuper';
+import { OrderStatsDate } from '@models/statics/responses/OrderStatsDate';
 import { User } from '@models/users/entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
-import { OrderStatsDate } from '@models/statics/responses/OrderStatsDate';
-import { AdvantageSuper } from '@models/statics/responses/AdvantageSuper';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -244,12 +244,13 @@ export class OrderRepository implements IOrderRepository {
       .select('DATE(order.createdAt)', 'day')
       .addSelect('COUNT(CASE WHEN order.status = :delivered THEN 1 END)', 'completedOrders')
       .addSelect('COUNT(order.id)', 'AllOrders')
-      .addSelect('COUNT(CASE WHEN order.status = :refused THEN 1 END)', 'refusedOrders')
+      .addSelect('COUNT(CASE WHEN order.status in (:refused,:canceled) THEN 1 END)', 'refusedOrders')
       .where('order.createdAt BETWEEN :startDate AND :endDate', {
         startDate,
         endDate,
         delivered: ORDER_STATUS.DELIVERED,
         refused: ORDER_STATUS.REFUSED,
+        canceled: ORDER_STATUS.CANCELED,
       })
       .groupBy('day')
       .getRawMany<OrderStatsDate>();
