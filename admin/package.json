@@ -7,6 +7,7 @@
     "win_dev": "cross-env PORT=9876 next dev",
     "build": "next build",
     "start": "PORT=9876 next start",
+    "win_start": "cross-env PORT=9876 next start",
     "swagger": "npx orval --config ./orval.config.cjs",
     "lint": "next lint"
   },
