@@ -23,7 +23,6 @@ export class CloudinaryService {
       const result = await cloudinary.v2.uploader.upload(path, {
         folder: 'Users',
       });
-      console.log(result);
       return result;
     } catch (err) {
       throw new HttpException(err.message, err.http_code || 400);
