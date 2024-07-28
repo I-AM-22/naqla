@@ -17,11 +17,6 @@ class AcceptOrderUseCase extends UseCase<OrderModel, AcceptOrderParam> {
 
 class AcceptOrderParam {
   final String id;
-  final String? methodType;
 
-  AcceptOrderParam({required this.id, required this.methodType});
-
-  Map<String, dynamic> get toMap => {
-        "methodType": methodType,
-      };
+  AcceptOrderParam({required this.id});
 }

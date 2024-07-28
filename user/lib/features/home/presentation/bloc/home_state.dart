@@ -8,7 +8,6 @@ class HomeState extends StateObject<HomeState> {
   static String setOrder = "setOrder";
   static String acceptOrder = "acceptOrder";
   static String cancelOrder = "cancelOrder";
-  static String getPaymentMethod = "getPaymentMethod";
 
   final SetOrderParam setOrderParam;
   final int formCount;
@@ -25,7 +24,6 @@ class HomeState extends StateObject<HomeState> {
             InitialState<OrderModel>(setOrder),
             InitialState<OrderModel>(acceptOrder),
             InitialState<OrderModel>(cancelOrder),
-            InitialState<List<String>>(getPaymentMethod),
           ],
           (states) => HomeState(states: states, setOrderParam: setOrderParam, formCount: formCount),
           states,

@@ -80,9 +80,3 @@ class UpdateFormPhoto extends HomeEvent {
 
   UpdateFormPhoto({required this.add});
 }
-
-class GetPaymentMethodEvent extends HomeEvent {
-  final VoidCallback onSuccess;
-
-  GetPaymentMethodEvent({required this.onSuccess});
-}

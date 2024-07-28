@@ -18,6 +18,4 @@ abstract class HomeRepository {
   FutureResult<OrderModel> acceptOrder(AcceptOrderParam param);
 
   FutureResult<OrderModel> cancelOrder(AcceptOrderParam param);
-
-  FutureResult<List<String>> getPaymentMethod();
 }

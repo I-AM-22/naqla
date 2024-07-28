@@ -14,7 +14,6 @@ import 'package:naqla/features/home/data/model/location_model.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/domain/use_case/accept_order_use_case.dart';
 import 'package:naqla/features/home/domain/use_case/cancel_order_use_case.dart';
-import 'package:naqla/features/home/domain/use_case/get_payment_method_use_case.dart';
 import 'package:naqla/features/home/domain/use_case/set_order_use_case.dart';
 import 'package:naqla/services/location_map_service.dart';
 
@@ -33,9 +32,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final SetOrderUseCase setOrderUseCase;
   final AcceptOrderUseCase acceptOrderUseCase;
   final CancelOrderUseCase cancelOrderUseCase;
-  final GetPaymentMethodUseCase getPaymentMethodUseCase;
   HomeBloc(this.uploadPhotosUseCase, this.getCarAdvantageUseCase, this.getOrdersUseCase, this.setOrderUseCase, this.acceptOrderUseCase,
-      this.cancelOrderUseCase, this.getPaymentMethodUseCase)
+      this.cancelOrderUseCase)
       : super(HomeState()) {
     multiStateApiCall<ChangeLocationEvent, LocationData?>(
       HomeState.changeLocationEvent,
@@ -50,14 +48,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     multiStateApiCall<SetOrderEvent, OrderModel>(
       HomeState.setOrder,
       (event) => setOrderUseCase(state.setOrderParam),
-      onSuccess: (data, event, emit) async {
-        event.onSuccess();
-      },
-    );
-
-    multiStateApiCall<GetPaymentMethodEvent, List<String>>(
-      HomeState.getPaymentMethod,
-      (event) => getPaymentMethodUseCase(NoParams()),
       onSuccess: (data, event, emit) async {
         event.onSuccess();
       },

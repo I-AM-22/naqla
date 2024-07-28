@@ -11,7 +11,6 @@ import 'package:naqla/features/app/presentation/widgets/customer_appbar.dart';
 import 'package:naqla/features/app/presentation/widgets/params_appbar.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
 import 'package:naqla/features/home/domain/use_case/accept_order_use_case.dart';
-import 'package:naqla/features/home/presentation/pages/payment_method_page.dart';
 
 import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
@@ -43,73 +42,118 @@ class OrderDetailsPage extends StatelessWidget {
                     if (!state.getState(HomeState.cancelOrder).isLoading)
                       Expanded(
                         child: AppButton.dark(
+                          isLoading: state.getState(HomeState.acceptOrder).isLoading,
                           title: S.of(context).confirm_order,
                           onPressed: () {
-                            context.pushNamed(PaymentMethodPage.name, extra: orderModel.id);
+                            AnimatedDialog.show(context,
+                                child: Padding(
+                                  padding: REdgeInsets.all(20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      AppText.titleSmall(S.of(context).confirm_order),
+                                      4.verticalSpace,
+                                      AppText.bodyMedium(S.of(context).this_action_will_not_be_undone),
+                                      16.verticalSpace,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            child: AppButton.dark(
+                                                buttonSize: ButtonSize.medium,
+                                                child: AppText.bodySmall(
+                                                  S.of(context).confirm_order,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () async {
+                                                  context.read<HomeBloc>().add(AcceptOrderEvent(
+                                                      param: AcceptOrderParam(id: orderModel.id),
+                                                      onSuccess: () {
+                                                        context.pop();
+                                                      }));
+                                                  context.pop();
+                                                }),
+                                          ),
+                                          16.horizontalSpace,
+                                          Expanded(
+                                            child: AppButton.gray(
+                                              buttonSize: ButtonSize.medium,
+                                              child: AppText.bodySmall(S.of(context).cancel),
+                                              onPressed: () {
+                                                context.pop(S.of(context).cancel);
+                                              },
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ));
                           },
                         ),
                       ),
                     5.horizontalSpace,
-                    Expanded(
-                      child: AppButton.dark(
-                        isLoading: state.getState(HomeState.cancelOrder).isLoading,
-                        style: ButtonStyle(
-                            backgroundColor: WidgetStateProperty.resolveWith(
-                          (states) => context.colorScheme.error,
-                        )),
-                        title: S.of(context).cancel_order,
-                        onPressed: () {
-                          AnimatedDialog.show(context,
-                              child: Padding(
-                                padding: REdgeInsets.all(20),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppText.titleSmall(S.of(context).cancel_order),
-                                    4.verticalSpace,
-                                    AppText.bodyMedium(S.of(context).are_you_sure_you_want_to_cancel_the_order),
-                                    16.verticalSpace,
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          child: AppButton.dark(
-                                              style: ButtonStyle(
-                                                  backgroundColor: WidgetStateProperty.resolveWith(
-                                                (states) => context.colorScheme.error,
-                                              )),
-                                              buttonSize: ButtonSize.medium,
-                                              child: AppText.bodySmall(
-                                                S.of(context).cancel_order,
-                                                color: Colors.white,
-                                              ),
-                                              onPressed: () async {
-                                                context.read<HomeBloc>().add(CancelOrderEvent(
-                                                    param: AcceptOrderParam(id: orderModel.id, methodType: null),
-                                                    onSuccess: () {
-                                                      context.pop();
-                                                    }));
-                                                context.pop();
-                                              }),
-                                        ),
-                                        16.horizontalSpace,
-                                        Expanded(
-                                          child: AppButton.gray(
-                                            buttonSize: ButtonSize.medium,
-                                            child: AppText.bodySmall(S.of(context).no),
-                                            onPressed: () {
-                                              context.pop(S.of(context).no);
-                                            },
+                    if (!state.getState(HomeState.acceptOrder).isLoading)
+                      Expanded(
+                        child: AppButton.dark(
+                          isLoading: state.getState(HomeState.cancelOrder).isLoading,
+                          style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.resolveWith(
+                            (states) => context.colorScheme.error,
+                          )),
+                          title: S.of(context).cancel_order,
+                          onPressed: () {
+                            AnimatedDialog.show(context,
+                                child: Padding(
+                                  padding: REdgeInsets.all(20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      AppText.titleSmall(S.of(context).cancel_order),
+                                      4.verticalSpace,
+                                      AppText.bodyMedium(S.of(context).are_you_sure_you_want_to_cancel_the_order),
+                                      16.verticalSpace,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            child: AppButton.dark(
+                                                style: ButtonStyle(
+                                                    backgroundColor: WidgetStateProperty.resolveWith(
+                                                  (states) => context.colorScheme.error,
+                                                )),
+                                                buttonSize: ButtonSize.medium,
+                                                child: AppText.bodySmall(
+                                                  S.of(context).cancel_order,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () async {
+                                                  context.read<HomeBloc>().add(CancelOrderEvent(
+                                                      param: AcceptOrderParam(id: orderModel.id),
+                                                      onSuccess: () {
+                                                        context.pop();
+                                                      }));
+                                                  context.pop();
+                                                }),
                                           ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ));
-                        },
+                                          16.horizontalSpace,
+                                          Expanded(
+                                            child: AppButton.gray(
+                                              buttonSize: ButtonSize.medium,
+                                              child: AppText.bodySmall(S.of(context).no),
+                                              onPressed: () {
+                                                context.pop(S.of(context).no);
+                                              },
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ));
+                          },
+                        ),
                       ),
-                    ),
                   ],
                 );
               },

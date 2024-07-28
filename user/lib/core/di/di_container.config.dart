@@ -57,8 +57,6 @@ import '../../features/home/domain/use_case/cancel_order_use_case.dart'
 import '../../features/home/domain/use_case/get_car_advantage_use_case.dart'
     as _i834;
 import '../../features/home/domain/use_case/get_orders_use_case.dart' as _i551;
-import '../../features/home/domain/use_case/get_payment_method_use_case.dart'
-    as _i684;
 import '../../features/home/domain/use_case/set_order_use_case.dart' as _i30;
 import '../../features/home/domain/use_case/upload_photos_use_case.dart'
     as _i579;
@@ -162,14 +160,20 @@ Future<_i174.GetIt> $initGetIt(
       () => _i834.GetCarAdvantageUseCase(gh<_i0.HomeRepository>()));
   gh.factory<_i551.GetAcceptOrdersUseCase>(
       () => _i551.GetAcceptOrdersUseCase(gh<_i0.HomeRepository>()));
-  gh.factory<_i684.GetPaymentMethodUseCase>(
-      () => _i684.GetPaymentMethodUseCase(gh<_i0.HomeRepository>()));
   gh.factory<_i30.SetOrderUseCase>(
       () => _i30.SetOrderUseCase(gh<_i0.HomeRepository>()));
   gh.factory<_i579.UploadPhotosUseCase>(
       () => _i579.UploadPhotosUseCase(gh<_i0.HomeRepository>()));
   gh.factory<_i894.ProfileRepository>(() =>
       _i904.ProfileRepositoryImplement(gh<_i998.ProfileRemoteDataSource>()));
+  gh.lazySingleton<_i202.HomeBloc>(() => _i202.HomeBloc(
+        gh<_i579.UploadPhotosUseCase>(),
+        gh<_i834.GetCarAdvantageUseCase>(),
+        gh<_i551.GetAcceptOrdersUseCase>(),
+        gh<_i30.SetOrderUseCase>(),
+        gh<_i222.AcceptOrderUseCase>(),
+        gh<_i571.CancelOrderUseCase>(),
+      ));
   gh.factory<_i543.OrderRepository>(
       () => _i611.OrderRepositoryImplement(gh<_i1011.OrderRemoteDataSource>()));
   gh.factory<_i146.UploadImageUseCase>(
@@ -202,15 +206,6 @@ Future<_i174.GetIt> $initGetIt(
         gh<_i471.GetSubOrderDetailsUseCase>(),
         gh<_i581.GetDoneOrdersUseCase>(),
         gh<_i767.RatingUseCase>(),
-      ));
-  gh.lazySingleton<_i202.HomeBloc>(() => _i202.HomeBloc(
-        gh<_i579.UploadPhotosUseCase>(),
-        gh<_i834.GetCarAdvantageUseCase>(),
-        gh<_i551.GetAcceptOrdersUseCase>(),
-        gh<_i30.SetOrderUseCase>(),
-        gh<_i222.AcceptOrderUseCase>(),
-        gh<_i571.CancelOrderUseCase>(),
-        gh<_i684.GetPaymentMethodUseCase>(),
       ));
   gh.factory<_i546.DeleteAccountUseCase>(
       () => _i546.DeleteAccountUseCase(gh<_i894.ProfileRepository>()));
