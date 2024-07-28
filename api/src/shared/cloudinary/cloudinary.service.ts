@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import * as cloudinary from 'cloudinary';
 import { ConfigType } from '@nestjs/config';
 import { IPhoto } from '@common/interfaces';
@@ -17,21 +17,16 @@ export class CloudinaryService {
       api_secret: this.cloudinaryConfig.api_secret,
     });
   }
+
   async uploadPhoto(path: string): Promise<cloudinary.UploadApiResponse> {
     try {
-      const result = cloudinary.v2.uploader.upload(
-        path,
-        {
-          folder: 'Users',
-        },
-        (err) => {
-          if (err) throw new HttpException(err.message, err.http_code);
-        },
-      );
-
+      const result = await cloudinary.v2.uploader.upload(path, {
+        folder: 'Users',
+      });
+      console.log(result);
       return result;
-    } catch (error) {
-      throw new BadRequestException('upload images failed');
+    } catch (err) {
+      throw new HttpException(err.message, err.http_code || 400);
     }
   }
 
@@ -64,8 +59,9 @@ export class CloudinaryService {
   async uploadMultiplePhotos(paths: string[]) {
     const blurHashs = await createBlurHashs(paths);
     const results = await Promise.all(paths.map((e) => this.uploadPhoto(e)));
-    return Promise.all(results.map((e, i) => this.FormatPhoto(e, blurHashs[i])));
+    return await Promise.all(results.map((e, i) => this.FormatPhoto(e, blurHashs[i])));
   }
+
   async removePhoto(publicId: string) {
     return await cloudinary.v2.uploader.destroy(publicId, {
       resource_type: 'image',
