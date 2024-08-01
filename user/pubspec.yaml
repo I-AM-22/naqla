@@ -39,7 +39,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   iconly: ^1.0.1
   numberpicker: ^2.1.2
-  badges: ^3.1.2
+  credit_card_type_detector: ^3.0.0
 
   #?IMAGE:
   image_picker: ^1.1.2

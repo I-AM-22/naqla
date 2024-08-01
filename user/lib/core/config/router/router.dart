@@ -7,6 +7,7 @@ import 'package:naqla/features/app/presentation/pages/base_page.dart';
 import 'package:naqla/features/auth/data/model/wallet_model.dart';
 import 'package:naqla/features/chat/presentation/pages/chat_page.dart';
 import 'package:naqla/features/home/data/model/order_model.dart';
+import 'package:naqla/features/home/domain/use_case/accept_order_use_case.dart';
 import 'package:naqla/features/home/presentation/pages/create_order.dart';
 import 'package:naqla/features/orders/presentation/pages/order_page.dart';
 import 'package:naqla/features/orders/presentation/pages/rating_page.dart';
@@ -21,6 +22,7 @@ import '../../../features/chat/presentation/pages/messages_page.dart';
 import '../../../features/home/presentation/pages/home_page.dart';
 import '../../../features/home/presentation/pages/order_details_page.dart';
 import '../../../features/home/presentation/pages/order_photos_page.dart';
+import '../../../features/home/presentation/pages/payment_page.dart';
 import '../../../features/orders/presentation/pages/sub_order_details_page.dart';
 import '../../../features/orders/presentation/pages/sub_orders_page.dart';
 import '../../../features/profile/presentation/pages/delete_account_page.dart';
@@ -98,13 +100,22 @@ final router = GoRouter(debugLogDiagnostics: true, initialLocation: SplashScreen
                 builder: (context, state) => const OrderPhotosPage(),
               ),
               GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: OrderDetailsPage.path,
-                name: OrderDetailsPage.name,
-                builder: (context, state) => OrderDetailsPage(
-                  orderModel: state.extra as OrderModel,
-                ),
-              ),
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: OrderDetailsPage.path,
+                  name: OrderDetailsPage.name,
+                  builder: (context, state) => OrderDetailsPage(
+                        orderModel: state.extra as OrderModel,
+                      ),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: AddCardPageMobile.path,
+                      name: AddCardPageMobile.name,
+                      builder: (context, state) => AddCardPageMobile(
+                        param: state.extra as AcceptOrderParam,
+                      ),
+                    ),
+                  ]),
             ]),
       ]),
       StatefulShellBranch(initialLocation: OrderPage.path, navigatorKey: _shell2NavigatorKey, routes: [

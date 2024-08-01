@@ -17,6 +17,7 @@ class AcceptOrderUseCase extends UseCase<OrderModel, AcceptOrderParam> {
 
 class AcceptOrderParam {
   final String id;
+  final int cost;
 
-  AcceptOrderParam({required this.id});
+  AcceptOrderParam({required this.id, required this.cost});
 }
