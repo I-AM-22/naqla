@@ -75,8 +75,8 @@ class _AddCardPageMobileState extends State<AddCardPageMobile> with SingleTicker
       appBar: AppAppBar(
         appBarParams: AppBarParams(),
       ),
-      body: BlocProvider(
-        create: (context) => getIt<HomeBloc>(),
+      body: BlocProvider.value(
+        value: getIt<HomeBloc>(),
         child: Builder(builder: (context) {
           return FormBuilder(
             key: _formKey,
