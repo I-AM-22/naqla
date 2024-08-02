@@ -1,10 +1,9 @@
-import { ApiMainErrorsResponse, Auth, GetUser, Id } from '@common/decorators';
-import { Controller, Get, Inject, Post } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiMainErrorsResponse, Auth, Id } from '@common/decorators';
+import { Controller, Get, Inject } from '@nestjs/common';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Payment } from '../entities/payment.entity';
 import { HyperPayMethods } from '@common/enums/hyper-pay-method.enum';
 import { IPaymentsService } from '../interfaces/services/payments.service.interface';
-import { User } from '@models/users/entities/user.entity';
 import { PAYMENT_TYPES } from '../interfaces/type';
 
 @ApiTags('Payments')
@@ -32,15 +31,15 @@ export class PaymentsController {
     return await this.paymentsService.findById(id);
   }
 
-  @ApiCreatedResponse({ type: Payment })
-  @Post(':id/check-status')
-  async checkPaymentStatus(@Id() id: string, @GetUser('id') userId: string) {
-    return await this.paymentsService.checkPaymentStatus(id, userId);
-  }
+  // @ApiCreatedResponse({ type: Payment })
+  // @Post(':id/check-status')
+  // async checkPaymentStatus(@Id() id: string, @GetUser('id') userId: string) {
+  //   return await this.paymentsService.checkPaymentStatus(id, userId);
+  // }
 
-  @ApiOkResponse({ type: Payment })
-  @Get(':id/recreate')
-  async recreate(@Id() id: string, @GetUser() user: User) {
-    return await this.paymentsService.recreate(id, user);
-  }
+  // @ApiOkResponse({ type: Payment })
+  // @Get(':id/recreate')
+  // async recreate(@Id() id: string, @GetUser() user: User) {
+  //   return await this.paymentsService.recreate(id, user);
+  // }
 }

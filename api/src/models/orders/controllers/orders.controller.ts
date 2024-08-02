@@ -18,7 +18,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { AcceptanceDto, AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
+import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrdersService } from '../interfaces/services/orders.service.interface';
 import { ORDER_TYPES } from '../interfaces/type';
@@ -90,8 +90,8 @@ export class OrderController {
   @Roles(ROLE.USER)
   @ApiOkResponse({ type: Order })
   @Patch(':id/acceptance')
-  async acceptance(@Id() id: string, @Body() dto: AcceptanceDto, @GetUser() user: User): Promise<Order> {
-    return await this.ordersService.acceptance(id, dto, user);
+  async acceptance(@Id() id: string): Promise<Order> {
+    return await this.ordersService.acceptance(id);
   }
   @Roles(ROLE.EMPLOYEE, ROLE.ADMIN)
   @ApiOkResponse({ type: Order })

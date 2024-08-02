@@ -19,7 +19,7 @@ export interface IOrdersService {
   create(user: User, dto: CreateOrderDto): Promise<Order>;
   update(id: string, person: IPerson, dto: UpdateOrderDto): Promise<Order>;
   updateStatus(id: string, status: ORDER_STATUS): Promise<Order>;
-  acceptance(id: string, dto: AcceptanceDto, user: User): Promise<Order>;
+  acceptance(id: string): Promise<Order>;
   cancellation(id: string): Promise<Order>;
   divisionDone(id: string, cost: number): Promise<Order>;
   refusal(id: string): Promise<Order>;
