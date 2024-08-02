@@ -36,7 +36,7 @@ export class SubOrdersController {
     private readonly subOrdersService: ISubOrdersService,
   ) {}
 
-  @Roles(ROLE.EMPLOYEE)
+  @Roles(ROLE.ADMIN)
   @ApiCreatedResponse({ type: Order })
   @Post()
   async create(@Body() dto: CreateSubOrdersDto) {
