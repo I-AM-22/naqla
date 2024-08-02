@@ -17,7 +17,14 @@ class AcceptOrderUseCase extends UseCase<OrderModel, AcceptOrderParam> {
 
 class AcceptOrderParam {
   final String id;
+  final String userId;
   final int cost;
 
-  AcceptOrderParam({required this.id, required this.cost});
+  AcceptOrderParam({required this.id, required this.cost, required this.userId});
+
+  AcceptOrderParam copyWith({String? userId}) => AcceptOrderParam(id: id, cost: cost, userId: userId ?? this.userId);
+
+  Map<String, dynamic> get toMap => {
+        "cost": cost,
+      };
 }

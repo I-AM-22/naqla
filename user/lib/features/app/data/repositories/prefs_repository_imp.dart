@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,9 +29,13 @@ class PrefsRepositoryImpl extends PrefsRepository {
 
   @override
   Future<bool> setUser(User user) {
-    throw UnimplementedError();
+    return sharedPreferences.setString(PrefsKey.user, jsonEncode(user.toJson()));
   }
 
   @override
-  User? get user => throw UnimplementedError();
+  User? get user {
+    final user = sharedPreferences.getString(PrefsKey.user);
+    if (user == null) return null;
+    return User.fromJson(jsonDecode(user));
+  }
 }

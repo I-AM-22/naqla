@@ -56,6 +56,7 @@ class HomeRemoteDataSource {
 
   Future<OrderModel> acceptOrder(AcceptOrderParam param) {
     return throwAppException(() async {
+      await dio.patch(ApiRoutes.withDraw(param.userId), data: param.toMap);
       final result = await dio.patch(ApiRoutes.acceptance(param.id));
       return OrderModel.fromJson(result.data);
     });

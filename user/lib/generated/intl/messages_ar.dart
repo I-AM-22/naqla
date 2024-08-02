@@ -20,10 +20,20 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(count) => "تم تقسيم النقلة الى ${count} نقلة/نقلات";
+  static String m0(count) => "أدخل ${count} ارقام";
+
+  static String m1(count) => "رقم البطاقة يجب ان يتكون من ${count} رقم";
+
+  static String m2(char) => "الاسم يجب ان يكون على الاقل ${char} محارف";
+
+  static String m3(count) => "تم تقسيم النقلة الى ${count} نقلة/نقلات";
+
+  static String m4(total) => "المبلغ الكلي: ${total} ل.س";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Invalid_card_holder_name":
+            MessageLookupByLibrary.simpleMessage("اسم حامل البطاقة غير صالح"),
         "Save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "Welcome": MessageLookupByLibrary.simpleMessage("مرحبا"),
         "__________________________chat________________________________":
@@ -77,6 +87,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("العلامة التجارية للسيارة"),
         "car_color": MessageLookupByLibrary.simpleMessage("لون السيارة"),
         "car_model": MessageLookupByLibrary.simpleMessage("موديل السيارة"),
+        "card_Number": MessageLookupByLibrary.simpleMessage("رقم البطاقة"),
+        "card_holder_name":
+            MessageLookupByLibrary.simpleMessage("إسم صاحب البطاقة"),
+        "card_name_for_display":
+            MessageLookupByLibrary.simpleMessage("اسم البطاقة للعرض"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "confirm_order": MessageLookupByLibrary.simpleMessage("تأكيد النقلة"),
@@ -98,6 +113,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "end_point": MessageLookupByLibrary.simpleMessage("نقطة الوصول"),
         "english": MessageLookupByLibrary.simpleMessage("الانكليزية"),
         "enter_code": MessageLookupByLibrary.simpleMessage("أدخل رمز "),
+        "enter_larger_date":
+            MessageLookupByLibrary.simpleMessage("أدخل تاريخًا أكبر"),
+        "expiry_Date": MessageLookupByLibrary.simpleMessage("تاريخ الانتهاء"),
         "first_name": MessageLookupByLibrary.simpleMessage("الاسم الاول"),
         "full_Name": MessageLookupByLibrary.simpleMessage("الاسم كامل"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
@@ -113,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "item_width": MessageLookupByLibrary.simpleMessage("عرض الغرض (M)"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "last_name": MessageLookupByLibrary.simpleMessage("الاسم الاخير"),
+        "length_should_more": m0,
         "loading": MessageLookupByLibrary.simpleMessage("الرجاء الانتظار..."),
         "logOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "log_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
@@ -121,6 +140,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_naqla": MessageLookupByLibrary.simpleMessage("نقلة جديدة"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "no": MessageLookupByLibrary.simpleMessage("لا"),
+        "not_a_valid_date":
+            MessageLookupByLibrary.simpleMessage("ليس تاريخًا صالحًا"),
+        "not_valid_number":
+            MessageLookupByLibrary.simpleMessage("رقم غير صالح"),
         "notes": MessageLookupByLibrary.simpleMessage("ملاحظات"),
         "order_accepted_date":
             MessageLookupByLibrary.simpleMessage("تاريخ قبول النقلة"),
@@ -172,20 +195,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "street": MessageLookupByLibrary.simpleMessage("الشارع"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("النقلات الفرعية"),
         "syp": MessageLookupByLibrary.simpleMessage("ل.س"),
+        "the_card_number_must_consist_of_digits": m1,
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage("الزبون قام بتأكيد النقلة"),
         "the_end_point_must_be_determined":
             MessageLookupByLibrary.simpleMessage("يجب تحديد نقطة الوصول"),
+        "the_name_must_be_at_least_characters_long": m2,
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("عدد الطوابق"),
         "the_order_has_been_canceled":
             MessageLookupByLibrary.simpleMessage("تم ٳلغاء النقلة"),
-        "the_order_was_divided_into_orders": m0,
+        "the_order_was_divided_into_orders": m3,
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "الاجر سيعتمد على عدد الحمالين المطلوبين والطوابق وطبيعة الأغراض المنقولة."),
         "the_starting_point_must_be_determined":
             MessageLookupByLibrary.simpleMessage("يجب تحديد نقطة الانطلاق"),
+        "the_total_amount": m4,
         "the_weight": MessageLookupByLibrary.simpleMessage("الوزن"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("لا يوجد بيانات لعرضها"),

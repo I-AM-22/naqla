@@ -86,6 +86,46 @@
       }
     }
   },
+  "card_Number": "رقم البطاقة",
+  "not_valid_number": "رقم غير صالح",
+  "enter_larger_date": "أدخل تاريخًا أكبر",
+  "length_should_more": "أدخل {count} ارقام",
+  "@length_should_more": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "the_total_amount": "المبلغ الكلي: {total} ل.س",
+  "@the_total_amount": {
+    "placeholders": {
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "expiry_Date": "تاريخ الانتهاء",
+  "Invalid_card_holder_name": "اسم حامل البطاقة غير صالح",
+  "the_name_must_be_at_least_characters_long": "الاسم يجب ان يكون على الاقل {char} محارف",
+  "@the_name_must_be_at_least_characters_long": {
+    "placeholders": {
+      "char": {
+        "type": "int"
+      }
+    }
+  },
+  "card_name_for_display": "اسم البطاقة للعرض",
+  "not_a_valid_date": "ليس تاريخًا صالحًا",
+  "the_card_number_must_consist_of_digits": "رقم البطاقة يجب ان يتكون من {count} رقم",
+  "@the_card_number_must_consist_of_digits": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "card_holder_name": "إسم صاحب البطاقة",
 
   "__________________________wallet______________________________":"",
   "wallet":"المحفظة",

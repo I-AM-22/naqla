@@ -87,6 +87,46 @@
       }
     }
   },
+  "card_Number": "Card number",
+  "not_valid_number": "Not valid number",
+  "enter_larger_date": "Enter larger date",
+  "length_should_more": "Enter {count} numbers",
+  "@length_should_more": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "the_total_amount": "The total amount: {total} SYP",
+  "@the_total_amount": {
+    "placeholders": {
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "expiry_Date": "expiry Date",
+  "Invalid_card_holder_name": "Invalid Cardholder name",
+  "the_name_must_be_at_least_characters_long": "The name must be at least {char} characters long",
+  "@the_name_must_be_at_least_characters_long": {
+    "placeholders": {
+      "char": {
+        "type": "int"
+      }
+    }
+  },
+  "card_name_for_display": "card name for display",
+  "not_a_valid_date": "not a valid date",
+  "the_card_number_must_consist_of_digits": "The card number must consist of {count} digits",
+  "@the_card_number_must_consist_of_digits": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "card_holder_name": "card holder name",
 
 
   "__________________________wallet______________________________":"",

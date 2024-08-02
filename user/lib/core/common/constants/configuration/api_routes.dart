@@ -48,4 +48,5 @@ class ApiRoutes {
   //?////////////////?Payment////////////////////
   static String paymentMethod = "/api/v1/payments/payment-methods";
   static String checkOut(String id) => "/api/v1/payments/$id/check-status";
+  static String withDraw(String id) => "/api/v1/users/$id/wallet/deposit";
 }

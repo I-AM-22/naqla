@@ -2,6 +2,8 @@ import 'package:common_state/common_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:naqla/core/di/di_container.dart';
+import 'package:naqla/features/app/domain/repository/prefs_repository.dart';
 
 import 'package:naqla/features/auth/data/model/auth_model.dart';
 import 'package:naqla/features/auth/domain/use_cases/confirm_use_case.dart';
@@ -32,7 +34,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     multiStateApiCall<ConfirmEvent, AuthModel>(
       AuthState.confirm,
       (event) => _confirmUseCase(event.param),
-      onSuccess: (data, event, emit) async => event.onSuccess(data),
+      onSuccess: (data, event, emit) async {
+        getIt<PrefsRepository>().setUser(data.user);
+        return event.onSuccess(data);
+      },
     );
   }
 }

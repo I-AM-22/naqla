@@ -47,7 +47,8 @@ class OrderDetailsPage extends StatelessWidget {
                           title: S.of(context).confirm_order,
                           onPressed: () {
                             context.pushNamed(AddCardPageMobile.name,
-                                extra: AcceptOrderParam(id: orderModel.id, cost: orderModel.paymentModel?.cost ?? 0));
+                                extra: AcceptOrderParam(
+                                    id: orderModel.id, cost: orderModel.paymentModel?.cost ?? 0, userId: orderModel.paymentModel?.id ?? ''));
                             // AnimatedDialog.show(context,
                             //     child: Padding(
                             //       padding: REdgeInsets.all(20),
@@ -132,7 +133,7 @@ class OrderDetailsPage extends StatelessWidget {
                                                 ),
                                                 onPressed: () async {
                                                   context.read<HomeBloc>().add(CancelOrderEvent(
-                                                      param: AcceptOrderParam(id: orderModel.id, cost: 0),
+                                                      param: AcceptOrderParam(id: orderModel.id, cost: 0, userId: ''),
                                                       onSuccess: () {
                                                         context.pop();
                                                       }));

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla/core/core.dart';
 
 import '../../../../generated/flutter_gen/assets.gen.dart';
+import '../../../../generated/l10n.dart';
 
 class CreditCardWidget extends StatefulWidget {
   const CreditCardWidget({
@@ -35,7 +36,10 @@ class _CreditCardState extends State<CreditCardWidget> {
     return Stack(
       alignment: context.isArabic ? Alignment.bottomRight : Alignment.bottomLeft,
       children: [
-        Icon(Icons.credit_card),
+        const Icon(
+          Icons.credit_card,
+          color: Colors.white,
+        ),
         Padding(
           padding: REdgeInsets.only(left: 13, bottom: 26),
           child: Column(
@@ -44,7 +48,7 @@ class _CreditCardState extends State<CreditCardWidget> {
               if (widget.number != null)
                 AppText(
                   widget.number!,
-                  // color: context.colorScheme.surface,
+                  color: context.colorScheme.surface,
                   style: boldWIthShadow(context),
                 )
               else
@@ -56,15 +60,15 @@ class _CreditCardState extends State<CreditCardWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText.headlineSmall(
-                        'card_holder_name',
-                        // color: context.colorScheme.surface,
+                        S.of(context).card_holder_name,
+                        color: context.colorScheme.surface,
                         style: lightWithShadow(context),
                       ),
                       4.verticalSpace,
                       if (widget.holderName != null)
                         AppText(
                           widget.holderName!,
-                          // color: context.colorScheme.surface,
+                          color: context.colorScheme.surface,
                           style: boldWIthShadow(context),
                         )
                       else
@@ -76,15 +80,15 @@ class _CreditCardState extends State<CreditCardWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText.headlineSmall(
-                        'expiry_Date',
-                        // color: context.colorScheme.surface,
+                        S.of(context).expiry_Date,
+                        color: context.colorScheme.surface,
                         style: lightWithShadow(context),
                       ),
                       4.verticalSpace,
                       if (widget.expiryDate != null)
                         AppText(
                           widget.expiryDate!,
-                          // color: context.colorScheme.surface,
+                          color: context.colorScheme.surface,
                           style: boldWIthShadow(context),
                         )
                       else
@@ -111,7 +115,6 @@ class _CreditCardState extends State<CreditCardWidget> {
   TextStyle boldWIthShadow(BuildContext context) => context.textTheme.titleMedium!.copyWith(
         fontSize: 20.sp,
         fontWeight: FontWeight.w600,
-        color: context.colorScheme.primary,
         letterSpacing: .4,
         shadows: [
           Shadow(

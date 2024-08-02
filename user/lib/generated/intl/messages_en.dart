@@ -20,10 +20,20 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(count) => "The order was divided into ${count} order/orders";
+  static String m0(count) => "Enter ${count} numbers";
+
+  static String m1(count) => "The card number must consist of ${count} digits";
+
+  static String m2(char) => "The name must be at least ${char} characters long";
+
+  static String m3(count) => "The order was divided into ${count} order/orders";
+
+  static String m4(total) => "The total amount: ${total} SYP";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Invalid_card_holder_name":
+            MessageLookupByLibrary.simpleMessage("Invalid Cardholder name"),
         "Save": MessageLookupByLibrary.simpleMessage("Save"),
         "Welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "__________________________chat________________________________":
@@ -77,6 +87,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "car_brand": MessageLookupByLibrary.simpleMessage("car brand"),
         "car_color": MessageLookupByLibrary.simpleMessage("car color"),
         "car_model": MessageLookupByLibrary.simpleMessage("car model"),
+        "card_Number": MessageLookupByLibrary.simpleMessage("Card number"),
+        "card_holder_name":
+            MessageLookupByLibrary.simpleMessage("card holder name"),
+        "card_name_for_display":
+            MessageLookupByLibrary.simpleMessage("card name for display"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
@@ -101,6 +116,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "end_point": MessageLookupByLibrary.simpleMessage("End Point"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_code": MessageLookupByLibrary.simpleMessage("Enter your "),
+        "enter_larger_date":
+            MessageLookupByLibrary.simpleMessage("Enter larger date"),
+        "expiry_Date": MessageLookupByLibrary.simpleMessage("expiry Date"),
         "first_name": MessageLookupByLibrary.simpleMessage("First name"),
         "full_Name": MessageLookupByLibrary.simpleMessage("Full Name"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
@@ -117,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "item_width": MessageLookupByLibrary.simpleMessage("Item width (M)"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
+        "length_should_more": m0,
         "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
         "logOut": MessageLookupByLibrary.simpleMessage("LogOut"),
         "log_in": MessageLookupByLibrary.simpleMessage("Log In"),
@@ -125,6 +144,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_naqla": MessageLookupByLibrary.simpleMessage("New naqla"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "not_a_valid_date":
+            MessageLookupByLibrary.simpleMessage("not a valid date"),
+        "not_valid_number":
+            MessageLookupByLibrary.simpleMessage("Not valid number"),
         "notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "order_accepted_date":
             MessageLookupByLibrary.simpleMessage("Order accepted date"),
@@ -177,23 +200,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "street": MessageLookupByLibrary.simpleMessage("Street"),
         "sub_orders": MessageLookupByLibrary.simpleMessage("Sub orders"),
         "syp": MessageLookupByLibrary.simpleMessage("SYP"),
+        "the_card_number_must_consist_of_digits": m1,
         "the_customer_has_confirmed_the_order":
             MessageLookupByLibrary.simpleMessage(
                 "The customer has confirmed the order"),
         "the_end_point_must_be_determined":
             MessageLookupByLibrary.simpleMessage(
                 "The end point must be determined"),
+        "the_name_must_be_at_least_characters_long": m2,
         "the_number_of_floors":
             MessageLookupByLibrary.simpleMessage("The number of floors"),
         "the_order_has_been_canceled":
             MessageLookupByLibrary.simpleMessage("the order has been canceled"),
-        "the_order_was_divided_into_orders": m0,
+        "the_order_was_divided_into_orders": m3,
         "the_remuneration_will_depend_on_the_number_of_porters_required":
             MessageLookupByLibrary.simpleMessage(
                 "The remuneration will depend on the number of porters required, floors and the nature of the items transported"),
         "the_starting_point_must_be_determined":
             MessageLookupByLibrary.simpleMessage(
                 "The starting point must be determined"),
+        "the_total_amount": m4,
         "the_weight": MessageLookupByLibrary.simpleMessage("the weight"),
         "there_is_nothing_to_show":
             MessageLookupByLibrary.simpleMessage("There is nothing to show"),

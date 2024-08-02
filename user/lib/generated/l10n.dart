@@ -800,6 +800,126 @@ class S {
     );
   }
 
+  /// `Card number`
+  String get card_Number {
+    return Intl.message(
+      'Card number',
+      name: 'card_Number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not valid number`
+  String get not_valid_number {
+    return Intl.message(
+      'Not valid number',
+      name: 'not_valid_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter larger date`
+  String get enter_larger_date {
+    return Intl.message(
+      'Enter larger date',
+      name: 'enter_larger_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter {count} numbers`
+  String length_should_more(int count) {
+    return Intl.message(
+      'Enter $count numbers',
+      name: 'length_should_more',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `The total amount: {total} SYP`
+  String the_total_amount(String total) {
+    return Intl.message(
+      'The total amount: $total SYP',
+      name: 'the_total_amount',
+      desc: '',
+      args: [total],
+    );
+  }
+
+  /// `expiry Date`
+  String get expiry_Date {
+    return Intl.message(
+      'expiry Date',
+      name: 'expiry_Date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Cardholder name`
+  String get Invalid_card_holder_name {
+    return Intl.message(
+      'Invalid Cardholder name',
+      name: 'Invalid_card_holder_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The name must be at least {char} characters long`
+  String the_name_must_be_at_least_characters_long(int char) {
+    return Intl.message(
+      'The name must be at least $char characters long',
+      name: 'the_name_must_be_at_least_characters_long',
+      desc: '',
+      args: [char],
+    );
+  }
+
+  /// `card name for display`
+  String get card_name_for_display {
+    return Intl.message(
+      'card name for display',
+      name: 'card_name_for_display',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `not a valid date`
+  String get not_a_valid_date {
+    return Intl.message(
+      'not a valid date',
+      name: 'not_a_valid_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The card number must consist of {count} digits`
+  String the_card_number_must_consist_of_digits(int count) {
+    return Intl.message(
+      'The card number must consist of $count digits',
+      name: 'the_card_number_must_consist_of_digits',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `card holder name`
+  String get card_holder_name {
+    return Intl.message(
+      'card holder name',
+      name: 'card_holder_name',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ``
   String get __________________________wallet______________________________ {
     return Intl.message(
