@@ -1,6 +1,6 @@
 import { BadRequestException, ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ORDER_TYPES } from '../interfaces/type';
-import { AcceptanceDto, AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
+import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
 import { User } from '@models/users/entities/user.entity';
@@ -112,15 +112,26 @@ export class OrdersService implements IOrdersService {
     return await this.orderRepository.updateStatus(id, ORDER_STATUS.READY);
   }
 
-  async acceptance(id: string, dto: AcceptanceDto, user: User): Promise<Order> {
-    const order = await this.findOne(id, user as IPerson);
+  async acceptance(id: string): Promise<Order> {
+    const order = await this.orderRepository.findById(id);
     if (order.status !== ORDER_STATUS.READY) {
       throw new ForbiddenException('Can not acceptance Done this order because his status is not accepted');
     }
-    await this.paymentsService.createCheckout(order.payment, dto.methodType, user);
+    if (!(await this.walletRepository.check(order.userId, order.payment.cost)))
+      throw new ForbiddenException(`Can not acceptance Done this order because you do not have order's cost`);
+    await this.walletRepository.updatePending(order.userId, order.payment.cost);
     await this.subOrderRepository.setStatusToReady(order.id);
     return this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
   }
+  // async acceptance(id: string, dto: AcceptanceDto, user: User): Promise<Order> {
+  //   const order = await this.findOne(id, user as IPerson);
+  //   if (order.status !== ORDER_STATUS.READY) {
+  //     throw new ForbiddenException('Can not acceptance Done this order because his status is not accepted');
+  //   }
+  //   await this.paymentsService.createCheckout(order.payment, dto.methodType, user);
+  //   await this.subOrderRepository.setStatusToReady(order.id);
+  //   return this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
+  // }
 
   async cancellation(id: string): Promise<Order> {
     const order = await this.orderRepository.findById(id);

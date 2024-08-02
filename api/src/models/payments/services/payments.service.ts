@@ -7,10 +7,6 @@ import { IPaymentRepository } from '../interfaces/repositories/payment.repositor
 import { item_not_found } from '@common/constants';
 import { Entities } from '@common/enums';
 import { HyperPayService } from '../../../shared/hyper-pay/hyper-pay.service';
-import { PaymentStatus } from '@common/enums/payment-status.enum';
-import { pendingRegex, successRegex, waitingRegex } from '@common/constants/payment-code.constant';
-import { User } from '@models/users/entities/user.entity';
-import { HyperPayMethods } from '@common/enums/hyper-pay-method.enum';
 
 @Injectable()
 export class PaymentsService implements IPaymentsService {
@@ -58,49 +54,49 @@ export class PaymentsService implements IPaymentsService {
     return updatedPayment;
   }
 
-  async checkPaymentStatus(id: string, userId: string): Promise<Payment> {
-    const payment = await this.paymentRepository.findById(id);
-    if (payment.order.userId !== userId) {
-      throw new NotFoundException(item_not_found(Entities.Payment));
-    }
+  // async checkPaymentStatus(id: string, userId: string): Promise<Payment> {
+  //   const payment = await this.paymentRepository.findById(id);
+  //   if (payment.order.userId !== userId) {
+  //     throw new NotFoundException(item_not_found(Entities.Payment));
+  //   }
 
-    if (payment.status === PaymentStatus.pending || payment.status === PaymentStatus.failed) {
-      const response = await this.hyperPayService.checkPaymentStatus(payment.transactionId, payment.methodType);
-      if (successRegex.test(response.result.code)) {
-        payment.status = PaymentStatus.success;
-      } else if (pendingRegex.test(response.result.code) || waitingRegex.test(response.result.code)) {
-        payment.status = PaymentStatus.pending;
-      } else {
-        payment.status = PaymentStatus.failed;
-      }
-      payment.reference = response.result.code;
-      await payment.save();
-    }
-    return payment;
-  }
+  //   if (payment.status === PaymentStatus.pending || payment.status === PaymentStatus.failed) {
+  //     const response = await this.hyperPayService.checkPaymentStatus(payment.transactionId, payment.methodType);
+  //     if (successRegex.test(response.result.code)) {
+  //       payment.status = PaymentStatus.success;
+  //     } else if (pendingRegex.test(response.result.code) || waitingRegex.test(response.result.code)) {
+  //       payment.status = PaymentStatus.pending;
+  //     } else {
+  //       payment.status = PaymentStatus.failed;
+  //     }
+  //     payment.reference = response.result.code;
+  //     await payment.save();
+  //   }
+  //   return payment;
+  // }
 
-  async createCheckout(payment: Payment, methodType: HyperPayMethods, user: User) {
-    const data = await this.hyperPayService.createCheckout(payment.cost, methodType, payment.id, user);
-    payment.transactionId = data.id;
-    payment.reference = data.result.code;
-    payment.status = PaymentStatus.pending;
-    payment.methodType = methodType;
-    await payment.save();
-    return payment;
-  }
+  // async createCheckout(payment: Payment, methodType: HyperPayMethods, user: User) {
+  //   const data = await this.hyperPayService.createCheckout(payment.cost, methodType, payment.id, user);
+  //   payment.transactionId = data.id;
+  //   payment.reference = data.result.code;
+  //   payment.status = PaymentStatus.pending;
+  //   payment.methodType = methodType;
+  //   await payment.save();
+  //   return payment;
+  // }
 
-  async recreate(id: string, user: User): Promise<Payment> {
-    const payment = await this.findById(id);
+  // async recreate(id: string, user: User): Promise<Payment> {
+  //   const payment = await this.findById(id);
 
-    if (payment.status !== PaymentStatus.failed) {
-      throw new NotFoundException(item_not_found(Entities.Payment));
-    }
+  //   if (payment.status !== PaymentStatus.failed) {
+  //     throw new NotFoundException(item_not_found(Entities.Payment));
+  //   }
 
-    const data = await this.hyperPayService.createCheckout(payment.cost, payment.methodType, payment.id, user);
-    payment.transactionId = data.id;
-    payment.reference = data.result.code;
-    payment.status = PaymentStatus.pending;
-    await payment.save();
-    return await this.findById(payment.id);
-  }
+  //   const data = await this.hyperPayService.createCheckout(payment.cost, payment.methodType, payment.id, user);
+  //   payment.transactionId = data.id;
+  //   payment.reference = data.result.code;
+  //   payment.status = PaymentStatus.pending;
+  //   await payment.save();
+  //   return await this.findById(payment.id);
+  // }
 }
