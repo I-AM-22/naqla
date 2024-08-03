@@ -49,50 +49,6 @@ class OrderDetailsPage extends StatelessWidget {
                             context.pushNamed(AddCardPageMobile.name,
                                 extra: AcceptOrderParam(
                                     id: orderModel.id, cost: orderModel.paymentModel?.cost ?? 0, userId: orderModel.paymentModel?.id ?? ''));
-                            // AnimatedDialog.show(context,
-                            //     child: Padding(
-                            //       padding: REdgeInsets.all(20),
-                            //       child: Column(
-                            //         mainAxisSize: MainAxisSize.min,
-                            //         children: [
-                            //           AppText.titleSmall(S.of(context).confirm_order),
-                            //           4.verticalSpace,
-                            //           AppText.bodyMedium(S.of(context).this_action_will_not_be_undone),
-                            //           16.verticalSpace,
-                            //           Row(
-                            //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            //             children: [
-                            //               Expanded(
-                            //                 child: AppButton.dark(
-                            //                     buttonSize: ButtonSize.medium,
-                            //                     child: AppText.bodySmall(
-                            //                       S.of(context).confirm_order,
-                            //                       color: Colors.white,
-                            //                     ),
-                            //                     onPressed: () async {
-                            //                       context.read<HomeBloc>().add(AcceptOrderEvent(
-                            //                           param: AcceptOrderParam(id: orderModel.id, cost: 0),
-                            //                           onSuccess: () {
-                            //                             context.pop();
-                            //                           }));
-                            //                       context.pop();
-                            //                     }),
-                            //               ),
-                            //               16.horizontalSpace,
-                            //               Expanded(
-                            //                 child: AppButton.gray(
-                            //                   buttonSize: ButtonSize.medium,
-                            //                   child: AppText.bodySmall(S.of(context).cancel),
-                            //                   onPressed: () {
-                            //                     context.pop(S.of(context).cancel);
-                            //                   },
-                            //                 ),
-                            //               )
-                            //             ],
-                            //           )
-                            //         ],
-                            //       ),
-                            //     ));
                           },
                         ),
                       ),

@@ -104,20 +104,12 @@ class $AssetsIconsFlagsGen {
 class $AssetsIconsPaymentsGen {
   const $AssetsIconsPaymentsGen();
 
-  /// File path: assets/icons/payments/mada.png
-  AssetGenImage get mada =>
-      const AssetGenImage('assets/icons/payments/mada.png');
-
-  /// File path: assets/icons/payments/master_card.png
-  AssetGenImage get masterCard =>
-      const AssetGenImage('assets/icons/payments/master_card.png');
-
   /// File path: assets/icons/payments/visa.png
   AssetGenImage get visa =>
       const AssetGenImage('assets/icons/payments/visa.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [mada, masterCard, visa];
+  List<AssetGenImage> get values => [visa];
 }
 
 class $AssetsIconsPngGen {
