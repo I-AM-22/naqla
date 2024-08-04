@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateDriverDto, UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
-import { Entities, ORDER_STATUS, ROLE } from '@common/enums';
+import { Entities, ORDER_STATUS, ROLE, SUB_ORDER_STATUS } from '@common/enums';
 import { defaultPhotoUrl, item_not_found } from '@common/constants';
 import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { PaginatedResponse } from '@common/types';
@@ -16,6 +16,7 @@ import { DriverWallet } from '../entities/driver-wallet.entity';
 import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { Rating } from '@models/sub-orders/interfaces/rating';
+import { In } from 'typeorm';
 
 @Injectable()
 export class DriversService implements IDriversService {
@@ -102,7 +103,7 @@ export class DriversService implements IDriversService {
     await this.findOne(id);
 
     const subOrders = await this.subOrdersService.findBy({
-      order: { status: ORDER_STATUS.ON_THE_WAY },
+      status: In([SUB_ORDER_STATUS.TAKEN, SUB_ORDER_STATUS.ON_THE_WAY]),
       car: { driverId: id },
     });
 
