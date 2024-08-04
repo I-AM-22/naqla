@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/common/constants/constants.dart';
 import 'package:naqla/core/core.dart';
+import 'package:naqla/features/orders/presentation/widgets/photo_card_widget.dart';
 
 import '../../../../core/util/core_helper_functions.dart';
 import '../../../../generated/l10n.dart';
@@ -36,10 +37,9 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
         width: widget.width,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
-          color: context.colorScheme.surface,
-          border: widget.showBorder ? Border.all(color: context.colorScheme.primary) : null,
-          borderRadius: BorderRadius.circular(8),
-        ),
+            color: context.colorScheme.surface,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [BoxShadow(color: context.colorScheme.outline, offset: Offset(0, 1), blurRadius: 2)]),
         child: Column(
           children: [
             Row(
@@ -63,25 +63,12 @@ class _OrderCardState extends State<OrderCard> with SingleTickerProviderStateMix
                     ),
                   ),
                 ),
-                // const Spacer(),
-                Stack(
-                  children: [
-                    SizedBox(height: 150.h, width: 150.w, child: AppImage.network(fit: BoxFit.cover, widget.orderModel.photos[0].mobileUrl)),
-                    if (widget.orderModel.photos.length > 1)
-                      Container(
-                        color: context.colorScheme.primary.withOpacity(.5),
-                        child: SizedBox(
-                          width: 150.w,
-                          height: 150.w,
-                          child: Center(
-                              child: AppText.titleMedium(
-                            '+${widget.orderModel.photos.length - 1}',
-                            color: Colors.white,
-                          )),
-                        ),
-                      )
-                  ],
-                )
+                if (widget.orderModel.photos.isNotEmpty)
+                  PhotoCardWidget(
+                    photoPath: widget.orderModel.photos[0].mobileUrl,
+                    length: widget.orderModel.photos.length,
+                    height: 160.h,
+                  )
               ],
             ),
           ],

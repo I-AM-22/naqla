@@ -172,10 +172,10 @@
   "notes": "ملاحظات",
   "rating": "التقييم",
   "your_order_is_under_scrutiny_by_the_admin_please_wait": "طلبك قيد التدقيق من قبل المشرف, الرجاء الانتظار",
-  "your_order_was_rejected_by_the_admin": "تم رفض طلبك من قبل المشرف",
+  "your_order_was_rejected_by_the_admin": "تم رفض النقلة من قبل المشرف",
   "waiting_for_the_driver_to_arrive_and_pickUp_the_order": "بانتظار وصول السائق وتحميل النقلة",
   "canceled": "ملغي",
-  "confirm_the_order": "قم بتأكيد الطلب",
+  "confirm_the_order": "قم بتأكيد النقلة",
 
   "__________________________profile______________________________":"",
   "profile":"الملف الشخصي",

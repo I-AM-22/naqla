@@ -124,13 +124,33 @@ class OrderDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.bodySmMedium('${S.of(context).order_date} ${CoreHelperFunctions.fromDateTimeToString(orderModel.desiredDate)}'),
-                10.verticalSpace,
-                AppText.bodySmMedium('${S.of(context).order_status} ${orderModel.status.name}'),
-                10.verticalSpace,
-                AppText.bodySmMedium('${S.of(context).cost} ${orderModel.paymentModel?.cost} ${S.of(context).syp}'),
+                Container(
+                  width: double.infinity,
+                  padding: REdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: context.colorScheme.outline,
+                        offset: const Offset(0, 1),
+                        blurRadius: 3,
+                      )
+                    ],
+                    color: context.colorScheme.surface,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText.subHeadMedium('${S.of(context).order_date} ${CoreHelperFunctions.fromDateTimeToString(orderModel.desiredDate)}'),
+                      10.verticalSpace,
+                      AppText.subHeadMedium('${S.of(context).order_status} ${orderModel.status.statusName(context: context)}'),
+                      10.verticalSpace,
+                      AppText.subHeadMedium('${S.of(context).cost} ${formatter.format(orderModel.paymentModel?.cost)} ${S.of(context).syp}'),
+                    ],
+                  ),
+                ),
                 16.verticalSpace,
-                AppText(S.of(context).the_order_was_divided_into_orders(orderModel.subOrders?.length ?? 0)),
+                AppText.subHeadMedium(S.of(context).the_order_was_divided_into_orders(orderModel.subOrders?.length ?? 0)),
                 16.verticalSpace,
                 Expanded(
                   child: ListView.separated(

@@ -89,8 +89,8 @@ class _AddCardPageMobileState extends State<AddCardPageMobile> with SingleTicker
                     Container(
                       padding: REdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: context.colorScheme.blue,
-                      ),
+                          color: context.colorScheme.blue,
+                          boxShadow: [BoxShadow(color: context.colorScheme.outline, blurRadius: 5, offset: const Offset(0, 2))]),
                       child: CreditCardWidget(
                         numberWidget: ValueListenableBuilder(
                           valueListenable: _cardFieldsProperties[CreditCardField.cardNumber]!.last as ValueNotifier<String>,
@@ -210,8 +210,7 @@ class _AddCardPageMobileState extends State<AddCardPageMobile> with SingleTicker
                                   hintText: 'MM/YY',
                                   validator: FormBuilderValidators.compose(
                                     [
-                                      FormBuilderValidators.match(RegExp(r"^(0[1-9]|1[0-2])\/([0-9]{2})$"),
-                                          errorText: S.of(context).not_a_valid_date),
+                                      FormBuilderValidators.match(RegExp(r"^(0[1-9]|1[0-2])/([0-9]{2})$"), errorText: S.of(context).not_a_valid_date),
                                       FormBuilderValidators.required(errorText: S.of(context).this_field_is_required),
                                       (value) {
                                         List<String>? dateComponents = value?.split('/');

@@ -40,7 +40,7 @@ class UpdatePhoneNumberEvent extends ProfileEvent {
 }
 
 class DeleteAccountEvent extends ProfileEvent {
-  final Function(dynamic) onSuccess;
+  final Function() onSuccess;
 
   DeleteAccountEvent(this.onSuccess);
 }

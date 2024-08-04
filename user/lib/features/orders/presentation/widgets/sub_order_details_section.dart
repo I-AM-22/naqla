@@ -28,34 +28,23 @@ class SubOrderDetailsSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: RichText(
-          text: TextSpan(
-              style: context.textTheme.subHeadMedium
-                  .copyWith(color: context.colorScheme.primary, height: 1.5),
-              children: [
-                if (data.note != null && data.rating != 0) ...{
-                  TextSpan(text: '${S.of(context).rating}: '),
-                  TextSpan(text: '⭐ ' * data.rating.toInt()),
-                  TextSpan(text: '\n${S.of(context).notes}: ${data.note}\n'),
-                },
-                TextSpan(
-                    text:
-                        '${S.of(context).cost} ${data.realCost} ${S.of(context).syp}\n'),
-                TextSpan(text: '${S.of(context).the_weight}: ${data.weight}\n'),
-                if ((data.order?.porters ?? 0) > 0)
-                  TextSpan(
-                      text:
-                          '${S.of(context).the_number_of_floors}: ${(data.order?.porters ?? 1) - 1}\n'),
-                TextSpan(
-                    text:
-                        '${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate)}\n'),
-                TextSpan(
-                    text: CoreHelperFunctions.formatOrderTime(
-                        context, data.status,
-                        deliveredAt: data.deliveredAt,
-                        acceptedAt: data.acceptedAt,
-                        driverAssignedAt: data.driverAssignedAt,
-                        pickedUpAt: data.pickedUpAt)),
-              ]),
+          text: TextSpan(style: context.textTheme.subHeadMedium.copyWith(color: context.colorScheme.primary, height: 1.5), children: [
+            if (data.note != null && data.rating != 0) ...{
+              TextSpan(text: '${S.of(context).rating}: '),
+              TextSpan(text: '⭐ ' * data.rating.toInt()),
+              TextSpan(text: '\n${S.of(context).notes}: ${data.note}\n'),
+            },
+            TextSpan(text: '${S.of(context).cost} ${formatter.format(data.realCost)} ${S.of(context).syp}\n'),
+            TextSpan(text: '${S.of(context).the_weight}: ${data.weight}\n'),
+            if ((data.order?.porters ?? 0) > 0) TextSpan(text: '${S.of(context).the_number_of_floors}: ${(data.order?.porters ?? 1) - 1}\n'),
+            TextSpan(text: '${S.of(context).order_date}: ${CoreHelperFunctions.fromOrderDateTimeToString(data.order!.desiredDate)}\n'),
+            TextSpan(
+                text: CoreHelperFunctions.formatOrderTime(context, data.status,
+                    deliveredAt: data.deliveredAt,
+                    acceptedAt: data.acceptedAt,
+                    driverAssignedAt: data.driverAssignedAt,
+                    pickedUpAt: data.pickedUpAt)),
+          ]),
         ),
       ),
     );

@@ -67,6 +67,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     multiStateApiCall<DeleteAccountEvent, void>(
       ProfileState.deleteAccount,
       (event) => _deleteAccountUseCase(NoParams()),
+      onSuccess: (data, event, emit) async => event.onSuccess(),
     );
 
     on<PickImageEvent>((event, emit) async {

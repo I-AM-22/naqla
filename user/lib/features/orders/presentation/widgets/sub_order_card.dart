@@ -7,6 +7,7 @@ import 'package:naqla/core/di/di_container.dart';
 import 'package:naqla/features/orders/data/model/sub_order_model.dart';
 import 'package:naqla/features/orders/presentation/state/order_bloc.dart';
 import 'package:naqla/features/orders/presentation/widgets/change_order_status.dart';
+import 'package:naqla/features/orders/presentation/widgets/photo_card_widget.dart';
 
 import '../../../../core/common/enums/sub_order_status.dart';
 import '../../../../core/util/core_helper_functions.dart';
@@ -23,7 +24,10 @@ class SubOrderCard extends StatelessWidget {
       value: getIt<OrderBloc>(),
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(border: Border.all(color: context.colorScheme.primary), borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(
+            color: context.colorScheme.surface,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [BoxShadow(color: context.colorScheme.outline, offset: const Offset(0, 1), blurRadius: 3)]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -51,33 +55,17 @@ class SubOrderCard extends StatelessWidget {
                 ),
                 // const Spacer(),
                 if (orderModel.photos.isNotEmpty)
-                  Stack(
-                    children: [
-                      SizedBox(
-                          height: 150.h,
-                          width: 150.w,
-                          child: AppImage.network(
-                            fit: BoxFit.cover,
-                            orderModel.photos[0].mobileUrl,
-                          )),
-                      if (orderModel.photos.length > 1)
-                        Container(
-                          color: context.colorScheme.primary.withOpacity(.5),
-                          child: SizedBox(
-                            width: 150.w,
-                            height: 200.h,
-                            child: Center(
-                                child: AppText.titleMedium(
-                              '+${orderModel.photos.length - 1}',
-                              color: Colors.white,
-                            )),
-                          ),
-                        )
-                    ],
+                  PhotoCardWidget(
+                    photoPath: orderModel.photos[0].mobileUrl,
+                    length: orderModel.photos.length,
+                    height: 160.h,
                   )
               ],
             ),
             if (orderModel.status == SubOrderStatus.taken) ...{
+              Divider(
+                color: context.colorScheme.waiting,
+              ),
               ChangeOrderStatusWidget(
                 orderId: orderModel.id,
                 status: orderModel.status,

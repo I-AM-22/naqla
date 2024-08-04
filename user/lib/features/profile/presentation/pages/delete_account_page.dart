@@ -14,6 +14,8 @@ import 'package:naqla/features/auth/presentation/pages/welcome_page.dart';
 import 'package:naqla/features/profile/presentation/state/bloc/profile_bloc.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../home/presentation/bloc/home_bloc.dart';
+import '../../../orders/presentation/state/order_bloc.dart';
 
 class DeleteAccountPage extends StatelessWidget {
   const DeleteAccountPage({super.key});
@@ -49,15 +51,18 @@ class DeleteAccountPage extends StatelessWidget {
                       title: S.of(context).delete_account,
                       onPressed: () {
                         context.read<ProfileBloc>().add(DeleteAccountEvent(
-                          (p0) async {
+                          () async {
                             await getIt<PrefsRepository>().clearUser();
+                            await getIt.resetLazySingleton<HomeBloc>();
+                            await getIt.resetLazySingleton<OrderBloc>();
+                            await getIt.resetLazySingleton<ProfileBloc>();
                             if (!context.mounted) return;
                             context.goNamed(WelcomePage.name);
                           },
                         ));
                       },
                       stretch: true,
-                      style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => context.colorScheme.error)),
+                      style: ButtonStyle(backgroundColor: WidgetStateColor.resolveWith((states) => context.colorScheme.error)),
                     );
                   },
                 )

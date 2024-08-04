@@ -45,6 +45,7 @@ class _ChatPageState extends State<ChatPage> {
               },
               child: AppPagedBuilder<ChatBloc, SubOrderModel>.pagedListView(
                 stateName: ChatState.getChats,
+                separatorBuilder: (context, index) => const Divider(),
                 noItemsFoundIndicatorBuilder: AppImage.asset(Assets.images.svg.noDataRafiki1.path),
                 itemBuilder: (context, item, index) => ChatCard(item: item),
                 onPageKeyChanged: (value) {

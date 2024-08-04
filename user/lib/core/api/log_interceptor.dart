@@ -84,7 +84,7 @@ class DioLogInterceptor extends Interceptor {
       if (data is Map<String, dynamic>) {
         showMessage(_mapResponseError(data));
       } else {
-        showMessage('Something went wrong!!');
+        showMessage('حصل خطأ ما!');
       }
     }
 
@@ -99,6 +99,6 @@ String _mapResponseError(Map<String, dynamic> response) {
     case 'form':
       return response['errors'][0]['message'];
     default:
-      return 'some thing went wrong';
+      return "حصل خطأ ما!";
   }
 }

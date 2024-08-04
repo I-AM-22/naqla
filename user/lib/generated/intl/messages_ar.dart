@@ -96,7 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chat": MessageLookupByLibrary.simpleMessage("محادثة"),
         "confirm_order": MessageLookupByLibrary.simpleMessage("تأكيد النقلة"),
         "confirm_the_order":
-            MessageLookupByLibrary.simpleMessage("قم بتأكيد الطلب"),
+            MessageLookupByLibrary.simpleMessage("قم بتأكيد النقلة"),
         "cost": MessageLookupByLibrary.simpleMessage("الكلفة:"),
         "create_an_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "day": MessageLookupByLibrary.simpleMessage("يوم"),
@@ -257,6 +257,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "طلبك قيد التدقيق من قبل المشرف, الرجاء الانتظار"),
         "your_order_was_rejected_by_the_admin":
-            MessageLookupByLibrary.simpleMessage("تم رفض طلبك من قبل المشرف")
+            MessageLookupByLibrary.simpleMessage("تم رفض النقلة من قبل المشرف")
       };
 }
