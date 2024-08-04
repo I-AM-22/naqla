@@ -9,10 +9,11 @@ export default async function Layout({ children }: LayoutProps) {
 
   return (
     <div className="flex">
+      <div id="less-than-xl-portal" className="block xl:hidden"></div>
       <NavigationBar user={user} />
 
       <Providers>
-        <div className="flex w-full flex-col p-4">{children}</div>
+        <div className="mx-6 flex w-full flex-col p-4 md:mx-0">{children}</div>
       </Providers>
     </div>
   );

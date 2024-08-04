@@ -15,17 +15,19 @@ export type NavigationButtonProps = {
   route: Route;
   isActive?: boolean;
   tooltip: boolean;
+  onClick?: () => void;
 };
 export const NavigationButton = ({
   route,
   tooltip,
   isActive = false,
+  onClick,
 }: NavigationButtonProps) => {
   const { t } = useTranslation("layout", { keyPrefix: "navigation" });
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
-        <TooltipTrigger tabIndex={-1}>
+        <TooltipTrigger tabIndex={-1} onClick={onClick}>
           <ConditionalWrap
             condition={route.href !== undefined}
             wrap={(children) => <Link href={route.href ?? ""}>{children}</Link>}
