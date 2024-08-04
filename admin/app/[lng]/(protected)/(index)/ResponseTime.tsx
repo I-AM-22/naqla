@@ -21,7 +21,6 @@ export async function ResponseTime(props: ResponseTimeProps) {
   const differencePercentage = Math.abs(percentage - 100).toFixed(2);
   const isTodayBetter = percentage <= 100;
   return (
-    console.log(responseTime),
     <div className="flex">
       <div>
         <h4 className="text-lg ">{t("responseTime")}</h4>

@@ -55,7 +55,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
             <DropdownMenuLabel>{t("options")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`/admins/${row.original.id}/edit`}>
+              <Link prefetch={false} href={`/admins/${row.original.id}/edit`}>
                 <p className="flex-1">{t("edit")}</p>
                 <Edit className="ms-2 h-4 w-4" />
               </Link>

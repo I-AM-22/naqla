@@ -43,7 +43,7 @@ export const columns = (t: TFunction<string, string>) => [
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem asChild>
-            <Link href={`/orders/${row.original.id}/review`}>
+            <Link href={`/orders/${row.original.id}/review`} prefetch={false}>
               {t("review")}
             </Link>
           </DropdownMenuItem>

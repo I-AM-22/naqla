@@ -61,6 +61,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
       return getValue() ? (
         <Link
           className="underline"
+          prefetch={false}
           href={`/drivers/${row.original.id}/ratings`}
         >
           {Number(getValue()).toFixed(2)}
@@ -79,6 +80,7 @@ export const columns = (t: TFunction<string, string>, language: string) => [
           <Link
             className="flex gap-2 font-normal"
             href={`/drivers/${row.original.id}/withdraw`}
+            prefetch={false}
           >
             {/* @ts-ignore */}
             {priceFormatter(cell.getValue(), language)} {/* @ts-ignore */}
