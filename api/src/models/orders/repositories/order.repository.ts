@@ -46,12 +46,12 @@ export class OrderRepository implements IOrderRepository {
 
   async findWaiting(): Promise<Order[]> {
     return this.orderRepository.find({
-      where: { status: ORDER_STATUS.WAITING },
       select: {
         user: { firstName: true, lastName: true },
         advantages: { id: false, cost: false, name: true },
       },
       relations: { photos: true, advantages: true, user: true },
+      where: { status: ORDER_STATUS.WAITING, user: { active: true } },
     });
   }
 
