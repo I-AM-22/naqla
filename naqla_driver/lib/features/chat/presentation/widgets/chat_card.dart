@@ -17,15 +17,15 @@ class ChatCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.pushNamed(MessagesPage.name, extra: MessageParam(subOrderId: item.id, userName: item.order?.userName ?? '')),
       child: Container(
-        margin: REdgeInsets.only(bottom: 16),
-        alignment: AlignmentDirectional.centerStart,
-        padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 8),
-        decoration: BoxDecoration(
-          boxShadow: [BoxShadow(color: context.colorScheme.black.withOpacity(.24), offset: const Offset(0, 1), blurRadius: 5)],
-          border: Border.all(color: context.colorScheme.primary),
-          borderRadius: BorderRadius.circular(8),
-          color: context.colorScheme.onPrimary,
-        ),
+        // margin: REdgeInsets.only(bottom: 16),
+        // alignment: AlignmentDirectional.centerStart,
+        // padding: REdgeInsets.symmetric(horizontal: UIConstants.screenPadding16, vertical: 8),
+        // decoration: BoxDecoration(
+        //   boxShadow: [BoxShadow(color: context.colorScheme.black.withOpacity(.24), offset: const Offset(0, 1), blurRadius: 5)],
+        //   border: Border.all(color: context.colorScheme.primary),
+        //   borderRadius: BorderRadius.circular(8),
+        //   color: context.colorScheme.onPrimary,
+        // ),
         child: Row(
           children: [
             if (item.photos.isNotEmpty)

@@ -28,18 +28,21 @@ class WalletPage extends StatelessWidget {
             padding: REdgeInsets.all(10),
             width: double.infinity,
             decoration: BoxDecoration(
-              border: Border.all(color: context.colorScheme.outline),
+              color: context.colorScheme.surface,
+              boxShadow: [BoxShadow(color: context.colorScheme.outline, offset: const Offset(0, 1), blurRadius: 2)],
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText.subHeadMedium('${S.of(context).total_money} ${walletModel.total} ${S.of(context).syp}'),
+                AppText.subHeadMedium('${S.of(context).total_money} ${formatter.format(walletModel.total)} ${S.of(context).syp}'),
                 10.verticalSpace,
-                AppText.subHeadMedium('${S.of(context).available_money} ${walletModel.available} ${S.of(context).syp}'),
-                10.verticalSpace,
-                AppText.subHeadMedium('${S.of(context).pending_money} ${walletModel.pending} ${S.of(context).syp}'),
+                AppText.subHeadMedium('${S.of(context).available_money} ${formatter.format(walletModel.available)} ${S.of(context).syp}'),
+                if (walletModel.pending != 0) ...{
+                  10.verticalSpace,
+                  AppText.subHeadMedium('${S.of(context).pending_money} ${formatter.format(walletModel.pending)} ${S.of(context).syp}'),
+                }
               ],
             ),
           ),

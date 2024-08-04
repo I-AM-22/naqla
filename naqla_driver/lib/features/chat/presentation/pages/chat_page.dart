@@ -35,30 +35,20 @@ class _ChatPageState extends State<ChatPage> {
     return BlocProvider(
       create: (context) => bloc,
       child: AppScaffold(
-          appBar: AppAppBar(
-              appBarParams: AppBarParams(title: S.of(context).chat),
-              back: false),
+          appBar: AppAppBar(appBarParams: AppBarParams(title: S.of(context).chat), back: false),
           body: Padding(
-            padding: REdgeInsets.only(
-                left: UIConstants.screenPadding16,
-                right: UIConstants.screenPadding16,
-                top: UIConstants.screenPadding30),
+            padding: REdgeInsets.only(left: UIConstants.screenPadding16, right: UIConstants.screenPadding16, top: UIConstants.screenPadding30),
             child: RefreshIndicator(
               onRefresh: () async {
-                bloc.state
-                    .getState(ChatState.getChats)
-                    .pagingController
-                    .refresh();
+                bloc.state.getState(ChatState.getChats).pagingController.refresh();
               },
               child: AppPagedBuilder<ChatBloc, SubOrderModel>.pagedListView(
                 stateName: ChatState.getChats,
-                noItemsFoundIndicatorBuilder: Center(
-                    child: AppText.titleSmall(
-                        S.of(context).there_is_nothing_to_show)),
+                noItemsFoundIndicatorBuilder: Center(child: AppText.titleSmall(S.of(context).there_is_nothing_to_show)),
                 itemBuilder: (context, item, index) => ChatCard(item: item),
+                separatorBuilder: (context, index) => Divider(),
                 onPageKeyChanged: (value) {
-                  bloc.add(
-                      GetChatsEvent(param: PaginationParam(pageNumber: value)));
+                  bloc.add(GetChatsEvent(param: PaginationParam(pageNumber: value)));
                 },
               ),
             ),

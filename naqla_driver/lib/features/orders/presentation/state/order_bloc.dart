@@ -44,7 +44,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         oldData.removeWhere(
           (element) => element.id == event.param.id,
         );
-        emit(state.updateData(OrderState.getActiveOrders, oldData));
+        if (oldData.isEmpty) {
+          emit(state.updateState(OrderState.getActiveOrders, const EmptyState<List<SubOrderModel>>()));
+        } else {
+          emit(state.updateData<List<SubOrderModel>>(OrderState.getActiveOrders, oldData));
+        }
         event.onSuccess();
       },
     );

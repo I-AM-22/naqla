@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:naqla_driver/core/common/enums/order_status.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/core/util/core_helper_functions.dart';
+import 'package:naqla_driver/features/orders/presentation/widgets/photo_card_widget.dart';
 import 'package:naqla_driver/features/orders/presentation/widgets/set_order_delivered_button.dart';
 
 import '../../../../core/common/constants/constants.dart';
@@ -58,21 +59,9 @@ class SubOrderCard extends StatelessWidget {
                     ),
                   ),
                   if (subOrderModel.photos.isNotEmpty) ...{
-                    Stack(
-                      children: [
-                        SizedBox(height: 150.h, width: 150.w, child: Center(child: AppImage.network(subOrderModel.photos[0].mobileUrl))),
-                        if (subOrderModel.photos.length > 1)
-                          Container(
-                            width: 150.w,
-                            height: 150.h,
-                            color: context.colorScheme.primary.withOpacity(.5),
-                            child: Center(
-                                child: AppText.titleMedium(
-                              '+${subOrderModel.photos.length - 1}',
-                              color: Colors.white,
-                            )),
-                          ),
-                      ],
+                    PhotoCardWidget(
+                      length: subOrderModel.photos.length,
+                      photoPath: subOrderModel.photos[0].mobileUrl,
                     )
                   }
                 ],

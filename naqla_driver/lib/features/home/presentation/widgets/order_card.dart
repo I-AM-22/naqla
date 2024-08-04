@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla_driver/core/core.dart';
 import 'package:naqla_driver/features/home/data/model/sub_order_model.dart';
+import 'package:naqla_driver/features/orders/presentation/widgets/photo_card_widget.dart';
 
 import '../../../../core/common/constants/constants.dart';
 import '../../../../generated/l10n.dart';
@@ -38,21 +39,9 @@ class OrderCard extends StatelessWidget {
                 ])),
               ),
               if (subOrderModel.photos.isNotEmpty) ...{
-                Stack(
-                  children: [
-                    SizedBox(height: 150.h, width: 150.w, child: AppImage.network(subOrderModel.photos[0].mobileUrl)),
-                    if (subOrderModel.photos.length > 1)
-                      Container(
-                        height: 150.h,
-                        width: 150.w,
-                        color: context.colorScheme.primary.withOpacity(.5),
-                        child: Center(
-                            child: AppText.titleMedium(
-                          '+${subOrderModel.photos.length - 1}',
-                          color: Colors.white,
-                        )),
-                      )
-                  ],
+                PhotoCardWidget(
+                  photoPath: subOrderModel.photos[0].mobileUrl,
+                  length: subOrderModel.photos.length,
                 )
               },
             ],
