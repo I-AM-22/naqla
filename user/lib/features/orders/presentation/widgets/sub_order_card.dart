@@ -65,6 +65,8 @@ class SubOrderCard extends StatelessWidget {
             if (orderModel.status == SubOrderStatus.taken) ...{
               Divider(
                 color: context.colorScheme.waiting,
+                height: 0,
+                thickness: 2,
               ),
               ChangeOrderStatusWidget(
                 orderId: orderModel.id,
