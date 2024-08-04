@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Rating  {
+export class Rating {
   @ApiProperty({ default: 4 })
   rating: number;
   @ApiProperty({ default: 'Good' })
@@ -9,4 +9,6 @@ export class Rating  {
   firstname: string;
   @ApiProperty({ default: 'seirafi' })
   lastname: string;
+  @ApiProperty()
+  repeatdriver: boolean;
 }

@@ -133,6 +133,7 @@ export class SubOrderRepository implements ISubOrderRepository {
         'user.lastName as lastName',
         'subOrder.note as note',
         'subOrder.rating as rating',
+        'subOrder.repeatDriver as repeatDriver',
       ])
       .getRawMany<Rating>();
     return x;

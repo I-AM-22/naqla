@@ -137,6 +137,9 @@ export type CarControllerUpdatePathParameters = {
 export type CarControllerFindOnePathParameters = {
   id: string;
 };
+export type PaymentsControllerFindOnePathParameters = {
+  id: string;
+};
 export type SettingsControllerUpdatePathParameters = {
   id: string;
 };
@@ -512,6 +515,7 @@ export type AddAdvansToCarDto = {
 };
 
 export type UpdateCarDto = {
+  advantageIds: string[];
   brand: string;
   color: string;
   model: string;
@@ -543,6 +547,7 @@ export type Rating = {
   lastname: string;
   note: string;
   rating: number;
+  repeatdriver: boolean;
 };
 
 export type UpdateDriverDto = {
@@ -617,6 +622,7 @@ export type SetDriverSubOrderDto = {
 export type UpdateSubOrderDto = {
   note: string;
   rating: number;
+  repeatDriver: boolean;
 };
 
 export type SubOrder = {
@@ -634,6 +640,7 @@ export type SubOrder = {
   pickedUpAt: Date;
   rating: number;
   realCost: number;
+  repeatDriver: boolean;
   status: string;
   updatedAt: Date;
   weight: number;
@@ -728,6 +735,7 @@ export type Order = {
   photos: OrderPhoto[];
   porters: number;
   status: OrderStatus;
+  subOrders: SubOrder[];
   updatedAt: Date;
   user: MiniUser;
 };

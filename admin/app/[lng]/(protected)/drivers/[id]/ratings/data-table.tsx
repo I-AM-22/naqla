@@ -17,6 +17,10 @@ export const columns = (t: TFunction<string, string>, language: string) => [
   columnHelper.accessor("note", {
     header: t("note"),
   }),
+  columnHelper.accessor("repeatdriver", {
+    header: t("repeatDriver"),
+    cell: ({ getValue }) => (getValue() ? t("yes") : t("no")),
+  }),
 ];
 export type RatingTableProps = { ratings: Rating[]; driver: Driver };
 export function RatingTable({ driver, ratings }: RatingTableProps) {

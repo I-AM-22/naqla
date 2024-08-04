@@ -89,6 +89,8 @@ import type {
   PaginatedResponse,
   PaginatedSubOrderResponse,
   PaginatedUserResponse,
+  Payment,
+  PaymentsControllerFindOnePathParameters,
   Permission,
   PermissionsControllerFindOnePathParameters,
   PhotosControllerUploadMultipleBody,
@@ -819,6 +821,25 @@ export const settingsControllerUpdate = (
       headers: { "Content-Type": "application/json" },
       data: updateSettingDto,
     },
+    options,
+  );
+};
+
+export const paymentsControllerFindPaymentMethods = (
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<unknown>(
+    { url: `/api/v1/payments/payment-methods`, method: "GET" },
+    options,
+  );
+};
+
+export const paymentsControllerFindOne = (
+  { id }: PaymentsControllerFindOnePathParameters,
+  options?: SecondParameter<typeof fetchInstance>,
+) => {
+  return fetchInstance<Payment>(
+    { url: `/api/v1/payments/${id}`, method: "GET" },
     options,
   );
 };
@@ -1788,6 +1809,12 @@ export type SettingsControllerFindOneResult = NonNullable<
 >;
 export type SettingsControllerUpdateResult = NonNullable<
   Awaited<ReturnType<typeof settingsControllerUpdate>>
+>;
+export type PaymentsControllerFindPaymentMethodsResult = NonNullable<
+  Awaited<ReturnType<typeof paymentsControllerFindPaymentMethods>>
+>;
+export type PaymentsControllerFindOneResult = NonNullable<
+  Awaited<ReturnType<typeof paymentsControllerFindOne>>
 >;
 export type CarControllerFindMineResult = NonNullable<
   Awaited<ReturnType<typeof carControllerFindMine>>

@@ -16,5 +16,8 @@
   "withdrawAvailable": "سحب",
   "withdrawSuccess": "تم سحب {{amount}} بنجاح",
   "options": "الخيارات",
-  "remove": "حذف"
+  "remove": "حذف",
+  "repeatDriver": "سيعيد التعامل مع السائق",
+  "yes": "نعم",
+  "no": "لا"
 }
