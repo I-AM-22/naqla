@@ -46,10 +46,14 @@ export function EditForm({ admin }: EditFormProps) {
     form,
   );
   const onSubmit = async (data: Schema) => {
-    const toSend = getDirtyValues(form.formState.dirtyFields, data);
+    const { passwordConfirm, ...toSend } = getDirtyValues(
+      form.formState.dirtyFields,
+      data,
+    );
 
     await update.mutate(
-      { ...toSend, password: data.password, phone: data.phone },
+      //@ts-ignore
+      { ...toSend },
       {
         onSuccess: () => {
           revalidatePath(`/admins/${admin.id}/edit`);

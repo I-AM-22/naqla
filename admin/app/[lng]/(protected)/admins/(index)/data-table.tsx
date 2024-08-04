@@ -18,7 +18,7 @@ import { Admin } from "@/service/api.schemas";
 import { createColumnHelper } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { TFunction } from "i18next";
-import { MoreHorizontal, Trash2 } from "lucide-react";
+import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -41,7 +41,6 @@ export const columns = (t: TFunction<string, string>, language: string) => [
     cell: function Cell({ row }) {
       const [dropdownOpen, setDropdownOpen] = useState(false);
       const remove = useMutation(adminsControllerDelete);
-      console.log(row);
 
       return (
         // row.original.role === "admin" &&
@@ -55,12 +54,12 @@ export const columns = (t: TFunction<string, string>, language: string) => [
           <DropdownMenuContent align="center">
             <DropdownMenuLabel>{t("options")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* <DropdownMenuItem asChild>
+            <DropdownMenuItem asChild>
               <Link href={`/admins/${row.original.id}/edit`}>
                 <p className="flex-1">{t("edit")}</p>
                 <Edit className="ms-2 h-4 w-4" />
               </Link>
-            </DropdownMenuItem> */}
+            </DropdownMenuItem>
             <DropdownMenuItem
               disabled={remove.isPending}
               onClick={async (e: any) => {

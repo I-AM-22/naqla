@@ -13,14 +13,12 @@ import {
 import { Loading } from "@/components/ui/loading";
 import { useMutation } from "@/hooks/use-mutation";
 import { useTranslation } from "@/i18n/client";
-import { priceFormatter } from "@/lib/utils";
 import { usersControllerDelete } from "@/service/api";
 import { StaticsUser, User } from "@/service/api.schemas";
 import { createColumnHelper } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { TFunction } from "i18next";
-import { CircleArrowDown, MoreHorizontal, Trash2 } from "lucide-react";
-import Link from "next/link";
+import { MoreHorizontal, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 const columnHelper = createColumnHelper<StaticsUser>();
@@ -46,25 +44,25 @@ export const columns = (t: TFunction<string, string>, language: string) => [
     header: t("phone"),
   }),
 
-  columnHelper.accessor("wallet.available", {
-    header: t("wallet"),
-    cell: ({ cell, row }) => (
-      <Button
-        asChild
-        variant={"ghost"}
-        className="flex w-full min-w-fit max-w-60 justify-between"
-      >
-        <Link
-          className="flex gap-2 font-normal"
-          href={true ? `/customers/${row.original.id}/deposit` : ""}
-        >
-          {/* @ts-ignore */}
-          {priceFormatter(cell.getValue(), language)}{" "}
-          {<CircleArrowDown className="text-green-500" />}
-        </Link>
-      </Button>
-    ),
-  }),
+  // columnHelper.accessor("wallet.available", {
+  //   header: t("wallet"),
+  //   cell: ({ cell, row }) => (
+  //     <Button
+  //       asChild
+  //       variant={"ghost"}
+  //       className="flex w-full min-w-fit max-w-60 justify-between"
+  //     >
+  //       <Link
+  //         className="flex gap-2 font-normal"
+  //         href={true ? `/customers/${row.original.id}/deposit` : ""}
+  //       >
+  //         {/* @ts-ignore */}
+  //         {priceFormatter(cell.getValue(), language)}{" "}
+  //         {<CircleArrowDown className="text-green-500" />}
+  //       </Link>
+  //     </Button>
+  //   ),
+  // }),
   columnHelper.accessor("countOrderDelivered", {
     header: t("countOrderDelivered"),
   }),
