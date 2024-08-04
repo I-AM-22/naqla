@@ -12,6 +12,7 @@ import {
 
 import { DatePickerRange } from "@/components/ui/date-picker-range";
 import { Skeleton } from "@/components/ui/skeleton";
+import { dateDayEnd, dateDayStart } from "@/lib/dayjs";
 import { priceFormatter } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -32,8 +33,8 @@ export function Profits({}: ProfitsProps) {
   const theme = useTheme().theme;
 
   const [date, setDate] = useState<DateRange | undefined>({
-    from: dayjs().set("date", 1).toDate(),
-    to: new Date(),
+    from: dateDayStart(dayjs().set("date", 1)),
+    to: dateDayEnd(new Date()),
   });
   const profitsQuery = useQuery({
     queryKey: ["statistics", "profits", date],
@@ -50,7 +51,12 @@ export function Profits({}: ProfitsProps) {
         <DatePickerRange
           className="my-2 md:ms-[140px]"
           date={date}
-          onChange={setDate}
+          onChange={(date) => {
+            setDate({
+              from: dateDayStart(date?.from),
+              to: dateDayEnd(date?.to),
+            });
+          }}
         />
       </div>
       <div className="relative h-[500px]">

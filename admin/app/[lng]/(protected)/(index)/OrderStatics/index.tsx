@@ -14,6 +14,7 @@ import {
 
 import { Calendar } from "@/components/ui/calendar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { dateDayEnd, dateDayStart } from "@/lib/dayjs";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { TFunction } from "i18next";
@@ -31,9 +32,10 @@ export function OrderStatics({ children }: OrderStaticsProps) {
   const { t, i18n } = useTranslation("home");
 
   const [date, setDate] = useState<DateRange | undefined>({
-    from: dayjs().set("date", 1).toDate(),
-    to: new Date(),
+    from: dateDayStart(dayjs().set("date", 1)),
+    to: dateDayEnd(new Date()),
   });
+
   const ordersQuery = useQuery({
     queryKey: ["statistics", "orders", date],
     enabled: !!(date?.from && date.to),
@@ -52,7 +54,12 @@ export function OrderStatics({ children }: OrderStaticsProps) {
           mode="range"
           defaultMonth={date?.from}
           selected={date}
-          onSelect={setDate}
+          onSelect={(date) => {
+            setDate({
+              from: dateDayStart(date?.from),
+              to: dateDayEnd(date?.to),
+            });
+          }}
           numberOfMonths={1}
         />
       </div>
