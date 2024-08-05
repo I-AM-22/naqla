@@ -32,18 +32,20 @@ export default async function Page(props: PageProps<{ id: string }>) {
               {t("canNotDoActions")} <Frown />
             </p>
           )}
-          <div className="flex flex-row gap-2">
-            <span>{t("requestedAdvantages")}: </span>
-            <div className="text-foreground/70">
-              {data.advantages.map((ad) => (
-                //  @ts-ignore
-                <Badge variant="outline" key={ad.name}>
-                  {/* @ts-ignore */}
-                  {ad.name}
-                </Badge>
-              ))}
+          {data.advantages.length !== 0 && (
+            <div className="flex flex-row gap-2">
+              <span>{t("requestedAdvantages")}: </span>
+              <div className="text-foreground/70">
+                {data.advantages.map((ad) => (
+                  //  @ts-ignore
+                  <Badge variant="outline" key={ad.name}>
+                    {/* @ts-ignore */}
+                    {ad.name}
+                  </Badge>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           <SubOrdersForm order={data} />
         </CardContent>
       </Card>

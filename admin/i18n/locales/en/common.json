@@ -1,3 +1,7 @@
 {
-  "hello": "world"
+  "add": "add",
+  "submit": "submit",
+  "somethingWentWrong": "Something Went Wrong",
+  "noData": "No Data",
+  "construction": "Under Construction"
 }

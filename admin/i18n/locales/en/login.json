@@ -1,10 +1,7 @@
 {
   "heading": "Welcome Back",
-  "subheading": "Sign in to your account",
+  "subheading": "Login into your account",
   "phone": "Phone",
   "password": "Password",
-  "submit": "Sign In",
-  "noAccount": "Don't have an account?",
-  "signup": "Sign Up Now",
-  "forgotPassword": "Forgot Password?"
+  "submit": "submit"
 }

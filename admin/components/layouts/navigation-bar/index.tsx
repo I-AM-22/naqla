@@ -102,7 +102,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({ user }) => {
   const [isPortalShowing, setIsPortalShowing] = useState(false);
   const [hasReadFromLocalStorage, setHasReadFromLocalStorage] = useState(false);
   const activeRoute = usePathname().split("/")[2] ?? "";
-  const { t } = useTranslation("layout");
+  const { t, i18n } = useTranslation("layout");
   const { setTheme, themes, theme } = useTheme();
   const { lng } = useParams<PageProps["params"]>();
   const router = useRouter();
@@ -259,6 +259,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({ user }) => {
           <SheetContent
             SheetPortalProps={{ container: portal }}
             className="flex flex-col justify-between"
+            side={i18n.dir(i18n.language) === "ltr" ? "left" : "right"}
           >
             <div className="mt-4 flex flex-col gap-1">
               <SheetTitle></SheetTitle>

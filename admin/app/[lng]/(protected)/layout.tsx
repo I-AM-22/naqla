@@ -13,7 +13,7 @@ export default async function Layout({ children }: LayoutProps) {
       <NavigationBar user={user} />
 
       <Providers>
-        <div className="mx-6 flex w-full flex-col p-4 md:mx-0">{children}</div>
+        <div className="mx-6 flex w-full flex-col p-4 xl:mx-0">{children}</div>
       </Providers>
     </div>
   );

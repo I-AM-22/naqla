@@ -1,0 +1,11 @@
+{
+  "title": "Car Advantages",
+  "name": "Name",
+  "cost": "Cost",
+  "new": "new advantage",
+  "edit": "edit",
+  "save": "save",
+  "options": "options",
+  "remove": "remove",
+  "removeSuccess": "Advantage removed successfully"
+}

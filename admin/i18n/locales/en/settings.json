@@ -1,0 +1,12 @@
+{
+  "generalSettings": "General Settings",
+  "save": "Save",
+  "profit": "Profit percentage on delivery (%)",
+  "porters": "Porter cost for 1kg and 1 floor (SYP)",
+  "defaultWeight": "Weight price for less than 1ton for each 1km (SYP)",
+  "minWeight": "Weight price between 1ton and 2ton for each 1km (SYP)",
+  "midWeight": "Weight price between 2ton and 3ton for each 1km (SYP)",
+  "maxWeight": "Weight price for more than 3ton for each 1km (SYP)",
+  "lastUpdated": "Last Updated",
+  "settingUpdated": "Setting has been updated successfully"
+}

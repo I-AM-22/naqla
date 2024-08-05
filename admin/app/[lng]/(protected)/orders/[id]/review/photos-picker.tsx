@@ -65,8 +65,7 @@ export const PhotosPicker: FC<PhotosPickerProps> = ({ photos }) => {
             photo={draggedItem}
             className="absolute"
             style={{
-              [i18n.dir(i18n.language) === "rtl" ? "left" : "right"]:
-                currentOffset?.x,
+              left: currentOffset?.x,
               top: currentOffset?.y,
             }}
           />

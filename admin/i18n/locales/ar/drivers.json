@@ -17,7 +17,7 @@
   "withdrawSuccess": "تم سحب {{amount}} بنجاح",
   "options": "الخيارات",
   "remove": "حذف",
-  "repeatDriver": "سيعيد التعامل مع السائق",
+  "repeatDriver": "هل سيعيد التعامل مع السائق مرة اخرى؟",
   "yes": "نعم",
   "no": "لا",
   "removeSuccess": "تم حذف السائق بنجاح"

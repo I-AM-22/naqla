@@ -1,0 +1,30 @@
+{
+  "title": "Orders",
+  "user": "Customer",
+  "regionStart": "Start Location",
+  "regionEnd": "End Location",
+  "desiredDate": "Delivery Date",
+  "photos": "Files",
+  "review": "Review",
+  "splitOrder": "Split Order",
+  "subOrderCreate": {
+    "canNotDoActions": "Cannot edit this order",
+    "reject": "Reject Order",
+    "rejectConfirm": "Are you sure you want to reject this order?",
+    "rejectCancel": "Cancel",
+    "rejectedOrderSuccessfully": "Order rejected successfully",
+    "customer": "Customer",
+    "requestedAdvantages": "Requested Advantages",
+    "photos": "Files",
+    "allFilesSelected": "All Files has been selected :)",
+    "weight": "Weight",
+    "length": "Length",
+    "width": "Width",
+    "subOrder": "Delivery",
+    "submit": "Split Order",
+    "addSubOrder": "Add Delivery",
+    "estimatedWeight": "Estimated Weight",
+    "notAllFilesSelected": "Not all files has been selected!",
+    "atLeastOneFile": "Delivery must contain a file at least"
+  }
+}

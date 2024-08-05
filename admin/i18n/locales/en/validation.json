@@ -1,0 +1,8 @@
+{
+  "required": "Required",
+  "phoneNumber": "Must be a phone number",
+  "minStr": "Must not be less than {{value}} letters",
+  "maxStr": "Must not be more than {{value}} letters",
+  "minArr": "Select {{value}} elements at least",
+  "maxArr": "Select {{value}} elements at most"
+}

@@ -1,13 +1,20 @@
 {
   "navigation": {
     "home": "Home",
+    "car-advantages": "Car Advantages",
+    "orders": "Orders",
+    "customers": "Customers",
+    "drivers": "Drivers",
+    "admins": "Admins",
+    "settings": "Settings",
+
     "preferences": "Preferences"
   },
-  "logout": "Log out",
+  "logout": "Logout",
   "theme": {
     "theme": "Theme",
-    "light": "Light mode",
-    "dark": "Dark mode",
+    "light": "Light",
+    "dark": "Dark",
     "system": "System"
   },
   "languages": {

@@ -1,0 +1,16 @@
+{
+  "name": "Name",
+  "phone": "Phone",
+  "wallet": "Wallet",
+  "createdAt": "Registered Since",
+  "countOrderDelivered": "Delivered Orders",
+  "deposit": "Deposit",
+  "walletPending": "Pending Wallet",
+  "walletAvailable": "Available Wallet",
+  "walletTotal": "Total Wallet",
+  "depositAvailable": "Deposit",
+  "depositSuccess": "{{amount}} has been deposited successfully",
+  "removeSuccess": "Customer removed successfully",
+  "options": "options",
+  "remove": "remove"
+}
