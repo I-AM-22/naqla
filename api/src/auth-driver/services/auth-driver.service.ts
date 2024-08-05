@@ -1,4 +1,10 @@
-import { Injectable, UnauthorizedException, Inject, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  Inject,
+  UnprocessableEntityException,
+  BadRequestException,
+} from '@nestjs/common';
 import { Driver } from '@models/drivers/entities/driver.entity';
 import { JwtTokenService } from '@shared/jwt';
 import { SignUpDriverDto, LoginDriverDto, ConfirmDriverDto, UpdateDriverPhoneDto } from '../dtos';
@@ -33,6 +39,7 @@ export class AuthDriverService implements IAuthDriverService {
   ) {}
   async signup(dto: SignUpDriverDto, ip: string): Promise<SendConfirm> {
     const driver = await this.driversService.findOneByPhone(dto.phone);
+    if (driver) throw new BadRequestException('Can not signup a driver, this number is taken');
     if (!driver) {
       const otp = await this.otpsService.findOneForDriver(dto.phone, ip, OTP_TYPE.CHANGE_NUMBER);
 

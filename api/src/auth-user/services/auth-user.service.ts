@@ -1,4 +1,10 @@
-import { Injectable, UnauthorizedException, Inject, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  Inject,
+  UnprocessableEntityException,
+  BadRequestException,
+} from '@nestjs/common';
 import { User } from '@models/users/entities/user.entity';
 import { JwtTokenService } from '@shared/jwt';
 import { SignUpUserDto, LoginUserDto, ConfirmUserDto, UpdateUserPhoneDto } from '../dtos';
@@ -29,6 +35,8 @@ export class AuthUserService implements IAuthUserService {
   ) {}
   async signup(dto: SignUpUserDto, ip: string): Promise<SendConfirm> {
     const user = await this.usersService.findOneByPhone(dto.phone);
+    if (user) throw new BadRequestException('Can not signup a user, this number is taken');
+
     if (!user) {
       const otp = await this.otpsService.findOneForUser(dto.phone, ip, OTP_TYPE.CHANGE_NUMBER);
 
