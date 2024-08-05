@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { item_not_found } from '@common/constants';
-import { Entities } from '@common/enums';
+import { Entities, SUB_ORDER_STATUS } from '@common/enums';
 import { IPhotoRepository } from '@common/interfaces';
 import { IAdvantagesService } from '@models/advantages/interfaces/services/advantages.service.interface';
 import { AddAdvansToCarDto, CreateCarDto, UpdateCarDto } from '../dtos';
@@ -15,6 +15,7 @@ import { IOrdersService } from '@models/orders/interfaces/services/orders.servic
 import { ORDER_TYPES } from '@models/orders/interfaces/type';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { ISubOrderRepository } from '@models/sub-orders/interfaces/repositories/sub-order.repository.interface';
+import { In } from 'typeorm';
 
 @Injectable()
 export class CarsService implements ICarsService {
@@ -86,6 +87,7 @@ export class CarsService implements ICarsService {
   async delete(id: string, driverId: string): Promise<void> {
     const car = await this.findOneForOwner(id, driverId);
     const subOrders = await this.subOrderRepository.findBy({
+      status: In([SUB_ORDER_STATUS.TAKEN, SUB_ORDER_STATUS.ON_THE_WAY]),
       carId: car.id,
     });
 
