@@ -59,6 +59,7 @@ export class AdminsService implements IAdminsService {
   async update(id: string, dto: UpdateAdminDto): Promise<Admin> {
     const admin = await this.findOne(id);
     const photo = await this.adminPhotoRepository.uploadPhoto(dto.photo);
+    dto.password = await admin.generateHash(dto.password);
     return this.adminRepository.update(admin, dto, photo);
   }
 

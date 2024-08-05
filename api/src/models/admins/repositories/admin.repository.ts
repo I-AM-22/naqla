@@ -37,13 +37,13 @@ export class AdminRepository extends BaseAuthRepo<Admin> implements IAdminReposi
   }
 
   async update(admin: Admin, dto: UpdateAdminDto, photo?: AdminPhoto) {
+    console.log(dto);
     if (photo) admin.photos.push(photo);
-    Object.assign(admin, {
-      phone: dto.phone,
-      name: dto.name,
-      password: dto.password,
-    });
     await this.adminRepository.save(admin);
+    const newadmin = await this.adminRepository.update(
+      { id: admin.id },
+      { firstName: dto.firstName, lastName: dto.lastName, password: dto.password, phone: dto.phone },
+    );
     return this.findById(admin.id);
   }
 

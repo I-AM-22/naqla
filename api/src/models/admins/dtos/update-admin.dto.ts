@@ -11,7 +11,12 @@ export class UpdateAdminDto {
   @IsOptional()
   @Length(3, 16)
   @ApiProperty({ required: false })
-  readonly name?: string;
+  readonly firstName?: string;
+  @IsString()
+  @IsOptional()
+  @Length(3, 16)
+  @ApiProperty({ required: false })
+  readonly lastName?: string;
 
   @ApiProperty({ default: '0962535253' })
   @IsOptional()
@@ -32,5 +37,5 @@ export class UpdateAdminDto {
   @IsString()
   @IsOptional()
   @Length(6, 15)
-  readonly password?: string;
+  password?: string;
 }
