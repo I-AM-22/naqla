@@ -12,9 +12,10 @@ import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { UserWallet } from '../entities/user-wallet.entity';
-import { Entities, ORDER_STATUS, ROLE } from '@common/enums';
+import { Entities, ORDER_STATUS, ROLE, SUB_ORDER_STATUS } from '@common/enums';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
+import { In } from 'typeorm';
 
 @Injectable()
 export class UsersService implements IUsersService {
@@ -99,7 +100,8 @@ export class UsersService implements IUsersService {
   async delete(id: string): Promise<void> {
     await this.findOne(id);
     const subOrders = await this.subOrdersService.findBy({
-      order: { userId: id, status: ORDER_STATUS.ON_THE_WAY },
+      status: In([SUB_ORDER_STATUS.TAKEN, SUB_ORDER_STATUS.ON_THE_WAY]),
+      order: { userId: id },
     });
 
     if (subOrders.length) {
