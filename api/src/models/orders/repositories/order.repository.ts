@@ -280,9 +280,18 @@ export class OrderRepository implements IOrderRepository {
 
   async countOrdersActive(): Promise<number> {
     const order = await this.orderRepository.find({
-      where: { status: In([ORDER_STATUS.ON_THE_WAY, ORDER_STATUS.ACCEPTED, ORDER_STATUS.READY]) },
+      where: {
+        status: In([ORDER_STATUS.ON_THE_WAY, ORDER_STATUS.ACCEPTED]),
+      },
     });
-    return order.length;
+    const orderREADY = await this.orderRepository.find({
+      relations: { user: true },
+      where: {
+        status: ORDER_STATUS.READY,
+        user: { active: true },
+      },
+    });
+    return order.length + orderREADY.length;
   }
 
   async countOrdersWaiting(): Promise<number> {
