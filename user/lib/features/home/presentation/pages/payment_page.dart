@@ -243,7 +243,10 @@ class _AddCardPageMobileState extends State<AddCardPageMobile> with SingleTicker
                                     FormBuilderValidators.required(errorText: S.of(context).this_field_is_required),
                                     FormBuilderValidators.minLength(4, errorText: S.of(context).length_should_more(4)),
                                   ]),
-                                  inputFormatters: [LengthLimitingTextInputFormatter(4)],
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(4),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
                                 ),
                               ),
                             ],

@@ -25,7 +25,7 @@ class PhotoCardWidget extends StatelessWidget {
             color: context.colorScheme.primary.withOpacity(.5),
             child: SizedBox(
               width: 150.w,
-              height: 200.h,
+              height: height ?? 150.h,
               child: Center(
                   child: AppText.titleMedium(
                 '+${length - 1}',
