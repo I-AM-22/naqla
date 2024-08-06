@@ -100,8 +100,7 @@ export class UsersService implements IUsersService {
   async delete(id: string): Promise<void> {
     await this.findOne(id);
     const subOrders = await this.subOrdersService.findBy({
-      status: In([SUB_ORDER_STATUS.TAKEN, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.READY]),
-      order: { userId: id },
+      order: { userId: id, status: In([SUB_ORDER_STATUS.TAKEN, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.READY]) },
     });
 
     if (subOrders.length) {
