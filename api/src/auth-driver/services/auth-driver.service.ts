@@ -74,7 +74,8 @@ export class AuthDriverService implements IAuthDriverService {
 
   async login(dto: LoginDriverDto, ip: string): Promise<SendConfirm> {
     const driver = await this.driversService.findOneByPhone(dto.phone);
-    if (!driver || !driver.active) throw new UnauthorizedException(incorrect_phone_number);
+    if (!driver || !driver.active || driver.disactiveAt !== null)
+      throw new UnauthorizedException(incorrect_phone_number);
     const otp = await this.otpsService.findOneForDriver(dto.phone, ip, OTP_TYPE.LOGIN);
     await this.otpsService.createForDriver(
       {
@@ -95,7 +96,7 @@ export class AuthDriverService implements IAuthDriverService {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
     const nonConfirmedDriver = await this.driversService.findOne(otp.userId);
-    if (!nonConfirmedDriver) {
+    if (!nonConfirmedDriver || nonConfirmedDriver.disactiveAt !== null) {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
 

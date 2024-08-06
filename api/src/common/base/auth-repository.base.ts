@@ -23,10 +23,11 @@ export class BaseAuthRepo<Entity> {
       .leftJoinAndSelect('entity.photos', 'photos');
 
     if (this.repository.metadata.name === Entities.User || this.repository.metadata.name === Entities.Driver) {
-      qb.where('entity.id = :id AND entity.active = :active', {
+      qb.where('entity.id = :id AND entity.active = :active AND entity.disactiveAt IS NULL', {
         id,
         active: true,
       });
+
       qb.leftJoin('entity.wallet', 'wallet');
       qb.addSelect([
         'wallet.id',

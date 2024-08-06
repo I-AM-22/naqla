@@ -104,10 +104,10 @@ export class DriverRepository extends BaseAuthRepo<Driver> implements IDriverRep
   }
 
   async delete(id: string): Promise<void> {
-    await this.driverRepo.update({ id }, { disactiveAt: new Date(), active: false });
-    this.driverRepo.softDelete({ id });
+    await this.driverRepo.softDelete({ id });
   }
+
   async deactivate(id: string): Promise<void> {
-    await this.driverRepo.update({ id }, { disactiveAt: new Date(), active: false });
+    await this.driverRepo.update({ id }, { disactiveAt: new Date() });
   }
 }
