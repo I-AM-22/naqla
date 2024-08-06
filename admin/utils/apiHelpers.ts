@@ -3,20 +3,11 @@ import { UseFormSetError } from "react-hook-form";
 import { toast } from "sonner";
 
 export type ApiError = {
-  error: {
-    response?: {
-      errors?: {
-        message: string;
-        path: string[];
-      }[];
-      message?: string;
-    };
-    status: number;
+  errors?: {
     message: string;
-    name: string;
-  };
-  stack: string;
-  message: string;
+    path: string[];
+  }[];
+  message?: string;
 };
 
 type Feedbacks = {
@@ -28,14 +19,16 @@ export function parseResponseError({
   setFormError,
 }: Feedbacks) {
   return (err: FetchError<ApiError>) => {
+    console.log(err);
+
     const data = err.data;
 
-    if (showToast && (!data || data?.error.response?.message)) {
-      toast.error(data?.error.response?.message ?? String(err));
+    if (showToast && !data) {
+      toast.error(String(err));
     }
-    if (data && data.error?.response?.errors) {
+    if (data && data.errors) {
       if (setFormError) {
-        data.error.response.errors?.forEach(
+        data.errors?.forEach(
           (error) =>
             setFormError?.(`${error.path.join(".")}`, {
               message: error.message,
@@ -43,7 +36,7 @@ export function parseResponseError({
         );
       }
     }
-    if (showToast && data && !data.error.response) {
+    if (showToast && data && data.message) {
       toast.error(data.message, {});
     }
     return undefined;
