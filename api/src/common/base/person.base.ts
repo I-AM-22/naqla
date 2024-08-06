@@ -26,8 +26,6 @@ export class BasePersonWithActive extends BasePerson {
   @Exclude()
   @Column('boolean', { default: false })
   active: boolean;
-
-  @Exclude()
   @Column({ nullable: true })
   disactiveAt: Date | null;
 }

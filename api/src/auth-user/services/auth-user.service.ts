@@ -70,6 +70,7 @@ export class AuthUserService implements IAuthUserService {
 
   async login(dto: LoginUserDto, ip: string): Promise<SendConfirm> {
     const user = await this.usersService.findOneByPhone(dto.phone);
+    console.log(user);
     if (!user || !user.active || user.disactiveAt !== null) throw new UnauthorizedException(incorrect_phone_number);
     const otp = await this.otpsService.findOneForUser(dto.phone, ip, OTP_TYPE.LOGIN);
     await this.otpsService.createForUser(

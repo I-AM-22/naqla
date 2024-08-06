@@ -5,11 +5,12 @@ import { OrderStatsDate } from '@models/statics/responses/OrderStatsDate';
 import { User } from '@models/users/entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { In, IsNull, Repository } from 'typeorm';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
+import { Item } from '../interfaces/item.inteface';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -45,14 +46,15 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findWaiting(): Promise<Order[]> {
-    return this.orderRepository.find({
+    let orderWating = await this.orderRepository.find({
+      relations: { photos: true, advantages: true, user: true },
       select: {
         user: { firstName: true, lastName: true },
         advantages: { id: false, cost: false, name: true },
       },
-      relations: { photos: true, advantages: true, user: true },
-      where: { status: ORDER_STATUS.WAITING, user: { active: true } },
+      where: { status: ORDER_STATUS.WAITING, user: { disactiveAt: IsNull() } },
     });
+    return orderWating;
   }
 
   async findMyOrder(userId: string): Promise<Order[]> {
@@ -288,20 +290,21 @@ export class OrderRepository implements IOrderRepository {
       relations: { user: true },
       where: {
         status: ORDER_STATUS.READY,
-        user: { active: true },
+        user: { disactiveAt: null },
       },
     });
     return order.length + orderREADY.length;
   }
 
   async countOrdersWaiting(): Promise<number> {
-    const count = await this.orderRepository
-      .createQueryBuilder('order')
-      .where('order.status = :status', {
+    const orderRaiting = await this.orderRepository.find({
+      relations: { user: true },
+      where: {
         status: ORDER_STATUS.WAITING,
-      })
-      .getCount();
-    return count;
+        user: { disactiveAt: null },
+      },
+    });
+    return orderRaiting.length;
   }
 
   async addAdvantageToOrder(order: Order, advantages: Advantage[]): Promise<void> {

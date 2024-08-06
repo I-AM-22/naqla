@@ -112,7 +112,7 @@ export class BaseAuthRepo<Entity> {
 
     if (this.repository.metadata.name === Entities.User || this.repository.metadata.name === Entities.Driver) {
       qb.leftJoin('entity.wallet', 'wallet');
-      qb.addSelect(['wallet.id', 'wallet.total', 'wallet.pending', 'entity.active']);
+      qb.addSelect(['wallet.id', 'wallet.total', 'wallet.pending', 'entity.active', 'entity.disactiveAt']);
     } else {
       qb.addSelect(['entity.passwordChangedAt', 'entity.password']);
     }

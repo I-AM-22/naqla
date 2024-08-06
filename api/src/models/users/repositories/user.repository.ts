@@ -3,7 +3,7 @@ import { PaginatedResponse } from '@common/types';
 import { Role } from '@models/roles/entities/role.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { UpdateUserPhoneDto } from '../../../auth-user';
 import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { UserPhoto } from '../entities/user-photo.entity';
@@ -21,14 +21,14 @@ export class UserRepository extends BaseAuthRepo<User> implements IUserRepositor
     const skip = (page - 1) * limit || 0;
     const take = limit || undefined;
     const data = await this.userRepo.find({
-      where: { active },
+      where: { active, disactiveAt: IsNull() },
       relations: { photos: true, role: true },
       skip,
       take,
       withDeleted,
     });
     const totalDataCount = await this.userRepo.count({
-      where: { active },
+      where: { active, disactiveAt: IsNull() },
       withDeleted,
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
@@ -50,21 +50,21 @@ export class UserRepository extends BaseAuthRepo<User> implements IUserRepositor
     const skip = (page - 1) * limit || 0;
     const take = limit || 100;
     const data = await this.userRepo.find({
-      where: { active: true },
+      where: { active: true, disactiveAt: IsNull() },
       relations: { photos: true, wallet: true },
       skip,
       take,
       withDeleted,
     });
     const totalDataCount = await this.userRepo.count({
-      where: { active: true },
+      where: { active: true, disactiveAt: IsNull() },
       withDeleted,
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
   async countUser(): Promise<number> {
-    const userCount = await this.userRepo.find({ where: { active: true } });
+    const userCount = await this.userRepo.find({ where: { active: true, disactiveAt: IsNull() } });
     return userCount.length;
   }
 

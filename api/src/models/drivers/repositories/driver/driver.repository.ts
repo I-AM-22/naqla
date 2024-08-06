@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { BaseAuthRepo } from '../../../../common/base';
 import { IDriverRepository } from '../../interfaces/repositories/driver.repository.interface';
 // import { UpdatePhoneDto } from '../../../auth-driver';
@@ -22,14 +22,14 @@ export class DriverRepository extends BaseAuthRepo<Driver> implements IDriverRep
     const skip = (page - 1) * limit || 0;
     const take = limit || undefined;
     const data = await this.driverRepo.find({
-      where: { active },
+      where: { active, disactiveAt: IsNull() },
       relations: { photos: true, role: true },
       skip,
       take,
       withDeleted,
     });
     const totalDataCount = await this.driverRepo.count({
-      where: { active },
+      where: { active, disactiveAt: IsNull() },
       withDeleted,
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
@@ -39,22 +39,22 @@ export class DriverRepository extends BaseAuthRepo<Driver> implements IDriverRep
     const skip = (page - 1) * limit || 0;
     const take = limit || 100;
     const data = await this.driverRepo.find({
-      where: { active: true },
+      where: { active: true, disactiveAt: IsNull() },
       relations: { photos: true, wallet: true },
       skip,
       take,
       withDeleted,
     });
     const totalDataCount = await this.driverRepo.count({
-      where: { active: true },
+      where: { active: true, disactiveAt: IsNull() },
       withDeleted,
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);
   }
 
   async countDriver(): Promise<number> {
-    const driverCount = await this.driverRepo.createQueryBuilder('driver').getCount();
-    return driverCount;
+    const driverCount = await this.driverRepo.find({ where: { active: true, disactiveAt: IsNull() } });
+    return driverCount.length;
   }
 
   async create(dto: CreateDriverDto, wallet: DriverWallet, photo: DriverPhoto, role: Role): Promise<Driver> {
