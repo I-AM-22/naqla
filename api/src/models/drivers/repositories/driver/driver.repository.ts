@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 import { BaseAuthRepo } from '../../../../common/base';
 import { IDriverRepository } from '../../interfaces/repositories/driver.repository.interface';
 // import { UpdatePhoneDto } from '../../../auth-driver';
@@ -18,18 +18,23 @@ export class DriverRepository extends BaseAuthRepo<Driver> implements IDriverRep
     super(driverRepo);
   }
 
-  async find(page: number, limit: number, active: boolean, withDeleted: boolean): Promise<PaginatedResponse<Driver>> {
+  async find(
+    page: number,
+    limit: number,
+    withActive: boolean,
+    withDeleted: boolean,
+  ): Promise<PaginatedResponse<Driver>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || undefined;
     const data = await this.driverRepo.find({
-      where: { active, disactiveAt: IsNull() },
+      where: { active: true, disactiveAt: withActive ? IsNull() : Not(IsNull()) },
       relations: { photos: true, role: true },
       skip,
       take,
       withDeleted,
     });
     const totalDataCount = await this.driverRepo.count({
-      where: { active, disactiveAt: IsNull() },
+      where: { active: true, disactiveAt: withActive ? IsNull() : Not(IsNull()) },
       withDeleted,
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);

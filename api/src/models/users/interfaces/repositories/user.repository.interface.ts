@@ -7,7 +7,12 @@ import { User } from '../../entities/user.entity';
 import { UserWallet } from '../../entities/user-wallet.entity';
 
 export interface IUserRepository {
-  find(page: number, limit: number, active?: boolean, withDeleted?: boolean): Promise<PaginatedResponse<User> | User[]>;
+  find(
+    page: number,
+    limit: number,
+    withActive?: boolean,
+    withDeleted?: boolean,
+  ): Promise<PaginatedResponse<User> | User[]>;
 
   staticsUser(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<User>>;
 

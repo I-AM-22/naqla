@@ -10,7 +10,7 @@ export interface IDriverRepository {
   find(
     page: number,
     limit: number,
-    active?: boolean,
+    withActive?: boolean,
     withDeleted?: boolean,
   ): Promise<PaginatedResponse<Driver> | Driver[]>;
   staticsDriver(page: number, limit: number, withDeleted: boolean): Promise<PaginatedResponse<Driver>>;

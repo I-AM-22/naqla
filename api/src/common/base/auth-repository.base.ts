@@ -77,6 +77,7 @@ export class BaseAuthRepo<Entity> {
         'wallet.createdAt',
         'wallet.updatedAt',
         'entity.active',
+        'entity.disactiveAt',
       ]);
     } else {
       qb.addSelect(['entity.passwordChangedAt', 'entity.password']);

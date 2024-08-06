@@ -25,7 +25,6 @@ import { IDriversService } from '../interfaces/services/drivers.service.interfac
 import { DRIVER_TYPES } from '../interfaces/type';
 import { DriverWalletRepository } from '../repositories/driver/driver-wallet.repository';
 import { PaginatedDriverResponse } from '../responses/pagination.response';
-import { SubOrderRepository } from '../../sub-orders/repositories/sub-order.repository';
 import { Rating } from '@models/sub-orders/interfaces/rating';
 
 @ApiTags('Drivers')
@@ -40,7 +39,7 @@ export class DriversController {
   ) {}
 
   @UseInterceptors(WithDeletedInterceptor)
-  @SerializeOptions({ groups: [GROUPS.ALL_DRIVERS] })
+  // @SerializeOptions({ groups: [GROUPS.ALL_DRIVERS] })
   @ApiOkResponse({ type: PaginatedDriverResponse })
   @ApiQuery({
     name: 'page',
@@ -101,7 +100,7 @@ export class DriversController {
     return this.walletRepository.withdraw(id, dto.cost);
   }
 
-  @ApiOkResponse({ type: Rating ,isArray:true})
+  @ApiOkResponse({ type: Rating, isArray: true })
   @Roles(ROLE.EMPLOYEE, ROLE.ADMIN)
   @Get(':id/rating')
   async rating(@Id() id: string) {

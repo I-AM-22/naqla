@@ -3,7 +3,7 @@ import { PaginatedResponse } from '@common/types';
 import { Role } from '@models/roles/entities/role.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 import { UpdateUserPhoneDto } from '../../../auth-user';
 import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { UserPhoto } from '../entities/user-photo.entity';
@@ -17,18 +17,18 @@ export class UserRepository extends BaseAuthRepo<User> implements IUserRepositor
     super(userRepo);
   }
 
-  async find(page: number, limit: number, active: boolean, withDeleted: boolean): Promise<PaginatedResponse<User>> {
+  async find(page: number, limit: number, withActive: boolean, withDeleted: boolean): Promise<PaginatedResponse<User>> {
     const skip = (page - 1) * limit || 0;
     const take = limit || undefined;
     const data = await this.userRepo.find({
-      where: { active, disactiveAt: IsNull() },
+      where: { active: true, disactiveAt: withActive ? IsNull() : Not(IsNull()) },
       relations: { photos: true, role: true },
       skip,
       take,
       withDeleted,
     });
     const totalDataCount = await this.userRepo.count({
-      where: { active, disactiveAt: IsNull() },
+      where: { active: true, disactiveAt: withActive ? IsNull() : Not(IsNull()) },
       withDeleted,
     });
     return PaginatedResponse.pagination(page, limit, totalDataCount, data);

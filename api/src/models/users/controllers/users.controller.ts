@@ -39,7 +39,7 @@ export class UsersController {
   ) {}
 
   @UseInterceptors(WithDeletedInterceptor)
-  @SerializeOptions({ groups: [GROUPS.ALL_USERS] })
+  // @SerializeOptions({ groups: [GROUPS.ALL_USERS] })
   @ApiOkResponse({ type: PaginatedUserResponse })
   @ApiQuery({
     name: 'page',
