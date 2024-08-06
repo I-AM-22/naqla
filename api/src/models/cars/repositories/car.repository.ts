@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { Advantage } from '../../advantages/entities/advantage.entity';
 import { CreateCarDto, UpdateCarDto } from '../dtos';
 import { CarPhoto } from '../entities/car-photo.entity';
@@ -118,8 +118,11 @@ export class CarRepository implements ICarRepository {
   }
 
   async countCar(): Promise<number> {
-    const carCount = await this.carRepository.createQueryBuilder('car').getCount();
-    return carCount;
+    const carCount = await this.carRepository.find({
+      relations: { driver: true },
+      where: { driver: { active: true, disactiveAt: IsNull() } },
+    });
+    return carCount.length;
   }
 
   async advantageSuper(): Promise<any[]> {

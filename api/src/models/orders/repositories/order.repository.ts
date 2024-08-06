@@ -290,7 +290,7 @@ export class OrderRepository implements IOrderRepository {
       relations: { user: true },
       where: {
         status: ORDER_STATUS.READY,
-        user: { disactiveAt: null },
+        user: { disactiveAt: IsNull() },
       },
     });
     return order.length + orderREADY.length;
@@ -301,7 +301,7 @@ export class OrderRepository implements IOrderRepository {
       relations: { user: true },
       where: {
         status: ORDER_STATUS.WAITING,
-        user: { disactiveAt: null },
+        user: { disactiveAt: IsNull() },
       },
     });
     return orderRaiting.length;
