@@ -19,8 +19,6 @@ export function parseResponseError({
   setFormError,
 }: Feedbacks) {
   return (err: FetchError<ApiError>) => {
-    console.log(err);
-
     const data = err.data;
 
     if (showToast && !data) {
