@@ -48,22 +48,22 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     if (error.message === 'Unauthorized') error = handelPassportError();
 
-    if (this.appConfig.env === 'production') {
-      console.log(error);
-      const rep = {
-        type: error.response.errors ? ErrorType.Form : ErrorType.Default,
-        message: error.response.errors ? undefined : error.message,
-        errors: error.response.errors,
-      };
-      this.reply(response, rep, error.getStatus());
-    } else {
-      const rep = {
-        error: exception,
-        stack: exception.stack,
-        message: error.message,
-      };
-      this.reply(response, rep, error.getStatus());
-    }
+    // if (this.appConfig.env === 'production') {
+    console.log(error);
+    const rep = {
+      type: error.response.errors ? ErrorType.Form : ErrorType.Default,
+      message: error.response.errors ? undefined : error.message,
+      errors: error.response.errors,
+    };
+    this.reply(response, rep, error.getStatus());
+    // } else {
+    //   const rep = {
+    //     error: exception,
+    //     stack: exception.stack,
+    //     message: error.message,
+    //   };
+    //   this.reply(response, rep, error.getStatus());
+    // }
   }
 
   reply(response: Response, rep: any, status: number) {

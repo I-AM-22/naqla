@@ -1,10 +1,4 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  Inject,
-  UnprocessableEntityException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException, Inject, UnprocessableEntityException } from '@nestjs/common';
 import { Driver } from '@models/drivers/entities/driver.entity';
 import { JwtTokenService } from '@shared/jwt';
 import { SignUpDriverDto, LoginDriverDto, ConfirmDriverDto, UpdateDriverPhoneDto } from '../dtos';
@@ -39,7 +33,6 @@ export class AuthDriverService implements IAuthDriverService {
   ) {}
   async signup(dto: SignUpDriverDto, ip: string): Promise<SendConfirm> {
     const driver = await this.driversService.findOneByPhone(dto.phone);
-    if (driver) throw new BadRequestException('Can not signup a driver, this number is taken');
     if (!driver) {
       const otp = await this.otpsService.findOneForDriver(dto.phone, ip, OTP_TYPE.CHANGE_NUMBER);
 
@@ -56,7 +49,7 @@ export class AuthDriverService implements IAuthDriverService {
         ip,
         type: OTP_TYPE.SIGNUP,
       });
-    } else if (driver.disactiveAt || driver.active) {
+    } else if (driver.disactiveAt !== null || driver.active) {
       throw new UnprocessableEntityException(item_already_exist('mobile'));
     } else if (!driver.active) {
       const otp: IOtp = {
@@ -81,7 +74,8 @@ export class AuthDriverService implements IAuthDriverService {
 
   async login(dto: LoginDriverDto, ip: string): Promise<SendConfirm> {
     const driver = await this.driversService.findOneByPhone(dto.phone);
-    if (!driver || !driver.active) throw new UnauthorizedException(incorrect_phone_number);
+    if (!driver || !driver.active || driver.disactiveAt !== null)
+      throw new UnauthorizedException(incorrect_phone_number);
     const otp = await this.otpsService.findOneForDriver(dto.phone, ip, OTP_TYPE.LOGIN);
     await this.otpsService.createForDriver(
       {
@@ -102,7 +96,7 @@ export class AuthDriverService implements IAuthDriverService {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
     const nonConfirmedDriver = await this.driversService.findOne(otp.userId);
-    if (!nonConfirmedDriver) {
+    if (!nonConfirmedDriver || nonConfirmedDriver.disactiveAt !== null) {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
 

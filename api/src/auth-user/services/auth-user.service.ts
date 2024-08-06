@@ -1,10 +1,4 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  Inject,
-  UnprocessableEntityException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException, Inject, UnprocessableEntityException } from '@nestjs/common';
 import { User } from '@models/users/entities/user.entity';
 import { JwtTokenService } from '@shared/jwt';
 import { SignUpUserDto, LoginUserDto, ConfirmUserDto, UpdateUserPhoneDto } from '../dtos';
@@ -35,7 +29,6 @@ export class AuthUserService implements IAuthUserService {
   ) {}
   async signup(dto: SignUpUserDto, ip: string): Promise<SendConfirm> {
     const user = await this.usersService.findOneByPhone(dto.phone);
-    if (user) throw new BadRequestException('Can not signup a user, this number is taken');
 
     if (!user) {
       const otp = await this.otpsService.findOneForUser(dto.phone, ip, OTP_TYPE.CHANGE_NUMBER);
@@ -52,7 +45,7 @@ export class AuthUserService implements IAuthUserService {
         ip,
         type: OTP_TYPE.SIGNUP,
       });
-    } else if (user.disactiveAt || user.active) {
+    } else if (user.disactiveAt !== null || user.active) {
       throw new UnprocessableEntityException(item_already_exist('mobile'));
     } else if (!user.active) {
       const otp: IOtp = {
@@ -77,7 +70,7 @@ export class AuthUserService implements IAuthUserService {
 
   async login(dto: LoginUserDto, ip: string): Promise<SendConfirm> {
     const user = await this.usersService.findOneByPhone(dto.phone);
-    if (!user || !user.active) throw new UnauthorizedException(incorrect_phone_number);
+    if (!user || !user.active || user.disactiveAt !== null) throw new UnauthorizedException(incorrect_phone_number);
     const otp = await this.otpsService.findOneForUser(dto.phone, ip, OTP_TYPE.LOGIN);
     await this.otpsService.createForUser(
       {
@@ -98,7 +91,7 @@ export class AuthUserService implements IAuthUserService {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
     const nonConfirmedUser = await this.usersService.findOne(otp.userId);
-    if (!nonConfirmedUser) {
+    if (!nonConfirmedUser || nonConfirmedUser.disactiveAt !== null) {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
 

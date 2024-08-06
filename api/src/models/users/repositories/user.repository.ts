@@ -114,11 +114,10 @@ export class UserRepository extends BaseAuthRepo<User> implements IUserRepositor
   }
 
   async delete(id: string): Promise<void> {
-    await this.userRepo.update({ id }, { disactiveAt: new Date(), active: false });
-    this.userRepo.softDelete({ id });
+    await this.userRepo.softDelete({ id });
   }
 
   async deactivate(id: string): Promise<void> {
-    await this.userRepo.update({ id }, { disactiveAt: new Date(), active: false });
+    await this.userRepo.update({ id }, { disactiveAt: new Date() });
   }
 }
