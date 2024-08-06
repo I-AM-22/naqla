@@ -98,6 +98,8 @@ String _mapResponseError(Map<String, dynamic> response) {
       return response['message'];
     case 'form':
       return response['errors'][0]['message'];
+    case 'from':
+      return response['errors'][0]['message'];
     default:
       return "حصل خطأ ما!";
   }

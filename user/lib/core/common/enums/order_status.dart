@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../generated/l10n.dart';
 
 enum OrderStatus {
-  waiting(),
+  waiting,
   ready,
   accepted,
   refused,

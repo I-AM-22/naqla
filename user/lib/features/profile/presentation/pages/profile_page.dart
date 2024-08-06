@@ -18,7 +18,6 @@ import 'package:naqla/features/profile/presentation/widget/profile_item.dart';
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/data/model/user_model.dart';
-import 'delete_account_page.dart';
 import 'edit_profile_page.dart';
 import 'language_page.dart';
 
@@ -112,11 +111,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: context.colorScheme.primary,
                         ),
                       ),
-                      16.verticalSpace,
-                      ProfileItem(
-                          onTap: () => context.pushNamed(DeleteAccountPage.name),
-                          title: S.of(context).delete_account,
-                          prefixIcon: const Icon(IconlyBroken.delete)),
                       32.verticalSpace,
                       AppText.subHeadRegular(
                         'Naqla V1.0.0',

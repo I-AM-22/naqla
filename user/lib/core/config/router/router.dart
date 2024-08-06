@@ -23,7 +23,6 @@ import '../../../features/home/presentation/pages/order_photos_page.dart';
 import '../../../features/home/presentation/pages/payment_page.dart';
 import '../../../features/orders/presentation/pages/sub_order_details_page.dart';
 import '../../../features/orders/presentation/pages/sub_orders_page.dart';
-import '../../../features/profile/presentation/pages/delete_account_page.dart';
 import '../../../features/profile/presentation/pages/edit_phone_number_page.dart';
 import '../../../features/profile/presentation/pages/edit_profile_page.dart';
 import '../../../features/profile/presentation/pages/language_page.dart';
@@ -215,19 +214,6 @@ final router = GoRouter(debugLogDiagnostics: true, initialLocation: SplashScreen
                       builder: (context, state) => VerificationUpdatePhonePage(phone: state.extra as String),
                     ),
                   ]),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: DeleteAccountPage.path,
-                name: DeleteAccountPage.name,
-                builder: (context, state) => const DeleteAccountPage(),
-                pageBuilder: (context, state) => CustomTransitionPage(
-                  child: const DeleteAccountPage(),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
-                    position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(animation),
-                    child: child,
-                  ),
-                ),
-              ),
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
                 path: LanguagePage.path,

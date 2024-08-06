@@ -14,11 +14,8 @@ Future<T> throwAppException<T>(FutureOr<T> Function() call) async {
   } on AppException catch (_) {
     rethrow;
   } on SocketException catch (e) {
-    showMessage(e.message);
-    throw AppNetworkException(
-        reason: AppNetworkExceptionReason.noInternet,
-        exception: e,
-        message: e.message);
+    showMessage('تحقق من الاتصال بالانترنت');
+    throw AppNetworkException(reason: AppNetworkExceptionReason.noInternet, exception: e, message: e.message);
   } on Exception catch (e) {
     throw AppException.unknown(message: e.toString(), exception: e);
   } catch (e, s) {
@@ -30,7 +27,7 @@ Future<T> throwAppException<T>(FutureOr<T> Function() call) async {
 void showMessage(String message, {bool isSuccess = false}) {
   Fluttertoast.showToast(
       msg: message,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.TOP,
       timeInSecForIosWeb: 1,
       backgroundColor: isSuccess ? Colors.greenAccent : Colors.red,
