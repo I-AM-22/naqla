@@ -91,7 +91,7 @@ export class AuthUserService implements IAuthUserService {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
     const nonConfirmedUser = await this.usersService.findOne(otp.userId);
-    if (!nonConfirmedUser || nonConfirmedUser.disactiveAt !== null) {
+    if (!nonConfirmedUser) {
       throw new UnauthorizedException(incorrect_credentials_OTP);
     }
 
