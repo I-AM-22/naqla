@@ -1,7 +1,7 @@
 class ApiRoutes {
   //?////////////////?Base////////////////////
-  static const String baseUrl = 'http://192.168.1.110:5500';
-  static const String realTimeUrl = 'ws://192.168.1.110:5500';
+  static const String baseUrl = 'http://192.168.43.119:5500';
+  static const String realTimeUrl = 'ws://192.168.43.119:5500';
 
   //?////////////////?RealTime////////////////////
   static const String joinChat = 'join-chat';

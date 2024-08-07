@@ -70,7 +70,7 @@ export function OrderStatics({ children }: OrderStaticsProps) {
             width={500}
             height={300}
             data={
-              ordersQuery.data?.data.map((data) => ({
+              ordersQuery.data?.data.sort((a,b)=>a.day.localeCompare(b.day)).map((data) => ({
                 ...data,
                 AllOrders: Number(data.AllOrders),
                 completedOrders: Number(data.completedOrders),
