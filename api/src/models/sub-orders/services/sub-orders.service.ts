@@ -137,7 +137,7 @@ export class SubOrdersService implements ISubOrdersService {
 
   async findForDriver(driverId: string): Promise<SubOrder[]> {
     const cars = await this.carsService.findMyCars(driverId);
-
+    if (!cars.length) return [];
     return await this.subOrderRepository.findForDriver(cars);
   }
 

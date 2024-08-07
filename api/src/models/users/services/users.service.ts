@@ -100,9 +100,9 @@ export class UsersService implements IUsersService {
   async delete(id: string): Promise<void> {
     await this.findOne(id);
     const subOrders = await this.subOrdersService.findBy({
-      order: { userId: id, status: In([SUB_ORDER_STATUS.TAKEN, SUB_ORDER_STATUS.ON_THE_WAY, SUB_ORDER_STATUS.READY]) },
+      order: { userId: id, status: In([ORDER_STATUS.ACCEPTED, ORDER_STATUS.ON_THE_WAY, ORDER_STATUS.READY]) },
     });
-
+    console.log(subOrders);
     if (subOrders.length) {
       throw new BadRequestException('Can not remove a user who has an active orders');
     }
