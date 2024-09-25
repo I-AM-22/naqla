@@ -13,11 +13,7 @@ NAME :=
 install: package.json
 	yarn install
 
-pre-build:
-	@echo "Cleaning up dist directory..."
-	@C:/myfiles/projects/naqla/api/node_modules/.bin/rimraf dist
-
-build: pre-build
+build:
 	nest build
 
 run:
