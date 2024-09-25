@@ -14,7 +14,7 @@ install: package.json
 	yarn install
 
 build:
-	yarn nest build
+	npx @nestjs/cli build
 
 run:
 	nest start
