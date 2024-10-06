@@ -10,8 +10,8 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
   await configureDependencies();
 
-  assert(ApiRoutes.baseUrl.isEmpty, 'BASE URL is not set');
-  assert(ApiRoutes.realTimeUrl.isEmpty, 'REAL TIME URL is not set');
+  assert(ApiRoutes.baseUrl.isNotEmpty, 'BASE URL is not set');
+  assert(ApiRoutes.realTimeUrl.isNotEmpty, 'REAL TIME URL is not set');
 
   runApp(const App());
 }
