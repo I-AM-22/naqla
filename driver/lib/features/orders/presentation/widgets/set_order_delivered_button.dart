@@ -9,6 +9,7 @@ import 'package:naqla_driver/features/orders/domain/usecases/set_delivered_use_c
 import 'package:naqla_driver/features/orders/presentation/state/order_bloc.dart';
 import 'package:naqla_driver/generated/l10n.dart';
 
+// ignore: must_be_immutable
 class SetOrderDeliveredButton extends StatelessWidget {
   SetOrderDeliveredButton({super.key, required this.subOrderModel});
   final SubOrderModel subOrderModel;

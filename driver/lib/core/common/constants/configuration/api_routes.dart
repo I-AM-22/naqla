@@ -1,7 +1,7 @@
 class ApiRoutes {
-  //?///////////////Base//////////////////
-  static const String baseUrl = 'http://192.168.43.119:5500';
-  static const String realTimeUrl = 'ws://192.168.43.119:5500';
+  //?////////////////?Base////////////////////
+  static const String baseUrl = String.fromEnvironment('BASE_URL');
+  static const String realTimeUrl = String.fromEnvironment('REAL_TIME_URL');
 
   //?////////////////?RealTime////////////////////
   static const String joinChat = 'join-chat';
@@ -10,7 +10,7 @@ class ApiRoutes {
   static const String messageReceived = 'message-received';
   static const String error = 'error';
 
-  //?////////////////Auth////////////////////
+  //?////////////////?Auth////////////////////
   static String login = '/api/v1/auth/driver/login';
   static String signup = '/api/v1/auth/driver/signup';
   static String confirm = '/api/v1/auth/driver/confirm';

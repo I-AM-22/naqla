@@ -13,7 +13,6 @@ import 'package:naqla/features/chat/domain/usecases/send_message_use_case.dart';
 import 'package:naqla/features/chat/presentation/state/chat_bloc.dart';
 import 'package:naqla/features/chat/presentation/widgets/message_card.dart';
 
-import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../../generated/l10n.dart';
 import '../../../app/presentation/widgets/app_scaffold.dart';
 import '../../../app/presentation/widgets/customer_appbar.dart';

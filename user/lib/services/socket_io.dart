@@ -15,8 +15,10 @@ class SocketIo {
       IO.OptionBuilder()
           .setTransports(['websocket'])
           .disableAutoConnect()
-          .setExtraHeaders({'authorization': 'Bearer ${getIt<PrefsRepository>().token}'})
-          .setAuth({'authorization': 'Bearer ${getIt<PrefsRepository>().token}'})
+          .setExtraHeaders(
+              {'authorization': 'Bearer ${getIt<PrefsRepository>().token}'})
+          .setAuth(
+              {'authorization': 'Bearer ${getIt<PrefsRepository>().token}'})
           .build(),
     );
   }
@@ -25,7 +27,6 @@ class SocketIo {
     socket.connect();
     socket.onConnect(
       (data) {
-        print('connect $data');
         // socket.emit(ApiRoutes.setup, data);
       },
     );
@@ -36,15 +37,13 @@ class SocketIo {
 
     socket.on(
       'joined',
-      (data) {
-        print(data);
-        ;
-      },
+      (data) {},
     );
   }
 
   newMessage(MessageModel param, String subOrderId) {
-    socket.emit(ApiRoutes.newMessage, param.toJson()..addAll({'subOrderId': subOrderId}));
+    socket.emit(ApiRoutes.newMessage,
+        param.toJson()..addAll({'subOrderId': subOrderId}));
   }
 
   messageReceived(Function(dynamic data) getData) {
@@ -55,7 +54,6 @@ class SocketIo {
     socket.on(
       ApiRoutes.error,
       (data) {
-        print('error $data');
         showMessage(data['message']);
       },
     );

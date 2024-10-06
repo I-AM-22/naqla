@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naqla/core/core.dart';
 
-import '../../../../core/common/constants/constants.dart';
 import '../../../../generated/flutter_gen/assets.gen.dart';
 import '../../../orders/data/model/sub_order_model.dart';
 import '../pages/messages_page.dart';

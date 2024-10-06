@@ -27,7 +27,7 @@ final getIt = GetIt.I;
 Future<GetIt> configureDependencies() async => $initGetIt(getIt);
 
 @module
-abstract class AppModule {
+abstract class AppModule { 
   BaseOptions get dioOption => BaseOptions(
       baseUrl: ApiRoutes.baseUrl,
       connectTimeout: const Duration(seconds: 20),
