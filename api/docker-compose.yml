@@ -25,17 +25,11 @@ services:
     networks:
       - freecodecamp
 
-  redisqueue:
-    image: 'redis:latest'
-    ports:
-      - '6380:6379'
-
   app:
     build: .
     ports:
-      - '5500:5500'
+      - '3000:3000'
     depends_on:
-      - redisqueue
       - dev-db
     environment:
       POSTGRES_USER: '${POSTGRES_USER}'
