@@ -25,7 +25,7 @@ develop:
 debug:
 	nest start --debug --watch
 
-prod:
+prod: build
 	ENV=production node dist/main
 
 format:

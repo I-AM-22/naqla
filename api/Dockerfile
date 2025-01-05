@@ -22,4 +22,4 @@ COPY . .
 EXPOSE 3000
 
 # Command to run your application
-CMD ["yarn", "start:prod"]
+CMD ["make", "start:prod"]
