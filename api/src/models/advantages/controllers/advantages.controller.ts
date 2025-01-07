@@ -1,24 +1,12 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Inject,
-  UseInterceptors,
-  SerializeOptions,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, SerializeOptions } from '@nestjs/common';
 import { CreateAdvantageDto } from '../dto/create-advantage.dto';
 import { UpdateAdvantageDto } from '../dto/update-advantage.dto';
-import { IAdvantagesService } from '../interfaces/services/advantages.service.interface';
-import { ADVANTAGE_TYPES } from '../interfaces/type';
 import { ApiTags, ApiCreatedResponse, ApiOkResponse, ApiNoContentResponse } from '@nestjs/swagger';
 import { LoggingInterceptor } from '@common/interceptors';
 import { Advantage } from '../entities/advantage.entity';
 import { ApiMainErrorsResponse, Auth, Roles } from '@common/decorators';
 import { GROUPS, ROLE } from '@common/enums';
+import { AdvantagesService } from '../services/advantages.service';
 
 @ApiTags('Advantages')
 @ApiMainErrorsResponse()
@@ -26,10 +14,7 @@ import { GROUPS, ROLE } from '@common/enums';
 @Auth()
 @Controller({ path: 'advantages', version: '1' })
 export class AdvantagesController {
-  constructor(
-    @Inject(ADVANTAGE_TYPES.service)
-    private readonly advantagesService: IAdvantagesService,
-  ) {}
+  constructor(private readonly advantagesService: AdvantagesService) {}
 
   @SerializeOptions({ groups: [GROUPS.ADVANTAGE] })
   @ApiCreatedResponse({ type: Advantage })

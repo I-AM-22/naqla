@@ -4,32 +4,27 @@ import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
 import { User } from '@models/users/entities/user.entity';
-import { IOrdersService } from '../interfaces/services/orders.service.interface';
 import { item_not_found } from '@common/constants';
 import { Entities, ORDER_STATUS, ROLE } from '@common/enums';
-import { ADVANTAGE_TYPES } from '@models/advantages/interfaces/type';
-import { IAdvantagesService } from '@models/advantages/interfaces/services/advantages.service.interface';
 import { OrderPhotoRepository } from '../repositories/order-photo.repository';
 import { IPerson } from '@common/interfaces';
-import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
 import { UserWalletRepository } from '@models/users/repositories/user-wallet.repository';
-import { IPaymentsService } from '@models/payments/interfaces/services/payments.service.interface';
 import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { ISubOrderRepository } from '@models/sub-orders/interfaces/repositories/sub-order.repository.interface';
 import { HyperPayService } from '@shared/hyper-pay/hyper-pay.service';
+import { AdvantagesService } from '@models/advantages/services/advantages.service';
+import { PaymentsService } from '@models/payments/services/payments.service';
 
 @Injectable()
-export class OrdersService implements IOrdersService {
+export class OrdersService {
   constructor(
     @Inject(ORDER_TYPES.repository.order)
     private readonly orderRepository: IOrderRepository,
     @Inject(ORDER_TYPES.repository.photo)
     private readonly orderPhotoRepository: OrderPhotoRepository,
     private readonly walletRepository: UserWalletRepository,
-    @Inject(ADVANTAGE_TYPES.service)
-    private readonly advantagesService: IAdvantagesService,
-    @Inject(PAYMENT_TYPES.service)
-    private readonly paymentsService: IPaymentsService,
+    private readonly advantagesService: AdvantagesService,
+    private readonly paymentsService: PaymentsService,
     @Inject(SUB_ORDER_TYPES.repository.subOrder)
     private readonly subOrderRepository: ISubOrderRepository,
     private readonly hyperPayService: HyperPayService,

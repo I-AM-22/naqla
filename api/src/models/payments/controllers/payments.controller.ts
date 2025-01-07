@@ -1,20 +1,16 @@
 import { ApiMainErrorsResponse, Auth, Id } from '@common/decorators';
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Payment } from '../entities/payment.entity';
 import { HyperPayMethods } from '@common/enums/hyper-pay-method.enum';
-import { IPaymentsService } from '../interfaces/services/payments.service.interface';
-import { PAYMENT_TYPES } from '../interfaces/type';
+import { PaymentsService } from '../services/payments.service';
 
 @ApiTags('Payments')
 @ApiMainErrorsResponse()
 @Auth()
 @Controller({ path: 'payments', version: '1' })
 export class PaymentsController {
-  constructor(
-    @Inject(PAYMENT_TYPES.service)
-    private paymentsService: IPaymentsService,
-  ) {}
+  constructor(private paymentsService: PaymentsService) {}
 
   @ApiOkResponse({
     isArray: true,

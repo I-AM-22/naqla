@@ -6,25 +6,22 @@ import { UpdateEmployeeDto } from '../dtos/update-employee.dto';
 import { Employee } from '../entities/employee.entity';
 import { AuthEmployeeResponse } from '../interfaces';
 import { defaultPhotoUrl, incorrect_credentials, item_not_found, password_changed_recently } from '@common/constants';
-import { IEmployeesService } from '../interfaces/services/employees.service.interface';
 import { IEmployeeRepository } from '../interfaces/repositories/employee.repository.interface';
 import { EMPLOYEE_TYPES } from '../interfaces/type';
-import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { LoginEmployeeDto } from '../dtos';
-import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
 import { IPhotoRepository } from '@common/interfaces';
 import { EmployeePhoto } from '../entities/employee-photo.entity';
+import { RolesService } from '@models/roles/services/roles.service';
 
 @Injectable()
-export class EmployeesService implements IEmployeesService {
+export class EmployeesService {
   constructor(
     private jwtTokenService: JwtTokenService,
     @Inject(EMPLOYEE_TYPES.repository.employee)
     private employeeRepository: IEmployeeRepository,
     @Inject(EMPLOYEE_TYPES.repository.photo)
     private employeePhotoRepository: IPhotoRepository<EmployeePhoto>,
-    @Inject(ROLE_TYPES.service)
-    private rolesService: IRolesService,
+    private rolesService: RolesService,
   ) {}
 
   async login(dto: LoginEmployeeDto): Promise<AuthEmployeeResponse> {

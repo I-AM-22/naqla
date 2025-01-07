@@ -11,13 +11,11 @@ import { CreateSubOrdersDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { ISubOrderRepository } from '../interfaces/repositories/sub-order.repository.interface';
 import { SUB_ORDER_TYPES } from '../interfaces/type';
-import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
 import { SubOrder } from '../entities/sub-order.entity';
 import { ORDER_TYPES } from '@models/orders/interfaces/type';
 import { OrderPhotoRepository } from '@models/orders/repositories/order-photo.repository';
 import { ISettingRepository } from '@models/settings/interfaces/repositories/setting.repository.interface';
 import { Setting } from '@models/settings/entities/setting.entity';
-import { PAYMENT_TYPES } from '@models/payments/interfaces/type';
 import { SETTING_TYPES } from '@models/settings/interfaces/type';
 import { Entities, ORDER_STATUS, SETTING_PROPERTIES } from '@common/enums';
 import { DataSource, FindOptionsWhere } from 'typeorm';
@@ -26,31 +24,27 @@ import { UserWallet } from '@models/users/entities/user-wallet.entity';
 import { IPerson, IWalletRepository } from '@common/interfaces';
 import { DriverWallet } from '@models/drivers/entities/driver-wallet.entity';
 import { GpsDrivingService } from '@shared/gpsDriving';
-import { IPaymentsService } from '@models/payments/interfaces/services/payments.service.interface';
-import { IOrdersService } from '@models/orders/interfaces/services/orders.service.interface';
 import { USER_TYPES } from '@models/users/interfaces/type';
 import { DRIVER_TYPES } from '@models/drivers/interfaces/type';
 import { Order } from '@models/orders/entities/order.entity';
 import { cannotSubOrder, item_not_found } from '@common/constants';
-import { CAR_TYPES } from '@models/cars/interfaces/type';
-import { ICarsService } from '@models/cars/interfaces/services/cars.service.interface';
 import { PaginatedResponse } from '@common/types';
 import { Rating } from '../interfaces/rating';
+import { CarsService } from '@models/cars/services/cars.service';
+import { OrdersService } from '@models/orders/services/orders.service';
+import { PaymentsService } from '@models/payments/services/payments.service';
 
 @Injectable()
-export class SubOrdersService implements ISubOrdersService {
+export class SubOrdersService {
   constructor(
     @InjectDataSource() private dataSource: DataSource,
     @Inject(SUB_ORDER_TYPES.repository.subOrder)
     private readonly subOrderRepository: ISubOrderRepository,
-    @Inject(CAR_TYPES.service)
-    private readonly carsService: ICarsService,
+    private readonly carsService: CarsService,
     @Inject(ORDER_TYPES.repository.photo)
     private readonly orderPhotoRepository: OrderPhotoRepository,
-    @Inject(ORDER_TYPES.service)
-    private readonly ordersService: IOrdersService,
-    @Inject(PAYMENT_TYPES.service)
-    private readonly paymentsService: IPaymentsService,
+    private readonly ordersService: OrdersService,
+    private readonly paymentsService: PaymentsService,
     @Inject(SETTING_TYPES.repository)
     private readonly settingRepository: ISettingRepository,
     @Inject(USER_TYPES.repository.wallet)

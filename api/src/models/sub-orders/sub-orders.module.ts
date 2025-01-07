@@ -1,5 +1,4 @@
 import { forwardRef, Module, Provider } from '@nestjs/common';
-import { SubOrdersService } from './services/sub-orders.service';
 import { SubOrdersController } from './controllers/sub-orders.controller';
 import { SUB_ORDER_TYPES } from './interfaces/type';
 import { SubOrderRepository } from './repositories/sub-order.repository';
@@ -12,11 +11,7 @@ import { PaymentsModule } from '@models/payments/payments.module';
 import { UsersModule } from '@models/users/users.module';
 import { CarsModule } from '@models/cars/cars.module';
 import { OrdersSubOrdersController } from './controllers/order-sub-orders.controller';
-
-export const SubOrdersServiceProvider: Provider = {
-  provide: SUB_ORDER_TYPES.service,
-  useClass: SubOrdersService,
-};
+import { SubOrdersService } from './services/sub-orders.service';
 
 export const SubOrderRepositoryProvider: Provider = {
   provide: SUB_ORDER_TYPES.repository.subOrder,
@@ -34,7 +29,7 @@ export const SubOrderRepositoryProvider: Provider = {
     forwardRef(() => UsersModule),
   ],
   controllers: [SubOrdersController, OrdersSubOrdersController],
-  providers: [SubOrdersServiceProvider, SubOrderRepositoryProvider, SubOrderRepository],
-  exports: [SubOrdersServiceProvider, SubOrderRepositoryProvider, SubOrderRepository],
+  providers: [SubOrderRepositoryProvider, SubOrderRepository, SubOrdersService],
+  exports: [SubOrderRepositoryProvider, SubOrderRepository, SubOrdersService],
 })
 export class SubOrdersModule {}

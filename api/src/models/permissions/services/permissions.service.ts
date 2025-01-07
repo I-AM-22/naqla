@@ -4,10 +4,9 @@ import { Entities } from '@common/enums';
 import { Permission } from '../entities/permission.entity';
 import { IPermissionRepository } from '../interfaces/repositories/permission.repository.interface';
 import { PERMISSION_TYPES } from '../interfaces/type';
-import { IPermissionsService } from '../interfaces/services/permissions.service.interface';
 
 @Injectable()
-export class PermissionsService implements IPermissionsService {
+export class PermissionsService {
   constructor(
     @Inject(PERMISSION_TYPES.repository)
     public permissionRepository: IPermissionRepository,

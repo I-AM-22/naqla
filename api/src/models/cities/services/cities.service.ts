@@ -4,13 +4,12 @@ import { UpdateCityDto } from '../dtos';
 import { City } from '../entities/city.entity';
 import { item_not_found } from '@common/constants';
 import { Entities } from '@common/enums';
-import { ICitiesService } from '../interfaces/services/cities.service.interface';
 import { ICityRepository } from '../interfaces/repositories/city.repository.interface';
 import { CITY_TYPES } from '../interfaces/type';
 import { PaginatedResponse } from '@common/types';
 
 @Injectable()
-export class CitiesService implements ICitiesService {
+export class CitiesService {
   constructor(@Inject(CITY_TYPES.repository) private cityRepository: ICityRepository) {}
   async create(dto: CreateCityDto) {
     const city = this.cityRepository.create(dto);

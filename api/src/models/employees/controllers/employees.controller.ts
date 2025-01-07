@@ -7,32 +7,25 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
   Patch,
   Post,
   Req,
   SerializeOptions,
-  UseInterceptors,
 } from '@nestjs/common';
 import { Public, CheckAbilities, Id, Auth, ApiMainErrorsResponse } from '@common/decorators';
 import { GROUPS, Entities, Action } from '@common/enums';
 import { CreateEmployeeDto, LoginEmployeeDto, UpdateEmployeeDto } from '../dtos';
 import { ICrud } from '@common/interfaces';
 import { AuthEmployeeResponse } from '../interfaces';
-import { WithDeletedInterceptor } from '@common/interceptors';
 import { Request } from 'express';
-import { EMPLOYEE_TYPES } from '../interfaces/type';
-import { IEmployeesService } from '../interfaces/services/employees.service.interface';
+import { EmployeesService } from '../services/employees.service';
 
 @ApiTags('Employees')
 @ApiMainErrorsResponse()
 @Auth()
 @Controller({ path: 'employees', version: '1' })
 export class EmployeesController implements ICrud<Employee> {
-  constructor(
-    @Inject(EMPLOYEE_TYPES.service)
-    private readonly employeesService: IEmployeesService,
-  ) {}
+  constructor(private readonly employeesService: EmployeesService) {}
   @Public()
   @ApiOperation({ summary: 'Login' })
   @ApiOkResponse({

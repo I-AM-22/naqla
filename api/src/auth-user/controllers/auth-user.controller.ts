@@ -1,15 +1,4 @@
-import {
-  Controller,
-  SerializeOptions,
-  Post,
-  Body,
-  HttpCode,
-  HttpStatus,
-  Inject,
-  Patch,
-  Query,
-  Ip,
-} from '@nestjs/common';
+import { Controller, SerializeOptions, Post, Body, HttpCode, HttpStatus, Patch, Query, Ip } from '@nestjs/common';
 import {
   ApiTags,
   ApiCreatedResponse,
@@ -22,12 +11,11 @@ import { ApiMainErrorsResponse, Auth, GetUser, Public, Roles } from '@common/dec
 import { GROUPS, ROLE } from '@common/enums';
 import { SignUpUserDto, LoginUserDto, ConfirmUserDto, UpdateUserPhoneDto } from '../dtos';
 import { AuthUserResponse } from '../interfaces';
-import { IAuthUserService } from '../interfaces/services/auth.service.interface';
-import { AUTH_TYPES } from '../interfaces';
 import { confirmMessage } from '@common/constants';
 import { User } from '@models/users/entities/user.entity';
 import { item_already_exist } from '@common/constants/validation-errors.constant';
 import { SendConfirm } from '@common/types';
+import { AuthUserService } from '../services/auth-user.service';
 
 /**
  * @ngdoc controller
@@ -42,7 +30,7 @@ import { SendConfirm } from '@common/types';
 @ApiUnprocessableEntityResponse({ description: item_already_exist('mobile') })
 @Controller({ path: 'auth/user', version: '1' })
 export class AuthUserController {
-  constructor(@Inject(AUTH_TYPES.service) private authUserService: IAuthUserService) {}
+  constructor(private authUserService: AuthUserService) {}
 
   @Public()
   @SerializeOptions({ groups: [GROUPS.USER] })

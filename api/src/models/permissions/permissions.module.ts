@@ -1,15 +1,10 @@
 import { Module, Provider } from '@nestjs/common';
-import { PermissionsService } from './services/permissions.service';
 import { PermissionsController } from './controllers/permissions.controller';
 import { PermissionRepository } from './repositories/permission.repository';
 import { Permission } from './entities/permission.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PERMISSION_TYPES } from './interfaces/type';
-
-export const PermissionsServiceProvider: Provider = {
-  provide: PERMISSION_TYPES.service,
-  useClass: PermissionsService,
-};
+import { PermissionsService } from './services/permissions.service';
 
 export const PermissionRepositoryProvider: Provider = {
   provide: PERMISSION_TYPES.repository,
@@ -19,7 +14,7 @@ export const PermissionRepositoryProvider: Provider = {
 @Module({
   imports: [TypeOrmModule.forFeature([Permission])],
   controllers: [PermissionsController],
-  providers: [PermissionsServiceProvider, PermissionRepositoryProvider],
-  exports: [PermissionsServiceProvider, PermissionRepositoryProvider],
+  providers: [PermissionsService, PermissionRepositoryProvider],
+  exports: [PermissionsService, PermissionRepositoryProvider],
 })
 export class PermissionsModule {}

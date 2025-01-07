@@ -2,7 +2,6 @@ import {
   Controller,
   Post,
   Body,
-  Inject,
   UseInterceptors,
   ParseUUIDPipe,
   SerializeOptions,
@@ -16,11 +15,10 @@ import { ApiOkResponse, ApiCreatedResponse, ApiNoContentResponse, ApiTags } from
 import { LoggingInterceptor } from '@common/interceptors';
 import { GROUPS, ROLE } from '@common/enums';
 import { ApiMainErrorsResponse, Auth, GetUser, Id, Roles } from '@common/decorators';
-import { CAR_TYPES } from '../interfaces/type';
-import { ICarsService } from '../interfaces/services/cars.service.interface';
 import { CreateCarDto, UpdateCarDto, AddAdvansToCarDto } from '../dtos';
 import { Car } from '../entities/car.entity';
 import { Driver } from '@models/drivers/entities/driver.entity';
+import { CarsService } from '../services/cars.service';
 
 @ApiTags('Cars')
 @ApiMainErrorsResponse()
@@ -28,7 +26,7 @@ import { Driver } from '@models/drivers/entities/driver.entity';
 @Auth()
 @Controller({ path: 'cars', version: '1' })
 export class CarController {
-  constructor(@Inject(CAR_TYPES.service) private readonly carsService: ICarsService) {}
+  constructor(private readonly carsService: CarsService) {}
 
   @SerializeOptions({ groups: [GROUPS.ALL_CARS] })
   @Roles(ROLE.DRIVER)

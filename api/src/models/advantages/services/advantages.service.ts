@@ -3,12 +3,11 @@ import { ADVANTAGE_TYPES } from '../interfaces/type';
 import { CreateAdvantageDto, UpdateAdvantageDto } from '../dto';
 import { Advantage } from '../entities/advantage.entity';
 import { IAdvantageRepository } from '../interfaces/repositories/advantage.repository.interface';
-import { IAdvantagesService } from '../interfaces/services/advantages.service.interface';
 import { item_not_found } from '@common/constants';
 import { Entities } from '@common/enums';
 
 @Injectable()
-export class AdvantagesService implements IAdvantagesService {
+export class AdvantagesService {
   constructor(
     @Inject(ADVANTAGE_TYPES.repository)
     private readonly advantageRepository: IAdvantageRepository,

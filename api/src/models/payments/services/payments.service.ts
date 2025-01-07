@@ -1,7 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Payment } from '../../payments/entities/payment.entity';
 import { Order } from '@models/orders/entities/order.entity';
-import { IPaymentsService } from '../interfaces/services/payments.service.interface';
 import { PAYMENT_TYPES } from '../interfaces/type';
 import { IPaymentRepository } from '../interfaces/repositories/payment.repository.interface';
 import { item_not_found } from '@common/constants';
@@ -9,7 +8,7 @@ import { Entities } from '@common/enums';
 import { HyperPayService } from '../../../shared/hyper-pay/hyper-pay.service';
 
 @Injectable()
-export class PaymentsService implements IPaymentsService {
+export class PaymentsService {
   constructor(
     @Inject(PAYMENT_TYPES.repository)
     private readonly paymentRepository: IPaymentRepository,

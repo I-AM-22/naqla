@@ -8,17 +8,16 @@ import {
   MessageBody,
   ConnectedSocket,
 } from '@nestjs/websockets';
-import { Logger, Inject, UseGuards, UseFilters, UsePipes } from '@nestjs/common';
+import { Logger, UseGuards, UseFilters, UsePipes } from '@nestjs/common';
 import { Server } from 'socket.io';
 import { WsJwtGuard } from '@common/guards';
-import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { ISocketWithUser } from '@common/interfaces/socket-user.interface';
 import { SocketMessageDto } from '../dto/socket.message.dto';
-import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
 import { WebsocketExceptionsFilter } from '@common/exceptions';
 import { MainValidationPipe } from '@common/pipes';
 import { JoinChatDto } from '../dto/join-chat.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { SubOrdersService } from '@models/sub-orders/services/sub-orders.service';
 
 @ApiTags('Chat-event')
 @UseGuards(WsJwtGuard)
@@ -36,10 +35,7 @@ export class MessageGateway implements OnGatewayInit, OnGatewayConnection, OnGat
 
   private logger: Logger = new Logger('MessageGateway');
 
-  constructor(
-    @Inject(SUB_ORDER_TYPES.service)
-    private readonly subOrdersService: ISubOrdersService,
-  ) {}
+  constructor(private readonly subOrdersService: SubOrdersService) {}
 
   @SubscribeMessage('setup')
   handleSetup(@ConnectedSocket() client: ISocketWithUser) {

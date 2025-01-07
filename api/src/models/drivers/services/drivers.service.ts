@@ -3,23 +3,20 @@ import { CreateDriverDto, UpdateDriverDto } from '../dtos';
 import { Driver } from '../entities/driver.entity';
 import { Entities, ORDER_STATUS, ROLE, SUB_ORDER_STATUS } from '@common/enums';
 import { defaultPhotoUrl, item_not_found } from '@common/constants';
-import { IDriversService } from '../interfaces/services/drivers.service.interface';
 import { PaginatedResponse } from '@common/types';
 import { DriverPhoto } from '../entities/driver-photo.entity';
 import { IDriverRepository } from '../interfaces/repositories/driver.repository.interface';
 import { DRIVER_TYPES } from '../interfaces/type';
 import { UpdateDriverPhoneDto } from '../../../auth-driver';
-import { ROLE_TYPES } from '@models/roles/interfaces/type';
-import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { DriverWallet } from '../entities/driver-wallet.entity';
-import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
-import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
 import { Rating } from '@models/sub-orders/interfaces/rating';
 import { In } from 'typeorm';
+import { RolesService } from '@models/roles/services/roles.service';
+import { SubOrdersService } from '@models/sub-orders/services/sub-orders.service';
 
 @Injectable()
-export class DriversService implements IDriversService {
+export class DriversService {
   constructor(
     @Inject(DRIVER_TYPES.repository.driver)
     private driverRepository: IDriverRepository,
@@ -27,9 +24,8 @@ export class DriversService implements IDriversService {
     private driverWalletRepository: IWalletRepository<DriverWallet>,
     @Inject(DRIVER_TYPES.repository.photo)
     private driverPhotoRepository: IPhotoRepository<DriverPhoto>,
-    @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
-    @Inject(SUB_ORDER_TYPES.service)
-    private subOrdersService: ISubOrdersService,
+    private rolesService: RolesService,
+    private subOrdersService: SubOrdersService,
   ) {}
 
   async create(dto: CreateDriverDto): Promise<Driver> {

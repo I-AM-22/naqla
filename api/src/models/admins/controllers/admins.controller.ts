@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Inject,
-  Patch,
-  Post,
-  SerializeOptions,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, SerializeOptions } from '@nestjs/common';
 import { CreateAdminDto, LoginAdminDto, UpdateAdminDto } from '../dtos';
 
 import { ApiMainErrorsResponse, Auth, CheckAbilities, GetUser, Id, Public, Roles } from '@common/decorators';
@@ -19,15 +8,14 @@ import { Role } from '@models/roles/entities/role.entity';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Admin } from '../entities/admin.entity';
 import { AuthAdminResponse } from '../interfaces';
-import { IAdminsService } from '../interfaces/services/admins.service.interface';
-import { ADMIN_TYPES } from '../interfaces/type';
+import { AdminsService } from '../services/admins.service';
 
 @ApiTags('Admins')
 @ApiMainErrorsResponse()
 @Auth()
 @Controller({ path: 'admins', version: '1' })
 export class AdminsController implements ICrud<Admin> {
-  constructor(@Inject(ADMIN_TYPES.service) private readonly adminsService: IAdminsService) {}
+  constructor(private readonly adminsService: AdminsService) {}
 
   @Public()
   @ApiOperation({ summary: 'Login' })

@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, Inject, UnprocessableEntityException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
 import { Driver } from '@models/drivers/entities/driver.entity';
 import { JwtTokenService } from '@shared/jwt';
 import { SignUpDriverDto, LoginDriverDto, ConfirmDriverDto, UpdateDriverPhoneDto } from '../dtos';
@@ -10,25 +10,20 @@ import {
   incorrect_phone_number,
   item_already_exist,
 } from '@common/constants';
-import { DRIVER_TYPES } from '@models/drivers/interfaces/type';
-import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { OtpsService } from '@models/otps/services/otps.service';
 import { OTP_TYPE } from '@common/enums/otp.enum';
-import { Entities, ROLE } from '@common/enums';
-import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
-import { IDriversService } from '@models/drivers/interfaces/services/drivers.service.interface';
+import { Entities } from '@common/enums';
 import { IOtp } from '@models/otps/interfaces/otp.interface';
-import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
 import { SendConfirm } from '@common/types';
+import { RolesService } from '@models/roles/services/roles.service';
+import { DriversService } from '@models/drivers/services/drivers.service';
 
 @Injectable()
-export class AuthDriverService implements IAuthDriverService {
+export class AuthDriverService {
   constructor(
     private readonly jwtTokenService: JwtTokenService,
-    @Inject(DRIVER_TYPES.service)
-    private readonly driversService: IDriversService,
-    @Inject(ROLE_TYPES.service)
-    private readonly rolesService: IRolesService,
+    private readonly driversService: DriversService,
+    private readonly rolesService: RolesService,
     private otpsService: OtpsService,
   ) {}
   async signup(dto: SignUpDriverDto, ip: string): Promise<SendConfirm> {
@@ -39,9 +34,7 @@ export class AuthDriverService implements IAuthDriverService {
       if (otp) {
         throw new UnprocessableEntityException(item_already_exist('mobile'));
       }
-      const role = await this.rolesService.findByName(ROLE.DRIVER);
-
-      const newDriver = await this.driversService.create(dto, role);
+      const newDriver = await this.driversService.create(dto);
 
       await this.otpsService.createForDriver({
         phone: newDriver.phone,

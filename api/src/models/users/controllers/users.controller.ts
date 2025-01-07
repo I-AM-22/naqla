@@ -10,7 +10,6 @@ import {
   Delete,
   Query,
   Req,
-  Inject,
 } from '@nestjs/common';
 import { ApiTags, ApiOkResponse, ApiQuery, ApiNoContentResponse } from '@nestjs/swagger';
 
@@ -21,11 +20,10 @@ import { GROUPS, ROLE, Entities, Action } from '@common/enums';
 import { LoggingInterceptor, WithDeletedInterceptor } from '@common/interceptors';
 import { PaginatedResponse } from '@common/types';
 import { Request } from 'express';
-import { IUsersService } from '../interfaces/services/users.service.interface';
-import { USER_TYPES } from '../interfaces/type';
 import { UpdateWalletDto } from '@models/drivers/dtos/update-wallet.dto ';
 import { UserWalletRepository } from '../repositories/user-wallet.repository';
 import { PaginatedUserResponse } from '../responses/pagination.response';
+import { UsersService } from '../services/users.service';
 
 @ApiTags('Users')
 @Auth()
@@ -34,7 +32,7 @@ import { PaginatedUserResponse } from '../responses/pagination.response';
 @Controller({ path: 'users', version: '1' })
 export class UsersController {
   constructor(
-    @Inject(USER_TYPES.service) private usersService: IUsersService,
+    private usersService: UsersService,
     private walletRepository: UserWalletRepository,
   ) {}
 

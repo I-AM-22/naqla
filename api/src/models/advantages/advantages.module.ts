@@ -6,10 +6,6 @@ import { ADVANTAGE_TYPES } from './interfaces/type';
 import { AdvantageRepository } from './repositories/advantage.repository';
 import { AdvantagesService } from './services/advantages.service';
 
-export const AdvantagesServiceProvider: Provider = {
-  provide: ADVANTAGE_TYPES.service,
-  useClass: AdvantagesService,
-};
 export const AdvantageRepositoryProvider: Provider = {
   provide: ADVANTAGE_TYPES.repository,
   useClass: AdvantageRepository,
@@ -17,7 +13,7 @@ export const AdvantageRepositoryProvider: Provider = {
 @Module({
   imports: [TypeOrmModule.forFeature([Advantage])],
   controllers: [AdvantagesController],
-  providers: [AdvantageRepositoryProvider, AdvantagesServiceProvider],
-  exports: [AdvantageRepositoryProvider, AdvantagesServiceProvider],
+  providers: [AdvantageRepositoryProvider, AdvantagesService],
+  exports: [AdvantageRepositoryProvider, AdvantagesService],
 })
 export class AdvantagesModule {}

@@ -2,23 +2,20 @@ import { BadRequestException, Inject, Injectable, NotFoundException, Unauthorize
 import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { User } from '../entities/user.entity';
 import { defaultPhotoUrl, item_not_found } from '@common/constants';
-import { IUsersService } from '../interfaces/services/users.service.interface';
 import { PaginatedResponse } from '@common/types';
 import { UserPhoto } from '../entities/user-photo.entity';
 import { IUserRepository } from '../interfaces/repositories/user.repository.interface';
 import { USER_TYPES } from '../interfaces/type';
 import { UpdateUserPhoneDto } from '../../../auth-user';
-import { ROLE_TYPES } from '@models/roles/interfaces/type';
-import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
 import { IPhotoRepository, IWalletRepository } from '@common/interfaces';
 import { UserWallet } from '../entities/user-wallet.entity';
-import { Entities, ORDER_STATUS, ROLE, SUB_ORDER_STATUS } from '@common/enums';
-import { SUB_ORDER_TYPES } from '@models/sub-orders/interfaces/type';
-import { ISubOrdersService } from '@models/sub-orders/interfaces/services/sub-orders.service.interface';
+import { Entities, ORDER_STATUS, ROLE } from '@common/enums';
 import { In } from 'typeorm';
+import { RolesService } from '@models/roles/services/roles.service';
+import { SubOrdersService } from '@models/sub-orders/services/sub-orders.service';
 
 @Injectable()
-export class UsersService implements IUsersService {
+export class UsersService {
   constructor(
     @Inject(USER_TYPES.repository.user)
     private userRepository: IUserRepository,
@@ -26,9 +23,8 @@ export class UsersService implements IUsersService {
     private userPhotoRepository: IPhotoRepository<UserPhoto>,
     @Inject(USER_TYPES.repository.wallet)
     private userWalletRepository: IWalletRepository<UserWallet>,
-    @Inject(ROLE_TYPES.service) private rolesService: IRolesService,
-    @Inject(SUB_ORDER_TYPES.service)
-    private subOrdersService: ISubOrdersService,
+    private rolesService: RolesService,
+    private subOrdersService: SubOrdersService,
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {

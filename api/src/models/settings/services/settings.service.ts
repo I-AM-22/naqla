@@ -1,5 +1,4 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { ISettingsService } from '../interfaces/services/settings.service.interface';
 import { SETTING_TYPES } from '../interfaces/type';
 import { Setting } from '../entities/setting.entity';
 import { ISettingRepository } from '../interfaces/repositories/setting.repository.interface';
@@ -8,7 +7,7 @@ import { item_not_found } from '@common/constants';
 import { Entities } from '@common/enums';
 
 @Injectable()
-export class SettingsService implements ISettingsService {
+export class SettingsService {
   constructor(
     @Inject(SETTING_TYPES.repository)
     private settingRepository: ISettingRepository,

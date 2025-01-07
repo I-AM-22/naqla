@@ -7,11 +7,9 @@ import { ConfigType } from '@nestjs/config';
 import { jwtPayload } from '@app/auth-user';
 import { ISocketWithUser } from '@common/interfaces/socket-user.interface';
 import { Entities } from '@common/enums';
-import { IUsersService } from '@models/users/interfaces/services/users.service.interface';
-import { USER_TYPES } from '@models/users/interfaces/type';
-import { DRIVER_TYPES } from '@models/drivers/interfaces/type';
-import { IDriversService } from '@models/drivers/interfaces/services/drivers.service.interface';
 import { IPerson } from '@common/interfaces';
+import { DriversService } from '@models/drivers/services/drivers.service';
+import { UsersService } from '@models/users/services/users.service';
 
 @Injectable()
 export class WsJwtGuard implements CanActivate {
@@ -20,10 +18,8 @@ export class WsJwtGuard implements CanActivate {
     @Inject(JwtConfig.KEY)
     private readonly jwtConfig: ConfigType<typeof JwtConfig>,
     private jwt: JwtService,
-    @Inject(USER_TYPES.service)
-    private usersService: IUsersService,
-    @Inject(DRIVER_TYPES.service)
-    private driversService: IDriversService,
+    private usersService: UsersService,
+    private driversService: DriversService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

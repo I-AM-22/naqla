@@ -1,7 +1,5 @@
-import { Controller, Get, Param, Post, Body, Delete, Inject, Patch, UseInterceptors, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Patch, UseInterceptors, Query } from '@nestjs/common';
 import { Message } from '../entities/message.entity';
-import { IMessagesService } from '../interfaces/services/messages.service.interface';
-import { MESSAGE_TYPES } from '../interfaces/type';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import { UpdateMessageDto } from '../dto/update-message.dto';
 import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
@@ -10,6 +8,7 @@ import { LoggingInterceptor } from '@common/interceptors';
 import { IPerson } from '@common/interfaces';
 import { ROLE } from '@common/enums';
 import { PaginatedMessageResponse } from '../responses/pagination.response';
+import { MessagesService } from '../services/messages.service';
 
 @ApiTags('Messages')
 @ApiMainErrorsResponse()
@@ -17,10 +16,7 @@ import { PaginatedMessageResponse } from '../responses/pagination.response';
 @UseInterceptors(new LoggingInterceptor())
 @Controller({ path: 'messages', version: '1' })
 export class MessagesController {
-  constructor(
-    @Inject(MESSAGE_TYPES.service)
-    private readonly messagesService: IMessagesService,
-  ) {}
+  constructor(private readonly messagesService: MessagesService) {}
 
   @Roles(ROLE.ADMIN)
   @ApiOkResponse({ type: PaginatedMessageResponse })

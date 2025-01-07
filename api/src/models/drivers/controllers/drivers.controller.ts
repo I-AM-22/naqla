@@ -5,7 +5,6 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
   Patch,
   Query,
   Req,
@@ -21,11 +20,10 @@ import { UpdateDriverDto } from '../dtos';
 import { UpdateWalletDto } from '../dtos/update-wallet.dto ';
 import { DriverWallet } from '../entities/driver-wallet.entity';
 import { Driver } from '../entities/driver.entity';
-import { IDriversService } from '../interfaces/services/drivers.service.interface';
-import { DRIVER_TYPES } from '../interfaces/type';
 import { DriverWalletRepository } from '../repositories/driver/driver-wallet.repository';
 import { PaginatedDriverResponse } from '../responses/pagination.response';
 import { Rating } from '@models/sub-orders/interfaces/rating';
+import { DriversService } from '../services/drivers.service';
 
 @ApiTags('Drivers')
 @ApiMainErrorsResponse()
@@ -34,7 +32,7 @@ import { Rating } from '@models/sub-orders/interfaces/rating';
 @Controller({ path: 'drivers', version: '1' })
 export class DriversController {
   constructor(
-    @Inject(DRIVER_TYPES.service) private driversService: IDriversService,
+    private driversService: DriversService,
     private walletRepository: DriverWalletRepository,
   ) {}
 

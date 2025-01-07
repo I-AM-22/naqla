@@ -1,19 +1,17 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { jwtPayload } from '../interfaces';
-import { AUTH_DRIVER_TYPES } from '../interfaces/type';
-import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
 import { Entities } from '@common/enums';
 import { strategies } from '@common/constants/jwt.constant';
+import { AuthDriverService } from '../services/auth-driver.service';
 
 @Injectable()
 export class JwtDriverStrategy extends PassportStrategy(Strategy, strategies.driver) {
   constructor(
     config: ConfigService,
-    @Inject(AUTH_DRIVER_TYPES.service)
-    private authDriverService: IAuthDriverService,
+    private authDriverService: AuthDriverService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

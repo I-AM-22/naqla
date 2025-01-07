@@ -1,19 +1,17 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-
-import { IEmployeesService } from '../interfaces/services/employees.service.interface';
-import { EMPLOYEE_TYPES } from '../interfaces/type';
 import { jwtPayload } from '../../../auth-user';
 import { Entities } from '@common/enums';
 import { strategies } from '@common/constants/jwt.constant';
+import { EmployeesService } from '../services/employees.service';
 
 @Injectable()
 export class JwtEmployeeStrategy extends PassportStrategy(Strategy, strategies.employee) {
   constructor(
     config: ConfigService,
-    @Inject(EMPLOYEE_TYPES.service) private employeesService: IEmployeesService,
+    private employeesService: EmployeesService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

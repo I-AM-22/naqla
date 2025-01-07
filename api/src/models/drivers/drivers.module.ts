@@ -6,18 +6,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Driver } from './entities/driver.entity';
 import { DriverPhoto } from './entities/driver-photo.entity';
 import { DriversController } from './controllers/drivers.controller';
-import { DriversService } from './services/drivers.service';
 import { CitiesModule } from '../cities/cities.module';
 import { DRIVER_TYPES } from './interfaces/type';
 import { DriverWallet } from './entities/driver-wallet.entity';
 import { RolesModule } from '../roles/roles.module';
 import { AdvantagesModule } from '../advantages/advantages.module';
 import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
-
-export const DriversServiceProvider: Provider = {
-  provide: DRIVER_TYPES.service,
-  useClass: DriversService,
-};
+import { DriversService } from './services/drivers.service';
 
 export const DriverRepositoryProvider: Provider = {
   provide: DRIVER_TYPES.repository.driver,
@@ -46,17 +41,17 @@ export const DriverWalletRepositoryProvider: Provider = {
     DriverPhotoRepositoryProvider,
     DriverRepositoryProvider,
     DriverWalletRepositoryProvider,
-    DriversServiceProvider,
     DriverWalletRepository,
     DriverRepository,
+    DriversService,
   ],
   exports: [
     DriverPhotoRepositoryProvider,
     DriverRepositoryProvider,
     DriverWalletRepositoryProvider,
-    DriversServiceProvider,
     DriverWalletRepository,
     DriverRepository,
+    DriversService,
   ],
 })
 export class DriversModule {}

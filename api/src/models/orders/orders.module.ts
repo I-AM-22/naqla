@@ -13,11 +13,6 @@ import { PaymentsModule } from '@models/payments/payments.module';
 import { SubOrdersModule } from '@models/sub-orders/sub-orders.module';
 import { UsersModule } from '@models/users/users.module';
 
-export const OrdersServiceProvider: Provider = {
-  provide: ORDER_TYPES.service,
-  useClass: OrdersService,
-};
-
 export const OrderRepositoryProvider: Provider = {
   provide: ORDER_TYPES.repository.order,
   useClass: OrderRepository,
@@ -38,19 +33,7 @@ export const OrderPhotoRepositoryProvider: Provider = {
     forwardRef(() => UsersModule),
   ],
   controllers: [OrderController],
-  providers: [
-    OrdersServiceProvider,
-    OrderRepositoryProvider,
-    OrderPhotoRepositoryProvider,
-    OrdersService,
-    OrderRepository,
-  ],
-  exports: [
-    OrderRepositoryProvider,
-    OrderPhotoRepositoryProvider,
-    OrdersServiceProvider,
-    OrdersService,
-    OrderRepository,
-  ],
+  providers: [OrdersService, OrderRepositoryProvider, OrderPhotoRepositoryProvider, OrdersService, OrderRepository],
+  exports: [OrderRepositoryProvider, OrderPhotoRepositoryProvider, OrdersService, OrdersService, OrderRepository],
 })
 export class OrdersModule {}

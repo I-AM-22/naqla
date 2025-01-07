@@ -8,7 +8,6 @@ import {
   // Param,
   Delete,
   Get,
-  Inject,
   Patch,
   Post,
   UseInterceptors,
@@ -17,13 +16,12 @@ import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from
 import { CreateSubOrdersDto } from '../dto/create-sub-order.dto';
 import { UpdateSubOrderDto } from '../dto/update-sub-order.dto';
 import { SubOrder } from '../entities/sub-order.entity';
-import { ISubOrdersService } from '../interfaces/services/sub-orders.service.interface';
-import { SUB_ORDER_TYPES } from '../interfaces/type';
 import { SetDriverSubOrderDto } from '../dto/set-driver.dto';
 import { IPerson } from '@common/interfaces';
 import { Query } from '@nestjs/common';
 import { ApiQuery } from '@nestjs/swagger';
 import { PaginatedSubOrderResponse } from '../responses/pagination.response';
+import { SubOrdersService } from '../services/sub-orders.service';
 
 @ApiTags('SubOrders')
 @ApiMainErrorsResponse()
@@ -31,10 +29,7 @@ import { PaginatedSubOrderResponse } from '../responses/pagination.response';
 @UseInterceptors(new LoggingInterceptor())
 @Controller({ path: 'sub-orders', version: '1' })
 export class SubOrdersController {
-  constructor(
-    @Inject(SUB_ORDER_TYPES.service)
-    private readonly subOrdersService: ISubOrdersService,
-  ) {}
+  constructor(private readonly subOrdersService: SubOrdersService) {}
 
   @Roles(ROLE.ADMIN)
   @ApiCreatedResponse({ type: Order })

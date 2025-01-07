@@ -1,10 +1,9 @@
-import { Controller, Get, SerializeOptions, Inject } from '@nestjs/common';
+import { Controller, Get, SerializeOptions } from '@nestjs/common';
 import { Permission } from '../entities/permission.entity';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ApiMainErrorsResponse, Auth, CheckAbilities, Id } from '@common/decorators';
 import { Action, Entities, GROUPS } from '@common/enums';
-import { IPermissionsService } from '../interfaces/services/permissions.service.interface';
-import { PERMISSION_TYPES } from '../interfaces/type';
+import { PermissionsService } from '../services/permissions.service';
 
 @ApiTags('Permissions')
 @Auth()
@@ -12,10 +11,7 @@ import { PERMISSION_TYPES } from '../interfaces/type';
 @CheckAbilities({ action: Action.Manage, subject: Entities.Permission })
 @Controller({ path: 'permissions', version: '1' })
 export class PermissionsController {
-  constructor(
-    @Inject(PERMISSION_TYPES.service)
-    public permissionsService: IPermissionsService,
-  ) {}
+  constructor(public permissionsService: PermissionsService) {}
   @ApiOkResponse({
     type: Permission,
     isArray: true,

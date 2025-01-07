@@ -6,11 +6,6 @@ import { SettingRepository } from './repositories/setting.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Setting } from './entities/setting.entity';
 
-export const SettingsServiceProvider: Provider = {
-  provide: SETTING_TYPES.service,
-  useClass: SettingsService,
-};
-
 export const SettingRepositoryProvider: Provider = {
   provide: SETTING_TYPES.repository,
   useClass: SettingRepository,
@@ -19,7 +14,7 @@ export const SettingRepositoryProvider: Provider = {
 @Module({
   imports: [TypeOrmModule.forFeature([Setting])],
   controllers: [SettingsController],
-  providers: [SettingsServiceProvider, SettingRepositoryProvider],
-  exports: [SettingsServiceProvider, SettingRepositoryProvider],
+  providers: [SettingsService, SettingRepositoryProvider],
+  exports: [SettingsService, SettingRepositoryProvider],
 })
 export class SettingsModule {}

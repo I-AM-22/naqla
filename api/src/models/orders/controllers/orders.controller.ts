@@ -5,23 +5,11 @@ import { ROLE } from '@common/enums';
 import { LoggingInterceptor } from '@common/interceptors';
 import { IPerson } from '@common/interfaces';
 import { User } from '@models/users/entities/user.entity';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Inject,
-  Param,
-  ParseUUIDPipe,
-  Patch,
-  Post,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, UseInterceptors } from '@nestjs/common';
 import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AddAdvansToOrderDto, CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { Order } from '../entities/order.entity';
-import { IOrdersService } from '../interfaces/services/orders.service.interface';
-import { ORDER_TYPES } from '../interfaces/type';
+import { OrdersService } from '../services/orders.service';
 
 @ApiTags('Orders')
 @ApiMainErrorsResponse()
@@ -29,7 +17,7 @@ import { ORDER_TYPES } from '../interfaces/type';
 @UseInterceptors(new LoggingInterceptor())
 @Controller({ path: 'orders', version: '1' })
 export class OrderController {
-  constructor(@Inject(ORDER_TYPES.service) private readonly ordersService: IOrdersService) {}
+  constructor(private readonly ordersService: OrdersService) {}
 
   @Roles(ROLE.USER)
   @ApiCreatedResponse({ type: Order })

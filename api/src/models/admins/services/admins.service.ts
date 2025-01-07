@@ -1,8 +1,6 @@
 import { defaultPhotoUrl, incorrect_credentials, item_not_found, password_changed_recently } from '@common/constants';
 import { Entities, ROLE } from '@common/enums';
 import { IPhotoRepository } from '@common/interfaces';
-import { IRolesService } from '@models/roles/interfaces/services/roles.service.interface';
-import { ROLE_TYPES } from '@models/roles/interfaces/type';
 import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtTokenService } from '../../../shared/jwt';
 import { CreateAdminDto, LoginAdminDto, UpdateAdminDto } from '../dtos';
@@ -10,19 +8,18 @@ import { AdminPhoto } from '../entities/admin-photo.entity';
 import { Admin } from '../entities/admin.entity';
 import { AuthAdminResponse } from '../interfaces';
 import { IAdminRepository } from '../interfaces/repositories/admin.repository.interface';
-import { IAdminsService } from '../interfaces/services/admins.service.interface';
 import { ADMIN_TYPES } from '../interfaces/type';
+import { RolesService } from '@models/roles/services/roles.service';
 
 @Injectable()
-export class AdminsService implements IAdminsService {
+export class AdminsService {
   constructor(
     @Inject(ADMIN_TYPES.repository.admin)
     private adminRepository: IAdminRepository,
     @Inject(ADMIN_TYPES.repository.photo)
     private adminPhotoRepository: IPhotoRepository<AdminPhoto>,
     private jwtTokenService: JwtTokenService,
-    @Inject(ROLE_TYPES.service)
-    private rolesService: IRolesService,
+    private rolesService: RolesService,
   ) {}
 
   async login(dto: LoginAdminDto): Promise<AuthAdminResponse> {

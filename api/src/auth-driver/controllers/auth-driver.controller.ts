@@ -1,15 +1,4 @@
-import {
-  Controller,
-  SerializeOptions,
-  Post,
-  Body,
-  HttpCode,
-  HttpStatus,
-  Inject,
-  Patch,
-  Query,
-  Ip,
-} from '@nestjs/common';
+import { Controller, SerializeOptions, Post, Body, HttpCode, HttpStatus, Patch, Query, Ip } from '@nestjs/common';
 import {
   ApiTags,
   ApiCreatedResponse,
@@ -21,12 +10,12 @@ import {
 import { ApiMainErrorsResponse, Auth, GetUser, Public, Roles } from '@common/decorators';
 import { GROUPS, ROLE } from '@common/enums';
 import { SignUpDriverDto, LoginDriverDto, ConfirmDriverDto, UpdateDriverPhoneDto } from '../dtos';
-import { AUTH_DRIVER_TYPES, AuthDriverResponse } from '../interfaces';
+import { AuthDriverResponse } from '../interfaces';
 import { confirmMessage } from '@common/constants';
 import { Driver } from '@models/drivers/entities/driver.entity';
 import { item_already_exist } from '@common/constants';
-import { IAuthDriverService } from '../interfaces/services/auth.service.interface';
 import { SendConfirm } from '@common/types';
+import { AuthDriverService } from '../services/auth-driver.service';
 
 /**
  * @ngdoc controller
@@ -41,10 +30,7 @@ import { SendConfirm } from '@common/types';
 @ApiUnprocessableEntityResponse({ description: item_already_exist('mobile') })
 @Controller({ path: 'auth/driver', version: '1' })
 export class AuthDriverController {
-  constructor(
-    @Inject(AUTH_DRIVER_TYPES.service)
-    private authDriverService: IAuthDriverService,
-  ) {}
+  constructor(private authDriverService: AuthDriverService) {}
 
   @Public()
   @SerializeOptions({ groups: [GROUPS.DRIVER] })

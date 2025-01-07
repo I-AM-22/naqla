@@ -3,17 +3,14 @@ import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities/role.entity';
 import { item_not_found } from '@common/constants';
 import { Entities } from '@common/enums';
-import { IPermissionsService } from '@models/permissions/interfaces/services/permissions.service.interface';
-import { PERMISSION_TYPES } from '@models/permissions/interfaces/type';
 import { IRoleRepository } from '../interfaces/repositories/role.repository.interface';
 import { ROLE_TYPES } from '../interfaces/type';
-import { IRolesService } from '../interfaces/services/roles.service.interface';
+import { PermissionsService } from '@models/permissions/services/permissions.service';
 
 @Injectable()
-export class RolesService implements IRolesService {
+export class RolesService {
   constructor(
-    @Inject(PERMISSION_TYPES.service)
-    private permissionsService: IPermissionsService,
+    private permissionsService: PermissionsService,
     @Inject(ROLE_TYPES.repository)
     private roleRepository: IRoleRepository,
   ) {}

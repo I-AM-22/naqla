@@ -1,12 +1,11 @@
-import { Controller, SerializeOptions, Get, Post, Body, Param, Patch, Delete, Inject } from '@nestjs/common';
+import { Controller, SerializeOptions, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
 import { ApiTags, ApiOkResponse, OmitType, ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
 
 import { CreateRoleDto, UpdateRoleDto } from '../dtos';
 import { Role } from '../entities/role.entity';
 import { ApiMainErrorsResponse, Auth, CheckAbilities, Id } from '@common/decorators';
 import { Action, Entities, GROUPS } from '@common/enums';
-import { ROLE_TYPES } from '../interfaces/type';
-import { IRolesService } from '../interfaces/services/roles.service.interface';
+import { RolesService } from '../services/roles.service';
 
 @ApiTags('Roles')
 @Auth()
@@ -14,10 +13,7 @@ import { IRolesService } from '../interfaces/services/roles.service.interface';
 @CheckAbilities({ action: Action.Manage, subject: Entities.Role })
 @Controller({ path: 'roles', version: '1' })
 export class RolesController {
-  constructor(
-    @Inject(ROLE_TYPES.service)
-    private rolesService: IRolesService,
-  ) {}
+  constructor(private rolesService: RolesService) {}
 
   @ApiOkResponse({ type: OmitType(Role, ['permissions']), isArray: true })
   @SerializeOptions({ groups: [GROUPS.ALL_ROLES] })
