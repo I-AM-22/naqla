@@ -10,7 +10,6 @@ import { CreateOrderDto, UpdateOrderDto } from '../dtos';
 import { OrderPhoto } from '../entities/order-photo.entity';
 import { Order } from '../entities/order.entity';
 import { IOrderRepository } from '../interfaces/repositories/order.repository.interface';
-import { Item } from '../interfaces/item.inteface';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -46,7 +45,7 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async findWaiting(): Promise<Order[]> {
-    let orderWating = await this.orderRepository.find({
+    const orderWaiting = await this.orderRepository.find({
       relations: { photos: true, advantages: true, user: true },
       select: {
         user: { firstName: true, lastName: true },
@@ -54,7 +53,7 @@ export class OrderRepository implements IOrderRepository {
       },
       where: { status: ORDER_STATUS.WAITING, user: { disactiveAt: IsNull() } },
     });
-    return orderWating;
+    return orderWaiting;
   }
 
   async findMyOrder(userId: string): Promise<Order[]> {

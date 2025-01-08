@@ -395,6 +395,7 @@ export class SubOrderRepository implements ISubOrderRepository {
 
     return queryResult;
   }
+
   async staticProfits(startDate: string, endDate: string): Promise<StaticProfits[]> {
     const queryResult = await this.subOrderRepository
       .createQueryBuilder('subOrder')

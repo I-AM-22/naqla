@@ -118,15 +118,6 @@ export class OrdersService {
     await this.subOrderRepository.setStatusToReady(order.id);
     return this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
   }
-  // async acceptance(id: string, dto: AcceptanceDto, user: User): Promise<Order> {
-  //   const order = await this.findOne(id, user as IPerson);
-  //   if (order.status !== ORDER_STATUS.READY) {
-  //     throw new ForbiddenException('Can not acceptance Done this order because his status is not accepted');
-  //   }
-  //   await this.paymentsService.createCheckout(order.payment, dto.methodType, user);
-  //   await this.subOrderRepository.setStatusToReady(order.id);
-  //   return this.orderRepository.updateStatus(id, ORDER_STATUS.ACCEPTED);
-  // }
 
   async cancellation(id: string): Promise<Order> {
     const order = await this.orderRepository.findById(id);

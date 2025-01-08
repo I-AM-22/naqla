@@ -114,6 +114,7 @@ export class UsersController {
   async withdraw(@Id() id: string, @Body() dto: UpdateWalletDto) {
     return this.walletRepository.withdraw(id, dto.cost);
   }
+
   @ApiOkResponse({ type: User })
   @Patch(':id/wallet/deposit')
   async deposit(@Id() id: string, @Body() dto: UpdateWalletDto) {
