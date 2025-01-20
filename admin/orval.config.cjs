@@ -2,7 +2,7 @@
 module.exports = {
   /** @type {import('orval').Options} */
   api: {
-    input: `http://localhost:5500/api.json`,
+    input: `https://naqla.onrender.com/api.json`,
     output: {
       mode: "split",
       target: "./service/api.ts",
