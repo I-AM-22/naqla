@@ -35,6 +35,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
+    console.log(exception);
     let error: any =
       exception instanceof ForbiddenError
         ? new ForbiddenException(denied_error)
@@ -49,7 +50,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (error.message === 'Unauthorized') error = handelPassportError();
 
     // if (this.appConfig.env === 'production') {
-    console.log(error);
     const rep = {
       type: error.response.errors ? ErrorType.Form : ErrorType.Default,
       message: error.response.errors ? undefined : error.message,
